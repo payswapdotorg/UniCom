@@ -30,6 +30,13 @@ export const experienceModule = {
     "browser-only-connector",
     "live-commerce-connector",
     "feed-file-connector",
+    "pos-import-connector-path",
+    "weighted-product-runtime",
+    "exact-integer-money-math",
+    "offline-replay-conflict-rules",
+    "reconciliation-journey-planner",
+    "live-commerce-session-ux-contract",
+    "live-session-delivery-runtime",
   ],
   publicEntrypoints: [
     "packages/experience/src/contract.ts",

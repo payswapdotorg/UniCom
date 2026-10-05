@@ -282,8 +282,8 @@ function mapPhysicalObservation(
 /** Commerce-branded idempotency key constructor (public contract). */
 export const commerceIdem = (value: string): CommerceIdempotencyKey => makeId<"IdempotencyKey">(value);
 
-/** UNKNOWN-resolution helper for tri-state fold tests. */
-export const unknownResolution = (reason: UnknownReason): ObservationResolution<number> => ({
+/** UNKNOWN-resolution helper for tri-state fold tests (generic over the value channel). */
+export const unknownResolution = <T>(reason: UnknownReason): ObservationResolution<T> => ({
   resolved: "UNKNOWN",
   reason,
-});
+} as ObservationResolution<T>);

@@ -19,14 +19,12 @@ import { createConnectorRuntime } from "../src/runtime/connector/runtime";
 import { createCredentialVault } from "../src/runtime/connector/vault";
 import { createProviderJourneyRunner } from "../src/runtime/connector/journey";
 import { createConnectorTelemetry } from "../src/runtime/connector/telemetry";
-import {
-  createPosImportAdapter,
-  type PosImportBatchStore,
-} from "../src/runtime/providers/pos-import";
+import { createPosImportAdapter } from "../src/runtime/providers/pos-import";
 import {
   createPosImportBatchStore,
   createPosImportConnector,
   createInMemoryPosImportDedupeStore,
+  type PosImportBatchStore,
   type PosImportConnector,
 } from "../src/runtime/connector/pos-import";
 import { createShopifyAdapter } from "../src/runtime/providers/shopify";
@@ -192,7 +190,7 @@ describe("POS/import journey — scenario 1", () => {
     ]);
     const shopify = runtime.register(createShopifyAdapter({
       http: shopifyPlayer, vault, payloadResolver: shopifyPayloads, clock,
-      shopDomain: "connors-store.myshopify.com", sleeper: new RecordingSleeper(),
+      shopDomain: "connors-store.myshopify.com", sleeper: new RecordingSleeper().sleep,
     }));
     await runtime.connect({
       connectorId: shopify.connectorId,

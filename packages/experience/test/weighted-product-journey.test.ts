@@ -33,7 +33,7 @@ import {
 } from "../src/runtime/edge/exact-integer";
 import { createLocalCommerceEdge, type EdgePersistence, type EdgeQueuedJourney } from "../src/runtime/edge/local-commerce-edge";
 import { asIdempotencyKey, asLocalEdgeDeviceId, asReconciliationChannelRef } from "../src/runtime/ids";
-import type { PhysicalObservation } from "../src/contract";
+import type { PhysicalObservation, ReconciliationHandoff } from "../src/contract";
 
 const clock = (() => {
   let ticks = 0;
@@ -54,7 +54,7 @@ class InMemoryEdgePersistence implements EdgePersistence {
 /** ⚠ TEST DOUBLE: commerce lane reconciliation sink (Worker 1's lane). */
 class CommerceLaneSink {
   readonly receivedObservations: PhysicalObservation[] = [];
-  readonly sink = (_handoff: never, observations: readonly PhysicalObservation[]) => {
+  readonly sink = (_handoff: ReconciliationHandoff, observations: readonly PhysicalObservation[]) => {
     this.receivedObservations.push(...observations.map((observation) => ({ ...observation })));
     return { outcome: "submitted" as const };
   };

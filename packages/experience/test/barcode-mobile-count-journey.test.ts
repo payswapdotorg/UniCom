@@ -116,7 +116,7 @@ describe("Barcode/mobile count journey — scenario 2", () => {
       principal: asPrincipalRef("principal-employee-1"),
       routeCapability: asBrowserRouteCapabilityRef("browser-route-count-pwa"),
       allowedOrigins: [PROVIDER_ORIGIN],
-      allowedActions: ["navigate", "read-listings", "read-catalog"],
+      allowedActions: ["navigate", "read-listings", "read-catalog"] as never,
       ttlSeconds: 3600,
     });
     adapter.bindSession(handle);
