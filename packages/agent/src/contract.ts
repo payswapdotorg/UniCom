@@ -271,3 +271,8 @@ export type {
   RollbackPlan,
 } from "./experiment.js";
 export { EXPERIMENT_KINDS, evaluatePromotionEligibility } from "./experiment.js";
+
+// ---------------------------------------------------------------------------
+// W2-003 — Organization / Opportunity Lab (own artifact: line budget)
+// ---------------------------------------------------------------------------
+export * from "./contract.w2-003.js";
