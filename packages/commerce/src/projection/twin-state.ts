@@ -80,6 +80,14 @@ export type TwinSerializableState = { readonly [K in keyof TwinCollections]: rea
  * kernel's snapshot exposes (that equality is the twin-verification target),
  * plus derived lookup indexes and the per-level count-observation tri-state
  * (excluded from snapshot comparison, included in checkpoints).
+ *
+ * Ordering semantics: every per-aggregate collection is a fold of ONE
+ * subject's events (per-aggregate causality — invariant under any
+ * journal-permitted interleaving). `countObservations` is deliberately
+ * DIFFERENT: it is a cross-subject "latest-wins" view (reconciliation records
+ * for one level are distinct subjects), so it is derived from FOLD ORDER —
+ * deterministic for every production fold path (journal order: rebuild,
+ * incremental append, checkpoint+tail resume), never ambient.
  */
 export class TwinState {
   private readonly levels = new Map<string, CanonicalInventoryLevel>();
@@ -294,7 +302,13 @@ export class TwinState {
     }
     if (fulfillment && shipment) {
       this.shipmentByFulfillment.set(fulfillment.fulfillmentOrderId, shipment.shipmentId);
-      this.shipments.set(shipment.shipmentId, shipment);
+      // Cross-subject causality: the shipment aggregate is CREATED by this
+      // FULFILLMENT_ORDER event but UPDATED on its own SHIPMENT subject. The
+      // embedded payload is the shipment's INITIAL state — never regress a
+      // shipment the fold has already advanced (no-op in journal order, where
+      // the opening always precedes its updates; heals inverted delivery).
+      const known = this.shipments.get(shipment.shipmentId);
+      if (!known || known.revision < shipment.revision) this.shipments.set(shipment.shipmentId, shipment);
     }
   }
 
