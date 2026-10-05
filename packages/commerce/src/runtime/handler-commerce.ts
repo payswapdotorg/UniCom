@@ -169,6 +169,12 @@ export const handlePlaceOrder: RuntimeCommandHandler = async (envelope, ctx) => 
   const orderId = mintOrderId(ctx.mint());
   const customerRef: PrincipalRef | undefined =
     envelope.actor.kind === "CUSTOMER" ? { kind: "CUSTOMER", customerId: envelope.actor.customerId } : undefined;
+  // Opaque opportunity reference: explicit on the command, else inherited from
+  // the cart's checkout session (passed through verbatim — Worker 2's lane).
+  const sessionRef = ctx.state
+    .allCheckoutSessions()
+    .filter((candidate) => candidate.cartId === payload.cartId)
+    .at(-1)?.opportunityRef;
   const snapshot: OrderSnapshot = {
     orderId,
     merchantRef: { kind: "MERCHANT", merchantId: payload.merchantId },
@@ -179,7 +185,7 @@ export const handlePlaceOrder: RuntimeCommandHandler = async (envelope, ctx) => 
     fulfillmentStatus: "UNFULFILLED",
     lines: cart.lines.map(toOrderLine),
     totals: totals.value,
-    opportunityRef: payload.opportunityRef ?? cart.opportunityRef,
+    opportunityRef: payload.opportunityRef ?? sessionRef ?? cart.opportunityRef,
     revision: 1,
     placedAt: ctx.now,
   };

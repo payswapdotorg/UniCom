@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "UNiCOM Commerce Kernel domain contracts (Stage 0: frozen types, contract tests, minimal deterministic validation).",
+  "description": "UNiCOM Commerce Kernel: frozen domain contracts (Stage 0) + deterministic event-sourced kernel runtime (W1-002: idempotent command dispatch, append-only CommerceEvent journal, reconciliation, policy gate, payment boundary PORT).",
   "exports": {
     ".": "./src/contract.ts"
   },

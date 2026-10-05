@@ -187,4 +187,30 @@ describe("runtime scenario 1 — online product → order → inventory lifecycl
     expect(second.events()).toEqual(first.events());
     expect(second.snapshot()).toEqual(first.snapshot());
   });
+
+  it("passes opaque opportunity references through untouched (Worker 2's lane stays opaque)", async () => {
+    const kernel = new CommerceKernel();
+    const opportunityRef = {
+      kind: "GROUP_BUY" as const,
+      ref: makeId<"GroupBuyId">("gb-77"),
+      role: "SATISFIES" as const,
+    };
+    await mustExecute(kernel, env({
+      type: "ADD_CART_LINE",
+      cartId: makeId<"CartId">("cart-opaque"),
+      skuId: sku,
+      quantity: countQuantity(1),
+      unitPrice: money("1999", usd),
+    }));
+    await mustExecute(kernel, env({ type: "OPEN_CHECKOUT", cartId: makeId<"CartId">("cart-opaque"), opportunityRef }));
+    const session = kernel.view().allCheckoutSessions()[0];
+    expect(session?.opportunityRef).toEqual(opportunityRef);
+    await mustExecute(kernel, env({ type: "PLACE_ORDER", cartId: makeId<"CartId">("cart-opaque"), merchantId }));
+    const order = kernel.view().allOrders()[0];
+    expect(order?.opportunityRef).toEqual(opportunityRef);
+    // The reference is carried verbatim — no coordination semantics leak in.
+    // @ts-expect-error — group-buy terms belong to Worker 2's lane, not this package
+    const leaked = order?.opportunityRef?.participantCommitments;
+    void leaked;
+  });
 });
