@@ -15,7 +15,32 @@
 
 import type { EvidenceJournal, JournaledEvidenceRecord } from "./evidence-journal.js";
 import type { PrincipalRef } from "./common.js";
-import { detectAllArchetypes, type ArchetypeDetectionResult, type FraudArchetype } from "./fraud-archetypes.js";
+import {
+  detectReviewRing,
+  type ArchetypeDetectionResult,
+  type FraudArchetype,
+} from "./fraud-archetypes.js";
+export type { ArchetypeDetectionResult, FraudArchetype } from "./fraud-archetypes.js";
+import {
+  detectFalseBuyerClaim,
+  detectFalseNonDelivery,
+  detectReturnRefundAbuse,
+  detectWrongItemShipment,
+} from "./claim-archetypes.js";
+
+/** Run every archetype detector over a body of journaled evidence. */
+export function detectAllArchetypes(
+  records: readonly JournaledEvidenceRecord[],
+  at: string,
+): readonly ArchetypeDetectionResult[] {
+  return [
+    detectReviewRing(records, at),
+    detectWrongItemShipment(records, at),
+    detectFalseNonDelivery(records, at),
+    detectFalseBuyerClaim(records, at),
+    detectReturnRefundAbuse(records, at),
+  ];
+}
 
 /** An explicitly documented evasion limitation (journaled, never silent). */
 export interface KnownLimitationRecord {
@@ -49,8 +74,18 @@ export interface FlowOutcome {
 }
 
 export type SuiteViolation =
-  | { readonly kind: "BASE_EVASION"; readonly archetype: FraudArchetype; readonly label: string; readonly rationale: string }
-  | { readonly kind: "SILENT_EVASION"; readonly archetype: FraudArchetype; readonly label: string; readonly rationale: string };
+  | {
+      readonly kind: "BASE_EVASION";
+      readonly archetype: FraudArchetype;
+      readonly label: string;
+      readonly rationale: string;
+    }
+  | {
+      readonly kind: "SILENT_EVASION";
+      readonly archetype: FraudArchetype;
+      readonly label: string;
+      readonly rationale: string;
+    };
 
 export interface SuiteOutcome {
   readonly outcomes: readonly FlowOutcome[];
@@ -58,7 +93,10 @@ export interface SuiteOutcome {
   readonly knownLimitations: readonly KnownLimitationRecord[];
 }
 
-function limitationFor(flow: ArchetypeFlow, journaledAt: string): KnownLimitationRecord | undefined {
+function limitationFor(
+  flow: ArchetypeFlow,
+  journaledAt: string,
+): KnownLimitationRecord | undefined {
   if (flow.variant !== "EVASION" || flow.knownLimitationIfEvaded === undefined) return undefined;
   return {
     limitationId: `limitation:${flow.archetype}:${flow.label}`,
@@ -89,7 +127,12 @@ export function runArchetypeSuite(input: {
   for (const flow of input.flows) {
     const key = `${flow.archetype}:${flow.label}`;
     if (seen.has(key)) {
-      violations.push({ kind: "SILENT_EVASION", archetype: flow.archetype, label: flow.label, rationale: "duplicate flow label" });
+      violations.push({
+        kind: "SILENT_EVASION",
+        archetype: flow.archetype,
+        label: flow.label,
+        rationale: "duplicate flow label",
+      });
       continue;
     }
     seen.add(key);
@@ -103,7 +146,9 @@ export function runArchetypeSuite(input: {
         kind: "BASE_EVASION",
         archetype: flow.archetype,
         label: flow.label,
-        rationale: detection.map((result) => `${result.archetype}=${result.evidenceState}`).join(", "),
+        rationale: detection
+          .map((result) => `${result.archetype}=${result.evidenceState}`)
+          .join(", "),
       });
     }
     if (!caught && flow.variant === "EVASION" && knownLimitation === undefined) {
@@ -111,12 +156,20 @@ export function runArchetypeSuite(input: {
         kind: "SILENT_EVASION",
         archetype: flow.archetype,
         label: flow.label,
-        rationale: "evasion was not caught and no known limitation was declared — silent evasion is a bug",
+        rationale:
+          "evasion was not caught and no known limitation was declared — silent evasion is a bug",
       });
     }
     if (knownLimitation !== undefined) knownLimitations.push(knownLimitation);
 
-    outcomes.push({ archetype: flow.archetype, variant: flow.variant, label: flow.label, caught, detection, knownLimitation });
+    outcomes.push({
+      archetype: flow.archetype,
+      variant: flow.variant,
+      label: flow.label,
+      caught,
+      detection,
+      knownLimitation,
+    });
   }
 
   return { outcomes, violations, knownLimitations };

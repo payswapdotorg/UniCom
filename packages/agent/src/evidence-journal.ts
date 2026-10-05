@@ -27,13 +27,35 @@ import { structuralHash } from "./lab-promotion.js";
 
 /** Trust-plane evidence payloads (W2-004 scenario 1 fold inputs). */
 export type TrustEvidencePayload =
-  | { readonly evidenceKind: "IDENTITY_VERIFICATION"; readonly verificationLevel: "BASIC" | "STRONG" }
+  | {
+      readonly evidenceKind: "IDENTITY_VERIFICATION";
+      readonly verificationLevel: "BASIC" | "STRONG";
+    }
   | { readonly evidenceKind: "VERIFIED_PURCHASE"; readonly orderRef: string }
-  | { readonly evidenceKind: "DISPUTE_EVENT"; readonly orderRef: string; readonly outcome: "UPHELD" | "REJECTED" | "WITHDRAWN" }
-  | { readonly evidenceKind: "AGENT_TASK_RESULT"; readonly taskId: string; readonly succeeded: boolean }
-  | { readonly evidenceKind: "AGENT_POLICY_EVENT"; readonly violation: "NONE" | "MINOR" | "SUSPENSION" }
-  | { readonly evidenceKind: "CAPABILITY_OBSERVATION_RESULT"; readonly observationId: string; readonly reliable: boolean }
-  | { readonly evidenceKind: "CAPABILITY_EXECUTION_RESULT"; readonly executionId: string; readonly succeeded: boolean }
+  | {
+      readonly evidenceKind: "DISPUTE_EVENT";
+      readonly orderRef: string;
+      readonly outcome: "UPHELD" | "REJECTED" | "WITHDRAWN";
+    }
+  | {
+      readonly evidenceKind: "AGENT_TASK_RESULT";
+      readonly taskId: string;
+      readonly succeeded: boolean;
+    }
+  | {
+      readonly evidenceKind: "AGENT_POLICY_EVENT";
+      readonly violation: "NONE" | "MINOR" | "SUSPENSION";
+    }
+  | {
+      readonly evidenceKind: "CAPABILITY_OBSERVATION_RESULT";
+      readonly observationId: string;
+      readonly reliable: boolean;
+    }
+  | {
+      readonly evidenceKind: "CAPABILITY_EXECUTION_RESULT";
+      readonly executionId: string;
+      readonly succeeded: boolean;
+    }
   | { readonly evidenceKind: "LAB_EVALUATION"; readonly evaluationRef: string };
 
 /** Review-activity evidence for fake-review / review-ring detection. */
@@ -85,8 +107,17 @@ export type JournaledEvidencePayload =
   | BuyerClaimPayload
   | MerchantShipmentAttestationPayload
   | CarrierPackageObservationPayload
-  | { readonly evidenceKind: "COMMERCE_FACT_SNAPSHOT"; readonly factId: string; readonly snapshot: Record<string, unknown> }
-  | { readonly evidenceKind: "KNOWN_LIMITATION"; readonly limitationId: string; readonly archetype: string; readonly why: string };
+  | {
+      readonly evidenceKind: "COMMERCE_FACT_SNAPSHOT";
+      readonly factId: string;
+      readonly snapshot: Record<string, unknown>;
+    }
+  | {
+      readonly evidenceKind: "KNOWN_LIMITATION";
+      readonly limitationId: string;
+      readonly archetype: string;
+      readonly why: string;
+    };
 
 // ---------------------------------------------------------------------------
 // Journal records + chain law
@@ -129,10 +160,16 @@ function recordHash(record: Omit<JournaledEvidenceRecord, "recordHash">): string
 function isRecord(value: unknown): value is JournaledEvidenceRecord {
   if (typeof value !== "object" || value === null) return false;
   const candidate = value as Partial<JournaledEvidenceRecord>;
-  return typeof candidate.sequence === "number" && typeof candidate.evidenceId === "string" &&
-    typeof candidate.recordHash === "string" && typeof candidate.prevRecordHash === "string" &&
-    typeof candidate.recordedAt === "string" && candidate.subjectRef !== undefined &&
-    candidate.payload !== undefined && candidate.kind !== undefined;
+  return (
+    typeof candidate.sequence === "number" &&
+    typeof candidate.evidenceId === "string" &&
+    typeof candidate.recordHash === "string" &&
+    typeof candidate.prevRecordHash === "string" &&
+    typeof candidate.recordedAt === "string" &&
+    candidate.subjectRef !== undefined &&
+    candidate.payload !== undefined &&
+    candidate.kind !== undefined
+  );
 }
 
 /**
@@ -140,11 +177,20 @@ function isRecord(value: unknown): value is JournaledEvidenceRecord {
  * recordHash must match its recomputed content hash chained to its
  * predecessor. Deterministic — any removal, edit or reorder breaks here.
  */
-export function verifyEvidenceChain(records: readonly unknown[]): { readonly ok: true } | { readonly ok: false; readonly violation: "CHAIN_BROKEN"; readonly firstBrokenSequence: number } {
+export function verifyEvidenceChain(
+  records: readonly unknown[],
+):
+  | { readonly ok: true }
+  | {
+      readonly ok: false;
+      readonly violation: "CHAIN_BROKEN";
+      readonly firstBrokenSequence: number;
+    } {
   let prevRecordHash = "genesis";
   for (let index = 0; index < records.length; index += 1) {
     const value = records[index];
-    if (!isRecord(value)) return { ok: false, violation: "CHAIN_BROKEN", firstBrokenSequence: index + 1 };
+    if (!isRecord(value))
+      return { ok: false, violation: "CHAIN_BROKEN", firstBrokenSequence: index + 1 };
     if (value.sequence !== index + 1 || value.prevRecordHash !== prevRecordHash) {
       return { ok: false, violation: "CHAIN_BROKEN", firstBrokenSequence: index + 1 };
     }
@@ -165,8 +211,10 @@ export function resolveEvidenceCitation(
   const chain = verifyEvidenceChain(records);
   if (!chain.ok) return { ok: false, violation: "CHAIN_BROKEN", evidenceId: citation.evidenceId };
   const record = records.find((entry) => entry.evidenceId === citation.evidenceId);
-  if (record === undefined) return { ok: false, violation: "MISSING_EVIDENCE", evidenceId: citation.evidenceId };
-  if (record.kind !== citation.kind) return { ok: false, violation: "EVIDENCE_KIND_MISMATCH", evidenceId: citation.evidenceId };
+  if (record === undefined)
+    return { ok: false, violation: "MISSING_EVIDENCE", evidenceId: citation.evidenceId };
+  if (record.kind !== citation.kind)
+    return { ok: false, violation: "EVIDENCE_KIND_MISMATCH", evidenceId: citation.evidenceId };
   if (record.recordHash !== citation.recordHash) {
     return { ok: false, violation: "EVIDENCE_HASH_MISMATCH", evidenceId: citation.evidenceId };
   }
@@ -177,7 +225,13 @@ export function resolveEvidenceCitation(
 export function resolveEvidenceCitations(
   citations: readonly EvidenceCitation[],
   records: readonly JournaledEvidenceRecord[],
-): { readonly ok: true; readonly records: readonly JournaledEvidenceRecord[] } | { readonly ok: false; readonly violation: EvidenceChainViolation; readonly evidenceId: string } {
+):
+  | { readonly ok: true; readonly records: readonly JournaledEvidenceRecord[] }
+  | {
+      readonly ok: false;
+      readonly violation: EvidenceChainViolation;
+      readonly evidenceId: string;
+    } {
   const resolved: JournaledEvidenceRecord[] = [];
   for (const citation of citations) {
     const outcome = resolveEvidenceCitation(citation, records);
@@ -202,7 +256,9 @@ export class EvidenceJournal {
   static fromRecords(records: readonly JournaledEvidenceRecord[]): EvidenceJournal {
     const chain = verifyEvidenceChain(records);
     if (!chain.ok) {
-      throw new Error(`cannot replay a broken evidence chain (first broken sequence ${chain.firstBrokenSequence})`);
+      throw new Error(
+        `cannot replay a broken evidence chain (first broken sequence ${chain.firstBrokenSequence})`,
+      );
     }
     const journal = new EvidenceJournal();
     journal.entries.push(...records.map((record) => ({ ...record, payload: record.payload })));
@@ -257,7 +313,10 @@ export class EvidenceJournal {
   /** Records whose payload carries a given evidenceKind, deterministic order. */
   byPayloadKind(payloadKind: string): readonly JournaledEvidenceRecord[] {
     return this.entries
-      .filter((entry) => (entry.payload as { readonly evidenceKind?: string }).evidenceKind === payloadKind)
+      .filter(
+        (entry) =>
+          (entry.payload as { readonly evidenceKind?: string }).evidenceKind === payloadKind,
+      )
       .map((record) => ({ ...record, payload: record.payload }));
   }
 

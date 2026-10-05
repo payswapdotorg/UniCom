@@ -19,6 +19,7 @@ export {
   refusalFailure,
   stableJson,
   type UnicomRefusalPayload,
+  type UnicomToolHandlerFailure,
 } from "./errors.js";
 export {
   InMemoryCapabilityRuntime,

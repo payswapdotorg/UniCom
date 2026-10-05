@@ -95,28 +95,58 @@ export class OpportunityGraph {
     }
     const candidate = edge as Partial<OpportunityGraphEdge>;
     if (typeof candidate.edgeId !== "string" || candidate.edgeId.length === 0) {
-      return { ok: false, violation: "MALFORMED_EDGE", detail: "edgeId must be a non-empty string" };
+      return {
+        ok: false,
+        violation: "MALFORMED_EDGE",
+        detail: "edgeId must be a non-empty string",
+      };
     }
-    if (candidate.fromNode === undefined || candidate.toNode === undefined ||
-      typeof candidate.fromNode.nodeKind !== "string" || typeof candidate.fromNode.ref !== "string" ||
-      typeof candidate.toNode.nodeKind !== "string" || typeof candidate.toNode.ref !== "string") {
-      return { ok: false, violation: "MALFORMED_EDGE", detail: "fromNode/toNode must be typed graph node refs" };
+    if (
+      candidate.fromNode === undefined ||
+      candidate.toNode === undefined ||
+      typeof candidate.fromNode.nodeKind !== "string" ||
+      typeof candidate.fromNode.ref !== "string" ||
+      typeof candidate.toNode.nodeKind !== "string" ||
+      typeof candidate.toNode.ref !== "string"
+    ) {
+      return {
+        ok: false,
+        violation: "MALFORMED_EDGE",
+        detail: "fromNode/toNode must be typed graph node refs",
+      };
     }
     if (candidate.provenance === undefined) {
-      return { ok: false, violation: "PROVENANCE_REQUIRED", detail: "an opportunity-graph edge MUST carry its promotion evidence reference (provenance is structural)" };
+      return {
+        ok: false,
+        violation: "PROVENANCE_REQUIRED",
+        detail:
+          "an opportunity-graph edge MUST carry its promotion evidence reference (provenance is structural)",
+      };
     }
     if (!isProvenance(candidate.provenance)) {
-      return { ok: false, violation: "MALFORMED_PROVENANCE", detail: "provenance must cite logicId, promotionId, producedAt and a non-empty evidence chain" };
+      return {
+        ok: false,
+        violation: "MALFORMED_PROVENANCE",
+        detail:
+          "provenance must cite logicId, promotionId, producedAt and a non-empty evidence chain",
+      };
     }
     if (this.edgesById.has(candidate.edgeId)) {
-      return { ok: false, violation: "DUPLICATE_EDGE", detail: `edge already recorded: ${candidate.edgeId} (append-only graph)` };
+      return {
+        ok: false,
+        violation: "DUPLICATE_EDGE",
+        detail: `edge already recorded: ${candidate.edgeId} (append-only graph)`,
+      };
     }
     const record: OpportunityGraphEdge = {
       edgeId: candidate.edgeId,
       kind: candidate.kind as OpportunityGraphEdgeKind,
       fromNode: candidate.fromNode,
       toNode: candidate.toNode,
-      provenance: { ...candidate.provenance, evidenceCitations: [...candidate.provenance.evidenceCitations] },
+      provenance: {
+        ...candidate.provenance,
+        evidenceCitations: [...candidate.provenance.evidenceCitations],
+      },
     };
     this.edgesById.set(record.edgeId, record);
     return { ok: true, edge: { ...record } };
@@ -129,11 +159,15 @@ export class OpportunityGraph {
   }
 
   edgesFrom(node: GraphNodeRef): readonly OpportunityGraphEdge[] {
-    return this.edges().filter((edge) => edge.fromNode.nodeKind === node.nodeKind && edge.fromNode.ref === node.ref);
+    return this.edges().filter(
+      (edge) => edge.fromNode.nodeKind === node.nodeKind && edge.fromNode.ref === node.ref,
+    );
   }
 
   edgesTo(node: GraphNodeRef): readonly OpportunityGraphEdge[] {
-    return this.edges().filter((edge) => edge.toNode.nodeKind === node.nodeKind && edge.toNode.ref === node.ref);
+    return this.edges().filter(
+      (edge) => edge.toNode.nodeKind === node.nodeKind && edge.toNode.ref === node.ref,
+    );
   }
 
   get size(): number {
@@ -153,9 +187,7 @@ export interface ProvenanceBearingGraphQuery {
   readonly provenance: "REQUIRED";
 }
 
-export type GraphQueryRejection =
-  | "MALFORMED_QUERY"
-  | "PROVENANCE_REQUIRED";
+export type GraphQueryRejection = "MALFORMED_QUERY" | "PROVENANCE_REQUIRED";
 
 export type GraphQueryOutcome =
   | { readonly ok: true; readonly edges: readonly OpportunityGraphEdge[] }
@@ -172,16 +204,32 @@ export function queryOpportunityGraph(graph: OpportunityGraph, query: unknown): 
   }
   const candidate = query as Partial<ProvenanceBearingGraphQuery>;
   if (typeof candidate.queryId !== "string" || candidate.queryId.length === 0) {
-    return { ok: false, violation: "MALFORMED_QUERY", detail: "queryId must be a non-empty string" };
+    return {
+      ok: false,
+      violation: "MALFORMED_QUERY",
+      detail: "queryId must be a non-empty string",
+    };
   }
   if (candidate.provenance !== "REQUIRED") {
-    return { ok: false, violation: "PROVENANCE_REQUIRED", detail: "a graph query without the provenance demand is rejected by contract — every edge must explain its promotion evidence" };
+    return {
+      ok: false,
+      violation: "PROVENANCE_REQUIRED",
+      detail:
+        "a graph query without the provenance demand is rejected by contract — every edge must explain its promotion evidence",
+    };
   }
-  const edges = candidate.subject === undefined
-    ? graph.edges()
-    : graph.edges().filter((edge) =>
-        (edge.fromNode.nodeKind === candidate.subject?.nodeKind && edge.fromNode.ref === candidate.subject?.ref) ||
-        (edge.toNode.nodeKind === candidate.subject?.nodeKind && edge.toNode.ref === candidate.subject?.ref));
+  const edges =
+    candidate.subject === undefined
+      ? graph.edges()
+      : graph
+          .edges()
+          .filter(
+            (edge) =>
+              (edge.fromNode.nodeKind === candidate.subject?.nodeKind &&
+                edge.fromNode.ref === candidate.subject?.ref) ||
+              (edge.toNode.nodeKind === candidate.subject?.nodeKind &&
+                edge.toNode.ref === candidate.subject?.ref),
+          );
   return { ok: true, edges };
 }
 
@@ -210,18 +258,35 @@ export function verifyEdgeProvenance(
   journal?: readonly JournaledEvidenceRecord[],
 ): EdgeProvenanceVerification {
   const chain = verifyPromotionChain(promotions);
-  if (!chain.ok) return { ok: false, violation: "PROMOTION_CHAIN_BROKEN", detail: `promotion chain broken at sequence ${chain.firstBrokenSequence}` };
+  if (!chain.ok)
+    return {
+      ok: false,
+      violation: "PROMOTION_CHAIN_BROKEN",
+      detail: `promotion chain broken at sequence ${chain.firstBrokenSequence}`,
+    };
   const promotion = promotions.find((record) => record.promotionId === edge.provenance.promotionId);
   if (promotion === undefined) {
-    return { ok: false, violation: "PROMOTION_NOT_FOUND", detail: `promotion record ${edge.provenance.promotionId} not found — the edge's promotion evidence does not exist` };
+    return {
+      ok: false,
+      violation: "PROMOTION_NOT_FOUND",
+      detail: `promotion record ${edge.provenance.promotionId} not found — the edge's promotion evidence does not exist`,
+    };
   }
   if (promotion.logicId !== edge.provenance.logicId) {
-    return { ok: false, violation: "PROMOTION_LOGIC_MISMATCH", detail: `promotion ${promotion.promotionId} activates ${promotion.logicId}, not ${edge.provenance.logicId}` };
+    return {
+      ok: false,
+      violation: "PROMOTION_LOGIC_MISMATCH",
+      detail: `promotion ${promotion.promotionId} activates ${promotion.logicId}, not ${edge.provenance.logicId}`,
+    };
   }
   if (journal !== undefined) {
     const resolution = resolveEvidenceCitations(edge.provenance.evidenceCitations, journal);
     if (!resolution.ok) {
-      return { ok: false, violation: "EVIDENCE_UNRESOLVED", detail: `evidence citation ${resolution.evidenceId} failed (${resolution.violation})` };
+      return {
+        ok: false,
+        violation: "EVIDENCE_UNRESOLVED",
+        detail: `evidence citation ${resolution.evidenceId} failed (${resolution.violation})`,
+      };
     }
   }
   return { ok: true };
@@ -240,7 +305,10 @@ export function verifyEdgeProvenance(
 export function buildEdgesFromLabOutputs(input: {
   readonly intentIds: readonly string[];
   readonly aggregation?: DemandAggregationOutcome;
-  readonly matches?: readonly { readonly intentId: string; readonly matches: readonly GroupBuyDiscoveryMatch[] }[];
+  readonly matches?: readonly {
+    readonly intentId: string;
+    readonly matches: readonly GroupBuyDiscoveryMatch[];
+  }[];
   readonly candidates?: OpportunityCandidateGeneration;
   readonly promotion: PromotionRecord;
   readonly evidenceCitations: readonly EvidenceCitation[];
@@ -250,14 +318,19 @@ export function buildEdgesFromLabOutputs(input: {
   const provenance: EdgeProvenance = {
     logicId: input.promotion.logicId,
     promotionId: input.promotion.promotionId,
-    evidenceCitations: [...input.evidenceCitations].sort((a, b) => (a.evidenceId < b.evidenceId ? -1 : a.evidenceId > b.evidenceId ? 1 : 0)),
+    evidenceCitations: [...input.evidenceCitations].sort((a, b) =>
+      a.evidenceId < b.evidenceId ? -1 : a.evidenceId > b.evidenceId ? 1 : 0,
+    ),
     producedAt: input.producedAt,
   };
   const intents = [...new Set(input.intentIds)].sort();
 
   if (input.aggregation?.status === "AGGREGATED") {
     const demandId = input.aggregation.opportunity.demandId;
-    const clusterNode: GraphNodeRef = { nodeKind: "DEMAND_CLUSTER", ref: `demand-cluster:${demandId}` };
+    const clusterNode: GraphNodeRef = {
+      nodeKind: "DEMAND_CLUSTER",
+      ref: `demand-cluster:${demandId}`,
+    };
     const merchantNode: GraphNodeRef = { nodeKind: "MERCHANT_OPPORTUNITY", ref: demandId };
     for (const intentId of intents) {
       edges.push({

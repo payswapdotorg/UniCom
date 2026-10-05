@@ -22,7 +22,10 @@ export interface OrganizationPosition {
   readonly organizationId: string;
   readonly title: string;
   /** The principal occupying the position (main agent or ephemeral delegate). */
-  readonly holder: { readonly principalId: string; readonly kind: "main-agent" | "ephemeral-delegate" };
+  readonly holder: {
+    readonly principalId: string;
+    readonly kind: "main-agent" | "ephemeral-delegate";
+  };
   /** The only authority that may grant capabilities to this position. */
   readonly grantorRef: PrincipalRef;
 }
@@ -63,11 +66,18 @@ export function validateCapabilityGrant(input: {
   const { grant, position } = input;
 
   if (position === undefined) violations.push("UNKNOWN_POSITION");
-  if (!input.canonicalVocabulary.some((definition) => definition.capabilityDefinitionId === grant.capabilityDefinitionId)) {
+  if (
+    !input.canonicalVocabulary.some(
+      (definition) => definition.capabilityDefinitionId === grant.capabilityDefinitionId,
+    )
+  ) {
     violations.push("CAPABILITY_NOT_IN_CANONICAL_VOCABULARY");
   }
   if (grant.authorization.decision !== "AUTHORIZED") violations.push("GRANT_NOT_AUTHORIZED");
-  if (position !== undefined && grant.authorization.decidedBy.principalId !== position.grantorRef.principalId) {
+  if (
+    position !== undefined &&
+    grant.authorization.decidedBy.principalId !== position.grantorRef.principalId
+  ) {
     violations.push("GRANT_AUTHORITY_MISMATCH");
   }
   if (position !== undefined && grant.grantedBy.principalId !== position.grantorRef.principalId) {
@@ -75,7 +85,9 @@ export function validateCapabilityGrant(input: {
   }
   if (input.existingGrantIds.has(grant.grantId)) violations.push("DUPLICATE_GRANT");
 
-  return violations.length === 0 ? { valid: true } : { valid: false, violations: [...new Set(violations)] };
+  return violations.length === 0
+    ? { valid: true }
+    : { valid: false, violations: [...new Set(violations)] };
 }
 
 export interface PositionSnapshot {
@@ -164,11 +176,15 @@ export class ActorCapabilityLedger {
    * sorted; holder principal ids, positions included).
    */
   holdersOfCapability(capabilityDefinitionId: string): readonly string[] {
-    return [...new Set(
-      [...this.grantsByHolder.entries()]
-        .filter(([, grants]) => grants.some((grant) => grant.capabilityDefinitionId === capabilityDefinitionId))
-        .map(([principalId]) => principalId),
-    )].sort();
+    return [
+      ...new Set(
+        [...this.grantsByHolder.entries()]
+          .filter(([, grants]) =>
+            grants.some((grant) => grant.capabilityDefinitionId === capabilityDefinitionId),
+          )
+          .map(([principalId]) => principalId),
+      ),
+    ].sort();
   }
 
   /** True only when a granted capability is held — never by catalog presence. */
@@ -182,11 +198,16 @@ export class ActorCapabilityLedger {
   listPositions(): readonly PositionSnapshot[] {
     return [...this.positionsById.values()]
       .sort((a, b) => (a.positionId < b.positionId ? -1 : 1))
-      .map((position) => ({ position, capabilities: this.capabilitiesForPosition(position.positionId) }));
+      .map((position) => ({
+        position,
+        capabilities: this.capabilitiesForPosition(position.positionId),
+      }));
   }
 
   listGrants(): readonly PositionCapabilityGrant[] {
-    return [...this.grantsByPosition.values()].flat().sort((a, b) => (a.grantId < b.grantId ? -1 : 1));
+    return [...this.grantsByPosition.values()]
+      .flat()
+      .sort((a, b) => (a.grantId < b.grantId ? -1 : 1));
   }
 
   private capabilitiesForHolderGrants(principalId: string): readonly string[] {

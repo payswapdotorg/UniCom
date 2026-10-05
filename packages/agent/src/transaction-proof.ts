@@ -55,8 +55,17 @@ export type TransactionProofViolation =
   | "LEVEL_BELOW_REQUIREMENT";
 
 export type TransactionProofVerification =
-  | { readonly ok: true; readonly proof: TransactionProofRecord; readonly resolved: readonly JournaledEvidenceRecord[] }
-  | { readonly ok: false; readonly violation: TransactionProofViolation; readonly evidenceId?: string; readonly detail: string };
+  | {
+      readonly ok: true;
+      readonly proof: TransactionProofRecord;
+      readonly resolved: readonly JournaledEvidenceRecord[];
+    }
+  | {
+      readonly ok: false;
+      readonly violation: TransactionProofViolation;
+      readonly evidenceId?: string;
+      readonly detail: string;
+    };
 
 function proofContentHash(proof: Omit<TransactionProofRecord, "proofHash">): string {
   return structuralHash({ ...proof, proofHash: undefined });
@@ -65,7 +74,11 @@ function proofContentHash(proof: Omit<TransactionProofRecord, "proofHash">): str
 function isCitation(value: unknown): value is EvidenceCitation {
   if (typeof value !== "object" || value === null) return false;
   const candidate = value as Partial<EvidenceCitation>;
-  return typeof candidate.evidenceId === "string" && typeof candidate.recordHash === "string" && candidate.kind !== undefined;
+  return (
+    typeof candidate.evidenceId === "string" &&
+    typeof candidate.recordHash === "string" &&
+    candidate.kind !== undefined
+  );
 }
 
 function isProofShape(value: unknown): value is TransactionProofRecord {
@@ -73,10 +86,12 @@ function isProofShape(value: unknown): value is TransactionProofRecord {
   const candidate = value as Partial<TransactionProofRecord> & {
     readonly assertion?: Partial<{ assertedBy: unknown; assertedAt: unknown }>;
   };
-  if (typeof candidate.proofId !== "string" || typeof candidate.transactionRef !== "string") return false;
+  if (typeof candidate.proofId !== "string" || typeof candidate.transactionRef !== "string")
+    return false;
   if (typeof candidate.level !== "string" || typeof candidate.proofHash !== "string") return false;
   if (typeof candidate.journalLength !== "number") return false;
-  if (candidate.assertion === undefined || typeof candidate.assertion.assertedAt !== "string") return false;
+  if (candidate.assertion === undefined || typeof candidate.assertion.assertedAt !== "string")
+    return false;
   return Array.isArray(candidate.evidence) && candidate.evidence.every(isCitation);
 }
 
@@ -108,13 +123,17 @@ export function bindTransactionProof(input: {
   }
   const resolution = resolveEvidenceCitations(input.citations, input.journal);
   if (!resolution.ok) {
-    throw new Error(`cannot bind proof: citation ${resolution.evidenceId} failed (${resolution.violation})`);
+    throw new Error(
+      `cannot bind proof: citation ${resolution.evidenceId} failed (${resolution.violation})`,
+    );
   }
   const base: Omit<TransactionProofRecord, "proofHash"> = {
     proofId: input.proofId,
     transactionRef: input.transactionRef,
     level: input.level,
-    evidence: [...input.citations].sort((a, b) => (a.evidenceId < b.evidenceId ? -1 : a.evidenceId > b.evidenceId ? 1 : 0)),
+    evidence: [...input.citations].sort((a, b) =>
+      a.evidenceId < b.evidenceId ? -1 : a.evidenceId > b.evidenceId ? 1 : 0,
+    ),
     assertion: { assertedBy: input.assertedBy, assertedAt: input.assertedAt },
     journalLength: input.journal.length,
   };
@@ -138,7 +157,46 @@ export function verifyTransactionProof(
   requirement?: ProofRequirement,
 ): TransactionProofVerification {
   if (!isProofShape(proof)) {
-    return { ok: false, violation: "MALFORMED_PROOF", detail: "transaction proof must be a typed proof record" };
+    return {
+      ok: false,
+      violation: "MALFORMED_PROOF",
+      detail: "transaction proof must be a typed proof record",
+    };
+  }
+  const { proofHash, ...content } = proof;
+  if (proofContentHash(content) !== proofHash) {
+    return {
+      ok: false,
+      violation: "PROOF_HASH_MISMATCH",
+      detail: "proof content does not match its fingerprint (tampered proof)",
+    };
+  }
+  if (
+    requirement !== undefined &&
+    proofLevelRank(proof.level) < proofLevelRank(requirement.minimumLevel)
+  ) {
+    return {
+      ok: false,
+      violation: "LEVEL_BELOW_REQUIREMENT",
+      detail: `proof level ${proof.level} is below the required ${requirement.minimumLevel}`,
+    };
+  }
+  const resolution = resolveEvidenceCitations(proof.evidence, journal);
+  if (!resolution.ok) {
+    const violation: TransactionProofViolation =
+      resolution.violation === "CHAIN_BROKEN"
+        ? "CHAIN_BROKEN"
+        : resolution.violation === "MISSING_EVIDENCE"
+          ? "MISSING_EVIDENCE"
+          : resolution.violation === "EVIDENCE_KIND_MISMATCH"
+            ? "EVIDENCE_KIND_MISMATCH"
+            : "EVIDENCE_HASH_MISMATCH";
+    return {
+      ok: false,
+      violation,
+      evidenceId: resolution.evidenceId,
+      detail: `citation failed to resolve: ${resolution.evidenceId}`,
+    };
   }
   if (journal.length < proof.journalLength) {
     return {
@@ -147,31 +205,23 @@ export function verifyTransactionProof(
       detail: `journal has ${journal.length} records but the proof witnessed ${proof.journalLength} (append-only law violated)`,
     };
   }
-  const { proofHash, ...content } = proof;
-  if (proofContentHash(content) !== proofHash) {
-    return { ok: false, violation: "PROOF_HASH_MISMATCH", detail: "proof content does not match its fingerprint (tampered proof)" };
-  }
-  if (requirement !== undefined && proofLevelRank(proof.level) < proofLevelRank(requirement.minimumLevel)) {
-    return { ok: false, violation: "LEVEL_BELOW_REQUIREMENT", detail: `proof level ${proof.level} is below the required ${requirement.minimumLevel}` };
-  }
-  const resolution = resolveEvidenceCitations(proof.evidence, journal);
-  if (!resolution.ok) {
-    const violation: TransactionProofViolation =
-      resolution.violation === "CHAIN_BROKEN" ? "CHAIN_BROKEN"
-        : resolution.violation === "MISSING_EVIDENCE" ? "MISSING_EVIDENCE"
-          : resolution.violation === "EVIDENCE_KIND_MISMATCH" ? "EVIDENCE_KIND_MISMATCH"
-            : "EVIDENCE_HASH_MISMATCH";
-    return { ok: false, violation, evidenceId: resolution.evidenceId, detail: `citation failed to resolve: ${resolution.evidenceId}` };
-  }
   return { ok: true, proof, resolved: resolution.records };
 }
 
 /** Cite journaled evidence for a proof (helper over the journal's citationFor). */
-export function citationsFor(journal: { citationFor(evidenceId: string): EvidenceCitation }, evidenceIds: readonly string[]): readonly EvidenceCitation[] {
+export function citationsFor(
+  journal: { citationFor(evidenceId: string): EvidenceCitation },
+  evidenceIds: readonly string[],
+): readonly EvidenceCitation[] {
   return evidenceIds.map((evidenceId) => journal.citationFor(evidenceId));
 }
 
 /** EvidenceReference view of a proof's citations (opaque handles). */
-export function proofEvidenceReferences(proof: TransactionProofRecord): readonly { readonly evidenceId: string; readonly kind: EvidenceKind }[] {
-  return proof.evidence.map((citation) => ({ evidenceId: citation.evidenceId, kind: citation.kind }));
+export function proofEvidenceReferences(
+  proof: TransactionProofRecord,
+): readonly { readonly evidenceId: string; readonly kind: EvidenceKind }[] {
+  return proof.evidence.map((citation) => ({
+    evidenceId: citation.evidenceId,
+    kind: citation.kind,
+  }));
 }

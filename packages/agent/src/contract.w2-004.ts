@@ -41,7 +41,12 @@ export type {
   ReviewActivityPayload,
   TrustEvidencePayload,
 } from "./evidence-journal.js";
-export { EvidenceJournal, resolveEvidenceCitation, resolveEvidenceCitations, verifyEvidenceChain } from "./evidence-journal.js";
+export {
+  EvidenceJournal,
+  resolveEvidenceCitation,
+  resolveEvidenceCitations,
+  verifyEvidenceChain,
+} from "./evidence-journal.js";
 
 // --- Journaled/derived trust (scenario 1) ---
 export type {
@@ -52,7 +57,13 @@ export type {
   DerivedTrustViolation,
   DerivedUserTrust,
 } from "./trust-journal.js";
-export { capabilitySubject, deriveAgentTrust, deriveCapabilityTrust, deriveUserTrust, verifyDerivedTrust } from "./trust-journal.js";
+export {
+  capabilitySubject,
+  deriveAgentTrust,
+  deriveCapabilityTrust,
+  deriveUserTrust,
+  verifyDerivedTrust,
+} from "./trust-journal.js";
 
 // --- TransactionProof records (scenario 2) ---
 export type {
@@ -60,7 +71,12 @@ export type {
   TransactionProofVerification,
   TransactionProofViolation,
 } from "./transaction-proof.js";
-export { bindTransactionProof, citationsFor, proofEvidenceReferences, verifyTransactionProof } from "./transaction-proof.js";
+export {
+  bindTransactionProof,
+  citationsFor,
+  proofEvidenceReferences,
+  verifyTransactionProof,
+} from "./transaction-proof.js";
 
 // --- Opaque commerce-facts seam (typed, versioned, tri-state) ---
 export type {
@@ -90,7 +106,7 @@ export type {
   ImmuneActionRecord,
   ImmuneActionViolation,
 } from "./immune-action.js";
-export { QuarantineLedger } from "./immune-action.js";
+export { QuarantineLedger, verifyImmuneActionChain } from "./immune-action.js";
 
 // --- The five fraud archetypes (scenarios 4, 5) ---
 export type {
@@ -99,20 +115,20 @@ export type {
   FraudArchetype,
 } from "./fraud-archetypes.js";
 export {
-  ABUSE_RETURN_COUNT_THRESHOLD,
-  CONTRADICTION_PROOF_MIN_RANK,
-  detectAllArchetypes,
-  detectFalseBuyerClaim,
-  detectFalseNonDelivery,
-  detectReturnRefundAbuse,
   detectReviewRing,
-  detectWrongItemShipment,
   RING_BURST_WINDOW_MS,
   RING_MIN_AUTHORS,
   RING_YOUNG_ACCOUNT_DAYS,
   SECURITY_CORRELATION_POLICY_REF,
 } from "./fraud-archetypes.js";
-
+export {
+  detectFalseBuyerClaim,
+  detectFalseNonDelivery,
+  detectReturnRefundAbuse,
+  detectWrongItemShipment,
+  ABUSE_RETURN_COUNT_THRESHOLD,
+  CONTRADICTION_PROOF_MIN_RANK,
+} from "./claim-archetypes.js";
 // --- Adversarial archetype suite: evasion resistance (scenario 6) ---
 export type {
   ArchetypeFlow,
@@ -121,7 +137,11 @@ export type {
   SuiteOutcome,
   SuiteViolation,
 } from "./archetype-suite.js";
-export { journalKnownLimitations, runArchetypeSuite } from "./archetype-suite.js";
+export {
+  detectAllArchetypes,
+  journalKnownLimitations,
+  runArchetypeSuite,
+} from "./archetype-suite.js";
 
 // --- Capability-scoped defensive broadcasts (scenario 7) ---
 export type {
@@ -159,4 +179,9 @@ export type {
   OpportunityGraphEdgeKind,
   ProvenanceBearingGraphQuery,
 } from "./opportunity-graph.js";
-export { buildEdgesFromLabOutputs, OpportunityGraph, queryOpportunityGraph, verifyEdgeProvenance } from "./opportunity-graph.js";
+export {
+  buildEdgesFromLabOutputs,
+  OpportunityGraph,
+  queryOpportunityGraph,
+  verifyEdgeProvenance,
+} from "./opportunity-graph.js";

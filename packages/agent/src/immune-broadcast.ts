@@ -75,7 +75,9 @@ export function computeBroadcastAudience(input: {
   for (const principal of [...input.scope.affectedPrincipalRefs, ...input.capabilityHolders]) {
     byId.set(principal.principalId, principal);
   }
-  const audienceRefs = [...byId.values()].sort((a, b) => (a.principalId < b.principalId ? -1 : a.principalId > b.principalId ? 1 : 0));
+  const audienceRefs = [...byId.values()].sort((a, b) =>
+    a.principalId < b.principalId ? -1 : a.principalId > b.principalId ? 1 : 0,
+  );
   return {
     audienceRefs,
     rationale: `${input.scope.affectedPrincipalRefs.length} affected + ${input.capabilityHolders.length} capability holders of ${input.scope.capabilityDefinitionId}`,
@@ -95,6 +97,7 @@ export interface ScopedDefensiveBroadcast extends DefensiveSecurityBroadcast {
 export type BroadcastViolation =
   | "EXTRA_DISCLOSED_FIELD"
   | "AUDIENCE_MISMATCH"
+  | "WEAPONIZED_SIGNATURE"
   | "MALFORMED_INPUT";
 
 export type BroadcastBuildOutcome =
@@ -116,17 +119,34 @@ export function buildScopedDefensiveBroadcast(input: {
   readonly signature: ThreatSignature;
   readonly issuedAt: string;
 }): BroadcastBuildOutcome {
-  const base = issueDefensiveBroadcast({
-    broadcastId: input.broadcastId,
-    signature: input.signature,
-    audienceRefs: input.audience.audienceRefs,
-    issuedAt: input.issuedAt,
-  });
+  let base: DefensiveSecurityBroadcast;
+  try {
+    base = issueDefensiveBroadcast({
+      broadcastId: input.broadcastId,
+      signature: input.signature,
+      audienceRefs: input.audience.audienceRefs,
+      issuedAt: input.issuedAt,
+    });
+  } catch (error) {
+    // The W2-002 defensive-only law THROWS on weaponized signatures; the
+    // scoped builder surfaces it as a typed violation instead.
+    return {
+      ok: false,
+      violation: "WEAPONIZED_SIGNATURE",
+      detail: error instanceof Error ? error.message : String(error),
+    };
+  }
 
   const disclosed: Record<string, unknown> = {
     THREAT_CLASS: input.scope.threatClass,
-    DEFENSIVE_INDICATORS: base.signature.indicators.map((entry) => ({ indicatorKind: entry.indicatorKind, value: entry.value })),
-    MITIGATIONS: base.signature.mitigations.map((entry) => ({ mitigationKind: entry.mitigationKind, guidance: entry.guidance })),
+    DEFENSIVE_INDICATORS: base.signature.indicators.map((entry) => ({
+      indicatorKind: entry.indicatorKind,
+      value: entry.value,
+    })),
+    MITIGATIONS: base.signature.mitigations.map((entry) => ({
+      mitigationKind: entry.mitigationKind,
+      guidance: entry.guidance,
+    })),
     AFFECTED_COUNT: input.scope.affectedPrincipalRefs.length,
   };
   if (input.scope.opaqueSubjectRefs !== undefined && input.scope.opaqueSubjectRefs.length > 0) {
@@ -135,17 +155,28 @@ export function buildScopedDefensiveBroadcast(input: {
 
   for (const field of Object.keys(disclosed)) {
     if (!SECURITY_BROADCAST_DISCLOSURE_FIELDS.includes(field)) {
-      return { ok: false, violation: "EXTRA_DISCLOSED_FIELD", detail: `field "${field}" is not in the security-broadcast disclosure contract` };
+      return {
+        ok: false,
+        violation: "EXTRA_DISCLOSED_FIELD",
+        detail: `field "${field}" is not in the security-broadcast disclosure contract`,
+      };
     }
   }
   if (base.audienceRefs.length !== input.audience.audienceRefs.length) {
-    return { ok: false, violation: "AUDIENCE_MISMATCH", detail: "issued audience does not match the computed scoped audience" };
+    return {
+      ok: false,
+      violation: "AUDIENCE_MISMATCH",
+      detail: "issued audience does not match the computed scoped audience",
+    };
   }
 
   const broadcast: ScopedDefensiveBroadcast = {
     ...base,
     disclosed,
-    disclosure: { policyId: SECURITY_BROADCAST_DISCLOSURE_POLICY_ID, allowedFields: SECURITY_BROADCAST_DISCLOSURE_FIELDS },
+    disclosure: {
+      policyId: SECURITY_BROADCAST_DISCLOSURE_POLICY_ID,
+      allowedFields: SECURITY_BROADCAST_DISCLOSURE_FIELDS,
+    },
   };
   return { ok: true, broadcast };
 }
@@ -181,8 +212,14 @@ export function observeBroadcastChannel(input: {
 // ---------------------------------------------------------------------------
 
 const STANDARD_MITIGATIONS: readonly ThreatMitigation[] = [
-  { mitigationKind: "verification-step", guidance: "verify the affected evidence chain before any consequential action" },
-  { mitigationKind: "monitoring-rule", guidance: "monitor the affected principals for recurrence of the correlated pattern" },
+  {
+    mitigationKind: "verification-step",
+    guidance: "verify the affected evidence chain before any consequential action",
+  },
+  {
+    mitigationKind: "monitoring-rule",
+    guidance: "monitor the affected principals for recurrence of the correlated pattern",
+  },
 ];
 
 /**
@@ -193,7 +230,10 @@ export function defensiveSignatureFor(input: {
   readonly signatureId: string;
   readonly threatClass: SecurityThreatClass;
   readonly indicators?: readonly ThreatIndicator[];
-  readonly mitigations?: readonly { readonly mitigationKind: MitigationKind; readonly guidance: string }[];
+  readonly mitigations?: readonly {
+    readonly mitigationKind: MitigationKind;
+    readonly guidance: string;
+  }[];
   readonly publishedAt: string;
 }): ThreatSignature {
   const indicators: readonly ThreatIndicator[] = input.indicators ?? [

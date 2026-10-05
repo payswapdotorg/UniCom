@@ -25,7 +25,7 @@ import {
   type CapabilityAttenuationScope,
   type ImmuneActionOutcome,
 } from "./immune-action.js";
-import { detectAllArchetypes, type ArchetypeDetectionResult } from "./fraud-archetypes.js";
+import { detectAllArchetypes, type ArchetypeDetectionResult } from "./archetype-suite.js";
 import {
   buildScopedDefensiveBroadcast,
   computeBroadcastAudience,
@@ -73,10 +73,34 @@ export interface ImmuneSystemOptions {
 /** The lab candidates for the immune logic entries (register into the shared log). */
 export function immuneLabCandidates(registeredAt: string): readonly LabCandidate[] {
   return [
-    { logicId: UNICOM_IMMUNE_LOGIC.SIGNAL_CLASSIFICATION, kind: "DETECTION", version: "v1", description: "deterministic security signal classification + policy decision", registeredAt },
-    { logicId: UNICOM_IMMUNE_LOGIC.ARCHETYPE_DETECTION, kind: "DETECTION", version: "v1", description: "five fraud-archetype adversarial evidence-flow detection", registeredAt },
-    { logicId: UNICOM_IMMUNE_LOGIC.QUARANTINE_ATTENUATION, kind: "ATTENUATION", version: "v1", description: "reversible capability attenuation (quarantine/suspension/release)", registeredAt },
-    { logicId: UNICOM_IMMUNE_LOGIC.DEFENSIVE_BROADCAST, kind: "BROADCAST", version: "v1", description: "capability-scoped minimum-necessary defensive broadcast", registeredAt },
+    {
+      logicId: UNICOM_IMMUNE_LOGIC.SIGNAL_CLASSIFICATION,
+      kind: "DETECTION",
+      version: "v1",
+      description: "deterministic security signal classification + policy decision",
+      registeredAt,
+    },
+    {
+      logicId: UNICOM_IMMUNE_LOGIC.ARCHETYPE_DETECTION,
+      kind: "DETECTION",
+      version: "v1",
+      description: "five fraud-archetype adversarial evidence-flow detection",
+      registeredAt,
+    },
+    {
+      logicId: UNICOM_IMMUNE_LOGIC.QUARANTINE_ATTENUATION,
+      kind: "ATTENUATION",
+      version: "v1",
+      description: "reversible capability attenuation (quarantine/suspension/release)",
+      registeredAt,
+    },
+    {
+      logicId: UNICOM_IMMUNE_LOGIC.DEFENSIVE_BROADCAST,
+      kind: "BROADCAST",
+      version: "v1",
+      description: "capability-scoped minimum-necessary defensive broadcast",
+      registeredAt,
+    },
   ];
 }
 
@@ -112,14 +136,18 @@ export class SecurityImmuneSystem {
       code: "IMMUNE_LOGIC_NOT_PROMOTED",
       logicId,
       runtimeLogicIds: this.runtimeRegistry.runtimeLogicIds(),
-      detail: "immune logic is born in the Lab; it is unreachable from the runtime plane until an evidence-bearing promotion activates it",
+      detail:
+        "immune logic is born in the Lab; it is unreachable from the runtime plane until an evidence-bearing promotion activates it",
     };
   }
 
   // -- pipeline ------------------------------------------------------------
 
   /** Ingest a raw signal: classify + decide (deterministic, lab-gated). */
-  ingestSignal(signal: SecuritySignal, at: string): { readonly refusal?: ImmuneRefusal; readonly decision?: SecurityPolicyDecision } {
+  ingestSignal(
+    signal: SecuritySignal,
+    at: string,
+  ): { readonly refusal?: ImmuneRefusal; readonly decision?: SecurityPolicyDecision } {
     const refusal = this.refusalFor(UNICOM_IMMUNE_LOGIC.SIGNAL_CLASSIFICATION);
     if (refusal) return { refusal };
     const classification = classifySecuritySignal(signal, at);
@@ -129,7 +157,10 @@ export class SecurityImmuneSystem {
   }
 
   /** Run the five fraud-archetype detectors over journaled evidence (lab-gated). */
-  detectArchetypes(records: readonly JournaledEvidenceRecord[], at: string): { readonly refusal?: ImmuneRefusal; readonly results?: readonly ArchetypeDetectionResult[] } {
+  detectArchetypes(
+    records: readonly JournaledEvidenceRecord[],
+    at: string,
+  ): { readonly refusal?: ImmuneRefusal; readonly results?: readonly ArchetypeDetectionResult[] } {
     const refusal = this.refusalFor(UNICOM_IMMUNE_LOGIC.ARCHETYPE_DETECTION);
     if (refusal) return { refusal };
     return { results: detectAllArchetypes(records, at) };
@@ -171,7 +202,12 @@ export class SecurityImmuneSystem {
     readonly scope: SecurityBroadcastScope;
     readonly signature?: ThreatSignature;
     readonly issuedAt?: string;
-  }): { readonly refusal?: ImmuneRefusal; readonly audience?: BroadcastAudience; readonly broadcast?: ScopedDefensiveBroadcast; readonly detail?: string } {
+  }): {
+    readonly refusal?: ImmuneRefusal;
+    readonly audience?: BroadcastAudience;
+    readonly broadcast?: ScopedDefensiveBroadcast;
+    readonly detail?: string;
+  } {
     const refusal = this.refusalFor(UNICOM_IMMUNE_LOGIC.DEFENSIVE_BROADCAST);
     if (refusal) return { refusal };
     if (this.capabilityHolders === undefined) {
@@ -181,7 +217,8 @@ export class SecurityImmuneSystem {
       scope: input.scope,
       capabilityHolders: this.capabilityHolders(input.scope.capabilityDefinitionId),
     });
-    const signature = input.signature ??
+    const signature =
+      input.signature ??
       defensiveSignatureFor({
         signatureId: `signature:${input.broadcastId}`,
         threatClass: input.scope.threatClass,
@@ -224,7 +261,11 @@ export class SecurityImmuneSystem {
     readonly quarantines?: readonly ImmuneActionOutcome[];
     readonly broadcast?: ScopedDefensiveBroadcast;
   } {
-    for (const logicId of [UNICOM_IMMUNE_LOGIC.SIGNAL_CLASSIFICATION, UNICOM_IMMUNE_LOGIC.QUARANTINE_ATTENUATION, UNICOM_IMMUNE_LOGIC.DEFENSIVE_BROADCAST]) {
+    for (const logicId of [
+      UNICOM_IMMUNE_LOGIC.SIGNAL_CLASSIFICATION,
+      UNICOM_IMMUNE_LOGIC.QUARANTINE_ATTENUATION,
+      UNICOM_IMMUNE_LOGIC.DEFENSIVE_BROADCAST,
+    ]) {
       const refusal = this.refusalFor(logicId);
       if (refusal) return { refusal };
     }
@@ -234,17 +275,24 @@ export class SecurityImmuneSystem {
 
     const quarantines: ImmuneActionOutcome[] = [];
     if (decision.action === "QUARANTINE" || decision.action === "BLOCK") {
-      const scope: CapabilityAttenuationScope = { kind: "CAPABILITY_SET", capabilityDefinitionIds: [...input.quarantineCapabilityIds].sort() };
-      for (const principalRef of [...input.quarantinePrincipalRefs].sort((a, b) => (a.principalId < b.principalId ? -1 : 1))) {
-        quarantines.push(this.quarantineLedger.quarantine({
-          actionId: `${input.actionIdPrefix}:${principalRef.principalId}`,
-          action: "QUARANTINE",
-          principalRef,
-          scope,
-          decisionRef: decision.decisionId,
-          evidenceCitations: input.evidenceCitations,
-          actedAt: input.at,
-        }));
+      const scope: CapabilityAttenuationScope = {
+        kind: "CAPABILITY_SET",
+        capabilityDefinitionIds: [...input.quarantineCapabilityIds].sort(),
+      };
+      for (const principalRef of [...input.quarantinePrincipalRefs].sort((a, b) =>
+        a.principalId < b.principalId ? -1 : 1,
+      )) {
+        quarantines.push(
+          this.quarantineLedger.quarantine({
+            actionId: `${input.actionIdPrefix}:${principalRef.principalId}`,
+            action: "QUARANTINE",
+            principalRef,
+            scope,
+            decisionRef: decision.decisionId,
+            evidenceCitations: input.evidenceCitations,
+            actedAt: input.at,
+          }),
+        );
       }
     }
 
@@ -283,9 +331,13 @@ export class SecurityImmuneSystem {
     return this.broadcasts.map((broadcast) => ({ ...broadcast }));
   }
 
-  private validateScopeVocabulary(scope: CapabilityAttenuationScope): ImmuneActionOutcome | undefined {
+  private validateScopeVocabulary(
+    scope: CapabilityAttenuationScope,
+  ): ImmuneActionOutcome | undefined {
     if (scope.kind === "ALL_CAPABILITIES") return undefined;
-    const vocabulary = new Set(this.capabilityVocabulary.map((definition) => definition.capabilityDefinitionId));
+    const vocabulary = new Set(
+      this.capabilityVocabulary.map((definition) => definition.capabilityDefinitionId),
+    );
     const unknown = scope.capabilityDefinitionIds.filter((id) => !vocabulary.has(id));
     if (unknown.length > 0) {
       return {

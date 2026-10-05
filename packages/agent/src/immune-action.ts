@@ -68,16 +68,21 @@ function actionRecordHash(record: Omit<ImmuneActionRecord, "recordHash">): strin
 
 function isValidScope(scope: CapabilityAttenuationScope): boolean {
   if (scope.kind === "ALL_CAPABILITIES") return true;
-  return Array.isArray(scope.capabilityDefinitionIds) &&
+  return (
+    Array.isArray(scope.capabilityDefinitionIds) &&
     scope.capabilityDefinitionIds.length > 0 &&
-    scope.capabilityDefinitionIds.every((id) => typeof id === "string" && id.length > 0);
+    scope.capabilityDefinitionIds.every((id) => typeof id === "string" && id.length > 0)
+  );
 }
 
 function scopeIds(scope: CapabilityAttenuationScope): readonly string[] {
   return scope.kind === "ALL_CAPABILITIES" ? [] : [...scope.capabilityDefinitionIds].sort();
 }
 
-function scopesOverlap(left: CapabilityAttenuationScope, right: CapabilityAttenuationScope): boolean {
+function scopesOverlap(
+  left: CapabilityAttenuationScope,
+  right: CapabilityAttenuationScope,
+): boolean {
   if (left.kind === "ALL_CAPABILITIES" || right.kind === "ALL_CAPABILITIES") return true;
   const rightIds = new Set(scopeIds(right));
   return scopeIds(left).some((id) => rightIds.has(id));
@@ -89,6 +94,52 @@ function isAttenuating(action: ImmuneActionKind): boolean {
 
 function isRestoring(action: ImmuneActionKind): boolean {
   return action === "RELEASE" || action === "RESUME";
+}
+
+function isRecordShape(value: unknown): value is ImmuneActionRecord {
+  if (typeof value !== "object" || value === null) return false;
+  const candidate = value as Partial<ImmuneActionRecord>;
+  return (
+    typeof candidate.sequence === "number" &&
+    typeof candidate.actionId === "string" &&
+    typeof candidate.action === "string" &&
+    typeof candidate.recordHash === "string" &&
+    typeof candidate.prevRecordHash === "string" &&
+    candidate.principalRef !== undefined &&
+    candidate.scope !== undefined &&
+    typeof candidate.actedAt === "string"
+  );
+}
+
+/**
+ * Verify a raw chain of immune action records (the same chain law the
+ * ledger enforces): sequences 1..n in order, hashes chained and correct.
+ * Deterministic — any removal, edit or reorder breaks here.
+ */
+export function verifyImmuneActionChain(
+  records: readonly unknown[],
+):
+  | { readonly ok: true }
+  | {
+      readonly ok: false;
+      readonly violation: "CHAIN_BROKEN";
+      readonly firstBrokenSequence: number;
+    } {
+  let prevRecordHash = "genesis";
+  for (let index = 0; index < records.length; index += 1) {
+    const value = records[index];
+    if (!isRecordShape(value))
+      return { ok: false, violation: "CHAIN_BROKEN", firstBrokenSequence: index + 1 };
+    if (value.sequence !== index + 1 || value.prevRecordHash !== prevRecordHash) {
+      return { ok: false, violation: "CHAIN_BROKEN", firstBrokenSequence: index + 1 };
+    }
+    const { recordHash: _ignored, ...rest } = value;
+    if (actionRecordHash(rest as Omit<ImmuneActionRecord, "recordHash">) !== value.recordHash) {
+      return { ok: false, violation: "CHAIN_BROKEN", firstBrokenSequence: value.sequence };
+    }
+    prevRecordHash = value.recordHash;
+  }
+  return { ok: true };
 }
 
 /**
@@ -136,13 +187,26 @@ export class QuarantineLedger {
     readonly actedAt: string;
   }): ImmuneActionOutcome {
     if (typeof input.actionId !== "string" || input.actionId.length === 0) {
-      return { ok: false, violation: "MALFORMED_SCOPE", detail: "actionId must be a non-empty string" };
+      return {
+        ok: false,
+        violation: "MALFORMED_SCOPE",
+        detail: "actionId must be a non-empty string",
+      };
     }
     if (this.actionIds.has(input.actionId)) {
-      return { ok: false, violation: "DUPLICATE_ACTION_ID", detail: `immune action already recorded: ${input.actionId} (append-only ledger)` };
+      return {
+        ok: false,
+        violation: "DUPLICATE_ACTION_ID",
+        detail: `immune action already recorded: ${input.actionId} (append-only ledger)`,
+      };
     }
     if (!isValidScope(input.scope)) {
-      return { ok: false, violation: "EMPTY_CAPABILITY_SCOPE", detail: "capability attenuation scope must be ALL_CAPABILITIES or a non-empty capability id set" };
+      return {
+        ok: false,
+        violation: "EMPTY_CAPABILITY_SCOPE",
+        detail:
+          "capability attenuation scope must be ALL_CAPABILITIES or a non-empty capability id set",
+      };
     }
     const active = this.activeAttenuationsFor(input.principalRef.principalId);
     if (isAttenuating(input.action)) {
@@ -162,7 +226,11 @@ export class QuarantineLedger {
         };
       }
     } else {
-      return { ok: false, violation: "MALFORMED_SCOPE", detail: `unknown immune action: ${String(input.action)}` };
+      return {
+        ok: false,
+        violation: "MALFORMED_SCOPE",
+        detail: `unknown immune action: ${String(input.action)}`,
+      };
     }
 
     const predecessor = this.entries[this.entries.length - 1];
@@ -173,7 +241,9 @@ export class QuarantineLedger {
       principalRef: input.principalRef,
       scope: input.scope,
       decisionRef: input.decisionRef,
-      evidenceCitations: [...input.evidenceCitations].sort((a, b) => (a.evidenceId < b.evidenceId ? -1 : a.evidenceId > b.evidenceId ? 1 : 0)),
+      evidenceCitations: [...input.evidenceCitations].sort((a, b) =>
+        a.evidenceId < b.evidenceId ? -1 : a.evidenceId > b.evidenceId ? 1 : 0,
+      ),
       actedAt: input.actedAt,
       prevRecordHash: predecessor === undefined ? "genesis" : predecessor.recordHash,
     };
@@ -189,10 +259,15 @@ export class QuarantineLedger {
     for (const record of this.entries) {
       if (record.principalRef.principalId !== principalId) continue;
       if (isAttenuating(record.action)) {
-        active.push({ principalRef: record.principalRef, scope: record.scope, sinceActionId: record.actionId });
+        active.push({
+          principalRef: record.principalRef,
+          scope: record.scope,
+          sinceActionId: record.actionId,
+        });
       } else if (isRestoring(record.action)) {
         for (let index = active.length - 1; index >= 0; index -= 1) {
-          if (scopesOverlap((active[index] as ActiveAttenuation).scope, record.scope)) active.splice(index, 1);
+          if (scopesOverlap((active[index] as ActiveAttenuation).scope, record.scope))
+            active.splice(index, 1);
         }
       }
     }
@@ -209,7 +284,9 @@ export class QuarantineLedger {
 
   /** Full append-only history for a principal (quarantines AND releases). */
   historyFor(principalId: string): readonly ImmuneActionRecord[] {
-    return this.entries.filter((record) => record.principalRef.principalId === principalId).map((record) => ({ ...record }));
+    return this.entries
+      .filter((record) => record.principalRef.principalId === principalId)
+      .map((record) => ({ ...record }));
   }
 
   /** Copy of the full append-only ledger, in sequence order. */
@@ -223,20 +300,14 @@ export class QuarantineLedger {
   }
 
   /** Verify the action chain: sequences 1..n, hashes chained and correct. */
-  verifyChain(): { readonly ok: true } | { readonly ok: false; readonly violation: "CHAIN_BROKEN"; readonly firstBrokenSequence: number } {
-    let prevRecordHash = "genesis";
-    for (let index = 0; index < this.entries.length; index += 1) {
-      const record = this.entries[index];
-      if (record === undefined || record.sequence !== index + 1 || record.prevRecordHash !== prevRecordHash) {
-        return { ok: false, violation: "CHAIN_BROKEN", firstBrokenSequence: index + 1 };
-      }
-      const { recordHash: _ignored, ...rest } = record;
-      if (actionRecordHash(rest as Omit<ImmuneActionRecord, "recordHash">) !== record.recordHash) {
-        return { ok: false, violation: "CHAIN_BROKEN", firstBrokenSequence: record.sequence };
-      }
-      prevRecordHash = record.recordHash;
-    }
-    return { ok: true };
+  verifyChain():
+    | { readonly ok: true }
+    | {
+        readonly ok: false;
+        readonly violation: "CHAIN_BROKEN";
+        readonly firstBrokenSequence: number;
+      } {
+    return verifyImmuneActionChain(this.entries);
   }
 
   get length(): number {

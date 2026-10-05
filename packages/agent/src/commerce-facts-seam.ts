@@ -28,9 +28,7 @@ export const COMMERCE_FACTS_INTERFACE_ID = "commerce-facts";
 export const COMMERCE_FACTS_INTERFACE_VERSION = 1;
 
 /** Tri-state fact value: KNOWN carries the value; UNKNOWN stays UNKNOWN. */
-export type FactValue<T> =
-  | { readonly known: true; readonly value: T }
-  | { readonly known: false };
+export type FactValue<T> = { readonly known: true; readonly value: T } | { readonly known: false };
 
 /** Carrier's independent delivery confirmation for an order. */
 export interface DeliveryConfirmationFact {
@@ -99,9 +97,16 @@ export function pinCommerceFactsInterface(port: unknown): CommerceEvidenceFactsP
     throw new Error(`commerce-facts port interfaceId mismatch: ${String(candidate.interfaceId)}`);
   }
   if (candidate.version !== COMMERCE_FACTS_INTERFACE_VERSION) {
-    throw new Error(`commerce-facts port version mismatch: ${String(candidate.version)} (pinned to v${COMMERCE_FACTS_INTERFACE_VERSION})`);
+    throw new Error(
+      `commerce-facts port version mismatch: ${String(candidate.version)} (pinned to v${COMMERCE_FACTS_INTERFACE_VERSION})`,
+    );
   }
-  for (const operation of ["deliveryConfirmation", "shipmentContent", "orderSubject", "returnHistory"] as const) {
+  for (const operation of [
+    "deliveryConfirmation",
+    "shipmentContent",
+    "orderSubject",
+    "returnHistory",
+  ] as const) {
     if (typeof candidate[operation] !== "function") {
       throw new Error(`commerce-facts port is missing operation: ${operation}`);
     }
@@ -132,45 +137,69 @@ export function journalCommerceFacts(input: {
   for (const orderRef of input.orderRefs) {
     const subject = input.port.orderSubject(orderRef);
     if (subject !== undefined) {
-      journaled.push(input.journal.append({
-        evidenceId: `evidence:commerce-fact:order-subject:${orderRef}:${subject.factId}`,
-        kind: "commerce-fact",
-        subjectRef: input.subjectRef,
-        payload: { evidenceKind: "COMMERCE_FACT_SNAPSHOT", factId: subject.factId, snapshot: subject as unknown as Record<string, unknown> },
-        recordedAt: input.recordedAt,
-      }));
+      journaled.push(
+        input.journal.append({
+          evidenceId: `evidence:commerce-fact:order-subject:${orderRef}:${subject.factId}`,
+          kind: "commerce-fact",
+          subjectRef: input.subjectRef,
+          payload: {
+            evidenceKind: "COMMERCE_FACT_SNAPSHOT",
+            factId: subject.factId,
+            snapshot: subject as unknown as Record<string, unknown>,
+          },
+          recordedAt: input.recordedAt,
+        }),
+      );
     }
     const delivery = input.port.deliveryConfirmation(orderRef);
     if (delivery !== undefined) {
-      journaled.push(input.journal.append({
-        evidenceId: `evidence:commerce-fact:delivery-confirmation:${orderRef}:${delivery.factId}`,
-        kind: "commerce-fact",
-        subjectRef: input.subjectRef,
-        payload: { evidenceKind: "COMMERCE_FACT_SNAPSHOT", factId: delivery.factId, snapshot: delivery as unknown as Record<string, unknown> },
-        recordedAt: input.recordedAt,
-      }));
+      journaled.push(
+        input.journal.append({
+          evidenceId: `evidence:commerce-fact:delivery-confirmation:${orderRef}:${delivery.factId}`,
+          kind: "commerce-fact",
+          subjectRef: input.subjectRef,
+          payload: {
+            evidenceKind: "COMMERCE_FACT_SNAPSHOT",
+            factId: delivery.factId,
+            snapshot: delivery as unknown as Record<string, unknown>,
+          },
+          recordedAt: input.recordedAt,
+        }),
+      );
     }
     const content = input.port.shipmentContent(orderRef);
     if (content !== undefined) {
-      journaled.push(input.journal.append({
-        evidenceId: `evidence:commerce-fact:shipment-content:${orderRef}:${content.factId}`,
-        kind: "commerce-fact",
-        subjectRef: input.subjectRef,
-        payload: { evidenceKind: "COMMERCE_FACT_SNAPSHOT", factId: content.factId, snapshot: content as unknown as Record<string, unknown> },
-        recordedAt: input.recordedAt,
-      }));
+      journaled.push(
+        input.journal.append({
+          evidenceId: `evidence:commerce-fact:shipment-content:${orderRef}:${content.factId}`,
+          kind: "commerce-fact",
+          subjectRef: input.subjectRef,
+          payload: {
+            evidenceKind: "COMMERCE_FACT_SNAPSHOT",
+            factId: content.factId,
+            snapshot: content as unknown as Record<string, unknown>,
+          },
+          recordedAt: input.recordedAt,
+        }),
+      );
     }
   }
   for (const customerRef of input.customerRefs ?? []) {
     const history = input.port.returnHistory(customerRef);
     if (history !== undefined) {
-      journaled.push(input.journal.append({
-        evidenceId: `evidence:commerce-fact:return-history:${customerRef}:${history.factId}`,
-        kind: "commerce-fact",
-        subjectRef: input.subjectRef,
-        payload: { evidenceKind: "COMMERCE_FACT_SNAPSHOT", factId: history.factId, snapshot: history as unknown as Record<string, unknown> },
-        recordedAt: input.recordedAt,
-      }));
+      journaled.push(
+        input.journal.append({
+          evidenceId: `evidence:commerce-fact:return-history:${customerRef}:${history.factId}`,
+          kind: "commerce-fact",
+          subjectRef: input.subjectRef,
+          payload: {
+            evidenceKind: "COMMERCE_FACT_SNAPSHOT",
+            factId: history.factId,
+            snapshot: history as unknown as Record<string, unknown>,
+          },
+          recordedAt: input.recordedAt,
+        }),
+      );
     }
   }
   return journaled;
@@ -180,15 +209,26 @@ export function journalCommerceFacts(input: {
 // Journaled fact extraction (fail-closed on malformed snapshots)
 // ---------------------------------------------------------------------------
 
-function snapshotRecords(records: readonly JournaledEvidenceRecord[]): readonly Record<string, unknown>[] {
+function snapshotRecords(
+  records: readonly JournaledEvidenceRecord[],
+): readonly Record<string, unknown>[] {
   const snapshots: Record<string, unknown>[] = [];
   for (const record of records) {
     if (record.kind !== "commerce-fact") continue;
-    const payload = record.payload as { readonly evidenceKind?: string; readonly snapshot?: unknown };
-    if (payload.evidenceKind !== "COMMERCE_FACT_SNAPSHOT" || typeof payload.snapshot !== "object" || payload.snapshot === null) {
+    const payload = record.payload as {
+      readonly evidenceKind?: string;
+      readonly snapshot?: unknown;
+    };
+    if (
+      payload.evidenceKind !== "COMMERCE_FACT_SNAPSHOT" ||
+      typeof payload.snapshot !== "object" ||
+      payload.snapshot === null
+    ) {
       // Fail-closed: only sanctioned journaling writes these payloads; a
       // malformed one means tampering, which the chain law already flags.
-      throw new Error(`malformed commerce-fact snapshot in evidence ${record.evidenceId} (fail-closed)`);
+      throw new Error(
+        `malformed commerce-fact snapshot in evidence ${record.evidenceId} (fail-closed)`,
+      );
     }
     snapshots.push({ ...(payload.snapshot as Record<string, unknown>) });
   }
@@ -212,13 +252,18 @@ function factValueString(value: unknown): FactValue<string> {
 }
 
 /** Extract journaled delivery-confirmation facts (deterministic order). */
-export function journaledDeliveryConfirmations(records: readonly JournaledEvidenceRecord[]): readonly DeliveryConfirmationFact[] {
+export function journaledDeliveryConfirmations(
+  records: readonly JournaledEvidenceRecord[],
+): readonly DeliveryConfirmationFact[] {
   return snapshotRecords(records)
     .filter((snapshot) => snapshot.deliveryStatus !== undefined)
     .map((snapshot) => {
       const status = snapshot.deliveryStatus as { known?: unknown; value?: unknown };
       const deliveryStatus: FactValue<"DELIVERED" | "IN_TRANSIT" | "NOT_DELIVERED"> =
-        status.known === true && (status.value === "DELIVERED" || status.value === "IN_TRANSIT" || status.value === "NOT_DELIVERED")
+        status.known === true &&
+        (status.value === "DELIVERED" ||
+          status.value === "IN_TRANSIT" ||
+          status.value === "NOT_DELIVERED")
           ? { known: true, value: status.value }
           : { known: false };
       return {
@@ -232,9 +277,13 @@ export function journaledDeliveryConfirmations(records: readonly JournaledEviden
 }
 
 /** Extract journaled shipment-content facts (deterministic order). */
-export function journaledShipmentContents(records: readonly JournaledEvidenceRecord[]): readonly ShipmentContentFact[] {
+export function journaledShipmentContents(
+  records: readonly JournaledEvidenceRecord[],
+): readonly ShipmentContentFact[] {
   return snapshotRecords(records)
-    .filter((snapshot) => snapshot.declaredSkuRef !== undefined && snapshot.observedSkuRef !== undefined)
+    .filter(
+      (snapshot) => snapshot.declaredSkuRef !== undefined && snapshot.observedSkuRef !== undefined,
+    )
     .map((snapshot) => ({
       factId: String(snapshot.factId),
       orderRef: String(snapshot.orderRef),
@@ -245,9 +294,14 @@ export function journaledShipmentContents(records: readonly JournaledEvidenceRec
 }
 
 /** Extract journaled order-subject facts (deterministic order). */
-export function journaledOrderSubjects(records: readonly JournaledEvidenceRecord[]): readonly OrderSubjectFact[] {
+export function journaledOrderSubjects(
+  records: readonly JournaledEvidenceRecord[],
+): readonly OrderSubjectFact[] {
   return snapshotRecords(records)
-    .filter((snapshot) => snapshot.purchasedSkuRef !== undefined && snapshot.fulfilledSkuRef !== undefined)
+    .filter(
+      (snapshot) =>
+        snapshot.purchasedSkuRef !== undefined && snapshot.fulfilledSkuRef !== undefined,
+    )
     .map((snapshot) => ({
       factId: String(snapshot.factId),
       orderRef: String(snapshot.orderRef),
@@ -259,9 +313,14 @@ export function journaledOrderSubjects(records: readonly JournaledEvidenceRecord
 }
 
 /** Extract journaled return-history facts (deterministic order). */
-export function journaledReturnHistories(records: readonly JournaledEvidenceRecord[]): readonly ReturnHistoryFact[] {
+export function journaledReturnHistories(
+  records: readonly JournaledEvidenceRecord[],
+): readonly ReturnHistoryFact[] {
   return snapshotRecords(records)
-    .filter((snapshot) => snapshot.completedReturnCount !== undefined && snapshot.upheldClaimCount !== undefined)
+    .filter(
+      (snapshot) =>
+        snapshot.completedReturnCount !== undefined && snapshot.upheldClaimCount !== undefined,
+    )
     .map((snapshot) => ({
       factId: String(snapshot.factId),
       customerRef: String(snapshot.customerRef),

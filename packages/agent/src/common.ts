@@ -34,7 +34,9 @@ export function money(currency: string, minorUnits: string): Money {
     throw new Error(`invalid currency: ${currency}`);
   }
   if (!MINOR_UNITS.test(minorUnits)) {
-    throw new Error(`invalid minorUnits: ${minorUnits} (integer string required — no floating point money)`);
+    throw new Error(
+      `invalid minorUnits: ${minorUnits} (integer string required — no floating point money)`,
+    );
   }
   return { currency, minorUnits };
 }
@@ -42,8 +44,12 @@ export function money(currency: string, minorUnits: string): Money {
 export function isMoney(value: unknown): value is Money {
   if (typeof value !== "object" || value === null) return false;
   const candidate = value as { currency?: unknown; minorUnits?: unknown };
-  return typeof candidate.currency === "string" && ISO_4217.test(candidate.currency) &&
-    typeof candidate.minorUnits === "string" && MINOR_UNITS.test(candidate.minorUnits);
+  return (
+    typeof candidate.currency === "string" &&
+    ISO_4217.test(candidate.currency) &&
+    typeof candidate.minorUnits === "string" &&
+    MINOR_UNITS.test(candidate.minorUnits)
+  );
 }
 
 /** Compare two same-currency amounts: -1 | 0 | 1. Currency mismatch throws. */
