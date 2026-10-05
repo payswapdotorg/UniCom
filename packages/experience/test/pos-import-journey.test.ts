@@ -17,7 +17,7 @@ import { describe, expect, it } from "vitest";
 import { ExecutionMode } from "@unicom/agent/capability";
 import { createConnectorRuntime } from "../src/runtime/connector/runtime";
 import { createCredentialVault } from "../src/runtime/connector/vault";
-import { createProviderJourneyRunner, type ProviderJourneyRunner } from "../src/runtime/connector/journey";
+import { createProviderJourneyRunner } from "../src/runtime/connector/journey";
 import { createConnectorTelemetry } from "../src/runtime/connector/telemetry";
 import {
   createPosImportAdapter,

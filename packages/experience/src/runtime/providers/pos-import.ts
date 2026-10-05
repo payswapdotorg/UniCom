@@ -51,7 +51,7 @@ import {
   providerObservation,
   type AdapterPayloadResolver,
 } from "./provider-adapter-core";
-import { headerOf, type ProviderHttpPort } from "./transport";
+import type { ProviderHttpPort } from "./transport";
 
 /** POS back-office rate-limit policy (exports throttled; Retry-After). */
 export const POS_IMPORT_RATE_LIMIT: RateLimitPolicy = {
