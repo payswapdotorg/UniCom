@@ -96,3 +96,19 @@ Never accept a Work Order solely because a worker reports completion.
 ## Upstream ZCode engineering rules
 
 Retain ZCode's architectural governance, controlled dependencies, public package entrypoints, UI/service boundaries, task/session ownership, event ordering, runtime queue semantics, logging rules, remote/local distinctions and platform abstraction unless explicitly superseded by a UNiCOM architecture amendment.
+
+
+## Final feature-audit governance
+
+Before accepting any worker completion, the TL checks:
+- docs/FEATURE-COMPLETENESS-MATRIX.md
+- docs/FINAL-FEATURE-AUDIT-2026-10-05.md
+- docs/SUPERMARKET-WITHOUT-RFID.md
+
+A feature is not complete when only a service/tool exists. It must have a discoverable product path and a tested user journey.
+
+LocalCommerceEdge is mandatory for legacy/no-API commerce environments.
+
+RFID is optional.
+
+Group-buy, multi-hop TradeCycle, proactive user opportunities and security-immune-system behaviors are first-class acceptance areas.
