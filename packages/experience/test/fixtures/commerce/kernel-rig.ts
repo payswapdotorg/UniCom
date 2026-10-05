@@ -85,6 +85,11 @@ export class CommerceKernelLane {
   private readonly observationKeys = new Set<string>();
   private clockTicks = 0;
 
+  /** Deterministic kernel-side time (no hidden wall clock). */
+  private kernelTime(): string {
+    return new Date(Date.parse("2026-10-07T10:00:00Z") + this.clockTicks++ * 1000).toISOString();
+  }
+
   constructor(clockBaseIso = "2026-10-07T10:00:00Z") {
     this.kernel = new CommerceKernel({
       timeSource: () => new Date(Date.parse(clockBaseIso) + this.clockTicks++ * 1000).toISOString(),
@@ -106,7 +111,7 @@ export class CommerceKernelLane {
         makeId<"CommandId">(`cmd-receive-${skuId}-${locationId}-${units}-${reason}`),
         makeId<"IdempotencyKey">(`key-receive-${skuId}-${locationId}-${units}-${reason}`),
         this.actor,
-        new Date().toISOString(),
+        this.kernelTime(),
         { type: "RECEIVE_STOCK", skuId: skuIdOf(skuId), locationId: locationIdOf(locationId), units, reason: reason as never },
       ),
     );
