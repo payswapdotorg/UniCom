@@ -1,211 +1,180 @@
-# ZCode
+# UNiCOM
 
-<div align="center">
-  <img src="public/logo/icons/1024x1024.png" alt="ZCode" width="128" height="128" />
-</div>
-<p align="center">
-  <a href="https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=47ag983c-8fcb-4d6d-814b-5395193a712c&amp;qr_code=true">Feishu community</a> ·
-  <a href="https://discord.gg/z9aBcQXZQ3">Discord</a>
-</p>
-<p align="center">
-  <a href="README.md">简体中文</a> | English
-</p>
+UNiCOM is an AI-native Commerce Operating System and Commerce Network built by extending the ZCode agent runtime.
 
-ZCode is an AI coding workspace with desktop, browser, and terminal interfaces. This repository contains the clients, backend services, shared UI, and Agent CLI and runtime source code.
+It targets Shopify-class commerce capabilities while making AI the operating model of the platform:
 
-## Updates
+**Goal → Observe → Plan → Simulate → Approve → Execute → Verify → Learn**
 
-- 2026-9-23: Updated to ZCode v3.14.3.
+UNiCOM supports both merchants and buyers, and spans digital and physical commerce.
 
-## Setup
+## Source of truth
 
-Install Git, Node.js **24.14.0**, and pnpm **10.33.2**. [mise.toml](mise.toml) is the source of truth for tool versions. Run all development and packaging commands below from the repository root.
+The repository is the only implementation authority. Chat, screenshots, agent reports and claimed completion are non-authoritative unless the repository records the evidence.
+
+Start here:
+
+1. [AGENTS.md](AGENTS.md)
+2. [spec/architecture/FROZEN-ARCHITECTURE.md](spec/architecture/FROZEN-ARCHITECTURE.md)
+3. [spec/architecture/INVARIANTS.md](spec/architecture/INVARIANTS.md)
+4. [spec/dependency-graph.md](spec/dependency-graph.md)
+5. [docs/LLM-ARCHITECT-HANDOFF.md](docs/LLM-ARCHITECT-HANDOFF.md)
+6. [docs/research/COMMERCE-RESEARCH.md](docs/research/COMMERCE-RESEARCH.md)
+7. [docs/UX-DEPLOYMENT.md](docs/UX-DEPLOYMENT.md)
+8. [docs/development-state/v1-work-order-state.json](docs/development-state/v1-work-order-state.json)
+
+## Architecture at a glance
+
+```
+                    UNiCOM
+                       │
+         ┌─────────────┴─────────────┐
+         │                           │
+    EXPERIENCE                   COMMERCE
+       PLANE                       PLANE
+         │                           │
+         └─────────────┬─────────────┘
+                       │
+                ZCODE AGENT PLANE
+                       │
+           One Main Agent + Skills
+                       │
+      ┌────────────────┼─────────────────┐
+      │                │                 │
+ Commerce Twin    Opportunity Lab    Security
+      │                │             Immune System
+      └────────────────┼─────────────────┘
+                       │
+               CONNECTOR NETWORK
+                       │
+      API / MCP / UCP / ACP / A2A / Browser /
+      Feed / CLI / Live Commerce / Physical Edge
+```
+
+## Core ideas
+
+### One main agent, emergent organizations
+
+UNiCOM keeps one Main Agent as the principal identity. Skills are the normal specialization mechanism.
+
+The Reality/Organization Lab may temporarily create bounded system actors when that produces a better execution organization. Actors are represented through capabilities, authority, budgets, memory scope and proof requirements rather than a swarm of independent chat personas.
+
+### Buyer intent optimization
+
+A buyer can state:
+
+> “I need X by Friday under $200, with strong seller credibility and privacy.”
+
+UNiCOM can search reachable commerce systems, compare real-time opportunities, decide whether to buy now or wait, discover group-buy options, propose a new group-buy to a merchant, consider swaps/rental/resale, and execute within policy.
+
+### Group buying
+
+User agents can discover merchant group purchases, recruit compatible participants, and suggest new group-buy programs to merchant agents when enough demand exists.
+
+### Multi-hop trade
+
+UNiCOM can discover bounded exchange cycles.
+
+Example:
+
+- User 1 has Y and wants X.
+- User 2 has X and wants Z.
+- User 3 has Z and wants Y.
+
+The system can coordinate the cycle while preserving independent authorization, privacy and proof requirements.
+
+### Commerce everywhere
+
+UNiCOM connectors are not limited to systems with clean APIs.
+
+Supported connector families include:
+- native APIs/SDKs;
+- REST/GraphQL;
+- MCP/UCP/ACP/A2A;
+- CLI;
+- files/feeds/EDI/SFTP/email;
+- isolated browser automation;
+- live-commerce streams;
+- POS/QR/barcode/NFC/RFID/local edge.
+
+### Physical commerce
+
+Physical stores, pop-ups and events are first-class commerce edges.
+
+### Autonomous stores
+
+Merchants can define governed autonomous-store policies. The system continuously observes, simulates and optimizes while respecting explicit budgets, approvals, margins, jurisdictions and stop conditions.
+
+### Security immune system
+
+UNiCOM actively looks for:
+- fake/rigged reviews;
+- seller review rings;
+- product substitution;
+- counterfeit returns;
+- false non-delivery;
+- false item-not-as-described claims;
+- refund abuse;
+- account/agent compromise;
+- connector prompt injection.
+
+Defensive threat signatures can be broadcast to other agents subject to policy.
+
+### Trust
+
+User trust, agent trust, capability/provider trust and transaction proof are separate objects.
+
+### Model routing
+
+The runtime can use:
+- fast/System 1 models;
+- JEPA/world-model components;
+- System 2 models
+
+according to uncertainty, impact, latency, privacy and cost.
+
+## Development
+
+UNiCOM inherits ZCode's development architecture and runtime.
+
+Install Node.js 24+ and pnpm 10.33.2, then:
 
 ```bash
 pnpm bootstrap
 ```
 
-`pnpm bootstrap` installs workspace dependencies, prepares local desktop runtime assets, and runs `build:bootstrap`.
-
-The Agent CLI and runtime source code lives in [apps/zcode-cli/](apps/zcode-cli/) as a regular directory included when you clone this repository. No separate checkout or Git submodule initialization is required.
-
-Additional setup and build commands:
-
-| Command                        | Purpose                                                                                                                             |
-| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `pnpm install`                 | Install dependencies                                                                                                                |
-| `pnpm prepare:desktop-runtime` | Prepare desktop runtime assets, including remote assets by default                                                                  |
-| `pnpm prepare:remote-assets`   | Prepare remote runtime assets separately                                                                                            |
-| `pnpm bootstrap:with-remote`   | Set up dependencies and local and remote assets, then build the relevant packages sequentially; skip the desktop application bundle |
-| `pnpm build`                   | Recursively run each workspace package's build script, including its asset preparation steps                                        |
-
-The default `bootstrap` skips remote asset preparation and is suitable for local desktop development. Run the corresponding preparation command when working with remote workspaces or validating remote distribution assets.
-
-## Development and Usage
-
-### Desktop
+Common commands:
 
 ```bash
-pnpm dev:desktop
-
-# Use the test environment
-pnpm dev:desktop:test
-```
-
-`pnpm dev:desktop` defaults to `pnpm dev:desktop:prod` and uses production service configuration. The startup script prepares local runtime assets, builds the desktop Agent, then starts Electron and source watchers.
-
-Set `ZCODE_DATA_BASE_DIR` to use a separate development data directory. For example, on macOS / Linux:
-
-```bash
-ZCODE_DATA_BASE_DIR="$HOME/.zcode-dev-home" pnpm dev:desktop:test
-```
-
-### Web Development
-
-Use development mode when editing Web or backend source code:
-
-```bash
+pnpm lint
+pnpm typecheck
+pnpm fmt:check
+pnpm architecture:check --changed
+pnpm verify:pre-push
 pnpm dev:web
-
-# Set the backend workspace (macOS / Linux)
-ZCODE_SERVER_WORKSPACE=/path/to/project pnpm dev:web
+pnpm dev:desktop
 ```
 
-This starts both the Web development server (default: `http://localhost:5173`) and the backend (default: `http://localhost:3030`). Open the Web development server in your browser. `/ws` and general `/api` requests are proxied to the local backend; `/api/v1/oauth/token` is proxied separately to the configured product service.
+The authoritative implementation plan is controlled by the Work Orders and dependency graph.
 
-After changing Agent source code, run `pnpm --filter @zcode/cli... build` and restart the service. To validate the complete distribution, extract and run it as described under Packaging → ZCode CLI distribution below.
+## Initial TL frontier
 
-### ZCode CLI distribution
+Exactly three workers may start concurrently:
 
-The command-line distribution includes the TUI, Web client, and Agent behind one `zcode` command. With no arguments it starts the TUI; a leading `--web` starts Web mode; all other arguments go to the existing Agent CLI. Both modes run locally without Electron.
+- W1-001 — Commerce domain contracts
+- W2-001 — Agent/trust/capability/coordination contracts
+- W3-001 — Experience/connector/runtime/deployment boundaries
 
-```bash
-# Start the terminal UI by default
-zcode
+The TL is the orchestrator, not a fourth worker.
 
-# Start the Web interface
-zcode --web
+## ZCode lineage
 
-# Set the project and port without opening a browser automatically
-zcode --web --workspace /path/to/project --port 3030 --no-open
+UNiCOM is based on ZCode v3.14.3 at commit:
 
-# Show CLI or Web options
-zcode --help
-zcode --web --help
-```
+`29628c9acdb81b703bbd4080c207a0e7ce5e276e`
 
-In Web mode, it uses the current directory as the workspace, listens on `127.0.0.1` without token authentication by default, selects an available port, and opens a browser. Use the URL printed in the terminal and press `Ctrl+C` to stop the service. For LAN access, use `--host 0.0.0.0`; listening on a non-local address generates an access token by default. Use the token-bearing URL printed in the terminal. Set a token with `--token`, or disable token authentication with `--no-token`.
+ZCode remains the agent operating kernel. UNiCOM-specific architecture is specified under `spec/` and `docs/`.
 
-When starting the general Web service's HTTP entry directly, configure API/WebSocket authentication with `ZCODE_SERVER_AUTH_TOKEN`. When creating the service programmatically, use the `authToken` option.
+## License
 
-See Packaging below for build instructions. `pnpm build:zcode` only creates the distribution; it does not replace an existing `zcode` on `PATH`. If the command still points to an older installation or another checkout, check it with `command -v zcode` on macOS / Linux or `where.exe zcode` on Windows.
-
-### CLI Source Development
-
-Use the source entry when developing the TUI or Agent:
-
-```bash
-pnpm --filter @zcode/cli dev --help
-pnpm --filter @zcode/cli dev
-
-# Build the CLI and its workspace dependencies
-pnpm --filter @zcode/cli... build
-node apps/zcode-cli/packages/cli/dist/zcode.cjs --help
-```
-
-This entry runs the Agent CLI directly and does not handle the distribution's `--web` switch. Use `pnpm dev:web` for Web development, or the extracted `bin/zcode.mjs` shown below to test the unified command.
-
-## Configuration
-
-The root [.env.example](.env.example) provides sample service URLs and build configuration. Copy it to `.env` as needed and place local overrides in `.env.local`. Select the Desktop development environment with `dev:desktop:test` or `dev:desktop:prod`.
-
-| Setting                              | Purpose                                                                                 |
-| ------------------------------------ | --------------------------------------------------------------------------------------- |
-| `ZCODE_DATA_BASE_DIR`                | Base directory for application data, stored under its `.zcode/` subdirectory            |
-| `ZCODE_SERVER_WORKSPACE`             | Workspace path for the Web backend                                                      |
-| `ZCODE_BUILTIN_PROVIDER_CONFIG_FILE` | Path to a local provider configuration file; uses the built-in configuration when unset |
-| `ZCODE_DIST_BASE_URL`                | Download base URL used by the CLI distribution installer                                |
-
-Runtime variables can be set explicitly in the environment of the startup command. See [config/README.md](config/README.md) for the default configuration shipped with the client.
-
-## Packaging
-
-See [third-party/README.md](third-party/README.md) for notice generation, distribution checks, and where the notices are included in each distribution.
-
-### Desktop
-
-```bash
-pnpm bundle:desktop
-
-# Set the target platform and CPU architecture
-pnpm bundle:desktop -- --os win --arch x64
-
-pnpm bundle:desktop -- --help
-```
-
-The default target is macOS arm64, and the default output directory is `packages/desktop/dist/`. `--os` accepts `mac`, `win`, or `linux`; `--arch` accepts `x64` or `arm64`. Packaging and signing require the tools and configuration for the target platform.
-
-### ZCode CLI distribution
-
-Run `pnpm build:zcode` to build the CLI/TUI, backend, and Web client, collect the TUI native libraries, workers, and runtime dependencies, then assemble the distribution. Running the distribution still requires Node.js; use the version specified in `mise.toml`.
-
-Before packaging, set the download base URL with `ZCODE_DIST_BASE_URL` in `.env`, `.env.local`, or the process environment, or pass it through `--base-url`. The URL below is a placeholder; replace it with your hosting URL when publishing:
-
-```bash
-pnpm build:zcode --base-url https://downloads.example.com/zcode/
-
-# When ZCODE_DIST_BASE_URL is already configured
-pnpm build:zcode
-
-# Repackage existing Agent, backend, and Web build outputs
-pnpm build:zcode --skip-build
-
-# Show options for the version, output directory, and more
-pnpm build:zcode --help
-```
-
-The version defaults to the root `package.json` version. Output is written to `dist/zcode/`:
-
-- `releases/<version>/zcode-<version>.tar.gz`: runtime package.
-- `releases/<version>/sha256.txt`: checksum file.
-- `latest.json` and `install.sh`: version index and installer.
-
-Upload the entire directory to the configured download base URL. The installer downloads the runtime package from that URL, installs it to `~/.zcode/runtime` by default, and creates the `zcode` command in `~/.local/bin`. Override these directories with `ZCODE_DIST_HOME` and `ZCODE_DIST_BIN_DIR`, respectively.
-
-Existing Lite users should switch to the new build command, environment variables, and installer. Installation does not remove old Lite directories or migrate/delete session data.
-
-To test a packaged build locally, extract and run it directly without uploading or installing it:
-
-```bash
-zcode_version=$(node -p "require('./dist/zcode/latest.json').version")
-mkdir -p dist/zcode/debug
-tar -xzf "dist/zcode/releases/$zcode_version/zcode-$zcode_version.tar.gz" \
-  -C dist/zcode/debug
-# Start the TUI by default
-node dist/zcode/debug/zcode/bin/zcode.mjs
-
-# Start Web mode
-node dist/zcode/debug/zcode/bin/zcode.mjs --web \
-  --workspace "$PWD" --port 3030 --no-open
-```
-
-Open `http://127.0.0.1:3030` to validate the complete flow, with one backend serving the Web pages and running the Agent. The port must be available; if `pnpm dev:web` is already running, choose another `--port`.
-
-## Repository Structure
-
-| Directory                                            | Responsibility                                                                          |
-| ---------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `packages/desktop`                                   | Electron Main, Host, Renderer, and desktop packaging                                    |
-| `packages/web`                                       | Web client                                                                              |
-| `packages/server`                                    | HTTP / WebSocket services and remote connections                                        |
-| `packages/zcode-server-cli`                          | Standalone server startup and process management                                        |
-| `packages/ui`                                        | Shared React components, hooks, and Zustand state                                       |
-| `packages/services`                                  | Business services and persistence                                                       |
-| `packages/shared`, `packages/rpc`, `packages/client` | Shared protocols and types, RPC framework, and Agent client SDK                         |
-| `packages/provider`, `packages/provider-node`        | Common provider capabilities and Node implementations                                   |
-| `apps/zcode-cli`                                     | Agent CLI, TUI, runtime, and tools                                                      |
-| `scripts`, `config`, `third-party`                   | Build and maintenance scripts, built-in configuration, and third-party notice materials |
-
-## Project Notice
-
-See [NOTICE.md](NOTICE.md) for feature and promotion scope, maintenance policy, execution and data risks, licensing, and third-party copyright information.
+The repository retains the upstream ZCode licensing and third-party notices. See [NOTICE.md](NOTICE.md).
