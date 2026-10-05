@@ -1,4 +1,4 @@
-# UNiCOM — Frozen Architecture v1.0
+# UNiCOM — Frozen Architecture v1.1
 
 Status: FROZEN
 Locked: 2026-10-05
@@ -585,3 +585,118 @@ UNiCOM architecture is complete only when one end-to-end buyer or merchant goal 
 discover capabilities → form an execution organization → account for constraints → simulate alternatives → obtain required authority → execute across one or more real commerce systems → produce evidence → handle ambiguity → detect/recover security issues → learn from the outcome.
 
 No simulation, model or agent may become the canonical commerce truth.
+
+
+## 22. Complete feature coherence and discoverability
+
+The complete feature set is enumerated in `docs/FEATURE-COMPLETENESS-MATRIX.md`. That matrix is a coverage guard, not a second architecture authority.
+
+The architecture is one coherent loop:
+
+Buyer or merchant Goal
+→ constraints
+→ observations
+→ capability discovery
+→ Strategy candidates
+→ Organization candidates
+→ Commerce Twin simulation
+→ Trust/Security/Policy
+→ approval/authority
+→ Connector execution
+→ deterministic Commerce state
+→ evidence/reconciliation
+→ opportunity extraction
+→ learning/evaluation.
+
+No feature is allowed to become a disconnected vertical.
+
+### 22.1 Group-buy discovery and merchant demand generation
+
+Buyer agents can:
+- discover existing group-buy offers;
+- join a group;
+- recruit other user agents;
+- detect that a group could satisfy merchant and buyer constraints;
+- propose a new group-buy to a merchant agent.
+
+Merchant agents can accept, reject or counter-propose threshold/window/discount terms and launch only after policy approval.
+
+Group-buy terms, commitments and evidence are explicit state.
+
+### 22.2 Multi-hop trade cycles
+
+UNiCOM can discover bounded TradeCycles across multiple user agents.
+
+Each participant authorizes its own leg. Privacy is minimized to information necessary to prove and execute the cycle. Production search has a configurable maximum hop count and prefers atomic/staged execution with explicit recourse.
+
+### 22.3 Security as a commerce-wide immune system
+
+Security analysis spans product, review, merchant, customer, order, shipment, package, return, refund, payment, account, connector, agent and device signals.
+
+Examples:
+- review manipulation/rings;
+- seller ships a different product;
+- counterfeit substitution;
+- buyer falsely claims a different product arrived;
+- false non-delivery;
+- refund/return abuse.
+
+Security outputs:
+signal → risk classification → deterministic policy → block/quarantine/review → evidence → defensive signature → controlled broadcast → learning.
+
+### 22.4 Local Commerce Edge
+
+A first-class LocalCommerceEdge may connect:
+- legacy POS;
+- local-network services;
+- browser-only back offices;
+- USB/serial peripherals;
+- scanners;
+- scales;
+- local file drops;
+- barcode/camera workflows.
+
+The edge is a real capability boundary and may operate offline before reconciliation.
+
+### 22.5 Hardware independence
+
+UNiCOM must deliver meaningful retail/supermarket functionality with no RFID.
+
+RFID, smart shelves and advanced sensors are optional accelerators. Barcode, camera, receipts, files, POS exports, purchase orders, local edge and periodic physical observations remain first-class.
+
+### 22.6 Three-state operational truth
+
+Never conflate:
+- authoritative operational state;
+- observed physical/provider state;
+- predictive/model state.
+
+An observation or prediction becomes canonical only through the appropriate deterministic reconciliation path.
+
+### 22.7 UX discoverability is architectural completeness
+
+A feature is incomplete if users cannot discover it.
+
+Every feature must be reachable through:
+- primary navigation;
+- universal intent/command;
+- contextual opportunity;
+- onboarding/empty-state education.
+
+Important actions expose current state, evidence/explanation, available options, approval/risk, execution and history.
+
+The UI must not require users to know internal words such as "capability graph", "TradeCycle" or "Organization Lab" to use the underlying capability.
+
+### 22.8 Deployment fitness
+
+The control plane is cloud-native and provider-neutral.
+
+Execution tiers:
+1. edge/control plane;
+2. durable orchestration;
+3. connector/browser workers;
+4. local merchant edge.
+
+Free-tier providers are prototype/staging targets, not domain assumptions.
+
+Commercial production must be able to replace Vercel/Cloudflare/Neon/Upstash/Apify components independently.
