@@ -12,43 +12,101 @@
     "worker-3": "experience-connectors-physical-deployment"
   },
   "final_tl_handoff": "docs/FINAL-TL-HANDOFF-2026-10-05.md",
-  "active_work_orders": [
+  "active_work_orders": [],
+  "frontier": [
+    {
+      "id": "W1-002",
+      "status": "READY",
+      "owner": "worker-1",
+      "depends_on": [
+        "W1-001"
+      ]
+    },
+    {
+      "id": "W2-002",
+      "status": "READY",
+      "owner": "worker-2",
+      "depends_on": [
+        "W2-001"
+      ]
+    },
+    {
+      "id": "W3-002",
+      "status": "READY",
+      "owner": "worker-3",
+      "depends_on": [
+        "W3-001"
+      ]
+    }
+  ],
+  "completed_work_orders": [
     {
       "id": "W1-001",
-      "status": "ACTIVE",
       "owner": "worker-1",
       "depends_on": [],
       "activated_at": "2026-10-05T02:34:37Z",
-      "activated_by": "TL",
       "base_sha": "6026d37bd936127c54b1d7218d9ed14a8d09b4f9",
       "session": "unicom-w1-001",
-      "delivery_branch": "work/w1-001"
+      "delivery_branch": "work/w1-001",
+      "status": "MERGED",
+      "merged_at": "2026-10-05T11:05:00Z",
+      "merged_by": "TL",
+      "merge_sha": "0ff4973",
+      "branch_tip": "d21dd32",
+      "evidence": {
+        "contract_tests": "132/132 (13 suites) @unicom/commerce",
+        "typecheck": "clean (scoped tsc -b per package + combined post-merge)",
+        "lint": "0 errors (oxlint)",
+        "architecture": "0 violations (architecture:check, unioned policy)",
+        "merged_battery": "293/293 tests green on merged main @ 9cfd466",
+        "verified_by": "TL integration station 2026-10-05 (never trusted reported numbers; all gates re-run locally)"
+      }
     },
     {
       "id": "W2-001",
-      "status": "ACTIVE",
       "owner": "worker-2",
       "depends_on": [],
       "activated_at": "2026-10-05T02:34:37Z",
-      "activated_by": "TL",
       "base_sha": "6026d37bd936127c54b1d7218d9ed14a8d09b4f9",
       "session": "unicom-w2-001",
-      "delivery_branch": "work/w2-001"
+      "delivery_branch": "work/w2-001",
+      "status": "MERGED",
+      "merged_at": "2026-10-05T11:05:00Z",
+      "merged_by": "TL",
+      "merge_sha": "e35abbc",
+      "branch_tip": "fd8d7d3",
+      "evidence": {
+        "contract_tests": "106/106 (14 suites) @unicom/agent",
+        "typecheck": "clean (scoped tsc -b per package + combined post-merge)",
+        "lint": "0 errors (oxlint)",
+        "architecture": "0 violations (architecture:check, unioned policy)",
+        "merged_battery": "293/293 tests green on merged main @ 9cfd466",
+        "verified_by": "TL integration station 2026-10-05 (never trusted reported numbers; all gates re-run locally)"
+      }
     },
     {
       "id": "W3-001",
-      "status": "ACTIVE",
       "owner": "worker-3",
       "depends_on": [],
       "activated_at": "2026-10-05T02:34:37Z",
-      "activated_by": "TL",
       "base_sha": "6026d37bd936127c54b1d7218d9ed14a8d09b4f9",
       "session": "unicom-w3-001",
-      "delivery_branch": "work/w3-001"
+      "delivery_branch": "work/w3-001",
+      "status": "MERGED",
+      "merged_at": "2026-10-05T11:05:00Z",
+      "merged_by": "TL",
+      "merge_sha": "9cfd466",
+      "branch_tip": "f359adc",
+      "evidence": {
+        "contract_tests": "55/55 (9 areas) @unicom/experience",
+        "typecheck": "clean (scoped tsc -b per package + combined post-merge)",
+        "lint": "0 errors (oxlint)",
+        "architecture": "0 violations (architecture:check, unioned policy)",
+        "merged_battery": "293/293 tests green on merged main @ 9cfd466",
+        "verified_by": "TL integration station 2026-10-05 (never trusted reported numbers; all gates re-run locally)"
+      }
     }
   ],
-  "frontier": [],
-  "completed_work_orders": [],
   "gates": {
     "architecture_conformance": "REQUIRED",
     "contract_tests": "REQUIRED",
