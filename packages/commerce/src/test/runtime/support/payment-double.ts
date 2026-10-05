@@ -58,6 +58,14 @@ export class ScriptedPaymentDouble implements PaymentBoundary {
     return { ok: true, value: intent };
   }
 
+  /** Presentable port value: the internal bookkeeping field NEVER leaks into
+   *  domain objects (a real adapter returns clean PaymentIntents — W1-003's
+   *  canonical twin fold treats stray bigints as corruption). */
+  private present(paymentId: string): PaymentIntent {
+    const { refundedMinor: _internal, ...intent } = this.intents.get(paymentId) as DoubleIntent;
+    return intent;
+  }
+
   async capturePayment(paymentId: PaymentIntent["paymentId"]): Promise<Result<PaymentIntent, PaymentBoundaryError>> {
     this.callLog.push(`capture:${paymentId}`);
     const existing = this.intents.get(paymentId);
@@ -71,7 +79,7 @@ export class ScriptedPaymentDouble implements PaymentBoundary {
     }
     const captured: DoubleIntent = { ...existing, status: "CAPTURED", revision: existing.revision + 1 };
     this.intents.set(paymentId, this.ambiguate(captured));
-    return { ok: true, value: this.intents.get(paymentId) as PaymentIntent };
+    return { ok: true, value: this.present(paymentId) };
   }
 
   async voidPayment(paymentId: PaymentIntent["paymentId"]): Promise<Result<PaymentIntent, PaymentBoundaryError>> {
@@ -85,7 +93,7 @@ export class ScriptedPaymentDouble implements PaymentBoundary {
     }
     const voided: DoubleIntent = { ...existing, status: "VOIDED", revision: existing.revision + 1 };
     this.intents.set(paymentId, this.ambiguate(voided));
-    return { ok: true, value: this.intents.get(paymentId) as PaymentIntent };
+    return { ok: true, value: this.present(paymentId) };
   }
 
   async refundPayment(
@@ -104,7 +112,7 @@ export class ScriptedPaymentDouble implements PaymentBoundary {
     const status = refundedMinor >= total ? "REFUNDED" : "PARTIALLY_REFUNDED";
     const refunded: DoubleIntent = { ...existing, status, refundedMinor, revision: existing.revision + 1 };
     this.intents.set(paymentId, this.ambiguate(refunded));
-    return { ok: true, value: this.intents.get(paymentId) as PaymentIntent };
+    return { ok: true, value: this.present(paymentId) };
   }
 
   /** Script the NEXT port outcome as AMBIGUOUS → UNKNOWN (law 5). */
@@ -113,9 +121,10 @@ export class ScriptedPaymentDouble implements PaymentBoundary {
     this.ambiguousNativeStatus = nativeStatus;
   }
 
-  /** Direct read access for test assertions. */
+  /** Direct read access for test assertions (internal bookkeeping stripped). */
   intent(paymentId: string): PaymentIntent | undefined {
-    return this.intents.get(paymentId);
+    const existing = this.intents.get(paymentId);
+    return existing === undefined ? undefined : this.present(paymentId);
   }
 
   private ambiguate(intent: DoubleIntent): DoubleIntent {

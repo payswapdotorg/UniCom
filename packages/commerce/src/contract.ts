@@ -216,3 +216,34 @@ export {
   type CommerceKernelOptions, type ResolvedKernelOptions, DETERMINISTIC_EPOCH, resolveKernelOptions,
   type KernelStateSnapshot, type EmittedEventSpec, type CommandContext, gateAutonomousCommand,
 } from "./runtime/index.js";
+
+// --- Commerce Twin + event projections (W1-003) ---
+//
+// Deterministic read models folded from the kernel's append-only journal:
+// the projection engine (per-aggregate ordering, schema-versioned folds with
+// an explicit forward migration path), the named demand-side read models
+// (catalog / inventory / order / transfer / receiving / returns /
+// reconciliation), and the Commerce Twin — a full authoritative-state mirror
+// derived ONLY from events, queryable without mutating the kernel, with
+// snapshot-aware resume and the twin-verification harness (twin ≡ kernel).
+// The projection layer cannot import the runtime (layer order), so the twin
+// is structurally kernel-free. Additive only — nothing above is touched.
+
+export {
+  type ProjectionDefinition, type EventMigration, type ProjectionCheckpoint,
+  type SequenceLawError, migrateEventToCurrent, ProjectionEngine, SequenceLawViolation,
+  COMMERCE_PROJECTION_SCHEMA_VERSION, LEGACY_PROJECTION_SCHEMA_VERSION,
+  COMMERCE_EVENT_MIGRATIONS, migrateJournalToCurrent,
+  canonicalJson, serializableClone, journalFingerprint,
+  type CountObservationState, type InventoryReadModelState, countObservationStateOf, inventoryReadModel,
+  type OrderReadModelState, orderReadModel, type TransferReadModelState, transferReadModel,
+  type ReceivingReadModelState, outstandingUnitsFor, receivingReadModel,
+  type ReturnsReadModelState, returnsReadModel,
+  type ReconciliationReadModelState, reconciliationReadModel,
+  type SkuFact, type CatalogReadModelState, catalogReadModel,
+  type TwinState, type TwinStateSnapshot, snapshotOfTwin,
+  type TwinCheckpoint, CommerceTwin, canonicalOfTwin, twinProjection,
+  COMMERCE_FACTS_INTERFACE_ID, COMMERCE_FACTS_INTERFACE_VERSION,
+  type CommerceFactsV1, commerceFacts,
+  type TwinDivergence, compareTwinToAuthoritative, assertTwinMatchesAuthoritative, assertCanonicalEquivalence,
+} from "./projection/index.js";

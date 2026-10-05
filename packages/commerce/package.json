@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "UNiCOM Commerce Kernel: frozen domain contracts (Stage 0) + deterministic event-sourced kernel runtime (W1-002: idempotent command dispatch, append-only CommerceEvent journal, reconciliation, policy gate, payment boundary PORT).",
+  "description": "UNiCOM Commerce Kernel: frozen domain contracts (Stage 0) + deterministic event-sourced kernel runtime (W1-002: idempotent command dispatch, append-only CommerceEvent journal, reconciliation, policy gate, payment boundary PORT) + Commerce Twin event projections (W1-003: versioned read models, full event-derived state mirror with snapshot resume, twin-verification harness).",
   "exports": {
     ".": "./src/contract.ts"
   },
