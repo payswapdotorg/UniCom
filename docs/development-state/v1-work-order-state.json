@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "repository": "payswapdotorg/UniCom",
-  "architecture_version": "1.0-frozen-2026-10-05",
+  "architecture_version": "1.1-frozen-2026-10-05",
   "foundation_commit": "29628c9acdb81b703bbd4080c207a0e7ce5e276e",
   "implementation_authorized": true,
   "production_deployment_authorized": false,
@@ -13,9 +13,24 @@
   },
   "active_work_orders": [],
   "frontier": [
-    {"id":"W1-001","status":"READY","owner":"worker-1","depends_on":[]},
-    {"id":"W2-001","status":"READY","owner":"worker-2","depends_on":[]},
-    {"id":"W3-001","status":"READY","owner":"worker-3","depends_on":[]}
+    {
+      "id": "W1-001",
+      "status": "READY",
+      "owner": "worker-1",
+      "depends_on": []
+    },
+    {
+      "id": "W2-001",
+      "status": "READY",
+      "owner": "worker-2",
+      "depends_on": []
+    },
+    {
+      "id": "W3-001",
+      "status": "READY",
+      "owner": "worker-3",
+      "depends_on": []
+    }
   ],
   "completed_work_orders": [],
   "gates": {
@@ -31,12 +46,20 @@
     "simulation_isolation": "REQUIRED",
     "capability_scope": "REQUIRED",
     "provider_state_preservation": "REQUIRED",
-    "incumbent_native_baseline": "REQUIRED"
+    "incumbent_native_baseline": "REQUIRED",
+    "feature_discoverability": "REQUIRED",
+    "local_commerce_edge": "REQUIRED",
+    "group_buy_coordination": "REQUIRED",
+    "trade_cycle_authorization": "REQUIRED",
+    "security_behavioral_graph": "REQUIRED",
+    "no_rfid_supermarket_journey": "REQUIRED"
   },
   "work_order_policy": {
     "activate_only_from_frontier": true,
     "pairwise_disjoint_required": true,
     "no_untracked_scope": true,
     "repository_is_source_of_truth": true
-  }
+  },
+  "feature_completeness_gate": "docs/FEATURE-COMPLETENESS-MATRIX.md",
+  "supermarket_reference": "docs/SUPERMARKET-WITHOUT-RFID.md"
 }
