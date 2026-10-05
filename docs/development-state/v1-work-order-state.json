@@ -11,6 +11,7 @@
     "worker-2": "agent-trust-lab-security",
     "worker-3": "experience-connectors-physical-deployment"
   },
+  "final_tl_handoff": "docs/FINAL-TL-HANDOFF-2026-10-05.md",
   "active_work_orders": [],
   "frontier": [
     {
