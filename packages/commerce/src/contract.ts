@@ -197,3 +197,22 @@ export {
   type CommandRejection, type CommandRejectionCode, type CommandExecution, commandEnvelope,
   isSafeReplay,
 } from "./domain/commands.js";
+
+// --- Deterministic kernel runtime (W1-002) ---
+//
+// The real event-sourced runtime behind the contracts above: command
+// dispatch with idempotency keys, the append-only CommerceEvent journal,
+// aggregate folds, autonomous policy enforcement at the boundary, the
+// payment boundary as an injected typed PORT (no provider implementation
+// ships in this package), and deterministic reconstruction from replay.
+// Additive only — the frozen domain surface above is untouched.
+
+export {
+  CommerceKernel, type KernelPersistentState,
+  reconstructKernel, reconstructAuthoritativeState,
+  type AnyRuntimeCommand, type RuntimeCommandPayload, type SupplyCommandPayload,
+  type ReconciliationCommandPayload, type OrderFlowCommandPayload, type ReturnFlowCommandPayload,
+  type CircularCommandPayload,
+  type CommerceKernelOptions, type ResolvedKernelOptions, DETERMINISTIC_EPOCH, resolveKernelOptions,
+  type KernelStateSnapshot, type EmittedEventSpec, type CommandContext, gateAutonomousCommand,
+} from "./runtime/index.js";
