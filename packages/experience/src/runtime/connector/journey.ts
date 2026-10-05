@@ -108,17 +108,19 @@ export function createProviderJourneyRunner(
         if (observation !== null) observations.push(observation);
       }
 
-      // Candidate instances, filtered to the journey's mode (the matrix's
-      // typed form: instances simply do not carry forbidden modes).
-      const candidateInstances = connectors.flatMap((connector) =>
-        connector.connectedInstances.filter((instance) => instance.authorizedExecutionModes.includes(request.mode)),
-      );
+      // Candidate instances: ALL connected instances bound to the
+      // journey's connectors. Mode permission is NOT pre-filtered here —
+      // the canonical W2-002 kernel gate (evaluateCapabilityExecutability)
+      // blocks forbidden modes with EXECUTION_MODE_NOT_SUPPORTED, which is
+      // the enforced, evidenced form of the permission-matrix block.
+      const candidateInstances = connectors.flatMap((connector) => connector.connectedInstances);
       const implementations = connectors.flatMap((connector) => connector.adapter.descriptor.providerImplementations);
       const modeBlocked =
         connectors.length > 0 &&
         connectors.every((connector) =>
           connector.connectedInstances.every((instance) => !instance.authorizedExecutionModes.includes(request.mode)),
-        );
+        ) &&
+        connectors.every((connector) => connector.connectedInstances.length > 0);
 
       // 2. DECIDE + 3. EXECUTE — through the runtime's own dispatch
       // plumbing (plan is surfaced in the result for evidence; the

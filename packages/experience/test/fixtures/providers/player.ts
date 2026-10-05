@@ -62,7 +62,7 @@ export class FixturePlayer implements ProviderHttpPort {
     if (response === undefined) {
       throw new Error(`FIXTURE GAP: route ${route.method} ${route.pathPattern} has no responses`);
     }
-    return { status: response.status, headers: { ...(response.headers ?? {}) }, body: response.body };
+    return { status: response.status, headers: { ...response.headers }, body: response.body };
   }
 
   /** Requests recorded so far for one method+path pattern. */
