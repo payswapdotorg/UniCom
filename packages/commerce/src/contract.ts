@@ -15,111 +15,185 @@
  * 6. Provider-agnostic: no provider shapes leak into domain contracts.
  * 7. No model/runtime authority: typed commands are the only mutation path.
  */
-export type { Brand, CommerceSubjectType } from "./domain/ids.js";
+
+// --- Identity, results, exact numerics ---
+
 export {
-  isValidIdText,
-  makeId,
-  makeBarcode,
-} from "./domain/ids.js";
-export type {
-  MerchantId,
-  CustomerId,
-  AutonomousStoreId,
-  SystemPrincipalId,
-  SupplierId,
-  ProductId,
-  VariantId,
-  SkuId,
-  CollectionId,
-  Barcode,
-  PriceListId,
-  PromotionId,
-  CouponId,
-  LocationId,
-  ReservationId,
-  TransferId,
-  PurchaseOrderId,
-  ObservationId,
-  ReconciliationRecordId,
-  CartId,
-  CheckoutSessionId,
-  OrderId,
-  PaymentId,
-  FulfillmentOrderId,
-  ShipmentId,
-  TrackingRef,
-  ReturnId,
-  RefundId,
-  RefundRecourseId,
-  SubscriptionPlanId,
-  SubscriptionId,
-  CompanyAccountId,
-  ResaleListingId,
-  RentalAgreementId,
-  ConsignmentId,
-  OpportunityId,
-  GroupBuyId,
-  TradeCycleId,
-  CommerceEventId,
-  CommandId,
-  CommandReceiptId,
-  CorrelationId,
-  IdempotencyKey,
-  AutonomousStorePolicyId,
+  type Brand, type CommerceSubjectType, type MerchantId, type CustomerId, type AutonomousStoreId,
+  type SystemPrincipalId, type SupplierId, type ProductId, type VariantId, type SkuId,
+  type CollectionId, type Barcode, type PriceListId, type PromotionId, type CouponId,
+  type LocationId, type ReservationId, type TransferId, type PurchaseOrderId, type ObservationId,
+  type ReconciliationRecordId, type CartId, type CheckoutSessionId, type OrderId, type PaymentId,
+  type FulfillmentOrderId, type ShipmentId, type TrackingRef, type ReturnId, type RefundId,
+  type RefundRecourseId, type SubscriptionPlanId, type SubscriptionId, type CompanyAccountId,
+  type ResaleListingId, type RentalAgreementId, type ConsignmentId, type OpportunityId,
+  type GroupBuyId, type TradeCycleId, type CommerceEventId, type CommandId, type CommandReceiptId,
+  type CorrelationId, type IdempotencyKey, type AutonomousStorePolicyId,
+  isValidIdText, makeId, makeBarcode,
 } from "./domain/ids.js";
 
-export type { Result, Ok, Err } from "./domain/result.js";
-export { ok, err, unwrap } from "./domain/result.js";
+export { type Result, type Ok, type Err, ok, err, unwrap } from "./domain/result.js";
 
-export type { Decimal, RoundingMode, Rational } from "./domain/decimal.js";
 export {
-  decimal,
-  decimalToRational,
-  decimalScale,
-  decimalCompare,
-  compareRationals,
-  decimalAdd,
-  decimalMultiply,
-  decimalNegate,
-  decimalIsZero,
-  decimalIsIntegral,
-  formatExact,
-  roundRationalToBigInt,
+  type Decimal, type RoundingMode, type Rational, decimal, decimalToRational, decimalScale,
+  decimalCompare, compareRationals, decimalAdd, decimalMultiply, decimalNegate, decimalIsZero,
+  decimalIsIntegral, formatExact, roundRationalToBigInt,
 } from "./domain/decimal.js";
 
-export type { Money, CurrencyCode, MinorUnits, MoneyError } from "./domain/money.js";
 export {
-  currency,
-  money,
-  currencyMinorDigits,
-  addMoney,
-  subtractMoney,
-  negateMoney,
-  isZeroMoney,
-  isNegativeMoney,
-  moneyEquals,
-  compareMoney,
-  multiplyMoneyByInteger,
-  multiplyMoneyByDecimal,
-  percentageBpsOfMoney,
-  sumMoney,
-  formatMoney,
+  type Money, type CurrencyCode, type MinorUnits, type MoneyError, currency, money,
+  currencyMinorDigits, addMoney, subtractMoney, negateMoney, isZeroMoney, isNegativeMoney,
+  moneyEquals, compareMoney, multiplyMoneyByInteger, multiplyMoneyByDecimal,
+  percentageBpsOfMoney, sumMoney, formatMoney,
 } from "./domain/money.js";
 
-export type {
-  Quantity,
-  CountQuantity,
-  MeasurementQuantity,
-  UnitOfMeasure,
-  UnitFamily,
-} from "./domain/quantity.js";
 export {
-  unitOfMeasure,
-  unitFamily,
-  countQuantity,
-  measuredQuantity,
-  countUnits,
-  quantityEquals,
-  isMeasurementQuantity,
-  sumMeasurements,
+  type Quantity, type CountQuantity, type MeasurementQuantity, type UnitOfMeasure, type UnitFamily,
+  unitOfMeasure, unitFamily, countQuantity, measuredQuantity, countUnits, quantityEquals,
+  isMeasurementQuantity, sumMeasurements,
 } from "./domain/quantity.js";
+
+// --- Principals, opaque opportunity references, catalog, pricing ---
+
+export {
+  type PrincipalRef, type Merchant, type Customer, type MerchantStatus, type CustomerStatus,
+  type PrincipalStatus, principalRefKey, principalRefEquals,
+} from "./domain/principals.js";
+
+export {
+  type OpportunityReference, type OpportunityReferenceKind, type OpportunityLinkRole,
+  opportunityReferenceKey, opportunityReferenceEquals,
+} from "./domain/opportunity.js";
+
+export {
+  type Product, type Variant, type Sku, type Collection, type ProductStatus, type PricingMode,
+  type CatalogEntityType, isValidVariant, isValidProduct, isMeasuredVariant, findVariantBySku,
+} from "./domain/catalog.js";
+
+export {
+  type PriceList, type PriceEntry, type Promotion, type PromotionRule, type PromotionStatus,
+  type Coupon, type CouponStatus, type PriceLookupError, type PromotionApplication,
+  type PromotionApplicationError, type CouponRedemptionError, lookupPrice, applyPromotionRule,
+  redeemCoupon, isPromotionApplicableTo, priceEntryEquals,
+} from "./domain/pricing.js";
+
+// --- Observations, events, projections ---
+
+export {
+  type ObservationResolution, type ObservationSource, type ObservationSourceType,
+  type ObservationEnvelope, type PredictiveEstimate, type UnknownReason, isObserved, isUnknown,
+  isFailed, unknownResolution, failedResolution,
+} from "./domain/observation.js";
+
+export {
+  type CommerceEvent, type AnyCommerceEvent, type CommerceSubjectRef, type Revisioned,
+  type EventSequenceError, type CommerceProjection, nextRevision, validateEventSequence,
+  projectEvents,
+} from "./domain/events.js";
+
+// --- Inventory, transfers, purchasing, reconciliation ---
+
+export {
+  type CanonicalInventoryLevel, type Location, type LocationKind, type InventoryError,
+  type InventoryErrorCode, type InventoryAdjustmentReason, type InventoryReservation,
+  type ReservationStatus, type InventoryEventPayload, type InventoryDomainEvent,
+  type InventoryProjectionState, availableUnits, inventoryKey, reserveUnits, commitReservation,
+  releaseReservation, adjustOnHand, inventorySubject, inventoryProjection,
+} from "./domain/inventory.js";
+
+export {
+  type StockTransfer, type StockTransferLine, type TransferState, type TransferTrigger,
+  type TransferTransitionError, transferTransition, advanceTransfer, transferUnitsFor,
+  isValidTransfer,
+} from "./domain/transfers.js";
+
+export {
+  type PurchaseOrder, type PurchaseOrderLine, type PurchaseOrderState, type PurchaseOrderTrigger,
+  type PurchaseOrderTransitionError, type ReceivingLine, type ReceivingResult, type ReceivingError,
+  type ReceivingErrorCode, purchaseOrderTransition, receiveAgainstPurchaseOrder, outstandingUnits,
+  DEFAULT_OVER_RECEIPT_TOLERANCE_BPS,
+} from "./domain/purchasing.js";
+
+export {
+  type InventoryCountObservation, type PosSyncObservation, type CountObservationKind,
+  type PosSyncKind, type CountReconciliationPolicy, type ReconciliationOutcome,
+  type ReconciliationDisposition, type ReconciliationRecord, reconcileCountObservation,
+  reconcilePosSync, reconciliationRecord, AUTHORITATIVE_COUNT_KINDS,
+  DEFAULT_COUNT_RECONCILIATION_POLICY,
+} from "./domain/reconciliation.js";
+
+// --- Cart / checkout boundary, orders, payment boundary, fulfillment ---
+
+export {
+  type Cart, type CartLine, type UnitCartLine, type MeasuredCartLine, type CartTotals,
+  type TotalsOptions, type CartError, type CheckoutSession, type CheckoutSessionState,
+  type CheckoutTrigger, type CheckoutTransitionError, lineSubtotal, computeCartTotals,
+  checkoutTransition, cartLineSkuId, cartTotalsEquals,
+} from "./domain/cart.js";
+
+export {
+  type OrderSnapshot, type OrderLine, type OrderLineUnit, type OrderLineMeasured, type OrderState,
+  type OrderTrigger, type OrderTransitionError, type OrderPaymentStatus, type OrderFulfillmentStatus,
+  type OrderEventPayload, type OrderDomainEvent, type OrderProjectionState, orderTransition,
+  orderSubject, orderProjection, orderLineUnits,
+} from "./domain/orders.js";
+
+export {
+  type PaymentIntent, type PaymentIntentRequest, type PaymentBoundary, type PaymentBoundaryError,
+  type PaymentBoundaryErrorCode, type PaymentMethodKind, type PaymentMethodRef, type PaymentStatus,
+  type PaymentReference, type CustomerAction, resolveAmbiguousPayment, validatePaymentIntentRequest,
+  validateRefundAmount,
+} from "./domain/payments.js";
+
+export {
+  type FulfillmentOrder, type FulfillmentLine, type Shipment, type ShipmentState,
+  type ShipmentTrigger, type ShipmentTransitionError, type DeliveryObservation,
+  type DeliveryObservationValue, shipmentTransition, advanceShipment, applyDeliveryObservation,
+  isTerminalShipmentState,
+} from "./domain/fulfillment.js";
+
+// --- Returns, subscriptions, B2B, circular commerce ---
+
+export {
+  type ReturnAuthorization, type ReturnLine, type ReturnResolution, type ReturnReason,
+  type ReturnState, type ReturnTrigger, type ReturnTransitionError, type RefundRecord,
+  type RefundState, type RefundRecoursePolicy, type RecourseStatus, returnTransition,
+  advanceReturn, refundNeedsReview, refundTransition,
+} from "./domain/returns.js";
+
+export {
+  type Subscription, type SubscriptionPlan, type SubscriptionState, type SubscriptionTrigger,
+  type SubscriptionTransitionError, type BillingPeriod, subscriptionTransition, advanceSubscription,
+  isValidSubscriptionPlan,
+} from "./domain/subscriptions.js";
+
+export {
+  type CompanyAccount, type B2BPriceList, type B2BPriceListEntry, type PaymentTerms,
+  type B2BPriceError, type MinimumOrderPolicy, type MinimumOrderError, negotiatedPrice,
+  enforceMinimumOrder,
+} from "./domain/b2b.js";
+
+export {
+  type ResaleListing, type ListingState, type ListingTrigger, type ListingTransitionError,
+  type RentalAgreement, type RentalPeriod, type RentalState, type RentalTrigger,
+  type RentalTransitionError, type ConsignmentAgreement, type ConsignmentState,
+  type ConsignmentTrigger, type ConsignmentTransitionError, type ItemCondition, listingTransition,
+  advanceListing, rentalTransition, advanceRental, depositReturn, consignmentTransition,
+  advanceConsignment, consignmentPayout,
+} from "./domain/circular.js";
+
+// --- Autonomous store policy, commands (the only mutation path) ---
+
+export {
+  type AutonomousStorePrincipal, type AutonomousStorePolicy, type StopCondition,
+  type StopConditionKind, type PolicyPeriod, type PolicyProposal, type PolicyDecision,
+  type PolicyDenialReason, evaluateAutonomousPolicy, revisePolicy,
+} from "./domain/policy.js";
+
+export {
+  type CommerceCommandEnvelope, type AnyCommerceCommand, type CommerceCommandPayload,
+  type InventoryCommandPayload, type CartCommandPayload, type OrderCommandPayload,
+  type PaymentCommandPayload, type ReturnCommandPayload, type CommandReceipt,
+  type CommandRejection, type CommandRejectionCode, type CommandExecution, commandEnvelope,
+  isSafeReplay,
+} from "./domain/commands.js";
