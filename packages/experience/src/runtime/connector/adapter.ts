@@ -57,6 +57,14 @@ export interface AdapterConnectContext {
   readonly sealedCredential: CredentialRef;
   readonly credentialScope: CredentialScope;
   readonly grantedPermissions: readonly ProviderPermission[];
+  /**
+   * OPTIONAL (W3-003, additive): the specific capability this connection
+   * binds. First provider adapters implement one canonical implementation
+   * per capability; when present, connect() returns the instance bound to
+   * THAT implementation. Absent → the adapter's primary capability. W3-002
+   * callers never set it, so their behavior is unchanged.
+   */
+  readonly capabilityDefinitionId?: string;
 }
 
 /** Connection outcome. UNKNOWN is preserved, never collapsed to failure. */

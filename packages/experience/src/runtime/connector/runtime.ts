@@ -74,6 +74,8 @@ export interface ConnectorConnectRequest {
   readonly credential: CredentialMaterialInput;
   readonly grantedPermissions: readonly string[];
   readonly credentialScope: string;
+  /** OPTIONAL (W3-003, additive): capability this connection binds. */
+  readonly capabilityDefinitionId?: string;
 }
 
 export interface ConnectorExecuteOptions {
@@ -164,6 +166,7 @@ export function createConnectorRuntime(options: ConnectorRuntimeOptions): Connec
         sealedCredential,
         credentialScope: credentialScope(request.credentialScope),
         grantedPermissions: request.grantedPermissions,
+        capabilityDefinitionId: request.capabilityDefinitionId,
       });
       const next: RegisteredConnector =
         connected.status === "connected"
