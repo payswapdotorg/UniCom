@@ -80,7 +80,7 @@ describe("deployment boundary", () => {
     expect(offenders).toEqual([]);
   });
 
-  it("declares no provider SDK dependencies in the package manifest (W3-002: the sanctioned @unicom/agent seam is the only workspace dep)", () => {
+  it("declares no provider SDK dependencies in the package manifest (W3-002: the sanctioned @unicom/agent seam is the only RUNTIME workspace dep)", () => {
     const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as {
       dependencies?: Record<string, string>;
       devDependencies?: Record<string, string>;
@@ -90,11 +90,21 @@ describe("deployment boundary", () => {
     expect(offenders).toEqual([]);
     // W3-002 seam law: the capability vocabulary is consumed via the typed
     // @unicom/agent dependency (workspace protocol) — exactly one, never a
-    // second vocabulary, never a provider SDK.
-    const workspaceDeps = Object.entries(allDeps).filter(
+    // second vocabulary, never a provider SDK. RUNTIME dependencies remain
+    // EXACTLY this seam.
+    const runtimeDeps = Object.entries(manifest.dependencies ?? {}).filter(
       ([dep, version]) => dep.startsWith("@unicom/") || version.startsWith("workspace:"),
     );
-    expect(workspaceDeps).toEqual([["@unicom/agent", "workspace:*"]]);
+    expect(runtimeDeps).toEqual([["@unicom/agent", "workspace:*"]]);
+    // W3-004 (additive): @unicom/commerce may appear ONLY as a devDependency
+    // — the Worker-1 public contract seam exercised by cross-lane journey
+    // TESTS (edge observations fold into the real kernel's inventory
+    // facts). It is not a runtime dependency of this plane and never a
+    // vocabulary seam.
+    const workspaceDevDeps = Object.entries(manifest.devDependencies ?? {}).filter(
+      ([dep, version]) => dep.startsWith("@unicom/") || version.startsWith("workspace:"),
+    );
+    expect(workspaceDevDeps).toEqual([["@unicom/commerce", "workspace:*"]]);
     expect(Object.keys(allDeps).some((dep) => PROVIDER_NAME_PATTERN.test(dep))).toBe(false);
   });
 
