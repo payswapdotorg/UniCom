@@ -67,10 +67,14 @@ export type BrowserSessionLifecycle =
 
 /**
  * The isolated browser session handle. CLOSED shape: exactly these fields.
- * Secret-carrying shapes are not assignable to it because it is branded and
- * carries no open-ended fields.
+ * `handleKind` is a construction brand: only the Connector Runtime (W3-002)
+ * builds handles, so secret-carrying shapes cannot accidentally satisfy
+ * this interface. There is no field that can hold cookies, tokens,
+ * passwords, MFA material or browser storage contents.
  */
 export interface BrowserSessionHandle {
+  /** Construction brand (nominal marker; carries no material). */
+  readonly handleKind: "isolated-browser-session";
   readonly sessionId: BrowserSessionId;
   readonly authorizationScope: BrowserAuthorizationScope;
   readonly isolation: BrowserSessionIsolation;
