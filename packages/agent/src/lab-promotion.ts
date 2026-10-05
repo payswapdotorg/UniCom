@@ -32,7 +32,20 @@ export const UNICOM_COORDINATION_LOGIC = {
   DEMAND_AGGREGATION: "logic:unicom:demand-aggregation",
 } as const;
 
-export type LabLogicKind = "FORMATION" | "DISCOVERY" | "COORDINATION" | "AGGREGATION" | "ORGANIZATION";
+/**
+ * W2-004 (additive): security immune-system logic kinds — detection,
+ * capability attenuation and defensive broadcast logic are born under the
+ * same lab gates as coordination logic.
+ */
+export type LabLogicKind =
+  | "FORMATION"
+  | "DISCOVERY"
+  | "COORDINATION"
+  | "AGGREGATION"
+  | "ORGANIZATION"
+  | "DETECTION"
+  | "ATTENUATION"
+  | "BROADCAST";
 
 export interface LabCandidate {
   readonly logicId: string;

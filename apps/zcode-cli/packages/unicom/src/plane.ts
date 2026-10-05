@@ -54,6 +54,8 @@ import { createGatedToolRegistry, UnicomKernelGate } from "./registry-gate.js";
 import { UnicomModelRouter } from "./routing.js";
 import { UnicomSkillRegistry } from "./skills.js";
 import { UnicomOpportunityLab } from "./opportunity-lab.js";
+import { UnicomImmuneSystem } from "./immune-system.js";
+import { UnicomOpportunityGraph } from "./opportunity-graph.js";
 import { type RecordOrganizationInput, UnicomStrategyOrganizationStore } from "./strategy-organization.js";
 import {
   createUnicomToolEntries,
@@ -113,6 +115,10 @@ export class UnicomAgentPlane {
   readonly router: UnicomModelRouter;
   /** W2-003: the Organization / Opportunity Lab enforcement point. */
   readonly lab: UnicomOpportunityLab;
+  /** W2-004: the Security Immune System enforcement point (shared lab gates). */
+  readonly immune: UnicomImmuneSystem;
+  /** W2-004: the provenance-carrying opportunity graph (lab-gated records). */
+  readonly opportunityGraph: UnicomOpportunityGraph;
   readonly runtimeTaskRegistry = new InMemoryRuntimeTaskRegistry();
   readonly parentEvents: SessionEvent[] = [];
 
@@ -155,6 +161,16 @@ export class UnicomAgentPlane {
         ...(options.labCapabilityVocabulary ? { capabilityVocabulary: options.labCapabilityVocabulary } : {}),
         now: () => this.now().toISOString(),
       });
+    this.immune = new UnicomImmuneSystem({
+      lab: this.lab,
+      securityPolicy: options.securityPolicy,
+      now: () => this.now().toISOString(),
+    });
+    this.opportunityGraph = new UnicomOpportunityGraph({
+      lab: this.lab,
+      journal: this.immune.journal,
+      now: () => this.now().toISOString(),
+    });
     this.capabilityBindingsByTool = new Map<string, CapabilityToolBinding>([
       [
         UNICOM_COMMERCE_TOOL_NAME,
@@ -223,6 +239,7 @@ export class UnicomAgentPlane {
       securityGate: this.securityGate,
       capabilityGate: this.capabilityGate,
       budgetLedger: this.budgetLedger,
+      immuneSystem: this.immune,
       now: this.now,
       ...(principal ? { principal } : {}),
     });

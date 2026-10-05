@@ -100,6 +100,11 @@ export class ActorCapabilityLedger {
     this.vocabulary = canonicalVocabulary;
   }
 
+  /** W2-004 (additive): the canonical vocabulary this ledger validates against. */
+  canonicalVocabulary(): readonly CapabilityDefinition[] {
+    return [...this.vocabulary];
+  }
+
   registerPosition(position: OrganizationPosition): void {
     if (this.positionsById.has(position.positionId)) {
       throw new Error(`position already registered: ${position.positionId} (append-only ledger)`);
@@ -151,6 +156,19 @@ export class ActorCapabilityLedger {
   /** Position grants a holder actually holds (across organizations). */
   holderGrants(principalId: string): readonly PositionCapabilityGrant[] {
     return [...(this.grantsByHolder.get(principalId) ?? [])];
+  }
+
+  /**
+   * W2-004 (additive): principals currently holding a capability — the
+   * reverse lookup broadcast audience computation needs (deterministic,
+   * sorted; holder principal ids, positions included).
+   */
+  holdersOfCapability(capabilityDefinitionId: string): readonly string[] {
+    return [...new Set(
+      [...this.grantsByHolder.entries()]
+        .filter(([, grants]) => grants.some((grant) => grant.capabilityDefinitionId === capabilityDefinitionId))
+        .map(([principalId]) => principalId),
+    )].sort();
   }
 
   /** True only when a granted capability is held — never by catalog presence. */

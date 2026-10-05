@@ -74,6 +74,14 @@ export {
   type UnicomOpportunityLabOptions,
 } from "./opportunity-lab.js";
 export {
+  UnicomImmuneSystem,
+  type UnicomImmuneSystemOptions,
+} from "./immune-system.js";
+export {
+  UnicomOpportunityGraph,
+  type UnicomOpportunityGraphOptions,
+} from "./opportunity-graph.js";
+export {
   createGatedToolRegistry,
   UnicomKernelGate,
   type UnicomRegistryGateOptions,

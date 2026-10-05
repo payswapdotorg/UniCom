@@ -39,6 +39,10 @@ export const UnicomErrorCode = {
   ORGANIZATION_INVALID: 60_070,
   LAB_CANDIDATE_NOT_PROMOTED: 60_080,
   DISCLOSURE_POLICY_VIOLATION: 60_081,
+  /** W2-004: immune logic born in the Lab; un-promoted → unreachable. */
+  IMMUNE_LOGIC_NOT_PROMOTED: 60_082,
+  /** W2-004: reversible capability attenuation refusal at the tool gate. */
+  CAPABILITY_QUARANTINED: 60_083,
 } as const;
 export type UnicomErrorCode = (typeof UnicomErrorCode)[keyof typeof UnicomErrorCode];
 
