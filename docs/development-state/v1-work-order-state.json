@@ -14,46 +14,71 @@
   "final_tl_handoff": "docs/FINAL-TL-HANDOFF-2026-10-05.md",
   "active_work_orders": [
     {
-      "id": "W1-002",
+      "id": "W1-003",
       "status": "ACTIVE",
       "owner": "worker-1",
       "depends_on": [
-        "W1-001"
+        "W1-002"
       ],
-      "activated_at": "2026-10-05T11:15:00Z",
+      "activated_at": "2026-10-05T13:30:00Z",
       "activated_by": "TL",
-      "base_sha": "7eef8b2",
-      "session": "unicom-w1-002",
-      "delivery_branch": "work/w1-002"
+      "base_sha": "d83a38b",
+      "session": "unicom-w1-003",
+      "delivery_branch": "work/w1-003"
     },
     {
-      "id": "W2-002",
+      "id": "W2-003",
       "status": "ACTIVE",
       "owner": "worker-2",
       "depends_on": [
-        "W2-001"
+        "W2-002"
       ],
-      "activated_at": "2026-10-05T11:15:00Z",
+      "activated_at": "2026-10-05T13:30:00Z",
       "activated_by": "TL",
-      "base_sha": "7eef8b2",
-      "session": "unicom-w2-002",
-      "delivery_branch": "work/w2-002"
+      "base_sha": "d83a38b",
+      "session": "unicom-w2-003",
+      "delivery_branch": "work/w2-003"
     },
     {
-      "id": "W3-002",
+      "id": "W3-003",
       "status": "ACTIVE",
       "owner": "worker-3",
       "depends_on": [
-        "W3-001"
+        "W3-002"
       ],
-      "activated_at": "2026-10-05T11:15:00Z",
+      "activated_at": "2026-10-05T13:30:00Z",
       "activated_by": "TL",
-      "base_sha": "7eef8b2",
-      "session": "unicom-w3-002",
-      "delivery_branch": "work/w3-002"
+      "base_sha": "d83a38b",
+      "session": "unicom-w3-003",
+      "delivery_branch": "work/w3-003"
     }
   ],
-  "frontier": [],
+  "frontier": [
+    {
+      "id": "W1-004",
+      "title": "Checkout/payment/recourse/autonomous-store primitives",
+      "stage": 3,
+      "depends_on": [
+        "W1-003"
+      ]
+    },
+    {
+      "id": "W2-004",
+      "title": "Trust/proof + Security Immune System + opportunity graph (adversarial evidence: fake review rings, wrong-item shipment, false claims, false non-delivery, return/refund abuse)",
+      "stage": 3,
+      "depends_on": [
+        "W2-003"
+      ]
+    },
+    {
+      "id": "W3-004",
+      "title": "Physical Commerce Edge + live-commerce UX",
+      "stage": 3,
+      "depends_on": [
+        "W3-003"
+      ]
+    }
+  ],
   "completed_work_orders": [
     {
       "id": "W1-001",
@@ -118,6 +143,81 @@
         "lint": "0 errors (oxlint)",
         "architecture": "0 violations (architecture:check, unioned policy)",
         "merged_battery": "293/293 tests green on merged main @ 9cfd466",
+        "verified_by": "TL integration station 2026-10-05 (never trusted reported numbers; all gates re-run locally)"
+      }
+    },
+    {
+      "id": "W1-002",
+      "status": "MERGED",
+      "owner": "worker-1",
+      "depends_on": [
+        "W1-001"
+      ],
+      "activated_at": "2026-10-05T11:15:00Z",
+      "activated_by": "TL",
+      "base_sha": "7eef8b2",
+      "session": "unicom-w1-002",
+      "delivery_branch": "work/w1-002",
+      "merged_at": "2026-10-05T13:30:00Z",
+      "merged_by": "TL",
+      "merge_sha": "81c64af",
+      "branch_tip": "f85d02d",
+      "evidence": {
+        "contract_tests": "188/188 (25 suites) @unicom/commerce \u2014 deterministic kernel runtime",
+        "typecheck": "clean (scoped tsc -b: commerce + agent + experience + apps/zcode-cli/packages/unicom, merged)",
+        "lint": "0 errors (oxlint)",
+        "architecture": "0 violations (architecture:check, unioned policy)",
+        "merged_battery": "478/478 tests green on merged main @ d83a38b (commerce 188 + agent 167 + experience 123)",
+        "verified_by": "TL integration station 2026-10-05 (never trusted reported numbers; all gates re-run locally)"
+      }
+    },
+    {
+      "id": "W2-002",
+      "status": "MERGED",
+      "owner": "worker-2",
+      "depends_on": [
+        "W2-001"
+      ],
+      "activated_at": "2026-10-05T11:15:00Z",
+      "activated_by": "TL",
+      "base_sha": "7eef8b2",
+      "session": "unicom-w2-002",
+      "delivery_branch": "work/w2-002",
+      "merged_at": "2026-10-05T13:30:00Z",
+      "merged_by": "TL",
+      "merge_sha": "d83a38b",
+      "branch_tip": "57e3ff0",
+      "evidence": {
+        "contract_tests": "167/167 (23 suites) @unicom/agent \u2014 ZCode agent kernel adaptation incl. zcode-cli unicom kernel package",
+        "typecheck": "clean (scoped tsc -b: commerce + agent + experience + apps/zcode-cli/packages/unicom, merged)",
+        "lint": "0 errors (oxlint)",
+        "architecture": "0 violations (architecture:check, unioned policy)",
+        "merged_battery": "478/478 tests green on merged main @ d83a38b (commerce 188 + agent 167 + experience 123)",
+        "verified_by": "TL integration station 2026-10-05 (never trusted reported numbers; all gates re-run locally)"
+      }
+    },
+    {
+      "id": "W3-002",
+      "status": "MERGED",
+      "owner": "worker-3",
+      "depends_on": [
+        "W3-001"
+      ],
+      "activated_at": "2026-10-05T11:15:00Z",
+      "activated_by": "TL",
+      "base_sha": "7eef8b2",
+      "session": "unicom-w3-002",
+      "delivery_branch": "work/w3-002",
+      "merged_at": "2026-10-05T13:30:00Z",
+      "merged_by": "TL",
+      "merge_sha": "29d0378",
+      "branch_tip": "a456691",
+      "evidence": {
+        "contract_tests": "123/123 (18 suites) @unicom/experience \u2014 connector runtime + browser/session isolation",
+        "typecheck": "clean (scoped tsc -b: commerce + agent + experience + apps/zcode-cli/packages/unicom, merged)",
+        "lint": "0 errors (oxlint)",
+        "architecture": "0 violations (architecture:check, unioned policy)",
+        "merged_battery": "478/478 tests green on merged main @ d83a38b (commerce 188 + agent 167 + experience 123)",
         "verified_by": "TL integration station 2026-10-05 (never trusted reported numbers; all gates re-run locally)"
       }
     }
