@@ -189,22 +189,17 @@ Required:
   
 ## Feature discoverability architecture
 
-Primary navigation:
+Primary navigation is organized around user intent rather than internal subsystems:
 
-- Command Center
-- Shop / Intent
-- Store / Sell
-- Orders
-- Inventory / Physical
-- Customers
-- Marketing
-- Opportunities
-- Live Commerce
-- Experiments / Twin
-- Autonomy
+- Home / Command Center
+- Buy
+- Sell / Store
+- Operate (orders, inventory, customers, fulfillment)
+- Discover (opportunities, group-buy, resale/rental, trade, live commerce)
+- Lab (Commerce Twin, simulations, experiments, autonomy)
 - Trust / Security
-- Connections
-- Apps / Skills
+- Connections (channels, POS, local edge, apps/skills)
+- Explore / Capabilities
 - Settings
 
 Every capability remains reachable through the global intent/command surface.
@@ -293,3 +288,56 @@ R2 Free currently includes 10 GB-month storage, 1M Class A and 10M Class B opera
 Upstash Redis Free currently provides 256 MB, 10 GB monthly bandwidth and 500K commands/month.
 
 These numbers are deployment observations only and may change. Domain code must never branch on them.
+
+
+## Explore / Capabilities
+
+Explore is a first-class product surface, not a help page.
+
+It shows the complete set of things UNiCOM can do, organized by:
+- Buy;
+- Sell;
+- Operate;
+- Discover;
+- Automate;
+- Connect;
+- Protect.
+
+Each capability card contains:
+- what it does;
+- when it is useful;
+- required connections/data;
+- an example request;
+- current availability;
+- "Try it" action.
+
+This solves the "code exists but users do not know it exists" failure mode.
+
+The global command/intent input remains universal, but Explore ensures users can learn the product without knowing the right words.
+
+## Zero-data onboarding
+
+An empty store should not look like a blank dashboard.
+
+It should present an actionable capability map:
+- Connect a store;
+- Import a catalog;
+- Start selling;
+- Ask UNiCOM to operate the store;
+- Find your first opportunity;
+- Try buyer intent;
+- Create a group-buy;
+- Connect physical inventory;
+- Run a simulation.
+
+The onboarding path changes with role, but all capabilities remain discoverable.
+
+## Local edge runtime modes
+
+LocalCommerceEdge should support multiple installation modes:
+1. lightweight installed service on a store PC/server;
+2. packaged desktop companion;
+3. browser/host-assisted mode when installation is restricted;
+4. mobile/tablet companion where local hardware is reachable there.
+
+All modes expose the same provider-neutral capability contract.
