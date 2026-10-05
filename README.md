@@ -19,9 +19,12 @@ Start here:
 3. [spec/architecture/INVARIANTS.md](spec/architecture/INVARIANTS.md)
 4. [spec/dependency-graph.md](spec/dependency-graph.md)
 5. [docs/LLM-ARCHITECT-HANDOFF.md](docs/LLM-ARCHITECT-HANDOFF.md)
-6. [docs/research/COMMERCE-RESEARCH.md](docs/research/COMMERCE-RESEARCH.md)
-7. [docs/UX-DEPLOYMENT.md](docs/UX-DEPLOYMENT.md)
-8. [docs/development-state/v1-work-order-state.json](docs/development-state/v1-work-order-state.json)
+6. [docs/FEATURE-COMPLETENESS-MATRIX.md](docs/FEATURE-COMPLETENESS-MATRIX.md)
+7. [docs/FINAL-FEATURE-AUDIT-2026-10-05.md](docs/FINAL-FEATURE-AUDIT-2026-10-05.md)
+8. [docs/research/COMMERCE-RESEARCH.md](docs/research/COMMERCE-RESEARCH.md)
+9. [docs/SUPERMARKET-WITHOUT-RFID.md](docs/SUPERMARKET-WITHOUT-RFID.md)
+10. [docs/UX-DEPLOYMENT.md](docs/UX-DEPLOYMENT.md)
+11. [docs/development-state/v1-work-order-state.json](docs/development-state/v1-work-order-state.json)
 
 ## Architecture at a glance
 
