@@ -147,3 +147,51 @@ The research supports a unified architecture in which:
 - fraud/security uses provenance + behavioral graphs;
 - agent actions are deterministic tool calls;
 - simulation is distinct from operational truth.
+
+  
+## 10. No-RFID retail precedent
+
+Square's current retail workflows demonstrate GTIN/barcode item creation using a phone camera, barcode/scanner stock counts and scanner-scale workflows for grocery/retail. Shopify POS supports barcode-assisted inventory receiving/adjustment, multi-location inventory, purchase orders and QR product experiences.
+
+Architectural implication:
+RFID should be an optional accelerator rather than a prerequisite to join UNiCOM.
+
+Sources:
+- https://squareup.com/help/us/en/article/7992-automate-item-creation-with-square-for-retail
+- https://api.squareup.com/help/us/en/article/8249-conduct-full-inventory-counts-with-square-for-retail
+- https://squareup.com/help/us/en/article/8192-connect-a-scanner-scale-with-square-for-retail
+- https://www.shopify.com/pos/features
+
+## 11. Current free-tier deployment evidence
+
+Current provider documentation confirms:
+- Cloudflare Workers Free has bounded request/CPU limits;
+- Queues are available on Workers Free;
+- SQLite-backed Durable Objects are available on Free;
+- Browser Run has a free browser allowance;
+- Workers AI has a daily free allocation;
+- Neon Free has 100 projects with 1 GB Postgres storage each;
+- R2 Free has 10 GB-month storage plus Class A/B operation allowances;
+- Upstash Redis Free has 256 MB, 10 GB bandwidth and 500K monthly commands.
+
+Architectural implication:
+Use these providers for prototypes and sparse/small pilot workloads, but isolate them behind provider-neutral adapters and assume commercial workloads will move to paid capacity.
+
+Sources:
+- https://developers.cloudflare.com/workers/platform/pricing/
+- https://developers.cloudflare.com/changelog/post/2026-02-04-queues-free-plan/
+- https://developers.cloudflare.com/durable-objects/platform/pricing/
+- https://developers.cloudflare.com/browser-run/pricing/
+- https://developers.cloudflare.com/workers-ai/platform/pricing/
+- https://neon.com/blog/neon-free-plan-1-gb-per-project
+- https://developers.cloudflare.com/r2/pricing/
+- https://upstash.com/pricing/redis
+- https://vercel.com/legal/terms
+
+## 12. Local Edge implication
+
+Because many small businesses have no public API, the architecture requires an installable/local Edge Connector that can operate through authorized local interfaces and synchronize observations/commands to the cloud.
+
+The edge should support POS exports, browser sessions, USB/serial, LAN services, scanners, scales, camera workflows and offline queueing.
+
+This is the bridge from an online-merchant SaaS to a Commerce Network that includes real physical businesses.
