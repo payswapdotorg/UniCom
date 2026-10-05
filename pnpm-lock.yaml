@@ -807,6 +807,10 @@ importers:
         version: 8.0.8(@types/node@25.6.0)(esbuild@0.27.7)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.9.0)
 
   packages/experience:
+    dependencies:
+      '@unicom/agent':
+        specifier: workspace:*
+        version: link:../agent
     devDependencies:
       '@types/node':
         specifier: ^25.5.0
