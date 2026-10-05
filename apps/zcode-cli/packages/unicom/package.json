@@ -1,0 +1,31 @@
+{
+  "name": "@unicom/agent-kernel",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "UNiCOM agent-kernel adaptation (W2-002): wires @unicom/agent contracts into the ZCode agent kernel runtime through its DI seams (tool registry, model factory, subagent port, skill port). Kernel-enforced MainAgent identity, attenuated ephemeral delegates, typed capability executability preconditions, model-context credential redaction, System1/JEPA/System2 routing hooks and the security immune-system enforcement point.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "node ../../scripts/clean-dist.mjs",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint src --no-ignore",
+    "lint:fix": "oxlint --fix src --no-ignore"
+  },
+  "dependencies": {
+    "@unicom/agent": "workspace:*",
+    "@zcode/contracts": "workspace:*",
+    "@zcode/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.0"
+  }
+}

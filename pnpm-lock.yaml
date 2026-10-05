@@ -592,6 +592,25 @@ importers:
         specifier: ^4.20.0
         version: 4.21.0
 
+  apps/zcode-cli/packages/unicom:
+    dependencies:
+      '@unicom/agent':
+        specifier: workspace:*
+        version: link:../../../../packages/agent
+      '@zcode/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+      '@zcode/core':
+        specifier: workspace:*
+        version: link:../core
+    devDependencies:
+      '@types/node':
+        specifier: ^24.0.0
+        version: 24.12.2
+      typescript:
+        specifier: ^5.9.0
+        version: 5.9.3
+
   apps/zcode-cli/tools/prompt-trajectory:
     devDependencies:
       '@types/node':
@@ -611,6 +630,15 @@ importers:
       '@types/node':
         specifier: ^25.5.0
         version: 25.6.0
+      '@unicom/agent-kernel':
+        specifier: workspace:*
+        version: link:../../apps/zcode-cli/packages/unicom
+      '@zcode/contracts':
+        specifier: workspace:*
+        version: link:../../apps/zcode-cli/packages/contracts
+      '@zcode/core':
+        specifier: workspace:*
+        version: link:../../apps/zcode-cli/packages/core
       typescript:
         specifier: ^6.0.2
         version: 6.0.2

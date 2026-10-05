@@ -10,6 +10,7 @@ import {
   credentialScope,
   credentialRef,
   isTrustedInstruction,
+  redactCredentialMaterial,
   toModelContextMaterial,
 } from "../src/index.js";
 
@@ -77,5 +78,26 @@ describe("no credentials in model context", () => {
     expect(scope.length).toBeGreaterThan(0);
     expect(ref.length).toBeGreaterThan(0);
     expectTypeOf<typeof ref>().not.toEqualTypeOf<string>(); // opaque handle, not free text
+  });
+
+  it("redacts credential-shaped keys deterministically without dropping surrounding context (W2-002 runtime companion)", () => {
+    const kernelMediated = {
+      observation: { sku: "SKU-1", price: { currency: "GHS", minorUnits: "450000" } },
+      connector: { sessionCookie: "SECRET", accessToken: "SECRET", nested: [{ mfaCode: "123456" }] },
+    };
+    const first = redactCredentialMaterial(kernelMediated);
+    const second = redactCredentialMaterial(kernelMediated);
+    expect(first.findings.map((finding) => finding.path).sort()).toEqual(
+      ["connector.sessionCookie", "connector.accessToken", "connector.nested.0.mfaCode"].sort(),
+    );
+    expect(first.redacted).toEqual(second.redacted); // deterministic
+    expect(first.redacted.observation.price.currency).toBe("GHS"); // surrounding context survives
+    expect(first.redacted.connector.sessionCookie).toBe("[REDACTED:credential-material]");
+    expect(first.redacted.connector.nested[0]?.mfaCode).toBe("[REDACTED:credential-material]");
+    // The original value is untouched (deep copy, no in-place mutation).
+    expect(kernelMediated.connector.sessionCookie).toBe("SECRET");
+    // Non-objects pass through untouched.
+    expect(redactCredentialMaterial("plain text").findings).toEqual([]);
+    expect(redactCredentialMaterial(42).redacted).toBe(42);
   });
 });

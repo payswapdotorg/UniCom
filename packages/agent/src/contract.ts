@@ -30,6 +30,8 @@ export { brandRef, compareMoney, isMoney, isTimestamp, money, timestamp } from "
 // Model-context safety + untrusted content (laws 9, 10)
 // ---------------------------------------------------------------------------
 export type {
+  CredentialRedactionFinding,
+  CredentialRedactionResult,
   CredentialRef,
   CredentialScope,
   ModelContextMaterial,
@@ -47,6 +49,7 @@ export {
   credentialScopeSatisfies,
   credentialScopeTokens,
   isTrustedInstruction,
+  redactCredentialMaterial,
   toModelContextMaterial,
 } from "./model-context.js";
 
