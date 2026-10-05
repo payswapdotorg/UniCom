@@ -187,10 +187,12 @@ function buildCandidate(path: readonly TradeOffer[]): TradeCycleCandidate {
 
 /**
  * Turn a discovered candidate into a proposed TradeCycle by attaching each
- * participant's OWN authorization to the legs they give. Missing or foreign
- * authorizations are simply left out — `validateTradeCycle` then refuses
- * the cycle (LEG_UNAUTHORIZED / LEG_AUTHORIZATION_MISMATCH). Discovery
- * never fabricates authorization.
+ * GIVING participant's recorded authorization to the legs they give. The
+ * decision recorded under a holder's key is attached verbatim — validation
+ * (`validateTradeCycle`) then enforces that the signer is the leg's own
+ * from-participant, so a foreign-signed decision surfaces as
+ * LEG_AUTHORIZATION_MISMATCH and a missing one as LEG_UNAUTHORIZED.
+ * Discovery never fabricates authorization.
  */
 export function authorizeTradeCycleCandidate(input: {
   readonly candidate: TradeCycleCandidate;
@@ -202,7 +204,7 @@ export function authorizeTradeCycleCandidate(input: {
 }): TradeCycle {
   const legs = input.candidate.legs.map((leg) => {
     const authorization = input.authorizationsByHolder[leg.fromRef.principalId];
-    if (authorization === undefined || authorization.decidedBy.principalId !== leg.fromRef.principalId) {
+    if (authorization === undefined) {
       return { ...leg, requiredProofLevel: input.requiredProofLevel };
     }
     return { ...leg, authorization, requiredProofLevel: input.requiredProofLevel };

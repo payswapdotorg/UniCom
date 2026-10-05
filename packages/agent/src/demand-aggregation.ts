@@ -183,7 +183,7 @@ export interface DemandLeakFinding {
 }
 
 const AGGREGATE_PATH_PATTERN =
-  /^(merchantVisible\.(aggregateParticipantCount|opaqueItemRefs(\[\d+\])?|priceBand\.suppressed|interestWindow\.(opensOn|closesOn)|epistemics\.(kind|basis)))$/;
+  /^\$\.merchantVisible\.(aggregateParticipantCount|opaqueItemRefs(\[\d+\])?|priceBand\.(suppressed|currency|floorMinorUnits|ceilingMinorUnits)|interestWindow\.(opensOn|closesOn)|epistemics\.(kind|basis))$/;
 
 /**
  * Structural verification that ZERO raw buyer-intent fields cross the
@@ -223,13 +223,13 @@ export function findRawIntentLeaks(
       continue;
     }
     // Declared subject disclosure: opaque item refs may cross by contract.
-    if (leaf.path.startsWith("merchantVisible.opaqueItemRefs")) continue;
+    if (leaf.path.startsWith("$.merchantVisible.opaqueItemRefs")) continue;
     // Structural aggregates with whole-population support: the participant
     // count (support = n) and the date-coarsened interest window.
-    if (leaf.path === "merchantVisible.aggregateParticipantCount") continue;
-    if (leaf.path.startsWith("merchantVisible.interestWindow")) continue;
+    if (leaf.path === "$.merchantVisible.aggregateParticipantCount") continue;
+    if (leaf.path.startsWith("$.merchantVisible.interestWindow")) continue;
     // Band endpoints: verify k-support from the source intents themselves.
-    if (leaf.path === "merchantVisible.priceBand.floorMinorUnits" || leaf.path === "merchantVisible.priceBand.ceilingMinorUnits") {
+    if (leaf.path === "$.merchantVisible.priceBand.floorMinorUnits" || leaf.path === "$.merchantVisible.priceBand.ceilingMinorUnits") {
       const support = countBudgetSupport(sourceIntents, value, leaf.path.endsWith("floorMinorUnits"));
       if (support < k) findings.push({ path: leaf.path, value, how: "AGGREGATE_SUPPORT_BELOW_ANONYMITY_COUNT" });
       continue;
