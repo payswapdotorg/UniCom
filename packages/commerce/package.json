@@ -1,0 +1,19 @@
+{
+  "name": "@unicom/commerce",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "UNiCOM Commerce Kernel domain contracts (Stage 0: frozen types, contract tests, minimal deterministic validation).",
+  "exports": {
+    ".": "./src/contract.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix --fix-suggestions"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.2",
+    "vitest": "^3.2.4"
+  }
+}
