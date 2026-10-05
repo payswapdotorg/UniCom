@@ -60,8 +60,8 @@ modules:
     managed: true
     requires: []
     publicEntrypoints: [packages/commerce/src/contract.ts]
-    layers: { domain: domain, runtime: runtime }
-    layerOrder: [domain, runtime]
+    layers: { domain: domain, projection: projection, runtime: runtime }
+    layerOrder: [domain, projection, runtime]
     owner: commerce-truth
   - id: agent
     roots: [packages/agent/src]
