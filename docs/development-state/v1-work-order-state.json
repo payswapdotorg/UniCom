@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "repository": "payswapdotorg/UniCom",
+  "architecture_version": "1.0-frozen-2026-10-05",
+  "foundation_commit": "29628c9acdb81b703bbd4080c207a0e7ce5e276e",
+  "implementation_authorized": true,
+  "production_deployment_authorized": false,
+  "max_concurrent_workers": 3,
+  "worker_lanes": {
+    "worker-1": "commerce-truth-economic-execution",
+    "worker-2": "agent-trust-lab-security",
+    "worker-3": "experience-connectors-physical-deployment"
+  },
+  "active_work_orders": [],
+  "frontier": [
+    {"id":"W1-001","status":"READY","owner":"worker-1","depends_on":[]},
+    {"id":"W2-001","status":"READY","owner":"worker-2","depends_on":[]},
+    {"id":"W3-001","status":"READY","owner":"worker-3","depends_on":[]}
+  ],
+  "completed_work_orders": [],
+  "gates": {
+    "architecture_conformance": "REQUIRED",
+    "contract_tests": "REQUIRED",
+    "typecheck": "REQUIRED",
+    "lint": "REQUIRED",
+    "real_connector_evidence": "REQUIRED",
+    "browser_e2e_for_ui": "REQUIRED",
+    "unknown_reconciliation": "REQUIRED",
+    "idempotency": "REQUIRED",
+    "security_adversarial_tests": "REQUIRED",
+    "simulation_isolation": "REQUIRED",
+    "capability_scope": "REQUIRED",
+    "provider_state_preservation": "REQUIRED",
+    "incumbent_native_baseline": "REQUIRED"
+  },
+  "work_order_policy": {
+    "activate_only_from_frontier": true,
+    "pairwise_disjoint_required": true,
+    "no_untracked_scope": true,
+    "repository_is_source_of_truth": true
+  }
+}
