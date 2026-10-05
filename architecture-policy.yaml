@@ -70,6 +70,12 @@ modules:
     publicEntrypoints:
       [packages/agent/src/index.ts, packages/agent/src/contract.ts, packages/agent/src/capability/index.ts]
     owner: worker-2
+  - id: experience
+    roots: [packages/experience/src]
+    managed: true
+    requires: []
+    publicEntrypoints: [packages/experience/src/contract.ts]
+    owner: worker-3
 
 global:
   maxFileLines: 400

@@ -1,0 +1,19 @@
+{
+  "name": "@unicom/experience",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "description": "UNiCOM public experience, connector, physical-edge and deployment boundary contracts (Stage 0, W3-001).",
+  "exports": {
+    ".": "./src/contract.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.test.json"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "typescript": "^6.0.2",
+    "vitest": "^3.2.4"
+  }
+}
