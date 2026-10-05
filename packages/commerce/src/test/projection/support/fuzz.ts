@@ -26,6 +26,18 @@ import {
   type IdempotencyKey,
   type PrincipalRef,
   type RuntimeCommandPayload,
+  // Trigger unions for the intentional-invalidity fuzz casts below (the
+  // fuzz vocabulary DELIBERATELY mixes invalid triggers — the kernel must
+  // fold them to zero events; the casts acknowledge the violation).
+  type CheckoutTrigger,
+  type OrderTrigger,
+  type ShipmentTrigger,
+  type DeliveryObservation,
+  type PurchaseOrderTrigger,
+  type ReturnTrigger,
+  type SubscriptionTrigger,
+  type ListingTrigger,
+  type RentalTrigger,
 } from "../../../contract.js";
 
 /** Deterministic PRNG (mulberry32): identical seed → identical sequence. */
@@ -103,7 +115,7 @@ export class FuzzCommandSource {
       this.counter += 1;
       return {
         envelope: commandEnvelope(
-          makeId<CommandId>(`cmd-fuzz-conflict-${this.counter}`),
+          makeId<"CommandId">(`cmd-fuzz-conflict-${this.counter}`),
           original.idempotencyKey,
           this.rng.pick(FUZZ_ACTORS),
           "2026-10-05T00:00:00Z",
@@ -116,8 +128,8 @@ export class FuzzCommandSource {
     const payload = this.generatePayload(kernel);
     return {
       envelope: commandEnvelope(
-        makeId<CommandId>(`cmd-fuzz-${this.counter}`),
-        makeId<IdempotencyKey>(`idem-fuzz-${this.counter}`),
+        makeId<"CommandId">(`cmd-fuzz-${this.counter}`),
+        makeId<"IdempotencyKey">(`idem-fuzz-${this.counter}`),
         this.rng.pick(FUZZ_ACTORS),
         "2026-10-05T00:00:00Z",
         payload,
@@ -180,7 +192,7 @@ export class FuzzCommandSource {
       case "ADVANCE_CHECKOUT": {
         const sessions = view.allCheckoutSessions().filter((session) => session.state !== "COMPLETED" && session.state !== "ABANDONED");
         if (sessions.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(2), locationId: locationId(0), units: 2, reason: "RECEIVING" };
-        return { type, checkoutSessionId: this.rng.pick(sessions).checkoutSessionId, trigger: this.rng.pick(["CONFIRM", "ABANDON"] as const) };
+        return { type, checkoutSessionId: this.rng.pick(sessions).checkoutSessionId, trigger: this.rng.pick(["CONFIRM", "ABANDON"] as const) as CheckoutTrigger };
       }
       case "PLACE_ORDER": {
         const carts = view.allCarts().filter((cart) => cart.lines.length > 0);
@@ -194,7 +206,7 @@ export class FuzzCommandSource {
         const orderId = this.rng.pick(orders).orderId;
         return type === "CANCEL_ORDER"
           ? { type, orderId }
-          : { type, orderId, trigger: this.rng.pick(["SHIP", "ORDER_COMPLETED"] as const) };
+          : { type, orderId, trigger: this.rng.pick(["SHIP", "ORDER_COMPLETED"] as const) as OrderTrigger };
       }
       case "CREATE_PAYMENT_INTENT": {
         const unpaid = view.allOrders().filter((order) => order.paymentStatus === "NOT_PAID" || order.paymentStatus === "AUTHORIZED");
@@ -233,7 +245,7 @@ export class FuzzCommandSource {
         return {
           type,
           fulfillmentOrderId: this.rng.pick(fulfillments).fulfillmentOrderId,
-          trigger: this.rng.pick(["PACK", "TENDER", "CONFIRM_DELIVERY", "ATTEMPT_DELIVERY"] as const),
+          trigger: this.rng.pick(["PACK", "TENDER", "CONFIRM_DELIVERY", "ATTEMPT_DELIVERY"] as const) as ShipmentTrigger,
         };
       }
       case "APPLY_DELIVERY_OBSERVATION": {
@@ -243,18 +255,21 @@ export class FuzzCommandSource {
         const resolution = this.rng.int(3);
         return {
           type,
+          // extra fields (observationId/source) are deliberately beyond the
+          // DeliveryObservation contract — the kernel must ignore them; the
+          // cast acknowledges the intentional excess (fuzz semantics).
           observation: {
             observationId: makeId<"ObservationId">(`obs-fuzz-${(this.counter += 1)}`),
             shipmentId: shipment.shipmentId,
             observedAt: "2026-10-05T00:00:00Z",
             source: { sourceType: "CARRIER", sourceRef: "carrier-fuzz" },
             resolution:
-              resolution === 0
+              (resolution === 0
                 ? { resolved: "OBSERVED", value: "DELIVERED" as const }
                 : resolution === 1
                   ? { resolved: "UNKNOWN", reason: "AMBIGUOUS" as const, providerNativeStatus: "SCAN_UNCLEAR" }
-                  : { resolved: "FAILED", error: "carrier API error" },
-          },
+                  : { resolved: "FAILED", error: "carrier API error" }) as DeliveryObservation["resolution"],
+          } as DeliveryObservation,
         };
       }
       case "OPEN_TRANSFER": {
@@ -298,7 +313,7 @@ export class FuzzCommandSource {
         if (orders.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(3), locationId: locationId(0), units: 5, reason: "RECEIVING" };
         const po = this.rng.pick(orders);
         if (type === "ADVANCE_PURCHASE_ORDER") {
-          return { type, purchaseOrderId: po.purchaseOrderId, trigger: this.rng.pick(["SUBMIT", "CONFIRM"] as const) };
+          return { type, purchaseOrderId: po.purchaseOrderId, trigger: this.rng.pick(["SUBMIT", "CONFIRM"] as const) as PurchaseOrderTrigger };
         }
         const line = po.lines[0];
         return {
@@ -360,9 +375,9 @@ export class FuzzCommandSource {
         };
       }
       case "ADVANCE_RETURN": {
-        const returns = view.allReturns().filter((item) => item.state !== "CLOSED");
+        const returns = view.allReturns().filter((item) => item.state !== "RESOLVED");
         if (returns.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(1), locationId: locationId(1), units: 2, reason: "RECEIVING" };
-        return { type, returnId: this.rng.pick(returns).returnId, trigger: this.rng.pick(["AUTHORIZE", "RECEIVE", "CLOSE"] as const) };
+        return { type, returnId: this.rng.pick(returns).returnId, trigger: this.rng.pick(["AUTHORIZE", "RECEIVE", "CLOSE"] as const) as ReturnTrigger };
       }
       case "OPEN_SUBSCRIPTION":
         return {
@@ -378,7 +393,7 @@ export class FuzzCommandSource {
       case "ADVANCE_SUBSCRIPTION": {
         const subs = view.allSubscriptions().filter((sub) => sub.state !== "CANCELLED" && sub.state !== "EXPIRED");
         if (subs.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(2), locationId: locationId(0), units: 3, reason: "RECEIVING" };
-        return { type, subscriptionId: this.rng.pick(subs).subscriptionId, trigger: this.rng.pick(["ACTIVATE", "CANCEL", "RENEW"] as const) };
+        return { type, subscriptionId: this.rng.pick(subs).subscriptionId, trigger: this.rng.pick(["ACTIVATE", "CANCEL", "RENEW"] as const) as SubscriptionTrigger };
       }
       case "OPEN_LISTING":
         return {
@@ -394,9 +409,9 @@ export class FuzzCommandSource {
           },
         };
       case "ADVANCE_LISTING": {
-        const listings = view.allListings().filter((listing) => listing.state !== "SOLD" && listing.state !== "WITHDRAWN");
+        const listings = view.allListings().filter((listing) => listing.state !== "SOLD" && listing.state !== "ENDED");
         if (listings.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(3), locationId: locationId(1), units: 4, reason: "RECEIVING" };
-        return { type, listingId: this.rng.pick(listings).listingId, trigger: this.rng.pick(["PUBLISH", "WITHDRAW"] as const) };
+        return { type, listingId: this.rng.pick(listings).listingId, trigger: this.rng.pick(["PUBLISH", "WITHDRAW"] as const) as ListingTrigger };
       }
       case "OPEN_RENTAL":
         return {
@@ -415,7 +430,7 @@ export class FuzzCommandSource {
       case "ADVANCE_RENTAL": {
         const rentals = view.allRentals().filter((rental) => rental.state !== "RETURNED" && rental.state !== "CANCELLED");
         if (rentals.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(0), locationId: locationId(0), units: 2, reason: "RECEIVING" };
-        return { type, rentalAgreementId: this.rng.pick(rentals).rentalAgreementId, trigger: this.rng.pick(["START", "END", "CANCEL"] as const) };
+        return { type, rentalAgreementId: this.rng.pick(rentals).rentalAgreementId, trigger: this.rng.pick(["START", "END", "CANCEL"] as const) as RentalTrigger };
       }
       case "OPEN_CONSIGNMENT":
         return {

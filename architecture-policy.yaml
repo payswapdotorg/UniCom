@@ -85,4 +85,11 @@ global:
   forbidDeepImports: true
   managedOnly: true
 
-exceptions: []
+exceptions:
+  - rule: max-file-lines
+    paths:
+      - packages/commerce/src/test/projection/support/fuzz.ts
+    reason: >-
+      Exhaustive fuzz vocabulary over the whole kernel command surface
+      (test-support enumeration; same nature as the lint policy's test-tree
+      exemption — see .oxlintrc.json overrides). Scoped to this single file.
