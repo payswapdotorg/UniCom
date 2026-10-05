@@ -12,21 +12,7 @@
   "worker-3": "experience-connectors-physical-deployment"
  },
  "final_tl_handoff": "docs/FINAL-TL-HANDOFF-2026-10-05.md",
- "active_work_orders": [
-  {
-   "id": "W2-003",
-   "status": "ACTIVE",
-   "owner": "worker-2",
-   "depends_on": [
-    "W2-002"
-   ],
-   "activated_at": "2026-10-05T13:30:00Z",
-   "activated_by": "TL",
-   "base_sha": "d83a38b",
-   "session": "unicom-w2-003",
-   "delivery_branch": "work/w2-003"
-  }
- ],
+ "active_work_orders": [],
  "frontier": [
   {
    "id": "W1-004",
@@ -243,6 +229,31 @@
     "architecture": "0 violations (scoped max-file-lines exception for the fuzz vocabulary file + lint override extended to test trees per documented intent)",
     "delivery": "work/w1-003 @ 3c6c7f3 (2 commits, 25 files, +3333) + TL fixes @ 239fd4e \u2014 git gold standard",
     "verified_by": "TL integration station re-run (never trusted reported numbers; worker skipped tsc/lint/arch gates \u2014 battery caught it)"
+   }
+  },
+  {
+   "id": "W2-003",
+   "status": "MERGED",
+   "owner": "worker-2",
+   "depends_on": [
+    "W2-002"
+   ],
+   "activated_at": "2026-10-05T13:30:00Z",
+   "activated_by": "TL",
+   "base_sha": "d83a38b",
+   "session": "unicom-w2-003",
+   "delivery_branch": "work/w2-003",
+   "merged_at": "2026-10-05T22:18:00Z",
+   "merged_by": "TL",
+   "merge_sha": "5f3fbe9",
+   "branch_tip": "e917064",
+   "evidence": {
+    "contract_tests": "244/244 @unicom/agent \u2014 7 acceptance suites per order (groupbuy formation 12, demand zero-leak 9, tradecycle adversarial termination 13, coordination privacy 6, actor-capability 7, lab promotion gates 10, opportunity engine 12) + kernel integration (UnicomOpportunityLab, lab-gated tools, plane wiring) with 8 runtime tests on the real kernel",
+    "typecheck": "0 errors (scoped tsc -b packages/agent + apps/zcode-cli/packages/unicom)",
+    "lint": "0 errors (72 warnings, pre-existing class)",
+    "architecture": "0 violations",
+    "changes_requested_round": "initial delivery 761fe74 had ZERO tests (implementation clean) \u2014 CHANGES-REQUESTED 21:54Z citing order's 7 acceptance scenarios; re-delivery c0f5148+e917064 complete in 21 min",
+    "verified_by": "TL integration station re-run (both rounds; never trusted reported numbers)"
    }
   }
  ],
