@@ -189,3 +189,37 @@ The ZCode task planner should expose:
 - promotion status.
 
 Repository state must be the backing source for those progress displays.
+
+  
+## Final pre-implementation audit
+
+Before activating the frontier, the TL must read:
+- docs/FEATURE-COMPLETENESS-MATRIX.md
+- docs/SUPERMARKET-WITHOUT-RFID.md
+
+The TL must explicitly cover:
+- Shopify-class merchant parity;
+- AI-native merchant operation;
+- buyer intent optimization;
+- push/pull marketplace connectors;
+- API/MCP/CLI-less browser/local connectors;
+- live commerce;
+- physical commerce;
+- autonomous stores;
+- one Main Agent + skills;
+- emergent bounded organizations/delegates;
+- group-buy discovery and merchant proposals;
+- bounded multi-hop trade;
+- proactive resale/rental/opportunity discovery;
+- UserTrust vs AgentTrust;
+- P0–P5 proofs;
+- security immune system and defensive broadcast;
+- System 1 / JEPA / System 2;
+- Commerce Twin;
+- experiment/simulation/promotion;
+- feature discoverability;
+- no-RFID supermarket onboarding;
+- Local Commerce Edge;
+- provider-replaceable deployment.
+
+The initial three Work Orders must include acceptance cases drawn from the feature matrix.
