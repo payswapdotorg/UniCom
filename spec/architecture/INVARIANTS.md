@@ -40,3 +40,16 @@
 38. UI progress is backed by repository Work Order state.
 39. Production paths may not depend on mocks.
 40. All UI journey changes require browser E2E evidence.
+
+41. Every feature in docs/FEATURE-COMPLETENESS-MATRIX.md must have a discoverable user path before it can be accepted as product-complete.
+42. GroupBuy is a first-class coordination object; merchant terms and participant commitments are explicit.
+43. Merchant agents may receive demand-generated group-buy proposals; users are never silently enrolled.
+44. Production TradeCycle search is bounded and each participant authorizes its own leg.
+45. LocalCommerceEdge is a first-class connector boundary for legacy/no-API retail systems.
+46. RFID is optional; barcode/camera/POS/file/receipt/local-edge paths remain first-class.
+47. Physical observations cannot silently overwrite authoritative operational state.
+48. Review, shipping, return and buyer-claim security signals may be correlated only under declared privacy/authority policy.
+49. Defensive security broadcasts cannot contain weaponized exploit payloads.
+50. Browser/local connector credentials remain outside model context and repository artifacts.
+51. Free-tier limits are deployment constraints, never domain semantics.
+52. Commercial production must be able to replace any prototype provider without changing domain contracts.
