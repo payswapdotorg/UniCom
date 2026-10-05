@@ -1,0 +1,21 @@
+{
+  "name": "@unicom/agent",
+  "private": true,
+  "type": "module",
+  "description": "UNiCOM intelligence/coordination contract surface: agent principals, capability vocabulary (canonical), trust/proof, security immune system, opportunity/coordination and model routing contracts. W2-001 Stage 0.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./contract": "./src/contract.ts",
+    "./capability": "./src/capability/index.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "typescript": "^6.0.2",
+    "vitest": "^3.2.4"
+  }
+}
