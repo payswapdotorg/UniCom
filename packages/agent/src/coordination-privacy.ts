@@ -135,8 +135,13 @@ export const MINIMUM_NECESSARY_DISCLOSURE_POLICY: CoordinationDisclosurePolicy =
 export interface CoordinationDisclosureView {
   readonly coordinationId: string;
   readonly recipientKind: CoordinationRecipientKind;
-  /** Only whitelisted keys are ever present in a well-formed view. */
-  readonly disclosed: Readonly<Partial<Record<CoordinationDisclosureField, unknown>>>;
+  /**
+   * Well-formed views carry ONLY whitelisted field keys — enforced at
+   * RUNTIME (enforceMinimumNecessary / adversarialReconstruction), because
+   * adversarial input is inherently untyped: a smuggled key is exactly the
+   * violation the checker must catch.
+   */
+  readonly disclosed: Readonly<Record<string, unknown>>;
 }
 
 /**
@@ -149,8 +154,8 @@ export function discloseCoordination(input: {
   readonly policy: CoordinationDisclosurePolicy;
   readonly material: Readonly<Partial<Record<CoordinationDisclosureField, unknown>>>;
 }): CoordinationDisclosureView {
-  const allowed = new Set(input.policy.allowedByRecipient[input.recipientKind]);
-  const disclosed: Partial<Record<CoordinationDisclosureField, unknown>> = {};
+  const allowed = new Set<string>(input.policy.allowedByRecipient[input.recipientKind]);
+  const disclosed: Record<string, unknown> = {};
   for (const [field, value] of Object.entries(input.material) as readonly [CoordinationDisclosureField, unknown][]) {
     if (value === undefined) continue;
     if (allowed.has(field)) disclosed[field] = value;
@@ -165,9 +170,9 @@ export function enforceMinimumNecessary(
   view: CoordinationDisclosureView,
   policy: CoordinationDisclosurePolicy,
 ): { readonly ok: true } | { readonly ok: false; readonly violations: readonly DisclosureViolation[] } {
-  const allowed = new Set(policy.allowedByRecipient[view.recipientKind]);
+  const allowed = new Set<string>(policy.allowedByRecipient[view.recipientKind]);
   const violations: DisclosureViolation[] = [];
-  for (const field of Object.keys(view.disclosed) as CoordinationDisclosureField[]) {
+  for (const field of Object.keys(view.disclosed)) {
     if (view.disclosed[field] !== undefined && !allowed.has(field)) {
       violations.push({ field, reason: "UNDISCLOSED_FIELD" });
     }

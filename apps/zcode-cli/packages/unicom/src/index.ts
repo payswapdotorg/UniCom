@@ -70,6 +70,10 @@ export {
   isDelegateActionAllowed,
 } from "./delegate-budget.js";
 export {
+  UnicomOpportunityLab,
+  type UnicomOpportunityLabOptions,
+} from "./opportunity-lab.js";
+export {
   createGatedToolRegistry,
   UnicomKernelGate,
   type UnicomRegistryGateOptions,
@@ -89,6 +93,7 @@ export {
   UNICOM_COMMERCE_TOOL_NAME,
   UNICOM_DELEGATE_DISPATCH_TOOL_NAME,
   UNICOM_OBSERVE_TOOL_NAME,
+  UNICOM_OPPORTUNITY_SEARCH_TOOL_NAME,
   type UnicomToolContext,
 } from "./tools.js";
 export {
