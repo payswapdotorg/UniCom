@@ -11,6 +11,8 @@
  *   twin can be PROVEN equivalent to the kernel snapshot), but it is an
  *   independent implementation: divergence is a BUG the verification harness
  *   must catch, and a shared implementation would make the proof vacuous.
+ *   (W1-004: the recourse and store-ops folds are separate twin-side
+ *   modules, doubly independent from the kernel's fold classes.)
  * - Revision discipline: aggregate revisions are RECOMPUTED from the folded
  *   current state (`nextRevision`), never trusted from event payloads.
  * - Serialization: `toSerializable`/`fromSerializable` freeze and restore the
@@ -30,8 +32,13 @@ import type { Subscription } from "../domain/subscriptions.js";
 import type { ConsignmentAgreement, RentalAgreement, ResaleListing } from "../domain/circular.js";
 import type { AutonomousStorePolicy } from "../domain/policy.js";
 import type { ReconciliationRecord } from "../domain/reconciliation.js";
+import type { PaymentCaptureRecord, SettlementRecord } from "../domain/settlement.js";
+import type { ChargebackRecord, DisputeRecord } from "../domain/recourse.js";
+import type { CashVarianceRecord, StoreCashSession } from "../domain/store-ops.js";
 import type { CountObservationState } from "./inventory-projection.js";
 import { countObservationStateOf } from "./inventory-projection.js";
+import { applyRecourseEvent, type TwinRecourseCollections } from "./twin-recourse-state.js";
+import { applyStoreOpsEvent, type TwinStoreOpsCollections } from "./twin-store-ops-state.js";
 
 interface PayloadLike {
   readonly kind?: unknown;
@@ -70,6 +77,13 @@ export interface TwinCollections {
   readonly fulfillmentByOrder: ReadonlyMap<string, string>;
   readonly shipmentByFulfillment: ReadonlyMap<string, string>;
   readonly countObservations: ReadonlyMap<string, CountObservationState>;
+  // --- W1-004 (additive): recourse + autonomous-store mirror collections ---
+  readonly captures: ReadonlyMap<string, PaymentCaptureRecord>;
+  readonly settlements: ReadonlyMap<string, SettlementRecord>;
+  readonly disputes: ReadonlyMap<string, DisputeRecord>;
+  readonly chargebacks: ReadonlyMap<string, ChargebackRecord>;
+  readonly storeSessions: ReadonlyMap<string, StoreCashSession>;
+  readonly cashVariances: ReadonlyMap<string, CashVarianceRecord>;
 }
 
 /** Structured, checkpoint-serializable form of the whole twin mirror. */
@@ -103,6 +117,22 @@ export class TwinState {
   private readonly fulfillmentByOrder = new Map<string, string>();
   private readonly shipmentByFulfillment = new Map<string, string>();
   private readonly countObservations = new Map<string, CountObservationState>();
+  // --- W1-004 (additive) ---
+  private readonly captures = new Map<string, PaymentCaptureRecord>();
+  private readonly settlements = new Map<string, SettlementRecord>();
+  private readonly disputes = new Map<string, DisputeRecord>();
+  private readonly chargebacks = new Map<string, ChargebackRecord>();
+  private readonly storeSessions = new Map<string, StoreCashSession>();
+  private readonly cashVariances = new Map<string, CashVarianceRecord>();
+
+  /** Every Map collection, in one registry (generic clone/serialize/resume). */
+  private static readonly MAP_KEYS = [
+    "levels", "reservations", "carts", "checkoutSessions", "orders", "payments",
+    "transfers", "purchaseOrders", "fulfillments", "shipments", "returns", "refunds",
+    "subscriptions", "listings", "rentals", "consignments", "policies", "reconciliationRecords",
+    "fulfillmentByOrder", "shipmentByFulfillment", "countObservations",
+    "captures", "settlements", "disputes", "chargebacks", "storeSessions", "cashVariances",
+  ] as const;
 
   private constructor() {}
 
@@ -142,6 +172,12 @@ export class TwinState {
       fulfillmentByOrder: this.fulfillmentByOrder,
       shipmentByFulfillment: this.shipmentByFulfillment,
       countObservations: this.countObservations,
+      captures: this.captures,
+      settlements: this.settlements,
+      disputes: this.disputes,
+      chargebacks: this.chargebacks,
+      storeSessions: this.storeSessions,
+      cashVariances: this.cashVariances,
     };
   }
 
@@ -167,7 +203,16 @@ export class TwinState {
         return;
       }
       case "PAYMENT":
-        this.foldPayment(event.subject.subjectId, kind, payload);
+        this.foldPayment(event.subject.subjectId, payload);
+        applyRecourseEvent(this.recourseBag(), event);
+        return;
+      case "DISPUTE":
+      case "CHARGEBACK":
+        applyRecourseEvent(this.recourseBag(), event);
+        return;
+      case "STORE_CASH_SESSION":
+      case "CASH_VARIANCE_RECORD":
+        applyStoreOpsEvent(this.storeOpsBag(), event);
         return;
       case "STOCK_TRANSFER": {
         const transfer = optional<StockTransfer>(payload.transfer);
@@ -230,6 +275,20 @@ export class TwinState {
     }
   }
 
+  private recourseBag(): TwinRecourseCollections {
+    return {
+      captures: this.captures,
+      settlements: this.settlements,
+      disputes: this.disputes,
+      chargebacks: this.chargebacks,
+      refunds: this.refunds,
+    };
+  }
+
+  private storeOpsBag(): TwinStoreOpsCollections {
+    return { storeSessions: this.storeSessions, cashVariances: this.cashVariances };
+  }
+
   private foldInventory(payload: PayloadLike): void {
     const level = optional<CanonicalInventoryLevel>(payload.resultingLevel);
     if (level) this.levels.set(inventoryKey(level.skuId, level.locationId), level);
@@ -275,12 +334,7 @@ export class TwinState {
     }
   }
 
-  private foldPayment(paymentId: string, kind: string, payload: PayloadLike): void {
-    if (kind === "REFUND_RECORDED") {
-      const refund = optional<RefundRecord>(payload.refund);
-      if (refund) this.refunds.set(refund.refundId, refund);
-      return;
-    }
+  private foldPayment(paymentId: string, payload: PayloadLike): void {
     const intent = optional<PaymentIntent>(payload.intent);
     if (intent) this.payments.set(paymentId, intent);
   }
@@ -300,85 +354,32 @@ export class TwinState {
 
   private clone(): TwinState {
     const next = new TwinState();
-    for (const [key, value] of this.levels) next.levels.set(key, value);
-    for (const [key, value] of this.reservations) next.reservations.set(key, value);
-    for (const [key, value] of this.carts) next.carts.set(key, value);
-    for (const [key, value] of this.checkoutSessions) next.checkoutSessions.set(key, value);
-    for (const [key, value] of this.orders) next.orders.set(key, value);
-    for (const [key, value] of this.payments) next.payments.set(key, value);
-    for (const [key, value] of this.transfers) next.transfers.set(key, value);
-    for (const [key, value] of this.purchaseOrders) next.purchaseOrders.set(key, value);
-    for (const [key, value] of this.fulfillments) next.fulfillments.set(key, value);
-    for (const [key, value] of this.shipments) next.shipments.set(key, value);
-    for (const [key, value] of this.returns) next.returns.set(key, value);
-    for (const [key, value] of this.refunds) next.refunds.set(key, value);
-    for (const [key, value] of this.subscriptions) next.subscriptions.set(key, value);
-    for (const [key, value] of this.listings) next.listings.set(key, value);
-    for (const [key, value] of this.rentals) next.rentals.set(key, value);
-    for (const [key, value] of this.consignments) next.consignments.set(key, value);
-    for (const [key, value] of this.policies) next.policies.set(key, value);
-    for (const [key, value] of this.reconciliationRecords) next.reconciliationRecords.set(key, value);
-    for (const [key, value] of this.fulfillmentByOrder) next.fulfillmentByOrder.set(key, value);
-    for (const [key, value] of this.shipmentByFulfillment) next.shipmentByFulfillment.set(key, value);
-    for (const [key, value] of this.countObservations) next.countObservations.set(key, value);
+    for (const key of TwinState.MAP_KEYS) {
+      const source = this[key] as ReadonlyMap<string, unknown>;
+      const target = next[key] as Map<string, unknown>;
+      for (const [mapKey, value] of source) target.set(mapKey, value);
+    }
     return next;
   }
 
   // --- checkpoint serialization (structured, insertion-order preserving) ---
 
   toSerializable(): TwinSerializableState {
-    return {
-      levels: [...this.levels.entries()],
-      reservations: [...this.reservations.entries()],
-      carts: [...this.carts.entries()],
-      checkoutSessions: [...this.checkoutSessions.entries()],
-      orders: [...this.orders.entries()],
-      payments: [...this.payments.entries()],
-      transfers: [...this.transfers.entries()],
-      purchaseOrders: [...this.purchaseOrders.entries()],
-      fulfillments: [...this.fulfillments.entries()],
-      shipments: [...this.shipments.entries()],
-      returns: [...this.returns.entries()],
-      refunds: [...this.refunds.entries()],
-      subscriptions: [...this.subscriptions.entries()],
-      listings: [...this.listings.entries()],
-      rentals: [...this.rentals.entries()],
-      consignments: [...this.consignments.entries()],
-      policies: [...this.policies.entries()],
-      reconciliationRecords: [...this.reconciliationRecords.entries()],
-      fulfillmentByOrder: [...this.fulfillmentByOrder.entries()],
-      shipmentByFulfillment: [...this.shipmentByFulfillment.entries()],
-      countObservations: [...this.countObservations.entries()],
-    };
+    const out: Record<string, readonly (readonly [string, unknown])[]> = {};
+    for (const key of TwinState.MAP_KEYS) {
+      const map = this[key] as ReadonlyMap<string, unknown>;
+      out[key] = [...map.entries()];
+    }
+    return out as TwinSerializableState;
   }
 
   static fromSerializable(serialized: TwinSerializableState): TwinState {
     const state = new TwinState();
-    fill(state.levels, serialized.levels);
-    fill(state.reservations, serialized.reservations);
-    fill(state.carts, serialized.carts);
-    fill(state.checkoutSessions, serialized.checkoutSessions);
-    fill(state.orders, serialized.orders);
-    fill(state.payments, serialized.payments);
-    fill(state.transfers, serialized.transfers);
-    fill(state.purchaseOrders, serialized.purchaseOrders);
-    fill(state.fulfillments, serialized.fulfillments);
-    fill(state.shipments, serialized.shipments);
-    fill(state.returns, serialized.returns);
-    fill(state.refunds, serialized.refunds);
-    fill(state.subscriptions, serialized.subscriptions);
-    fill(state.listings, serialized.listings);
-    fill(state.rentals, serialized.rentals);
-    fill(state.consignments, serialized.consignments);
-    fill(state.policies, serialized.policies);
-    fill(state.reconciliationRecords, serialized.reconciliationRecords);
-    fill(state.fulfillmentByOrder, serialized.fulfillmentByOrder);
-    fill(state.shipmentByFulfillment, serialized.shipmentByFulfillment);
-    fill(state.countObservations, serialized.countObservations);
+    const record = serialized as Record<string, readonly (readonly [string, unknown])[]>;
+    for (const key of TwinState.MAP_KEYS) {
+      const target = state[key] as Map<string, unknown>;
+      for (const [mapKey, value] of record[key] ?? []) target.set(mapKey, value);
+    }
     return state;
   }
-}
-
-function fill<K, V>(target: Map<K, V>, entries: readonly (readonly [K, V])[]): void {
-  for (const [key, value] of entries) target.set(key, value);
 }

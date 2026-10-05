@@ -24,6 +24,11 @@ import type { ConsignmentAgreement, RentalAgreement, ResaleListing } from "../do
 import type { AutonomousStorePolicy } from "../domain/policy.js";
 import type { ReconciliationRecord } from "../domain/reconciliation.js";
 import type { LocationId, SkuId } from "../domain/ids.js";
+import type { PaymentCaptureRecord, SettlementRecord } from "../domain/settlement.js";
+import type { ChargebackRecord, DisputeRecord } from "../domain/recourse.js";
+import type { CashVarianceRecord, StoreCashSession } from "../domain/store-ops.js";
+import { KernelRecourseFold } from "./kernel-fold-recourse.js";
+import { KernelStoreOpsFold } from "./kernel-fold-store-ops.js";
 
 interface PayloadLike {
   readonly kind?: unknown;
@@ -39,11 +44,6 @@ type OrderEventPayloadLike =
       readonly to: OrderSnapshot["fulfillmentStatus"];
     };
 
-function kindOf(event: AnyCommerceEvent): string | undefined {
-  const payload = event.payload as PayloadLike | null | undefined;
-  return typeof payload?.kind === "string" ? payload.kind : undefined;
-}
-
 export class KernelState {
   private readonly levels = new Map<string, CanonicalInventoryLevel>();
   private readonly reservations = new Map<string, InventoryReservation>();
@@ -58,13 +58,16 @@ export class KernelState {
   private readonly shipmentByFulfillment = new Map<string, string>();
   private readonly fulfillmentByOrder = new Map<string, FulfillmentOrder>();
   private readonly returns = new Map<string, ReturnAuthorization>();
-  private readonly refunds = new Map<string, RefundRecord>();
   private readonly subscriptions = new Map<string, Subscription>();
   private readonly listings = new Map<string, ResaleListing>();
   private readonly rentals = new Map<string, RentalAgreement>();
   private readonly consignments = new Map<string, ConsignmentAgreement>();
   private readonly policies = new Map<string, AutonomousStorePolicy>();
   private readonly reconciliationRecords = new Map<string, ReconciliationRecord>();
+  /** W1-004 recourse/payment-plane collections (captures, settlements, disputes, chargebacks, refunds). */
+  private readonly recourse = new KernelRecourseFold();
+  /** W1-004 autonomous-store cash-session collections (sessions, variances). */
+  private readonly storeOps = new KernelStoreOpsFold();
 
   /** Fold one immutable fact into state. Pure with respect to inputs. */
   apply(event: AnyCommerceEvent): void {
@@ -84,6 +87,15 @@ export class KernelState {
         return;
       case "PAYMENT":
         this.foldPayment(event, id);
+        this.recourse.apply(event);
+        return;
+      case "DISPUTE":
+      case "CHARGEBACK":
+        this.recourse.apply(event);
+        return;
+      case "STORE_CASH_SESSION":
+      case "CASH_VARIANCE_RECORD":
+        this.storeOps.apply(event);
         return;
       case "STOCK_TRANSFER":
         this.setTransfer(event.payload as { transfer?: StockTransfer });
@@ -179,11 +191,6 @@ export class KernelState {
   }
 
   private foldPayment(event: AnyCommerceEvent, paymentId: string): void {
-    if (kindOf(event) === "REFUND_RECORDED") {
-      const payload = event.payload as { refund?: RefundRecord };
-      if (payload.refund) this.refunds.set(payload.refund.refundId, payload.refund);
-      return;
-    }
     const payload = event.payload as { intent?: PaymentIntent };
     if (payload.intent) this.payments.set(paymentId, payload.intent);
   }
@@ -321,12 +328,24 @@ export class KernelState {
   allReturns(): readonly ReturnAuthorization[] {
     return [...this.returns.values()].sort(byKey);
   }
-  refund(refundId: string): RefundRecord | undefined {
-    return this.refunds.get(refundId);
-  }
-  allRefunds(): readonly RefundRecord[] {
-    return [...this.refunds.values()].sort(byKey);
-  }
+  refund(refundId: string): RefundRecord | undefined { return this.recourse.refund(refundId); }
+  allRefunds(): readonly RefundRecord[] { return this.recourse.allRefunds(); }
+  capture(captureId: string): PaymentCaptureRecord | undefined { return this.recourse.capture(captureId); }
+  allCaptures(): readonly PaymentCaptureRecord[] { return this.recourse.allCaptures(); }
+  capturesFor(paymentId: string): readonly PaymentCaptureRecord[] { return this.recourse.capturesFor(paymentId); }
+  capturedTotalFor(paymentId: string): bigint { return this.recourse.capturedTotalFor(paymentId); }
+  refundedTotalFor(paymentId: string): bigint { return this.recourse.refundedTotalFor(paymentId); }
+  settlementRecord(paymentId: string): SettlementRecord | undefined { return this.recourse.settlement(paymentId); }
+  allSettlements(): readonly SettlementRecord[] { return this.recourse.allSettlements(); }
+  dispute(disputeId: string): DisputeRecord | undefined { return this.recourse.dispute(disputeId); }
+  allDisputes(): readonly DisputeRecord[] { return this.recourse.allDisputes(); }
+  chargeback(chargebackId: string): ChargebackRecord | undefined { return this.recourse.chargeback(chargebackId); }
+  allChargebacks(): readonly ChargebackRecord[] { return this.recourse.allChargebacks(); }
+  storeSession(sessionId: string): StoreCashSession | undefined { return this.storeOps.storeSession(sessionId); }
+  allStoreSessions(): readonly StoreCashSession[] { return this.storeOps.allStoreSessions(); }
+  openStoreSessionFor(storeId: string, tillId: string): StoreCashSession | undefined { return this.storeOps.openSessionFor(storeId, tillId); }
+  cashVariance(varianceId: string): CashVarianceRecord | undefined { return this.storeOps.cashVariance(varianceId); }
+  allCashVariances(): readonly CashVarianceRecord[] { return this.storeOps.allCashVariances(); }
   subscription(subscriptionId: string): Subscription | undefined {
     return this.subscriptions.get(subscriptionId);
   }

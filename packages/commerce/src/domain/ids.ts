@@ -64,7 +64,12 @@ export type CommerceSubjectType =
   | "RENTAL_AGREEMENT"
   | "CONSIGNMENT"
   | "AUTONOMOUS_STORE_POLICY"
-  | "RECONCILIATION_RECORD";
+  | "RECONCILIATION_RECORD"
+  // --- W1-004 (additive): recourse + autonomous-store operational subjects ---
+  | "DISPUTE"
+  | "CHARGEBACK"
+  | "STORE_CASH_SESSION"
+  | "CASH_VARIANCE_RECORD";
 
 // --- Principals ---
 export type MerchantId = Brand<string, "MerchantId">;
@@ -108,6 +113,13 @@ export type TrackingRef = Brand<string, "TrackingRef">;
 export type ReturnId = Brand<string, "ReturnId">;
 export type RefundId = Brand<string, "RefundId">;
 export type RefundRecourseId = Brand<string, "RefundRecourseId">;
+// --- W1-004 payment-plane + recourse + store-operation ids (additive) ---
+export type CaptureId = Brand<string, "CaptureId">;
+export type DisputeId = Brand<string, "DisputeId">;
+export type ChargebackId = Brand<string, "ChargebackId">;
+export type StoreCashSessionId = Brand<string, "StoreCashSessionId">;
+export type CashVarianceRecordId = Brand<string, "CashVarianceRecordId">;
+export type TillId = Brand<string, "TillId">;
 
 // --- Subscriptions / B2B / circular commerce ---
 export type SubscriptionPlanId = Brand<string, "SubscriptionPlanId">;

@@ -7,21 +7,30 @@
  * this package). Recorded statuses preserve the domain laws:
  * - ambiguous outcomes arrive as UNKNOWN with the native status preserved;
  * - customer-action-required is a first-class state;
- * - refunds validate exactly against the captured intent before the port.
+ * - refunds validate exactly against the CAPTURED FACTS before the port
+ *   (W1-004: refund totals can never exceed captured totals — the kernel
+ *   enforces the bound, not the adapter).
  * The kernel never sees credentials; PaymentMethodRef is an opaque token.
+ *
+ * W1-004 additions: kernel-side capture/void/refund state guards (invalid
+ * transitions are rejected deterministically BEFORE any port call), capture
+ * facts (partial + full, exact amounts), CAPTURE_PAYMENT_PARTIAL via the
+ * PartialCaptureBoundary port extension, and refund provenance
+ * (refundKind) so policy/goodwill/chargeback refunds stay distinguishable.
  */
 import { orderSubject } from "../domain/orders.js";
 import { orderTransition, type OrderSnapshot } from "../domain/orders.js";
 import { nextRevision } from "../domain/events.js";
 import {
   validatePaymentIntentRequest,
-  validateRefundAmount,
   type PaymentIntent,
 } from "../domain/payments.js";
-import type { PaymentBoundaryError } from "../domain/payments.js";
+import type { PaymentBoundaryError, PaymentBoundary } from "../domain/payments.js";
+import type { Result } from "../domain/result.js";
+import { isPartialCaptureBoundary, validateRefundAgainstCaptures, type CaptureKind, type PaymentCaptureRecord } from "../domain/settlement.js";
 import type { RefundRecord, RefundState } from "../domain/returns.js";
 import { paymentSubject } from "./subjects.js";
-import { mintRefundId } from "./subjects.js";
+import { mintCaptureId, mintRefundId } from "./subjects.js";
 import {
   accept,
   rejectInvalidCommand,
@@ -30,11 +39,16 @@ import {
   type RuntimeCommandHandler,
 } from "./handler.js";
 
-const PAYMENT_COMMANDS = new Set(["CREATE_PAYMENT_INTENT", "CAPTURE_PAYMENT", "VOID_PAYMENT", "REFUND_PAYMENT"]);
+const PAYMENT_COMMANDS = new Set(["CREATE_PAYMENT_INTENT", "CAPTURE_PAYMENT", "CAPTURE_PAYMENT_PARTIAL", "VOID_PAYMENT", "REFUND_PAYMENT"]);
 
 export function isPaymentCommand(type: string): boolean {
   return PAYMENT_COMMANDS.has(type);
 }
+
+/** Statuses from which the rail can still capture funds (UNKNOWN is retriable). */
+const CAPTURABLE_STATUSES = new Set(["AUTHORIZED", "PARTIALLY_CAPTURED", "REQUIRES_CUSTOMER_ACTION", "UNKNOWN"]);
+/** Statuses from which the rail can still void the authorization. */
+const VOIDABLE_STATUSES = new Set(["AUTHORIZED", "REQUIRES_CUSTOMER_ACTION", "UNKNOWN"]);
 
 export const handleCreatePaymentIntent: RuntimeCommandHandler = async (envelope, ctx) => {
   const payload = envelope.payload;
@@ -54,19 +68,83 @@ export const handleCreatePaymentIntent: RuntimeCommandHandler = async (envelope,
   return accept();
 };
 
+/** Kernel-side guard + capture-fact emission shared by full and partial captures. */
+async function captureIntoKernel(
+  ctx: CommandContext,
+  paymentId: PaymentIntent["paymentId"],
+  amountMinor: bigint,
+  kind: CaptureKind,
+  portCall: () => Promise<Result<PaymentIntent, PaymentBoundaryError>>,
+) {
+  const existing = ctx.state.paymentIntent(paymentId);
+  if (!existing) return rejectInvalidState(`payment ${paymentId} not found`);
+  if (!CAPTURABLE_STATUSES.has(existing.status)) {
+    return rejectInvalidState(`cannot capture payment ${paymentId} from status ${existing.status}`);
+  }
+  const capturedTotal = ctx.state.capturedTotalFor(paymentId);
+  const intentTotal = BigInt(existing.amount.amountMinor);
+  if (capturedTotal >= intentTotal) {
+    return rejectInvalidState(`payment ${paymentId} is already fully captured (captured ${capturedTotal} of ${intentTotal})`);
+  }
+  if (amountMinor <= 0n || capturedTotal + amountMinor > intentTotal) {
+    return rejectInvalidCommand(`capture ${amountMinor} out of bounds: captured ${capturedTotal} of ${intentTotal}`);
+  }
+  if (!ctx.paymentBoundary) return rejectInvalidState("payment boundary port not bound to this kernel");
+  const outcome = await portCall();
+  if (!outcome.ok) return portRejection(outcome.error);
+  const intent = assertSamePayment(existing, outcome.value);
+  if (typeof intent === "string") return rejectInvalidState(intent);
+  emitIntentRecorded(ctx, intent);
+  // The capture FACT records money that definitively moved: an AMBIGUOUS
+  // (UNKNOWN) port outcome journals the intent status (order → UNKNOWN) but
+  // records NO capture fact — the retry stays possible and the captured
+  // total never counts ambiguous money (INVARIANT 10: UNKNOWN ≠ SUCCESS).
+  if (intent.status === "CAPTURED" || intent.status === "PARTIALLY_CAPTURED") {
+    const capture: PaymentCaptureRecord = {
+      captureId: mintCaptureId(ctx.mint()),
+      paymentId,
+      amount: { currency: existing.amount.currency, amountMinor: amountMinor.toString() as PaymentIntent["amount"]["amountMinor"] },
+      kind,
+      revision: 1,
+    };
+    ctx.emit({
+      subject: paymentSubject(paymentId),
+      kind: "PAYMENT_CAPTURE_RECORDED",
+      payload: { kind: "PAYMENT_CAPTURE_RECORDED", capture },
+    });
+  }
+  emitOrderPaymentEffects(ctx, intent);
+  return accept();
+}
+
 export const handleCapturePayment: RuntimeCommandHandler = async (envelope, ctx) => {
   const payload = envelope.payload;
   if (payload.type !== "CAPTURE_PAYMENT") return rejectInvalidCommand("not CAPTURE_PAYMENT");
   const existing = ctx.state.paymentIntent(payload.paymentId);
   if (!existing) return rejectInvalidState(`payment ${payload.paymentId} not found`);
   if (!ctx.paymentBoundary) return rejectInvalidState("payment boundary port not bound to this kernel");
-  const outcome = await ctx.paymentBoundary.capturePayment(payload.paymentId);
-  if (!outcome.ok) return portRejection(outcome.error);
-  const intent = assertSamePayment(existing, outcome.value);
-  if (typeof intent === "string") return rejectInvalidState(intent);
-  emitIntentRecorded(ctx, intent);
-  emitOrderPaymentEffects(ctx, intent);
-  return accept();
+  const boundary = ctx.paymentBoundary;
+  // Full capture: everything still authorized (intent amount minus captured facts).
+  const remaining = BigInt(existing.amount.amountMinor) - ctx.state.capturedTotalFor(payload.paymentId);
+  return captureIntoKernel(ctx, payload.paymentId, remaining, "FULL", () => boundary.capturePayment(payload.paymentId));
+};
+
+export const handleCapturePaymentPartial: RuntimeCommandHandler = async (envelope, ctx) => {
+  const payload = envelope.payload;
+  if (payload.type !== "CAPTURE_PAYMENT_PARTIAL") return rejectInvalidCommand("not CAPTURE_PAYMENT_PARTIAL");
+  const existing = ctx.state.paymentIntent(payload.paymentId);
+  if (!existing) return rejectInvalidState(`payment ${payload.paymentId} not found`);
+  if (payload.amount.currency !== existing.amount.currency) {
+    return rejectInvalidCommand(`capture currency ${payload.amount.currency} does not match intent ${existing.amount.currency}`);
+  }
+  if (!ctx.paymentBoundary) return rejectInvalidState("payment boundary port not bound to this kernel");
+  if (!isPartialCaptureBoundary(ctx.paymentBoundary)) {
+    return rejectInvalidState("payment boundary port does not support amount-aware (partial) capture");
+  }
+  const boundary = ctx.paymentBoundary;
+  return captureIntoKernel(ctx, payload.paymentId, BigInt(payload.amount.amountMinor), "PARTIAL", () =>
+    boundary.capturePaymentAmount(payload.paymentId, payload.amount),
+  );
 };
 
 export const handleVoidPayment: RuntimeCommandHandler = async (envelope, ctx) => {
@@ -74,6 +152,12 @@ export const handleVoidPayment: RuntimeCommandHandler = async (envelope, ctx) =>
   if (payload.type !== "VOID_PAYMENT") return rejectInvalidCommand("not VOID_PAYMENT");
   const existing = ctx.state.paymentIntent(payload.paymentId);
   if (!existing) return rejectInvalidState(`payment ${payload.paymentId} not found`);
+  if (ctx.state.capturedTotalFor(payload.paymentId) > 0n || existing.status === "CAPTURED" || existing.status === "PARTIALLY_CAPTURED") {
+    return rejectInvalidState(`cannot void payment ${payload.paymentId} after capture (captured ${ctx.state.capturedTotalFor(payload.paymentId)})`);
+  }
+  if (!VOIDABLE_STATUSES.has(existing.status)) {
+    return rejectInvalidState(`cannot void payment ${payload.paymentId} from status ${existing.status}`);
+  }
   if (!ctx.paymentBoundary) return rejectInvalidState("payment boundary port not bound to this kernel");
   const outcome = await ctx.paymentBoundary.voidPayment(payload.paymentId);
   if (!outcome.ok) return portRejection(outcome.error);
@@ -88,19 +172,39 @@ export const handleRefundPayment: RuntimeCommandHandler = async (envelope, ctx) 
   if (payload.type !== "REFUND_PAYMENT") return rejectInvalidCommand("not REFUND_PAYMENT");
   const existing = ctx.state.paymentIntent(payload.paymentId);
   if (!existing) return rejectInvalidState(`payment ${payload.paymentId} not found`);
-  const validation = validateRefundAmount(existing, payload.amount);
-  if (!validation.ok) return rejectInvalidCommand(`refund: ${validation.error.code} (${validation.error.detail})`);
+  const guard = validateRefundAgainstCaptures(
+    payload.amount,
+    existing.amount.currency,
+    ctx.state.capturedTotalFor(payload.paymentId),
+    ctx.state.refundedTotalFor(payload.paymentId),
+  );
+  if (!guard.ok) return rejectInvalidCommand(`refund: ${guard.error.code} (${guard.error.detail})`);
   if (!ctx.paymentBoundary) return rejectInvalidState("payment boundary port not bound to this kernel");
   const outcome = await ctx.paymentBoundary.refundPayment(payload.paymentId, payload.amount);
   if (!outcome.ok) return portRejection(outcome.error);
   const intent = assertSamePayment(existing, outcome.value);
   if (typeof intent === "string") return rejectInvalidState(intent);
   emitIntentRecorded(ctx, intent);
+  emitRefundRecorded(ctx, intent, payload.amount, "POLICY_REFUND", undefined);
+  emitOrderPaymentEffects(ctx, intent);
+  return accept();
+};
+
+/** Shared refund-fact emission (used by policy refunds, goodwill and chargeback forcing). */
+export function emitRefundRecorded(
+  ctx: CommandContext,
+  intent: PaymentIntent,
+  amount: PaymentIntent["amount"],
+  refundKind: RefundRecord["refundKind"],
+  reason: string | undefined,
+): RefundRecord {
   const refund: RefundRecord = {
     refundId: mintRefundId(ctx.mint()),
     paymentId: intent.paymentId,
-    amount: payload.amount,
+    amount,
     state: refundStateFor(intent),
+    refundKind,
+    reason,
     revision: 1,
   };
   ctx.emit({
@@ -108,9 +212,8 @@ export const handleRefundPayment: RuntimeCommandHandler = async (envelope, ctx) 
     kind: "REFUND_RECORDED",
     payload: { kind: "REFUND_RECORDED", refund },
   });
-  emitOrderPaymentEffects(ctx, intent);
-  return accept();
-};
+  return refund;
+}
 
 function refundStateFor(intent: PaymentIntent): RefundState {
   if (intent.status === "UNKNOWN") return "UNKNOWN";
@@ -132,7 +235,7 @@ function portRejection(error: PaymentBoundaryError): ReturnType<typeof rejectInv
   return rejectInvalidState(`payment boundary: ${error.code}${error.detail ? ` (${error.detail})` : ""}`);
 }
 
-function emitIntentRecorded(ctx: CommandContext, intent: PaymentIntent): void {
+export function emitIntentRecorded(ctx: CommandContext, intent: PaymentIntent): void {
   ctx.emit({
     subject: paymentSubject(intent.paymentId),
     kind: "PAYMENT_INTENT_RECORDED",
@@ -143,6 +246,9 @@ function emitIntentRecorded(ctx: CommandContext, intent: PaymentIntent): void {
 function orderPaymentStatusFor(intent: PaymentIntent, order: OrderSnapshot): OrderSnapshot["paymentStatus"] {
   switch (intent.status) {
     case "AUTHORIZED":
+      return "AUTHORIZED";
+    case "PARTIALLY_CAPTURED":
+      // Order-level: funds captured but not the full total — still not fully paid.
       return "AUTHORIZED";
     case "CAPTURED":
       return "PAID";
@@ -159,7 +265,7 @@ function orderPaymentStatusFor(intent: PaymentIntent, order: OrderSnapshot): Ord
   }
 }
 
-function emitOrderPaymentEffects(ctx: CommandContext, intent: PaymentIntent): void {
+export function emitOrderPaymentEffects(ctx: CommandContext, intent: PaymentIntent): void {
   if (intent.reference.kind !== "ORDER") return;
   const order = ctx.state.order(intent.reference.orderId);
   if (!order) return;
