@@ -73,8 +73,8 @@ modules:
   - id: experience
     roots: [packages/experience/src]
     managed: true
-    requires: []
-    publicEntrypoints: [packages/experience/src/contract.ts]
+    requires: [agent]
+    publicEntrypoints: [packages/experience/src/contract.ts, packages/experience/src/runtime/index.ts]
     owner: worker-3
 
 global:

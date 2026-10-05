@@ -80,7 +80,7 @@ describe("deployment boundary", () => {
     expect(offenders).toEqual([]);
   });
 
-  it("declares no provider SDK dependencies in the package manifest", () => {
+  it("declares no provider SDK dependencies in the package manifest (W3-002: the sanctioned @unicom/agent seam is the only workspace dep)", () => {
     const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as {
       dependencies?: Record<string, string>;
       devDependencies?: Record<string, string>;
@@ -88,8 +88,14 @@ describe("deployment boundary", () => {
     const allDeps = { ...manifest.dependencies, ...manifest.devDependencies };
     const offenders = Object.keys(allDeps).filter((dep) => PROVIDER_NAME_PATTERN.test(dep));
     expect(offenders).toEqual([]);
-    // Stage-0 law: no @unicom/agent dependency yet (typed seam lands in W3-002).
-    expect(Object.keys(allDeps).some((dep) => dep.startsWith("@unicom/"))).toBe(false);
+    // W3-002 seam law: the capability vocabulary is consumed via the typed
+    // @unicom/agent dependency (workspace protocol) — exactly one, never a
+    // second vocabulary, never a provider SDK.
+    const workspaceDeps = Object.entries(allDeps).filter(
+      ([dep, version]) => dep.startsWith("@unicom/") || version.startsWith("workspace:"),
+    );
+    expect(workspaceDeps).toEqual([["@unicom/agent", "workspace:*"]]);
+    expect(Object.keys(allDeps).some((dep) => PROVIDER_NAME_PATTERN.test(dep))).toBe(false);
   });
 
   it("maps every deployment coverage feature to a provider-neutral capability kind", () => {

@@ -1,12 +1,16 @@
 # @unicom/experience
 
 UNiCOM public **experience / connector / physical-edge / deployment boundary
-contracts** — Stage 0 deliverable of work order **W3-001** (Worker 3 lane:
-Experience / Connectors / Physical Edge / Deployment).
+contracts** (W3-001) plus the **connector runtime framework and browser-session
+isolation runtime** (W3-002) — Worker 3 lane: Experience / Connectors /
+Physical Edge / Deployment.
 
-**Contracts only.** This package contains TypeScript types, interfaces and
-const registries. No React components, no adapter implementations, no runtime
-code. The Connector Runtime is W3-002; adapters are W3-003+.
+Two public entrypoints:
+
+- `@unicom/experience` → `src/contract.ts` — the boundary contracts
+  (types, interfaces, const registries);
+- `@unicom/experience/runtime` → `src/runtime/index.ts` — the runtime
+  implemented behind those contracts (W3-002).
 
 ## What lives here
 
@@ -18,9 +22,15 @@ code. The Connector Runtime is W3-002; adapters are W3-003+.
 | Transports, BrowserSession isolation, observability, live commerce, webhooks | `src/connector/*` |
 | Physical observation, offline queue + reconciliation hand-off, LocalCommerceEdge, weighted workflow | `src/edge/*` |
 | Deployment provider adapters (interface only), realtime channels, operator console | `src/deployment/*` |
+| Connector runtime framework: adapter boundary, lifecycle, health, execution-mode dispatch, credential vault | `src/runtime/connector/*` |
+| Browser session runtime with per-session isolation | `src/runtime/browser/*` |
+| Untrusted-content sanitization at ingest/render boundaries | `src/runtime/sanitize/*` |
+| Offline observation queue runtime (no promotion, explicit hand-off) | `src/runtime/edge/*` |
+| Transport-coverage plumbing (router) | `src/runtime/transport/*` |
+| Model-context gate + branded-ref constructors + agent-seam bridges | `src/runtime/model-context-gate.ts`, `src/runtime/ids.ts` |
 
-Public entrypoint: `src/contract.ts` (the single architecture-policy
-public entrypoint for this module).
+Public entrypoints: `src/contract.ts` (contracts) and `src/runtime/index.ts`
+(runtime) — both are architecture-policy public entrypoints for this module.
 
 ## Consumption laws (enforced by contract tests)
 
@@ -48,20 +58,27 @@ public entrypoint for this module).
    feature matrix must keep every feature discoverable; the test suite
    parses `docs/FEATURE-COMPLETENESS-MATRIX.md` and fails on drift or gaps.
 
-## Planned `@unicom/agent` seam
+## The `@unicom/agent` seam (W3-002: landed)
 
-This package intentionally has **no dependency on `@unicom/agent` yet**.
-W2-001 (capability vocabulary) is being defined in parallel and the Stage-0
-lanes are pairwise disjoint. When W2-001 merges, **W3-002** will:
+The typed dependency **is in place**: `@unicom/agent` (`workspace:*`) is the
+one sanctioned cross-package import for this lane, consumed exclusively
+through the public entrypoints `@unicom/agent` and `@unicom/agent/capability`:
 
-1. add the typed dependency on `@unicom/agent`;
-2. replace opaque-ref *link shapes* (e.g. `CapabilityUsageView`) with typed
-   imports of `CapabilityDefinition`, `ConnectedCapabilityInstance` and
-   `CapabilityObservation` — without changing surface contracts;
-3. keep every law above intact (opaque ids remain the wire format).
+- `CapabilityDefinition`, `ProviderImplementation`,
+  `ConnectedCapabilityInstance`, `CapabilityObservation`,
+  `ExecutabilityPreconditions`, `ExecutionMode`, `CredentialRef`,
+  `CredentialScope` — the CANONICAL vocabulary, consumed by name
+  (invariant 34: no duplicate vocabulary anywhere);
+- `evaluateCapabilityExecutability` — the canonical typed executability
+  decision, live inside the execution-mode dispatch plumbing;
+- `credentialRef` / `credentialScope` / `assertNoCredentialMaterial` /
+  `toModelContextMaterial` — the canonical credential-safety machinery,
+  reused by the connector credential vault and the model-context gate.
 
-The same law applies to Worker 1's Commerce Kernel: projections and command
-envelopes remain the only commerce-truth surface here.
+Surface contracts keep opaque branded refs as the wire format; the runtime
+bridges them (`src/runtime/ids.ts`). The module manifest
+(`src/module.ts`) and `architecture-policy.yaml` declare
+`experience → agent`.
 
 ## Tests
 
@@ -74,6 +91,26 @@ zero-network). Coverage areas:
 - untrusted-content boundary guards;
 - LocalCommerceEdge offline queue with no promotion path;
 - connector transport coverage;
-- deployment provider-name guard;
+- deployment provider-name guard (W3-002: the @unicom/agent workspace seam
+  is the one sanctioned dependency, still zero provider names);
 - role-switch identity preservation;
-- no-RFID supermarket end-to-end journey.
+- no-RFID supermarket end-to-end journey;
+- **connector adapter lifecycle, health observation (UNKNOWN ≠ FAILED) and
+  execution evidence on real runtime paths**;
+- **execution-mode dispatch through PASS_THROUGH_NATIVE / COMPOSED /
+  OPTIMIZED_MULTI_PROVIDER plumbing (provider-agnostic, TEST DOUBLE
+  executors clearly marked — no production mocks, no provider adapters)**;
+- **browser session runtime per-session isolation (two concurrent sessions
+  cannot read each other's storage, identity or authority)**;
+- **untrusted-content sanitization at ingest/render boundaries
+  (adversarial)**;
+- **offline queue runtime: drains to the commerce lane as observations, no
+  silent promotion, explicit reconciliation**;
+- **credential vaulting + model-context gate (adversarial: sealed values
+  provably absent by key AND by value)**;
+- **transport-coverage plumbing (all families, command/observation
+  capability enforcement, sanitized ingest)**;
+- **typed vocabulary seam (canonical imports, no second vocabulary)**.
+
+Test doubles live in `test/doubles.ts` and are clearly marked — never on a
+production path (invariant 39).
