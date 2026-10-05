@@ -23,10 +23,12 @@ import type { UnicomCapabilityRuntime } from "./capability-runtime.js";
 import type { UnicomCommerceMediator } from "./commerce-mediator.js";
 import type { UnicomDelegateRegistry } from "./delegate.js";
 import type { ExecutingPrincipal } from "./principal.js";
+import type { UnicomOpportunityLab } from "./opportunity-lab.js";
 
 export const UNICOM_OBSERVE_TOOL_NAME = "unicom_capability_observe";
 export const UNICOM_COMMERCE_TOOL_NAME = "unicom_commerce_command";
 export const UNICOM_DELEGATE_DISPATCH_TOOL_NAME = "unicom_delegate_dispatch";
+export const UNICOM_OPPORTUNITY_SEARCH_TOOL_NAME = "unicom_opportunity_search";
 
 const UNICOM_TOOL_TIMEOUT_MS = 60_000;
 const UNICOM_TOOL_MODEL_BYTES = 32_768;
@@ -36,6 +38,8 @@ export interface UnicomToolContext {
   readonly commerce: UnicomCommerceMediator;
   delegates: UnicomDelegateRegistry;
   readonly resolvePrincipal: (input: { sessionId: string }) => ExecutingPrincipal | undefined;
+  /** W2-003: when present, the lab-gated opportunity search tool is registered. */
+  readonly lab?: UnicomOpportunityLab;
 }
 
 function timedOut(): ToolEntry["timeout"] {
@@ -286,5 +290,47 @@ export function createUnicomToolEntries(context: UnicomToolContext): ToolEntry[]
     },
   };
 
-  return [observeEntry, commerceEntry, dispatchEntry];
+  const entries = [observeEntry, commerceEntry, dispatchEntry];
+
+  // W2-003: lab-gated opportunity search. The handler re-derives the lab
+  // gate — un-promoted coordination logic is unreachable from model input.
+  if (context.lab) {
+    const lab = context.lab;
+    const opportunitySearchEntry: ToolEntry = {
+      outputSchema: { type: "object" },
+      ...baseEntry({
+        name: UNICOM_OPPORTUNITY_SEARCH_TOOL_NAME,
+        capability: "Search coordination opportunities for a recorded buyer intent (Lab-gated)",
+        description: [
+          "Search group-buy discovery matches and estimate-marked opportunity candidates for a",
+          "principal-recorded buyer intent. Results are ESTIMATES, never commerce truth. The",
+          "underlying coordination logic is Lab-gated: it must be promoted with complete evidence",
+          "before the runtime plane will run it.",
+        ].join(" "),
+        readOnly: true,
+        inputSchema: {
+          type: "object",
+          properties: {
+            intentId: { type: "string", description: "Principal-recorded buyer intent id" },
+          },
+          required: ["intentId"],
+          additionalProperties: false,
+        },
+        sideEffectScope: "none",
+      }),
+      handler: async (input: unknown) => {
+        const intentId = requireString(input, "intentId");
+        const search = lab.searchOpportunitiesAt({ intentId });
+        if (search.failure) return search.failure;
+        return {
+          matches: search.matches,
+          opportunityCandidates: search.generation?.candidates ?? [],
+          droppedPromotions: search.generation?.dropped ?? [],
+        };
+      },
+    };
+    entries.push(opportunitySearchEntry);
+  }
+
+  return entries;
 }

@@ -39,6 +39,7 @@ import {
   type ToolRegistry,
 } from "@zcode/core";
 import type { ModelSelection, SessionEvent, SessionId } from "@zcode/contracts";
+import type { CapabilityDefinition } from "@unicom/agent";
 import { InMemoryCapabilityRuntime, type UnicomCapabilityRuntime } from "./capability-runtime.js";
 import { UnicomCapabilityGate, type CapabilityToolBinding } from "./capability-gate.js";
 import { UnicomCommerceMediator } from "./commerce-mediator.js";
@@ -52,11 +53,13 @@ import {
 import { createGatedToolRegistry, UnicomKernelGate } from "./registry-gate.js";
 import { UnicomModelRouter } from "./routing.js";
 import { UnicomSkillRegistry } from "./skills.js";
+import { UnicomOpportunityLab } from "./opportunity-lab.js";
 import { type RecordOrganizationInput, UnicomStrategyOrganizationStore } from "./strategy-organization.js";
 import {
   createUnicomToolEntries,
   UNICOM_COMMERCE_TOOL_NAME,
   UNICOM_OBSERVE_TOOL_NAME,
+  UNICOM_OPPORTUNITY_SEARCH_TOOL_NAME,
   type UnicomToolContext,
 } from "./tools.js";
 import type { ExecutingPrincipal } from "./principal.js";
@@ -80,6 +83,10 @@ export interface UnicomAgentPlaneOptions {
   readonly contextGuardSink?: UnicomContextGuardSink;
   readonly commerceCapabilityPreconditions?: CapabilityToolBinding["preconditions"];
   readonly extraCapabilityBindings?: Readonly<Record<string, CapabilityToolBinding>>;
+  /** W2-003: pre-configured Organization/Opportunity Lab (optional). */
+  readonly lab?: UnicomOpportunityLab;
+  /** W2-003: canonical vocabulary for the lab's actor-capability ledger. */
+  readonly labCapabilityVocabulary?: CapabilityDefinition[];
   readonly logger?: AgentRuntimeDeps["logger"];
 }
 
@@ -104,6 +111,8 @@ export class UnicomAgentPlane {
   readonly strategyOrganizations = new UnicomStrategyOrganizationStore();
   readonly budgetLedger: UnicomBudgetLedger;
   readonly router: UnicomModelRouter;
+  /** W2-003: the Organization / Opportunity Lab enforcement point. */
+  readonly lab: UnicomOpportunityLab;
   readonly runtimeTaskRegistry = new InMemoryRuntimeTaskRegistry();
   readonly parentEvents: SessionEvent[] = [];
 
@@ -140,6 +149,12 @@ export class UnicomAgentPlane {
       routeModels: options.routeModels,
       contextGuardSink: options.contextGuardSink,
     });
+    this.lab =
+      options.lab ??
+      new UnicomOpportunityLab({
+        ...(options.labCapabilityVocabulary ? { capabilityVocabulary: options.labCapabilityVocabulary } : {}),
+        now: () => this.now().toISOString(),
+      });
     this.capabilityBindingsByTool = new Map<string, CapabilityToolBinding>([
       [
         UNICOM_COMMERCE_TOOL_NAME,
@@ -165,6 +180,7 @@ export class UnicomAgentPlane {
       commerce: this.commerce,
       delegates: undefined as unknown as UnicomDelegateRegistry,
       resolvePrincipal: (input) => this.resolvePrincipal(input.sessionId),
+      lab: this.lab,
     };
     this.toolEntries = createUnicomToolEntries(this.toolContext);
   }
@@ -194,6 +210,10 @@ export class UnicomAgentPlane {
     }
     if (authority.dataAccess.includes("capability-observations")) {
       names.add(UNICOM_OBSERVE_TOOL_NAME);
+    }
+    // W2-003: coordination-scoped principals may search lab-gated opportunities.
+    if (authority.dataAccess.includes("coordination-messages")) {
+      names.add(UNICOM_OPPORTUNITY_SEARCH_TOOL_NAME);
     }
     return [...names].sort();
   }

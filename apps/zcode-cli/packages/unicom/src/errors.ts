@@ -37,6 +37,8 @@ export const UnicomErrorCode = {
   TRADECYCLE_AUTHORIZATION_REQUIRED: 60_051,
   COMMERCE_SEAM_UNAVAILABLE: 60_060,
   ORGANIZATION_INVALID: 60_070,
+  LAB_CANDIDATE_NOT_PROMOTED: 60_080,
+  DISCLOSURE_POLICY_VIOLATION: 60_081,
 } as const;
 export type UnicomErrorCode = (typeof UnicomErrorCode)[keyof typeof UnicomErrorCode];
 
