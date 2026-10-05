@@ -17,7 +17,6 @@
  *   randomness, no IO (mirrors the kernel's determinism laws).
  */
 import type { AnyCommerceEvent } from "../domain/events.js";
-import { validateEventSequence } from "../domain/events.js";
 import { serializableClone } from "./serialize.js";
 
 /** A versioned projection definition. `apply` MUST be pure. */
@@ -30,6 +29,10 @@ export interface ProjectionDefinition<S> {
   initialState(): S;
   /** Fold ONE event into the next state (pure: returns new state). */
   apply(state: S, event: AnyCommerceEvent): S;
+  /** Structured freeze for checkpoints (default: flat-Map-aware deep copy). */
+  toSerializable?(state: S): unknown;
+  /** Inverse of `toSerializable` (default: flat-Map-aware deep thaw). */
+  fromSerializable?(serialized: unknown): S;
 }
 
 /**
@@ -86,16 +89,29 @@ export function migrateEventToCurrent(
 }
 
 /**
- * Frozen, serializable progress record for snapshot-aware resume: rebuilding
- * from a checkpoint plus tail replay MUST equal a full rebuild (scenario 3).
+ * Frozen, serializable progress record for ONE projection (see EngineCheckpoint).
  */
 export interface ProjectionCheckpoint {
   readonly projectionId: string;
   readonly schemaVersion: number;
-  /** Number of journal events already folded (resume position). */
-  readonly appliedEventCount: number;
   /** Structured-serializable projection state (no Maps/Sets/bigints). */
   readonly state: unknown;
+}
+
+/**
+ * Frozen, serializable engine progress for snapshot-aware resume: rebuilding
+ * from this checkpoint plus tail replay MUST equal a full rebuild
+ * (scenario 3). Carries the journal position AND the per-subject sequence
+ * positions so the tail's sequence-law continuity is checked against the
+ * folded prefix exactly (a skip or replay relative to the checkpoint throws).
+ */
+export interface EngineCheckpoint {
+  /** Number of journal events already folded (resume position). */
+  readonly appliedEventCount: number;
+  /** Per-subject last-sequence positions reached by the folded prefix. */
+  readonly subjectSequences: readonly (readonly [string, number])[];
+  /** Frozen state of every registered projection. */
+  readonly projections: readonly ProjectionCheckpoint[];
 }
 
 /** Per-subject sequence law violation (torn read detection). */
@@ -168,59 +184,61 @@ export class ProjectionEngine {
     this.appliedEventCount += 1;
   }
 
-  /** Fold an ordered slice of the journal (validate first — atomic). */
+  /**
+   * Fold an ordered slice of the journal incrementally. Per-subject sequence
+   * continuity is enforced against the engine's own positions (the slice may
+   * legitimately start mid-journal); a skip, replay or reorder throws.
+   */
   applyAll(events: readonly AnyCommerceEvent[]): void {
-    const validation = validateEventSequence(events);
-    if (!validation.ok) {
-      throw new TypeError(`journal slice violates the event sequence law: ${JSON.stringify(validation.error)}`);
-    }
     for (const event of events) this.apply(event);
   }
 
-  /** Deterministic checkpoint of every projection (deep-copied, serializable). */
-  checkpoint(): readonly ProjectionCheckpoint[] {
-    return [...this.definitions.values()].map((definition) => ({
-      projectionId: definition.projectionId,
-      schemaVersion: definition.schemaVersion,
+  /** Deterministic engine checkpoint (frozen, serializable, resumable). */
+  checkpoint(): EngineCheckpoint {
+    return {
       appliedEventCount: this.appliedEventCount,
-      state: serializableClone(this.states.get(definition.projectionId)),
-    }));
+      subjectSequences: [...this.sequences.entries()],
+      projections: [...this.definitions.values()].map((definition) => ({
+        projectionId: definition.projectionId,
+        schemaVersion: definition.schemaVersion,
+        state: freezeState(definition, this.states.get(definition.projectionId)),
+      })),
+    };
   }
 
   /**
-   * Restore from checkpoints (schema versions must match the registered
-   * definitions exactly) and continue folding the tail. The engine validates
-   * the tail's sequence law continuing FROM the checkpoint's positions, so a
-   * tail that skips or repeats events relative to the checkpoint throws.
+   * Restore from an engine checkpoint (schema versions must match the
+   * registered definitions exactly) and continue folding the tail. The
+   * tail's per-subject sequences must CONTINUE the checkpoint's recorded
+   * positions exactly — a skip or replay throws.
    */
   static resume(
     definitions: readonly ProjectionDefinition<unknown>[],
-    checkpoints: readonly ProjectionCheckpoint[],
+    checkpoint: EngineCheckpoint,
     tail: readonly AnyCommerceEvent[],
   ): ProjectionEngine {
     const engine = new ProjectionEngine(definitions);
-    const byId = new Map(checkpoints.map((checkpoint) => [checkpoint.projectionId, checkpoint]));
+    if (!Number.isSafeInteger(checkpoint.appliedEventCount) || checkpoint.appliedEventCount < 0) {
+      throw new TypeError(`invalid resume position ${checkpoint.appliedEventCount}`);
+    }
+    const byId = new Map(checkpoint.projections.map((projection) => [projection.projectionId, projection]));
     for (const definition of definitions) {
-      const checkpoint = byId.get(definition.projectionId);
-      if (!checkpoint) throw new TypeError(`checkpoint missing for projection ${definition.projectionId}`);
-      if (checkpoint.schemaVersion !== definition.schemaVersion) {
+      const projection = byId.get(definition.projectionId);
+      if (!projection) throw new TypeError(`checkpoint missing for projection ${definition.projectionId}`);
+      if (projection.schemaVersion !== definition.schemaVersion) {
         throw new TypeError(
-          `projection ${definition.projectionId}: checkpoint schema ${checkpoint.schemaVersion} != engine schema ${definition.schemaVersion}`,
+          `projection ${definition.projectionId}: checkpoint schema ${projection.schemaVersion} != engine schema ${definition.schemaVersion}`,
         );
       }
+      engine.states.set(definition.projectionId, thawState(definition, projection.state));
     }
-    const positions = new Set(checkpoints.map((checkpoint) => checkpoint.appliedEventCount));
-    if (positions.size !== 1) {
-      throw new TypeError(`checkpoints disagree on resume position: ${[...positions].join(", ")}`);
+    for (const [subject, sequence] of checkpoint.subjectSequences) {
+      if (!Number.isSafeInteger(sequence) || sequence < 1) {
+        throw new TypeError(`invalid checkpoint sequence for ${subject}: ${sequence}`);
+      }
+      engine.sequences.set(subject, sequence);
     }
-    const position = positions.values().next().value as number;
-    if (!Number.isSafeInteger(position) || position < 0) {
-      throw new TypeError(`invalid resume position ${position}`);
-    }
-    for (const checkpoint of checkpoints) {
-      engine.states.set(checkpoint.projectionId, serializableClone(checkpoint.state));
-    }
-    engine.appliedEventCount = position;
+    engine.appliedEventCount = checkpoint.appliedEventCount;
     for (const event of tail) engine.apply(event);
     return engine;
   }
@@ -243,4 +261,43 @@ export class ProjectionEngine {
     }
     throw new SequenceLawViolation({ code: "SEQUENCE_GAP", subject: key, expected: last + 1, actual: event.sequence });
   }
+}
+
+const MAP_TAG = "$map";
+
+interface FrozenMap {
+  readonly [key: string]: unknown;
+}
+
+function isFrozenMap(value: unknown): value is FrozenMap {
+  return (
+    value !== null &&
+    typeof value === "object" &&
+    !Array.isArray(value) &&
+    Array.isArray((value as Record<string, unknown>)[MAP_TAG])
+  );
+}
+
+/** Freeze a projection state for checkpointing (Maps become tagged entry arrays). */
+function freezeState(definition: ProjectionDefinition<unknown>, state: unknown): unknown {
+  if (definition.toSerializable) return serializableClone(definition.toSerializable(state));
+  if (state === null || typeof state !== "object" || Array.isArray(state)) return serializableClone(state);
+  const out: Record<string, unknown> = {};
+  for (const key of Object.keys(state as Record<string, unknown>)) {
+    const value = (state as Record<string, unknown>)[key];
+    out[key] = value instanceof Map ? { [MAP_TAG]: serializableClone([...value.entries()]) } : serializableClone(value);
+  }
+  return out;
+}
+
+/** Thaw a checkpointed projection state (tagged entry arrays become Maps). */
+function thawState(definition: ProjectionDefinition<unknown>, frozen: unknown): unknown {
+  if (definition.fromSerializable) return definition.fromSerializable(frozen);
+  if (frozen === null || typeof frozen !== "object" || Array.isArray(frozen)) return frozen;
+  const out: Record<string, unknown> = {};
+  for (const key of Object.keys(frozen as Record<string, unknown>)) {
+    const value = (frozen as Record<string, unknown>)[key];
+    out[key] = isFrozenMap(value) ? new Map(serializableClone(value[MAP_TAG]) as [string, unknown][]) : serializableClone(value);
+  }
+  return out;
 }

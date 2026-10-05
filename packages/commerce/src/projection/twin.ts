@@ -17,7 +17,7 @@ import { validateEventSequence, type AnyCommerceEvent } from "../domain/events.j
 import { ProjectionEngine, type ProjectionCheckpoint, type ProjectionDefinition } from "./engine.js";
 import { COMMERCE_PROJECTION_SCHEMA_VERSION } from "./migrations.js";
 import { canonicalJson } from "./serialize.js";
-import { TwinState } from "./twin-state.js";
+import { TwinState, type TwinSerializableState } from "./twin-state.js";
 import { snapshotOfTwin, type TwinStateSnapshot } from "./twin-snapshot.js";
 import { catalogReadModel, type CatalogReadModelState, type SkuFact } from "./catalog-projection.js";
 import {
@@ -46,6 +46,8 @@ export const twinProjection: ProjectionDefinition<TwinState> = {
   schemaVersion: COMMERCE_PROJECTION_SCHEMA_VERSION,
   initialState: () => TwinState.empty(),
   apply: (state, event) => TwinState.apply(state, event),
+  toSerializable: (state) => state.toSerializable(),
+  fromSerializable: (serialized) => TwinState.fromSerializable(serialized as TwinSerializableState),
 };
 
 /** The standard projection set the Commerce Twin folds in one pass. */
@@ -62,12 +64,13 @@ export function standardProjectionSet(): readonly ProjectionDefinition<unknown>[
   ] as readonly ProjectionDefinition<unknown>[];
 }
 
-/** Frozen twin progress record: { checkpoints, position } (serializable). */
+/** Frozen twin progress record (serializable; resumes from mid-journal). */
 export interface TwinCheckpoint {
   readonly projectionId: typeof TWIN_PROJECTION_ID;
   readonly schemaVersion: number;
   readonly appliedEventCount: number;
-  readonly checkpoints: readonly ProjectionCheckpoint[];
+  readonly subjectSequences: readonly (readonly [string, number])[];
+  readonly projections: readonly ProjectionCheckpoint[];
 }
 
 export class CommerceTwin {
@@ -100,7 +103,17 @@ export class CommerceTwin {
    * must CONTINUE the checkpoint exactly — a skip or replay throws.
    */
   static resume(checkpoint: TwinCheckpoint, tail: readonly AnyCommerceEvent[]): CommerceTwin {
-    return new CommerceTwin(ProjectionEngine.resume(standardProjectionSet(), checkpoint.checkpoints, tail));
+    return new CommerceTwin(
+      ProjectionEngine.resume(
+        standardProjectionSet(),
+        {
+          appliedEventCount: checkpoint.appliedEventCount,
+          subjectSequences: checkpoint.subjectSequences,
+          projections: checkpoint.projections,
+        },
+        tail,
+      ),
+    );
   }
 
   /** Incremental update: fold events already durably appended to the journal. */
@@ -161,13 +174,15 @@ export class CommerceTwin {
     return this.engine.stateOf<ReconciliationReadModelState>(reconciliationReadModel.projectionId);
   }
 
-  /** Deterministic checkpoint (deep-copied, structured-serializable). */
+  /** Deterministic checkpoint (frozen, structured-serializable, resumable). */
   checkpoint(): TwinCheckpoint {
+    const engineCheckpoint = this.engine.checkpoint();
     return {
       projectionId: TWIN_PROJECTION_ID,
       schemaVersion: COMMERCE_PROJECTION_SCHEMA_VERSION,
-      appliedEventCount: this.engine.position(),
-      checkpoints: this.engine.checkpoint(),
+      appliedEventCount: engineCheckpoint.appliedEventCount,
+      subjectSequences: engineCheckpoint.subjectSequences,
+      projections: engineCheckpoint.projections,
     };
   }
 
