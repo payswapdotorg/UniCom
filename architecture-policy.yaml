@@ -55,6 +55,12 @@ modules:
   - id: zcode-cli
     roots: [apps/zcode-cli]
     managed: false
+  - id: experience
+    roots: [packages/experience/src]
+    managed: true
+    requires: []
+    publicEntrypoints: [packages/experience/src/contract.ts]
+    owner: worker-3
 
 global:
   maxFileLines: 400
