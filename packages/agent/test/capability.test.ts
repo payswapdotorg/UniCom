@@ -10,6 +10,7 @@ import type {
 import {
   EXECUTION_MODES,
   ExecutionMode,
+  credentialRef,
   credentialScope,
   evaluateCapabilityExecutability,
 } from "../src/index.js";
@@ -38,7 +39,7 @@ const IMPLEMENTATION: ProviderImplementation = {
 
 const PRECONDITIONS: ExecutabilityPreconditions = {
   requiresConnectedInstance: true,
-  requiredCredentialScope: "orders.read orders.write",
+  requiredCredentialScope: credentialScope("orders.read orders.write"),
   requiredPermissions: ["write_orders"],
   requiredGeography: "GH",
   requiredCurrency: "GHS",
@@ -53,6 +54,7 @@ function buildInstance(input: Partial<ConnectedCapabilityInstance> = {}): Connec
     accountRef: "account://merchant-kantamanto/shopify",
     connectionStatus: "CONNECTED",
     credentialScope: credentialScope("orders.read orders.write"),
+    credentialRef: credentialRef("vault://credentials/conn-1"),
     grantedPermissions: ["write_orders", "read_orders"],
     commercialEligibility: {
       supportedGeographies: ["GH", "TG"],

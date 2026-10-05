@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { AuthorizationDecision, TradeCycle, TradeCycleLeg } from "../src/index.js";
+import type { AuthorizationDecision, PrincipalRef, TradeCycle, TradeCycleLeg } from "../src/index.js";
 import { validateTradeCycle } from "../src/index.js";
 
 /**
@@ -9,11 +9,11 @@ import { validateTradeCycle } from "../src/index.js";
  * is bounded in hop count (FROZEN-ARCHITECTURE §7, §22.2; invariants 19/20/44).
  */
 
-const USER_1 = { principalId: "user-1", kind: "user" } as const;
-const USER_2 = { principalId: "user-2", kind: "user" } as const;
-const USER_3 = { principalId: "user-3", kind: "user" } as const;
+const USER_1: PrincipalRef = { principalId: "user-1", kind: "user" };
+const USER_2: PrincipalRef = { principalId: "user-2", kind: "user" };
+const USER_3: PrincipalRef = { principalId: "user-3", kind: "user" };
 
-function legAuthBy(ref: typeof USER_1): AuthorizationDecision {
+function legAuthBy(ref: PrincipalRef): AuthorizationDecision {
   return { decision: "AUTHORIZED", decidedBy: ref, policyVersion: "policy-1", decidedAt: "2026-11-05T08:00:00.000Z" };
 }
 

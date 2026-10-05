@@ -169,10 +169,15 @@ describe("defensive-only threat signatures", () => {
   });
 
   it("rejects unknown/undeclared fields", () => {
-    const smuggled = { ...VALID_SIGNATURE, stepsToReproduce: "1. …" };
+    const smuggled = { ...VALID_SIGNATURE, authorNotes: "internal commentary" };
     const result = validateThreatSignature(smuggled);
     expect(result.valid).toBe(false);
     if (!result.valid) expect(result.reason).toBe("UNKNOWN_FIELD");
+
+    // Reproduction-step fields are weaponization-shaped and rejected as such.
+    const repro = { ...VALID_SIGNATURE, stepsToReproduce: "1. …" };
+    const reproResult = validateThreatSignature(repro);
+    if (!reproResult.valid) expect(reproResult.reason).toBe("WEAPONIZED_FIELD_NAME");
   });
 
   it("rejects executable weaponized content inside indicator values", () => {

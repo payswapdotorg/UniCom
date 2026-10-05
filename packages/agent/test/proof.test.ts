@@ -1,7 +1,6 @@
 import { describe, expect, expectTypeOf, it } from "vitest";
-import type { AuthorizationDecision, CommerceCommandIntent, ProofPinnedAction, UserTrust } from "../src/index.js";
+import type { AuthorizationDecision, CommerceCommandIntent, ProofLevel, ProofPinnedAction, UserTrust } from "../src/index.js";
 import {
-  ProofLevel,
   PROOF_LEVELS,
   buildCommerceSubmission,
   buildConsequentialSubmission,

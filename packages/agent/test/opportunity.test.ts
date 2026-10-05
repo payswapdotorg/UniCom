@@ -46,7 +46,7 @@ function buildChain(): Opportunity[] {
       basedOnOpportunityIds: ["opp-inf-1"],
     },
     subjectRef: JACKET,
-    rentalTerms: { ratePerPeriod: money("GHS", 3500), period: "DAY", depositRequired: money("GHS", 20000) },
+    rentalTerms: { ratePerPeriod: money("GHS", "3500"), period: "DAY", depositRequired: money("GHS", "20000") },
     detectedAt: "2026-11-01T00:10:00.000Z",
   };
   const recommendation: Opportunity = {
@@ -58,8 +58,8 @@ function buildChain(): Opportunity[] {
       basedOnOpportunityIds: ["opp-pred-1"],
     },
     subjectRef: JACKET,
-    rentalTerms: { ratePerPeriod: money("GHS", 3500), period: "DAY", depositRequired: money("GHS", 20000) },
-    estimatedValue: money("GHS", 10500), // three rental days per month
+    rentalTerms: { ratePerPeriod: money("GHS", "3500"), period: "DAY", depositRequired: money("GHS", "20000") },
+    estimatedValue: money("GHS", "10500"), // three rental days per month
     proposedStrategyId: "strategy-55",
     detectedAt: "2026-11-01T00:15:00.000Z",
   };
@@ -83,13 +83,13 @@ describe("scenario 5 — unused owned item → resale/rental opportunity", () =>
   it("attaches rental terms to the rental recommendation and keeps resale separately expressible", () => {
     const chain = buildChain();
     const recommendation = chain.at(-1);
-    expect(recommendation?.rentalTerms?.ratePerPeriod).toEqual(money("GHS", 3500));
+    expect(recommendation?.rentalTerms?.ratePerPeriod).toEqual(money("GHS", "3500"));
     const resale: Opportunity = {
       ...chain[0]!,
       opportunityId: "opp-resale-1",
-      resaleTerms: { askingPrice: money("GHS", 180000), condition: "GOOD" },
+      resaleTerms: { askingPrice: money("GHS", "180000"), condition: "GOOD" },
     };
-    expect(resale.resaleTerms?.askingPrice).toEqual(money("GHS", 180000));
+    expect(resale.resaleTerms?.askingPrice).toEqual(money("GHS", "180000"));
   });
 
   it("flags an observation that carries predictive fields (facts are not predictions)", () => {

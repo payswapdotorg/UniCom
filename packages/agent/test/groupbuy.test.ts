@@ -1,11 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type {
-  GroupBuy,
-  GroupBuyCommitment,
-  GroupBuyProposal,
-  LatentDemandCluster,
-  MerchantGroupBuyResponse,
-} from "../src/index.js";
+import type { GroupBuy, GroupBuyCommitment, GroupBuyProposal, LatentDemandCluster, MerchantGroupBuyResponse, PrincipalRef } from "../src/index.js";
 import {
   enrollParticipant,
   groupBuyParticipantCount,
@@ -22,12 +16,12 @@ import {
  * counter or reject (FROZEN-ARCHITECTURE §6, §22.1).
  */
 
-const MERCHANT = { principalId: "merchant-kantamanto", kind: "merchant" } as const;
-const BUYER_A = { principalId: "user-amara", kind: "user" } as const;
-const BUYER_B = { principalId: "user-kwesi", kind: "user" } as const;
-const BUYER_C = { principalId: "user-abena", kind: "user" } as const;
+const MERCHANT: PrincipalRef = { principalId: "merchant-kantamanto", kind: "merchant" };
+const BUYER_A: PrincipalRef = { principalId: "user-amara", kind: "user" };
+const BUYER_B: PrincipalRef = { principalId: "user-kwesi", kind: "user" };
+const BUYER_C: PrincipalRef = { principalId: "user-abena", kind: "user" };
 
-function authorizedBy(ref: typeof BUYER_A, at: string) {
+function authorizedBy(ref: PrincipalRef, at: string) {
   return { decision: "AUTHORIZED", decidedBy: ref, policyVersion: "policy-1", decidedAt: at } as const;
 }
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { BuyerCommerceIntent, IntentCandidate } from "../src/index.js";
+import type { BuyerCommerceIntent, IntentCandidate, PrincipalRef } from "../src/index.js";
 import { checkHardConstraints, evaluateIntentCandidates, money } from "../src/index.js";
 
 /**
@@ -8,7 +8,7 @@ import { checkHardConstraints, evaluateIntentCandidates, money } from "../src/in
  * constraints. Hard constraints are checked before soft optimization
  * (FROZEN-ARCHITECTURE §5).
  */
-const BUYER = { principalId: "user-amara", kind: "user" } as const;
+const BUYER: PrincipalRef = { principalId: "user-amara", kind: "user" };
 
 function buildIntent(): BuyerCommerceIntent {
   return {
@@ -17,7 +17,7 @@ function buildIntent(): BuyerCommerceIntent {
     desired: ["desired://camera/mirrorless-x100"],
     hardConstraints: {
       deadline: "2026-11-20T18:00:00.000Z",
-      maxTotalCost: money("GHS", 450000), // GHS 4,500.00 in minor units
+      maxTotalCost: money("GHS", "450000"), // GHS 4,500.00 in minor units
       minQuality: { minAverageRating: 4.2, minReviewCount: 25, minCondition: "LIKE_NEW" },
       minSellerCredibility: { minVerifiedTransactions: 40, minDisputeRateCeilingBps: 200 },
       privacyRequirements: ["NO_THIRD_PARTY_SHARING", "MINIMIZE_DATA_COLLECTION"],
@@ -39,7 +39,7 @@ function buildIntent(): BuyerCommerceIntent {
 
 const COMPLIANT_CANDIDATE: IntentCandidate = {
   candidateRef: "candidate://shop-accra/deal-77",
-  totalCost: money("GHS", 431000),
+  totalCost: money("GHS", "431000"),
   estimatedDeliveryAt: "2026-11-04T09:00:00.000Z",
   averageRating: 4.6,
   reviewCount: 118,
@@ -57,7 +57,7 @@ describe("scenario 1 — buyer intent constraints", () => {
     const intent = buildIntent();
     const hard = intent.hardConstraints;
     expect(hard.deadline).toBe("2026-11-20T18:00:00.000Z");
-    expect(hard.maxTotalCost).toEqual(money("GHS", 450000));
+    expect(hard.maxTotalCost).toEqual(money("GHS", "450000"));
     expect(hard.minQuality?.minAverageRating).toBe(4.2);
     expect(hard.minQuality?.minReviewCount).toBe(25);
     expect(hard.minQuality?.minCondition).toBe("LIKE_NEW");
@@ -82,7 +82,7 @@ describe("scenario 1 — buyer intent constraints", () => {
   it("rejects candidates that exceed the maximum total cost", () => {
     const check = checkHardConstraints(buildIntent(), {
       ...COMPLIANT_CANDIDATE,
-      totalCost: money("GHS", 501000),
+      totalCost: money("GHS", "501000"),
     });
     expect(check.satisfied).toBe(false);
     if (!check.satisfied) expect(check.violations).toContain("COST_EXCEEDED");
@@ -117,7 +117,7 @@ describe("scenario 1 — buyer intent constraints", () => {
     // Cheapest and fastest, but violates the deadline and the proof floor.
     const softOptimalButHardViolating: IntentCandidate = {
       candidateRef: "candidate://gray-importer/deal-1",
-      totalCost: money("GHS", 120000),
+      totalCost: money("GHS", "120000"),
       estimatedDeliveryAt: "2026-12-15T09:00:00.000Z",
       averageRating: 4.9,
       reviewCount: 300,

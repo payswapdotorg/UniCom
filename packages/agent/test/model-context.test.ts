@@ -45,14 +45,14 @@ describe("third-party content is data, not instructions", () => {
 
 describe("no credentials in model context", () => {
   it("accepts credential-free material through the model-context gate", () => {
-    const material = toModelContextMaterial({ summary: "buyer wants a camera under GHS 4,500", items: [] });
-    expect(material).toBeDefined();
+    const material = toModelContextMaterial({ summary: "buyer wants a camera under GHS 4,500", items: [] }, "2026-11-05T00:00:00.000Z");
+    expect(material.clearedAt).toBe("2026-11-05T00:00:00.000Z");
   });
 
   it("structurally rejects credential-bearing shapes — the parameter collapses to never", () => {
     expectTypeOf<RejectSuspectCredentialKeys<{ credential: string; summary: string }>>().toEqualTypeOf<never>();
     expectTypeOf<RejectSuspectCredentialKeys<{ sessionCookie: string }>>().toEqualTypeOf<never>();
-    expectTypeOf<RejectSuspectCredentialKeys<{ auth: { refreshToken: string } }>>().toEqualTypeOf<{ auth: { refreshToken: string }>();
+    expectTypeOf<RejectSuspectCredentialKeys<{ auth: { refreshToken: string } }>>().toEqualTypeOf<{ auth: { refreshToken: string } }>();
     expectTypeOf<RejectSuspectCredentialKeys<{ summary: string }>>().toEqualTypeOf<{ summary: string }>();
   });
 
