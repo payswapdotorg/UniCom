@@ -22,7 +22,7 @@ export function isValidIdText(value: string): boolean {
     value.length > 0 &&
     value.length <= MAX_ID_LENGTH &&
     ID_TEXT_PATTERN.test(value) &&
-    !/^__/.test(value)
+    !value.startsWith("__")
   );
 }
 
@@ -135,8 +135,9 @@ export type AutonomousStorePolicyId = Brand<string, "AutonomousStorePolicyId">;
 
 /** Construct a barcode value (GTIN-8/12/13/14 numeric form). */
 export function makeBarcode(value: string): Barcode {
-  if (!/^\d{8}(\d{0,6})$/.test(value)) {
-    throw new TypeError(`invalid barcode (expected 8-14 digits): ${JSON.stringify(value)}`);
+  const validLength = value.length === 8 || value.length === 12 || value.length === 13 || value.length === 14;
+  if (!validLength || !/^\d+$/.test(value)) {
+    throw new TypeError(`invalid barcode (expected GTIN-8/12/13/14 digits): ${JSON.stringify(value)}`);
   }
   return value as Barcode;
 }

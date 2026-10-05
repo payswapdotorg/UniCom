@@ -24,7 +24,6 @@ import type {
   PurchaseOrderId,
   ReservationId,
   ReturnId,
-  ShipmentId,
   SkuId,
   TransferId,
 } from "./ids.js";

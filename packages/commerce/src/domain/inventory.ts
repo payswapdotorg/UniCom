@@ -174,7 +174,9 @@ export function adjustOnHand(
     return err({ code: "NEGATIVE_UNITS", detail: `delta must be a safe integer: ${deltaUnits}` });
   }
   const next = rebuild(level, level.onHand + deltaUnits, level.reserved);
-  if (!next.ok) return next;
+  if (!next.ok) {
+    return err({ code: next.error.code, detail: `${next.error.detail} (reason=${reason})` });
+  }
   return ok(next.value);
 }
 

@@ -127,9 +127,15 @@ export function receiveAgainstPurchaseOrder(
   });
   const allComplete = nextLines.every((line) => line.receivedUnits >= line.orderedUnits);
   const anyReceived = nextLines.some((line) => line.receivedUnits > 0);
-  const nextState: PurchaseOrderState = allComplete ? "RECEIVED" : anyReceived ? "PARTIALLY_RECEIVED" : purchaseOrder.state;
+  // Completion wins over the generic RECEIVE edge; under-receipt stays partial.
   const advance = purchaseOrderTransition(purchaseOrder.state, "RECEIVE");
-  const validState = allComplete || anyReceived ? (advance.ok ? advance.value : nextState) : nextState;
+  const validState: PurchaseOrderState = allComplete
+    ? "RECEIVED"
+    : anyReceived
+      ? advance.ok
+        ? advance.value
+        : "PARTIALLY_RECEIVED"
+      : purchaseOrder.state;
   return ok({
     purchaseOrder: { ...purchaseOrder, lines: nextLines, state: validState, revision: nextRevision(purchaseOrder.revision) },
     receipt: lines,

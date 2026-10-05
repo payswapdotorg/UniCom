@@ -21,8 +21,8 @@ const UNIT_FAMILIES: Readonly<Record<string, UnitFamily>> = {
   SEC: "TIME", MIN: "TIME", HOUR: "TIME", DAY: "TIME",
 };
 
-/** Construct a unit of measure; family defaults from a known table. */
-export function unitOfMeasure(code: string, family?: UnitFamily): UnitOfMeasure {
+/** Construct a unit of measure; the family is derived via `unitFamily`. */
+export function unitOfMeasure(code: string): UnitOfMeasure {
   if (!UNIT_PATTERN.test(code)) {
     throw new TypeError(`invalid unit code: ${JSON.stringify(code)}`);
   }
