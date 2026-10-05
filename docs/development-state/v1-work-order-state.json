@@ -12,27 +12,42 @@
     "worker-3": "experience-connectors-physical-deployment"
   },
   "final_tl_handoff": "docs/FINAL-TL-HANDOFF-2026-10-05.md",
-  "active_work_orders": [],
-  "frontier": [
+  "active_work_orders": [
     {
       "id": "W1-001",
-      "status": "READY",
+      "status": "ACTIVE",
       "owner": "worker-1",
-      "depends_on": []
+      "depends_on": [],
+      "activated_at": "2026-10-05T02:34:37Z",
+      "activated_by": "TL",
+      "base_sha": "6026d37bd936127c54b1d7218d9ed14a8d09b4f9",
+      "session": "unicom-w1-001",
+      "delivery_branch": "work/w1-001"
     },
     {
       "id": "W2-001",
-      "status": "READY",
+      "status": "ACTIVE",
       "owner": "worker-2",
-      "depends_on": []
+      "depends_on": [],
+      "activated_at": "2026-10-05T02:34:37Z",
+      "activated_by": "TL",
+      "base_sha": "6026d37bd936127c54b1d7218d9ed14a8d09b4f9",
+      "session": "unicom-w2-001",
+      "delivery_branch": "work/w2-001"
     },
     {
       "id": "W3-001",
-      "status": "READY",
+      "status": "ACTIVE",
       "owner": "worker-3",
-      "depends_on": []
+      "depends_on": [],
+      "activated_at": "2026-10-05T02:34:37Z",
+      "activated_by": "TL",
+      "base_sha": "6026d37bd936127c54b1d7218d9ed14a8d09b4f9",
+      "session": "unicom-w3-001",
+      "delivery_branch": "work/w3-001"
     }
   ],
+  "frontier": [],
   "completed_work_orders": [],
   "gates": {
     "architecture_conformance": "REQUIRED",
