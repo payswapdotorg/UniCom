@@ -185,3 +185,111 @@ Required:
 - responsive state;
 - auth/session boundary;
 - connector approval flow where applicable.
+
+  
+## Feature discoverability architecture
+
+Primary navigation:
+
+- Command Center
+- Shop / Intent
+- Store / Sell
+- Orders
+- Inventory / Physical
+- Customers
+- Marketing
+- Opportunities
+- Live Commerce
+- Experiments / Twin
+- Autonomy
+- Trust / Security
+- Connections
+- Apps / Skills
+- Settings
+
+Every capability remains reachable through the global intent/command surface.
+
+Contextual opportunities expose capabilities users might not know to ask for.
+
+Examples:
+- "23 shoppers want this SKU — create a group-buy?"
+- "Your POS has no inventory API — connect this store computer with UNiCOM Edge."
+- "These owned items have resale/rental opportunities."
+- "A valid multi-user trade cycle was found."
+- "Review activity shows possible coordinated manipulation."
+
+### Role switching
+
+A user can operate as buyer, merchant, staff, supplier, reseller, renter or coordinator. Role switching changes workspace emphasis, not identity or underlying authority.
+
+### Organization visibility
+
+When the Lab forms a non-trivial organization, show:
+- objective;
+- actors/capabilities;
+- authority scopes;
+- current task;
+- why the organization was selected;
+- expected benefit;
+- risks;
+- approvals.
+
+Do not make swarm chat the primary UX.
+
+## Local Commerce Edge UX
+
+Connector Studio offers:
+
+"Connect this store even if your POS has no API."
+
+Setup:
+1. run the local edge on an existing store computer/tablet;
+2. detect authorized local interfaces;
+3. select POS/files/browser/peripherals;
+4. test read-only observations;
+5. enable selected commands;
+6. show reconciliation health.
+
+The merchant should not need to know whether the implementation uses API, browser, USB, serial or shared files.
+
+## Supermarket no-RFID quick start
+
+The setup wizard explicitly says:
+
+"You do not need RFID."
+
+It offers:
+- connect POS;
+- upload sales/inventory files;
+- barcode scan with phone;
+- scanner/scale;
+- shelf-count mode;
+- buyer ordering;
+- group-buy;
+- opportunities;
+- optional RFID later.
+
+## Deployment tiers
+
+### Tier A — Free prototype
+Vercel for non-commercial staging/demo where its Hobby terms permit; Cloudflare Workers/Workflows/Queues/Durable Objects/Browser Run/Workers AI; Neon; R2; Upstash; optional Apify.
+
+### Tier B — Commercial low-scale
+Move commercial frontend/SSR away from Vercel Hobby where required by its terms; retain Cloudflare edge/orchestration, Neon, R2 and Upstash as economical.
+
+### Tier C — Growth
+Replace only saturated adapters with dedicated browser workers, stronger queues, paid Postgres, durable compute or commercial model providers.
+
+No domain rewrite.
+
+## Current free-tier operating notes
+
+Cloudflare Workers Free has bounded request/CPU limits; Queues are available on Free; SQLite-backed Durable Objects are available on Free; Browser Run includes a free browser allowance; Workers AI has a daily free allocation.
+
+Neon Free currently provides 100 projects with 1 GB Postgres storage per project.
+
+R2 Free currently includes 10 GB-month storage, 1M Class A and 10M Class B operations per month.
+
+Upstash Redis Free currently provides 256 MB, 10 GB monthly bandwidth and 500K commands/month.
+
+These numbers are deployment observations only and may change. Domain code must never branch on them.
