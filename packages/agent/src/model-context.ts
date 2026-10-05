@@ -128,7 +128,7 @@ export function toModelContextMaterial<T extends object>(
   return { clearedAt, content: { ...(material as Record<string, unknown>) } };
 }
 
-const SUSPECT_KEY_PATTERN = /credential|cookie|token|secret|password|passphrase|\bmfa\b|\botp\b|browserstorage|sessionid/i;
+const SUSPECT_KEY_PATTERN = /credential|cookie|token|secret|password|passphrase|mfa|\botp\b|browserstorage|sessionid/i;
 
 /**
  * Deep, fail-closed scanner: throws as soon as any object key anywhere in
@@ -149,4 +149,57 @@ export function assertNoCredentialMaterial(value: unknown): void {
       stack.push((current as Record<string, unknown>)[key]);
     }
   }
+}
+
+/** One credential-shaped key found somewhere inside kernel-mediated context. */
+export interface CredentialRedactionFinding {
+  /** Dotted path from the root of the scanned value to the offending key. */
+  readonly path: string;
+  readonly key: string;
+}
+
+export interface CredentialRedactionResult<T> {
+  /** Structurally equal value with every offending value replaced. */
+  readonly redacted: T;
+  readonly findings: readonly CredentialRedactionFinding[];
+}
+
+/**
+ * Runtime redaction companion to {@link assertNoCredentialMaterial} (W2-002
+ * kernel adaptation): deep-copies the value replacing every credential-shaped
+ * key's value with a fixed marker, so kernel-mediated context can be sanitized
+ * at the model-context boundary instead of dropped entirely. Deterministic:
+ * identical inputs produce identical redacted outputs and identical paths.
+ */
+export function redactCredentialMaterial<T>(value: T): CredentialRedactionResult<T> {
+  const findings: CredentialRedactionFinding[] = [];
+  const seen = new Map<unknown, unknown>();
+
+  function visit(node: unknown, path: string): unknown {
+    if (typeof node !== "object" || node === null) return node;
+    const cached = seen.get(node);
+    if (cached !== undefined) return cached;
+    if (Array.isArray(node)) {
+      const copy: unknown[] = [];
+      seen.set(node, copy);
+      for (let index = 0; index < node.length; index += 1) {
+        copy[index] = visit(node[index], path === "" ? String(index) : `${path}.${index}`);
+      }
+      return copy;
+    }
+    const copy: Record<string, unknown> = {};
+    seen.set(node, copy);
+    for (const [key, child] of Object.entries(node as Record<string, unknown>)) {
+      if (SUSPECT_KEY_PATTERN.test(key)) {
+        findings.push({ path: path === "" ? key : `${path}.${key}`, key });
+        copy[key] = "[REDACTED:credential-material]";
+        continue;
+      }
+      copy[key] = visit(child, path === "" ? key : `${path}.${key}`);
+    }
+    return copy;
+  }
+
+  const redacted = visit(value, "") as T;
+  return { redacted, findings };
 }

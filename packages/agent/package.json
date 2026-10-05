@@ -15,6 +15,9 @@
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
+    "@unicom/agent-kernel": "workspace:*",
+    "@zcode/contracts": "workspace:*",
+    "@zcode/core": "workspace:*",
     "typescript": "^6.0.2",
     "vitest": "^3.2.4"
   }
