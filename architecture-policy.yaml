@@ -55,6 +55,14 @@ modules:
   - id: zcode-cli
     roots: [apps/zcode-cli]
     managed: false
+  - id: commerce
+    roots: [packages/commerce/src]
+    managed: true
+    requires: []
+    publicEntrypoints: [packages/commerce/src/contract.ts]
+    layers: { domain: domain }
+    layerOrder: [domain]
+    owner: commerce-truth
 
 global:
   maxFileLines: 400
