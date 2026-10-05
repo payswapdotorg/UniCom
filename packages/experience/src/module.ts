@@ -23,6 +23,13 @@ export const experienceModule = {
     "connector-credential-vaulting",
     "execution-mode-dispatch-plumbing",
     "transport-coverage-plumbing",
+    "first-provider-adapters",
+    "provider-mode-permission-matrix",
+    "connector-telemetry-journey-evidence",
+    "local-commerce-edge-runtime",
+    "browser-only-connector",
+    "live-commerce-connector",
+    "feed-file-connector",
   ],
   publicEntrypoints: [
     "packages/experience/src/contract.ts",

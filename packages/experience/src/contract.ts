@@ -41,6 +41,7 @@ export * from "./connector/browser-session";
 export * from "./connector/observability";
 export * from "./connector/live-commerce";
 export * from "./connector/webhook-events";
+export * from "./connector/feed-file";
 
 export * from "./edge/observation";
 export * from "./edge/offline-queue";
