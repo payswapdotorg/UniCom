@@ -146,3 +146,73 @@ Every work order records:
 - invariants exercised;
 - failure/UNKNOWN handling;
 - next frontier unlocked.
+
+  
+## Cross-cutting gate G0 — Feature completeness
+
+G0 is TL-owned and is not a fourth worker.
+
+Before a Work Order can be COMPLETE, the TL checks the feature matrix and verifies that the affected feature has:
+- contract;
+- execution path;
+- discoverable UX path;
+- browser journey where relevant;
+- evidence/observability;
+- failure/UNKNOWN handling;
+- security/authority boundary.
+
+## Additional Stage 2 requirements
+
+### W2-003
+Must implement:
+- opportunity engine;
+- GroupBuy discovery/formation;
+- merchant demand-generated group-buy proposals;
+- bounded TradeCycle discovery;
+- actor-as-capability representation;
+- privacy-aware multi-party coordination.
+
+### W3-003
+Must implement:
+- LocalCommerceEdge;
+- browser-only connector;
+- live-commerce connector;
+- feed/file connector;
+- first provider adapters;
+- connector observability.
+
+## Additional Stage 3 requirements
+
+### W3-004
+Must demonstrate supermarket journeys without RFID:
+- import/POS sync;
+- barcode/mobile count;
+- local edge;
+- weighted-product workflow;
+- offline observation queue;
+- reconciliation.
+
+### W2-004
+Security acceptance must include:
+- fake review/ring;
+- wrong-item shipment;
+- false buyer claim;
+- false non-delivery;
+- return/refund abuse.
+
+## Stage 4 organization-learning requirements
+
+W2-005 must compare:
+- single Main Agent + skills baseline;
+- Main Agent + ephemeral delegate organizations;
+- provider-native optimization;
+- searched organizations;
+- System 1 only;
+- System 1 + JEPA/world-model;
+- System 1 + JEPA + System 2 escalation.
+
+Promotion uses replay, adversarial testing, simulation, shadow/canary and observed outcomes.
+
+## Stage 5 release requirement
+
+The final release candidate must pass the complete feature matrix, not merely domain-unit tests.
