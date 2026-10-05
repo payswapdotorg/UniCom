@@ -63,6 +63,13 @@ modules:
     layers: { domain: domain }
     layerOrder: [domain]
     owner: commerce-truth
+  - id: agent
+    roots: [packages/agent/src]
+    managed: true
+    requires: []
+    publicEntrypoints:
+      [packages/agent/src/index.ts, packages/agent/src/contract.ts, packages/agent/src/capability/index.ts]
+    owner: worker-2
 
 global:
   maxFileLines: 400
