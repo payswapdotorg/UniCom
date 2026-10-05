@@ -5,6 +5,10 @@
  * W3-002 起建立到 @unicom/agent 的类型化接缝：能力词汇表（CapabilityDefinition →
  * ProviderImplementation → ConnectedCapabilityInstance → CapabilityObservation）
  * 一律通过 @unicom/agent 公开入口消费（invariant 34：仓库内唯一词汇表）。
+ * W3-003 增补：规范连接器执行（传输端口、退避引擎、错误分类法、模式权限矩阵、
+ * 六个 provider 适配器、浏览器专用/直播/文件连接器、LocalCommerceEdge、
+ * 旅程执行器、遥测）。W3-004 增补：无 RFID 的物理商务边缘（POS 导入连接器、
+ * 称重商品运行时、离线重放冲突规则、对账旅程规划器）与直播商务 UX 契约。
  * 对外公开入口：contract.ts（契约）与 runtime/index.ts（运行时）。
  */
 export const experienceModule = {
