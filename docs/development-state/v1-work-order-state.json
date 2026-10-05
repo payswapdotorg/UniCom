@@ -12,33 +12,48 @@
     "worker-3": "experience-connectors-physical-deployment"
   },
   "final_tl_handoff": "docs/FINAL-TL-HANDOFF-2026-10-05.md",
-  "active_work_orders": [],
-  "frontier": [
+  "active_work_orders": [
     {
       "id": "W1-002",
-      "status": "READY",
+      "status": "ACTIVE",
       "owner": "worker-1",
       "depends_on": [
         "W1-001"
-      ]
+      ],
+      "activated_at": "2026-10-05T11:15:00Z",
+      "activated_by": "TL",
+      "base_sha": "7eef8b2",
+      "session": "unicom-w1-002",
+      "delivery_branch": "work/w1-002"
     },
     {
       "id": "W2-002",
-      "status": "READY",
+      "status": "ACTIVE",
       "owner": "worker-2",
       "depends_on": [
         "W2-001"
-      ]
+      ],
+      "activated_at": "2026-10-05T11:15:00Z",
+      "activated_by": "TL",
+      "base_sha": "7eef8b2",
+      "session": "unicom-w2-002",
+      "delivery_branch": "work/w2-002"
     },
     {
       "id": "W3-002",
-      "status": "READY",
+      "status": "ACTIVE",
       "owner": "worker-3",
       "depends_on": [
         "W3-001"
-      ]
+      ],
+      "activated_at": "2026-10-05T11:15:00Z",
+      "activated_by": "TL",
+      "base_sha": "7eef8b2",
+      "session": "unicom-w3-002",
+      "delivery_branch": "work/w3-002"
     }
   ],
+  "frontier": [],
   "completed_work_orders": [
     {
       "id": "W1-001",
