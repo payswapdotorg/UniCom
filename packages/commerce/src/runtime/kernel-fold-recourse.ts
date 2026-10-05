@@ -40,7 +40,6 @@ export class KernelRecourseFold {
   /** Fold one fact; irrelevant subjects/kinds are no-ops (deterministic). */
   apply(event: AnyCommerceEvent): void {
     const kind = kindOf(event);
-    const subjectId = event.subject.subjectId;
     switch (event.subject.subjectType) {
       case "PAYMENT":
         if (kind === "REFUND_RECORDED") {

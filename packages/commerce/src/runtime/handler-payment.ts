@@ -25,7 +25,7 @@ import {
   validatePaymentIntentRequest,
   type PaymentIntent,
 } from "../domain/payments.js";
-import type { PaymentBoundaryError, PaymentBoundary } from "../domain/payments.js";
+import type { PaymentBoundaryError } from "../domain/payments.js";
 import type { Result } from "../domain/result.js";
 import { isPartialCaptureBoundary, validateRefundAgainstCaptures, type CaptureKind, type PaymentCaptureRecord } from "../domain/settlement.js";
 import type { RefundRecord, RefundState } from "../domain/returns.js";
@@ -243,7 +243,7 @@ export function emitIntentRecorded(ctx: CommandContext, intent: PaymentIntent): 
   });
 }
 
-function orderPaymentStatusFor(intent: PaymentIntent, order: OrderSnapshot): OrderSnapshot["paymentStatus"] {
+export function orderPaymentStatusFor(intent: PaymentIntent, order: OrderSnapshot): OrderSnapshot["paymentStatus"] {
   switch (intent.status) {
     case "AUTHORIZED":
       return "AUTHORIZED";

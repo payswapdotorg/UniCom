@@ -30,10 +30,6 @@ import type { CashVarianceRecord, StoreCashSession } from "../domain/store-ops.j
 import { KernelRecourseFold } from "./kernel-fold-recourse.js";
 import { KernelStoreOpsFold } from "./kernel-fold-store-ops.js";
 
-interface PayloadLike {
-  readonly kind?: unknown;
-}
-
 type OrderEventPayloadLike =
   | { readonly kind: "ORDER_PLACED"; readonly snapshot: OrderSnapshot }
   | { readonly kind: "ORDER_STATE_CHANGED"; readonly from: OrderSnapshot["state"]; readonly to: OrderSnapshot["state"] }

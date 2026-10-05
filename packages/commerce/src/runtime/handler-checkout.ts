@@ -31,7 +31,7 @@ import {
   type RuntimeCommandHandler,
 } from "./handler.js";
 import { orderSnapshotOf } from "./handler-commerce.js";
-import { emitIntentRecorded } from "./handler-payment.js";
+import { emitIntentRecorded, orderPaymentStatusFor } from "./handler-payment.js";
 import { checkoutSubject, mintOrderId } from "./subjects.js";
 
 export const handleCompleteCheckout: RuntimeCommandHandler = async (envelope, ctx) => {
@@ -100,11 +100,16 @@ export const handleCompleteCheckout: RuntimeCommandHandler = async (envelope, ct
     payload: { kind: "ORDER_PLACED", snapshot },
   });
   emitIntentRecorded(ctx, intent);
-  ctx.emit({
-    subject: orderSubject(orderId),
-    kind: "ORDER_PAYMENT_STATUS_CHANGED",
-    payload: { kind: "ORDER_PAYMENT_STATUS_CHANGED", from: "NOT_PAID", to: "AUTHORIZED", revision: nextRevision(snapshot.revision) },
-  });
+  // The order's payment status derives from the RETURNED intent (an ambiguous
+  // authorization holds UNKNOWN on the order — never a guessed AUTHORIZED).
+  const orderStatus = orderPaymentStatusFor(intent, snapshot);
+  if (orderStatus !== snapshot.paymentStatus) {
+    ctx.emit({
+      subject: orderSubject(orderId),
+      kind: "ORDER_PAYMENT_STATUS_CHANGED",
+      payload: { kind: "ORDER_PAYMENT_STATUS_CHANGED", from: snapshot.paymentStatus, to: orderStatus, revision: nextRevision(snapshot.revision) },
+    });
+  }
   emitSessionState(ctx, { ...session, state: "PAYMENT_PENDING", revision: nextRevision(session.revision) }, "COMPLETE", "COMPLETED");
   return accept();
 };
