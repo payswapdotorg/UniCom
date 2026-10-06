@@ -45,6 +45,22 @@
  * │          │                    │          │          │ immediate; the platform cannot │
  * │          │                    │          │          │ hold composed cross-step state │
  * │          │                    │          │          │ mid-stream, nor re-route bids. │
+ * ├──────────┼────────────────────┼──────────┼──────────┼───────────────────────────────┤
+ * │ POS      │ permitted          │ permitted│ permitted│ Back-office export APIs are    │
+ * │ import   │                    │          │          │ read-heavy local-HTTP batch    │
+ * │ (W3-004) │                    │          │          │ pulls with exactly-once row    │
+ * │          │                    │          │          │ ingest downstream; imports    │
+ * │          │                    │          │          │ compose into multi-step store  │
+ * │          │                    │          │          │ journeys and multiple back     │
+ * │          │                    │          │          │ offices may be optimizer-      │
+ * │          │                    │          │          │ selected (freshest observation │
+ * │          │                    │          │          │ wins).                          │
+ * ├──────────┼────────────────────┼──────────┼──────────┼───────────────────────────────┤
+ * │ Browser- │ permitted          │ permitted│ BLOCKED  │ The isolated browser session  │
+ * │ only     │                    │          │          │ IS the rail (no server-side    │
+ * │ (W3-004) │                    │          │          │ API surface); the optimizer    │
+ * │          │                    │          │          │ has no mediable selection      │
+ * │          │                    │          │          │ surface behind a page.          │
  * └──────────┴────────────────────┴──────────┴──────────┴───────────────────────────────┘
  */
 
@@ -58,6 +74,10 @@ export const FirstProviderId = {
   JUMIA: "jumia",
   DEPOP: "depop",
   WHATNOT: "whatnot",
+  /** W3-004 physical-commerce edge: POS/back-office import path. */
+  POS_IMPORT: "pos-import",
+  /** W3-004 browser-only rail (mobile count / back-office capture). */
+  BROWSER_ONLY: "browser-only",
 } as const;
 export type FirstProviderId = (typeof FirstProviderId)[keyof typeof FirstProviderId];
 
@@ -131,6 +151,22 @@ export const PROVIDER_EXECUTION_MODE_MATRIX: readonly ProviderModePermission[] =
         mode: OPT,
         rationale:
           "Bids and buy-nows execute immediately inside one stream and cannot be re-routed across providers.",
+      },
+    ],
+  },
+  {
+    providerId: "pos-import",
+    permitted: [PASS, COMP, OPT],
+    blocked: [],
+  },
+  {
+    providerId: "browser-only",
+    permitted: [PASS, COMP],
+    blocked: [
+      {
+        mode: OPT,
+        rationale:
+          "The isolated browser session is the only execution rail (no server-side API surface); optimizer-mediated selection has nothing to mediate behind the page.",
       },
     ],
   },

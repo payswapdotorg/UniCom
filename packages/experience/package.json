@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "license": "Apache-2.0",
-  "description": "UNiCOM public experience, connector, physical-edge and deployment boundary contracts (W3-001) plus the connector runtime framework and browser-session isolation runtime (W3-002).",
+  "description": "UNiCOM public experience, connector, physical-edge and deployment boundary contracts (W3-001) plus the connector runtime framework and browser-session isolation runtime (W3-002), canonical connector execution (W3-003) and the physical-commerce edge + live-commerce UX journeys (W3-004).",
   "exports": {
     ".": "./src/contract.ts",
     "./runtime": "./src/runtime/index.ts"
@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
+    "@unicom/commerce": "workspace:*",
     "typescript": "^6.0.2",
     "vitest": "^3.2.4"
   }
