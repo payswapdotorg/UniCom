@@ -36,6 +36,14 @@ import {
   reconciliationReadModel,
   type ReconciliationReadModelState,
 } from "./reconciliation-projection.js";
+import {
+  recourseReadModel,
+  type RecourseReadModelState,
+} from "./recourse-projection.js";
+import {
+  storeOpsReadModel,
+  type StoreOpsReadModelState,
+} from "./store-ops-projection.js";
 import { commerceFacts, type CommerceFactsV1 } from "./queries.js";
 
 export const TWIN_PROJECTION_ID = "commerce-twin/v2";
@@ -61,6 +69,8 @@ export function standardProjectionSet(): readonly ProjectionDefinition<unknown>[
     receivingReadModel,
     returnsReadModel,
     reconciliationReadModel,
+    recourseReadModel,
+    storeOpsReadModel,
   ] as readonly ProjectionDefinition<unknown>[];
 }
 
@@ -172,6 +182,12 @@ export class CommerceTwin {
   }
   get reconciliation(): ReconciliationReadModelState {
     return this.engine.stateOf<ReconciliationReadModelState>(reconciliationReadModel.projectionId);
+  }
+  get recourse(): RecourseReadModelState {
+    return this.engine.stateOf<RecourseReadModelState>(recourseReadModel.projectionId);
+  }
+  get storeOps(): StoreOpsReadModelState {
+    return this.engine.stateOf<StoreOpsReadModelState>(storeOpsReadModel.projectionId);
   }
 
   /** Deterministic checkpoint (frozen, structured-serializable, resumable). */

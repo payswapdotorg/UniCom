@@ -25,6 +25,9 @@ import type { ConsignmentAgreement, RentalAgreement, ResaleListing } from "../do
 import type { CountObservationState } from "./inventory-projection.js";
 import type { CatalogReadModelState, SkuFact } from "./catalog-projection.js";
 import type { TwinState } from "./twin-state.js";
+import { capturedTotalOf, refundedTotalOf, type PaymentCaptureRecord, type SettlementRecord } from "../domain/settlement.js";
+import type { ChargebackRecord, DisputeRecord } from "../domain/recourse.js";
+import type { CashVarianceRecord, StoreCashSession } from "../domain/store-ops.js";
 
 export const COMMERCE_FACTS_INTERFACE_ID = "commerce-facts";
 export const COMMERCE_FACTS_INTERFACE_VERSION = 1;
@@ -41,6 +44,10 @@ export interface CommerceFactsV1 {
   readonly reconciliation: ReconciliationFactsV1;
   readonly catalog: CatalogFactsV1;
   readonly circular: CircularFactsV1;
+  /** W1-004 (additive): dispute/chargeback/settlement/capture/refund-provenance facts. */
+  readonly recourse: RecourseFactsV1;
+  /** W1-004 (additive): autonomous-store cash-session + variance facts. */
+  readonly storeOperations: StoreOpsFactsV1;
 }
 
 export interface InventoryFactsV1 {
@@ -102,6 +109,33 @@ export interface CircularFactsV1 {
   rentals(): readonly RentalAgreement[];
   consignment(consignmentId: string): ConsignmentAgreement | undefined;
   consignments(): readonly ConsignmentAgreement[];
+}
+
+/** W1-004 recourse facts: disputes, chargebacks, settlement tri-state, captures, refund provenance. */
+export interface RecourseFactsV1 {
+  dispute(disputeId: string): DisputeRecord | undefined;
+  disputes(): readonly DisputeRecord[];
+  disputesInState(state: DisputeRecord["state"]): readonly DisputeRecord[];
+  chargeback(chargebackId: string): ChargebackRecord | undefined;
+  chargebacks(): readonly ChargebackRecord[];
+  settlement(paymentId: string): SettlementRecord | undefined;
+  settlements(): readonly SettlementRecord[];
+  capturesFor(paymentId: string): readonly PaymentCaptureRecord[];
+  capturedTotal(paymentId: string): bigint;
+  refundedTotal(paymentId: string): bigint;
+  refundsOfKind(kind: RefundRecord["refundKind"]): readonly RefundRecord[];
+  /** Money-in view: payment ids whose settlement is OBSERVED SETTLED only (UNKNOWN never enters). */
+  moneyInPaymentIds(): readonly string[];
+}
+
+/** W1-004 autonomous-store operational facts: sessions, custody, variances. */
+export interface StoreOpsFactsV1 {
+  storeSession(sessionId: string): StoreCashSession | undefined;
+  storeSessions(): readonly StoreCashSession[];
+  openSessionFor(autonomousStoreId: string, tillId: string): StoreCashSession | undefined;
+  cashVariance(varianceId: string): CashVarianceRecord | undefined;
+  cashVariances(): readonly CashVarianceRecord[];
+  variancesForSession(sessionId: string): readonly CashVarianceRecord[];
 }
 
 /** Build the versioned facts interface over a twin mirror state (pure queries). */
@@ -172,6 +206,31 @@ export function commerceFacts(state: TwinState, catalog: CatalogReadModelState):
       rentals: () => [...collections.rentals.values()].sort(byRevision),
       consignment: (consignmentId) => collections.consignments.get(consignmentId),
       consignments: () => [...collections.consignments.values()].sort(byRevision),
+    },
+    recourse: {
+      dispute: (disputeId) => collections.disputes.get(disputeId),
+      disputes: () => [...collections.disputes.values()].sort(byRevision),
+      disputesInState: (state) => [...collections.disputes.values()].filter((item) => item.state === state).sort(byRevision),
+      chargeback: (chargebackId) => collections.chargebacks.get(chargebackId),
+      chargebacks: () => [...collections.chargebacks.values()].sort(byRevision),
+      settlement: (paymentId) => collections.settlements.get(paymentId),
+      settlements: () => [...collections.settlements.values()].sort(byRevision),
+      capturesFor: (paymentId) => [...collections.captures.values()].filter((capture) => capture.paymentId === paymentId),
+      capturedTotal: (paymentId) => capturedTotalOf([...collections.captures.values()].filter((capture) => capture.paymentId === paymentId)),
+      refundedTotal: (paymentId) => refundedTotalOf([...collections.refunds.values()].filter((refund) => refund.paymentId === paymentId)),
+      refundsOfKind: (kind) => [...collections.refunds.values()].filter((refund) => (refund.refundKind ?? "POLICY_REFUND") === kind).sort(byRevision),
+      moneyInPaymentIds: () => [...collections.settlements.values()].filter((record) => record.status === "SETTLED").map((record) => record.paymentId).sort(),
+    },
+    storeOperations: {
+      storeSession: (sessionId) => collections.storeSessions.get(sessionId),
+      storeSessions: () => [...collections.storeSessions.values()].sort(byRevision),
+      openSessionFor: (autonomousStoreId, tillId) =>
+        [...collections.storeSessions.values()]
+          .filter((session) => session.state === "OPEN" && session.autonomousStoreId === autonomousStoreId && session.tillId === tillId)
+          .sort(byRevision)[0],
+      cashVariance: (varianceId) => collections.cashVariances.get(varianceId),
+      cashVariances: () => [...collections.cashVariances.values()].sort(byRevision),
+      variancesForSession: (sessionId) => [...collections.cashVariances.values()].filter((variance) => variance.sessionId === sessionId).sort(byRevision),
     },
   };
 }

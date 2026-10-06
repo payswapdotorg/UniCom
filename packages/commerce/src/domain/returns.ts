@@ -112,12 +112,25 @@ export interface RefundRecoursePolicy {
   readonly providerDisputeWindowDays?: number;
 }
 
+/**
+ * W1-004 (additive): how a refund came to exist — distinguishable in the
+ * journal and every projection. POLICY_REFUND is the ordinary policy-driven
+ * path (REFUND_PAYMENT); GOODWILL_REFUND is an explicit merchant concession;
+ * CHARGEBACK_FORCED_REFUND is money the provider pulled back (recorded via the
+ * chargeback primitive, never silently merged with policy refunds).
+ */
+export type RefundKind = "POLICY_REFUND" | "GOODWILL_REFUND" | "CHARGEBACK_FORCED_REFUND";
+
 export interface RefundRecord {
   readonly refundId: RefundId;
   readonly returnId?: ReturnId;
   readonly paymentId?: PaymentId;
   readonly amount: Money;
   readonly state: RefundState;
+  /** W1-004 (additive): provenance discriminator; absent = POLICY_REFUND. */
+  readonly refundKind?: RefundKind;
+  /** W1-004 (additive): journaled policy-application reason (goodwill/chargeback). */
+  readonly reason?: string;
   readonly revision: number;
 }
 

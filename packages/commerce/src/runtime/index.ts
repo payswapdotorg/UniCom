@@ -18,6 +18,10 @@ export type {
   ReturnFlowCommandPayload,
   RuntimeCommandPayload,
   SupplyCommandPayload,
+  CheckoutCompletionCommandPayload,
+  SettlementCommandPayload,
+  RecourseCommandPayload,
+  StoreOpsCommandPayload,
 } from "./commands.js";
 export type { CommerceKernelOptions, ResolvedKernelOptions } from "./options.js";
 export { DETERMINISTIC_EPOCH, resolveKernelOptions } from "./options.js";

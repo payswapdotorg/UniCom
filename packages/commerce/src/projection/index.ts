@@ -58,6 +58,23 @@ export {
   CATALOG_PROJECTION_ID,
   catalogReadModel,
 } from "./catalog-projection.js";
+export {
+  type RecourseReadModelState,
+  RECOURSE_PROJECTION_ID,
+  recourseReadModel,
+  capturesFor as capturesForRecourse,
+  capturedTotalFor as capturedTotalForRecourse,
+  refundedTotalFor as refundedTotalForRecourse,
+  refundsOfKind as refundsOfKindRecourse,
+  moneyInPaymentIds,
+} from "./recourse-projection.js";
+export {
+  type StoreOpsReadModelState,
+  STORE_OPS_PROJECTION_ID,
+  storeOpsReadModel,
+  openSessionFor as openSessionForStoreOps,
+  variancesForSession,
+} from "./store-ops-projection.js";
 
 export {
   type TwinCollections,
@@ -87,6 +104,8 @@ export {
   type ReconciliationFactsV1,
   type CatalogFactsV1,
   type CircularFactsV1,
+  type RecourseFactsV1,
+  type StoreOpsFactsV1,
   commerceFacts,
 } from "./queries.js";
 

@@ -117,17 +117,24 @@ describe("W1-003 acceptance scenario 1 — twin-verification harness (randomized
   });
 
   it("the harness catches a deliberately corrupted twin (the proof is not vacuous)", async () => {
-    const { kernel, twin } = await runRandomizedSession(5, 60, false);
+    const { kernel, twin } = await runRandomizedSession(5, 120, false);
     const authoritative = kernel.snapshot();
     const pristine = twin.snapshot();
-    // Corruption 1: mutate one order's state.
-    const corruptedOrders = pristine.orders.map((order, index) =>
-      index === 0 ? { ...order, state: "CANCELLED" as const } : order,
+    // Corruption 1: mutate the first record of the first POPULATED collection
+    // (the fuzz vocabulary evolves with the command surface; the harness must
+    // corrupt something that actually exists, whatever the seeded trajectory).
+    const populated = (["orders", "levels", "refunds", "captures"] as const).filter(
+      (key) => pristine[key].length > 0,
     );
-    const divergences = compareTwinToAuthoritative({ ...pristine, orders: corruptedOrders }, authoritative);
+    expect(populated.length).toBeGreaterThan(0);
+    const target = populated[0] as "orders" | "levels" | "refunds" | "captures";
+    const corrupted = (pristine[target] as unknown as Record<string, unknown>[]).map((record, index) =>
+      index === 0 ? { ...record, revision: (record.revision as number) + 999 } : record,
+    );
+    const divergences = compareTwinToAuthoritative({ ...pristine, [target]: corrupted }, authoritative);
     expect(divergences.length).toBeGreaterThan(0);
-    expect(divergences[0]?.collection).toBe("orders");
-    expect(() => assertTwinMatchesAuthoritative({ ...pristine, orders: corruptedOrders }, authoritative)).toThrow(/TWIN DIVERGENCE/);
+    expect(divergences[0]?.collection).toBe(target);
+    expect(() => assertTwinMatchesAuthoritative({ ...pristine, [target]: corrupted }, authoritative)).toThrow(/TWIN DIVERGENCE/);
     // Corruption 2: drop the whole levels collection.
     const droppedLevels = compareTwinToAuthoritative({ ...pristine, levels: [] }, authoritative);
     expect(droppedLevels.some((item) => item.collection === "levels")).toBe(true);

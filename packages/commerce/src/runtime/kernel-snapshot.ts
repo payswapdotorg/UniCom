@@ -18,6 +18,9 @@ import type { Subscription } from "../domain/subscriptions.js";
 import type { ConsignmentAgreement, RentalAgreement, ResaleListing } from "../domain/circular.js";
 import type { AutonomousStorePolicy } from "../domain/policy.js";
 import type { ReconciliationRecord } from "../domain/reconciliation.js";
+import type { PaymentCaptureRecord, SettlementRecord } from "../domain/settlement.js";
+import type { ChargebackRecord, DisputeRecord } from "../domain/recourse.js";
+import type { CashVarianceRecord, StoreCashSession } from "../domain/store-ops.js";
 import type { KernelState } from "./kernel-state.js";
 
 /** Structural snapshot of the whole authoritative state (deterministic order). */
@@ -40,6 +43,12 @@ export interface KernelStateSnapshot {
   readonly consignments: readonly ConsignmentAgreement[];
   readonly policies: readonly AutonomousStorePolicy[];
   readonly reconciliationRecords: readonly ReconciliationRecord[];
+  readonly captures: readonly PaymentCaptureRecord[];
+  readonly settlements: readonly SettlementRecord[];
+  readonly disputes: readonly DisputeRecord[];
+  readonly chargebacks: readonly ChargebackRecord[];
+  readonly storeSessions: readonly StoreCashSession[];
+  readonly cashVariances: readonly CashVarianceRecord[];
 }
 
 /** Build the snapshot from a kernel state's sorted getters. */
@@ -63,5 +72,11 @@ export function snapshotOf(state: KernelState): KernelStateSnapshot {
     consignments: state.allConsignments(),
     policies: state.allPolicies(),
     reconciliationRecords: state.allReconciliationRecords(),
+    captures: state.allCaptures(),
+    settlements: state.allSettlements(),
+    disputes: state.allDisputes(),
+    chargebacks: state.allChargebacks(),
+    storeSessions: state.allStoreSessions(),
+    cashVariances: state.allCashVariances(),
   };
 }

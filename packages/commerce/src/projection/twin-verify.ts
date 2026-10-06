@@ -44,6 +44,13 @@ const COLLECTIONS: readonly (keyof TwinStateSnapshot)[] = [
   "consignments",
   "policies",
   "reconciliationRecords",
+  // --- W1-004 (additive): recourse + autonomous-store collections ---
+  "captures",
+  "settlements",
+  "disputes",
+  "chargebacks",
+  "storeSessions",
+  "cashVariances",
 ];
 
 /**
@@ -94,11 +101,15 @@ function describeDivergence(
 
 function firstDifferingKey(a: unknown, b: unknown): string | undefined {
   if (a === null || b === null || typeof a !== "object" || typeof b !== "object") return undefined;
-  const keys = new Set([...Object.keys(a as object), ...Object.keys(b as object)]);
+  const left = a as Record<string, unknown>;
+  const right = b as Record<string, unknown>;
+  const keys = new Set([...Object.keys(left), ...Object.keys(right)]);
   for (const key of keys) {
-    const left = canonicalJson((a as Record<string, unknown>)[key]);
-    const right = canonicalJson((b as Record<string, unknown>)[key]);
-    if (left !== right) return key;
+    // Undefined-valued keys serialize as absent (writeCanonical law): both
+    // absent is equal; absent on exactly one side IS the divergence.
+    if (left[key] === undefined && right[key] === undefined) continue;
+    if (left[key] === undefined || right[key] === undefined) return key;
+    if (canonicalJson(left[key]) !== canonicalJson(right[key])) return key;
   }
   return undefined;
 }

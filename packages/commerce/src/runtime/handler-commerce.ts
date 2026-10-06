@@ -12,11 +12,13 @@ import {
   lineSubtotal,
   type Cart,
   type CartLine,
+  type CartTotals,
 } from "../domain/cart.js";
 import { checkoutTransition, type CheckoutSession } from "../domain/cart.js";
 import { nextRevision } from "../domain/events.js";
 import { orderSubject } from "../domain/orders.js";
 import { orderTransition, type OrderLine, type OrderSnapshot } from "../domain/orders.js";
+import type { MerchantId } from "../domain/ids.js";
 import { enforceMinimumOrder } from "../domain/b2b.js";
 import { decimal, decimalCompare } from "../domain/decimal.js";
 import type { PrincipalRef } from "../domain/principals.js";
@@ -148,6 +150,44 @@ function toOrderLine(line: CartLine): OrderLine {
   };
 }
 
+/**
+ * Shared immutable order-snapshot construction (W1-004: also used by
+ * COMPLETE_CHECKOUT so checkout completion and standalone PLACE_ORDER build
+ * byte-identical snapshots from the same cart math).
+ */
+export function orderSnapshotOf(
+  cart: Cart,
+  totals: CartTotals,
+  orderId: OrderSnapshot["orderId"],
+  merchantId: MerchantId,
+  customerRef: PrincipalRef | undefined,
+  opportunityRef: OrderSnapshot["opportunityRef"],
+  checkoutSessionId: OrderSnapshot["checkoutSessionId"],
+  placedAt: string,
+): OrderSnapshot {
+  // Optional fields are OMITTED when absent (never present-with-undefined):
+  // canonical serialization and the divergence harness treat absent keys as
+  // absent, and snapshots stay byte-stable across construction sites.
+  const snapshot: Omit<OrderSnapshot, "customerRef" | "opportunityRef" | "checkoutSessionId"> = {
+    orderId,
+    merchantRef: { kind: "MERCHANT", merchantId },
+    cartId: cart.cartId,
+    state: "PENDING",
+    paymentStatus: "NOT_PAID",
+    fulfillmentStatus: "UNFULFILLED",
+    lines: cart.lines.map(toOrderLine),
+    totals,
+    revision: 1,
+    placedAt,
+  };
+  return {
+    ...snapshot,
+    ...(customerRef !== undefined ? { customerRef } : {}),
+    ...(opportunityRef !== undefined ? { opportunityRef } : {}),
+    ...(checkoutSessionId !== undefined ? { checkoutSessionId } : {}),
+  };
+}
+
 export const handlePlaceOrder: RuntimeCommandHandler = async (envelope, ctx) => {
   const payload = envelope.payload;
   if (payload.type !== "PLACE_ORDER") return rejectInvalidCommand("not PLACE_ORDER");
@@ -175,20 +215,16 @@ export const handlePlaceOrder: RuntimeCommandHandler = async (envelope, ctx) => 
     .allCheckoutSessions()
     .filter((candidate) => candidate.cartId === payload.cartId)
     .at(-1)?.opportunityRef;
-  const snapshot: OrderSnapshot = {
+  const snapshot: OrderSnapshot = orderSnapshotOf(
+    cart,
+    totals.value,
     orderId,
-    merchantRef: { kind: "MERCHANT", merchantId: payload.merchantId },
+    payload.merchantId,
     customerRef,
-    cartId: payload.cartId,
-    state: "PENDING",
-    paymentStatus: "NOT_PAID",
-    fulfillmentStatus: "UNFULFILLED",
-    lines: cart.lines.map(toOrderLine),
-    totals: totals.value,
-    opportunityRef: payload.opportunityRef ?? sessionRef ?? cart.opportunityRef,
-    revision: 1,
-    placedAt: ctx.now,
-  };
+    payload.opportunityRef ?? sessionRef ?? cart.opportunityRef,
+    undefined,
+    ctx.now,
+  );
   ctx.emit({
     subject: orderSubject(orderId),
     kind: "ORDER_PLACED",

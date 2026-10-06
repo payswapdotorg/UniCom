@@ -21,9 +21,7 @@ import {
   money,
   unitOfMeasure,
   type AnyRuntimeCommand,
-  type CommandId,
   type CommerceKernel,
-  type IdempotencyKey,
   type PrincipalRef,
   type RuntimeCommandPayload,
   // Trigger unions for the intentional-invalidity fuzz casts below (the
@@ -39,6 +37,12 @@ import {
   type ListingTrigger,
   type RentalTrigger,
 } from "../../../contract.js";
+
+/** Optional W1-004 hooks: let the harness script the payment double when the
+ *  vocabulary generates settlement observations (tri-state variety). */
+export interface FuzzHooks {
+  onSettlementObservation?: (paymentId: string) => void;
+}
 
 /** Deterministic PRNG (mulberry32): identical seed → identical sequence. */
 export class FuzzRng {
@@ -87,6 +91,9 @@ export const FUZZ_ACTORS: readonly PrincipalRef[] = [
   { kind: "SYSTEM", systemPrincipalId: makeId<"SystemPrincipalId">("system-1") },
 ];
 
+export const FUZZ_STORES = ["store-alpha", "store-beta"] as const;
+export const FUZZ_TILLS = ["till-1", "till-2"] as const;
+
 export interface FuzzEnvelope {
   readonly envelope: AnyRuntimeCommand;
   readonly tag: "fresh" | "duplicate" | "conflict";
@@ -96,7 +103,10 @@ export interface FuzzEnvelope {
 export class FuzzCommandSource {
   private counter = 0;
   private readonly executed: AnyRuntimeCommand[] = [];
-  constructor(private readonly rng: FuzzRng) {}
+  constructor(
+    private readonly rng: FuzzRng,
+    private readonly hooks: FuzzHooks = {},
+  ) {}
 
   /** Record an executed envelope as eligible for duplicate/conflict replay. */
   observeExecuted(envelope: AnyRuntimeCommand): void {
@@ -448,6 +458,137 @@ export class FuzzCommandSource {
         if (consignments.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(1), locationId: locationId(0), units: 6, reason: "RECEIVING" };
         return { type, consignmentId: this.rng.pick(consignments).consignmentId, trigger: this.rng.pick(["ACCEPT", "TERMINATE"] as const) };
       }
+      // --- W1-004 vocabulary: checkout completion, settlement, recourse, store ops ---
+      case "COMPLETE_CHECKOUT": {
+        const sessions = view.allCheckoutSessions().filter((session) => (session.state === "OPEN" || session.state === "PAYMENT_PENDING") && (view.cart(session.cartId)?.lines.length ?? 0) > 0);
+        if (sessions.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(0), locationId: locationId(0), units: 2, reason: "RECEIVING" };
+        return {
+          type,
+          checkoutSessionId: this.rng.pick(sessions).checkoutSessionId,
+          merchantId: makeId<"MerchantId">(this.rng.pick(FUZZ_MERCHANTS)),
+          method: { methodKind: "CARD", tokenRef: `tok-fuzz-${this.rng.int(1000)}` },
+        };
+      }
+      case "CAPTURE_PAYMENT_PARTIAL": {
+        const intents = view.allPaymentIntents().filter((intent) => intent.status === "AUTHORIZED" || intent.status === "PARTIALLY_CAPTURED");
+        if (intents.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(2), locationId: locationId(1), units: 3, reason: "RECEIVING" };
+        const intent = this.rng.pick(intents);
+        const captured = view.capturedTotalFor(intent.paymentId);
+        const remaining = BigInt(intent.amount.amountMinor) - captured;
+        if (remaining <= 0n) return { type: "RECEIVE_STOCK", skuId: skuId(3), locationId: locationId(0), units: 2, reason: "RECEIVING" };
+        const amount = 1n + BigInt(this.rng.int(Number(remaining)));
+        return { type, paymentId: intent.paymentId, amount: money(amount.toString(), usd) };
+      }
+      case "OBSERVE_SETTLEMENT": {
+        const intents = view.allPaymentIntents();
+        if (intents.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(1), locationId: locationId(1), units: 4, reason: "RECEIVING" };
+        const intent = this.rng.pick(intents);
+        this.hooks.onSettlementObservation?.(intent.paymentId);
+        return { type, paymentId: intent.paymentId };
+      }
+      case "CLOSE_SETTLEMENT_WINDOW": {
+        const candidates = view.allPaymentIntents().filter((intent) => {
+          if (view.capturedTotalFor(intent.paymentId) <= 0n) return false;
+          const settlement = view.settlementRecord(intent.paymentId);
+          return settlement === undefined || settlement.status === "UNKNOWN" || settlement.status === "PENDING";
+        });
+        if (candidates.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(2), locationId: locationId(0), units: 5, reason: "RECEIVING" };
+        return { type, paymentId: this.rng.pick(candidates).paymentId };
+      }
+      case "OPEN_DISPUTE": {
+        const intents = view.allPaymentIntents().filter((intent) => intent.reference.kind === "ORDER");
+        if (intents.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(0), locationId: locationId(1), units: 3, reason: "RECEIVING" };
+        const intent = this.rng.pick(intents);
+        const bound = BigInt(intent.amount.amountMinor);
+        return {
+          type,
+          paymentId: intent.paymentId,
+          amount: money((1n + BigInt(this.rng.int(Number(bound)))).toString(), usd),
+          reason: this.rng.pick(["FRAUD", "NOT_RECEIVED", "NOT_AS_DESCRIBED"] as const),
+        };
+      }
+      case "SUBMIT_DISPUTE_EVIDENCE": {
+        const disputes = view.allDisputes().filter((item) => item.state === "OPEN");
+        if (disputes.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(1), locationId: locationId(0), units: 2, reason: "RECEIVING" };
+        return { type, disputeId: this.rng.pick(disputes).disputeId, evidence: { summary: `fuzz-evidence-${this.rng.int(100)}` } };
+      }
+      case "RESOLVE_DISPUTE": {
+        const disputes = view.allDisputes().filter((item) => item.state === "OPEN" || item.state === "EVIDENCE_SUBMITTED");
+        if (disputes.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(3), locationId: locationId(1), units: 5, reason: "RECEIVING" };
+        return { type, disputeId: this.rng.pick(disputes).disputeId, outcome: this.rng.pick(["ACCEPTED", "REJECTED"] as const) };
+      }
+      case "RECORD_CHARGEBACK": {
+        const captured = view.allPaymentIntents().filter((intent) => view.capturedTotalFor(intent.paymentId) > 0n);
+        if (captured.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(0), locationId: locationId(0), units: 7, reason: "RECEIVING" };
+        const intent = this.rng.pick(captured);
+        const bound = BigInt(intent.amount.amountMinor);
+        return {
+          type,
+          paymentId: intent.paymentId,
+          amount: money((1n + BigInt(this.rng.int(Number(bound)))).toString(), usd),
+          providerNativeStatus: this.rng.pick(["CB_OPEN", "CB_FUNDS_HELD"] as const),
+        };
+      }
+      case "ISSUE_GOODWILL_REFUND": {
+        const refundable = view.allPaymentIntents().filter((intent) => view.capturedTotalFor(intent.paymentId) - view.refundedTotalFor(intent.paymentId) > 0n);
+        if (refundable.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(2), locationId: locationId(1), units: 2, reason: "RECEIVING" };
+        const intent = this.rng.pick(refundable);
+        const remaining = view.capturedTotalFor(intent.paymentId) - view.refundedTotalFor(intent.paymentId);
+        const amount = 1n + BigInt(this.rng.int(Number(remaining)));
+        return { type, paymentId: intent.paymentId, amount: money(amount.toString(), usd), reason: `fuzz-goodwill-${this.rng.int(50)}` };
+      }
+      case "OPEN_STORE_CASH_SESSION": {
+        const freePair = ([0, 1, 2, 3] as const).find((slot) => !view.openStoreSessionFor(FUZZ_STORES[slot % 2] as string, FUZZ_TILLS[Math.floor(slot / 2)] as string));
+        if (freePair === undefined) return { type: "RECEIVE_STOCK", skuId: skuId(1), locationId: locationId(1), units: 3, reason: "RECEIVING" };
+        const storeIndex = freePair % 2;
+        const tillIndex = Math.floor(freePair / 2);
+        return {
+          type,
+          autonomousStoreId: makeId<"AutonomousStoreId">(FUZZ_STORES[storeIndex] as string),
+          tillId: makeId<"TillId">(FUZZ_TILLS[tillIndex] as string),
+          openingCount: money(`${this.rng.int(9000)}`, usd),
+          staff: this.rng.pick(FUZZ_ACTORS),
+        };
+      }
+      case "RECORD_TILL_OPERATION": {
+        const sessions = view.allStoreSessions().filter((session) => session.state === "OPEN");
+        if (sessions.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(3), locationId: locationId(0), units: 4, reason: "RECEIVING" };
+        const session = this.rng.pick(sessions);
+        const expected = Number(BigInt(session.expectedCash.amountMinor));
+        return {
+          type,
+          sessionId: session.sessionId,
+          operation: {
+            kind: this.rng.pick(["TENDER_SALE", "REFUND_TENDER", "CASH_IN", "CASH_OUT"] as const),
+            amount: money(`${1 + this.rng.int(Math.max(1, Math.min(2500, expected)))}`, usd),
+            note: `fuzz-op-${this.rng.int(100)}`,
+          },
+        };
+      }
+      case "HANDOVER_STORE_CASH_SESSION": {
+        const sessions = view.allStoreSessions().filter((session) => session.state === "OPEN");
+        if (sessions.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(0), locationId: locationId(1), units: 8, reason: "RECEIVING" };
+        const session = this.rng.pick(sessions);
+        const expected = BigInt(session.expectedCash.amountMinor);
+        const drift = this.rng.chance(0.4) ? BigInt(this.rng.int(200) + 1) * (this.rng.chance(0.5) ? 1n : -1n) : 0n;
+        const counted = expected + drift;
+        return {
+          type,
+          sessionId: session.sessionId,
+          fromStaff: session.staffRef,
+          toStaff: this.rng.pick(FUZZ_ACTORS),
+          countedCash: money(counted >= 0n ? counted.toString() : "0", usd),
+        };
+      }
+      case "CLOSE_STORE_CASH_SESSION": {
+        const sessions = view.allStoreSessions().filter((session) => session.state === "OPEN");
+        if (sessions.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(1), locationId: locationId(0), units: 6, reason: "RECEIVING" };
+        const session = this.rng.pick(sessions);
+        const expected = BigInt(session.expectedCash.amountMinor);
+        const drift = this.rng.chance(0.4) ? BigInt(this.rng.int(300) + 1) * (this.rng.chance(0.5) ? 1n : -1n) : 0n;
+        const counted = expected + drift;
+        return { type, sessionId: session.sessionId, closingCount: money(counted >= 0n ? counted.toString() : "0", usd) };
+      }
       default:
         return { type: "RECEIVE_STOCK", skuId: skuId(0), locationId: locationId(0), units: 1, reason: "RECEIVING" };
     }
@@ -464,13 +605,26 @@ export class FuzzCommandSource {
       ["REMOVE_CART_LINE", 3],
       ["OPEN_CHECKOUT", 4],
       ["ADVANCE_CHECKOUT", 3],
+      ["COMPLETE_CHECKOUT", 6],
       ["PLACE_ORDER", 8],
       ["CANCEL_ORDER", 3],
       ["ADVANCE_ORDER", 4],
       ["CREATE_PAYMENT_INTENT", 6],
       ["CAPTURE_PAYMENT", 5],
+      ["CAPTURE_PAYMENT_PARTIAL", 5],
       ["VOID_PAYMENT", 2],
       ["REFUND_PAYMENT", 3],
+      ["ISSUE_GOODWILL_REFUND", 2],
+      ["OBSERVE_SETTLEMENT", 6],
+      ["CLOSE_SETTLEMENT_WINDOW", 2],
+      ["OPEN_DISPUTE", 3],
+      ["SUBMIT_DISPUTE_EVIDENCE", 3],
+      ["RESOLVE_DISPUTE", 3],
+      ["RECORD_CHARGEBACK", 3],
+      ["OPEN_STORE_CASH_SESSION", 3],
+      ["RECORD_TILL_OPERATION", 4],
+      ["HANDOVER_STORE_CASH_SESSION", 2],
+      ["CLOSE_STORE_CASH_SESSION", 2],
       ["OPEN_FULFILLMENT", 3],
       ["ADVANCE_FULFILLMENT_ORDER", 5],
       ["APPLY_DELIVERY_OBSERVATION", 4],

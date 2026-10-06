@@ -37,6 +37,8 @@ export type PaymentStatus =
   | "REQUIRES_CUSTOMER_ACTION"
   | "AUTHORIZED"
   | "CAPTURED"
+  /** W1-004 (additive): capturedTotal < intent amount — remaining funds still authorizable. */
+  | "PARTIALLY_CAPTURED"
   | "PARTIALLY_REFUNDED"
   | "REFUNDED"
   | "VOIDED"

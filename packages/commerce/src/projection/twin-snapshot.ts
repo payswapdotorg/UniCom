@@ -21,6 +21,9 @@ import type { Subscription } from "../domain/subscriptions.js";
 import type { ConsignmentAgreement, RentalAgreement, ResaleListing } from "../domain/circular.js";
 import type { AutonomousStorePolicy } from "../domain/policy.js";
 import type { ReconciliationRecord } from "../domain/reconciliation.js";
+import type { PaymentCaptureRecord, SettlementRecord } from "../domain/settlement.js";
+import type { ChargebackRecord, DisputeRecord } from "../domain/recourse.js";
+import type { CashVarianceRecord, StoreCashSession } from "../domain/store-ops.js";
 import type { TwinCollections, TwinState } from "./twin-state.js";
 
 /** Structural snapshot of the whole twin mirror (deterministic order). */
@@ -43,6 +46,12 @@ export interface TwinStateSnapshot {
   readonly consignments: readonly ConsignmentAgreement[];
   readonly policies: readonly AutonomousStorePolicy[];
   readonly reconciliationRecords: readonly ReconciliationRecord[];
+  readonly captures: readonly PaymentCaptureRecord[];
+  readonly settlements: readonly SettlementRecord[];
+  readonly disputes: readonly DisputeRecord[];
+  readonly chargebacks: readonly ChargebackRecord[];
+  readonly storeSessions: readonly StoreCashSession[];
+  readonly cashVariances: readonly CashVarianceRecord[];
 }
 
 function byRevision(a: { readonly revision: number }, b: { readonly revision: number }): number {
@@ -75,5 +84,11 @@ export function snapshotOfTwin(state: TwinState): TwinStateSnapshot {
     consignments: sorted(collections.consignments),
     policies: sorted(collections.policies),
     reconciliationRecords: sorted(collections.reconciliationRecords),
+    captures: sorted(collections.captures),
+    settlements: sorted(collections.settlements),
+    disputes: sorted(collections.disputes),
+    chargebacks: sorted(collections.chargebacks),
+    storeSessions: sorted(collections.storeSessions),
+    cashVariances: sorted(collections.cashVariances),
   };
 }
