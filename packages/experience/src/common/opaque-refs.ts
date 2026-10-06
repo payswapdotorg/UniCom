@@ -368,3 +368,8 @@ declare const longRunningTaskRefBrand: unique symbol;
 export type LongRunningTaskRef = string & {
   readonly [longRunningTaskRefBrand]: "opaque:deployment/LongRunningTask";
 };
+
+// W3-006 deployment-readiness refs live in opaque-refs-deployment.ts
+// (additive split for the architecture line budget) and are re-exported
+// verbatim here so existing import paths stay stable.
+export * from "./opaque-refs-deployment";

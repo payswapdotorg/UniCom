@@ -55,6 +55,19 @@
  *   telemetry (`surfaces/connector-health`, W3-005);
  * - the surface-state constructors + the offline queue-sync/supersede view
  *   builder (`surfaces/surface-state`, W3-005).
+ * - the provider-agnostic deployment target plan + the node-server target
+ *   adapter: typed environment contracts, real build steps, loopback HTTP
+ *   health/readiness/startup probes, startup ordering
+ *   (`deployment/target-plan`, `deployment/target-adapter`, W3-006);
+ * - the observability projector + operator dashboard — projections of the
+ *   journaled event streams, never a second source of truth
+ *   (`deployment/observability`, W3-006);
+ * - journal backup/restore with hash-chain corruption detection
+ *   (`deployment/journal-chain`, W3-006);
+ * - the DR playbook engine (detection → journaled decision → recovery) +
+ *   the single-writer fencing lease (`deployment/dr-playbooks`, W3-006);
+ * - the RC evidence emitter + release-gate evaluator
+ *   (`deployment/rc-evidence`, W3-006).
  *
  * Vocabulary law: the capability vocabulary is consumed from
  * `@unicom/agent` public entrypoints (`.` and `./capability`) — this package
@@ -89,3 +102,10 @@ export * from "./surfaces/connector-health";
 export * from "./surfaces/surface-state";
 export * from "./transport/router";
 export * from "./providers/index";
+export * from "./deployment/target-plan";
+export * from "./deployment/target-adapter";
+export * from "./deployment/observability";
+export * from "./deployment/journal-chain";
+export * from "./deployment/dr-playbooks";
+export * from "./deployment/dr-objectives";
+export * from "./deployment/rc-evidence";

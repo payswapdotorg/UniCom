@@ -1,0 +1,52 @@
+{
+  "reportId": "rc-observability-v1",
+  "kind": "observability",
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-11T06:00:15.000Z",
+  "clockMode": "deterministic-drill",
+  "subject": "W3-006 production observability contracts (journal-derived projections)",
+  "rows": [
+    {
+      "checkId": "obs:projection-law",
+      "description": "the snapshot declares the projection law (journal truth only, never a second source)",
+      "passed": true,
+      "evidenceNote": "sourceOfTruth=journaled-events, projectionOnly=true"
+    },
+    {
+      "checkId": "obs:subsystems-typed",
+      "description": "all six subsystems expose typed health; subsystems WITH journal evidence cite it, subsystems without project UNKNOWN",
+      "passed": true,
+      "evidenceNote": "commerce-kernel=healthy (derived from commerce-event-journal); connector-plane=healthy (derived from connector-health-probes+connector-execution-log); physical-edge=unknown (derived from ); live-commerce=unknown (derived from ); autonomous-store=unknown (derived from ); deployment-plane=healthy (derived from deployment-probe-log+deployment-probe-log+deployment-probe-log)"
+    },
+    {
+      "checkId": "obs:connector-health-wired",
+      "description": "connector health is wired to the real health surface + execution evidence",
+      "passed": true,
+      "evidenceNote": "1 connector entry(ies), status healthy"
+    },
+    {
+      "checkId": "obs:deployment-plane-live",
+      "description": "the deployment plane projects the REAL booted target adapter (build + boot + probes)",
+      "passed": true,
+      "evidenceNote": "5 build steps exit-0, 9/9 probes pass, plane=healthy"
+    },
+    {
+      "checkId": "obs:operator-dashboard-complete",
+      "description": "the operator dashboard renders all seven typed sections over the snapshot",
+      "passed": true,
+      "evidenceNote": "sections: subsystem-health, connector-health, live-sessions, autonomous-stores, edge-queues, deployment-plane, dr-runbooks"
+    },
+    {
+      "checkId": "obs:unknown-preserved",
+      "description": "subsystems without journaled evidence project UNKNOWN, never fabricated health",
+      "passed": true,
+      "evidenceNote": "live-commerce=unknown (no sessions in this drill input)"
+    }
+  ],
+  "summary": {
+    "total": 6,
+    "passed": 6,
+    "failed": 0
+  },
+  "verdict": "pass"
+}
