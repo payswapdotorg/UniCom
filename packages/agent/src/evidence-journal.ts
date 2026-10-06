@@ -157,6 +157,34 @@ export type JournaledEvidencePayload =
       readonly decision: "PROMOTION" | "RETIREMENT";
       readonly decisionId: string;
       readonly reason: string;
+    }
+  // W2-006 additions — ADDITIVE union members (unified promotion gates +
+  // adversarial suite; inline literals, no new imports — acyclic law; the
+// W2-006 payload semantics are documented in unified-promotion.ts).
+  | {
+      readonly evidenceKind: "UNIFIED_PROMOTION_GATE_EVIDENCE";
+      readonly subjectType: "ORGANIZATION" | "MODEL" | "SKILL";
+      readonly subjectRef: string;
+      readonly gate: "SIMULATION" | "ADVERSARIAL" | "SHADOW" | "CANARY" | "OBSERVED_OUTCOME";
+      readonly environment: "LAB" | "SHADOW" | "CANARY";
+      readonly batteryDigest: string;
+      readonly outcome: "SUCCESS" | "PARTIAL" | "FAILURE";
+      readonly observedDigest: string;
+    }
+  | {
+      readonly evidenceKind: "UNIFIED_LIFECYCLE_DECISION";
+      readonly subjectType: "ORGANIZATION" | "MODEL" | "SKILL";
+      readonly subjectRef: string;
+      readonly decision: "PROMOTION" | "RETIREMENT";
+      readonly decisionId: string;
+      readonly reason: string;
+    }
+  | {
+      readonly evidenceKind: "ADVERSARY_ENCOUNTER";
+      readonly adversaryId: string;
+      readonly category: string;
+      readonly result: "DETECTED" | "EVASION_BLOCKED" | "MISSED_DECLARED";
+      readonly detail: string;
     };
 
 // ---------------------------------------------------------------------------

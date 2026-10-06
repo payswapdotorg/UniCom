@@ -290,9 +290,8 @@ export type {
 } from "./experiment.js";
 export { EXPERIMENT_KINDS, evaluatePromotionEligibility } from "./experiment.js";
 
-// W2-003 — Organization / Opportunity Lab; W2-004 — Trust, Proof & Security
-// Immune System + Opportunity Graph; W2-005 — Reality/Learning Lab +
-// model-routing evaluation (own artifacts: line budget).
+// W2-003..W2-006 — Lab/Trust/Reality/adversarial artifacts (line budget).
 export * from "./contract.w2-003.js";
 export * from "./contract.w2-004.js";
 export * from "./contract.w2-005.js";
+export * from "./contract.w2-006.js";
