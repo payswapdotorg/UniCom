@@ -21,6 +21,16 @@ import type { ReconciliationRecord } from "../domain/reconciliation.js";
 import type { PaymentCaptureRecord, SettlementRecord } from "../domain/settlement.js";
 import type { ChargebackRecord, DisputeRecord } from "../domain/recourse.js";
 import type { CashVarianceRecord, StoreCashSession } from "../domain/store-ops.js";
+import type {
+  AutonomousOverrideRecord,
+  AutonomousStoreControl,
+  PolicyApplication,
+  PriceAdjustmentRecord,
+  RestockOrderRecord,
+  SkuPriceRecord,
+  StoreCycle,
+  StoreEscalation,
+} from "../domain/autonomous-store.js";
 import type { KernelState } from "./kernel-state.js";
 
 /** Structural snapshot of the whole authoritative state (deterministic order). */
@@ -49,6 +59,15 @@ export interface KernelStateSnapshot {
   readonly chargebacks: readonly ChargebackRecord[];
   readonly storeSessions: readonly StoreCashSession[];
   readonly cashVariances: readonly CashVarianceRecord[];
+  // --- W1-005 (additive): autonomous-store runtime collections ---
+  readonly autonomousStores: readonly AutonomousStoreControl[];
+  readonly storeCycles: readonly StoreCycle[];
+  readonly policyApplications: readonly PolicyApplication[];
+  readonly storeEscalations: readonly StoreEscalation[];
+  readonly storeOverrides: readonly AutonomousOverrideRecord[];
+  readonly skuPrices: readonly SkuPriceRecord[];
+  readonly priceAdjustments: readonly PriceAdjustmentRecord[];
+  readonly restockOrders: readonly RestockOrderRecord[];
 }
 
 /** Build the snapshot from a kernel state's sorted getters. */
@@ -78,5 +97,13 @@ export function snapshotOf(state: KernelState): KernelStateSnapshot {
     chargebacks: state.allChargebacks(),
     storeSessions: state.allStoreSessions(),
     cashVariances: state.allCashVariances(),
+    autonomousStores: state.autonomousOps().allStores(),
+    storeCycles: state.autonomousOps().allCycles(),
+    policyApplications: state.autonomousOps().allPolicyApplications(),
+    storeEscalations: state.autonomousOps().allEscalations(),
+    storeOverrides: state.autonomousOps().allOverrides(),
+    skuPrices: state.autonomousOps().allPriceRecords(),
+    priceAdjustments: state.autonomousOps().allPriceAdjustments(),
+    restockOrders: state.autonomousOps().allRestockOrders(),
   };
 }

@@ -106,6 +106,7 @@ export {
   type CircularFactsV1,
   type RecourseFactsV1,
   type StoreOpsFactsV1,
+  type AutonomousStoreFactsV1,
   commerceFacts,
 } from "./queries.js";
 

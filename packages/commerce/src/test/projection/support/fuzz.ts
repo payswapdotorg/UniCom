@@ -42,6 +42,14 @@ import {
  *  vocabulary generates settlement observations (tri-state variety). */
 export interface FuzzHooks {
   onSettlementObservation?: (paymentId: string) => void;
+  /**
+   * W1-005: the vocabulary surface. "legacy" (default) FREEZES the W1-004
+   * weighted vocabulary (identical RNG streams for the frozen regression
+   * tests); "autonomous-store" ADDS the W1-005 autonomous commands
+   * (control/override/cycles/tills/restock/prices) with interleaved
+   * authorized + unauthorized actors (authority-rejection failure paths).
+   */
+  surface?: "legacy" | "autonomous-store";
 }
 
 /** Deterministic PRNG (mulberry32): identical seed → identical sequence. */
@@ -94,6 +102,19 @@ export const FUZZ_ACTORS: readonly PrincipalRef[] = [
 export const FUZZ_STORES = ["store-alpha", "store-beta"] as const;
 export const FUZZ_TILLS = ["till-1", "till-2"] as const;
 
+/** The registered owner of the FUZZ stores (test setup registers both). */
+export const FUZZ_STORE_OWNER: PrincipalRef = { kind: "MERCHANT", merchantId: makeId<"MerchantId">("merchant-1") };
+
+/** The autonomous store principal envelope actor for a fuzz store. */
+export function fuzzStoreActor(storeId: string): PrincipalRef {
+  return { kind: "AUTONOMOUS_STORE", autonomousStoreId: makeId<"AutonomousStoreId">(storeId) };
+}
+
+interface GeneratedPayload {
+  readonly payload: RuntimeCommandPayload;
+  readonly actor?: PrincipalRef;
+}
+
 export interface FuzzEnvelope {
   readonly envelope: AnyRuntimeCommand;
   readonly tag: "fresh" | "duplicate" | "conflict";
@@ -135,20 +156,25 @@ export class FuzzCommandSource {
       };
     }
     this.counter += 1;
-    const payload = this.generatePayload(kernel);
+    const generated = this.normalize(this.generatePayload(kernel));
     return {
       envelope: commandEnvelope(
         makeId<"CommandId">(`cmd-fuzz-${this.counter}`),
         makeId<"IdempotencyKey">(`idem-fuzz-${this.counter}`),
-        this.rng.pick(FUZZ_ACTORS),
+        generated.actor ?? this.rng.pick(FUZZ_ACTORS),
         "2026-10-05T00:00:00Z",
-        payload,
+        generated.payload,
       ),
       tag: "fresh",
     };
   }
 
-  private generatePayload(kernel: CommerceKernel): RuntimeCommandPayload {
+  /** Legacy cases return bare payloads (frozen RNG discipline); new cases may attach an actor. */
+  private normalize(generated: RuntimeCommandPayload | GeneratedPayload): GeneratedPayload {
+    return "payload" in generated ? generated : { payload: generated };
+  }
+
+  private generatePayload(kernel: CommerceKernel): RuntimeCommandPayload | GeneratedPayload {
     const view = kernel.view();
     const type = this.weightedType();
     switch (type) {
@@ -589,6 +615,149 @@ export class FuzzCommandSource {
         const counted = expected + drift;
         return { type, sessionId: session.sessionId, closingCount: money(counted >= 0n ? counted.toString() : "0", usd) };
       }
+      // --- W1-005 vocabulary: autonomous-store runtime (surface: autonomous-store) ---
+      case "REGISTER_AUTONOMOUS_STORE": {
+        // Mostly already-registered (deterministic rejection); occasionally a fresh id.
+        const storeId = this.rng.chance(0.15) ? "store-fuzz-fresh" : this.rng.pick(FUZZ_STORES);
+        const owner = this.rng.pick(FUZZ_ACTORS);
+        return { payload: { type, autonomousStoreId: makeId<"AutonomousStoreId">(storeId), ownerRef: owner, displayName: `fuzz-store-${storeId}` }, actor: owner };
+      }
+      case "HANDOVER_STORE_AUTHORITY": {
+        const control = this.rng.pick(view.autonomousOps().allStores());
+        if (!control) return { type: "RECEIVE_STOCK", skuId: skuId(0), locationId: locationId(1), units: 3, reason: "RECEIVING" };
+        // Authorized (owner/controller) most of the time; sometimes an
+        // unauthorized actor → deterministic boundary rejection (failure path).
+        const actor = this.rng.chance(0.7) ? FUZZ_STORE_OWNER : this.rng.pick(FUZZ_ACTORS.filter((a) => a.kind !== "MERCHANT"));
+        return {
+          payload: {
+            type,
+            autonomousStoreId: control.autonomousStoreId,
+            fromPrincipal: control.controllingPrincipal,
+            toPrincipal: this.rng.pick(FUZZ_ACTORS),
+            toMode: this.rng.pick(["AUTONOMOUS", "HUMAN_SUPERVISED"] as const),
+          },
+          actor,
+        };
+      }
+      case "RECORD_HUMAN_OVERRIDE": {
+        const control = this.rng.pick(view.autonomousOps().allStores());
+        if (!control) return { type: "RECEIVE_STOCK", skuId: skuId(2), locationId: locationId(0), units: 5, reason: "RECEIVING" };
+        const prices = view.autonomousOps().allPriceRecords().filter((record) => record.autonomousStoreId === control.autonomousStoreId);
+        const usePrice = prices.length > 0 && this.rng.chance(0.5);
+        const actor = this.rng.chance(0.7) ? FUZZ_STORE_OWNER : this.rng.pick(FUZZ_ACTORS.filter((a) => a.kind !== "MERCHANT"));
+        const action = usePrice
+          ? { kind: "PRICE_ADJUSTMENT" as const, skuId: this.rng.pick(prices).skuId, newPrice: money(`${100 + this.rng.int(3000)}`, usd), reason: `fuzz-override-${this.rng.int(50)}` }
+          : { kind: "RESTOCK" as const, skuId: skuId(this.rng.int(4)), locationId: locationId(this.rng.int(2)), units: 1 + this.rng.int(15), reason: `fuzz-override-${this.rng.int(50)}` };
+        return { payload: { type, autonomousStoreId: control.autonomousStoreId, action, justification: `fuzz-${this.rng.int(100)}` }, actor };
+      }
+      case "ADVANCE_STORE_ESCALATION": {
+        const escalations = view.autonomousOps().allEscalations().filter((item) => item.state !== "RESOLVED");
+        if (escalations.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(3), locationId: locationId(1), units: 2, reason: "RECEIVING" };
+        const actor = this.rng.chance(0.75) ? FUZZ_STORE_OWNER : this.rng.pick(FUZZ_ACTORS.filter((a) => a.kind !== "MERCHANT"));
+        return { payload: { type, escalationId: this.rng.pick(escalations).escalationId, trigger: this.rng.pick(["ACKNOWLEDGE", "RESOLVE"] as const) }, actor };
+      }
+      case "BEGIN_STORE_CYCLE": {
+        const storeId = this.rng.pick(FUZZ_STORES);
+        return { payload: { type, autonomousStoreId: makeId<"AutonomousStoreId">(storeId) }, actor: fuzzStoreActor(storeId) };
+      }
+      case "ADVANCE_STORE_CYCLE": {
+        const cycles = view.autonomousOps().allCycles().filter((cycle) => cycle.state !== "RECONCILED");
+        if (cycles.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(1), locationId: locationId(1), units: 7, reason: "RECEIVING" };
+        const cycle = this.rng.pick(cycles);
+        return {
+          payload: { type, cycleId: cycle.cycleId, trigger: this.rng.pick(["OPERATE", "CLOSE", "RECONCILE"] as const) },
+          actor: fuzzStoreActor(cycle.autonomousStoreId),
+        };
+      }
+      case "AUTONOMOUS_OPEN_TILL": {
+        const storeId = this.rng.pick(FUZZ_STORES);
+        const openTill = FUZZ_TILLS.find((till) => view.openStoreSessionFor(storeId, till));
+        const tillId = openTill === undefined ? this.rng.pick(FUZZ_TILLS) : FUZZ_TILLS.find((till) => till !== openTill) ?? this.rng.pick(FUZZ_TILLS);
+        // Float within the [1000, 20000] band most of the time; sometimes out of band.
+        const float = this.rng.chance(0.2) ? this.rng.int(900) : 1000 + this.rng.int(19000);
+        return {
+          payload: { type, autonomousStoreId: makeId<"AutonomousStoreId">(storeId), tillId: makeId<"TillId">(tillId), openingCount: money(`${float}`, usd) },
+          actor: fuzzStoreActor(storeId),
+        };
+      }
+      case "AUTONOMOUS_CLOSE_TILL": {
+        const storeId = this.rng.pick(FUZZ_STORES);
+        const sessions = view.allStoreSessions().filter((session) => session.state === "OPEN" && session.autonomousStoreId === storeId);
+        if (sessions.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(0), locationId: locationId(0), units: 4, reason: "RECEIVING" };
+        const session = this.rng.pick(sessions);
+        const expected = BigInt(session.expectedCash.amountMinor);
+        const drift = this.rng.chance(0.5) ? BigInt(this.rng.int(1500) + 1) * (this.rng.chance(0.5) ? 1n : -1n) : 0n;
+        const counted = expected + drift;
+        return {
+          payload: { type, autonomousStoreId: makeId<"AutonomousStoreId">(storeId), sessionId: session.sessionId, closingCount: money(counted >= 0n ? counted.toString() : "0", usd) },
+          actor: fuzzStoreActor(storeId),
+        };
+      }
+      case "AUTONOMOUS_RESTOCK": {
+        const storeId = this.rng.pick(FUZZ_STORES);
+        return {
+          payload: { type, autonomousStoreId: makeId<"AutonomousStoreId">(storeId), skuId: skuId(this.rng.int(4)), locationId: locationId(this.rng.int(2)) },
+          actor: fuzzStoreActor(storeId),
+        };
+      }
+      case "AUTONOMOUS_RECONCILE_COUNT": {
+        const storeId = this.rng.pick(FUZZ_STORES);
+        const sku = skuId(this.rng.int(4));
+        const location = locationId(this.rng.int(2));
+        const level = view.level(sku, location);
+        const onHand = level?.onHand ?? 0;
+        const drift = this.rng.chance(0.35) ? this.rng.int(6) + 4 : this.rng.int(5) - 2;
+        return {
+          payload: {
+            type,
+            autonomousStoreId: makeId<"AutonomousStoreId">(storeId),
+            observation: {
+              observationId: makeId<"ObservationId">(`obs-auto-${(this.counter += 1)}`),
+              kind: this.rng.pick(["CYCLE_COUNT", "BARCODE_COUNT", "EMPLOYEE_COUNT", "VISUAL_ESTIMATE"] as const),
+              skuId: sku,
+              locationId: location,
+              observedAt: "2026-10-05T00:00:00Z",
+              source: { sourceType: "SCANNER", sourceRef: "scanner-auto-fuzz" },
+              resolution: { resolved: "OBSERVED" as const, value: Math.max(0, onHand + drift) },
+            },
+          },
+          actor: fuzzStoreActor(storeId),
+        };
+      }
+      case "SET_SKU_PRICE": {
+        const storeId = this.rng.pick(FUZZ_STORES);
+        const actor = this.rng.chance(0.75) ? FUZZ_STORE_OWNER : this.rng.pick(FUZZ_ACTORS.filter((a) => a.kind !== "MERCHANT"));
+        return {
+          payload: {
+            type,
+            autonomousStoreId: makeId<"AutonomousStoreId">(storeId),
+            skuId: skuId(this.rng.int(4)),
+            unitPrice: money(`${100 + this.rng.int(4000)}`, usd),
+            costBasis: money(`${50 + this.rng.int(500)}`, usd),
+          },
+          actor,
+        };
+      }
+      case "ADJUST_SKU_PRICE": {
+        const storeId = this.rng.pick(FUZZ_STORES);
+        const prices = view.autonomousOps().allPriceRecords().filter((record) => record.autonomousStoreId === storeId);
+        if (prices.length === 0) return { type: "RECEIVE_STOCK", skuId: skuId(2), locationId: locationId(1), units: 3, reason: "RECEIVING" };
+        const record = this.rng.pick(prices);
+        const base = BigInt(record.unitPrice.amountMinor);
+        // Mostly small in-band deltas; sometimes far-out (DENY/REQUIRE_APPROVAL paths).
+        const delta = this.rng.chance(0.3) ? BigInt(this.rng.int(4000)) * (this.rng.chance(0.5) ? 1n : -1n) : BigInt(this.rng.int(400)) * (this.rng.chance(0.5) ? 1n : -1n);
+        const target = base + delta;
+        return {
+          payload: {
+            type,
+            autonomousStoreId: makeId<"AutonomousStoreId">(storeId),
+            skuId: record.skuId,
+            newPrice: money(target >= 0n ? target.toString() : "0", usd),
+            reason: `fuzz-price-${this.rng.int(80)}`,
+          },
+          actor: fuzzStoreActor(storeId),
+        };
+      }
       default:
         return { type: "RECEIVE_STOCK", skuId: skuId(0), locationId: locationId(0), units: 1, reason: "RECEIVING" };
     }
@@ -646,6 +815,22 @@ export class FuzzCommandSource {
       ["ADVANCE_RENTAL", 3],
       ["OPEN_CONSIGNMENT", 3],
       ["ADVANCE_CONSIGNMENT", 3],
+      ...(this.hooks.surface === "autonomous-store"
+        ? ([
+            ["REGISTER_AUTONOMOUS_STORE", 1],
+            ["HANDOVER_STORE_AUTHORITY", 2],
+            ["RECORD_HUMAN_OVERRIDE", 3],
+            ["ADVANCE_STORE_ESCALATION", 2],
+            ["BEGIN_STORE_CYCLE", 3],
+            ["ADVANCE_STORE_CYCLE", 3],
+            ["AUTONOMOUS_OPEN_TILL", 4],
+            ["AUTONOMOUS_CLOSE_TILL", 4],
+            ["AUTONOMOUS_RESTOCK", 5],
+            ["AUTONOMOUS_RECONCILE_COUNT", 4],
+            ["SET_SKU_PRICE", 2],
+            ["ADJUST_SKU_PRICE", 4],
+          ] as const)
+        : []),
     ];
     const total = table.reduce((sum, [, weight]) => sum + weight, 0);
     let roll = this.rng.next() % total;

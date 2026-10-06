@@ -38,7 +38,12 @@ import { handleIssueGoodwillRefund, handleOpenDispute, handleRecordChargeback, h
 import { handleCloseStoreCashSession, handleHandoverStoreCashSession, handleOpenStoreCashSession, handleRecordTillOperation } from "./handler-store-ops.js";
 import { handleAdvanceReturn, handleOpenReturn, handleRequestReturn } from "./handler-returns.js";
 import { handleAdvanceConsignment, handleAdvanceListing, handleAdvanceRental, handleAdvanceSubscription, handleOpenConsignment, handleOpenListing, handleOpenRental, handleOpenSubscription } from "./handler-circular.js";
+import { handleAdvanceStoreEscalation, handleHandoverStoreAuthority, handleRecordHumanOverride, handleRegisterAutonomousStore } from "./handler-store-control.js";
+import { handleAutonomousCloseTill, handleAutonomousOpenTill, handleAutonomousReconcileCount, handleAutonomousRestock } from "./handler-autonomous-ops.js";
+import { handleAdvanceStoreCycle, handleBeginStoreCycle } from "./handler-store-cycle.js";
+import { handleAdjustSkuPrice, handleSetSkuPrice } from "./handler-price-book.js";
 import { policySubject } from "./subjects.js";
+import { authorityTargetStore, gateAuthorityCommand } from "./policy-gate.js";
 
 const HANDLERS: Readonly<Record<string, RuntimeCommandHandler>> = Object.freeze({
   ADJUST_INVENTORY: handleAdjustInventory,
@@ -80,6 +85,19 @@ const HANDLERS: Readonly<Record<string, RuntimeCommandHandler>> = Object.freeze(
   RECORD_TILL_OPERATION: handleRecordTillOperation,
   HANDOVER_STORE_CASH_SESSION: handleHandoverStoreCashSession,
   CLOSE_STORE_CASH_SESSION: handleCloseStoreCashSession,
+  // --- W1-005 (additive): autonomous-store runtime commands ---
+  REGISTER_AUTONOMOUS_STORE: handleRegisterAutonomousStore,
+  HANDOVER_STORE_AUTHORITY: handleHandoverStoreAuthority,
+  RECORD_HUMAN_OVERRIDE: handleRecordHumanOverride,
+  ADVANCE_STORE_ESCALATION: handleAdvanceStoreEscalation,
+  BEGIN_STORE_CYCLE: handleBeginStoreCycle,
+  ADVANCE_STORE_CYCLE: handleAdvanceStoreCycle,
+  AUTONOMOUS_OPEN_TILL: handleAutonomousOpenTill,
+  AUTONOMOUS_CLOSE_TILL: handleAutonomousCloseTill,
+  AUTONOMOUS_RESTOCK: handleAutonomousRestock,
+  AUTONOMOUS_RECONCILE_COUNT: handleAutonomousReconcileCount,
+  SET_SKU_PRICE: handleSetSkuPrice,
+  ADJUST_SKU_PRICE: handleAdjustSkuPrice,
   REQUEST_RETURN: handleRequestReturn,
   OPEN_RETURN: handleOpenReturn,
   ADVANCE_RETURN: handleAdvanceReturn,
@@ -246,6 +264,11 @@ export class CommerceKernel {
   }
 
   private gatePolicy(payload: RuntimeCommandPayload, actor: PrincipalRef): CommandRejection | undefined {
+    // W1-005 authority gate: store-control commands are authority-checked for
+    // EVERY actor (owner/controlling principal only); anything else is a
+    // deterministic POLICY_DENIED rejection with zero journal entries.
+    const authority = this.gateAuthority(payload, actor);
+    if (authority) return authority;
     if (actor.kind !== "AUTONOMOUS_STORE") return undefined;
     const policy = this.state.policyFor(actor.autonomousStoreId);
     if (!policy) return undefined;
@@ -257,6 +280,24 @@ export class CommerceKernel {
         decision.decision === "DENY"
           ? `autonomous policy DENY (${decision.reasons.join(", ")}) for store ${actor.autonomousStoreId}`
           : `autonomous policy REQUIRE_APPROVAL (${decision.reasons.join(", ")}) — no approval recorded; blocked at the kernel boundary`,
+      policyDecision: decision,
+    };
+  }
+
+  private gateAuthority(payload: RuntimeCommandPayload, actor: PrincipalRef): CommandRejection | undefined {
+    let storeId = authorityTargetStore(payload);
+    if (storeId === undefined && payload.type === "ADVANCE_STORE_ESCALATION") {
+      // Escalation advancement is authority-gated on the escalation's store.
+      const escalation = this.state.autonomousOps().escalation(payload.escalationId);
+      if (!escalation) return undefined; // unknown escalation: the handler rejects deterministically
+      storeId = escalation.autonomousStoreId;
+    }
+    if (storeId === undefined) return undefined;
+    const decision = gateAuthorityCommand(actor, this.state.autonomousOps().controlFor(storeId));
+    if (decision.decision === "ALLOW") return undefined;
+    return {
+      code: "POLICY_DENIED",
+      detail: `store authority DENY (${decision.reasons.join(", ")}) for store ${storeId} — actor ${actor.kind} is not the registered owner or controlling principal`,
       policyDecision: decision,
     };
   }

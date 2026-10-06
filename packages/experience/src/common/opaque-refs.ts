@@ -242,6 +242,45 @@ export type CommerceCustomerRef = string & {
   readonly [commerceCustomerRefBrand]: "opaque:@unicom/kernel/Customer";
 };
 
+declare const commerceAutonomousStoreRefBrand: unique symbol;
+/**
+ * Opaque reference to an autonomous store owned by the Commerce Kernel
+ * (Worker 1 — deterministic runtime). The experience plane renders store
+ * visibility through this ref; it never models the store's commerce
+ * semantics (W3-005 autonomous-store visibility law).
+ */
+export type CommerceAutonomousStoreRef = string & {
+  readonly [commerceAutonomousStoreRefBrand]: "opaque:@unicom/kernel/AutonomousStore";
+};
+
+declare const commerceAutonomousStorePolicyRefBrand: unique symbol;
+/**
+ * Opaque reference to an `AutonomousStorePolicy` owned by the Commerce
+ * Kernel (Worker 1). Rendered verbatim with its revision — never re-modeled.
+ */
+export type CommerceAutonomousStorePolicyRef = string & {
+  readonly [commerceAutonomousStorePolicyRefBrand]: "opaque:@unicom/kernel/AutonomousStorePolicy";
+};
+
+declare const commerceStoreVarianceRefBrand: unique symbol;
+/**
+ * Opaque reference to a variance record surfaced by the Commerce Kernel
+ * (Worker 1). The experience plane shows that a variance exists and what
+ * the merchant can do about it — variance SEMANTICS stay in Worker 1's lane.
+ */
+export type CommerceStoreVarianceRef = string & {
+  readonly [commerceStoreVarianceRefBrand]: "opaque:@unicom/kernel/StoreVariance";
+};
+
+declare const commerceEscalationRefBrand: unique symbol;
+/**
+ * Opaque reference to an escalation requiring owner attention. Rendered
+ * verbatim; the escalation's commerce meaning is owned behind the ref.
+ */
+export type CommerceEscalationRef = string & {
+  readonly [commerceEscalationRefBrand]: "opaque:@unicom/kernel/Escalation";
+};
+
 // ---------------------------------------------------------------------------
 // Experience-plane owned handles (opaque to everything outside this plane)
 // ---------------------------------------------------------------------------

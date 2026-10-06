@@ -29,6 +29,7 @@ import type { ChargebackRecord, DisputeRecord } from "../domain/recourse.js";
 import type { CashVarianceRecord, StoreCashSession } from "../domain/store-ops.js";
 import { KernelRecourseFold } from "./kernel-fold-recourse.js";
 import { KernelStoreOpsFold } from "./kernel-fold-store-ops.js";
+import { KernelAutonomousStoreFold } from "./kernel-fold-autonomous.js";
 
 type OrderEventPayloadLike =
   | { readonly kind: "ORDER_PLACED"; readonly snapshot: OrderSnapshot }
@@ -64,6 +65,8 @@ export class KernelState {
   private readonly recourse = new KernelRecourseFold();
   /** W1-004 autonomous-store cash-session collections (sessions, variances). */
   private readonly storeOps = new KernelStoreOpsFold();
+  /** W1-005 autonomous-store runtime collections (control, cycles, applications, escalations, overrides, prices, adjustments, restocks). */
+  private readonly autonomousFold = new KernelAutonomousStoreFold();
 
   /** Fold one immutable fact into state. Pure with respect to inputs. */
   apply(event: AnyCommerceEvent): void {
@@ -92,6 +95,15 @@ export class KernelState {
       case "STORE_CASH_SESSION":
       case "CASH_VARIANCE_RECORD":
         this.storeOps.apply(event);
+        return;
+      case "AUTONOMOUS_STORE":
+      case "POLICY_APPLICATION":
+      case "STORE_ESCALATION":
+      case "STORE_CYCLE":
+      case "SKU_PRICE":
+      case "PRICE_ADJUSTMENT":
+      case "RESTOCK_ORDER":
+        this.autonomousFold.apply(event);
         return;
       case "STOCK_TRANSFER":
         this.setTransfer(event.payload as { transfer?: StockTransfer });
@@ -342,6 +354,8 @@ export class KernelState {
   openStoreSessionFor(storeId: string, tillId: string): StoreCashSession | undefined { return this.storeOps.openSessionFor(storeId, tillId); }
   cashVariance(varianceId: string): CashVarianceRecord | undefined { return this.storeOps.cashVariance(varianceId); }
   allCashVariances(): readonly CashVarianceRecord[] { return this.storeOps.allCashVariances(); }
+  /** W1-005 autonomous-store runtime collections (typed fold accessors). */
+  autonomousOps(): KernelAutonomousStoreFold { return this.autonomousFold; }
   subscription(subscriptionId: string): Subscription | undefined {
     return this.subscriptions.get(subscriptionId);
   }

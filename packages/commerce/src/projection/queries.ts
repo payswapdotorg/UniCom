@@ -28,6 +28,16 @@ import type { TwinState } from "./twin-state.js";
 import { capturedTotalOf, refundedTotalOf, type PaymentCaptureRecord, type SettlementRecord } from "../domain/settlement.js";
 import type { ChargebackRecord, DisputeRecord } from "../domain/recourse.js";
 import type { CashVarianceRecord, StoreCashSession } from "../domain/store-ops.js";
+import type {
+  AutonomousOverrideRecord,
+  AutonomousStoreControl,
+  PolicyApplication,
+  PriceAdjustmentRecord,
+  RestockOrderRecord,
+  SkuPriceRecord,
+  StoreCycle,
+  StoreEscalation,
+} from "../domain/autonomous-store.js";
 
 export const COMMERCE_FACTS_INTERFACE_ID = "commerce-facts";
 export const COMMERCE_FACTS_INTERFACE_VERSION = 1;
@@ -48,6 +58,8 @@ export interface CommerceFactsV1 {
   readonly recourse: RecourseFactsV1;
   /** W1-004 (additive): autonomous-store cash-session + variance facts. */
   readonly storeOperations: StoreOpsFactsV1;
+  /** W1-005 (additive): autonomous-store runtime facts (control, cycles, applications, escalations, price book, restocks). */
+  readonly autonomousStore: AutonomousStoreFactsV1;
 }
 
 export interface InventoryFactsV1 {
@@ -136,6 +148,31 @@ export interface StoreOpsFactsV1 {
   cashVariance(varianceId: string): CashVarianceRecord | undefined;
   cashVariances(): readonly CashVarianceRecord[];
   variancesForSession(sessionId: string): readonly CashVarianceRecord[];
+}
+
+/** W1-005 autonomous-store runtime facts (facts only, no opportunity semantics). */
+export interface AutonomousStoreFactsV1 {
+  control(autonomousStoreId: string): AutonomousStoreControl | undefined;
+  controls(): readonly AutonomousStoreControl[];
+  cycle(cycleId: string): StoreCycle | undefined;
+  cycles(): readonly StoreCycle[];
+  cyclesForStore(autonomousStoreId: string): readonly StoreCycle[];
+  policyApplication(applicationId: string): PolicyApplication | undefined;
+  policyApplications(): readonly PolicyApplication[];
+  applicationsForStore(autonomousStoreId: string): readonly PolicyApplication[];
+  escalation(escalationId: string): StoreEscalation | undefined;
+  escalations(): readonly StoreEscalation[];
+  openEscalations(): readonly StoreEscalation[];
+  override(overrideId: string): AutonomousOverrideRecord | undefined;
+  overrides(): readonly AutonomousOverrideRecord[];
+  skuPrice(autonomousStoreId: string, skuId: string): SkuPriceRecord | undefined;
+  skuPrices(): readonly SkuPriceRecord[];
+  priceAdjustment(adjustmentId: string): PriceAdjustmentRecord | undefined;
+  priceAdjustments(): readonly PriceAdjustmentRecord[];
+  adjustmentsForSku(autonomousStoreId: string, skuId: string): readonly PriceAdjustmentRecord[];
+  restockOrder(restockId: string): RestockOrderRecord | undefined;
+  restockOrders(): readonly RestockOrderRecord[];
+  restockOrdersForStore(autonomousStoreId: string): readonly RestockOrderRecord[];
 }
 
 /** Build the versioned facts interface over a twin mirror state (pure queries). */
@@ -232,6 +269,36 @@ export function commerceFacts(state: TwinState, catalog: CatalogReadModelState):
       cashVariances: () => [...collections.cashVariances.values()].sort(byRevision),
       variancesForSession: (sessionId) => [...collections.cashVariances.values()].filter((variance) => variance.sessionId === sessionId).sort(byRevision),
     },
+    autonomousStore: autonomousStoreFacts(state),
+  };
+}
+
+/** Build the W1-005 autonomous-store facts view over the twin's bag (pure queries). */
+export function autonomousStoreFacts(state: TwinState): AutonomousStoreFactsV1 {
+  const collections = state.autonomousCollections();
+  return {
+    control: (storeId) => collections.stores.get(storeId),
+    controls: () => [...collections.stores.values()].sort(byRevision),
+    cycle: (cycleId) => collections.cycles.get(cycleId),
+    cycles: () => [...collections.cycles.values()].sort(byRevision),
+    cyclesForStore: (storeId) => [...collections.cycles.values()].filter((cycle) => cycle.autonomousStoreId === storeId).sort(byRevision),
+    policyApplication: (applicationId) => collections.policyApplications.get(applicationId),
+    policyApplications: () => [...collections.policyApplications.values()].sort(byRevision),
+    applicationsForStore: (storeId) => [...collections.policyApplications.values()].filter((application) => application.autonomousStoreId === storeId).sort(byRevision),
+    escalation: (escalationId) => collections.escalations.get(escalationId),
+    escalations: () => [...collections.escalations.values()].sort(byRevision),
+    openEscalations: () => [...collections.escalations.values()].filter((escalation) => escalation.state === "OPEN").sort(byRevision),
+    override: (overrideId) => collections.overrides.get(overrideId),
+    overrides: () => [...collections.overrides.values()].sort(byRevision),
+    skuPrice: (storeId, skuId) => collections.skuPrices.get(`${storeId}|${skuId}`),
+    skuPrices: () => [...collections.skuPrices.values()].sort(byRevision),
+    priceAdjustment: (adjustmentId) => collections.priceAdjustments.get(adjustmentId),
+    priceAdjustments: () => [...collections.priceAdjustments.values()].sort(byRevision),
+    adjustmentsForSku: (storeId, skuId) =>
+      [...collections.priceAdjustments.values()].filter((adjustment) => adjustment.autonomousStoreId === storeId && adjustment.skuId === skuId).sort(byRevision),
+    restockOrder: (restockId) => collections.restockOrders.get(restockId),
+    restockOrders: () => [...collections.restockOrders.values()].sort(byRevision),
+    restockOrdersForStore: (storeId) => [...collections.restockOrders.values()].filter((order) => order.autonomousStoreId === storeId).sort(byRevision),
   };
 }
 

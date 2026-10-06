@@ -124,6 +124,16 @@ export interface LiveConsumerHealthView {
   readonly silentlyDroppedEvents: 0;
 }
 
+/** Terminal summary rendered when a session has ended (W3-005 hardening). */
+export interface LiveSessionTerminalSummaryView {
+  /** Literal terminal lifecycle — structurally only an ended session. */
+  readonly lifecycle: "ended";
+  readonly totalEvents: number;
+  readonly finalArrivalSequence: number;
+  /** Late joiners can still replay the full session from start. */
+  readonly replayFromStart: "available" | "unknown";
+}
+
 /** The render contract for the live-commerce session surface. */
 export interface LiveSessionSurfaceView {
   readonly streamRef: LiveStreamId;
@@ -140,6 +150,8 @@ export interface LiveSessionSurfaceView {
     readonly lastArrivalSequence: number;
     readonly consumers: readonly LiveConsumerHealthView[];
   };
+  /** Present exactly when the session is ended — the terminal state. */
+  readonly terminal?: LiveSessionTerminalSummaryView;
 }
 
 /** The typed consumer-facing session contract as one object (the deliverable). */

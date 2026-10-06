@@ -22,9 +22,11 @@ export type {
   SettlementCommandPayload,
   RecourseCommandPayload,
   StoreOpsCommandPayload,
+  AutonomousStoreCommandPayload,
 } from "./commands.js";
 export type { CommerceKernelOptions, ResolvedKernelOptions } from "./options.js";
 export { DETERMINISTIC_EPOCH, resolveKernelOptions } from "./options.js";
 export type { KernelStateSnapshot } from "./kernel-snapshot.js";
 export type { EmittedEventSpec, CommandContext } from "./handler.js";
-export { gateAutonomousCommand } from "./policy-gate.js";
+export { gateAutonomousCommand, authorityTargetStore, gateAuthorityCommand } from "./policy-gate.js";
+export { KernelAutonomousStoreFold } from "./kernel-fold-autonomous.js";

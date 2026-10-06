@@ -29,6 +29,8 @@ export {
   type ResaleListingId, type RentalAgreementId, type ConsignmentId, type OpportunityId,
   type GroupBuyId, type TradeCycleId, type CommerceEventId, type CommandId, type CommandReceiptId,
   type CorrelationId, type IdempotencyKey, type AutonomousStorePolicyId,
+  type PolicyApplicationId, type StoreEscalationId, type StoreCycleId, type OverrideId,
+  type PriceAdjustmentId, type RestockOrderId,
   isValidIdText, makeId, makeBarcode,
 } from "./domain/ids.js";
 
@@ -187,6 +189,20 @@ export {
   storeSessionTransition, tillOperationDelta, applyTillOperation, cashVarianceOf,
 } from "./domain/store-ops.js";
 
+// --- W1-005: autonomous-store deterministic runtime (additive) ---
+
+export {
+  type AutonomousActionKind, type AutonomousDenialReason, type StoreOperatingDenialReason,
+  type PolicyApplication, type PolicyApplicationDecision, type AutonomousStoreControl,
+  type StoreControlMode, type AutonomousOverrideRecord, type OverrideAction,
+  type StoreCycle, type StoreCycleState, type StoreCycleTrigger, type StoreCycleSummary,
+  type StoreCycleTransitionError, type StoreEscalation, type StoreEscalationKind,
+  type StoreEscalationState, type StoreEscalationTrigger, type StoreEscalationEvidence,
+  type StoreEscalationTransitionError, type SkuPriceRecord, type PriceAdjustmentRecord,
+  type RestockOrderRecord, storeCycleTransition, storeEscalationTransition,
+  dayKeyOf, epochDayOf, spendPeriodKeyOf, parseInstantUtc,
+} from "./domain/autonomous-store.js";
+
 export {
   type Subscription, type SubscriptionPlan, type SubscriptionState, type SubscriptionTrigger,
   type SubscriptionTransitionError, type BillingPeriod, subscriptionTransition, advanceSubscription,
@@ -213,7 +229,8 @@ export {
 export {
   type AutonomousStorePrincipal, type AutonomousStorePolicy, type StopCondition,
   type StopConditionKind, type PolicyPeriod, type PolicyProposal, type PolicyDecision,
-  type PolicyDenialReason, evaluateAutonomousPolicy, revisePolicy,
+  type PolicyDenialReason, type StoreOperatingRules, type RestockRule,
+  evaluateAutonomousPolicy, revisePolicy,
 } from "./domain/policy.js";
 
 export {
@@ -239,9 +256,10 @@ export {
   type AnyRuntimeCommand, type RuntimeCommandPayload, type SupplyCommandPayload,
   type ReconciliationCommandPayload, type OrderFlowCommandPayload, type ReturnFlowCommandPayload,
   type CircularCommandPayload, type CheckoutCompletionCommandPayload, type SettlementCommandPayload,
-  type RecourseCommandPayload, type StoreOpsCommandPayload,
+  type RecourseCommandPayload, type StoreOpsCommandPayload, type AutonomousStoreCommandPayload,
   type CommerceKernelOptions, type ResolvedKernelOptions, DETERMINISTIC_EPOCH, resolveKernelOptions,
   type KernelStateSnapshot, type EmittedEventSpec, type CommandContext, gateAutonomousCommand,
+  authorityTargetStore, gateAuthorityCommand, type KernelAutonomousStoreFold,
 } from "./runtime/index.js";
 
 // --- Commerce Twin + event projections (W1-003) ---
@@ -273,6 +291,7 @@ export {
   type TwinState, type TwinStateSnapshot, snapshotOfTwin,
   type TwinCheckpoint, CommerceTwin, canonicalOfTwin, twinProjection,
   COMMERCE_FACTS_INTERFACE_ID, COMMERCE_FACTS_INTERFACE_VERSION,
-  type CommerceFactsV1, type RecourseFactsV1, type StoreOpsFactsV1, commerceFacts,
+  type CommerceFactsV1, type RecourseFactsV1, type StoreOpsFactsV1,
+  type AutonomousStoreFactsV1, commerceFacts,
   type TwinDivergence, compareTwinToAuthoritative, assertTwinMatchesAuthoritative, assertCanonicalEquivalence,
 } from "./projection/index.js";

@@ -46,7 +46,15 @@
  * - the reconciliation journey planner: edge vs system vs POS variance
  *   views with tri-state preservation (`edge/reconciliation-journey`, W3-004);
  * - the live-commerce session runtime implementing the typed UX contract
- *   (`surfaces/live-session`, W3-004).
+ *   (`surfaces/live-session`, W3-004);
+ * - the universal-intent typed command catalog + deterministic resolver
+ *   (`surfaces/universal-intent`, W3-005);
+ * - the Decision Card render projector — every contract field rendered,
+ *   opaque refs verbatim (`surfaces/decision-card-render`, W3-005);
+ * - the per-connector health surface composed from W3-003 journey
+ *   telemetry (`surfaces/connector-health`, W3-005);
+ * - the surface-state constructors + the offline queue-sync/supersede view
+ *   builder (`surfaces/surface-state`, W3-005).
  *
  * Vocabulary law: the capability vocabulary is consumed from
  * `@unicom/agent` public entrypoints (`.` and `./capability`) — this package
@@ -75,5 +83,9 @@ export * from "./edge/reconciliation-journey";
 export * from "./edge/exact-integer";
 export * from "./edge/weighted-runtime";
 export * from "./surfaces/live-session";
+export * from "./surfaces/universal-intent";
+export * from "./surfaces/decision-card-render";
+export * from "./surfaces/connector-health";
+export * from "./surfaces/surface-state";
 export * from "./transport/router";
 export * from "./providers/index";

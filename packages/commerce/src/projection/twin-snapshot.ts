@@ -24,6 +24,16 @@ import type { ReconciliationRecord } from "../domain/reconciliation.js";
 import type { PaymentCaptureRecord, SettlementRecord } from "../domain/settlement.js";
 import type { ChargebackRecord, DisputeRecord } from "../domain/recourse.js";
 import type { CashVarianceRecord, StoreCashSession } from "../domain/store-ops.js";
+import type {
+  AutonomousOverrideRecord,
+  AutonomousStoreControl,
+  PolicyApplication,
+  PriceAdjustmentRecord,
+  RestockOrderRecord,
+  SkuPriceRecord,
+  StoreCycle,
+  StoreEscalation,
+} from "../domain/autonomous-store.js";
 import type { TwinCollections, TwinState } from "./twin-state.js";
 
 /** Structural snapshot of the whole twin mirror (deterministic order). */
@@ -52,6 +62,15 @@ export interface TwinStateSnapshot {
   readonly chargebacks: readonly ChargebackRecord[];
   readonly storeSessions: readonly StoreCashSession[];
   readonly cashVariances: readonly CashVarianceRecord[];
+  // --- W1-005 (additive): autonomous-store runtime collections ---
+  readonly autonomousStores: readonly AutonomousStoreControl[];
+  readonly storeCycles: readonly StoreCycle[];
+  readonly policyApplications: readonly PolicyApplication[];
+  readonly storeEscalations: readonly StoreEscalation[];
+  readonly storeOverrides: readonly AutonomousOverrideRecord[];
+  readonly skuPrices: readonly SkuPriceRecord[];
+  readonly priceAdjustments: readonly PriceAdjustmentRecord[];
+  readonly restockOrders: readonly RestockOrderRecord[];
 }
 
 function byRevision(a: { readonly revision: number }, b: { readonly revision: number }): number {
@@ -65,6 +84,7 @@ function sorted<V extends { readonly revision: number }>(collection: ReadonlyMap
 /** Build the twin snapshot from the mirror's collections (deterministic order). */
 export function snapshotOfTwin(state: TwinState): TwinStateSnapshot {
   const collections: TwinCollections = state.collections();
+  const autonomous = state.autonomousCollections();
   return {
     levels: sorted(collections.levels),
     reservations: sorted(collections.reservations),
@@ -90,5 +110,13 @@ export function snapshotOfTwin(state: TwinState): TwinStateSnapshot {
     chargebacks: sorted(collections.chargebacks),
     storeSessions: sorted(collections.storeSessions),
     cashVariances: sorted(collections.cashVariances),
+    autonomousStores: sorted(autonomous.stores),
+    storeCycles: sorted(autonomous.cycles),
+    policyApplications: sorted(autonomous.policyApplications),
+    storeEscalations: sorted(autonomous.escalations),
+    storeOverrides: sorted(autonomous.overrides),
+    skuPrices: sorted(autonomous.skuPrices),
+    priceAdjustments: sorted(autonomous.priceAdjustments),
+    restockOrders: sorted(autonomous.restockOrders),
   };
 }
