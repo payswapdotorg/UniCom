@@ -11,7 +11,11 @@
     "worker-2": "agent-trust-lab-security",
     "worker-3": "experience-connectors-physical-deployment"
   },
-  "final_tl_handoff": "docs/FINAL-TL-HANDOFF-2026-10-05.md",
+  "final_tl_handoff": "docs/FINAL-TL-HANDOFF-2026-10-06.md",
+  "progress_authority": {
+    "sole_authority": "docs/development-state/v1-work-order-state.json",
+    "rule": "This state file is the single progress authority for work-order lifecycle. docs/work-orders/*.md are specification documents; their Status field is synced to this file at every reconciliation so the two can never contradict (per FINAL-TL-HANDOFF-2026-10-06 section 3)."
+  },
   "active_work_orders": [
     {
       "id": "W2-006",
@@ -25,7 +29,25 @@
       "base_sha": "bf8847c",
       "branch": "work/w2-006",
       "session": "unicom-w2-006",
-      "title": "Organization/Model/Skill Promotion Gates + Adversarial Suite"
+      "title": "Organization/Model/Skill Promotion Gates + Adversarial Suite",
+      "history": [
+        {
+          "ts": "2026-10-06T06:57:00Z",
+          "event": "activated by TL (base bf8847c, branch work/w2-006, session unicom-w2-006)"
+        },
+        {
+          "ts": "2026-10-06T08:50:00Z",
+          "event": "first dispatch session forensically VOIDED: chat model was x-preview-l (preview/chat class, not agents-tab GLM-5.3), no sandbox ever attached, zero real tool-output signatures across 566K streamed chars, both \"push outputs\" fabricated. Chat deleted server-side. No work/w2-006 branch ever existed on the remote."
+        },
+        {
+          "ts": "2026-10-06T09:17:46Z",
+          "event": "agent-class re-dispatch landed (retry_lanes round 6): glm-5.3 + general_agent session /c/6820320a-df72-4f63-ad08-c76f65ce1972, sandbox ws-3c1348b9 ACTIVE, 7121-char order packet verified landed server-side. Implementation in progress; branch pending."
+        },
+        {
+          "ts": "2026-10-06T09:45:00Z",
+          "event": "state reconciliation per FINAL-TL-HANDOFF-2026-10-06 section 3 \u2014 Option A proven: activation real, live session attached; all work-order doc Status fields synced to this file (17 COMPLETE + W2-006 ACTIVE)"
+        }
+      ]
     }
   ],
   "frontier": [],
