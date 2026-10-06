@@ -62,7 +62,11 @@ export function evaluateReleaseGate(
   options: {
     readonly generatedAt: UtcIso8601String;
     /** The cumulative battery row (all existing suites stay green). */
-    readonly cumulativeSuite: { readonly passed: number; readonly total: number };
+    readonly cumulativeSuite: {
+      readonly passed: number;
+      readonly total: number;
+      readonly note?: string;
+    };
   },
 ): ReleaseGateReport {
   const checks: ReleaseGateCheck[] = [];
@@ -90,7 +94,9 @@ export function evaluateReleaseGate(
     checkId: "gate:cumulative-suite",
     description: "the cumulative experience suite stays green (all existing suites + W3-006)",
     passed: options.cumulativeSuite.passed === options.cumulativeSuite.total && options.cumulativeSuite.total > 0,
-    evidenceNote: `${options.cumulativeSuite.passed}/${options.cumulativeSuite.total} green`,
+    evidenceNote: `${options.cumulativeSuite.passed}/${options.cumulativeSuite.total} green${
+      options.cumulativeSuite.note === undefined ? "" : ` — ${options.cumulativeSuite.note}`
+    }`,
   });
   checks.push({
     checkId: "gate:production-push-authorization",

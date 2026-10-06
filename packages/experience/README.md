@@ -135,3 +135,39 @@ zero-network). Coverage areas:
 
 Test doubles live in `test/doubles.ts` and are clearly marked — never on a
 production path (invariant 39).
+
+## W3-006 — public deployment readiness (additive)
+
+- **Deployment adapters as code** — provider-agnostic target plans
+  (`deployment/manifest.ts` contracts; `runtime/deployment/target-plan.ts`
+  carries the fully-specified `NODE_SERVER_TARGET_PLAN`): typed environment
+  contracts, build steps, liveness/readiness/startup probes and startup
+  ordering. The node-server target adapter (`runtime/deployment/
+  target-adapter.ts`) builds through a REAL command executor, boots REAL
+  loopback HTTP services, gates dependents on dependency readiness and
+  re-verifies every probe over HTTP (termination/restart drives the DR
+  pod-loss playbook). Zero provider names, zero provider SDKs.
+- **Browser E2E journey suites** — `test/e2e/` drives the REAL experience
+  runtimes headless through the primary user paths (Command Center, Intent
+  Canvas, Opportunity Inbox, storefront → checkout, Connector Studio,
+  Trust/Security, live commerce incl. late-joiner replay + backpressure)
+  against the typed UI contracts — the same runners emit the RC evidence.
+- **Production observability** — `deployment/observability.ts` +
+  `runtime/deployment/observability.ts`: per-subsystem health, connector
+  health, autonomous-store and live-session status as typed PROJECTIONS of
+  the journaled event streams (`projectionOnly: true`,
+  `sourceOfTruth: "journaled-events"` — never a second source of truth);
+  the operator dashboard composes the snapshot + DR runbook statuses.
+- **DR runbook as code** — `deployment/runbook.ts` +
+  `runtime/deployment/{journal-chain,dr-playbooks,dr-objectives}.ts`:
+  hash-chained kernel-state backups (tamper/reorder/truncate/reforge
+  detection), verified restore into a FRESH kernel (identical state +
+  identical exactly-once behavior), full projection rebuild from journal
+  replay, four tested failure-mode playbooks (connector outage, pod loss,
+  journal corruption, split-brain) each running detection → journaled
+  decision → recovery → verification, and the single-writer fencing lease.
+- **RC evidence** — `deployment/rc-evidence.ts` +
+  `runtime/deployment/rc-evidence.ts`: machine-readable reports (E2E /
+  observability / DR drills + the aggregated release gate) written to
+  `reports/rc/` with a deterministic drill clock; the gate re-states that
+  the production push stays UNAUTHORIZED (the operator flips it).

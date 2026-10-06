@@ -1,0 +1,256 @@
+{
+  "reportId": "rc-e2e-journeys-v1",
+  "kind": "e2e-journeys",
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-11T06:00:27.000Z",
+  "clockMode": "deterministic-drill",
+  "subject": "W3-006 primary user paths (headless, real UI contracts)",
+  "rows": [
+    {
+      "checkId": "e2e-command-center:home-surface-ready",
+      "description": "Command Center (merchant home / Work Graph) — the command center surface reaches the READY state through the surface-state runtime",
+      "passed": true,
+      "evidenceNote": "surfaceReady(commandCenterView) → phase ready"
+    },
+    {
+      "checkId": "e2e-command-center:business-pulse-operational",
+      "description": "Command Center (merchant home / Work Graph) — the business pulse renders kernel-derived metrics as OPERATIONAL truth",
+      "passed": true,
+      "evidenceNote": "metrics: Laptop units available=12, Scale units available=37"
+    },
+    {
+      "checkId": "e2e-command-center:connector-health-strip",
+      "description": "Command Center (merchant home / Work Graph) — the connector health strip counts real connector health snapshots",
+      "passed": true,
+      "evidenceNote": "healthy=1, unknown=1 (registered-but-not-connected stays UNKNOWN)"
+    },
+    {
+      "checkId": "e2e-command-center:work-graph-nodes",
+      "description": "Command Center (merchant home / Work Graph) — the work graph renders goal/connector/security nodes with opaque refs",
+      "passed": true,
+      "evidenceNote": "3 nodes with kinds goal/connector/security-alert"
+    },
+    {
+      "checkId": "e2e-command-center:objective-input-typed",
+      "description": "Command Center (merchant home / Work Graph) — the primary objective input is a typed MerchantObjectiveInput",
+      "passed": true,
+      "evidenceNote": "objective echo + submission timestamp present"
+    },
+    {
+      "checkId": "e2e-command-center:universal-intent-resolves",
+      "description": "Command Center (merchant home / Work Graph) — the universal intent input resolves the command center through a typed command",
+      "passed": true,
+      "evidenceNote": "resolved via alias \"how is the business doing\""
+    },
+    {
+      "checkId": "e2e-command-center:decision-card-renders",
+      "description": "Command Center (merchant home / Work Graph) — a pending decision renders through the Decision Card renderer with ALL sections",
+      "passed": true,
+      "evidenceNote": "10/10 render sections; approval badge \"approval: pending\""
+    },
+    {
+      "checkId": "e2e-command-center:operator-dashboard-reachable",
+      "description": "Command Center (merchant home / Work Graph) — the operator dashboard is reachable from the command center with complete sections",
+      "passed": true,
+      "evidenceNote": "dashboard sections: subsystem-health, connector-health, live-sessions, autonomous-stores, edge-queues, deployment-plane, dr-runbooks"
+    },
+    {
+      "checkId": "e2e-intent-canvas:navigate-by-intent",
+      "description": "Buyer Intent Canvas — the buyer reaches the intent canvas through the universal intent surface",
+      "passed": true,
+      "evidenceNote": "alias \"I want to buy\" → buyer-intent-canvas"
+    },
+    {
+      "checkId": "e2e-intent-canvas:constraint-editor-complete",
+      "description": "Buyer Intent Canvas — the constraint editor exposes the full 17-facet catalog",
+      "passed": true,
+      "evidenceNote": "17 constraint facets"
+    },
+    {
+      "checkId": "e2e-intent-canvas:draft-hands-off-opaquely",
+      "description": "Buyer Intent Canvas — the raw intent draft hands off through an opaque parsed-intent ref",
+      "passed": true,
+      "evidenceNote": "draft submitted; parsed intent stays opaque to the experience plane"
+    },
+    {
+      "checkId": "e2e-intent-canvas:plan-options-typed",
+      "description": "Buyer Intent Canvas — plan options are typed incl. buy-now, wait-for-price and group-with-others",
+      "passed": true,
+      "evidenceNote": "kinds: buy-now, wait-for-price, group-with-others"
+    },
+    {
+      "checkId": "e2e-intent-canvas:predictions-labeled-predictive",
+      "description": "Buyer Intent Canvas — every predicted outcome is labeled PREDICTIVE truth, never operational",
+      "passed": true,
+      "evidenceNote": "wait-or-buy recommendation: buy-now"
+    },
+    {
+      "checkId": "e2e-opportunity-inbox:inbox-surface-ready",
+      "description": "Opportunity Inbox — the opportunity inbox surface reaches READY with items",
+      "passed": true,
+      "evidenceNote": "2 inbox items"
+    },
+    {
+      "checkId": "e2e-opportunity-inbox:disclosure-separates-truths",
+      "description": "Opportunity Inbox — every item discloses observation vs inference vs prediction vs recommendation",
+      "passed": true,
+      "evidenceNote": "observation always present; predictions explicitly labeled predictive"
+    },
+    {
+      "checkId": "e2e-opportunity-inbox:authorization-required-flagged",
+      "description": "Opportunity Inbox — items that need user authorization are structurally flagged",
+      "passed": true,
+      "evidenceNote": "group-buy item requires authorization and carries a recommendation"
+    },
+    {
+      "checkId": "e2e-opportunity-inbox:contextual-hints-reach-items",
+      "description": "Opportunity Inbox — contextual hints reference real inbox items (the discoverability law)",
+      "passed": true,
+      "evidenceNote": "hint: \"23 shoppers want this SKU — create a group-buy?\""
+    },
+    {
+      "checkId": "e2e-storefront-checkout:storefront-renders-collection",
+      "description": "Storefront → checkout — the storefront renders a collection with priced products",
+      "passed": true,
+      "evidenceNote": "products: Field Laptop 15\", Bench Scale"
+    },
+    {
+      "checkId": "e2e-storefront-checkout:availability-from-real-kernel",
+      "description": "Storefront → checkout — product availability is projected from the REAL kernel's inventory facts",
+      "passed": true,
+      "evidenceNote": "laptop: 12 units available; scale: 37 units available (kernel facts agree)"
+    },
+    {
+      "checkId": "e2e-storefront-checkout:cart-lines-exact-decimal",
+      "description": "Storefront → checkout — cart lines and totals use exact decimal strings (never floats)",
+      "passed": true,
+      "evidenceNote": "estimated total 1599.00"
+    },
+    {
+      "checkId": "e2e-storefront-checkout:checkout-envelope-typed",
+      "description": "Storefront → checkout — checkout leaves the experience plane ONLY as a typed command envelope",
+      "passed": true,
+      "evidenceNote": "opaque kernel command ref + idempotency key + authorization context"
+    },
+    {
+      "checkId": "e2e-storefront-checkout:checkout-status-progression",
+      "description": "Storefront → checkout — checkout status walks the typed step machine to done with a pinned proof level",
+      "passed": true,
+      "evidenceNote": "contact → delivery → payment → review → confirming → done (proof level P4 pinned up front)"
+    },
+    {
+      "checkId": "e2e-storefront-checkout:money-never-floats",
+      "description": "Storefront → checkout — every rendered money value on the journey path is an exact decimal string",
+      "passed": true,
+      "evidenceNote": "all price/line/total values match the exact-decimal pattern"
+    },
+    {
+      "checkId": "e2e-connector-studio:studio-renders-cards",
+      "description": "Connector Studio — the studio renders one card per registered connector from the real runtime",
+      "passed": true,
+      "evidenceNote": "2 connector cards"
+    },
+    {
+      "checkId": "e2e-connector-studio:executable-only-with-instance",
+      "description": "Connector Studio — a capability is executable NOW only with a connected instance (catalogue ≠ authority)",
+      "passed": true,
+      "evidenceNote": "connected card executable; browser-only card blocked on no-connected-account"
+    },
+    {
+      "checkId": "e2e-connector-studio:no-api-pathway-explicit",
+      "description": "Connector Studio — providers without an API route get an explicit pathway (browser/feed/edge)",
+      "passed": true,
+      "evidenceNote": "pathway options: browser-session, file-feed, local-edge"
+    },
+    {
+      "checkId": "e2e-connector-studio:customer-action-required",
+      "description": "Connector Studio — the browser-only connector surfaces its customer-action requirement",
+      "passed": true,
+      "evidenceNote": "Authorize the browser session"
+    },
+    {
+      "checkId": "e2e-connector-studio:health-and-observation-verbatim",
+      "description": "Connector Studio — health snapshots and last observations render verbatim from the runtime",
+      "passed": true,
+      "evidenceNote": "connected=healthy; unconnected=unknown (UNKNOWN preserved, never fabricated)"
+    },
+    {
+      "checkId": "e2e-connector-studio:execution-modes-from-vocabulary",
+      "description": "Connector Studio — supported execution modes come from the canonical capability vocabulary (opaque refs)",
+      "passed": true,
+      "evidenceNote": "modes: PASS_THROUGH_NATIVE, COMPOSED, OPTIMIZED_MULTI_PROVIDER"
+    },
+    {
+      "checkId": "e2e-trust-security:trust-is-explainable",
+      "description": "Trust & Security center — trust renders as explainable components — structurally no aggregate score",
+      "passed": true,
+      "evidenceNote": "2 explainable components; no score field exists on the view type"
+    },
+    {
+      "checkId": "e2e-trust-security:incident-pipeline-visible",
+      "description": "Trust & Security center — the security incident shows signal → reason → effect → mitigation → next action",
+      "passed": true,
+      "evidenceNote": "all five pipeline fields present"
+    },
+    {
+      "checkId": "e2e-trust-security:deterministic-block-visible",
+      "description": "Trust & Security center — the incident's mitigation decision is a typed deterministic decision",
+      "passed": true,
+      "evidenceNote": "decision: quarantined (BLOCK cannot be overridden by model preference)"
+    },
+    {
+      "checkId": "e2e-trust-security:defensive-broadcast-only",
+      "description": "Trust & Security center — the defensive broadcast state never carries weaponized content",
+      "passed": true,
+      "evidenceNote": "defensive broadcast: prepared"
+    },
+    {
+      "checkId": "e2e-trust-security:proof-legend-p0-p5",
+      "description": "Trust & Security center — the proof legend renders the full P0–P5 ladder",
+      "passed": true,
+      "evidenceNote": "6 proof levels"
+    },
+    {
+      "checkId": "e2e-live-commerce-late-joiner:session-announced-then-active",
+      "description": "Live commerce (incl. late-joiner replay + backpressure) — the live session announces then activates with trust refs passed through opaquely",
+      "passed": true,
+      "evidenceNote": "announce → active; trust signal refs untouched"
+    },
+    {
+      "checkId": "e2e-live-commerce-late-joiner:live-viewer-receives-in-order",
+      "description": "Live commerce (incl. late-joiner replay + backpressure) — the live viewer receives every event from its subscription on, strictly in arrival order, and NOTHING from before it",
+      "passed": true,
+      "evidenceNote": "6 events delivered in order (pre-subscription history excluded)"
+    },
+    {
+      "checkId": "e2e-live-commerce-late-joiner:late-joiner-replay-from-start",
+      "description": "Live commerce (incl. late-joiner replay + backpressure) — the LATE JOINER receives the FULL history as replay:true, then live events",
+      "passed": true,
+      "evidenceNote": "6 replay events queued (announce + active + 4 listings), then 2 live; arrival sequences strictly increasing"
+    },
+    {
+      "checkId": "e2e-live-commerce-late-joiner:backpressure-never-drops",
+      "description": "Live commerce (incl. late-joiner replay + backpressure) — a slow consumer is backpressured without any dropped or reordered event",
+      "passed": true,
+      "evidenceNote": "backpressure signals=1, pending=1, dropped=0"
+    },
+    {
+      "checkId": "e2e-live-commerce-late-joiner:terminal-state-replayable",
+      "description": "Live commerce (incl. late-joiner replay + backpressure) — the ended session exposes a terminal summary with replay-from-start available",
+      "passed": true,
+      "evidenceNote": "terminal summary: 8 events, replay available"
+    },
+    {
+      "checkId": "e2e-live-commerce-late-joiner:ended-session-rejects-events",
+      "description": "Live commerce (incl. late-joiner replay + backpressure) — the ended session rejects new events explicitly (never silently)",
+      "passed": true,
+      "evidenceNote": "ingestion after end → rejected-session-ended"
+    }
+  ],
+  "summary": {
+    "total": 40,
+    "passed": 40,
+    "failed": 0
+  },
+  "verdict": "pass"
+}

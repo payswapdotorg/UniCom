@@ -1,0 +1,64 @@
+{
+  "reportId": "rc-dr-drill-v1",
+  "kind": "dr-drill",
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-11T06:00:05.000Z",
+  "clockMode": "deterministic-drill",
+  "subject": "W3-006 disaster/recovery runbook drills (real commerce kernel)",
+  "rows": [
+    {
+      "checkId": "dr:backup-export",
+      "description": "journal export produces a hash-chained artifact over the real kernel state",
+      "passed": true,
+      "evidenceNote": "6 events + 5 receipts chained"
+    },
+    {
+      "checkId": "dr:restore-roundtrip",
+      "description": "export → import into a FRESH kernel reproduces IDENTICAL state (RPO zero data loss)",
+      "passed": true,
+      "evidenceNote": "6 events restored, fingerprint matches, persistent state identical"
+    },
+    {
+      "checkId": "dr:corruption-detection",
+      "description": "hash-chain verification pinpoints the first tampered record",
+      "passed": true,
+      "evidenceNote": "record evt-4 hash mismatch — payload was tampered with after export"
+    },
+    {
+      "checkId": "dr:rebuild-from-journal",
+      "description": "full projection rebuild from journal replay matches authoritative state",
+      "passed": true,
+      "evidenceNote": "6 events replayed; projections match"
+    },
+    {
+      "checkId": "dr:recovery-objectives",
+      "description": "RTO operation budget and RPO zero-data-loss contracts are met",
+      "passed": true,
+      "evidenceNote": "rto-rebuild-budget: 45 operations consumed (budget 70); rpo-zero-data-loss: projections match authoritative state (fingerprint [[\"evt-1\",1,…)"
+    },
+    {
+      "checkId": "dr:playbook-connector-outage",
+      "description": "connector-outage playbook: detection → journaled decision → recovery",
+      "passed": true,
+      "evidenceNote": "decision=isolate-and-recover, outcome=recovered"
+    },
+    {
+      "checkId": "dr:playbook-split-brain",
+      "description": "split-brain playbook: stale writer fenced, single-writer lease transferred",
+      "passed": true,
+      "evidenceNote": "stale writer fenced at epoch 1; new lease epoch 2"
+    },
+    {
+      "checkId": "dr:decision-journal-append-only",
+      "description": "every detected run appended a typed decision to the DR decision journal",
+      "passed": true,
+      "evidenceNote": "2 decisions journaled with rationale + operator attribution"
+    }
+  ],
+  "summary": {
+    "total": 8,
+    "passed": 8,
+    "failed": 0
+  },
+  "verdict": "pass"
+}

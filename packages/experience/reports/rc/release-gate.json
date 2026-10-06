@@ -1,0 +1,64 @@
+{
+  "gateId": "unicom-release-gate",
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-11T06:00:06.000Z",
+  "clockMode": "deterministic-drill",
+  "inputReports": [
+    {
+      "reportId": "rc-e2e-journeys-v1",
+      "kind": "e2e-journeys",
+      "verdict": "pass"
+    },
+    {
+      "reportId": "rc-observability-v1",
+      "kind": "observability",
+      "verdict": "pass"
+    },
+    {
+      "reportId": "rc-dr-drill-v1",
+      "kind": "dr-drill",
+      "verdict": "pass"
+    }
+  ],
+  "checks": [
+    {
+      "checkId": "gate:evidence:e2e-journeys",
+      "description": "e2e-journeys evidence report present and passing",
+      "passed": true,
+      "evidenceNote": "rc-e2e-journeys-v1 (40/40)"
+    },
+    {
+      "checkId": "gate:evidence:observability",
+      "description": "observability evidence report present and passing",
+      "passed": true,
+      "evidenceNote": "rc-observability-v1 (6/6)"
+    },
+    {
+      "checkId": "gate:evidence:dr-drill",
+      "description": "dr-drill evidence report present and passing",
+      "passed": true,
+      "evidenceNote": "rc-dr-drill-v1 (8/8)"
+    },
+    {
+      "checkId": "gate:no-failing-evidence",
+      "description": "no evidence report carries a failing row",
+      "passed": true,
+      "evidenceNote": "all reports pass"
+    },
+    {
+      "checkId": "gate:cumulative-suite",
+      "description": "the cumulative experience suite stays green (all existing suites + W3-006)",
+      "passed": true,
+      "evidenceNote": "54/54 green — drill-verified contract rows; the surrounding vitest battery (this drill runs inside it) additionally verifies all pre-existing suites stay green"
+    },
+    {
+      "checkId": "gate:production-push-authorization",
+      "description": "production_deployment_authorized remains false — readiness only, the operator flips it",
+      "passed": true,
+      "evidenceNote": "production push NOT authorized (by design of this work order); readiness verdict is deployable + verifiable + observable + recoverable"
+    }
+  ],
+  "allPass": true,
+  "readinessVerdict": "release-candidate-ready",
+  "productionPushAuthorized": false
+}
