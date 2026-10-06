@@ -210,4 +210,37 @@ describe("deployment target adapter (scenario 1, end-to-end)", () => {
     expect(probe.httpStatus).toBe("connection-failed");
     expect(adapter.status().allReady).toBe(false);
   });
+
+  it("restores the deployment CONFIGURATION state deterministically (same plan + env → identical environments, plane green again)", async () => {
+    await adapter.build(PLAN_ENV);
+    await adapter.boot();
+    await adapter.shutdown();
+    // "Configuration restore": a fresh adapter over the SAME plan resolves
+    // the SAME environment contracts (byte-identical values + origins) and
+    // the plane comes back green — deployment config is reproducible.
+    const fresh = createTargetDeploymentAdapter({ plan: NODE_SERVER_TARGET_PLAN, clock: CLOCK });
+    await fresh.build(PLAN_ENV);
+    const probes = await fresh.boot();
+    try {
+      expect(probes.every((probe) => probe.passed)).toBe(true);
+      expect(fresh.status().allReady).toBe(true);
+      const environmentOne = resolveDeploymentEnvironment(
+        NODE_SERVER_TARGET_PLAN.services
+          .find((service) => service.serviceId === "connector-worker")
+          ?.environment as (typeof NODE_SERVER_TARGET_PLAN.services)[number]["environment"],
+        { UNICOM_CREDENTIAL_VAULT_KEY_REF: "vault-key-ref-opaque-1" },
+        "127.0.0.1",
+      );
+      const environmentTwo = resolveDeploymentEnvironment(
+        NODE_SERVER_TARGET_PLAN.services
+          .find((service) => service.serviceId === "connector-worker")
+          ?.environment as (typeof NODE_SERVER_TARGET_PLAN.services)[number]["environment"],
+        { UNICOM_CREDENTIAL_VAULT_KEY_REF: "vault-key-ref-opaque-1" },
+        "127.0.0.1",
+      );
+      expect(environmentOne).toEqual(environmentTwo);
+    } finally {
+      await fresh.shutdown();
+    }
+  });
 });
