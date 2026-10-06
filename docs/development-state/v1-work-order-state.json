@@ -14,20 +14,6 @@
   "final_tl_handoff": "docs/FINAL-TL-HANDOFF-2026-10-05.md",
   "active_work_orders": [
     {
-      "id": "W1-005",
-      "status": "ACTIVE",
-      "owner": "worker-1",
-      "depends_on": [
-        "W1-004"
-      ],
-      "activated_at": "2026-10-06T03:50:00Z",
-      "activated_by": "TL",
-      "base_sha": "2df3c88",
-      "branch": "work/w1-005",
-      "session": "unicom-w1-005",
-      "title": "Autonomous-Store Deterministic Runtime"
-    },
-    {
       "id": "W2-005",
       "status": "ACTIVE",
       "owner": "worker-2",
@@ -40,20 +26,6 @@
       "branch": "work/w2-005",
       "session": "unicom-w2-005",
       "title": "Reality/Learning Lab + Model-Routing Evaluation"
-    },
-    {
-      "id": "W3-005",
-      "status": "ACTIVE",
-      "owner": "worker-3",
-      "depends_on": [
-        "W3-004"
-      ],
-      "activated_at": "2026-10-06T03:50:00Z",
-      "activated_by": "TL",
-      "base_sha": "2df3c88",
-      "branch": "work/w3-005",
-      "session": "unicom-w3-005",
-      "title": "Merchant/Buyer/Connector/Autonomous UX Hardening"
     }
   ],
   "frontier": [
@@ -345,6 +317,54 @@
         "lint": "0 errors (71 warnings, pre-existing class)",
         "architecture": "0 violations",
         "delivery": "28 files +4490"
+      }
+    },
+    {
+      "id": "W1-005",
+      "status": "MERGED",
+      "owner": "worker-1",
+      "depends_on": [
+        "W1-004"
+      ],
+      "activated_at": "2026-10-06T03:50:00Z",
+      "activated_by": "TL",
+      "base_sha": "2df3c88",
+      "branch": "work/w1-005",
+      "session": "unicom-w1-005",
+      "title": "Autonomous-Store Deterministic Runtime",
+      "merged_at": "2026-10-06T04:53:00Z",
+      "merged_by": "TL",
+      "merge_sha": "1e7b01f",
+      "branch_tip": "219c7a6",
+      "evidence": {
+        "contract_tests": "277/277 @unicom/commerce \u2014 autonomous-store runtime: full store day, restock/purchase triggers, in-band price adjustments, variance escalations, override/handover authority gate, seeded determinism fuzz, prefix replay (TL re-run verified)",
+        "typecheck": "0 errors (scoped tsc -b commerce+agent+experience+zcode-server-cli)",
+        "lint": "0 errors (71 warnings, pre-existing)",
+        "architecture": "0 violations"
+      }
+    },
+    {
+      "id": "W3-005",
+      "status": "MERGED",
+      "owner": "worker-3",
+      "depends_on": [
+        "W3-004"
+      ],
+      "activated_at": "2026-10-06T03:50:00Z",
+      "activated_by": "TL",
+      "base_sha": "2df3c88",
+      "branch": "work/w3-005",
+      "session": "unicom-w3-005",
+      "title": "Merchant/Buyer/Connector/Autonomous UX Hardening",
+      "merged_at": "2026-10-06T04:53:00Z",
+      "merged_by": "TL",
+      "merge_sha": "1e7b01f",
+      "branch_tip": "3bef2a9",
+      "evidence": {
+        "contract_tests": "316/316 @unicom/experience \u2014 navigation completeness + zero orphans, universal-intent resolution, Decision Card 9-field contract, connector health from real W3-003 journeys, autonomous-store visibility, four-state manifests + offline supersede surfacing, live-commerce lifecycle/replay/backpressure (TL re-run verified)",
+        "typecheck": "0 errors (scoped tsc -b commerce+agent+experience+zcode-server-cli)",
+        "lint": "0 errors (71 warnings, pre-existing)",
+        "architecture": "0 violations"
       }
     }
   ],
