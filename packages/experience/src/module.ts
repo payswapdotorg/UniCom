@@ -11,6 +11,9 @@
  * 称重商品运行时、离线重放冲突规则、对账旅程规划器）与直播商务 UX 契约。
  * W3-005 增补：UX 完备性加固（通用意图类型化命令面、四态表面契约
  * （空/加载/错误/离线）、连接器健康面、自主商店可见性、决策卡渲染模型）。
+ * W3-006 增补：公共部署就绪（部署目标适配器 + 类型化清单、生产可观测
+ * 投影（仅日志投影，非第二真相源）、带哈希链验证的备份/恢复 + DR 剧本
+ * + 单写者租约闩栏、RC 证据报告）。
  * 对外公开入口：contract.ts（契约）与 runtime/index.ts（运行时）。
  */
 export const experienceModule = {
@@ -48,6 +51,14 @@ export const experienceModule = {
     "connector-health-surface",
     "autonomous-store-visibility",
     "decision-card-render-model",
+    "deployment-target-plan-contracts",
+    "node-server-target-adapter",
+    "production-observability-projections",
+    "operator-dashboard-surface",
+    "dr-runbook-as-code",
+    "journal-hash-chain-verification",
+    "single-writer-lease-fencing",
+    "rc-evidence-release-gate",
   ],
   publicEntrypoints: [
     "packages/experience/src/contract.ts",

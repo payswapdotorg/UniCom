@@ -16,6 +16,7 @@
 
 import type {
   AuthorizationContextRef,
+  BackupArtifactId,
   BrowserRouteCapabilityRef,
   BrowserSessionId,
   BrowserStoragePartitionRef,
@@ -27,6 +28,10 @@ import type {
   CommerceStoreVarianceRef,
   ConnectedCapabilityInstanceId,
   ConnectorInstanceId,
+  DeploymentAdapterId,
+  DeploymentPlanId,
+  DrDecisionEntryId,
+  DrRunId,
   ExecutionModeRef,
   LocalEdgeDeviceId,
   OfflineQueueEntryId,
@@ -34,6 +39,7 @@ import type {
   PrincipalRef,
   ReconciliationChannelRef,
   ReconciliationHandoffId,
+  SingleWriterLeaseId,
   TransactionProofRef,
 } from "../common/opaque-refs";
 import type { IdempotencyKey, UtcIso8601String } from "../common/values";
@@ -66,6 +72,22 @@ export const asTransactionProofRef = (value: string): TransactionProofRef =>
   value as TransactionProofRef;
 export const asIdempotencyKey = (value: string): IdempotencyKey => value as IdempotencyKey;
 export const asUtcTimestamp = (value: string): UtcIso8601String => value as UtcIso8601String;
+
+// ---------------------------------------------------------------------------
+// W3-006 deployment-readiness plane ref constructors
+// ---------------------------------------------------------------------------
+
+export const asDeploymentAdapterId = (value: string): DeploymentAdapterId =>
+  value as DeploymentAdapterId;
+export const asDeploymentPlanId = (value: string): DeploymentPlanId =>
+  value as DeploymentPlanId;
+export const asBackupArtifactId = (value: string): BackupArtifactId =>
+  value as BackupArtifactId;
+export const asDrRunId = (value: string): DrRunId => value as DrRunId;
+export const asDrDecisionEntryId = (value: string): DrDecisionEntryId =>
+  value as DrDecisionEntryId;
+export const asSingleWriterLeaseId = (value: string): SingleWriterLeaseId =>
+  value as SingleWriterLeaseId;
 
 // ---------------------------------------------------------------------------
 // W3-005 surface-plane ref constructors (opaque commerce/execution refs)

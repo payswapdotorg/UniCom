@@ -58,3 +58,7 @@ export * from "./edge/weighted";
 export * from "./deployment/provider-adapter";
 export * from "./deployment/realtime";
 export * from "./deployment/operator";
+export * from "./deployment/manifest";
+export * from "./deployment/observability";
+export * from "./deployment/runbook";
+export * from "./deployment/rc-evidence";
