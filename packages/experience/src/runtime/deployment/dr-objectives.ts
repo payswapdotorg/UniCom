@@ -19,9 +19,13 @@ import type { PrincipalRef } from "../../common/opaque-refs";
 import { asPrincipalRef } from "../ids";
 import { DR_PLAYBOOKS } from "./dr-playbooks";
 
-/** RTO budget: the rebuild must complete within 2× the state size + slack. */
+/**
+ * RTO budget: the rebuild must complete within 2× the state size (journal
+ * replay + twin fold) plus the structural comparison of the projection
+ * collections and operational slack — all deterministic operation counts.
+ */
 export function rtoBudgetFor(eventCount: number, receiptCount: number): number {
-  return 2 * (eventCount + receiptCount) + 16;
+  return 2 * (eventCount + receiptCount) + 48;
 }
 
 /** Verify the recovery objectives against a real rebuild result. */

@@ -207,6 +207,7 @@ export interface DrPlaybookDependencies {
   /** pod-loss: restart + probe through the real target deployment adapter. */
   readonly deployment?: {
     restartService(serviceId: string): Promise<{ readonly probesPassed: boolean; readonly note: string }>;
+    probeService(serviceId: string): Promise<{ readonly probesPassed: boolean; readonly note: string }>;
   };
   /** journal-corruption: quarantine, restore, rebuild through the real kernel rig. */
   readonly backup?: {
@@ -310,10 +311,9 @@ export async function runFailurePlaybook(
       const restarted = await deployment.restartService(signal.serviceId);
       return { actionKind: "restart-service", succeeded: restarted.probesPassed, note: restarted.note };
     });
-    const restarted = await deployment.restartService(signal.serviceId);
-    // The second restart is the verification probe pass (readiness gated).
-    outcome = restarted.probesPassed ? "recovered" : "unresolved";
-    verificationNote = `${playbook.verification}: ${restarted.note}`;
+    const verified = await deployment.probeService(signal.serviceId);
+    outcome = verified.probesPassed ? "recovered" : "unresolved";
+    verificationNote = `${playbook.verification}: ${verified.note}`;
   } else if (signal.kind === "journal-corruption") {
     const backup = requireDependencies(deps.backup, signal.kind, "backup");
     actions = await runActions(playbook.recoveryActions, async (spec) => {

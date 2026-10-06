@@ -41,11 +41,24 @@ export function kernelRecordHash(
 
 /**
  * Recompute a backup's hash chain. Verdict is "corrupted" with the FIRST
- * broken ordinal when any record's hash, position or linkage diverges.
+ * broken ordinal when any record's hash, position or linkage diverges. When
+ * the expected head hash is provided, a truncated or extended chain is
+ * caught even though every present record is internally consistent.
  */
-export function verifyJournalHashChain(records: readonly KernelStateRecord[]): JournalHashChainReport {
+export function verifyJournalHashChain(
+  records: readonly KernelStateRecord[],
+  options?: { readonly expectedHeadHash?: string; readonly expectedCount?: number },
+): JournalHashChainReport {
   if (records.length === 0) {
     return { verdict: "intact", recordsVerified: 0 };
+  }
+  if (options?.expectedCount !== undefined && options.expectedCount !== records.length) {
+    return {
+      verdict: "corrupted",
+      recordsVerified: 0,
+      firstCorruptedOrdinal: records[0]?.ordinal,
+      reason: `chain carries ${records.length} record(s) but the artifact declares ${options.expectedCount} — records were truncated or spliced`,
+    };
   }
   let previous = GENESIS_HASH;
   for (let index = 0; index < records.length; index += 1) {
@@ -77,6 +90,14 @@ export function verifyJournalHashChain(records: readonly KernelStateRecord[]): J
       };
     }
     previous = record.recordHash;
+  }
+  if (options?.expectedHeadHash !== undefined && options.expectedHeadHash !== previous) {
+    return {
+      verdict: "corrupted",
+      recordsVerified: records.length,
+      firstCorruptedOrdinal: records[records.length - 1]?.ordinal,
+      reason: `chain head is ${previous.slice(0, 8)}… but the artifact anchor says ${options.expectedHeadHash.slice(0, 8)}… — the chain was truncated or extended`,
+    };
   }
   return { verdict: "intact", recordsVerified: records.length };
 }
@@ -142,7 +163,10 @@ export function restoreJournalBackup(
   if (backup.status === "empty-journal") {
     return { status: "empty-backup", note: "the backup carries no kernel state" };
   }
-  const chain = verifyJournalHashChain(backup.records);
+  const chain = verifyJournalHashChain(backup.records, {
+    expectedHeadHash: backup.artifact.chainHeadHash,
+    expectedCount: backup.artifact.eventCount + backup.artifact.receiptCount + 1,
+  });
   if (chain.verdict === "corrupted") {
     return { status: "rejected-corrupted", chain };
   }

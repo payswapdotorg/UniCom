@@ -22,12 +22,15 @@ import {
   DEFAULT_COUNT_RECONCILIATION_POLICY,
   commandEnvelope,
   makeId,
+  type AnyCommerceEvent,
   type CommandExecution,
   type CommerceFactsV1,
   type CountObservationKind,
   type CountReconciliationPolicy,
   type IdempotencyKey as CommerceIdempotencyKey,
   type InventoryCountObservation,
+  type KernelPersistentState,
+  type KernelStateSnapshot,
   type LocationId,
   type ObservationResolution,
   type PosSyncObservation,
@@ -214,6 +217,32 @@ export class CommerceKernelLane {
 
   record(): KernelLaneRecord {
     return { executions: [...this.executions], countObservationIds: [...this.countObservationIds] };
+  }
+
+  // -------------------------------------------------------------------------
+  // W3-006 DR fixtures: read-only persistence access to the REAL kernel.
+  // Nothing here mutates or re-models kernel state — the DR runbook tests
+  // export/restore/rebuild through the kernel's OWN public surface only.
+  // -------------------------------------------------------------------------
+
+  /** The kernel's full persistent state (journal + receipts + mint cursor). */
+  persistentState(): KernelPersistentState {
+    return this.kernel.persistentState();
+  }
+
+  /** The kernel's journal-law verdict. */
+  journalIsValid(): boolean {
+    return this.kernel.journalIsValid();
+  }
+
+  /** The kernel's event journal (read-only copy). */
+  events(): readonly AnyCommerceEvent[] {
+    return [...this.kernel.events()];
+  }
+
+  /** The kernel's authoritative snapshot (structurally twin-comparable). */
+  snapshot(): KernelStateSnapshot {
+    return this.kernel.snapshot();
   }
 }
 
