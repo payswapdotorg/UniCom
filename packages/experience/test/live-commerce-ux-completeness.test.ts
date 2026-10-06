@@ -17,8 +17,8 @@ import { createLiveSessionRuntime } from "../src/runtime/surfaces/live-session";
 import type {
   LiveSessionConsumerPort,
   LiveSessionEventEnvelope,
-  LiveStreamId,
 } from "../src/surfaces/live-commerce-ux";
+import type { LiveStreamId } from "../src/common/opaque-refs";
 import { SURFACE_STATE_MANIFESTS } from "../src/surfaces/surface-state-manifests";
 import { asPrincipalRef } from "../src/runtime/ids";
 import { utc } from "./branded";

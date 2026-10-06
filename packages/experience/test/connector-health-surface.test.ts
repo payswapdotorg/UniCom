@@ -15,7 +15,7 @@ import { ExecutionMode } from "@unicom/agent/capability";
 import { createConnectorRuntime } from "../src/runtime/connector/runtime";
 import { createCredentialVault } from "../src/runtime/connector/vault";
 import { createConnectorTelemetry } from "../src/runtime/connector/telemetry";
-import { createProviderJourneyRunner } from "../src/runtime/connector/journey";
+import { createProviderJourneyRunner, type ProviderJourneyStep } from "../src/runtime/connector/journey";
 import { buildConnectorHealthSurface } from "../src/runtime/surfaces/connector-health";
 import { asAuthorizationContextRef, asPrincipalRef, asCapabilityDefinitionId } from "../src/runtime/ids";
 import { credentialScope } from "@unicom/agent";
@@ -70,7 +70,7 @@ const connect = async (
   return connector.connectorId;
 };
 
-const journeySteps = (adapterId: string) => [
+const journeySteps = (adapterId: string): readonly ProviderJourneyStep[] => [
   {
     stepRef: "step-sync-orders",
     capabilityDefinitionId: asCapabilityDefinitionId(`cap-${adapterId}`),

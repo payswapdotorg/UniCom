@@ -51,7 +51,9 @@ import type { Equal, Expect } from "./type-helpers";
 // Compile-time: the first action is REQUIRED on the empty state (the
 // onboarding law is structural — an empty surface must propose the next
 // action, it cannot compile without one).
-export type AssertFirstActionRequired = Expect<Equal<Required<EmptyStateView>, EmptyStateView>>;
+export type AssertFirstActionRequired = Expect<
+  Equal<Required<Pick<EmptyStateView, "firstAction">>, Pick<EmptyStateView, "firstAction">>
+>;
 // Compile-time: the four degraded phases exist on the union.
 export type AssertPhases = Expect<
   Equal<SurfaceState<never>["phase"], "loading" | "ready" | "empty" | "error" | "offline">
@@ -129,9 +131,12 @@ describe("surface four-state contracts — scenario 5 + 7", () => {
     expect(surfaceEmpty(manifest).phase).toBe("empty");
     expect(surfaceError(manifest).phase).toBe("error");
     expect(surfaceOffline(manifest).phase).toBe("offline");
-    expect(surfaceOffline(manifest).offline.observationQueue).toBeUndefined();
-    expect(surfaceReady({ some: "view" }).phase).toBe("ready");
-    expect(surfaceReady({ some: "view" }).data).toEqual({ some: "view" });
+    const offlineState = surfaceOffline(manifest);
+    if (offlineState.phase !== "offline") throw new Error("not offline phase");
+    expect(offlineState.offline.observationQueue).toBeUndefined();
+    const readyState = surfaceReady({ some: "view" });
+    if (readyState.phase !== "ready") throw new Error("not ready phase");
+    expect(readyState.data).toEqual({ some: "view" });
   });
 
   it("surfaceError carries LIVE evidence over the template (typed evidence, not silent)", () => {

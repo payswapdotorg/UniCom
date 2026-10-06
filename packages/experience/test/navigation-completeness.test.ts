@@ -12,6 +12,7 @@ import { describe, expect, it } from "vitest";
 import { PRIMARY_NAVIGATION_AREAS } from "../src/navigation/navigation";
 import { NAVIGATION_SURFACES } from "../src/navigation/surfaces";
 import { ROLE_EMPHASIS } from "../src/navigation/roles";
+import { CONTEXTUAL_OPPORTUNITY_TYPES, ONBOARDING_PATHWAYS } from "../src/navigation/discoverability";
 import { FEATURE_MATRIX } from "../src/navigation/feature-matrix";
 import { SURFACE_STATE_MANIFESTS } from "../src/surfaces/surface-state-manifests";
 import {
@@ -109,5 +110,25 @@ describe("navigation completeness — scenario 1 (typed, zero orphans)", () => {
     const orphans = manifestIds.filter((id) => !ids.has(id));
     expect(orphans).toEqual([]);
     expect(SURFACE_STATE_MANIFESTS.length).toBe(NAVIGATION_SURFACES.length);
+  });
+
+  it("contextual opportunities and onboarding pathways all land on HARDENED surfaces (with four-state manifests)", () => {
+    const manifestIds = new Set(SURFACE_STATE_MANIFESTS.map((manifest) => manifest.surfaceId));
+    const contextualLanding = CONTEXTUAL_OPPORTUNITY_TYPES.map((type) => type.actionSurfaceId);
+    for (const surfaceId of contextualLanding) {
+      expect(manifestIds.has(surfaceId)).toBe(true);
+    }
+    // Onboarding pathways teach features that resolve to hardened surfaces
+    // through the primary-navigation surface registry (already asserted by
+    // the W3-001 discoverability suite); here we assert the pathway
+    // registry itself is non-empty and its features are real rows.
+    expect(ONBOARDING_PATHWAYS.length).toBeGreaterThan(0);
+    const features = featureIds();
+    for (const pathway of ONBOARDING_PATHWAYS) {
+      expect(pathway.steps.length).toBeGreaterThan(0);
+      for (const featureId of pathway.relatedFeatures) {
+        expect(features.has(featureId)).toBe(true);
+      }
+    }
   });
 });

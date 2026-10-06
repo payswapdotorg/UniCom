@@ -2,8 +2,11 @@
 
 UNiCOM public **experience / connector / physical-edge / deployment boundary
 contracts** (W3-001) plus the **connector runtime framework and browser-session
-isolation runtime** (W3-002) — Worker 3 lane: Experience / Connectors /
-Physical Edge / Deployment.
+isolation runtime** (W3-002), the **canonical connector execution + provider
+adapters** (W3-003), the **physical-commerce edge + live-commerce UX**
+(W3-004), and the **merchant/buyer/connector/autonomous UX hardening**
+(W3-005) — Worker 3 lane: Experience / Connectors / Physical Edge /
+Deployment.
 
 Two public entrypoints:
 
@@ -17,15 +20,16 @@ Two public entrypoints:
 | Area | Modules |
 | --- | --- |
 | Common boundary values, opaque refs, evidence, untrusted content | `src/common/*` |
-| Primary navigation, feature matrix, surfaces, discovery, roles | `src/navigation/*` |
-| Command Center, Intent Canvas, Opportunity Inbox, Decision Card, storefront, operations, Connector Studio, Trust & Safety, Explore | `src/surfaces/*` |
-| Transports, BrowserSession isolation, observability, live commerce, webhooks | `src/connector/*` |
+| Primary navigation, feature matrix, surfaces, discovery, roles, universal intent | `src/navigation/*` |
+| Command Center, Intent Canvas, Opportunity Inbox, Decision Card (+ render model), storefront, operations, Connector Studio, Trust & Safety, Explore, autonomous-store visibility, surface states | `src/surfaces/*` |
+| Transports, BrowserSession isolation, observability, connector health surface, live commerce, webhooks | `src/connector/*` |
 | Physical observation, offline queue + reconciliation hand-off, LocalCommerceEdge, weighted workflow | `src/edge/*` |
 | Deployment provider adapters (interface only), realtime channels, operator console | `src/deployment/*` |
 | Connector runtime framework: adapter boundary, lifecycle, health, execution-mode dispatch, credential vault | `src/runtime/connector/*` |
 | Browser session runtime with per-session isolation | `src/runtime/browser/*` |
 | Untrusted-content sanitization at ingest/render boundaries | `src/runtime/sanitize/*` |
 | Offline observation queue runtime (no promotion, explicit hand-off) | `src/runtime/edge/*` |
+| Universal-intent catalog + resolver, Decision Card renderer, connector health surface, surface-state constructors | `src/runtime/surfaces/*` |
 | Transport-coverage plumbing (router) | `src/runtime/transport/*` |
 | Model-context gate + branded-ref constructors + agent-seam bridges | `src/runtime/model-context-gate.ts`, `src/runtime/ids.ts` |
 
@@ -57,6 +61,13 @@ Public entrypoints: `src/contract.ts` (contracts) and `src/runtime/index.ts`
 7. **Feature discoverability is architectural completeness.** The encoded
    feature matrix must keep every feature discoverable; the test suite
    parses `docs/FEATURE-COMPLETENESS-MATRIX.md` and fails on drift or gaps.
+8. **UX completeness (W3-005).** Every registered surface implements the
+   four typed degraded states (empty / loading / error / offline); every
+   empty state structurally proposes the first action; every feature and
+   surface is addressable through the typed universal-intent command
+   catalog (no freeform command dispatch); offline is a first-class
+   rendered state carrying the observation-queue sync + journaled
+   supersede outcomes. Hidden feature = incomplete feature.
 
 ## The `@unicom/agent` seam (W3-002: landed)
 
@@ -110,7 +121,17 @@ zero-network). Coverage areas:
   provably absent by key AND by value)**;
 - **transport-coverage plumbing (all families, command/observation
   capability enforcement, sanitized ingest)**;
-- **typed vocabulary seam (canonical imports, no second vocabulary)**.
+- **typed vocabulary seam (canonical imports, no second vocabulary)**;
+- **W3-005 UX hardening: navigation completeness with zero orphan routes
+  (primary nav + universal intent both resolve); typed universal-intent
+  command surface (deterministic resolution, UNKNOWN on no-match);
+  Decision Card full-contract render with opaque refs verbatim; connector
+  health surface populated by real execution-mode journeys; autonomous-
+  store visibility with opaque commerce refs; four-state manifests for all
+  surfaces with first-action empty states; offline queue-sync + journaled
+  supersede outcomes rendered from the real W3-004 components;
+  live-commerce lifecycle visibility, late-joiner replay (also after end),
+  backpressure consumer states and the terminal summary**.
 
 Test doubles live in `test/doubles.ts` and are clearly marked — never on a
 production path (invariant 39).
