@@ -14,23 +14,21 @@
   "final_tl_handoff": "docs/FINAL-TL-HANDOFF-2026-10-05.md",
   "active_work_orders": [
     {
-      "id": "W2-005",
+      "id": "W2-006",
       "status": "ACTIVE",
       "owner": "worker-2",
       "depends_on": [
-        "W2-004"
+        "W2-005"
       ],
-      "activated_at": "2026-10-06T03:50:00Z",
+      "activated_at": "2026-10-06T06:57:00Z",
       "activated_by": "TL",
-      "base_sha": "2df3c88",
-      "branch": "work/w2-005",
-      "session": "unicom-w2-005",
-      "title": "Reality/Learning Lab + Model-Routing Evaluation"
+      "base_sha": "bf8847c",
+      "branch": "work/w2-006",
+      "session": "unicom-w2-006",
+      "title": "Organization/Model/Skill Promotion Gates + Adversarial Suite"
     }
   ],
-  "frontier": [
-    "W2-006"
-  ],
+  "frontier": [],
   "completed_work_orders": [
     {
       "id": "W1-001",
@@ -408,6 +406,30 @@
       "branch_tip": "6206515",
       "evidence": {
         "contract_tests": "382/382 @unicom/experience \u2014 deployment adapter E2E, 7 primary-path browser E2E journeys (storefront\u2192checkout, live late-joiner replay), observability contracts, DR tests (backup/restore round-trip, hash-chain tamper detection, rebuild-from-journal, 4 failure playbooks incl. split-brain fencing), RC evidence reports ALL PASS (TL re-run verified, zero fix-forward)",
+        "typecheck": "0 errors (scoped tsc -b)",
+        "lint": "0 errors (77 warnings, pre-existing)",
+        "architecture": "0 violations"
+      }
+    },
+    {
+      "id": "W2-005",
+      "status": "MERGED",
+      "owner": "worker-2",
+      "depends_on": [
+        "W2-004"
+      ],
+      "activated_at": "2026-10-06T03:50:00Z",
+      "activated_by": "TL",
+      "base_sha": "2df3c88",
+      "branch": "work/w2-005",
+      "session": "unicom-w2-005",
+      "title": "Reality/Learning Lab + Model-Routing Evaluation",
+      "merged_at": "2026-10-06T06:57:00Z",
+      "merged_by": "TL",
+      "merge_sha": "bf8847c",
+      "branch_tip": "01a341f",
+      "evidence": {
+        "contract_tests": "376/376 @unicom/agent \u2014 Reality Lab (deterministic seeded environments), Learning Lab (hash-chained evaluation evidence), 7-way model-routing comparison battery, adversarial evaluation, full promotion chain simulation\u2192shadow\u2192canary\u2192observed\u2192promotion + rollback/retirement, routing-policy determinism (TL re-run verified, zero fix-forward; attempt-3 after turn-1 died mid-exploration + 2 phantom sends under a capacity window)",
         "typecheck": "0 errors (scoped tsc -b)",
         "lint": "0 errors (77 warnings, pre-existing)",
         "architecture": "0 violations"
