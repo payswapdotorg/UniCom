@@ -39,6 +39,7 @@ const VERB_BY_EXPLORE_GROUP: Readonly<Record<ExploreGroupId, UniversalIntentVerb
 
 /** Deterministic verb for surface-addressed commands (no feature row). */
 const VERB_BY_SURFACE: Readonly<Record<string, UniversalIntentVerb>> = {
+  "buyer-intent-canvas": "find",
   "explore-capabilities": "learn",
   "workspace-settings": "configure",
 };

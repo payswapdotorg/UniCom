@@ -111,7 +111,9 @@ function lastErrorOf(
   if (failing === undefined) return undefined;
   return {
     errorClass: failing.outcome,
-    summary: failing.evidenceSummaries[0] ?? `journey ${failing.journeyRef} ended ${failing.outcome}`,
+    summary: `journey ${failing.journeyRef} ended ${failing.outcome}${
+      failing.evidenceSummaries.length > 0 ? ` — ${failing.evidenceSummaries.join("; ")}` : ""
+    }`,
     stepRefs: failing.stepOutcomes
       .filter((step) => step.outcome !== "succeeded")
       .map((step) => step.stepRef),
