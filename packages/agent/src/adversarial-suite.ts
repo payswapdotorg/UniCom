@@ -183,14 +183,12 @@ export function runReleaseAdversarialSuite(input?: {
     silentEvasions: discipline.silentEvasions,
   };
   const verdict: "PASS" | "FAIL" =
-    entries.every(
-      (entry) =>
-        entry.result === entry.expected &&
-        entry.journaled &&
-        (!entry.immuneCertified || entry.immuneCertified),
-    ) &&
+    entries.every((entry) => entry.result === entry.expected && entry.journaled) &&
     discipline.silentEvasions === 0 &&
-    certifications.every((certification) => certification.certified)
+    certifications.every((certification) => certification.certified) &&
+    entries
+      .filter((entry) => entry.category === "FRAUD_ARCHETYPE" && entry.result === "DETECTED")
+      .every((entry) => entry.immuneCertified)
       ? "PASS"
       : "FAIL";
 

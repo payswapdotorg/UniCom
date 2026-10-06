@@ -27,7 +27,6 @@ import {
   ADVERSARIAL_REVIEW_CAPABILITY_ID,
   type AdversaryCase,
   type AdversarialContext,
-  type AttackOutcome,
 } from "./adversarial-context.js";
 
 const ESCAPE_ARTIST = { principalId: "user:adversary:escape-artist", kind: "user" as const };

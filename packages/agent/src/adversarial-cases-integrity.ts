@@ -181,11 +181,11 @@ export const INTEGRITY_ADVERSARIES: readonly AdversaryCase[] = [
       const verification = verifyDerivedTrust(derived, truncated);
       // ANY typed violation (MISSING_EVIDENCE / JOURNAL_TRUNCATED /
       // CHAIN_BROKEN) proves the truncation was detected.
-      const detected = !verification.ok;
-      const violation = verification.ok ? "none" : verification.violation;
+      const violation: string = verification.ok ? "none" : verification.violation;
+      const detected = violation !== "none";
       const detail = detected
         ? `derived-trust verification detected the truncated journal (${violation} — the derivation's citations/witnesses no longer hold)`
-        : `truncation not detected: ${JSON.stringify(verification.ok ? { ok: true } : verification.violation)}`;
+        : "truncation not detected — derived trust still verified against the truncated journal";
       journalEncounter(context, {
         adversaryId: "adversary:integrity:journal-truncation",
         category: "TRUST_JOURNAL_TAMPERING",
