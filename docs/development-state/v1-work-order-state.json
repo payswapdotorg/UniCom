@@ -26,12 +26,38 @@
       "branch": "work/w2-005",
       "session": "unicom-w2-005",
       "title": "Reality/Learning Lab + Model-Routing Evaluation"
+    },
+    {
+      "id": "W1-006",
+      "status": "ACTIVE",
+      "owner": "worker-1",
+      "depends_on": [
+        "W1-005"
+      ],
+      "activated_at": "2026-10-06T05:08:00Z",
+      "activated_by": "TL",
+      "base_sha": "c8da227",
+      "branch": "work/w1-006",
+      "session": "unicom-w1-006",
+      "title": "End-to-End Commerce Correctness & Reconciliation Certification"
+    },
+    {
+      "id": "W3-006",
+      "status": "ACTIVE",
+      "owner": "worker-3",
+      "depends_on": [
+        "W3-005"
+      ],
+      "activated_at": "2026-10-06T05:08:00Z",
+      "activated_by": "TL",
+      "base_sha": "c8da227",
+      "branch": "work/w3-006",
+      "session": "unicom-w3-006",
+      "title": "Public Deployment Readiness + Browser E2E + Observability + DR Runbook"
     }
   ],
   "frontier": [
-    "W1-006",
-    "W2-006",
-    "W3-006"
+    "W2-006"
   ],
   "completed_work_orders": [
     {
