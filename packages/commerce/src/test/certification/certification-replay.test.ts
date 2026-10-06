@@ -97,7 +97,7 @@ describe("W1-006 acceptance scenario 6 — replay at every boundary + full-journ
       const location = makeId<"LocationId">("loc-replay-cert");
       const receive = env({ type: "RECEIVE_STOCK", skuId: sku, locationId: location, units: 7, reason: "RECEIVING" });
       const outcome = await kernel.execute(receive);
-      expect(outcome.status).toBe("EXECUTED");
+      if (outcome.status !== "EXECUTED") throw new TypeError(`expected EXECUTED, got ${outcome.status}`);
 
       const events = kernel.events();
       const authoritative = reconstructAuthoritativeState(events);
@@ -109,7 +109,7 @@ describe("W1-006 acceptance scenario 6 — replay at every boundary + full-journ
       // envelope against the RECOVERED kernel is a DUPLICATE (original
       // receipt), and a key conflict is still a hard conflict.
       const replay = await recovered.execute(receive);
-      expect(replay.status).toBe("DUPLICATE");
+      if (replay.status !== "DUPLICATE") throw new TypeError(`expected DUPLICATE, got ${replay.status}`);
       expect(JSON.stringify(replay.originalReceipt)).toBe(JSON.stringify(outcome.receipt));
       const conflict = await recovered.execute(commandEnvelope(
         makeId<"CommandId">("cmd-recovery-conflict"),

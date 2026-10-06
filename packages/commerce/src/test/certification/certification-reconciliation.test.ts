@@ -11,7 +11,7 @@
  * reservation (XR-4) are both caught.
  */
 import { describe, expect, it } from "vitest";
-import { CommerceTwin, makeId, type AnyCommerceEvent, type CommerceSubjectRef, type CommerceKernel } from "../../contract.js";
+import { CommerceTwin, makeId, type AnyCommerceEvent, type CommerceSubjectRef } from "../../contract.js";
 import { assertCrossAggregate, newCrossAggregateStats, type CrossAggregateStats } from "./support/cross-aggregate.js";
 import { runFuzzSession } from "./support/fuzz-session.js";
 
@@ -148,7 +148,7 @@ describe("W1-006 acceptance scenario 3 — cross-aggregate reconciliation after 
 
       // Forge: an inventory level with reserved > onHand (an impossible
       // reservation the domain would reject) — XR-4 must fire.
-      const level = twin.facts().inventory.levels()[0];
+      const level = twin.facts().inventory.levels()[0]!;
       expect(level).toBeDefined();
       const subjectId = `${level.skuId}|${level.locationId}`;
       const forgedLevel = forgeEvent(events, { subjectType: "INVENTORY_LEVEL", subjectId }, "INVENTORY_ADJUSTED", {

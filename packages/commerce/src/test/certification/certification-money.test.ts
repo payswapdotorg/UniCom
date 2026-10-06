@@ -161,7 +161,8 @@ describe("W1-006 acceptance scenario 2 — money conservation (zero-sum) over th
       expect(pristine.payments.length + pristine.sessions.length).toBeGreaterThan(0);
 
       // Corruption 1: inflate a refund (money out of thin air on the payment plane).
-      const refundIndex = events.findIndex((event) => event.payload.kind === "REFUND_RECORDED");
+      const kindOf = (event: (typeof events)[number]): string | undefined => (event.payload as { kind?: string } | null | undefined)?.kind;
+      const refundIndex = events.findIndex((event) => kindOf(event) === "REFUND_RECORDED");
       expect(refundIndex).toBeGreaterThanOrEqual(0);
       const inflated = [...events];
       const refundEvent = inflated[refundIndex]!;
@@ -178,7 +179,7 @@ describe("W1-006 acceptance scenario 2 — money conservation (zero-sum) over th
       expect(reconstructLedger(inflated).violations.length).toBeGreaterThan(0);
 
       // Corruption 2: a SHORT variance recorded as BALANCED (swallowed till leakage).
-      const varianceIndex = events.findIndex((event) => event.payload.kind === "CASH_VARIANCE_RECORDED");
+      const varianceIndex = events.findIndex((event) => kindOf(event) === "CASH_VARIANCE_RECORDED");
       expect(varianceIndex).toBeGreaterThanOrEqual(0);
       const varianceEvent = events[varianceIndex]!;
       const variance = (varianceEvent.payload as { variance: { kind: string; varianceAmount: { currency: string; amountMinor: string }; expected: { currency: string; amountMinor: string }; counted: { currency: string; amountMinor: string } } }).variance;
@@ -193,7 +194,7 @@ describe("W1-006 acceptance scenario 2 — money conservation (zero-sum) over th
       expect(reconstructLedger(doctored).violations.length).toBeGreaterThan(0);
 
       // Corruption 3: a till operation's resulting fold lies (books no longer balance).
-      const opIndex = events.findIndex((event) => event.payload.kind === "TILL_OPERATION_RECORDED");
+      const opIndex = events.findIndex((event) => kindOf(event) === "TILL_OPERATION_RECORDED");
       expect(opIndex).toBeGreaterThanOrEqual(0);
       const opEvent = events[opIndex]!;
       const resulting = (opEvent.payload as { resultingSession: { sessionId: string; expectedCash: { currency: string; amountMinor: string } } }).resultingSession;
