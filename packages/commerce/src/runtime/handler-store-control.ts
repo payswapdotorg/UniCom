@@ -23,7 +23,7 @@ import {
   type RuntimeCommandHandler,
 } from "./handler.js";
 import { autonomousStoreSubject, mintOverrideId, storeEscalationSubject } from "./subjects.js";
-import { emitPolicyApplication, planAutonomousPriceAdjustment, planAutonomousRestock, requirePolicy, type OverrideBasis } from "./autonomous-ops-core.js";
+import { planAutonomousPriceAdjustment, planAutonomousRestock, requirePolicy, type OverrideBasis } from "./autonomous-ops-core.js";
 
 /** Initial control state: the autonomous store principal holds custody. */
 function initialControl(ctx: CommandContext, storeId: string, ownerRef: AutonomousStoreControl["ownerRef"], displayName: string): AutonomousStoreControl {

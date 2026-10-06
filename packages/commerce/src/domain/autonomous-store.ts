@@ -34,7 +34,7 @@ import type {
 import type { CashVarianceRecord } from "./store-ops.js";
 import type { ReconciliationDisposition } from "./reconciliation.js";
 import type { PrincipalRef } from "./principals.js";
-import type { PolicyDecision, PolicyDenialReason, PolicyPeriod } from "./policy.js";
+import type { PolicyDenialReason, PolicyPeriod } from "./policy.js";
 import type { Money } from "./money.js";
 import { nextRevision } from "./events.js";
 import { err, ok, type Result } from "./result.js";
@@ -272,6 +272,8 @@ export interface PriceAdjustmentRecord {
   readonly skuId: SkuId;
   readonly before: Money;
   readonly after: Money;
+  /** Cost basis at adjustment time (the margin floor's reference). */
+  readonly costBasis: Money;
   readonly applied: boolean;
   readonly decision: PolicyApplicationDecision;
   readonly reasons: readonly AutonomousDenialReason[];

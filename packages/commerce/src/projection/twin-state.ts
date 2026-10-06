@@ -39,11 +39,7 @@ import type { CountObservationState } from "./inventory-projection.js";
 import { countObservationStateOf } from "./inventory-projection.js";
 import { applyRecourseEvent, type TwinRecourseCollections } from "./twin-recourse-state.js";
 import { applyStoreOpsEvent, type TwinStoreOpsCollections } from "./twin-store-ops-state.js";
-import {
-  applyAutonomousStoreEvent, copyAutonomousCollections, emptyAutonomousCollections,
-  restoreAutonomousCollections, serializeAutonomousCollections,
-  type TwinAutonomousCollections, type TwinAutonomousSerializable,
-} from "./twin-autonomous-state.js";
+import { applyAutonomousStoreEvent, copyAutonomousCollections, emptyAutonomousCollections, restoreAutonomousCollections, serializeAutonomousCollections, type TwinAutonomousCollections, type TwinAutonomousSerializable } from "./twin-autonomous-state.js";
 
 interface PayloadLike {
   readonly kind?: unknown;
@@ -221,8 +217,7 @@ export class TwinState {
       case "CASH_VARIANCE_RECORD":
         applyStoreOpsEvent(this.storeOpsBag(), event);
         return;
-      case "AUTONOMOUS_STORE": case "POLICY_APPLICATION": case "STORE_ESCALATION":
-      case "STORE_CYCLE": case "SKU_PRICE": case "PRICE_ADJUSTMENT": case "RESTOCK_ORDER":
+      case "AUTONOMOUS_STORE": case "POLICY_APPLICATION": case "STORE_ESCALATION": case "STORE_CYCLE": case "SKU_PRICE": case "PRICE_ADJUSTMENT": case "RESTOCK_ORDER":
         applyAutonomousStoreEvent(this.autonomousOpsBag, event);
         return;
       case "STOCK_TRANSFER": {

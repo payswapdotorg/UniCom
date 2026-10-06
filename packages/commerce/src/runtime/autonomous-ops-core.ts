@@ -268,7 +268,7 @@ export function planAutonomousPriceAdjustment(
   const record = ctx.state.autonomousOps().priceRecord(storeId, skuId);
   if (!record) {
     emitPolicyApplication(ctx, storeId, "PRICE_ADJUSTMENT", "DENY", ["NO_PRICE_RECORD"]);
-    emitPriceAdjustmentFact(ctx, storeId, skuId, newPrice, newPrice, "DENY", ["NO_PRICE_RECORD"], false, reason);
+    emitPriceAdjustmentFact(ctx, storeId, skuId, newPrice, newPrice, newPrice, "DENY", ["NO_PRICE_RECORD"], false, reason);
     return { status: "REJECTED" };
   }
   const decision = override
@@ -280,7 +280,7 @@ export function planAutonomousPriceAdjustment(
   if (decision !== undefined && decision.decision !== "ALLOW") {
     const decisionKind: PriceAdjustmentRecord["decision"] = decision.decision === "DENY" ? "DENY" : "REQUIRE_APPROVAL";
     const application = emitPolicyApplication(ctx, storeId, "PRICE_ADJUSTMENT", decisionKind, decision.reasons);
-    emitPriceAdjustmentFact(ctx, storeId, skuId, record.unitPrice, newPrice, decisionKind, decision.reasons, false, reason);
+    emitPriceAdjustmentFact(ctx, storeId, skuId, record.unitPrice, newPrice, record.costBasis, decisionKind, decision.reasons, false, reason);
     if (decision.decision === "DENY") {
       // Hard band violations escalate (policy-band violation = explicit
       // journaled escalation state); an approval threshold is a pending-human
@@ -295,6 +295,7 @@ export function planAutonomousPriceAdjustment(
     skuId,
     before: record.unitPrice,
     after: newPrice,
+    costBasis: record.costBasis,
     applied: true,
     decision: override ? "OVERRIDE" : "ALLOW",
     reasons: [],
@@ -337,6 +338,7 @@ function emitPriceAdjustmentFact(
   skuId: SkuId,
   before: Money,
   after: Money,
+  costBasis: Money,
   decision: PriceAdjustmentRecord["decision"],
   reasons: readonly AutonomousDenialReason[],
   applied: boolean,
@@ -348,6 +350,7 @@ function emitPriceAdjustmentFact(
     skuId,
     before,
     after,
+    costBasis,
     applied,
     decision,
     reasons,
