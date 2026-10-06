@@ -4,7 +4,7 @@
   "architecture_version": "1.1-frozen-2026-10-05",
   "foundation_commit": "29628c9acdb81b703bbd4080c207a0e7ce5e276e",
   "implementation_authorized": true,
-  "production_deployment_authorized": false,
+  "production_deployment_authorized": true,
   "max_concurrent_workers": 3,
   "worker_lanes": {
     "worker-1": "commerce-truth-economic-execution",
@@ -513,7 +513,30 @@
       "architecture_invariants": "PASS \u2014 architecture:check 0 violations (baseline 0, new 0)",
       "final_cumulative_battery": "PASS \u2014 1093/1093 (commerce 300 + agent 411 + experience 382) on merged main; scoped tsc 0 errors \u00d74; lint 0 errors"
     },
-    "production_deployment_authorized": false,
-    "note": "Release Candidate declared. Production deployment remains UNAUTHORIZED \u2014 the operator's explicit call (FINAL-TL-HANDOFF-2026-10-06 \u00a76)."
+    "production_deployment_authorized": true,
+    "note": "Release Candidate declared 2026-10-06T10:35:00Z with production unauthorized per \u00a76. The operator AUTHORIZED the production push 2026-10-06T15:13:00Z (explicit instruction) \u2014 flip recorded + executed in production_deployment."
+  },
+  "production_deployment": {
+    "authorized_at": "2026-10-06T15:13:00Z",
+    "authorized_by": "operator",
+    "authorization_evidence": "Operator instruction received via the operator channel (IM session web-6ddc0a59-8611-4154-9417-ad1cfb44e1c8): 'go ahead with the production push' \u2014 the explicit call reserved to the operator by FINAL-TL-HANDOFF-2026-10-06 \u00a76 ('Do not silently authorize production merely because the repository is RC-ready') and W3-006's readiness law ('the operator flips it').",
+    "flipped_by": "TL (state-only edit; zero architecture change)",
+    "executed_at": "2026-10-06T15:24:10Z",
+    "base": "release candidate main 973a93f (final release gate \u00a76 passed 2026-10-06T10:35:00Z; 18/18 merged)",
+    "deployment": {
+      "target": "plan:unicom-node-server-v1 \u2014 the provider-agnostic self-hosted node-server target delivered by W3-006",
+      "services": "kernel-store :3210 \u2192 connector-worker :3211 \u2192 experience-web :3212 (topological startup order enforced; fixed host ports are deployment facts, the plan itself untouched)",
+      "build": "5/5 build steps exit 0 (real node command executor)",
+      "probes": "9/9 passed \u2014 liveness + readiness + startup \u00d7 3 services over real loopback HTTP (200 OK), independently re-verified by curl",
+      "dr_verified_live": "pod-loss drill executed live at deployment: kernel-store terminated \u2192 experience-web readiness dropped to 503 (dependency gating held) \u2192 restartService \u2192 9/9 green again",
+      "plane": "durable daemon (dfork-launched, 60s heartbeat re-probe; machine-readable record production-plane-record.json) + boot-time recovery wired into the sandbox heal chain"
+    },
+    "gate_reverified_at_push": {
+      "cumulative_battery": "1093/1093 (commerce 300 + agent 411 + experience 382)",
+      "typecheck": "0 errors (scoped tsc -b: commerce + agent + experience + zcode-server-cli)",
+      "lint": "0 errors (oxlint; pre-existing warning class only)",
+      "architecture": "0 violations (architecture:check)"
+    },
+    "provider_adapters": "none consumed \u2014 the RC ships no Tier-A provider adapters (docs/UX-DEPLOYMENT.md portability rule: provider adapters stay isolated from domain code; none were in scope of any work order). A public-provider deployment (Vercel/Cloudflare/Neon/Upstash/Apify tier) is a future explicitly-authorized phase, not part of this push."
   }
 }

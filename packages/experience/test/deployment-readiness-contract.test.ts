@@ -1,8 +1,10 @@
 /**
  * W3-006 deployment-readiness completeness contract — the typed registry
  * laws behind the order's acceptance scenarios, plus the readiness-law
- * type guarantees (production push NOT authorized; every deployment
- * surface typed + registered).
+ * type guarantees (readiness was delivered with the push unauthorized;
+ * the operator may flip authorization post-RC — the contract asserts the
+ * state file stays truthful to that lifecycle; every deployment surface
+ * typed + registered).
  */
 
 import { readFileSync } from "node:fs";
@@ -89,13 +91,27 @@ describe("deployment readiness registries", () => {
     expect(RC_EVIDENCE_SCHEMA_VERSION).toBe(1);
   });
 
-  it("acknowledges production_deployment_authorized = false in the work-order state (readiness only)", () => {
+  it("records the operator's production-deployment authorization (W3-006 readiness lifecycle: false at delivery, operator flips post-RC)", () => {
     const state = JSON.parse(readFileSync(statePath, "utf8")) as {
       production_deployment_authorized?: boolean;
+      production_deployment?: {
+        authorized_by?: string;
+        authorized_at?: string;
+        executed_at?: string;
+        deployment?: Record<string, unknown>;
+      };
       active_work_orders?: { id: string; branch?: string }[];
       completed_work_orders?: { id: string; branch?: string }[];
     };
-    expect(state.production_deployment_authorized).toBe(false);
+    // W3-006 delivered READINESS with the push unauthorized; the operator
+    // flipped it after the §6 release gate passed (2026-10-06). The contract
+    // asserts the state file stays truthful to that lifecycle: operator-
+    // attributed, timestamped, evidence-backed authorization + execution.
+    expect(state.production_deployment_authorized).toBe(true);
+    expect(state.production_deployment?.authorized_by).toBe("operator");
+    expect(typeof state.production_deployment?.authorized_at).toBe("string");
+    expect(typeof state.production_deployment?.executed_at).toBe("string");
+    expect(state.production_deployment?.deployment).toBeDefined();
     // Readiness invariant: the W3-006 delivery branch stays recorded whether
     // the order is still active or already merged (completed) — the roadmap
     // advances without weakening the readiness acknowledgement.
