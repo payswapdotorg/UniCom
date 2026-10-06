@@ -15,6 +15,7 @@ import type { ToolEntry, ToolExecutionContext, ToolRegistry } from "@zcode/core"
 import { type UnicomToolHandlerFailure, UnicomErrorCode, refusalFailure } from "./errors.js";
 import type { UnicomCapabilityGate } from "./capability-gate.js";
 import type { UnicomSecurityGate } from "./security-gate.js";
+import type { UnicomImmuneSystem } from "./immune-system.js";
 import type { ExecutingPrincipal } from "./principal.js";
 import { isDelegateActionAllowed, UnicomBudgetLedger } from "./delegate-budget.js";
 
@@ -29,6 +30,8 @@ export interface UnicomRegistryGateOptions {
    * principal scoping (only security/capability gates stay active).
    */
   readonly principal?: ExecutingPrincipal | undefined;
+  /** W2-004: reversible capability attenuation check (immune quarantine). */
+  readonly immuneSystem?: UnicomImmuneSystem | undefined;
 }
 
 /** Kernel-side execution gate shared by a gated registry. */
@@ -57,7 +60,21 @@ export class UnicomKernelGate {
     }
     const securityRefusal = this.options.securityGate.checkTool(toolName);
     if (securityRefusal) return securityRefusal;
-    return this.options.capabilityGate.check(toolName);
+    const capabilityRefusal = this.options.capabilityGate.check(toolName);
+    if (capabilityRefusal) return capabilityRefusal;
+    // W2-004: reversible immune quarantine — an attenuated capability scope
+    // refuses the tools bound to that capability for the executing principal.
+    if (this.options.immuneSystem !== undefined && principal !== undefined) {
+      const binding = this.options.capabilityGate.getBinding(toolName);
+      const principalId = principal.kind === "main-agent"
+        ? principal.mainAgent.principalId
+        : principal.delegate.delegate.principalId;
+      if (binding !== undefined) {
+        const immuneRefusal = this.options.immuneSystem.attenuationRefusalFor(principalId, binding.capabilityDefinitionId);
+        if (immuneRefusal) return immuneRefusal;
+      }
+    }
+    return undefined;
   }
 
   /** Consequential-action budget charge (read-only tools are free). */

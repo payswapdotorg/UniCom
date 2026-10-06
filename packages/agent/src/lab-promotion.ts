@@ -32,7 +32,20 @@ export const UNICOM_COORDINATION_LOGIC = {
   DEMAND_AGGREGATION: "logic:unicom:demand-aggregation",
 } as const;
 
-export type LabLogicKind = "FORMATION" | "DISCOVERY" | "COORDINATION" | "AGGREGATION" | "ORGANIZATION";
+/**
+ * W2-004 (additive): security immune-system logic kinds — detection,
+ * capability attenuation and defensive broadcast logic are born under the
+ * same lab gates as coordination logic.
+ */
+export type LabLogicKind =
+  | "FORMATION"
+  | "DISCOVERY"
+  | "COORDINATION"
+  | "AGGREGATION"
+  | "ORGANIZATION"
+  | "DETECTION"
+  | "ATTENUATION"
+  | "BROADCAST";
 
 export interface LabCandidate {
   readonly logicId: string;
@@ -99,11 +112,21 @@ function promotionRecordHash(record: Omit<PromotionRecord, "recordHash">): strin
  */
 export function verifyPromotionChain(
   records: readonly PromotionRecord[],
-): { readonly ok: true } | { readonly ok: false; readonly violation: "CHAIN_BROKEN"; readonly firstBrokenSequence: number } {
+):
+  | { readonly ok: true }
+  | {
+      readonly ok: false;
+      readonly violation: "CHAIN_BROKEN";
+      readonly firstBrokenSequence: number;
+    } {
   let prevRecordHash = "genesis";
   for (let index = 0; index < records.length; index += 1) {
     const record = records[index];
-    if (record === undefined || record.sequence !== index + 1 || record.prevRecordHash !== prevRecordHash) {
+    if (
+      record === undefined ||
+      record.sequence !== index + 1 ||
+      record.prevRecordHash !== prevRecordHash
+    ) {
       return { ok: false, violation: "CHAIN_BROKEN", firstBrokenSequence: index + 1 };
     }
     if (promotionRecordHash(record) !== record.recordHash) {
@@ -131,7 +154,9 @@ export class LabPromotionLog {
   registerCandidate(candidate: LabCandidate): void {
     const existing = this.candidatesById.get(candidate.logicId);
     if (existing !== undefined && existing.version === candidate.version) {
-      throw new Error(`lab candidate already registered: ${candidate.logicId}@${candidate.version} (append-only log)`);
+      throw new Error(
+        `lab candidate already registered: ${candidate.logicId}@${candidate.version} (append-only log)`,
+      );
     }
     this.candidatesById.set(candidate.logicId, candidate);
   }
@@ -170,7 +195,13 @@ export class LabPromotionLog {
     readonly evidence: readonly ObservedOutcomeEvidence[];
     readonly decidedBy: PrincipalRef;
     readonly decidedAt: string;
-  }): { readonly ok: true; readonly record: PromotionRecord } | { readonly ok: false; readonly violation: PromotionViolation; readonly missing?: readonly ExperimentKind[] } {
+  }):
+    | { readonly ok: true; readonly record: PromotionRecord }
+    | {
+        readonly ok: false;
+        readonly violation: PromotionViolation;
+        readonly missing?: readonly ExperimentKind[];
+      } {
     const candidate = this.candidatesById.get(input.logicId);
     if (candidate === undefined) return { ok: false, violation: "UNKNOWN_CANDIDATE" };
 
@@ -179,13 +210,16 @@ export class LabPromotionLog {
     );
     if (alreadyPromoted) return { ok: false, violation: "DUPLICATE_PROMOTION" };
 
-    const registeredExperimentIds = new Set(this.experimentsFor(input.logicId).map((spec) => spec.experimentId));
+    const registeredExperimentIds = new Set(
+      this.experimentsFor(input.logicId).map((spec) => spec.experimentId),
+    );
     if (input.evidence.some((record) => !registeredExperimentIds.has(record.experimentId))) {
       return { ok: false, violation: "EVIDENCE_NOT_FOR_CANDIDATE" };
     }
 
     const eligibility = evaluatePromotionEligibility(input.evidence);
-    if (!eligibility.eligible) return { ok: false, violation: "EVIDENCE_INCOMPLETE", missing: eligibility.missing };
+    if (!eligibility.eligible)
+      return { ok: false, violation: "EVIDENCE_INCOMPLETE", missing: eligibility.missing };
 
     const base: Omit<PromotionRecord, "recordHash"> = {
       sequence: this.promotionRecords.length + 1,
@@ -196,7 +230,10 @@ export class LabPromotionLog {
       satisfiedKinds: eligibility.satisfiedKinds,
       decidedBy: input.decidedBy,
       decidedAt: input.decidedAt,
-      prevRecordHash: this.promotionRecords.length === 0 ? "genesis" : (this.promotionRecords[this.promotionRecords.length - 1] as PromotionRecord).recordHash,
+      prevRecordHash:
+        this.promotionRecords.length === 0
+          ? "genesis"
+          : (this.promotionRecords[this.promotionRecords.length - 1] as PromotionRecord).recordHash,
     };
     const record: PromotionRecord = { ...base, recordHash: promotionRecordHash(base) };
     this.promotionRecords.push(record);
@@ -233,7 +270,11 @@ export class LabGatedRuntimeRegistry {
   constructor(private readonly log: LabPromotionLog) {}
 
   /** Activate a promoted logic for the runtime plane. */
-  activate(promotionId: string): { readonly ok: true; readonly logicId: string } | { readonly ok: false; readonly violation: "PROMOTION_NOT_FOUND" | "CHAIN_BROKEN" } {
+  activate(
+    promotionId: string,
+  ):
+    | { readonly ok: true; readonly logicId: string }
+    | { readonly ok: false; readonly violation: "PROMOTION_NOT_FOUND" | "CHAIN_BROKEN" } {
     const chain = this.log.verifyChain();
     if (!chain.ok) return { ok: false, violation: "CHAIN_BROKEN" };
     const record = this.log.findPromotion(promotionId);
