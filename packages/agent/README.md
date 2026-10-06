@@ -69,3 +69,29 @@ contract tests covering the 11 W2-001 acceptance scenarios plus delegate
 attenuation, executability preconditions, defensive-only signatures,
 model-context safety, strategy/organization separation, promotion gates and
 the opaque commerce seam (106 tests).
+
+## W2-005 — Reality/Learning Lab + model-routing evaluation
+
+The evaluation substrate (all additive, on top of the W2-002 kernel +
+W2-003 lab gates + W2-004 evidence/trust/immune foundation):
+
+| Artifact | Purpose |
+| --- | --- |
+| `sim-random.ts` | Seeded splitmix32 PRNG + tick clock — NO `Math.random`, NO wall clock |
+| `reality-lab.ts` | Reality Lab: deterministic seeded simulated commerce environments; serves facts through the opaque `CommerceEvidenceFactsPort` seam only (read-only, Reality-Lab-only double) |
+| `reality-scenarios.ts` | The frozen 5-scenario battery (routine commerce, coordinated abuse, complex planning, provider marketplace, specialist operations) |
+| `reality-battery.ts` | 23 decision tasks over 9 task kinds + 12 adversary flows (every fraud archetype BASE + EVASION) |
+| `agent-configurations.ts` | The 7 Stage-4 configurations + `decideTask` (built on the REAL `routeModelTask`) + integer cost/latency unit models + security-analysis capability matrix |
+| `scenario-evidence.ts` | Scenario → hash-chained evidence (reviews, claims, attestations, carrier observations, commerce-fact snapshots via the seam) |
+| `adversarial-evaluation.ts` | REAL W2-004 detectors per flow + capability-gated surfacing; misses are EXPLICIT (declared limitations journaled; silent evasion fails the run) |
+| `learning-lab.ts` | Evaluation runs: decisions measured against ground truth; every run journals `LAB_EVALUATION_RUN`/`LAB_EVALUATION_OUTCOME`/`KNOWN_LIMITATION` evidence |
+| `model-routing-comparison.ts` | The 7-way comparison: same battery for all seven, structured entries + rankings + self-verifying consistency checks |
+| `promotion-records.ts` / `promotion-chain.ts` | The promotion chain: ordered gates SIMULATION → SHADOW → CANARY → OBSERVED_OUTCOME, each transition evidence-backed (SIMULATION only from LAB); promotion/retirement as journaled decisions; tamper-evident chains |
+| `routing-policy.ts` | Deterministic policy application over journaled state; typed refusals for un-promoted/retired configurations; hash-chained, replayable decision journal |
+
+Laws (W2-005): evaluations are deterministic (same seed + configuration →
+same measured outcomes); evidence is hash-chained and append-only;
+promotion/retirement are journaled policy applications — a gate without
+evidence BLOCKS promotion; adversarial evasion that goes undetected is a
+bug, never a pass; simulated environments never mutate canonical commerce
+state; routing decisions are journaled, replayable, never silent.
