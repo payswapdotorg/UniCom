@@ -25,21 +25,27 @@ export * from "./navigation/feature-matrix";
 export * from "./navigation/surfaces";
 export * from "./navigation/discoverability";
 export * from "./navigation/roles";
+export * from "./navigation/universal-intent";
 
 export * from "./surfaces/command-center";
 export * from "./surfaces/intent-canvas";
 export * from "./surfaces/opportunity-inbox";
 export * from "./surfaces/decision-card";
+export * from "./surfaces/decision-card-render";
 export * from "./surfaces/storefront";
 export * from "./surfaces/operations";
 export * from "./surfaces/connector-studio";
 export * from "./surfaces/trust-security";
 export * from "./surfaces/explore";
 export * from "./surfaces/live-commerce-ux";
+export * from "./surfaces/surface-state";
+export * from "./surfaces/surface-state-manifests";
+export * from "./surfaces/autonomous-store";
 
 export * from "./connector/transports";
 export * from "./connector/browser-session";
 export * from "./connector/observability";
+export * from "./connector/health-surface";
 export * from "./connector/live-commerce";
 export * from "./connector/webhook-events";
 export * from "./connector/feed-file";

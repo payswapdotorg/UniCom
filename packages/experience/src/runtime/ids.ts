@@ -21,8 +21,13 @@ import type {
   BrowserStoragePartitionRef,
   CapabilityDefinitionId,
   CapabilityObservationRef,
+  CommerceAutonomousStorePolicyRef,
+  CommerceAutonomousStoreRef,
+  CommerceEscalationRef,
+  CommerceStoreVarianceRef,
   ConnectedCapabilityInstanceId,
   ConnectorInstanceId,
+  ExecutionModeRef,
   LocalEdgeDeviceId,
   OfflineQueueEntryId,
   PhysicalObservationId,
@@ -61,6 +66,21 @@ export const asTransactionProofRef = (value: string): TransactionProofRef =>
   value as TransactionProofRef;
 export const asIdempotencyKey = (value: string): IdempotencyKey => value as IdempotencyKey;
 export const asUtcTimestamp = (value: string): UtcIso8601String => value as UtcIso8601String;
+
+// ---------------------------------------------------------------------------
+// W3-005 surface-plane ref constructors (opaque commerce/execution refs)
+// ---------------------------------------------------------------------------
+
+export const asExecutionModeRef = (value: string): ExecutionModeRef => value as ExecutionModeRef;
+export const asCommerceAutonomousStoreRef = (value: string): CommerceAutonomousStoreRef =>
+  value as CommerceAutonomousStoreRef;
+export const asCommerceAutonomousStorePolicyRef = (
+  value: string,
+): CommerceAutonomousStorePolicyRef => value as CommerceAutonomousStorePolicyRef;
+export const asCommerceStoreVarianceRef = (value: string): CommerceStoreVarianceRef =>
+  value as CommerceStoreVarianceRef;
+export const asCommerceEscalationRef = (value: string): CommerceEscalationRef =>
+  value as CommerceEscalationRef;
 
 // ---------------------------------------------------------------------------
 // Typed seam bridges to @unicom/agent's canonical capability vocabulary

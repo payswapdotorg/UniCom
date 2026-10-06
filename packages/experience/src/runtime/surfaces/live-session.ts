@@ -274,6 +274,16 @@ export function createLiveSessionRuntime(options: LiveSessionRuntimeOptions): Li
         ? undefined
         : { title: renderUntrustedAsInertText(latestListing.content as never) };
       const lastEvent = events[events.length - 1];
+      // W3-005: the terminal state is structurally visible — present exactly
+      // when the session has ended, with the replay guarantee still standing.
+      const terminal = lifecycle === "ended"
+        ? {
+            lifecycle: "ended" as const,
+            totalEvents: events.length,
+            finalArrivalSequence: lastEvent?.arrivalSequence ?? 0,
+            replayFromStart: "available" as const,
+          }
+        : undefined;
       return {
         streamRef: streamId,
         lifecycle: lifecycle === "unannounced" ? "announced" : lifecycle,
@@ -288,6 +298,7 @@ export function createLiveSessionRuntime(options: LiveSessionRuntimeOptions): Li
             .map((consumerRef) => runtime.consumerHealth(consumerRef))
             .filter((view): view is LiveConsumerHealthView => view !== undefined),
         },
+        ...(terminal === undefined ? {} : { terminal }),
       };
     },
 

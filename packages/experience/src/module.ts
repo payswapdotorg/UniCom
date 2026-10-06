@@ -9,6 +9,8 @@
  * 六个 provider 适配器、浏览器专用/直播/文件连接器、LocalCommerceEdge、
  * 旅程执行器、遥测）。W3-004 增补：无 RFID 的物理商务边缘（POS 导入连接器、
  * 称重商品运行时、离线重放冲突规则、对账旅程规划器）与直播商务 UX 契约。
+ * W3-005 增补：UX 完备性加固（通用意图类型化命令面、四态表面契约
+ * （空/加载/错误/离线）、连接器健康面、自主商店可见性、决策卡渲染模型）。
  * 对外公开入口：contract.ts（契约）与 runtime/index.ts（运行时）。
  */
 export const experienceModule = {
@@ -41,6 +43,11 @@ export const experienceModule = {
     "reconciliation-journey-planner",
     "live-commerce-session-ux-contract",
     "live-session-delivery-runtime",
+    "universal-intent-command-surface",
+    "surface-four-state-contracts",
+    "connector-health-surface",
+    "autonomous-store-visibility",
+    "decision-card-render-model",
   ],
   publicEntrypoints: [
     "packages/experience/src/contract.ts",
