@@ -26,20 +26,6 @@
       "branch": "work/w2-005",
       "session": "unicom-w2-005",
       "title": "Reality/Learning Lab + Model-Routing Evaluation"
-    },
-    {
-      "id": "W3-006",
-      "status": "ACTIVE",
-      "owner": "worker-3",
-      "depends_on": [
-        "W3-005"
-      ],
-      "activated_at": "2026-10-06T05:08:00Z",
-      "activated_by": "TL",
-      "base_sha": "c8da227",
-      "branch": "work/w3-006",
-      "session": "unicom-w3-006",
-      "title": "Public Deployment Readiness + Browser E2E + Observability + DR Runbook"
     }
   ],
   "frontier": [
@@ -400,6 +386,30 @@
         "contract_tests": "300/300 @unicom/commerce \u2014 full-lifecycle twin-checked journeys, money conservation zero-sum property, cross-aggregate reconciliation XR-*, UNKNOWN lifecycle, full-surface idempotency, boundary replay, machine-readable certification report 7/7 PASS (TL re-run verified + TL fix-forward: type narrowing in certification tests)",
         "typecheck": "0 errors (scoped tsc -b, post-fix)",
         "lint": "0 errors (72 warnings, pre-existing class)",
+        "architecture": "0 violations"
+      }
+    },
+    {
+      "id": "W3-006",
+      "status": "MERGED",
+      "owner": "worker-3",
+      "depends_on": [
+        "W3-005"
+      ],
+      "activated_at": "2026-10-06T05:08:00Z",
+      "activated_by": "TL",
+      "base_sha": "c8da227",
+      "branch": "work/w3-006",
+      "session": "unicom-w3-006",
+      "title": "Public Deployment Readiness + Browser E2E + Observability + DR Runbook",
+      "merged_at": "2026-10-06T06:07:00Z",
+      "merged_by": "TL",
+      "merge_sha": "81b2340",
+      "branch_tip": "6206515",
+      "evidence": {
+        "contract_tests": "382/382 @unicom/experience \u2014 deployment adapter E2E, 7 primary-path browser E2E journeys (storefront\u2192checkout, live late-joiner replay), observability contracts, DR tests (backup/restore round-trip, hash-chain tamper detection, rebuild-from-journal, 4 failure playbooks incl. split-brain fencing), RC evidence reports ALL PASS (TL re-run verified, zero fix-forward)",
+        "typecheck": "0 errors (scoped tsc -b)",
+        "lint": "0 errors (77 warnings, pre-existing)",
         "architecture": "0 violations"
       }
     }
