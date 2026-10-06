@@ -51,6 +51,15 @@ const COLLECTIONS: readonly (keyof TwinStateSnapshot)[] = [
   "chargebacks",
   "storeSessions",
   "cashVariances",
+  // --- W1-005 (additive): autonomous-store runtime collections ---
+  "autonomousStores",
+  "storeCycles",
+  "policyApplications",
+  "storeEscalations",
+  "storeOverrides",
+  "skuPrices",
+  "priceAdjustments",
+  "restockOrders",
 ];
 
 /**

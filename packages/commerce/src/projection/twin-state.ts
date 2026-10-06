@@ -39,6 +39,11 @@ import type { CountObservationState } from "./inventory-projection.js";
 import { countObservationStateOf } from "./inventory-projection.js";
 import { applyRecourseEvent, type TwinRecourseCollections } from "./twin-recourse-state.js";
 import { applyStoreOpsEvent, type TwinStoreOpsCollections } from "./twin-store-ops-state.js";
+import {
+  applyAutonomousStoreEvent, copyAutonomousCollections, emptyAutonomousCollections,
+  restoreAutonomousCollections, serializeAutonomousCollections,
+  type TwinAutonomousCollections, type TwinAutonomousSerializable,
+} from "./twin-autonomous-state.js";
 
 interface PayloadLike {
   readonly kind?: unknown;
@@ -87,7 +92,7 @@ export interface TwinCollections {
 }
 
 /** Structured, checkpoint-serializable form of the whole twin mirror. */
-export type TwinSerializableState = { readonly [K in keyof TwinCollections]: readonly (readonly [string, TwinCollections[K] extends ReadonlyMap<string, infer V> ? V : never])[] };
+export type TwinSerializableState = { readonly [K in keyof TwinCollections]: readonly (readonly [string, TwinCollections[K] extends ReadonlyMap<string, infer V> ? V : never])[] } & { readonly autonomousOps: TwinAutonomousSerializable };
 
 /**
  * The full authoritative-state mirror. Field-by-field the same collections the
@@ -124,6 +129,8 @@ export class TwinState {
   private readonly chargebacks = new Map<string, ChargebackRecord>();
   private readonly storeSessions = new Map<string, StoreCashSession>();
   private readonly cashVariances = new Map<string, CashVarianceRecord>();
+  /** W1-005 (additive): autonomous-store runtime bag (single field). */
+  private readonly autonomousOpsBag = emptyAutonomousCollections();
 
   /** Every Map collection, in one registry (generic clone/serialize/resume). */
   private static readonly MAP_KEYS = [
@@ -214,6 +221,10 @@ export class TwinState {
       case "CASH_VARIANCE_RECORD":
         applyStoreOpsEvent(this.storeOpsBag(), event);
         return;
+      case "AUTONOMOUS_STORE": case "POLICY_APPLICATION": case "STORE_ESCALATION":
+      case "STORE_CYCLE": case "SKU_PRICE": case "PRICE_ADJUSTMENT": case "RESTOCK_ORDER":
+        applyAutonomousStoreEvent(this.autonomousOpsBag, event);
+        return;
       case "STOCK_TRANSFER": {
         const transfer = optional<StockTransfer>(payload.transfer);
         if (transfer) this.transfers.set(transfer.transferId, transfer);
@@ -289,6 +300,9 @@ export class TwinState {
     return { storeSessions: this.storeSessions, cashVariances: this.cashVariances };
   }
 
+  /** W1-005 autonomous-store runtime collections (read-only views). */
+  autonomousCollections(): TwinAutonomousCollections { return this.autonomousOpsBag; }
+
   private foldInventory(payload: PayloadLike): void {
     const level = optional<CanonicalInventoryLevel>(payload.resultingLevel);
     if (level) this.levels.set(inventoryKey(level.skuId, level.locationId), level);
@@ -359,6 +373,7 @@ export class TwinState {
       const target = next[key] as Map<string, unknown>;
       for (const [mapKey, value] of source) target.set(mapKey, value);
     }
+    copyAutonomousCollections(next.autonomousOpsBag, this.autonomousOpsBag);
     return next;
   }
 
@@ -370,16 +385,17 @@ export class TwinState {
       const map = this[key] as ReadonlyMap<string, unknown>;
       out[key] = [...map.entries()];
     }
-    return out as TwinSerializableState;
+    return { ...out, autonomousOps: serializeAutonomousCollections(this.autonomousOpsBag) } as TwinSerializableState;
   }
 
   static fromSerializable(serialized: TwinSerializableState): TwinState {
     const state = new TwinState();
-    const record = serialized as Record<string, readonly (readonly [string, unknown])[]>;
+    const record = serialized as unknown as Record<string, readonly (readonly [string, unknown])[]>;
     for (const key of TwinState.MAP_KEYS) {
       const target = state[key] as Map<string, unknown>;
       for (const [mapKey, value] of record[key] ?? []) target.set(mapKey, value);
     }
+    restoreAutonomousCollections(state.autonomousOpsBag, (serialized as { autonomousOps?: TwinAutonomousSerializable }).autonomousOps);
     return state;
   }
 }

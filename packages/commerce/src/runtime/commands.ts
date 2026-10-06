@@ -20,6 +20,7 @@ import type {
   PurchaseOrderId,
   RentalAgreementId,
   ResaleListingId,
+  SkuId,
   StoreCashSessionId,
   SubscriptionId,
   TillId,
@@ -50,6 +51,13 @@ import type { PaymentMethodRef } from "../domain/payments.js";
 import type { PrincipalRef } from "../domain/principals.js";
 import type { DisputeEvidence } from "../domain/recourse.js";
 import type { TillOperation } from "../domain/store-ops.js";
+import type {
+  OverrideAction,
+  StoreControlMode,
+  StoreCycleTrigger,
+  StoreEscalationTrigger,
+} from "../domain/autonomous-store.js";
+import type { StoreCycleId, StoreEscalationId } from "../domain/ids.js";
 
 /** Supply-side flows: multi-location transfers and supplier purchase orders. */
 export type SupplyCommandPayload =
@@ -162,6 +170,73 @@ export type StoreOpsCommandPayload =
     }
   | { readonly type: "CLOSE_STORE_CASH_SESSION"; readonly sessionId: StoreCashSessionId; readonly closingCount: Money };
 
+/**
+ * W1-005: autonomous-store runtime commands. The store operating itself:
+ * control registration + authority handover, human override, operating
+ * cycles, autonomous till open/close, restock triggers, count reconcile,
+ * the price book, in-policy price adjustments, escalation advancement.
+ */
+export type AutonomousStoreCommandPayload =
+  | {
+      readonly type: "REGISTER_AUTONOMOUS_STORE";
+      readonly autonomousStoreId: AutonomousStoreId;
+      readonly ownerRef: PrincipalRef;
+      readonly displayName: string;
+    }
+  | {
+      readonly type: "HANDOVER_STORE_AUTHORITY";
+      readonly autonomousStoreId: AutonomousStoreId;
+      readonly fromPrincipal: PrincipalRef;
+      readonly toPrincipal: PrincipalRef;
+      readonly toMode: StoreControlMode;
+    }
+  | {
+      readonly type: "RECORD_HUMAN_OVERRIDE";
+      readonly autonomousStoreId: AutonomousStoreId;
+      readonly action: OverrideAction;
+      readonly justification: string;
+    }
+  | { readonly type: "ADVANCE_STORE_ESCALATION"; readonly escalationId: StoreEscalationId; readonly trigger: StoreEscalationTrigger }
+  | { readonly type: "BEGIN_STORE_CYCLE"; readonly autonomousStoreId: AutonomousStoreId }
+  | { readonly type: "ADVANCE_STORE_CYCLE"; readonly cycleId: StoreCycleId; readonly trigger: StoreCycleTrigger }
+  | {
+      readonly type: "AUTONOMOUS_OPEN_TILL";
+      readonly autonomousStoreId: AutonomousStoreId;
+      readonly tillId: TillId;
+      readonly openingCount: Money;
+    }
+  | {
+      readonly type: "AUTONOMOUS_CLOSE_TILL";
+      readonly autonomousStoreId: AutonomousStoreId;
+      readonly sessionId: StoreCashSessionId;
+      readonly closingCount: Money;
+    }
+  | {
+      readonly type: "AUTONOMOUS_RESTOCK";
+      readonly autonomousStoreId: AutonomousStoreId;
+      readonly skuId: SkuId;
+      readonly locationId: LocationId;
+    }
+  | {
+      readonly type: "AUTONOMOUS_RECONCILE_COUNT";
+      readonly autonomousStoreId: AutonomousStoreId;
+      readonly observation: InventoryCountObservation;
+    }
+  | {
+      readonly type: "SET_SKU_PRICE";
+      readonly autonomousStoreId: AutonomousStoreId;
+      readonly skuId: SkuId;
+      readonly unitPrice: Money;
+      readonly costBasis: Money;
+    }
+  | {
+      readonly type: "ADJUST_SKU_PRICE";
+      readonly autonomousStoreId: AutonomousStoreId;
+      readonly skuId: SkuId;
+      readonly newPrice: Money;
+      readonly reason?: string;
+    };
+
 /** The full runtime command payload union (frozen core + additive flows). */
 export type RuntimeCommandPayload =
   | CommerceCommandPayload
@@ -173,7 +248,8 @@ export type RuntimeCommandPayload =
   | CheckoutCompletionCommandPayload
   | SettlementCommandPayload
   | RecourseCommandPayload
-  | StoreOpsCommandPayload;
+  | StoreOpsCommandPayload
+  | AutonomousStoreCommandPayload;
 
 /** Discriminated envelope over the runtime payload union. */
 export type AnyRuntimeCommand = CommerceCommandEnvelope<RuntimeCommandPayload>;
