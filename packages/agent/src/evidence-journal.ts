@@ -117,6 +117,46 @@ export type JournaledEvidencePayload =
       readonly limitationId: string;
       readonly archetype: string;
       readonly why: string;
+    }
+  // W2-005 additions — ADDITIVE union members (Learning Lab + routing
+  // lifecycle). Literal types are inline so this file gains no new imports
+  // (the chain-law module stays acyclic).
+  | {
+      /** One Learning-Lab evaluation run over the Reality-Lab battery. */
+      readonly evidenceKind: "LAB_EVALUATION_RUN";
+      readonly evaluationRef: string;
+      readonly configurationId: string;
+      readonly seed: string;
+      readonly scenarioIds: readonly string[];
+      readonly metricsDigest: string;
+      readonly outcome: "SUCCESS" | "FAILURE";
+    }
+  | {
+      /** Per-scenario measured outcomes of one evaluation run. */
+      readonly evidenceKind: "LAB_EVALUATION_OUTCOME";
+      readonly evaluationRef: string;
+      readonly scenarioId: string;
+      readonly tasksTotal: number;
+      readonly decisionsCorrect: number;
+      readonly costUnits: number;
+      readonly latencyUnits: number;
+    }
+  | {
+      /** Gate evidence backing one promotion-chain gate transition. */
+      readonly evidenceKind: "PROMOTION_GATE_EVIDENCE";
+      readonly configRef: string;
+      readonly gate: "SIMULATION" | "SHADOW" | "CANARY" | "OBSERVED_OUTCOME";
+      readonly environment: "LAB" | "SHADOW" | "CANARY";
+      readonly outcome: "SUCCESS" | "PARTIAL" | "FAILURE";
+      readonly observedDigest: string;
+    }
+  | {
+      /** A journaled routing-lifecycle decision (promotion or retirement). */
+      readonly evidenceKind: "ROUTING_LIFECYCLE_DECISION";
+      readonly configRef: string;
+      readonly decision: "PROMOTION" | "RETIREMENT";
+      readonly decisionId: string;
+      readonly reason: string;
     };
 
 // ---------------------------------------------------------------------------

@@ -93,7 +93,9 @@ export type DecisionImpact = "LOW" | "MEDIUM" | "HIGH" | "IRREVERSIBLE";
  * cite. W2-004 additions are ADDITIVE union members (existing consumers only
  * narrow): fraud-archetype evidence flows (buyer claims, carrier
  * observations, merchant attestations, commerce-fact snapshots from the
- * opaque seam) and journaled trust evidence.
+ * opaque seam) and journaled trust evidence. W2-005 additions (also additive
+ * only): Learning-Lab evaluation evidence and routing-lifecycle promotion
+ * decisions.
  */
 export type EvidenceKind =
   | "observation"
@@ -108,7 +110,9 @@ export type EvidenceKind =
   | "carrier-observation"
   | "merchant-attestation"
   | "commerce-fact"
-  | "trust-evidence";
+  | "trust-evidence"
+  | "lab-evaluation"
+  | "promotion-decision";
 
 /** Typed, opaque reference to stored evidence. */
 export interface EvidenceReference {
