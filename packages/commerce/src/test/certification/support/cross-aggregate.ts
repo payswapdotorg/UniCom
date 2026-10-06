@@ -169,7 +169,7 @@ export function assertCrossAggregate(twin: CommerceTwin, kernel: CommerceKernel,
 
   // XR-9: refunds reference existing payments; chargeback forced refunds exist.
   for (const refund of facts.returnsAndRefunds.refunds()) {
-    if (!facts.payments.intent(refund.paymentId)) {
+    if (!refund.paymentId || !facts.payments.intent(refund.paymentId)) {
       violations.push(`XR-9 refund ${refund.refundId} references missing payment ${refund.paymentId}`);
     }
   }

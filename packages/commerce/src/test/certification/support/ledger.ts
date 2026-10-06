@@ -178,7 +178,7 @@ export function reconstructLedger(events: readonly AnyCommerceEvent[]): Conserva
     }
     if (event.subject.subjectType === "PAYMENT" && kind === "REFUND_RECORDED") {
       const refund = payload.refund as RefundRecord | undefined;
-      if (refund) {
+      if (refund && refund.paymentId) {
         const acc = paymentOf(refund.paymentId, refund.amount.currency, 0n);
         const amount = minor(refund.amount, `refund ${refund.refundId}`, `event ${event.eventId}`, violations);
         // P1: the dynamic bound at this commit point.

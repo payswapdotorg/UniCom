@@ -151,10 +151,12 @@ describe("W1-006 acceptance scenario 5 — idempotency across the full command s
           },
         ) as AnyRuntimeCommand;
         const executed: CommandExecution = await kernel.execute(register);
+        if (executed.status !== "EXECUTED") throw new Error("expected EXECUTED");
         expect(executed.status).toBe("EXECUTED");
         const journalBefore = kernel.events().length;
         const receiptsBefore = kernel.receipts().length;
         const replay: CommandExecution = await kernel.execute(register);
+        if (replay.status !== "DUPLICATE") throw new Error("expected DUPLICATE");
         expect(replay.status).toBe("DUPLICATE");
         expect(JSON.stringify(replay.originalReceipt)).toBe(JSON.stringify(executed.receipt));
         const conflict: CommandExecution = await kernel.execute(commandEnvelope(

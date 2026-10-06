@@ -150,6 +150,7 @@ describe("W1-006 acceptance scenario 3 — cross-aggregate reconciliation after 
       // reservation the domain would reject) — XR-4 must fire.
       const level = twin.facts().inventory.levels()[0];
       expect(level).toBeDefined();
+      if (!level) throw new Error("inventory level fixture missing");
       const subjectId = `${level.skuId}|${level.locationId}`;
       const forgedLevel = forgeEvent(events, { subjectType: "INVENTORY_LEVEL", subjectId }, "INVENTORY_ADJUSTED", {
         kind: "INVENTORY_ADJUSTED",
