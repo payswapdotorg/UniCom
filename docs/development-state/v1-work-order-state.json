@@ -16,40 +16,7 @@
     "sole_authority": "docs/development-state/v1-work-order-state.json",
     "rule": "This state file is the single progress authority for work-order lifecycle. docs/work-orders/*.md are specification documents; their Status field is synced to this file at every reconciliation so the two can never contradict (per FINAL-TL-HANDOFF-2026-10-06 section 3)."
   },
-  "active_work_orders": [
-    {
-      "id": "W2-006",
-      "status": "ACTIVE",
-      "owner": "worker-2",
-      "depends_on": [
-        "W2-005"
-      ],
-      "activated_at": "2026-10-06T06:57:00Z",
-      "activated_by": "TL",
-      "base_sha": "bf8847c",
-      "branch": "work/w2-006",
-      "session": "unicom-w2-006",
-      "title": "Organization/Model/Skill Promotion Gates + Adversarial Suite",
-      "history": [
-        {
-          "ts": "2026-10-06T06:57:00Z",
-          "event": "activated by TL (base bf8847c, branch work/w2-006, session unicom-w2-006)"
-        },
-        {
-          "ts": "2026-10-06T08:50:00Z",
-          "event": "first dispatch session forensically VOIDED: chat model was x-preview-l (preview/chat class, not agents-tab GLM-5.3), no sandbox ever attached, zero real tool-output signatures across 566K streamed chars, both \"push outputs\" fabricated. Chat deleted server-side. No work/w2-006 branch ever existed on the remote."
-        },
-        {
-          "ts": "2026-10-06T09:17:46Z",
-          "event": "agent-class re-dispatch landed (retry_lanes round 6): glm-5.3 + general_agent session /c/6820320a-df72-4f63-ad08-c76f65ce1972, sandbox ws-3c1348b9 ACTIVE, 7121-char order packet verified landed server-side. Implementation in progress; branch pending."
-        },
-        {
-          "ts": "2026-10-06T09:45:00Z",
-          "event": "state reconciliation per FINAL-TL-HANDOFF-2026-10-06 section 3 \u2014 Option A proven: activation real, live session attached; all work-order doc Status fields synced to this file (17 COMPLETE + W2-006 ACTIVE)"
-        }
-      ]
-    }
-  ],
+  "active_work_orders": [],
   "frontier": [],
   "completed_work_orders": [
     {
@@ -456,6 +423,48 @@
         "lint": "0 errors (77 warnings, pre-existing)",
         "architecture": "0 violations"
       }
+    },
+    {
+      "id": "W2-006",
+      "status": "MERGED",
+      "owner": "worker-2",
+      "depends_on": [
+        "W2-005"
+      ],
+      "activated_at": "2026-10-06T06:57:00Z",
+      "activated_by": "TL",
+      "base_sha": "bf8847c",
+      "branch": "work/w2-006",
+      "session": "unicom-w2-006",
+      "title": "Organization/Model/Skill Promotion Gates + Adversarial Suite",
+      "history": [
+        {
+          "ts": "2026-10-06T06:57:00Z",
+          "event": "activated by TL (base bf8847c, branch work/w2-006, session unicom-w2-006)"
+        },
+        {
+          "ts": "2026-10-06T08:50:00Z",
+          "event": "first dispatch session forensically VOIDED: chat model was x-preview-l (preview/chat class, not agents-tab GLM-5.3), no sandbox ever attached, zero real tool-output signatures across 566K streamed chars, both \"push outputs\" fabricated. Chat deleted server-side. No work/w2-006 branch ever existed on the remote."
+        },
+        {
+          "ts": "2026-10-06T09:17:46Z",
+          "event": "agent-class re-dispatch landed (retry_lanes round 6): glm-5.3 + general_agent session /c/6820320a-df72-4f63-ad08-c76f65ce1972, sandbox ws-3c1348b9 ACTIVE, 7121-char order packet verified landed server-side. Implementation in progress; branch pending."
+        },
+        {
+          "ts": "2026-10-06T09:45:00Z",
+          "event": "state reconciliation per FINAL-TL-HANDOFF-2026-10-06 section 3 \u2014 Option A proven: activation real, live session attached; all work-order doc Status fields synced to this file (17 COMPLETE + W2-006 ACTIVE)"
+        }
+      ],
+      "merged_at": "2026-10-06T10:27:00Z",
+      "merged_by": "TL",
+      "merge_sha": "37ecc75",
+      "branch_tip": "1c9312c",
+      "evidence": {
+        "contract_tests": "411/411 @unicom/agent \u2014 unified promotion gates (org/model/skill: simulation \u2192 adversarial \u2192 shadow \u2192 canary \u2192 observed-outcome \u2192 promotion/retirement, per-gate hash-chained evidence, missing-gate blocks journaled), Reality-Lab battery integration (identical digests across subject types, foreign-battery-digest rejection), 34-adversary release-gate suite across 10 categories (5 fraud archetypes BASE + EVASION variants, journal tampering, forged/replayed evidence, quarantine escape, scope escalation, broadcast forgery, graph poisoning, gate bypass, retirement circumvention), zero-silent-evasion discipline over the complete fraud battery, immune responses journaled + reversible, retirement authority-removing, machine-readable RC adversarial report (verdict PASS, deterministic digest, negative control FAILS injected adversaries, forged/malformed reports rejected). TL battery re-run all gates (never trusted the report); delivery via agent-class re-dispatch after the x-preview-l fiction session was forensically voided",
+        "typecheck": "0 errors (scoped tsc -b: commerce + agent + experience + zcode-server-cli)",
+        "lint": "0 errors (81 warnings pre-existing class)",
+        "architecture": "0 violations (baseline 0, new 0)"
+      }
     }
   ],
   "gates": {
@@ -492,5 +501,19 @@
     "docs/FEATURE-COMPLETENESS-MATRIX.md",
     "docs/FINAL-FEATURE-AUDIT-2026-10-05.md",
     "docs/SUPERMARKET-WITHOUT-RFID.md"
-  ]
+  ],
+  "release_candidate": {
+    "declared_at": "2026-10-06T10:35:00Z",
+    "declared_by": "TL (per FINAL-TL-HANDOFF-2026-10-06 \u00a76)",
+    "gate_inputs": {
+      "W1-006": "PASS \u2014 300/300 commerce certification + 7/7 machine-readable certification gate (merge 3e82ab0)",
+      "W2-006": "PASS \u2014 411/411 agent battery + 34/34 adversaries DETECTED/EVASION-BLOCKED, adversarial report verdict PASS (merge 37ecc75)",
+      "W3-006": "PASS \u2014 382/382 experience + RC evidence ALL PASS (browser E2E, observability, DR drill) (merge 81b2340)",
+      "feature_completeness": "PASS \u2014 132-row FEATURE_MATRIX, every row programmatically discoverable (nav/universal-intent/contextual/onboarding), matrix-in-sync with docs/FEATURE-COMPLETENESS-MATRIX.md",
+      "architecture_invariants": "PASS \u2014 architecture:check 0 violations (baseline 0, new 0)",
+      "final_cumulative_battery": "PASS \u2014 1093/1093 (commerce 300 + agent 411 + experience 382) on merged main; scoped tsc 0 errors \u00d74; lint 0 errors"
+    },
+    "production_deployment_authorized": false,
+    "note": "Release Candidate declared. Production deployment remains UNAUTHORIZED \u2014 the operator's explicit call (FINAL-TL-HANDOFF-2026-10-06 \u00a76)."
+  }
 }
