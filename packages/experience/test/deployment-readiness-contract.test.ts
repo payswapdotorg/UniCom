@@ -93,9 +93,16 @@ describe("deployment readiness registries", () => {
     const state = JSON.parse(readFileSync(statePath, "utf8")) as {
       production_deployment_authorized?: boolean;
       active_work_orders?: { id: string; branch?: string }[];
+      completed_work_orders?: { id: string; branch?: string }[];
     };
     expect(state.production_deployment_authorized).toBe(false);
-    const own = (state.active_work_orders ?? []).find((order) => order.id === "W3-006");
+    // Readiness invariant: the W3-006 delivery branch stays recorded whether
+    // the order is still active or already merged (completed) — the roadmap
+    // advances without weakening the readiness acknowledgement.
+    const own = [
+      ...(state.active_work_orders ?? []),
+      ...(state.completed_work_orders ?? []),
+    ].find((order) => order.id === "W3-006");
     expect(own?.branch).toBe("work/w3-006");
   });
 
