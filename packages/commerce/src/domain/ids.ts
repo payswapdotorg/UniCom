@@ -69,7 +69,15 @@ export type CommerceSubjectType =
   | "DISPUTE"
   | "CHARGEBACK"
   | "STORE_CASH_SESSION"
-  | "CASH_VARIANCE_RECORD";
+  | "CASH_VARIANCE_RECORD"
+  // --- W1-005 (additive): autonomous-store runtime subjects ---
+  | "AUTONOMOUS_STORE"
+  | "POLICY_APPLICATION"
+  | "STORE_ESCALATION"
+  | "STORE_CYCLE"
+  | "SKU_PRICE"
+  | "PRICE_ADJUSTMENT"
+  | "RESTOCK_ORDER";
 
 // --- Principals ---
 export type MerchantId = Brand<string, "MerchantId">;
@@ -120,6 +128,13 @@ export type ChargebackId = Brand<string, "ChargebackId">;
 export type StoreCashSessionId = Brand<string, "StoreCashSessionId">;
 export type CashVarianceRecordId = Brand<string, "CashVarianceRecordId">;
 export type TillId = Brand<string, "TillId">;
+// --- W1-005 (additive): autonomous-store runtime ids ---
+export type PolicyApplicationId = Brand<string, "PolicyApplicationId">;
+export type StoreEscalationId = Brand<string, "StoreEscalationId">;
+export type StoreCycleId = Brand<string, "StoreCycleId">;
+export type OverrideId = Brand<string, "OverrideId">;
+export type PriceAdjustmentId = Brand<string, "PriceAdjustmentId">;
+export type RestockOrderId = Brand<string, "RestockOrderId">;
 
 // --- Subscriptions / B2B / circular commerce ---
 export type SubscriptionPlanId = Brand<string, "SubscriptionPlanId">;

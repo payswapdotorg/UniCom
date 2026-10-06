@@ -8,7 +8,7 @@
  * No model preference can override a DENY (INVARIANT 24 analog for commerce:
  * policy limits are hard constraints on autonomous action).
  */
-import type { AutonomousStoreId, AutonomousStorePolicyId, SkuId } from "./ids.js";
+import type { AutonomousStoreId, AutonomousStorePolicyId, LocationId, SkuId, SupplierId } from "./ids.js";
 import { nextRevision } from "./events.js";
 import type { PrincipalRef } from "./principals.js";
 import { money, type Money } from "./money.js";
@@ -60,6 +60,34 @@ export interface AutonomousStorePolicy {
   /** Price changes with absolute delta at/above this amount REQUIRE_APPROVAL. */
   readonly priceChangeApprovalThreshold: Money;
   readonly stopConditions: readonly StopCondition[];
+  /** W1-005 (additive, optional): store-operating rules (float bounds, escalation bands). */
+  readonly storeOperations?: StoreOperatingRules;
+  /** W1-005 (additive, optional): restock trigger rules per (sku, location). */
+  readonly restockRules?: readonly RestockRule[];
+}
+
+/** W1-005 store-operating bands: till float bounds + variance escalation thresholds. */
+export interface StoreOperatingRules {
+  /** Allowed opening-count band for an autonomous till session. */
+  readonly tillFloatMin: Money;
+  readonly tillFloatMax: Money;
+  /** Cash-variance magnitude at/above which close/handover escalates (journaled). */
+  readonly cashVarianceEscalationThreshold: Money;
+  /** Count variance beyond this tolerance holds + escalates (also the reconcile tolerance). */
+  readonly countMismatchEscalationUnits: number;
+}
+
+/** W1-005 restock trigger rule bound to one (sku, location) inventory level. */
+export interface RestockRule {
+  readonly skuId: SkuId;
+  readonly locationId: LocationId;
+  readonly supplierId: SupplierId;
+  /** On-hand at/below this threshold triggers an autonomous restock. */
+  readonly thresholdUnits: number;
+  /** Deterministic reorder quantity per trigger. */
+  readonly reorderUnits: number;
+  /** Planned unit cost (the purchase-order value basis). */
+  readonly unitCost: Money;
 }
 
 export type PolicyProposal =
@@ -95,7 +123,10 @@ export type PolicyDenialReason =
   | "EXCEEDS_SPEND_LIMIT"
   | "CURRENCY_MISMATCH"
   | "APPROVAL_THRESHOLD"
-  | "NEGATIVE_PRICE";
+  | "NEGATIVE_PRICE"
+  // --- W1-005 (additive): store-authority denial reasons (override gate) ---
+  | "NOT_AUTHORIZED"
+  | "NO_REGISTERED_AUTHORITY";
 
 export interface PolicyDecision {
   readonly decision: "ALLOW" | "REQUIRE_APPROVAL" | "DENY";

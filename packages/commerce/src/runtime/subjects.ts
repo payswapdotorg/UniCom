@@ -131,3 +131,61 @@ export function mintStoreSessionId(n: number) {
 export function mintCashVarianceId(n: number) {
   return makeId<"CashVarianceRecordId">(`var-${n}`);
 }
+
+// --- W1-005 (additive): autonomous-store runtime subjects + minted ids ---
+
+export function autonomousStoreSubject(storeId: string): CommerceSubjectRef {
+  return { subjectType: "AUTONOMOUS_STORE", subjectId: storeId };
+}
+
+export function policyApplicationSubject(applicationId: string): CommerceSubjectRef {
+  return { subjectType: "POLICY_APPLICATION", subjectId: applicationId };
+}
+
+export function storeEscalationSubject(escalationId: string): CommerceSubjectRef {
+  return { subjectType: "STORE_ESCALATION", subjectId: escalationId };
+}
+
+export function storeCycleSubject(cycleId: string): CommerceSubjectRef {
+  return { subjectType: "STORE_CYCLE", subjectId: cycleId };
+}
+
+export function skuPriceSubject(storeId: string, skuId: string): CommerceSubjectRef {
+  return { subjectType: "SKU_PRICE", subjectId: `${storeId}|${skuId}` };
+}
+
+export function priceAdjustmentSubject(adjustmentId: string): CommerceSubjectRef {
+  return { subjectType: "PRICE_ADJUSTMENT", subjectId: adjustmentId };
+}
+
+export function restockOrderSubject(restockId: string): CommerceSubjectRef {
+  return { subjectType: "RESTOCK_ORDER", subjectId: restockId };
+}
+
+export function mintPolicyApplicationId(n: number) {
+  return makeId<"PolicyApplicationId">(`polapp-${n}`);
+}
+
+export function mintStoreEscalationId(n: number) {
+  return makeId<"StoreEscalationId">(`esc-${n}`);
+}
+
+export function mintStoreCycleId(n: number) {
+  return makeId<"StoreCycleId">(`cyc-${n}`);
+}
+
+export function mintOverrideId(n: number) {
+  return makeId<"OverrideId">(`ovr-${n}`);
+}
+
+export function mintPriceAdjustmentId(n: number) {
+  return makeId<"PriceAdjustmentId">(`padj-${n}`);
+}
+
+export function mintRestockOrderId(n: number) {
+  return makeId<"RestockOrderId">(`restock-${n}`);
+}
+
+export function mintPurchaseOrderId(n: number) {
+  return makeId<"PurchaseOrderId">(`po-${n}`);
+}
