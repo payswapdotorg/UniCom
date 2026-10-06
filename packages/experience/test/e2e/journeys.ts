@@ -309,8 +309,8 @@ export async function runConnectorStudioJourney(harness: ExperienceAppHarness): 
       "providers without an API route get an explicit pathway (browser/feed/edge)",
       browserCard?.browserSessionRequired === true &&
         view.noApiPathways.length > 0 &&
-        view.noApiPathways[0]?.options.includes("browser-session") &&
-        view.noApiPathways[0]?.options.includes("local-edge"),
+        view.noApiPathways[0]?.options.includes("browser-session") === true &&
+        view.noApiPathways[0]?.options.includes("local-edge") === true,
       `pathway options: ${view.noApiPathways[0]?.options.join(", ")}`,
     ),
     step(
@@ -461,7 +461,7 @@ export async function runLiveCommerceLateJoinerJourney(harness: ExperienceAppHar
   session.ingestEvent({
     eventId: "evt-price-update",
     occurredAt: "2026-10-10T07:08:00Z" as never,
-    kind: "price-change",
+    kind: "bid",
     untrustedRawText: "price update",
   });
   await session.pump();

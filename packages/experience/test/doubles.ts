@@ -28,6 +28,8 @@ import type {
 } from "../src/runtime/connector/adapter";
 import type { CredentialVault } from "../src/runtime/connector/vault";
 import type { PhysicalObservation, ReconciliationHandoff } from "../src/contract";
+import type { UtcIso8601String } from "../src/common/values";
+import { asUtcTimestamp } from "../src/runtime/ids";
 
 // ---------------------------------------------------------------------------
 // Deterministic clock
@@ -47,6 +49,12 @@ export function fixedClock(baseIso: string): () => string {
 /** Reset the fixed-clock counter between fixtures. */
 export function resetClock(): void {
   clockCounter = 0;
+}
+
+/** Fixed clock returning branded UTC timestamps (W3-006 runtimes). */
+export function fixedUtcClock(baseIso: string): () => UtcIso8601String {
+  const inner = fixedClock(baseIso);
+  return () => asUtcTimestamp(inner());
 }
 
 // ---------------------------------------------------------------------------

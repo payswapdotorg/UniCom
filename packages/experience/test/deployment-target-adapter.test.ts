@@ -22,9 +22,9 @@ import {
   createTargetDeploymentAdapter,
   type TargetDeploymentAdapter,
 } from "../src/runtime/deployment/target-adapter";
-import { fixedClock } from "./doubles";
+import { fixedUtcClock } from "./doubles";
 
-const CLOCK = fixedClock("2026-10-09T07:00:00Z");
+const CLOCK = fixedUtcClock("2026-10-09T07:00:00Z");
 
 const PLAN_ENV: Record<string, Record<string, string>> = {
   "kernel-store": {},

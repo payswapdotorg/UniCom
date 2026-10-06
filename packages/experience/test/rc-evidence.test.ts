@@ -49,10 +49,10 @@ import {
   seedDrWorkload,
 } from "./fixtures/commerce/dr-kernel-rig";
 import { canonicalJson } from "@unicom/commerce";
-import { TestDoubleConnectorAdapter, doubleDescriptor, fixedClock, resetClock } from "./doubles";
+import { TestDoubleConnectorAdapter, doubleDescriptor, fixedUtcClock, resetClock } from "./doubles";
 
 const DRILL_CLOCK_BASE = "2026-10-11T06:00:00Z";
-const drillClock = fixedClock(DRILL_CLOCK_BASE);
+const drillClock = fixedUtcClock(DRILL_CLOCK_BASE);
 const REPORTS_DIR = fileURLToPath(new URL("../reports/rc", import.meta.url));
 
 const emitted: RcEvidenceReport[] = [];
@@ -130,7 +130,7 @@ describe("RC evidence drill (scenario 7)", () => {
           sequenceLawHolds: lane.journalIsValid(),
           ...(lane.events()[lane.events().length - 1] === undefined
             ? {}
-            : { lastEventAt: lane.events()[lane.events().length - 1]?.occurredAt }),
+            : { lastEventAt: lane.events()[lane.events().length - 1]?.occurredAt as never }),
         },
         connectorHealth: healthSurface,
         liveSessions: [],

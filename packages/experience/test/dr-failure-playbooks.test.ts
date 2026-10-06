@@ -47,11 +47,11 @@ import {
   seedDrWorkload,
 } from "./fixtures/commerce/dr-kernel-rig";
 import { CommerceKernelLane } from "./fixtures/commerce/kernel-rig";
-import { TestDoubleConnectorAdapter, doubleDescriptor, fixedClock, resetClock } from "./doubles";
+import { TestDoubleConnectorAdapter, doubleDescriptor, fixedUtcClock, resetClock } from "./doubles";
 import { FencedWriterViolation } from "../src/deployment/runbook";
 
 const CLOCK_BASE = "2026-10-09T08:00:00Z";
-const CLOCK = fixedClock(CLOCK_BASE);
+const CLOCK = fixedUtcClock(CLOCK_BASE);
 const OPERATOR = drOperatorRef("operator:dr-drill");
 
 /**
@@ -88,8 +88,8 @@ describe("DR playbook: connector outage (detection → journaled decision → re
   beforeEach(() => resetClock());
 
   it("recovers a down connector through the real connector runtime", async () => {
-    const vault = createCredentialVault({ clock: fixedClock(CLOCK_BASE) });
-    const runtime = createConnectorRuntime({ vault, clock: fixedClock(CLOCK_BASE) });
+    const vault = createCredentialVault({ clock: fixedUtcClock(CLOCK_BASE) });
+    const runtime = createConnectorRuntime({ vault, clock: fixedUtcClock(CLOCK_BASE) });
     const adapter = new FlappingProviderAdapter(doubleDescriptor("dr-flap", "rest"));
     const connector = runtime.register(adapter);
     const connectorId = connector.connectorId;

@@ -2,7 +2,7 @@
   "reportId": "rc-e2e-journeys-v1",
   "kind": "e2e-journeys",
   "schemaVersion": 1,
-  "generatedAt": "2026-10-11T06:00:27.000Z",
+  "generatedAt": "2026-10-11T06:00:29.000Z",
   "clockMode": "deterministic-drill",
   "subject": "W3-006 primary user paths (headless, real UI contracts)",
   "rows": [

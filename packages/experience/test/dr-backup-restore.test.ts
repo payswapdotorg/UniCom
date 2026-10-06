@@ -24,9 +24,9 @@ import {
   projectionRebuildPortOf,
   seedDrWorkload,
 } from "./fixtures/commerce/dr-kernel-rig";
-import { fixedClock } from "./doubles";
+import { fixedUtcClock } from "./doubles";
 
-const DRILL_CLOCK = fixedClock("2026-10-08T09:00:00Z");
+const DRILL_CLOCK = fixedUtcClock("2026-10-08T09:00:00Z");
 
 describe("DR backup/restore round-trip (scenario 4)", () => {
   it("exports the real kernel state as a hash-chained backup artifact", async () => {

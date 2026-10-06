@@ -34,10 +34,10 @@ import type { OfflineQueueHealthView } from "../src/edge/offline-queue";
 import type { CommerceJournalStatusPort } from "../src/deployment/observability";
 import { asLocalEdgeDeviceId, asPrincipalRef } from "../src/runtime/ids";
 import { seedDrWorkload, kernelStateExportPortOf } from "./fixtures/commerce/dr-kernel-rig";
-import { TestDoubleConnectorAdapter, doubleDescriptor, fixedClock, resetClock } from "./doubles";
+import { TestDoubleConnectorAdapter, doubleDescriptor, fixedUtcClock, resetClock } from "./doubles";
 
 const CLOCK_BASE = "2026-10-09T09:00:00Z";
-const CLOCK = fixedClock(CLOCK_BASE);
+const CLOCK = fixedUtcClock(CLOCK_BASE);
 const OPERATOR = asPrincipalRef("operator:observability-test");
 
 function journalPortOf(lane: Awaited<ReturnType<typeof seedDrWorkload>>): CommerceJournalStatusPort {
@@ -46,7 +46,7 @@ function journalPortOf(lane: Awaited<ReturnType<typeof seedDrWorkload>>): Commer
   const last = events[events.length - 1];
   return {
     eventCount: events.length,
-    ...(last === undefined ? {} : { lastEventAt: last.occurredAt }),
+    ...(last === undefined ? {} : { lastEventAt: last.occurredAt as never }),
     journalFingerprint: exportPort.journalFingerprint,
     sequenceLawHolds: lane.journalIsValid(),
   };
@@ -80,8 +80,8 @@ const queueHealth = (depth: number): OfflineQueueHealthView => ({
 });
 
 async function connectorHealthSurfaceFixture(): Promise<ObservabilityProjectionInput["connectorHealth"]> {
-  const vault = createCredentialVault({ clock: fixedClock(CLOCK_BASE) });
-  const runtime = createConnectorRuntime({ vault, clock: fixedClock(CLOCK_BASE) });
+  const vault = createCredentialVault({ clock: fixedUtcClock(CLOCK_BASE) });
+  const runtime = createConnectorRuntime({ vault, clock: fixedUtcClock(CLOCK_BASE) });
   const connector = runtime.register(new TestDoubleConnectorAdapter(doubleDescriptor("obs-a", "rest")));
   await runtime.connect({
     connectorId: connector.connectorId,
@@ -96,7 +96,7 @@ async function connectorHealthSurfaceFixture(): Promise<ObservabilityProjectionI
     credentialScope: "orders.read",
   });
   await runtime.observe(connector.connectorId);
-  const telemetry = createConnectorTelemetry({ clock: fixedClock(CLOCK_BASE) });
+  const telemetry = createConnectorTelemetry({ clock: fixedUtcClock(CLOCK_BASE) });
   return buildConnectorHealthSurface({
     connectors: runtime.connectors().map((registered) => ({
       connectorId: registered.connectorId,
@@ -111,8 +111,8 @@ async function connectorHealthSurfaceFixture(): Promise<ObservabilityProjectionI
 
 async function liveSessionFixture(): Promise<ObservabilityProjectionInput["liveSessions"][number]> {
   const session = createLiveSessionRuntime({
-    streamRef: "stream:obs-1" as never,
-    clock: fixedClock(CLOCK_BASE),
+    streamId: "stream:obs-1" as never,
+    clock: fixedUtcClock(CLOCK_BASE),
   });
   session.announce({
     title: "Observed live session",
@@ -257,7 +257,7 @@ describe("observability contracts (scenario 3)", () => {
         ...(input.liveSessions[0] as NonNullable<ObservabilityProjectionInput["liveSessions"][number]>).delivery,
         consumers: [
           ...((input.liveSessions[0] as NonNullable<ObservabilityProjectionInput["liveSessions"][number]>).delivery.consumers),
-          { consumerRef: "slow-consumer", subscription: "live", deliveredCount: 0, pendingCount: 3, backpressureSignals: 2, silentlyDroppedEvents: 0 },
+          { consumerRef: "slow-consumer", subscription: "live" as const, deliveredCount: 0, pendingCount: 3, backpressureSignals: 2, silentlyDroppedEvents: 0 as const },
         ],
       },
     };

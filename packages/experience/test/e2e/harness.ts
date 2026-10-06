@@ -54,10 +54,10 @@ import {
 } from "../../src/runtime/ids";
 import { CommerceKernelLane } from "../fixtures/commerce/kernel-rig";
 import { seedDrWorkload } from "../fixtures/commerce/dr-kernel-rig";
-import { TestDoubleConnectorAdapter, doubleDescriptor, fixedClock } from "../doubles";
+import { TestDoubleConnectorAdapter, doubleDescriptor, fixedUtcClock } from "../doubles";
 
 export const E2E_CLOCK_BASE = "2026-10-10T07:00:00Z";
-const CLOCK = fixedClock(E2E_CLOCK_BASE);
+const CLOCK = fixedUtcClock(E2E_CLOCK_BASE);
 const OPERATOR = asPrincipalRef("operator:e2e");
 const BUYER = asPrincipalRef("buyer:e2e");
 
@@ -131,7 +131,7 @@ export async function createExperienceAppHarness(): Promise<ExperienceAppHarness
   // journeys assert exactly that).
 
   const liveSession = createLiveSessionRuntime({
-    streamRef: "stream:e2e-live-1" as never,
+    streamId: "stream:e2e-live-1" as never,
     clock: CLOCK,
   });
   const projector = createObservabilityProjector({ clock: CLOCK });
@@ -150,7 +150,12 @@ export async function createExperienceAppHarness(): Promise<ExperienceAppHarness
     surfaceReady: (data) => surfaceReady(data),
     surfaceManifest: (surfaceId) => surfaceStateManifest(surfaceId as never),
     facts: () => lane.facts(),
-    resolveIntent: (utterance) => resolveUniversalIntent({ utteranceText: utterance }),
+    resolveIntent: (utterance) =>
+      resolveUniversalIntent({
+        utteranceText: utterance,
+        submittedAt: asUtcTimestamp(CLOCK()),
+        submittedBy: BUYER,
+      }),
 
     commandCenter: () => {
       const facts = lane.facts();
