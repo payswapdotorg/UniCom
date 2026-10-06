@@ -9,7 +9,8 @@
  * - the DOCUMENTED provider execution-mode permission matrix;
  * - the canonical capability catalog data for the first adapters;
  * - the six provider adapters: Shopify, eBay, Amazon SP-API, Jumia Seller
- *   Center, Depop, Whatnot.
+ *   Center, Depop, Whatnot;
+ * - the POS/back-office import adapter (W3-004 physical-commerce edge).
  *
  * Vocabulary law: capability types are consumed from `@unicom/agent` —
  * this module declares catalog DATA, never a second vocabulary (INVARIANT 34).
@@ -27,3 +28,4 @@ export * from "./amazon-spapi";
 export * from "./jumia";
 export * from "./depop";
 export * from "./whatnot";
+export * from "./pos-import";

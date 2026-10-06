@@ -31,7 +31,11 @@ import { handleAdjustInventory, handleCommitReservation, handleReceiveStock, han
 import { handleAdvancePurchaseOrder, handleAdvanceTransfer, handleOpenPurchaseOrder, handleOpenTransfer, handleReceivePurchaseOrder } from "./handler-supply.js";
 import { handleAddCartLine, handleAdvanceCheckout, handleAdvanceOrder, handleCancelOrder, handleOpenCheckout, handlePlaceOrder, handleRemoveCartLine } from "./handler-commerce.js";
 import { handleAdvanceFulfillmentOrder, handleApplyDeliveryObservation, handleOpenFulfillment } from "./handler-fulfillment.js";
-import { handleCapturePayment, handleCreatePaymentIntent, handleRefundPayment, handleVoidPayment } from "./handler-payment.js";
+import { handleCapturePayment, handleCapturePaymentPartial, handleCreatePaymentIntent, handleRefundPayment, handleVoidPayment } from "./handler-payment.js";
+import { handleCompleteCheckout } from "./handler-checkout.js";
+import { handleCloseSettlementWindow, handleObserveSettlement } from "./handler-settlement.js";
+import { handleIssueGoodwillRefund, handleOpenDispute, handleRecordChargeback, handleResolveDispute, handleSubmitDisputeEvidence } from "./handler-recourse.js";
+import { handleCloseStoreCashSession, handleHandoverStoreCashSession, handleOpenStoreCashSession, handleRecordTillOperation } from "./handler-store-ops.js";
 import { handleAdvanceReturn, handleOpenReturn, handleRequestReturn } from "./handler-returns.js";
 import { handleAdvanceConsignment, handleAdvanceListing, handleAdvanceRental, handleAdvanceSubscription, handleOpenConsignment, handleOpenListing, handleOpenRental, handleOpenSubscription } from "./handler-circular.js";
 import { policySubject } from "./subjects.js";
@@ -61,8 +65,21 @@ const HANDLERS: Readonly<Record<string, RuntimeCommandHandler>> = Object.freeze(
   APPLY_DELIVERY_OBSERVATION: handleApplyDeliveryObservation,
   CREATE_PAYMENT_INTENT: handleCreatePaymentIntent,
   CAPTURE_PAYMENT: handleCapturePayment,
+  CAPTURE_PAYMENT_PARTIAL: handleCapturePaymentPartial,
   VOID_PAYMENT: handleVoidPayment,
   REFUND_PAYMENT: handleRefundPayment,
+  COMPLETE_CHECKOUT: handleCompleteCheckout,
+  OBSERVE_SETTLEMENT: handleObserveSettlement,
+  CLOSE_SETTLEMENT_WINDOW: handleCloseSettlementWindow,
+  OPEN_DISPUTE: handleOpenDispute,
+  SUBMIT_DISPUTE_EVIDENCE: handleSubmitDisputeEvidence,
+  RESOLVE_DISPUTE: handleResolveDispute,
+  RECORD_CHARGEBACK: handleRecordChargeback,
+  ISSUE_GOODWILL_REFUND: handleIssueGoodwillRefund,
+  OPEN_STORE_CASH_SESSION: handleOpenStoreCashSession,
+  RECORD_TILL_OPERATION: handleRecordTillOperation,
+  HANDOVER_STORE_CASH_SESSION: handleHandoverStoreCashSession,
+  CLOSE_STORE_CASH_SESSION: handleCloseStoreCashSession,
   REQUEST_RETURN: handleRequestReturn,
   OPEN_RETURN: handleOpenReturn,
   ADVANCE_RETURN: handleAdvanceReturn,

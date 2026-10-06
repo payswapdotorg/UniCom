@@ -56,12 +56,29 @@ export const CAPABILITY_LIVE_EXECUTE: CapabilityDefinition = {
   transportNeutral: true,
 };
 
+/**
+ * Import catalog and inventory snapshots from a POS/back office (W3-004).
+ * A read-heavy batch pull whose rows ingest exactly-once downstream as
+ * `file-import` observations — catalog/inventory imports never mutate
+ * commerce state directly; they are evidence for commerce-lane
+ * reconciliation.
+ */
+export const CAPABILITY_POS_IMPORT: CapabilityDefinition = {
+  capabilityDefinitionId: "physical.pos.import",
+  name: "Import POS catalog and inventory snapshots",
+  description:
+    "Pull catalog and inventory export batches from a POS/back office over the local API and ingest rows exactly-once as observations.",
+  supportedExecutionModes: [...ALL_MODES],
+  transportNeutral: true,
+};
+
 /** The catalog used by the first six adapters. */
 export const FIRST_ADAPTER_CAPABILITIES: readonly CapabilityDefinition[] = [
   CAPABILITY_CATALOG_OBSERVE,
   CAPABILITY_ORDERS_EXECUTE,
   CAPABILITY_LISTINGS_MANAGE,
   CAPABILITY_LIVE_EXECUTE,
+  CAPABILITY_POS_IMPORT,
 ];
 
 /**

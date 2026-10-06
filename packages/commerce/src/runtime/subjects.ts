@@ -63,6 +63,24 @@ export function reconciliationSubject(recordId: string): CommerceSubjectRef {
   return { subjectType: "RECONCILIATION_RECORD", subjectId: recordId };
 }
 
+// --- W1-004 (additive): recourse + store-operation subjects ---
+
+export function disputeSubject(disputeId: string): CommerceSubjectRef {
+  return { subjectType: "DISPUTE", subjectId: disputeId };
+}
+
+export function chargebackSubject(chargebackId: string): CommerceSubjectRef {
+  return { subjectType: "CHARGEBACK", subjectId: chargebackId };
+}
+
+export function storeSessionSubject(sessionId: string): CommerceSubjectRef {
+  return { subjectType: "STORE_CASH_SESSION", subjectId: sessionId };
+}
+
+export function cashVarianceSubject(varianceId: string): CommerceSubjectRef {
+  return { subjectType: "CASH_VARIANCE_RECORD", subjectId: varianceId };
+}
+
 /** Deterministic minted-id constructors (validated branded text). */
 export function mintOrderId(n: number) {
   return makeId<"OrderId">(`order-${n}`);
@@ -90,4 +108,26 @@ export function mintRefundId(n: number) {
 
 export function mintReconciliationRecordId(n: number) {
   return makeId<"ReconciliationRecordId">(`rec-${n}`);
+}
+
+// --- W1-004 minted ids ---
+
+export function mintCaptureId(n: number) {
+  return makeId<"CaptureId">(`cap-${n}`);
+}
+
+export function mintDisputeId(n: number) {
+  return makeId<"DisputeId">(`disp-${n}`);
+}
+
+export function mintChargebackId(n: number) {
+  return makeId<"ChargebackId">(`cb-${n}`);
+}
+
+export function mintStoreSessionId(n: number) {
+  return makeId<"StoreCashSessionId">(`till-${n}`);
+}
+
+export function mintCashVarianceId(n: number) {
+  return makeId<"CashVarianceRecordId">(`var-${n}`);
 }

@@ -34,7 +34,19 @@
  * - live-commerce connector: arrival-order execution + backpressure
  *   (`connector/live-commerce`, W3-003);
  * - feed/file connector: schema validation, per-row partial-failure
- *   dispositions, exactly-once ingest (`connector/feed-file`, W3-003).
+ *   dispositions, exactly-once ingest (`connector/feed-file`, W3-003);
+ * - POS/back-office import connector: mode-journey pulls + exactly-once
+ *   row ingestion + the idempotent fact ledger
+ *   (`connector/pos-import`, W3-004);
+ * - exact-integer math + the weighted-product workflow runtime with
+ *   explicit tolerance bands (`edge/exact-integer`, `edge/weighted-runtime`,
+ *   W3-004);
+ * - offline observation replay with capture-time stamps and the journaled
+ *   conflict/supersede rules (`edge/offline-replay`, W3-004);
+ * - the reconciliation journey planner: edge vs system vs POS variance
+ *   views with tri-state preservation (`edge/reconciliation-journey`, W3-004);
+ * - the live-commerce session runtime implementing the typed UX contract
+ *   (`surfaces/live-session`, W3-004).
  *
  * Vocabulary law: the capability vocabulary is consumed from
  * `@unicom/agent` public entrypoints (`.` and `./capability`) — this package
@@ -53,9 +65,15 @@ export * from "./connector/journey";
 export * from "./connector/browser-only";
 export * from "./connector/live-commerce";
 export * from "./connector/feed-file";
+export * from "./connector/pos-import";
 export * from "./browser/session-runtime";
 export * from "./sanitize/sanitizer";
 export * from "./edge/offline-queue-runtime";
 export * from "./edge/local-commerce-edge";
+export * from "./edge/offline-replay";
+export * from "./edge/reconciliation-journey";
+export * from "./edge/exact-integer";
+export * from "./edge/weighted-runtime";
+export * from "./surfaces/live-session";
 export * from "./transport/router";
 export * from "./providers/index";

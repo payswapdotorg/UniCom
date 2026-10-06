@@ -843,6 +843,9 @@ importers:
       '@types/node':
         specifier: ^25.5.0
         version: 25.6.0
+      '@unicom/commerce':
+        specifier: workspace:*
+        version: link:../commerce
       typescript:
         specifier: ^6.0.2
         version: 6.0.2

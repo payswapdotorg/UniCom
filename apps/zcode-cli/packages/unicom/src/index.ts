@@ -19,6 +19,7 @@ export {
   refusalFailure,
   stableJson,
   type UnicomRefusalPayload,
+  type UnicomToolHandlerFailure,
 } from "./errors.js";
 export {
   InMemoryCapabilityRuntime,
@@ -73,6 +74,14 @@ export {
   UnicomOpportunityLab,
   type UnicomOpportunityLabOptions,
 } from "./opportunity-lab.js";
+export {
+  UnicomImmuneSystem,
+  type UnicomImmuneSystemOptions,
+} from "./immune-system.js";
+export {
+  UnicomOpportunityGraph,
+  type UnicomOpportunityGraphOptions,
+} from "./opportunity-graph.js";
 export {
   createGatedToolRegistry,
   UnicomKernelGate,

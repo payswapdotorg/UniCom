@@ -35,6 +35,7 @@ export * from "./surfaces/operations";
 export * from "./surfaces/connector-studio";
 export * from "./surfaces/trust-security";
 export * from "./surfaces/explore";
+export * from "./surfaces/live-commerce-ux";
 
 export * from "./connector/transports";
 export * from "./connector/browser-session";

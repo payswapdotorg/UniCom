@@ -50,6 +50,7 @@ import type { CredentialVault } from "./vault";
 import type { BrowserSessionHandle } from "../../connector/browser-session";
 import type { UntrustedIngestPayload } from "../sanitize/sanitizer";
 import { providerObservation, type AdapterPayloadResolver } from "../providers/provider-adapter-core";
+import { FirstProviderId, permittedModesFor } from "../providers/matrix";
 
 /** Actions a browser-only provider interaction may perform in-session. */
 export type BrowserProviderAction =
@@ -173,8 +174,10 @@ export function createBrowserOnlyConnectorAdapter(
             },
             // Browser-only rails execute natively inside the session and
             // may participate in composed journeys; optimizer-mediated
-            // selection is not offered (no server-side API surface).
-            authorizedExecutionModes: ["PASS_THROUGH_NATIVE", "COMPOSED"],
+            // selection is not offered (no server-side API surface). The
+            // grants derive from the documented permission matrix row
+            // (`browser-only`, W3-004) — a documented block, never a gap.
+            authorizedExecutionModes: [...permittedModesFor(FirstProviderId.BROWSER_ONLY)],
           },
         };
       }

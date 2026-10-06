@@ -34,7 +34,9 @@ export function money(currency: string, minorUnits: string): Money {
     throw new Error(`invalid currency: ${currency}`);
   }
   if (!MINOR_UNITS.test(minorUnits)) {
-    throw new Error(`invalid minorUnits: ${minorUnits} (integer string required — no floating point money)`);
+    throw new Error(
+      `invalid minorUnits: ${minorUnits} (integer string required — no floating point money)`,
+    );
   }
   return { currency, minorUnits };
 }
@@ -42,8 +44,12 @@ export function money(currency: string, minorUnits: string): Money {
 export function isMoney(value: unknown): value is Money {
   if (typeof value !== "object" || value === null) return false;
   const candidate = value as { currency?: unknown; minorUnits?: unknown };
-  return typeof candidate.currency === "string" && ISO_4217.test(candidate.currency) &&
-    typeof candidate.minorUnits === "string" && MINOR_UNITS.test(candidate.minorUnits);
+  return (
+    typeof candidate.currency === "string" &&
+    ISO_4217.test(candidate.currency) &&
+    typeof candidate.minorUnits === "string" &&
+    MINOR_UNITS.test(candidate.minorUnits)
+  );
 }
 
 /** Compare two same-currency amounts: -1 | 0 | 1. Currency mismatch throws. */
@@ -82,7 +88,13 @@ export interface PrincipalRef {
 /** Impact classification for consequential decisions (used by routing and proof). */
 export type DecisionImpact = "LOW" | "MEDIUM" | "HIGH" | "IRREVERSIBLE";
 
-/** Kinds of evidence a proof or decision may cite. */
+/**
+ * Kinds of evidence a proof, decision, trust derivation or immune action may
+ * cite. W2-004 additions are ADDITIVE union members (existing consumers only
+ * narrow): fraud-archetype evidence flows (buyer claims, carrier
+ * observations, merchant attestations, commerce-fact snapshots from the
+ * opaque seam) and journaled trust evidence.
+ */
 export type EvidenceKind =
   | "observation"
   | "receipt"
@@ -91,7 +103,12 @@ export type EvidenceKind =
   | "corroboration"
   | "ledger-finality"
   | "decision-summary"
-  | "security-analysis";
+  | "security-analysis"
+  | "claim-statement"
+  | "carrier-observation"
+  | "merchant-attestation"
+  | "commerce-fact"
+  | "trust-evidence";
 
 /** Typed, opaque reference to stored evidence. */
 export interface EvidenceReference {

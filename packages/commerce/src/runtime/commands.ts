@@ -9,14 +9,20 @@
  * envelope shape: typed idempotency key, typed actor, deterministic result.
  */
 import type {
+  AutonomousStoreId,
   CheckoutSessionId,
   ConsignmentId,
+  DisputeId,
   LocationId,
+  MerchantId,
   OrderId,
+  PaymentId,
   PurchaseOrderId,
   RentalAgreementId,
   ResaleListingId,
+  StoreCashSessionId,
   SubscriptionId,
+  TillId,
 } from "../domain/ids.js";
 import type { CommerceCommandEnvelope, CommerceCommandPayload } from "../domain/commands.js";
 import type { PurchaseOrder, PurchaseOrderTrigger } from "../domain/purchasing.js";
@@ -39,6 +45,11 @@ import type {
   ResaleListing,
 } from "../domain/circular.js";
 import type { StockTransfer } from "../domain/transfers.js";
+import type { Money } from "../domain/money.js";
+import type { PaymentMethodRef } from "../domain/payments.js";
+import type { PrincipalRef } from "../domain/principals.js";
+import type { DisputeEvidence } from "../domain/recourse.js";
+import type { TillOperation } from "../domain/store-ops.js";
 
 /** Supply-side flows: multi-location transfers and supplier purchase orders. */
 export type SupplyCommandPayload =
@@ -99,6 +110,58 @@ export type CircularCommandPayload =
   | { readonly type: "OPEN_CONSIGNMENT"; readonly consignment: ConsignmentAgreement }
   | { readonly type: "ADVANCE_CONSIGNMENT"; readonly consignmentId: ConsignmentId; readonly trigger: ConsignmentTrigger };
 
+/** W1-004: end-to-end checkout completion (cart → order + payment authorization). */
+export type CheckoutCompletionCommandPayload = {
+  readonly type: "COMPLETE_CHECKOUT";
+  readonly checkoutSessionId: CheckoutSessionId;
+  readonly merchantId: MerchantId;
+  readonly method: PaymentMethodRef;
+};
+
+/** W1-004: settlement observation + recourse-window close + partial capture. */
+export type SettlementCommandPayload =
+  | { readonly type: "OBSERVE_SETTLEMENT"; readonly paymentId: PaymentId }
+  | { readonly type: "CAPTURE_PAYMENT_PARTIAL"; readonly paymentId: PaymentId; readonly amount: Money }
+  | { readonly type: "CLOSE_SETTLEMENT_WINDOW"; readonly paymentId: PaymentId };
+
+/** W1-004: dispute lifecycle + chargeback forcing + goodwill refunds. */
+export type RecourseCommandPayload =
+  | {
+      readonly type: "OPEN_DISPUTE";
+      readonly paymentId: PaymentId;
+      readonly amount: Money;
+      readonly reason?: string;
+      readonly providerNativeStatus?: string;
+    }
+  | { readonly type: "SUBMIT_DISPUTE_EVIDENCE"; readonly disputeId: DisputeId; readonly evidence: DisputeEvidence }
+  | { readonly type: "RESOLVE_DISPUTE"; readonly disputeId: DisputeId; readonly outcome: "ACCEPTED" | "REJECTED" }
+  | {
+      readonly type: "RECORD_CHARGEBACK";
+      readonly paymentId: PaymentId;
+      readonly amount: Money;
+      readonly providerNativeStatus?: string;
+    }
+  | { readonly type: "ISSUE_GOODWILL_REFUND"; readonly paymentId: PaymentId; readonly amount: Money; readonly reason: string };
+
+/** W1-004: autonomous-store cash-session operations (staff custody vocabulary). */
+export type StoreOpsCommandPayload =
+  | {
+      readonly type: "OPEN_STORE_CASH_SESSION";
+      readonly autonomousStoreId: AutonomousStoreId;
+      readonly tillId: TillId;
+      readonly openingCount: Money;
+      readonly staff: PrincipalRef;
+    }
+  | { readonly type: "RECORD_TILL_OPERATION"; readonly sessionId: StoreCashSessionId; readonly operation: TillOperation }
+  | {
+      readonly type: "HANDOVER_STORE_CASH_SESSION";
+      readonly sessionId: StoreCashSessionId;
+      readonly fromStaff: PrincipalRef;
+      readonly toStaff: PrincipalRef;
+      readonly countedCash: Money;
+    }
+  | { readonly type: "CLOSE_STORE_CASH_SESSION"; readonly sessionId: StoreCashSessionId; readonly closingCount: Money };
+
 /** The full runtime command payload union (frozen core + additive flows). */
 export type RuntimeCommandPayload =
   | CommerceCommandPayload
@@ -106,7 +169,11 @@ export type RuntimeCommandPayload =
   | ReconciliationCommandPayload
   | OrderFlowCommandPayload
   | ReturnFlowCommandPayload
-  | CircularCommandPayload;
+  | CircularCommandPayload
+  | CheckoutCompletionCommandPayload
+  | SettlementCommandPayload
+  | RecourseCommandPayload
+  | StoreOpsCommandPayload;
 
 /** Discriminated envelope over the runtime payload union. */
 export type AnyRuntimeCommand = CommerceCommandEnvelope<RuntimeCommandPayload>;

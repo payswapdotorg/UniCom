@@ -23,7 +23,15 @@
 // ---------------------------------------------------------------------------
 // Shared primitives
 // ---------------------------------------------------------------------------
-export type { Brand, DecisionImpact, EvidenceKind, EvidenceReference, Money, PrincipalKind, PrincipalRef } from "./common.js";
+export type {
+  Brand,
+  DecisionImpact,
+  EvidenceKind,
+  EvidenceReference,
+  Money,
+  PrincipalKind,
+  PrincipalRef,
+} from "./common.js";
 export { brandRef, compareMoney, isMoney, isTimestamp, money, timestamp } from "./common.js";
 
 // ---------------------------------------------------------------------------
@@ -213,7 +221,13 @@ export { validateTradeCycle } from "./coordination.js";
 // ---------------------------------------------------------------------------
 // Trust plane (scenario 9)
 // ---------------------------------------------------------------------------
-export type { AgentTrust, CapabilityTrust, TrustRecord, TrustRecordKind, UserTrust } from "./trust.js";
+export type {
+  AgentTrust,
+  CapabilityTrust,
+  TrustRecord,
+  TrustRecordKind,
+  UserTrust,
+} from "./trust.js";
 export { trustRecordKind } from "./trust.js";
 
 // ---------------------------------------------------------------------------
@@ -257,7 +271,11 @@ export type {
   RoutingComplexity,
   RoutingUncertainty,
 } from "./model-route.js";
-export { MODEL_ROUTE_CLASSES, ModelRouteClass as ModelRouteClassEnum, routeModelTask } from "./model-route.js";
+export {
+  MODEL_ROUTE_CLASSES,
+  ModelRouteClass as ModelRouteClassEnum,
+  routeModelTask,
+} from "./model-route.js";
 
 // ---------------------------------------------------------------------------
 // Lab experiments and promotion gates
@@ -272,7 +290,7 @@ export type {
 } from "./experiment.js";
 export { EXPERIMENT_KINDS, evaluatePromotionEligibility } from "./experiment.js";
 
-// ---------------------------------------------------------------------------
-// W2-003 — Organization / Opportunity Lab (own artifact: line budget)
-// ---------------------------------------------------------------------------
+// W2-003 — Organization / Opportunity Lab; W2-004 — Trust, Proof & Security
+// Immune System + Opportunity Graph (own artifacts: line budget).
 export * from "./contract.w2-003.js";
+export * from "./contract.w2-004.js";

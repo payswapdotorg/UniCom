@@ -157,9 +157,35 @@ export {
 export {
   type ReturnAuthorization, type ReturnLine, type ReturnResolution, type ReturnReason,
   type ReturnState, type ReturnTrigger, type ReturnTransitionError, type RefundRecord,
-  type RefundState, type RefundRecoursePolicy, type RecourseStatus, returnTransition,
-  advanceReturn, refundNeedsReview, refundTransition,
+  type RefundState, type RefundRecoursePolicy, type RecourseStatus, type RefundKind,
+  returnTransition, advanceReturn, refundNeedsReview, refundTransition,
 } from "./domain/returns.js";
+
+// --- W1-004: settlement tri-state, recourse, autonomous-store operations ---
+// Additive payment-plane extension: capture facts, settlement tri-state with
+// UNKNOWN preserved through every fold, the PartialCaptureBoundary and
+// SettlementObservationBoundary PORT extensions (providers adapt TO them).
+
+export {
+  type PaymentCaptureRecord, type CaptureKind, type SettlementRecord, type SettlementStatus,
+  type SettlementTrigger, type SettlementTransitionError, type SettlementObservation,
+  settlementTransition, capturedTotalOf, refundedTotalOf, validateRefundAgainstCaptures,
+  type PartialCaptureBoundary, type SettlementObservationBoundary,
+  isPartialCaptureBoundary, isSettlementObservingBoundary,
+} from "./domain/settlement.js";
+
+export {
+  type DisputeRecord, type DisputeState, type DisputeTrigger, type DisputeTransitionError,
+  type DisputeEvidence, type ChargebackRecord, type ChargebackState,
+  disputeTransition, advanceDispute, chargebackForcedAmount,
+} from "./domain/recourse.js";
+
+export {
+  type StoreCashSession, type StoreSessionState, type StoreSessionTrigger,
+  type StoreSessionTransitionError, type TillOperation, type TillOperationKind,
+  type CashVarianceRecord, type CashVarianceKind, type CashCountOccasion,
+  storeSessionTransition, tillOperationDelta, applyTillOperation, cashVarianceOf,
+} from "./domain/store-ops.js";
 
 export {
   type Subscription, type SubscriptionPlan, type SubscriptionState, type SubscriptionTrigger,
@@ -212,7 +238,8 @@ export {
   reconstructKernel, reconstructAuthoritativeState,
   type AnyRuntimeCommand, type RuntimeCommandPayload, type SupplyCommandPayload,
   type ReconciliationCommandPayload, type OrderFlowCommandPayload, type ReturnFlowCommandPayload,
-  type CircularCommandPayload,
+  type CircularCommandPayload, type CheckoutCompletionCommandPayload, type SettlementCommandPayload,
+  type RecourseCommandPayload, type StoreOpsCommandPayload,
   type CommerceKernelOptions, type ResolvedKernelOptions, DETERMINISTIC_EPOCH, resolveKernelOptions,
   type KernelStateSnapshot, type EmittedEventSpec, type CommandContext, gateAutonomousCommand,
 } from "./runtime/index.js";
@@ -240,10 +267,12 @@ export {
   type ReceivingReadModelState, outstandingUnitsFor, receivingReadModel,
   type ReturnsReadModelState, returnsReadModel,
   type ReconciliationReadModelState, reconciliationReadModel,
+  type RecourseReadModelState, recourseReadModel, moneyInPaymentIds,
+  type StoreOpsReadModelState, storeOpsReadModel, variancesForSession,
   type SkuFact, type CatalogReadModelState, catalogReadModel,
   type TwinState, type TwinStateSnapshot, snapshotOfTwin,
   type TwinCheckpoint, CommerceTwin, canonicalOfTwin, twinProjection,
   COMMERCE_FACTS_INTERFACE_ID, COMMERCE_FACTS_INTERFACE_VERSION,
-  type CommerceFactsV1, commerceFacts,
+  type CommerceFactsV1, type RecourseFactsV1, type StoreOpsFactsV1, commerceFacts,
   type TwinDivergence, compareTwinToAuthoritative, assertTwinMatchesAuthoritative, assertCanonicalEquivalence,
 } from "./projection/index.js";
