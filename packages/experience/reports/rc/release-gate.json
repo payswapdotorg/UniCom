@@ -25,7 +25,7 @@
       "checkId": "gate:evidence:e2e-journeys",
       "description": "e2e-journeys evidence report present and passing",
       "passed": true,
-      "evidenceNote": "rc-e2e-journeys-v1 (40/40)"
+      "evidenceNote": "rc-e2e-journeys-v1 (63/63)"
     },
     {
       "checkId": "gate:evidence:observability",
@@ -49,7 +49,7 @@
       "checkId": "gate:cumulative-suite",
       "description": "the cumulative experience suite stays green (all existing suites + W3-006)",
       "passed": true,
-      "evidenceNote": "54/54 green — drill-verified contract rows; the surrounding vitest battery (this drill runs inside it) additionally verifies all pre-existing suites stay green"
+      "evidenceNote": "77/77 green — drill-verified contract rows; the surrounding vitest battery (this drill runs inside it) additionally verifies all pre-existing suites stay green"
     },
     {
       "checkId": "gate:production-push-authorization",

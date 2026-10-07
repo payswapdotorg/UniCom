@@ -117,6 +117,30 @@ export const CONTEXTUAL_OPPORTUNITY_TYPES: readonly ContextualOpportunityType[] 
     relatedFeatures: ["browser-only-systems", "browser-sessions-isolated-authority"],
     actionSurfaceId: "connector-studio",
   },
+  {
+    id: "api-explorer-hint",
+    triggerTemplate: "You can drive your store programmatically — explore the public API and generate a typed SDK.",
+    relatedFeatures: ["api-sdk-rest-graphql"],
+    actionSurfaceId: "api-explorer",
+  },
+  {
+    id: "protocol-adapter-hint",
+    triggerTemplate: "Connect an agent protocol (MCP, UCP, ACP or A2A) and exchange typed frames with peers.",
+    relatedFeatures: ["ucp-acp-mcp-a2a-adapters"],
+    actionSurfaceId: "protocol-adapter-studio",
+  },
+  {
+    id: "ingestion-monitor-hint",
+    triggerTemplate: "A webhook, file or email arrived — review what it ingested as a journaled command or observation.",
+    relatedFeatures: ["webhooks", "csv-xml-edi-sftp-email"],
+    actionSurfaceId: "ingestion-monitor",
+  },
+  {
+    id: "physical-capture-hint",
+    triggerTemplate: "Count a shelf with your phone — observations reconcile before becoming canonical state.",
+    relatedFeatures: ["physical-phone-tablet-camera", "physical-qr", "physical-nfc", "physical-shelf-photos-computer-vision", "physical-cycle-counts"],
+    actionSurfaceId: "physical-capture",
+  },
 ];
 
 /** Onboarding / empty-state education pathway (zero-data onboarding). */

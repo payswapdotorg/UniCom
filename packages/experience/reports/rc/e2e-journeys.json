@@ -2,7 +2,7 @@
   "reportId": "rc-e2e-journeys-v1",
   "kind": "e2e-journeys",
   "schemaVersion": 1,
-  "generatedAt": "2026-10-11T06:00:27.000Z",
+  "generatedAt": "2026-10-11T06:00:35.000Z",
   "clockMode": "deterministic-drill",
   "subject": "W3-006 primary user paths (headless, real UI contracts)",
   "rows": [
@@ -245,11 +245,149 @@
       "description": "Live commerce (incl. late-joiner replay + backpressure) — the ended session rejects new events explicitly (never silently)",
       "passed": true,
       "evidenceNote": "ingestion after end → rejected-session-ended"
+    },
+    {
+      "checkId": "e2e-api-explorer:surface-ready-and-manifest-present",
+      "description": "API Explorer (public API/SDK surface) — the API explorer surface reaches READY and has a four-state manifest (zero orphans)",
+      "passed": true,
+      "evidenceNote": "phase=ready; manifest present for surface api-explorer"
+    },
+    {
+      "checkId": "e2e-api-explorer:endpoints-typed-and-versioned",
+      "description": "API Explorer (public API/SDK surface) — every endpoint row is typed (verb, path, role) and versioned at v1",
+      "passed": true,
+      "evidenceNote": "10 endpoints at version v1"
+    },
+    {
+      "checkId": "e2e-api-explorer:projection-endpoints-journal-derived",
+      "description": "API Explorer (public API/SDK surface) — every projection endpoint is marked journal-derived with a truth class",
+      "passed": true,
+      "evidenceNote": "8 projection endpoints journal-derived"
+    },
+    {
+      "checkId": "e2e-api-explorer:command-endpoints-explicit",
+      "description": "API Explorer (public API/SDK surface) — every command endpoint requires explicit kernel command path (no freeform mutation)",
+      "passed": true,
+      "evidenceNote": "2 command endpoints"
+    },
+    {
+      "checkId": "e2e-api-explorer:graphql-read-path-projection-equivalent",
+      "description": "API Explorer (public API/SDK surface) — the GraphQL read path is in projection-equivalence with REST (no second truth)",
+      "passed": true,
+      "evidenceNote": "8 GraphQL query fields projection-equivalent to REST"
+    },
+    {
+      "checkId": "e2e-api-explorer:sdk-contract-equivalence",
+      "description": "API Explorer (public API/SDK surface) — the typed SDK method registry is in 1:1 correspondence with the endpoint registry (no hand-written drift)",
+      "passed": true,
+      "evidenceNote": "endpoints === SDK methods"
+    },
+    {
+      "checkId": "e2e-api-explorer:universal-intent-resolves",
+      "description": "API Explorer (public API/SDK surface) — the universal intent surface resolves the API explorer through a typed command",
+      "passed": true,
+      "evidenceNote": "alias \"show me the api\" → api-explorer"
+    },
+    {
+      "checkId": "e2e-protocol-adapter-studio:surface-ready-and-manifest-present",
+      "description": "Protocol Adapter Studio — the protocol adapter studio surface reaches READY and has a four-state manifest",
+      "passed": true,
+      "evidenceNote": "phase=ready; manifest present for surface protocol-adapter-studio"
+    },
+    {
+      "checkId": "e2e-protocol-adapter-studio:all-four-families-registered",
+      "description": "Protocol Adapter Studio — the four agent-protocol families (UCP, ACP, MCP, A2A) are all registered as connector capabilities",
+      "passed": true,
+      "evidenceNote": "4 adapter families registered"
+    },
+    {
+      "checkId": "e2e-protocol-adapter-studio:every-adapter-has-canonical-capability-id",
+      "description": "Protocol Adapter Studio — every adapter row carries a canonical capability definition id from @unicom/agent",
+      "passed": true,
+      "evidenceNote": "capability ids: agent-protocol.mcp.invoke, agent-protocol.ucp.invoke, agent-protocol.acp.invoke, agent-protocol.a2a.invoke"
+    },
+    {
+      "checkId": "e2e-protocol-adapter-studio:unconnected-adapters-report-never-probed",
+      "description": "Protocol Adapter Studio — an adapter without a peer connection reports lastHealth=never-probed (UNKNOWN preserved, never fabricated)",
+      "passed": true,
+      "evidenceNote": "all four adapters never-probed (zero fabrication)"
+    },
+    {
+      "checkId": "e2e-protocol-adapter-studio:universal-intent-resolves",
+      "description": "Protocol Adapter Studio — the universal intent surface resolves the protocol adapter studio through a typed command",
+      "passed": true,
+      "evidenceNote": "alias \"connect an agent protocol\" → protocol-adapter-studio"
+    },
+    {
+      "checkId": "e2e-ingestion-monitor:surface-ready-and-manifest-present",
+      "description": "Ingestion Monitor — the ingestion monitor surface reaches READY and has a four-state manifest",
+      "passed": true,
+      "evidenceNote": "phase=ready; manifest present for surface ingestion-monitor"
+    },
+    {
+      "checkId": "e2e-ingestion-monitor:all-five-source-families-wired",
+      "description": "Ingestion Monitor — the five ingestion source families (webhook, CSV, XML-EDI, SFTP, email) are all wired",
+      "passed": true,
+      "evidenceNote": "families: webhook, csv, xml-edi, sftp, email"
+    },
+    {
+      "checkId": "e2e-ingestion-monitor:events-journaled-as-evidence",
+      "description": "Ingestion Monitor — every ingestion event is journaled as an evidence record (status, timestamps, command or observation ref)",
+      "passed": true,
+      "evidenceNote": "1 journaled events"
+    },
+    {
+      "checkId": "e2e-ingestion-monitor:ingested-event-produces-command-or-observation",
+      "description": "Ingestion Monitor — an ingested event produces a typed kernel command or observation (not freeform content)",
+      "passed": true,
+      "evidenceNote": "ingested event carries a typed command or observation ref"
+    },
+    {
+      "checkId": "e2e-ingestion-monitor:universal-intent-resolves",
+      "description": "Ingestion Monitor — the universal intent surface resolves the ingestion monitor through a typed command",
+      "passed": true,
+      "evidenceNote": "alias \"show ingestion events\" → ingestion-monitor"
+    },
+    {
+      "checkId": "e2e-physical-capture:surface-ready-and-manifest-present",
+      "description": "Physical Capture (camera/QR/NFC/shelf-photo/cycle-count) — the physical capture surface reaches READY and has a four-state manifest with offline observation queue",
+      "passed": true,
+      "evidenceNote": "phase=ready; manifest for physical-capture declares surfacesObservationQueue=true"
+    },
+    {
+      "checkId": "e2e-physical-capture:all-five-journeys-registered",
+      "description": "Physical Capture (camera/QR/NFC/shelf-photo/cycle-count) — the five physical journeys (camera, QR, NFC, shelf-photo, cycle-count) are all registered",
+      "passed": true,
+      "evidenceNote": "6 journey catalog entries (5 kinds × device variants)"
+    },
+    {
+      "checkId": "e2e-physical-capture:observations-never-promoted",
+      "description": "Physical Capture (camera/QR/NFC/shelf-photo/cycle-count) — physical observations reconcile before becoming canonical state (INVARIANT 29 — never silently promoted)",
+      "passed": true,
+      "evidenceNote": "observationsNeverPromoted=true (INVARIANT 29)"
+    },
+    {
+      "checkId": "e2e-physical-capture:every-journey-offline-capable",
+      "description": "Physical Capture (camera/QR/NFC/shelf-photo/cycle-count) — every physical journey is offline-capable (queue + sync after reconnect)",
+      "passed": true,
+      "evidenceNote": "all journeys offline-capable"
+    },
+    {
+      "checkId": "e2e-physical-capture:capture-counts-from-real-runtime",
+      "description": "Physical Capture (camera/QR/NFC/shelf-photo/cycle-count) — the surface shows real capture counts from the physical journey runtime (history)",
+      "passed": true,
+      "evidenceNote": "counts: camera-capture=1, qr-scan=0, nfc-tap=0, shelf-photo=0, cycle-count=1"
+    },
+    {
+      "checkId": "e2e-physical-capture:universal-intent-resolves",
+      "description": "Physical Capture (camera/QR/NFC/shelf-photo/cycle-count) — the universal intent surface resolves the physical capture surface through a typed command",
+      "passed": true,
+      "evidenceNote": "alias \"scan a shelf\" → physical-capture"
     }
   ],
   "summary": {
-    "total": 40,
-    "passed": 40,
+    "total": 63,
+    "passed": 63,
     "failed": 0
   },
   "verdict": "pass"

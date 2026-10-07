@@ -144,4 +144,6 @@ export const EDGE_SYNC_SURFACE_IDS: readonly NavigationSurfaceId[] = [
   "operate-pos",
   "operate-inventory",
   "operator-console",
+  "physical-capture",
+  "ingestion-monitor",
 ];
