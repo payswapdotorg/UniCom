@@ -11,6 +11,13 @@
  * - immune-response certifications for every DETECTED fraud adversary
  *   (journaled quarantine + scoped defensive broadcast + proven reversal).
  *
+ * W2-007 (additive): a SEPARATE buyer-constraint suite
+ * (`runBuyerConstraintSuite`) exercises the new buyer-agent vocabulary
+ * surfaces — financing bounds, buy-now-vs-wait, price-timing, negotiation —
+ * as structural BLOCKs at the typed boundary (checkHardConstraints). The
+ * W2-006 catalog stays frozen at 34/10; the new suite is its own
+ * machine-readable report (zero silent evasions, same discipline).
+ *
  * `evaluateReleaseGate` is the deterministic release-gate consumer: the
  * release candidate passes ONLY when every adversary is DETECTED or
  * EVASION_BLOCKED, every encounter is journaled and verifiable, zero silent
@@ -36,10 +43,20 @@ import { FRAUD_ADVERSARIES } from "./adversarial-cases-fraud.js";
 import { INTEGRITY_ADVERSARIES } from "./adversarial-cases-integrity.js";
 import { IMMUNE_PLANE_ADVERSARIES } from "./adversarial-cases-immune.js";
 import { STRUCTURAL_ADVERSARIES } from "./adversarial-cases-structure.js";
+// W2-007: BUYER_CONSTRAINT_ADVERSARIES is exposed separately through
+// contract.w2-006.ts (the buyer-constraint suite runner). The W2-006 catalog
+// stays frozen at 34/10 — see buyer-constraint-suite.ts for the separate
+// machine-readable report over the new buyer-agent vocabulary surfaces.
 
 export { buildAdversarialContext } from "./adversarial-harness.js";
 
-/** The frozen release-gate adversary catalog (34 adversaries, 10 categories). */
+/** The frozen release-gate adversary catalog (34 adversaries, 10 categories).
+ * W2-007 note: buyer-constraint adversaries (BUYER_CONSTRAINT_ADVERSARIES)
+ * are a SEPARATE additive suite — `runBuyerConstraintSuite()` produces the
+ * machine-readable adversarial report for the new buyer-agent vocabulary
+ * surfaces (financing bounds, buy-now-vs-wait, price-timing, negotiation).
+ * The W2-006 catalog stays frozen at 34/10 to preserve cumulative-green
+ * guarantees for the existing adversarial-suite tests. */
 export const RELEASE_GATE_ADVERSARIES: readonly AdversaryCase[] = [
   ...FRAUD_ADVERSARIES,
   ...INTEGRITY_ADVERSARIES,

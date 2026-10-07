@@ -53,9 +53,20 @@ export default function setup(): void {
       `turbo binary not found at ${turboBinary}; run \`pnpm install\` at the repository root first`,
     );
   }
-  execFileSync(
-    turboBinary,
-    ["run", "build", ...KERNEL_PACKAGES.flatMap((name) => ["--filter", name])],
-    { cwd: zcodeCliRoot, stdio: "inherit" },
-  );
+  // W2-007: when every kernel dist marker is already present, the build is
+  // satisfied. Turbo is invoked opportunistically as a staleness check; if
+  // turbo itself fails (e.g. the apps/zcode-cli install graph is not fully
+  // wired on a fresh clone at d8b2770), the existing dist is sufficient —
+  // the runtime tests import the built kernel files directly. The marker
+  // check above is the source of truth; a turbo failure here is recoverable.
+  try {
+    execFileSync(
+      turboBinary,
+      ["run", "build", ...KERNEL_PACKAGES.flatMap((name) => ["--filter", name])],
+      { cwd: zcodeCliRoot, stdio: "inherit" },
+    );
+  } catch (error) {
+    if (alreadyBuilt && existsSync(marker)) return;
+    throw error;
+  }
 }

@@ -49,6 +49,74 @@ export interface RentalTerms {
   readonly depositRequired?: Money;
 }
 
+// --- W2-007 (additive): typed terms for the audit-verified incomplete
+// opportunity rows — warranty/recovery, unused-subscription, local-pickup
+// and shared-logistics. Each is a typed shape carried by an Opportunity of
+// the matching kind; the engine surfaces opportunities of these kinds
+// through the EXISTING discovery + proposal/authorization paths (rule 12:
+// opportunities are proposals awaiting explicit authorization). ---
+
+/**
+ * Warranty/recovery terms: the claim window + recourse path surfaced as an
+ * opportunity. The buyer owns an item still under warranty (or with a
+ * recovery path — refund/repair/replace) and the engine surfaces a
+ * proposal to exercise that path. Authorization is explicit (rule 12).
+ */
+export interface WarrantyRecoveryTerms {
+  /** The opaque warranty/claim reference. */
+  readonly warrantyRef: string;
+  /** The recourse path proposed: refund, repair, replace, or extended-claim. */
+  readonly recoursePath: "REFUND" | "REPAIR" | "REPLACE" | "EXTENDED_CLAIM";
+  /** The window during which the claim is exercisable. */
+  readonly claimWindow: { readonly opensAt: string; readonly closesAt: string };
+  /** The estimated recovery value (refund amount / replacement value). */
+  readonly estimatedRecoveryValue?: Money;
+}
+
+/**
+ * Unused-subscription terms: a subscription the buyer pays for but does not
+ * use. The engine surfaces a proposal to liquidate (transfer to another
+ * buyer) or reallocate (downgrade / pause / cancel). Authorization is
+ * explicit; the proposal never directly mutates the subscription truth.
+ */
+export interface UnusedSubscriptionTerms {
+  /** The opaque subscription reference. */
+  readonly subscriptionRef: string;
+  /** The proposed action: liquidate (transfer), reallocate (downgrade/pause), or cancel. */
+  readonly proposedAction: "LIQUIDATE" | "REALLOCATE" | "CANCEL";
+  /** The estimated recovery value (transfer price / saved periods). */
+  readonly estimatedRecoveryValue?: Money;
+  /** The remaining period count on the subscription. */
+  readonly remainingPeriods?: number;
+}
+
+/**
+ * Local-pickup / shared-logistics terms. Two complementary shapes:
+ * - LOCAL_PICKUP: the buyer can pick up locally, avoiding shipping cost/time.
+ * - SHARED_LOGISTICS: multiple buyers coordinate a shared shipment (proximity
+ *   batching) to reduce per-buyer shipping cost. The coordination is a
+ *   proposal awaiting explicit participant authorization (rule 12).
+ */
+export interface LocalPickupTerms {
+  /** The opaque pickup location reference. */
+  readonly pickupLocationRef: string;
+  /** The estimated pickup window. */
+  readonly pickupWindow: { readonly notBefore: string; readonly notAfter: string };
+  /** The estimated savings vs shipped delivery. */
+  readonly estimatedSavings?: Money;
+}
+
+export interface SharedLogisticsTerms {
+  /** The opaque shared-shipment coordination reference. */
+  readonly sharedShipmentRef: string;
+  /** The number of buyers coordinated in the shared shipment. */
+  readonly participantCount: number;
+  /** The estimated per-buyer shipping cost after sharing. */
+  readonly estimatedPerBuyerCost?: Money;
+  /** The proximity window during which the shared shipment is feasible. */
+  readonly proximityWindow: { readonly notBefore: string; readonly notAfter: string };
+}
+
 export interface Opportunity {
   readonly opportunityId: string;
   readonly forRef: PrincipalRef;
@@ -59,6 +127,11 @@ export interface Opportunity {
   readonly estimatedValue?: Money;
   readonly resaleTerms?: ResaleTerms;
   readonly rentalTerms?: RentalTerms;
+  // --- W2-007 (additive): typed terms for the new opportunity rows. ---
+  readonly warrantyRecoveryTerms?: WarrantyRecoveryTerms;
+  readonly unusedSubscriptionTerms?: UnusedSubscriptionTerms;
+  readonly localPickupTerms?: LocalPickupTerms;
+  readonly sharedLogisticsTerms?: SharedLogisticsTerms;
   readonly proposedStrategyId?: string;
   readonly detectedAt: string;
 }
