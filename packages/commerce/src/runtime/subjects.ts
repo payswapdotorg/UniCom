@@ -189,3 +189,61 @@ export function mintRestockOrderId(n: number) {
 export function mintPurchaseOrderId(n: number) {
   return makeId<"PurchaseOrderId">(`po-${n}`);
 }
+
+// --- W1-007 (additive): merchant-parity completeness subjects + minted ids ---
+
+export function campaignSubject(campaignId: string): CommerceSubjectRef {
+  return { subjectType: "CAMPAIGN", subjectId: campaignId };
+}
+
+export function campaignEffectSubject(effectId: string): CommerceSubjectRef {
+  return { subjectType: "CAMPAIGN_EFFECT", subjectId: effectId };
+}
+
+export function customerRecordSubject(recordId: string): CommerceSubjectRef {
+  return { subjectType: "CUSTOMER_RECORD", subjectId: recordId };
+}
+
+export function loyaltyAccountSubject(accountId: string): CommerceSubjectRef {
+  return { subjectType: "LOYALTY_ACCOUNT", subjectId: accountId };
+}
+
+export function loyaltyLedgerEntrySubject(entryId: string): CommerceSubjectRef {
+  return { subjectType: "LOYALTY_LEDGER_ENTRY", subjectId: entryId };
+}
+
+export function demandSignalSubject(signalId: string): CommerceSubjectRef {
+  return { subjectType: "DEMAND_SIGNAL", subjectId: signalId };
+}
+
+export function reorderProposalSubject(proposalId: string): CommerceSubjectRef {
+  return { subjectType: "REORDER_PROPOSAL", subjectId: proposalId };
+}
+
+export function mintCampaignId(n: number) {
+  return makeId<"CampaignId">(`camp-${n}`);
+}
+
+export function mintCampaignEffectId(n: number) {
+  return makeId<"CampaignEffectId">(`ce-${n}`);
+}
+
+export function mintCustomerRecordId(n: number) {
+  return makeId<"CustomerRecordId">(`cr-${n}`);
+}
+
+export function mintLoyaltyAccountId(n: number) {
+  return makeId<"LoyaltyAccountId">(`loy-${n}`);
+}
+
+export function mintLoyaltyLedgerEntryId(n: number) {
+  return makeId<"LoyaltyLedgerEntryId">(`lle-${n}`);
+}
+
+export function mintDemandSignalId(n: number) {
+  return makeId<"DemandSignalId">(`ds-${n}`);
+}
+
+export function mintReorderProposalId(n: number) {
+  return makeId<"ReorderProposalId">(`rp-${n}`);
+}

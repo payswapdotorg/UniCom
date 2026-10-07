@@ -42,6 +42,9 @@ import { handleAdvanceStoreEscalation, handleHandoverStoreAuthority, handleRecor
 import { handleAutonomousCloseTill, handleAutonomousOpenTill, handleAutonomousReconcileCount, handleAutonomousRestock } from "./handler-autonomous-ops.js";
 import { handleAdvanceStoreCycle, handleBeginStoreCycle } from "./handler-store-cycle.js";
 import { handleAdjustSkuPrice, handleSetSkuPrice } from "./handler-price-book.js";
+import { handleAdvanceCampaign, handleApplyCampaignEffect, handleOpenCampaign, handleResolveCampaignStacking } from "./handler-marketing.js";
+import { handleAccrueLoyalty, handleAdjustLoyalty, handleExpireLoyalty, handleOpenCustomerRecord, handleOpenLoyaltyAccount, handleRedeemLoyalty } from "./handler-crm.js";
+import { handleAdvanceReorderProposal, handleProposeReorder, handleRecordDemandSignal } from "./handler-forecasting.js";
 import { policySubject } from "./subjects.js";
 import { authorityTargetStore, gateAuthorityCommand } from "./policy-gate.js";
 
@@ -109,6 +112,20 @@ const HANDLERS: Readonly<Record<string, RuntimeCommandHandler>> = Object.freeze(
   ADVANCE_RENTAL: handleAdvanceRental,
   OPEN_CONSIGNMENT: handleOpenConsignment,
   ADVANCE_CONSIGNMENT: handleAdvanceConsignment,
+  // --- W1-007 (additive): merchant-parity commands ---
+  OPEN_CAMPAIGN: handleOpenCampaign,
+  ADVANCE_CAMPAIGN: handleAdvanceCampaign,
+  APPLY_CAMPAIGN_EFFECT: handleApplyCampaignEffect,
+  RESOLVE_CAMPAIGN_STACKING: handleResolveCampaignStacking,
+  OPEN_CUSTOMER_RECORD: handleOpenCustomerRecord,
+  OPEN_LOYALTY_ACCOUNT: handleOpenLoyaltyAccount,
+  ACCRUE_LOYALTY: handleAccrueLoyalty,
+  REDEEM_LOYALTY: handleRedeemLoyalty,
+  EXPIRE_LOYALTY: handleExpireLoyalty,
+  ADJUST_LOYALTY: handleAdjustLoyalty,
+  RECORD_DEMAND_SIGNAL: handleRecordDemandSignal,
+  PROPOSE_REORDER: handleProposeReorder,
+  ADVANCE_REORDER_PROPOSAL: handleAdvanceReorderProposal,
 });
 
 export class CommerceKernel {

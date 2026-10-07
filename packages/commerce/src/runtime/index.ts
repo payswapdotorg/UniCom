@@ -23,6 +23,9 @@ export type {
   RecourseCommandPayload,
   StoreOpsCommandPayload,
   AutonomousStoreCommandPayload,
+  MarketingCommandPayload,
+  CrmCommandPayload,
+  ForecastingCommandPayload,
 } from "./commands.js";
 export type { CommerceKernelOptions, ResolvedKernelOptions } from "./options.js";
 export { DETERMINISTIC_EPOCH, resolveKernelOptions } from "./options.js";

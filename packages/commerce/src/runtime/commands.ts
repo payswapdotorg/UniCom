@@ -58,6 +58,25 @@ import type {
   StoreEscalationTrigger,
 } from "../domain/autonomous-store.js";
 import type { StoreCycleId, StoreEscalationId } from "../domain/ids.js";
+import type {
+  CampaignStackingPolicy,
+  Campaign,
+} from "../domain/marketing.js";
+import type {
+  CustomerRecord,
+  LoyaltyAccount,
+  LoyaltyEntryReason,
+  LoyaltyPoints,
+  LoyaltyTierPolicy,
+} from "../domain/crm.js";
+import type { DemandSignal } from "../domain/forecasting.js";
+import type {
+  CampaignId,
+  CampaignEffectId,
+  DemandSignalId,
+  LoyaltyAccountId,
+  ReorderProposalId,
+} from "../domain/ids.js";
 
 /** Supply-side flows: multi-location transfers and supplier purchase orders. */
 export type SupplyCommandPayload =
@@ -249,7 +268,88 @@ export type RuntimeCommandPayload =
   | SettlementCommandPayload
   | RecourseCommandPayload
   | StoreOpsCommandPayload
-  | AutonomousStoreCommandPayload;
+  | AutonomousStoreCommandPayload
+  | MarketingCommandPayload
+  | CrmCommandPayload
+  | ForecastingCommandPayload;
+
+/**
+ * W1-007 marketing campaign commands. Campaigns are journaled lifecycle
+ * objects wrapping the certified PromotionRule; every state transition and
+ * every effect application is an idempotent kernel command with evidence.
+ * Stacking/exclusivity is an explicit policy contract (never silent).
+ */
+export type MarketingCommandPayload =
+  | { readonly type: "OPEN_CAMPAIGN"; readonly campaign: Campaign }
+  | { readonly type: "ADVANCE_CAMPAIGN"; readonly campaignId: CampaignId; readonly trigger: import("../domain/marketing.js").CampaignTrigger }
+  | {
+      readonly type: "APPLY_CAMPAIGN_EFFECT";
+      readonly campaignId: CampaignId;
+      readonly skuId: SkuId;
+      readonly lineAmount: Money;
+    }
+  | {
+      readonly type: "RESOLVE_CAMPAIGN_STACKING";
+      readonly effectIds: readonly CampaignEffectId[];
+      readonly policy: CampaignStackingPolicy;
+    };
+
+/**
+ * W1-007 CRM + loyalty commands. Customer records and loyalty ledger entries
+ * are journaled like money (W1-006 conservation law extended to points).
+ * Every accrual/redemption/expiry is a CREDIT/DEBIT pair — zero-sum verified.
+ */
+export type CrmCommandPayload =
+  | { readonly type: "OPEN_CUSTOMER_RECORD"; readonly record: CustomerRecord }
+  | {
+      readonly type: "OPEN_LOYALTY_ACCOUNT";
+      readonly account: LoyaltyAccount;
+      readonly tierPolicy: LoyaltyTierPolicy;
+    }
+  | {
+      readonly type: "ACCRUE_LOYALTY";
+      readonly loyaltyAccountId: LoyaltyAccountId;
+      readonly points: LoyaltyPoints;
+      readonly reason: LoyaltyEntryReason;
+      readonly orderId?: import("../domain/ids.js").OrderId;
+      readonly campaignId?: CampaignId;
+    }
+  | {
+      readonly type: "REDEEM_LOYALTY";
+      readonly loyaltyAccountId: LoyaltyAccountId;
+      readonly points: LoyaltyPoints;
+    }
+  | { readonly type: "EXPIRE_LOYALTY"; readonly loyaltyAccountId: LoyaltyAccountId }
+  | {
+      readonly type: "ADJUST_LOYALTY";
+      readonly loyaltyAccountId: LoyaltyAccountId;
+      readonly points: LoyaltyPoints;
+      readonly reason: LoyaltyEntryReason;
+    };
+
+/**
+ * W1-007 forecasting commands. Demand signals are journaled OBSERVATIONS;
+ * reorder proposals are journaled ADVISORY facts (opportunities) — NEVER
+ * automatic inventory mutation. The autonomous store's AUTONOMOUS_RESTOCK is
+ * the only path that mutates inventory from a forecast, separately authority-gated.
+ */
+export type ForecastingCommandPayload =
+  | { readonly type: "RECORD_DEMAND_SIGNAL"; readonly signal: DemandSignal }
+  | {
+      readonly type: "PROPOSE_REORDER";
+      readonly sourceDemandSignalId: DemandSignalId;
+      readonly skuId: SkuId;
+      readonly locationId: import("../domain/ids.js").LocationId;
+      readonly forecast: import("../domain/forecasting.js").ForecastResolution;
+      readonly currentOnHand: number;
+      readonly leadTimeDays: number;
+      readonly safetyStockUnits: number;
+    }
+  | {
+      readonly type: "ADVANCE_REORDER_PROPOSAL";
+      readonly reorderProposalId: ReorderProposalId;
+      readonly trigger: "ACCEPT" | "REJECT" | "SUPERSEDE";
+    };
 
 /** Discriminated envelope over the runtime payload union. */
 export type AnyRuntimeCommand = CommerceCommandEnvelope<RuntimeCommandPayload>;
