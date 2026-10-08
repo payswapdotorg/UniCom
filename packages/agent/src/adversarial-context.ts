@@ -55,7 +55,12 @@ export type AdversaryCategory =
   | "BROADCAST_FORGERY"
   | "OPPORTUNITY_GRAPH_POISONING"
   | "PROMOTION_GATE_BYPASS"
-  | "RETIREMENT_CIRCUMVENTION";
+  | "RETIREMENT_CIRCUMVENTION"
+  // --- W2-007 (additive): buyer-agent vocabulary surfaces — financing
+  // bounds, buy-now-vs-wait, price-timing, negotiation. Each is a
+  // structural adversary caught by the typed boundary (checkHardConstraints),
+  // never an immune-certified fraud detection. ---
+  | "BUYER_CONSTRAINT_VIOLATION";
 
 /**
  * One adversarial outcome: the attack either got DETECTED or was BLOCKED. A

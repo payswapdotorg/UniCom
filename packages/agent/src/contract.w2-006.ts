@@ -101,3 +101,5 @@ export {
   RELEASE_GATE_ADVERSARIES,
   runReleaseAdversarialSuite,
 } from "./adversarial-suite.js";
+// W2-007 buyer-constraint adversaries + the buyer-constraint suite runner
+// are exposed through contract.w2-007.ts (the W2-007 contract artifact).

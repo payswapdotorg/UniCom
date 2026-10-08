@@ -5,10 +5,31 @@
  * security, delivery/speed, proof, recourse) are checked BEFORE soft
  * optimization. Desired goods/services are opaque references — commerce
  * entities are Worker 1's truth.
+ *
+ * W2-007 (additive): financing, buy-now-vs-wait, price-timing and
+ * negotiation hard-constraint types + check logic live in intent-w2-007.ts
+ * (kept separate to respect the per-file line budget). They are re-exported
+ * from this module so consumers see one contract surface.
  */
 
 import type { Money, PrincipalRef } from "./common.js";
 import type { ProofLevel } from "./proof.js";
+// W2-007 additive: the new constraint types + the deterministic check function.
+import type {
+  CandidateFinancingOffer,
+  FinancingConstraint,
+  FinancingMode,
+  NegotiationBounds,
+  PriceTimingConstraint,
+} from "./intent-w2-007.js";
+import { checkW2_007Constraints } from "./intent-w2-007.js";
+export type {
+  CandidateFinancingOffer,
+  FinancingConstraint,
+  FinancingMode,
+  NegotiationBounds,
+  PriceTimingConstraint,
+} from "./intent-w2-007.js";
 
 export type PrivacyRequirement =
   | "NO_THIRD_PARTY_SHARING"
@@ -54,6 +75,15 @@ export interface BuyerHardConstraints {
   readonly recourseRequired?: boolean;
   readonly groupBuyWillingness?: "REQUIRED" | "ACCEPTED" | "REFUSED";
   readonly tradeWillingness?: "REQUIRED" | "ACCEPTED" | "REFUSED";
+  // --- W2-007 (additive): financing, buy-now-vs-wait, price-timing,
+  // negotiation hard constraints. Absent fields stay UNKNOWN — never coerced
+  // to FAILED (rule 8); out-of-bound attempts are rejected deterministically
+  // before they reach commerce truth (rule 1; FROZEN-ARCHITECTURE §12).
+  // Types + check logic live in intent-w2-007.ts. ---
+  readonly financing?: FinancingConstraint;
+  readonly buyNowVsWait?: "BUY_NOW_REQUIRED" | "WAIT_PREFERRED" | "EITHER";
+  readonly priceTiming?: PriceTimingConstraint;
+  readonly negotiation?: NegotiationBounds;
 }
 
 /** Typed soft preferences — optimization hints, never gates. */
@@ -91,6 +121,14 @@ export interface IntentCandidate {
   readonly financingAvailable?: readonly ("PREPAY" | "FINANCE" | "PAY_ON_DELIVERY")[];
   readonly proofLevel?: ProofLevel;
   readonly recourseAvailable?: boolean;
+  // --- W2-007 (additive): financing/price-timing/negotiation candidate
+  // details. Absent fields stay absent — the engine never fabricates a
+  // financing offer, a target price hit, or a negotiation position. ---
+  readonly financingOffer?: CandidateFinancingOffer;
+  readonly meetsTargetPrice?: boolean;
+  readonly withinTargetDeadline?: boolean;
+  readonly negotiationOpeningOffer?: Money;
+  readonly negotiationRoundsElapsed?: number;
 }
 
 export type HardConstraintViolation =
@@ -104,7 +142,17 @@ export type HardConstraintViolation =
   | "PROOF_LEVEL_BELOW_REQUIRED"
   | "RECOURSE_UNAVAILABLE"
   | "DELIVERY_LATENCY_EXCEEDED"
-  | "MISSING_REQUIRED_DATA";
+  | "MISSING_REQUIRED_DATA"
+  // --- W2-007 (additive): financing/price-timing/negotiation violations. ---
+  | "FINANCING_OUT_OF_BOUND"
+  | "FINANCING_MODE_NOT_ACCEPTED"
+  | "FINANCING_PROOF_BELOW_REQUIRED"
+  | "BUY_NOW_REQUIRED_VIOLATED"
+  | "WAIT_REQUIRED_VIOLATED"
+  | "TARGET_DEADLINE_MISSED"
+  | "NEGOTIATION_OUT_OF_BOUND"
+  | "NEGOTIATION_ROUNDS_EXHAUSTED"
+  | "NEGOTIATION_PROOF_BELOW_REQUIRED";
 
 export type HardConstraintCheck =
   | { readonly satisfied: true }
@@ -203,6 +251,31 @@ export function checkHardConstraints(intent: BuyerCommerceIntent, candidate: Int
   if (hard.recourseRequired === true && candidate.recourseAvailable !== true) {
     violations.push("RECOURSE_UNAVAILABLE");
   }
+
+  // W2-007: financing / buy-now-vs-wait / price-timing / negotiation checks
+  // are delegated to intent-w2-007.ts (kept separate to respect the per-file
+  // line budget). The function is a pure (constraints, candidate) → violations
+  // projection; UNKNOWN (absent constraint) never reaches it. The returned
+  // violations are appended to the existing list — the W2-007 violations are
+  // additive to the Stage-0 violations.
+  violations.push(...checkW2_007Constraints(
+    {
+      financing: hard.financing,
+      buyNowVsWait: hard.buyNowVsWait,
+      priceTiming: hard.priceTiming,
+      negotiation: hard.negotiation,
+    },
+    {
+      financingOffer: candidate.financingOffer,
+      meetsTargetPrice: candidate.meetsTargetPrice,
+      withinTargetDeadline: candidate.withinTargetDeadline,
+      negotiationOpeningOffer: candidate.negotiationOpeningOffer,
+      negotiationRoundsElapsed: candidate.negotiationRoundsElapsed,
+      proofLevel: candidate.proofLevel,
+      estimatedDeliveryAt: candidate.estimatedDeliveryAt,
+      recourseAvailable: candidate.recourseAvailable,
+    },
+  ));
 
   return violations.length === 0 ? { satisfied: true } : { satisfied: false, violations: [...new Set(violations)] };
 }

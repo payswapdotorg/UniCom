@@ -135,7 +135,7 @@ export type { DelegationValidation, DelegationViolation } from "./agent.js";
 // ---------------------------------------------------------------------------
 // Strategy and Organization (law 2)
 // ---------------------------------------------------------------------------
-export type { Strategy, StrategyApproach, StrategyStep } from "./strategy.js";
+export type { Strategy, StrategyApproach, StrategyConstraints, StrategyStep } from "./strategy.js";
 export type {
   Organization,
   OrganizationAssignment,
@@ -147,7 +147,7 @@ export type {
 export { validateOrganization } from "./organization.js";
 
 // ---------------------------------------------------------------------------
-// Buyer commerce intent (scenario 1)
+// Buyer commerce intent (scenario 1) + Opportunity engine (scenario 5)
 // ---------------------------------------------------------------------------
 export type {
   BuyerCommerceIntent,
@@ -157,16 +157,13 @@ export type {
   HardConstraintCheck,
   HardConstraintViolation,
   IntentCandidate,
+  PrivacyRequirement,
   QualityFloor,
   ScoredCandidate,
   SellerCredibilityFloor,
+  SecurityRequirement,
 } from "./intent.js";
-export type { PrivacyRequirement, SecurityRequirement } from "./intent.js";
 export { checkHardConstraints, evaluateIntentCandidates } from "./intent.js";
-
-// ---------------------------------------------------------------------------
-// Opportunity engine (scenario 5)
-// ---------------------------------------------------------------------------
 export type {
   Opportunity,
   OpportunityChainViolation,
@@ -179,6 +176,7 @@ export type {
   ResaleTerms,
 } from "./opportunity.js";
 export { validateOpportunityChain } from "./opportunity.js";
+// W2-007 financing/negotiation/warranty/subscription/local-pickup/shared-logistics types are in contract.w2-007.ts.
 
 // ---------------------------------------------------------------------------
 // Group-buy coordination (scenarios 2, 3)
@@ -291,7 +289,9 @@ export type {
 export { EXPERIMENT_KINDS, evaluatePromotionEligibility } from "./experiment.js";
 
 // W2-003..W2-006 — Lab/Trust/Reality/adversarial artifacts (line budget).
+// W2-007 — buyer-agent vocabulary + opportunity-engine extensions.
 export * from "./contract.w2-003.js";
 export * from "./contract.w2-004.js";
 export * from "./contract.w2-005.js";
 export * from "./contract.w2-006.js";
+export * from "./contract.w2-007.js";

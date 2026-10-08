@@ -85,7 +85,16 @@ export type CommerceSubjectType =
   | "LOYALTY_ACCOUNT"
   | "LOYALTY_LEDGER_ENTRY"
   | "DEMAND_SIGNAL"
-  | "REORDER_PROPOSAL";
+  | "REORDER_PROPOSAL"
+  // --- W2-007 (additive): opportunity-row commerce subjects. The commerce
+  // plane references warranty claims, subscription actions, and
+  // shared-logistics coordination as opaque subjects — the typed contracts
+  // live in @unicom/agent (Worker 2). These subjects allow commerce events
+  // to point at the opportunity that produced them (RECOURSE / LIQUIDATION
+  // link roles). No new commerce semantics beyond the vocabulary extension. ---
+  | "WARRANTY_CLAIM"
+  | "SUBSCRIPTION_ACTION"
+  | "SHARED_LOGISTICS_BATCH";
 
 // --- Principals ---
 export type MerchantId = Brand<string, "MerchantId">;
