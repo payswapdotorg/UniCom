@@ -53,8 +53,17 @@
       "base_sha": "2f7499abb0fae2fdf71d19efca46a807b2a602b3",
       "session": "unicom-w2-007",
       "delivery_branch": "work/w2-007",
-      "status": "ACTIVE",
-      "spec": "docs/work-orders/W2-007.md"
+      "status": "MERGED",
+      "spec": "docs/work-orders/W2-007.md",
+      "merged_at": "2026-10-08T01:32:00Z",
+      "merge_commit": "ba91f04578d198c8da4bc106e03e50dd825afcae",
+      "battery": {
+        "typecheck": "0 errors (scoped closure; ids.ts additive-union merge with W1-007)",
+        "lint": "0 errors",
+        "architecture": "0 violations",
+        "cumulative_vitest": "1169/1169 (agent 448 + commerce 332 + experience 389; +37 agent tests)",
+        "adversarial_report": "PASS 8/8 evasion blocked, 0 silent evasions (packages/agent/w2-007-adversarial-report.json)"
+      }
     },
     {
       "id": "W3-007",
