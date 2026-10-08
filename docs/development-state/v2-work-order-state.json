@@ -3,7 +3,7 @@
  "repository": "payswapdotorg/UniCom",
  "architecture_version": "1.1-frozen-2026-10-05",
  "foundation_commit": "29628c9acdb81b703bbd4080c207a0e7ce5e276e",
- "program": "V2 — Product Completeness (per docs/V2-PRODUCT-COMPLETENESS-CHARTER.md)",
+ "program": "V2 \u2014 Product Completeness (per docs/V2-PRODUCT-COMPLETENESS-CHARTER.md)",
  "implementation_authorized": true,
  "production_deployment_authorized": true,
  "production_authorization_scope": "v1 lineage @ 2f7499a (verified live). V2 lineage requires the v2 release gate + operator re-authorization.",
@@ -16,8 +16,8 @@
  "operator_charter": {
   "date": "2026-10-07",
   "document": "docs/V2-PRODUCT-COMPLETENESS-CHARTER.md",
-  "directive_verbatim": "continuous resident watch from here on: monitor → harvest → review → approve/require-changes → dispatch next, until the roadmap is complete. No early returns. Use the Unicom github repo as guide for roadmap",
-  "roadmap_guide": "docs/FEATURE-COMPLETENESS-MATRIX.md + the FINAL-FEATURE-AUDIT product-completeness rule (contract → implementation → discoverable UX → real journey → evidence → acceptance)"
+  "directive_verbatim": "continuous resident watch from here on: monitor \u2192 harvest \u2192 review \u2192 approve/require-changes \u2192 dispatch next, until the roadmap is complete. No early returns. Use the Unicom github repo as guide for roadmap",
+  "roadmap_guide": "docs/FEATURE-COMPLETENESS-MATRIX.md + the FINAL-FEATURE-AUDIT product-completeness rule (contract \u2192 implementation \u2192 discoverable UX \u2192 real journey \u2192 evidence \u2192 acceptance)"
  },
  "progress_authority": {
   "sole_authority": "docs/development-state/v2-work-order-state.json",
@@ -126,8 +126,20 @@
    "base_sha": "311796e",
    "session": "unicom-w2-008",
    "delivery_branch": "work/w2-008",
-   "status": "ACTIVE",
-   "spec": "docs/work-orders/W2-008.md"
+   "status": "MERGED",
+   "spec": "docs/work-orders/W2-008.md",
+   "merged_at": "2026-10-08T16:58:00Z",
+   "merge_commit": "f2c08a4f6a756d1a1420dc491240a4898baafea4",
+   "battery": {
+    "typecheck": "0 errors (scoped: agent+commerce+experience; deps dist-built)",
+    "lint": "0 errors (5 pre-existing-scope warnings)",
+    "architecture": "0 violations (policy exception documented for the two accreting central contracts; baseline restored clean)",
+    "cumulative_vitest": "1332/1332 (agent 497 + commerce 349 + experience 486; W2-008 added 49 agent tests)",
+    "matrix_audit": "94/94 rows PASS across 6 sections (digest 71854b976093; the W2-008 trio integrated)",
+    "adversarial_report": "PASS 16/16 EVASION_BLOCKED, 0 missed, 0 silent (packages/agent/w2-008-adversarial-report.json; digest matches the pod-harvested original)",
+    "tl_fix_forward": "dupe-else-if dispatch fix (W2-008 signal delegation was unreachable); max-file-lines splits x5 files; 54 surface-id + 27 stale-symbol pointer corrections in the audit registries; six-section harness integration + W1-008 acceptance tests updated; baseline self-waiver reverted",
+    "delivery_path": "bundle harvest (the worker refused the PAT on security grounds; 41.7MB git bundle pulled from the pod via the browser-encoded files API, verified, pushed by the TL)"
+   }
   },
   {
    "id": "W3-008",
@@ -159,9 +171,9 @@
  ],
  "frontier": [
   {
-   "id": "W*-008",
-   "status": "DERIVED-ON-WAVE-1",
-   "note": "Full-matrix discoverability audit + closure (zero orphan capabilities) + v2 release-gate re-run. Exact scope fixed only when Wave-1 merge evidence exists (charter §3)."
+   "id": "FINAL-GATE",
+   "status": "DERIVED-ON-WAVE-2",
+   "note": "The charter Wave-2 closing step: re-run the v2 release gate on the COMPLETE v2 lineage (W3-008 gate ran at Wave-2 2/3; the final run must include W2-008's adversarial battery + the six-section 94/94 audit) and regenerate the RC evidence. Then the operator re-authorization request (productionPushAuthorized stays false until the operator decides)."
   }
  ],
  "completed_work_orders": [],
@@ -183,14 +195,20 @@
   "local_commerce_edge": "REQUIRED",
   "promotion_gates_w2_006": "REQUIRED-WHERE-PROMOTION-TOUCHED"
  },
- "tl_loop": "W3-008 MERGED (squash 3dc11eaf) 2026-10-08T09:47:19Z; W2-008 lane still executing; W1-008 merged 31530ea. Wave-2: 2/3 complete.",
+ "tl_loop": "W2-008 MERGED (squash f2c08a4f) 2026-10-08T16:58:00Z \u2014 WAVE-2 COMPLETE 3/3 (W1-008 31530ea, W3-008 3dc11eaf, W2-008 f2c08a4f). Cumulative 1332/1332; matrix audit 94/94. Remaining per charter: the v2 release-gate re-run on the complete lineage + operator re-authorization.",
  "wave": {
   "wave": 2,
   "name": "Full-matrix audit + v2 release gate",
   "activated": "2026-10-08T01:35:00Z",
+  "completed": "2026-10-08T16:58:00Z",
   "baseline": {
    "main": "311796e",
    "tests": "1226/1226"
+  },
+  "final": {
+   "main": "f2c08a4f",
+   "tests": "1332/1332",
+   "matrix_audit": "94/94"
   }
  }
 }
