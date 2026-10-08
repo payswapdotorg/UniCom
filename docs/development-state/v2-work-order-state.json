@@ -128,16 +128,16 @@
    "delivery_branch": "work/w2-008",
    "status": "MERGED",
    "spec": "docs/work-orders/W2-008.md",
-   "merged_at": "2026-10-08T16:58:00Z",
-   "merge_commit": "f2c08a4f6a756d1a1420dc491240a4898baafea4",
+   "merged_at": "2026-10-08T17:20:00Z",
+   "merge_commit": "c3bdb9a18cd0",
    "battery": {
     "typecheck": "0 errors (scoped: agent+commerce+experience; deps dist-built)",
     "lint": "0 errors (5 pre-existing-scope warnings)",
     "architecture": "0 violations (policy exception documented for the two accreting central contracts; baseline restored clean)",
-    "cumulative_vitest": "1332/1332 (agent 497 + commerce 349 + experience 486; W2-008 added 49 agent tests)",
+    "cumulative_vitest": "1334/1334 (agent 497 + commerce 349 + experience 488; W2-008 added 49 agent tests, the final gate added 2 experience tests)",
     "matrix_audit": "94/94 rows PASS across 6 sections (digest 71854b976093; the W2-008 trio integrated)",
     "adversarial_report": "PASS 16/16 EVASION_BLOCKED, 0 missed, 0 silent (packages/agent/w2-008-adversarial-report.json; digest matches the pod-harvested original)",
-    "tl_fix_forward": "dupe-else-if dispatch fix (W2-008 signal delegation was unreachable); max-file-lines splits x5 files; 54 surface-id + 27 stale-symbol pointer corrections in the audit registries; six-section harness integration + W1-008 acceptance tests updated; baseline self-waiver reverted",
+    "tl_fix_forward": "dupe-else-if dispatch cascade fix (W2-008 signal delegation was unreachable \u2014 silent no-op for all five residue signal kinds); max-file-lines splits x5 files; 54 surface-id + 27 stale-symbol pointer corrections in the audit registries; six-section harness integration + W1-008 acceptance tests updated; baseline self-waiver reverted; COMPLETED via PR #7 (c3bdb9a1) \u2014 the cd004dd3 commit inside PR #6 had captured only the new split files (a branch-checkout handoff reverted the fifteen modified files); PR #7 re-applied and completed the full set on the merged lineage",
     "delivery_path": "bundle harvest (the worker refused the PAT on security grounds; 41.7MB git bundle pulled from the pod via the browser-encoded files API, verified, pushed by the TL)"
    }
   },
@@ -171,9 +171,9 @@
  ],
  "frontier": [
   {
-   "id": "FINAL-GATE",
-   "status": "DERIVED-ON-WAVE-2",
-   "note": "The charter Wave-2 closing step: re-run the v2 release gate on the COMPLETE v2 lineage (W3-008 gate ran at Wave-2 2/3; the final run must include W2-008's adversarial battery + the six-section 94/94 audit) and regenerate the RC evidence. Then the operator re-authorization request (productionPushAuthorized stays false until the operator decides)."
+   "id": "OPERATOR-REAUTHORIZATION",
+   "status": "AWAITING-OPERATOR",
+   "note": "THE ROADMAP IS COMPLETE per the charter: the matrix driven to product-complete (138 v2 audit rows green: 94 harness rows across six sections + 44 gate rows), the v2 release gate re-run on the COMPLETE lineage (f2c08a4f -> c3bdb9a1: allPass, readinessVerdict release-candidate-ready, the REAL W2-008 adversarial report 16/16 EVASION_BLOCKED zero-silent, cumulative 1334/1334, RC evidence regenerated, zero deviations). THE OPERATOR DECISION: productionPushAuthorized remains false \u2014 the charter requires the operator re-authorization for any v2 production push. The v1 lineage @ 2f7499a remains the authorized production deployment."
   }
  ],
  "completed_work_orders": [],
@@ -195,7 +195,7 @@
   "local_commerce_edge": "REQUIRED",
   "promotion_gates_w2_006": "REQUIRED-WHERE-PROMOTION-TOUCHED"
  },
- "tl_loop": "W2-008 MERGED (squash f2c08a4f) 2026-10-08T16:58:00Z \u2014 WAVE-2 COMPLETE 3/3 (W1-008 31530ea, W3-008 3dc11eaf, W2-008 f2c08a4f). Cumulative 1332/1332; matrix audit 94/94. Remaining per charter: the v2 release-gate re-run on the complete lineage + operator re-authorization.",
+ "tl_loop": "W2-008 battery fix-forward COMPLETED via PR #7 (c3bdb9a1). THE FINAL GATE on the complete v2 lineage: allPass / release-candidate-ready / productionPushAuthorized=false (the operator boundary). Roadmap complete per charter; awaiting the operator re-authorization decision.",
  "wave": {
   "wave": 2,
   "name": "Full-matrix audit + v2 release gate",
@@ -210,5 +210,15 @@
    "tests": "1332/1332",
    "matrix_audit": "94/94"
   }
+ },
+ "v2_release_gate": {
+  "gateId": "unicom-release-gate-v2",
+  "artifact": "packages/experience/reports/rc/release-gate-v2.json",
+  "allPass": true,
+  "readinessVerdict": "release-candidate-ready",
+  "productionPushAuthorized": false,
+  "baseSha": "f2c08a4f6a756d1a1420dc491240a4898baafea4",
+  "completedAt": "2026-10-08T17:20:00Z",
+  "note": "the charter Wave-2 closing step \u2014 the re-run on the COMPLETE lineage with the REAL W2-008 adversarial report, the true cumulative suite, and the RC evidence drills re-run; zero deviations from spec"
  }
 }
