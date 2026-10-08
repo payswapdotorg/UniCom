@@ -1,0 +1,137 @@
+{
+  "schema": "unicom-commerce-w1-007-certification/1",
+  "workOrder": "W1-007",
+  "package": "@unicom/commerce",
+  "suite": "src/test/certification/w1-007",
+  "scenarios": [
+    {
+      "id": "W1-007-S1",
+      "scenario": 1,
+      "title": "Campaign lifecycle + eligibility + stacking determinism",
+      "status": "PASS",
+      "evidence": {
+        "file": "src/test/runtime/scenario-marketing.test.ts",
+        "tests": [
+          "draft → scheduled → active → paused → completed → retired",
+          "eligibility/application determinism (property-tested)",
+          "stacking/exclusivity enforcement incl. rejection cases"
+        ]
+      },
+      "metrics": {
+        "lifecycleTransitions": 6,
+        "determinismRuns": 20,
+        "stackingRejected": 1
+      }
+    },
+    {
+      "id": "W1-007-S2",
+      "scenario": 2,
+      "title": "Analytics projection rebuild-from-journal (DR law)",
+      "status": "PASS",
+      "evidence": {
+        "file": "src/test/projection/analytics-projection.test.ts",
+        "tests": [
+          "rebuild matches live projection bit-for-bit",
+          "deterministic across independent folds"
+        ]
+      },
+      "metrics": {
+        "journalEvents": 3,
+        "orderCount": 1,
+        "salesTotalMinor": "1000"
+      }
+    },
+    {
+      "id": "W1-007-S3",
+      "scenario": 3,
+      "title": "Loyalty conservation (zero-sum property test)",
+      "status": "PASS",
+      "evidence": {
+        "file": "src/test/runtime/scenario-crm-loyalty.test.ts",
+        "tests": [
+          "accrual/redemption/expiry zero-sum over fuzz vocabulary",
+          "no hidden balances"
+        ]
+      },
+      "metrics": {
+        "fuzzSteps": 100,
+        "finalBalance": "467",
+        "conservationViolations": 0
+      }
+    },
+    {
+      "id": "W1-007-S4",
+      "scenario": 4,
+      "title": "Forecasting advisory + UNKNOWN preservation",
+      "status": "PASS",
+      "evidence": {
+        "file": "src/test/runtime/scenario-forecasting.test.ts",
+        "tests": [
+          "demand-signal → reorder proposal typed as advisory",
+          "UNKNOWN preserved; no automatic inventory mutation"
+        ]
+      },
+      "metrics": {
+        "observedForecast": 18,
+        "unknownReason": "UNKNOWN",
+        "inventoryUnchanged": 1
+      }
+    },
+    {
+      "id": "W1-007-S5",
+      "scenario": 5,
+      "title": "Full merchant journey (campaign → order → loyalty → analytics → forecast)",
+      "status": "PASS",
+      "evidence": {
+        "file": "src/test/runtime/scenario-merchant-journey.test.ts",
+        "tests": [
+          "one continuous certified journey with evidence at every boundary"
+        ]
+      },
+      "metrics": {
+        "journeyEvents": 12,
+        "analyticsOrderCount": 1,
+        "analyticsCampaignEffects": 1
+      }
+    },
+    {
+      "id": "W1-007-S6",
+      "scenario": 6,
+      "title": "Idempotency + prefix-replay",
+      "status": "PASS",
+      "evidence": {
+        "file": "src/test/runtime/scenario-merchant-idempotency.test.ts",
+        "tests": [
+          "every new command idempotent under retry",
+          "prefix-replay determinism"
+        ]
+      },
+      "metrics": {
+        "firstExecutionEvents": 1,
+        "duplicates": 1,
+        "reconstructionMatch": 1
+      }
+    },
+    {
+      "id": "W1-007-S7",
+      "scenario": 7,
+      "title": "Certification report artifact (this row)",
+      "status": "PASS",
+      "evidence": {
+        "file": "src/test/certification/certification-w1-007.test.ts",
+        "tests": [
+          "machine-readable, 7/7 scenario verdicts, committed as artifact"
+        ]
+      },
+      "metrics": {
+        "scenariosCertified": 7
+      }
+    }
+  ],
+  "summary": {
+    "total": 7,
+    "passed": 7,
+    "failed": 0,
+    "allPass": true
+  }
+}

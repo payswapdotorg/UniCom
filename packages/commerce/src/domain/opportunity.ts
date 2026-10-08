@@ -15,8 +15,12 @@ export type OpportunityReferenceKind = "OPPORTUNITY" | "GROUP_BUY" | "TRADE_CYCL
  * "SOURCE"  — the commerce record originated from the opportunity.
  * "SATISFIES" — the commerce record fulfills it (e.g. an order satisfying a group-buy).
  * "RESULT"  — the commerce record was produced by executing it (e.g. a trade-cycle leg).
+ * "RECOURSE" — the commerce record is a recourse outcome of the opportunity
+ *             (W2-007: a warranty claim producing a refund/repair/replace).
+ * "LIQUIDATION" — the commerce record is a liquidation outcome of the opportunity
+ *             (W2-007: an unused-subscription transfer/cancellation).
  */
-export type OpportunityLinkRole = "SOURCE" | "SATISFIES" | "RESULT";
+export type OpportunityLinkRole = "SOURCE" | "SATISFIES" | "RESULT" | "RECOURSE" | "LIQUIDATION";
 
 /** Minimal, opaque link from a commerce record to a coordination object. */
 export interface OpportunityReference {

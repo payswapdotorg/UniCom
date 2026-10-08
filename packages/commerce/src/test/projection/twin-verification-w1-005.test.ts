@@ -242,7 +242,11 @@ async function runRandomizedAutonomousSession(seed: number, steps: number, verif
 }
 
 describe("W1-005 acceptance scenario 6 — seeded fuzz over the autonomous surface (twin ≡ kernel + autonomous invariants)", () => {
-  it("twin ≡ kernel + invariants after randomized autonomous interleavings (verified every step, override + variance + failure paths included)", async () => {
+  // W1-007 fix-forward (TL battery 2026-10-08): the merchant-parity wave added 13
+  // kernel commands to the fuzzed surface; per-step verification across 5 seeds
+  // now exceeds vitest's default 5s budget on ordinary hardware. Explicit 60s
+  // budget keeps this v1 acceptance artifact deterministic-green.
+  it("twin ≡ kernel + invariants after randomized autonomous interleavings (verified every step, override + variance + failure paths included)", { timeout: 60_000 }, async () => {
     for (const seed of [1, 2, 3, 7, 42]) {
       await runRandomizedAutonomousSession(seed, 220, true);
     }

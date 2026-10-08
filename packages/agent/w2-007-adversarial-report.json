@@ -1,0 +1,129 @@
+{
+  "reportId": "buyer-constraint-adversarial-report:w2-007:v1",
+  "generatedAt": "2026-12-11T00:00:00.000Z",
+  "batteryDigest": "h1:82a81d2a",
+  "verdict": "PASS",
+  "totals": {
+    "adversaries": 8,
+    "evasionBlocked": 8,
+    "missedDeclared": 0,
+    "silentEvasions": 0
+  },
+  "entries": [
+    {
+      "adversaryId": "adversary:buyer:financing-installment-over-ceiling",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "financing-installment-over-ceiling",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:buyer:financing-installment-over-ceiling",
+        "kind": "security-analysis",
+        "recordHash": "h1:8e1fce48"
+      },
+      "detail": "financing installment over ceiling"
+    },
+    {
+      "adversaryId": "adversary:buyer:financing-mode-not-accepted",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "financing-mode-not-accepted",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:buyer:financing-mode-not-accepted",
+        "kind": "security-analysis",
+        "recordHash": "h1:db1af7b4"
+      },
+      "detail": "financing mode not accepted"
+    },
+    {
+      "adversaryId": "adversary:buyer:financing-proof-below-required",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "financing-proof-below-required",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:buyer:financing-proof-below-required",
+        "kind": "security-analysis",
+        "recordHash": "h1:001c3741"
+      },
+      "detail": "financing proof below required"
+    },
+    {
+      "adversaryId": "adversary:buyer:buy-now-required-violated",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "buy-now-required-violated",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:buyer:buy-now-required-violated",
+        "kind": "security-analysis",
+        "recordHash": "h1:3f3c2351"
+      },
+      "detail": "buy-now-required violated"
+    },
+    {
+      "adversaryId": "adversary:buyer:price-timing-target-deadline-missed",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "price-timing-target-deadline-missed",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:buyer:price-timing-target-deadline-missed",
+        "kind": "security-analysis",
+        "recordHash": "h1:087c0e24"
+      },
+      "detail": "price-timing target deadline missed"
+    },
+    {
+      "adversaryId": "adversary:buyer:negotiation-out-of-bound",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "negotiation-out-of-bound-escalation",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:buyer:negotiation-out-of-bound",
+        "kind": "security-analysis",
+        "recordHash": "h1:b6e7ca5b"
+      },
+      "detail": "negotiation out-of-bound escalation"
+    },
+    {
+      "adversaryId": "adversary:buyer:negotiation-rounds-exhausted",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "negotiation-rounds-exhausted-infinite-loop",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:buyer:negotiation-rounds-exhausted",
+        "kind": "security-analysis",
+        "recordHash": "h1:493fd3c5"
+      },
+      "detail": "negotiation rounds exhausted (infinite-loop)"
+    },
+    {
+      "adversaryId": "adversary:buyer:negotiation-proof-below-required",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "negotiation-proof-below-required",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:buyer:negotiation-proof-below-required",
+        "kind": "security-analysis",
+        "recordHash": "h1:d807db11"
+      },
+      "detail": "negotiation proof below required"
+    }
+  ],
+  "journalChainOk": true,
+  "unifiedChainOk": true,
+  "reportDigest": "h1:8d3dc4a8"
+}

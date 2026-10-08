@@ -14,12 +14,19 @@
  * pure functions of their inputs — identical inputs produce identical
  * results (replay-stable; scenario 7). No hidden clocks: every "at" is an
  * explicit parameter.
+ *
+ * W2-007: the new signal kinds + the seed-from-signal + scoring additions
+ * live in opportunity-engine-w2-007.ts (kept separate to respect the
+ * per-file line budget). They are re-exported through this module.
  */
 
 import type { BuyerCommerceIntent } from "./intent.js";
 import type { GroupBuyTerms } from "./groupbuy.js";
 import type { Money } from "./common.js";
 import type { OpportunityKind } from "./opportunity.js";
+import type { W2_007ObservationSignal } from "./opportunity-engine-w2-007.js";
+import { isW2_007OpportunityKind, seedFromW2_007Signal, w2_007EstimatePoints } from "./opportunity-engine-w2-007.js";
+export type { W2_007CandidateContext, W2_007ObservationSignal } from "./opportunity-engine-w2-007.js";
 
 // ---------------------------------------------------------------------------
 // Observed signals the engine matches against intents (opaque subjects)
@@ -55,7 +62,12 @@ export type OpportunityObservationSignal =
       readonly subjectRef: string;
       readonly estimatedResaleValue: Money;
       readonly observedAt: string;
-    };
+    }
+  // --- W2-007 (additive): observation signals for the new opportunity
+  // rows — warranty/subscription/local-pickup/shared-logistics. Defined
+  // in opportunity-engine-w2-007.ts and unioned in here so the engine
+  // matches them with the same dispatch loop. ---
+  | W2_007ObservationSignal;
 
 // ---------------------------------------------------------------------------
 // Candidate seeds: ESTIMATE-framed, lineage-bearing
@@ -66,6 +78,21 @@ export interface OpportunityCandidateContext {
   readonly groupBuyTerms?: GroupBuyTerms;
   readonly estimatedParticipants?: number;
   readonly estimatedValue?: Money;
+  // --- W2-007 (additive): typed context for the new opportunity rows.
+  // Inlined as intersection fields so existing consumers see one shape;
+  // the type lives in opportunity-engine-w2-007.ts. ---
+  readonly warrantyRef?: string;
+  readonly recoursePath?: "REFUND" | "REPAIR" | "REPLACE" | "EXTENDED_CLAIM";
+  readonly claimWindow?: { readonly opensAt: string; readonly closesAt: string };
+  readonly subscriptionRef?: string;
+  readonly remainingPeriods?: number;
+  readonly proposedAction?: "LIQUIDATE" | "REALLOCATE" | "CANCEL";
+  readonly pickupLocationRef?: string;
+  readonly pickupWindow?: { readonly notBefore: string; readonly notAfter: string };
+  readonly sharedShipmentRef?: string;
+  readonly participantCount?: number;
+  readonly estimatedPerBuyerCost?: Money;
+  readonly proximityWindow?: { readonly notBefore: string; readonly notAfter: string };
 }
 
 export interface OpportunityCandidateSeed {
@@ -135,6 +162,11 @@ function intentFieldKnowledge(intent: BuyerCommerceIntent): Readonly<Record<stri
     requiredProofLevel: hard.requiredProofLevel === undefined ? "UNKNOWN" : "KNOWN",
     groupBuyWillingness: hard.groupBuyWillingness === undefined ? "UNKNOWN" : "KNOWN",
     tradeWillingness: hard.tradeWillingness === undefined ? "UNKNOWN" : "KNOWN",
+    // W2-007: the new intent dimensions are tracked for UNKNOWN preservation.
+    financing: hard.financing === undefined ? "UNKNOWN" : "KNOWN",
+    buyNowVsWait: hard.buyNowVsWait === undefined ? "UNKNOWN" : "KNOWN",
+    priceTiming: hard.priceTiming === undefined ? "UNKNOWN" : "KNOWN",
+    negotiation: hard.negotiation === undefined ? "UNKNOWN" : "KNOWN",
   };
 }
 
@@ -234,6 +266,23 @@ export function generateOpportunityCandidates(
         context: { estimatedValue: signal.estimatedResaleValue },
       };
     }
+    // W2-007: new opportunity-row signals (warranty/subscription/local-pickup/
+    // shared-logistics) are delegated to opportunity-engine-w2-007.ts. The
+    // seedFromW2_007Signal returns undefined when the kind is not W2-007.
+    else if (relevant) {
+      const w2_007 = seedFromW2_007Signal(signal as W2_007ObservationSignal, intent.intentId);
+      if (w2_007 !== undefined) {
+        seed = {
+          seedId: w2_007.seedId,
+          intentId: intent.intentId,
+          opportunityKind: w2_007.opportunityKind,
+          epistemics: w2_007.epistemics,
+          subjectRef: w2_007.subjectRef,
+          matchedSignalIds: w2_007.matchedSignalIds,
+          context: w2_007.context,
+        };
+      }
+    }
 
     if (seed === undefined) continue;
     candidates.push(seed);
@@ -283,6 +332,15 @@ export function scoreOpportunityCandidates(
       } else if (seed.opportunityKind === "RESALE") {
         points += 25;
       }
+      // W2-007: scoring for the new opportunity kinds is delegated to
+      // opportunity-engine-w2-007.ts (kept separate to respect the per-file
+      // line budget). Returns 0 for non-W2-007 kinds (the Stage-0 base
+      // points remain unchanged).
+      else if (isW2_007OpportunityKind(seed.opportunityKind)) {
+        points += w2_007EstimatePoints(seed.opportunityKind, {
+          participantCount: seed.context?.participantCount,
+        });
+      }
       const confidenceBps = seed.epistemics.kind === "PREDICTION" ? seed.epistemics.confidenceBps : 8_000;
       return {
         seedId: seed.seedId,
@@ -296,67 +354,13 @@ export function scoreOpportunityCandidates(
 }
 
 // ---------------------------------------------------------------------------
-// Lifecycle — deterministic transition table
+// Lifecycle — deterministic transition table (extracted to opportunity-lifecycle.ts)
 // ---------------------------------------------------------------------------
 
-export type OpportunityLifecycleState =
-  | "CANDIDATE"
-  | "SCORED"
-  | "PRESENTED"
-  | "ACCEPTED"
-  | "COMMITTED"
-  | "REALIZED"
-  | "EXPIRED"
-  | "RETIRED";
-
-export type OpportunityLifecycleEvent =
-  | { readonly type: "SCORE" }
-  | { readonly type: "PRESENT" }
-  | { readonly type: "ACCEPT" }
-  | { readonly type: "COMMIT" }
-  | { readonly type: "REALIZE" }
-  | { readonly type: "EXPIRE" }
-  | { readonly type: "RETIRE" };
-
-export type OpportunityLifecycleViolation =
-  | "INVALID_TRANSITION"
-  | "COMMIT_WITHOUT_ACCEPTANCE"
-  | "REALIZE_WITHOUT_COMMITMENT";
-
-export type OpportunityLifecycleTransition =
-  | { readonly ok: true; readonly next: OpportunityLifecycleState }
-  | { readonly ok: false; readonly violation: OpportunityLifecycleViolation };
-
-const LIFECYCLE_TABLE: Readonly<Record<OpportunityLifecycleState, readonly OpportunityLifecycleEvent["type"][]>> = {
-  CANDIDATE: ["SCORE", "RETIRE", "EXPIRE"],
-  SCORED: ["PRESENT", "RETIRE", "EXPIRE"],
-  PRESENTED: ["ACCEPT", "RETIRE", "EXPIRE"],
-  ACCEPTED: ["COMMIT", "RETIRE", "EXPIRE"],
-  COMMITTED: ["REALIZE", "RETIRE", "EXPIRE"],
-  REALIZED: [],
-  EXPIRED: [],
-  RETIRED: [],
-};
-
-/** Deterministic lifecycle transition. Terminal states never leave. */
-export function transitionOpportunityLifecycle(
-  current: OpportunityLifecycleState,
-  event: OpportunityLifecycleEvent,
-): OpportunityLifecycleTransition {
-  if (!LIFECYCLE_TABLE[current].includes(event.type)) {
-    const violation: OpportunityLifecycleViolation =
-      event.type === "COMMIT" ? "COMMIT_WITHOUT_ACCEPTANCE"
-      : event.type === "REALIZE" ? "REALIZE_WITHOUT_COMMITMENT"
-      : "INVALID_TRANSITION";
-    return { ok: false, violation };
-  }
-  const next: OpportunityLifecycleState =
-    event.type === "SCORE" ? "SCORED"
-    : event.type === "PRESENT" ? "PRESENTED"
-    : event.type === "ACCEPT" ? "ACCEPTED"
-    : event.type === "COMMIT" ? "COMMITTED"
-    : event.type === "REALIZE" ? "REALIZED"
-    : event.type === "EXPIRE" ? "EXPIRED"
-    : "RETIRED";
-  return { ok: true, next };
-}
+export type {
+  OpportunityLifecycleEvent,
+  OpportunityLifecycleState,
+  OpportunityLifecycleTransition,
+  OpportunityLifecycleViolation,
+} from "./opportunity-lifecycle.js";
+export { transitionOpportunityLifecycle } from "./opportunity-lifecycle.js";

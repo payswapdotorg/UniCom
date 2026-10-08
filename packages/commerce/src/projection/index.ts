@@ -117,3 +117,26 @@ export {
   assertTwinMatchesAuthoritative,
   assertCanonicalEquivalence,
 } from "./twin-verify.js";
+
+// --- W1-007 (additive): merchant-parity projections ---
+
+export {
+  type AnalyticsReadModelState,
+  ANALYTICS_PROJECTION_ID,
+  analyticsReadModel,
+  salesTotalOf,
+  campaignDiscountOf,
+} from "./analytics-projection.js";
+
+export {
+  type LoyaltyReadModelState,
+  LOYALTY_PROJECTION_ID,
+  loyaltyReadModel,
+  ledgerEntriesFor,
+} from "./loyalty-projection.js";
+
+export {
+  type ForecastingReadModelState,
+  FORECASTING_PROJECTION_ID,
+  forecastingReadModel,
+} from "./forecasting-projection.js";
