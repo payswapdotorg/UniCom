@@ -141,8 +141,20 @@
    "base_sha": "311796e",
    "session": "unicom-w3-008",
    "delivery_branch": "work/w3-008",
-   "status": "ACTIVE",
-   "spec": "docs/work-orders/W3-008.md"
+   "status": "MERGED",
+   "spec": "docs/work-orders/W3-008.md",
+   "merged_at": "2026-10-08T09:47:19Z",
+   "merge_commit": "3dc11eaff6",
+   "battery": {
+    "typecheck": "0 errors (scoped, merge result)",
+    "lint": "0 errors",
+    "architecture": "0 violations",
+    "merge_result_cumulative": "1283/1283 (commerce 349 + experience 486 + agent 448; 1226 baseline + 57 additive)",
+    "release_gate_test": "12/12",
+    "release_gate_artifact": "allPass=true, readinessVerdict=release-candidate-ready, productionPushAuthorized=false (operator re-authorization required), 9/9 checks, cumulativeSuite 81/81, adversarial pass"
+   },
+   "acceptance": "verified via the release-gate artifact + merge battery",
+   "notes": "Delivered via lane unicom-w3-008 (~50-min single-turn, restored agent plane). The v2 release gate now exists; operator re-authorization is the remaining step for v2 production push."
   }
  ],
  "frontier": [
@@ -171,7 +183,7 @@
   "local_commerce_edge": "REQUIRED",
   "promotion_gates_w2_006": "REQUIRED-WHERE-PROMOTION-TOUCHED"
  },
- "tl_loop": "W1-008 MERGED (squash 31530ea) 2026-10-08T08:35:56Z; W2-008/W3-008 lanes live",
+ "tl_loop": "W3-008 MERGED (squash 3dc11eaf) 2026-10-08T09:47:19Z; W2-008 lane still executing; W1-008 merged 31530ea. Wave-2: 2/3 complete.",
  "wave": {
   "wave": 2,
   "name": "Full-matrix audit + v2 release gate",
