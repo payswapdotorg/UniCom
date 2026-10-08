@@ -73,8 +73,17 @@
       "base_sha": "2f7499abb0fae2fdf71d19efca46a807b2a602b3",
       "session": "unicom-w3-007",
       "delivery_branch": "work/w3-007",
-      "status": "ACTIVE",
-      "spec": "docs/work-orders/W3-007.md"
+      "status": "MERGED",
+      "spec": "docs/work-orders/W3-007.md",
+      "merged_at": "2026-10-08T01:45:00Z",
+      "merge_commit": "1a62546103b40de1be6b4057c5985ea8a3f23488",
+      "battery": {
+        "typecheck": "0 errors (discoverability hints union merge with W1-007)",
+        "lint": "0 errors",
+        "architecture": "0 violations",
+        "cumulative_vitest": "1226/1226 (commerce 332 + agent 448 + experience 446; +57 experience tests)",
+        "completion_report": "docs/work-orders/reports/W3-007-completion-report.md (5/5 scenarios evidenced, zero-orphan invariant held)"
+      }
     }
   ],
   "frontier": [
