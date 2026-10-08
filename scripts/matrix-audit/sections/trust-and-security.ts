@@ -18,9 +18,9 @@ export const SECTION: AuditSection = {
     {
       row: "user-trust",
       rungs: {
-        contract: P("packages/agent/src/proof.ts", "UserTrustRecord"),
-        implementation: P("packages/agent/src/proof.ts", "deriveUserTrust"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        contract: P("packages/agent/src/trust.ts", "UserTrust"),
+        implementation: P("packages/agent/src/trust-journal.ts", "deriveUserTrust"),
+        discoverableUx: { surfaceId: "trust-security-center" },
         journey: P("packages/agent/test/proof.test.ts"),
         evidence: P("packages/agent/test/proof.test.ts"),
       },
@@ -28,9 +28,9 @@ export const SECTION: AuditSection = {
     {
       row: "agent-trust",
       rungs: {
-        contract: P("packages/agent/src/proof.ts", "AgentTrustRecord"),
-        implementation: P("packages/agent/src/proof.ts", "deriveAgentTrust"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        contract: P("packages/agent/src/trust.ts", "AgentTrust"),
+        implementation: P("packages/agent/src/trust-journal.ts", "deriveAgentTrust"),
+        discoverableUx: { surfaceId: "trust-security-center" },
         journey: P("packages/agent/test/proof.test.ts"),
         evidence: P("packages/agent/test/proof.test.ts"),
       },
@@ -38,9 +38,9 @@ export const SECTION: AuditSection = {
     {
       row: "capability-trust",
       rungs: {
-        contract: P("packages/agent/src/proof.ts", "CapabilityTrustRecord"),
-        implementation: P("packages/agent/src/proof.ts", "verifyDerivedTrust"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        contract: P("packages/agent/src/trust.ts", "CapabilityTrust"),
+        implementation: P("packages/agent/src/trust-journal.ts", "verifyDerivedTrust"),
+        discoverableUx: { surfaceId: "trust-security-center" },
         journey: P("packages/agent/test/proof.test.ts"),
         evidence: P("packages/agent/test/proof.test.ts"),
       },
@@ -49,8 +49,8 @@ export const SECTION: AuditSection = {
       row: "transaction-proof",
       rungs: {
         contract: P("packages/agent/src/proof.ts", "TransactionProof"),
-        implementation: P("packages/agent/src/proof.ts", "bindTransactionProof"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        implementation: P("packages/agent/src/transaction-proof.ts", "bindTransactionProof"),
+        discoverableUx: { surfaceId: "trust-security-center" },
         journey: P("packages/agent/test/proof.test.ts"),
         evidence: P("packages/agent/test/proof.test.ts"),
       },
@@ -60,7 +60,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/proof.ts", "ProofLevel"),
         implementation: P("packages/agent/src/proof.ts", "pinProofSelection"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "trust-security-center" },
         journey: P("packages/agent/test/proof.test.ts"),
         evidence: P("packages/agent/test/proof.test.ts"),
       },
@@ -70,8 +70,8 @@ export const SECTION: AuditSection = {
       row: "prompt-injection-detection",
       rungs: {
         contract: P("packages/agent/src/adversarial-cases-fraud.ts", "FRAUD_ADVERSARIES"),
-        implementation: P("packages/agent/src/adversarial-harness.ts", "runAdversarialCase"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        implementation: P("packages/agent/src/adversarial-evaluation.ts", "evaluateAdversarialFlows"),
+        discoverableUx: { surfaceId: "trust-security-center" },
         journey: P("packages/agent/test/fraud-evasion.test.ts"),
         evidence: P("packages/agent/test/fraud-evasion.test.ts"),
       },
@@ -80,8 +80,8 @@ export const SECTION: AuditSection = {
       row: "price-manipulation-detection",
       rungs: {
         contract: P("packages/agent/src/adversarial-cases-fraud.ts", "FRAUD_ADVERSARIES"),
-        implementation: P("packages/agent/src/adversarial-harness.ts", "runAdversarialCase"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        implementation: P("packages/agent/src/adversarial-evaluation.ts", "evaluateAdversarialFlows"),
+        discoverableUx: { surfaceId: "trust-security-center" },
         journey: P("packages/agent/test/fraud-evasion.test.ts"),
         evidence: P("packages/agent/test/fraud-evasion.test.ts"),
       },
@@ -90,8 +90,8 @@ export const SECTION: AuditSection = {
       row: "review-manipulation-detection",
       rungs: {
         contract: P("packages/agent/src/adversarial-cases-fraud.ts", "FRAUD_ADVERSARIES"),
-        implementation: P("packages/agent/src/adversarial-harness.ts", "runAdversarialCase"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        implementation: P("packages/agent/src/adversarial-evaluation.ts", "evaluateAdversarialFlows"),
+        discoverableUx: { surfaceId: "trust-security-center" },
         journey: P("packages/agent/test/fraud-evasion.test.ts"),
         evidence: P("packages/agent/test/fraud-evasion.test.ts"),
       },
@@ -99,9 +99,9 @@ export const SECTION: AuditSection = {
     {
       row: "identity-spoofing-detection",
       rungs: {
-        contract: P("packages/agent/src/adversarial-cases-structure.ts", "STRUCTURE_ADVERSARIES"),
-        implementation: P("packages/agent/src/adversarial-harness.ts", "runAdversarialCase"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        contract: P("packages/agent/src/adversarial-cases-structure.ts", "STRUCTURAL_ADVERSARIES"),
+        implementation: P("packages/agent/src/adversarial-evaluation.ts", "evaluateAdversarialFlows"),
+        discoverableUx: { surfaceId: "trust-security-center" },
         journey: P("packages/agent/test/adversarial-suite.test.ts"),
         evidence: P("packages/agent/test/adversarial-suite.test.ts"),
       },
@@ -110,8 +110,8 @@ export const SECTION: AuditSection = {
       row: "data-exfiltration-detection",
       rungs: {
         contract: P("packages/agent/src/adversarial-cases-integrity.ts", "INTEGRITY_ADVERSARIES"),
-        implementation: P("packages/agent/src/adversarial-harness.ts", "runAdversarialCase"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        implementation: P("packages/agent/src/adversarial-evaluation.ts", "evaluateAdversarialFlows"),
+        discoverableUx: { surfaceId: "trust-security-center" },
         journey: P("packages/agent/test/adversarial-suite.test.ts"),
         evidence: P("packages/agent/test/adversarial-suite.test.ts"),
       },
@@ -119,9 +119,9 @@ export const SECTION: AuditSection = {
     {
       row: "constraint-bypass-detection",
       rungs: {
-        contract: P("packages/agent/src/adversarial-cases-buyer.ts", "BUYER_ADVERSARIES"),
-        implementation: P("packages/agent/src/adversarial-harness.ts", "runAdversarialCase"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        contract: P("packages/agent/src/adversarial-cases-buyer.ts", "BUYER_CONSTRAINT_ADVERSARIES"),
+        implementation: P("packages/agent/src/adversarial-evaluation.ts", "evaluateAdversarialFlows"),
+        discoverableUx: { surfaceId: "trust-security-center" },
         journey: P("packages/agent/test/adversarial-suite.test.ts"),
         evidence: P("packages/agent/test/adversarial-suite.test.ts"),
       },
@@ -129,9 +129,9 @@ export const SECTION: AuditSection = {
     {
       row: "immune-broadcast",
       rungs: {
-        contract: P("packages/agent/src/adversarial-cases-immune.ts", "IMMUNE_ADVERSARIES"),
-        implementation: P("packages/agent/src/adversarial-harness.ts", "runAdversarialCase"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        contract: P("packages/agent/src/adversarial-cases-immune.ts", "IMMUNE_PLANE_ADVERSARIES"),
+        implementation: P("packages/agent/src/adversarial-evaluation.ts", "evaluateAdversarialFlows"),
+        discoverableUx: { surfaceId: "trust-security-center" },
         journey: P("packages/agent/test/immune-broadcast.test.ts"),
         evidence: P("packages/agent/test/immune-broadcast.test.ts"),
       },
@@ -142,7 +142,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/intent-w2-008.ts", "checkW2_008Constraints"),
         implementation: P("packages/agent/src/intent-w2-008.ts", "checkW2_008Constraints"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "trust-security-center" },
         journey: P("packages/agent/test/intent-w2-008.test.ts"),
         evidence: P("packages/agent/test/intent-w2-008.test.ts"),
         closureNote: "W2-008 closure: prompt-injection immune chain — signal → classify → isolate → broadcast",
@@ -153,7 +153,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/intent-w2-008.ts", "AccountCompromiseConstraint"),
         implementation: P("packages/agent/src/intent-w2-008.ts", "checkW2_008Constraints"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "trust-security-center" },
         journey: P("packages/agent/test/intent-w2-008.test.ts"),
         evidence: P("packages/agent/test/intent-w2-008.test.ts"),
         closureNote: "W2-008 closure: account compromise detection with anomaly threshold",
@@ -164,7 +164,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/intent-w2-008.ts", "AgentCompromiseConstraint"),
         implementation: P("packages/agent/src/intent-w2-008.ts", "checkW2_008Constraints"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "trust-security-center" },
         journey: P("packages/agent/test/intent-w2-008.test.ts"),
         evidence: P("packages/agent/test/intent-w2-008.test.ts"),
         closureNote: "W2-008 closure: agent compromise detection with behavioral deviation",
@@ -175,7 +175,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/intent-w2-008.ts", "ConnectorCompromiseConstraint"),
         implementation: P("packages/agent/src/intent-w2-008.ts", "checkW2_008Constraints"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "trust-security-center" },
         journey: P("packages/agent/test/intent-w2-008.test.ts"),
         evidence: P("packages/agent/test/intent-w2-008.test.ts"),
         closureNote: "W2-008 closure: connector compromise with attestation verification",
@@ -186,7 +186,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/intent-w2-008.ts", "CollusionConstraint"),
         implementation: P("packages/agent/src/intent-w2-008.ts", "checkW2_008Constraints"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "trust-security-center" },
         journey: P("packages/agent/test/intent-w2-008.test.ts"),
         evidence: P("packages/agent/test/intent-w2-008.test.ts"),
         closureNote: "W2-008 closure: marketplace collusion detection with seller-diversity floor",
@@ -197,7 +197,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/intent-w2-008.ts", "SybilConstraint"),
         implementation: P("packages/agent/src/intent-w2-008.ts", "checkW2_008Constraints"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "trust-security-center" },
         journey: P("packages/agent/test/intent-w2-008.test.ts"),
         evidence: P("packages/agent/test/intent-w2-008.test.ts"),
         closureNote: "W2-008 closure: Sybil detection with unique-identity floor",
@@ -208,7 +208,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/intent-w2-008.ts", "AnomalousAgentConstraint"),
         implementation: P("packages/agent/src/intent-w2-008.ts", "checkW2_008Constraints"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "trust-security-center" },
         journey: P("packages/agent/test/intent-w2-008.test.ts"),
         evidence: P("packages/agent/test/intent-w2-008.test.ts"),
         closureNote: "W2-008 closure: anomalous agent detection with behavioral-bounds constraint",
@@ -217,9 +217,9 @@ export const SECTION: AuditSection = {
     {
       row: "trust-four-kinds-invariant",
       rungs: {
-        contract: P("packages/agent/src/proof.ts", "UserTrustRecord"),
-        implementation: P("packages/agent/src/proof.ts", "verifyDerivedTrust"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        contract: P("packages/agent/src/trust.ts", "UserTrust"),
+        implementation: P("packages/agent/src/trust-journal.ts", "verifyDerivedTrust"),
+        discoverableUx: { surfaceId: "trust-security-center" },
         journey: P("packages/agent/test/proof.test.ts"),
         evidence: P("packages/agent/test/proof.test.ts"),
         closureNote: "W2-008 closure: four-trust-kinds invariant (UserTrust/AgentTrust/CapabilityTrust/TransactionProof, rule 14)",
@@ -230,7 +230,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/proof.ts", "ProofPinnedAction"),
         implementation: P("packages/agent/src/proof.ts", "pinProofSelection"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "trust-security-center" },
         journey: P("packages/agent/test/proof.test.ts"),
         evidence: P("packages/agent/test/proof.test.ts"),
         closureNote: "W2-008 closure: proof level selected BEFORE consequential execution (rule 23)",
@@ -241,7 +241,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/intent.ts", "HardConstraintCheck"),
         implementation: P("packages/agent/src/intent.ts", "checkHardConstraints"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "trust-security-center" },
         journey: P("packages/agent/test/intent.test.ts"),
         evidence: P("packages/agent/test/intent.test.ts"),
         closureNote: "W2-008 closure: security BLOCK is deterministic hard constraint (rule 15)",

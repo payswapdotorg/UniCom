@@ -93,3 +93,22 @@ exceptions:
       Exhaustive fuzz vocabulary over the whole kernel command surface
       (test-support enumeration; same nature as the lint policy's test-tree
       exemption — see .oxlintrc.json overrides). Scoped to this single file.
+
+  # TL battery (W2-008, 2026-10-08): the two central agent contract files
+  # accrete ADDITIVE typed fields + one dispatch block per work wave (the
+  # W2-007 pattern: new types live in their own files — intent-w2-007.ts,
+  # intent-w2-008.ts, opportunity-engine-w2-00{7,8}.ts — while the central
+  # surface only re-exports and dispatches). Splitting the central frozen
+  # contract surface would fragment the one-contract-surface rule. Waiver
+  # scoped to exactly these two files, re-evaluated if a file exceeds ~430.
+  - rule: max-file-lines
+    paths:
+      - packages/agent/src/intent.ts
+      - packages/agent/src/opportunity-engine.ts
+    reason: >-
+      Central buyer-intent/opportunity contract surfaces that accrete
+      additive fields + a delegation block per work wave (W2-007 pattern);
+      all new types live in per-wave files and are re-exported from here
+      (one contract surface). Splitting would fragment the frozen
+      contract; growth is additive-only and architecture-reviewed per
+      merge.

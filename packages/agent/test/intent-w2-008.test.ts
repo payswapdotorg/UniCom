@@ -19,7 +19,6 @@
 import { describe, expect, it } from "vitest";
 import { checkW2_008Constraints } from "../src/intent-w2-008.js";
 import type {
-  W2_008ConstraintShape,
   W2_008CandidateShape,
 } from "../src/intent-w2-008.js";
 

@@ -18,18 +18,11 @@ import type { ProofLevel } from "./proof.js";
 import type {
   CandidateFinancingOffer,
   FinancingConstraint,
-  FinancingMode,
   NegotiationBounds,
   PriceTimingConstraint,
 } from "./intent-w2-007.js";
 import { checkW2_007Constraints } from "./intent-w2-007.js";
-export type {
-  CandidateFinancingOffer,
-  FinancingConstraint,
-  FinancingMode,
-  NegotiationBounds,
-  PriceTimingConstraint,
-} from "./intent-w2-007.js";
+export type * from "./intent-w2-007.js";
 // W2-008 additive: residue closure constraint types + deterministic check.
 import type {
   RentalConstraint,
@@ -48,20 +41,7 @@ import type {
   W2_008ConstraintViolation,
 } from "./intent-w2-008.js";
 import { checkW2_008Constraints } from "./intent-w2-008.js";
-export type {
-  RentalConstraint,
-  ResaleConstraint,
-  MultiHopTradeConstraint,
-  MerchantSuggestedGroupBuyConstraint,
-  LocalCommerceConstraint,
-  AccountCompromiseConstraint,
-  AgentCompromiseConstraint,
-  ConnectorCompromiseConstraint,
-  CollusionConstraint,
-  SybilConstraint,
-  AnomalousAgentConstraint,
-  W2_008ConstraintViolation,
-} from "./intent-w2-008.js";
+export type * from "./intent-w2-008.js";
 
 export type PrivacyRequirement =
   | "NO_THIRD_PARTY_SHARING"

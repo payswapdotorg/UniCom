@@ -21,7 +21,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/intent.ts", "BuyerCommerceIntent"),
         implementation: P("packages/agent/src/intent.ts", "checkHardConstraints"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "buyer-intent-canvas" },
         journey: P("packages/agent/test/intent.test.ts"),
         evidence: P("packages/agent/test/intent.test.ts"),
       },
@@ -31,7 +31,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/intent.ts", "HardConstraintCheck"),
         implementation: P("packages/agent/src/intent.ts", "checkHardConstraints"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "buyer-intent-canvas" },
         journey: P("packages/agent/test/intent.test.ts"),
         evidence: P("packages/agent/test/intent.test.ts"),
       },
@@ -41,7 +41,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/intent.ts", "ScoredCandidate"),
         implementation: P("packages/agent/src/intent.ts", "evaluateIntentCandidates"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "buyer-intent-canvas" },
         journey: P("packages/agent/test/intent.test.ts"),
         evidence: P("packages/agent/test/intent.test.ts"),
       },
@@ -51,7 +51,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/proof.ts", "ProofLevel"),
         implementation: P("packages/agent/src/proof.ts", "pinProofSelection"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "buyer-intent-canvas" },
         journey: P("packages/agent/test/proof.test.ts"),
         evidence: P("packages/agent/test/proof.test.ts"),
       },
@@ -61,7 +61,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/intent-w2-007.ts", "FinancingConstraint"),
         implementation: P("packages/agent/src/intent-w2-007.ts", "checkW2_007Constraints"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "buyer-intent-canvas" },
         journey: P("packages/agent/test/intent.test.ts"),
         evidence: P("packages/agent/test/intent.test.ts"),
         closureNote: "W2-007 closure: financing hard constraint + deterministic check",
@@ -72,7 +72,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/intent-w2-007.ts", "PriceTimingConstraint"),
         implementation: P("packages/agent/src/intent-w2-007.ts", "checkW2_007Constraints"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "buyer-intent-canvas" },
         journey: P("packages/agent/test/intent.test.ts"),
         evidence: P("packages/agent/test/intent.test.ts"),
         closureNote: "W2-007 closure: buy-now-vs-wait + price timing hard constraints",
@@ -83,7 +83,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/intent-w2-007.ts", "NegotiationBounds"),
         implementation: P("packages/agent/src/intent-w2-007.ts", "checkW2_007Constraints"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "buyer-intent-canvas" },
         journey: P("packages/agent/test/intent.test.ts"),
         evidence: P("packages/agent/test/intent.test.ts"),
         closureNote: "W2-007 closure: negotiation bounds hard constraint",
@@ -93,8 +93,8 @@ export const SECTION: AuditSection = {
       row: "adversarial-fraud-detection",
       rungs: {
         contract: P("packages/agent/src/adversarial-cases-fraud.ts", "FRAUD_ADVERSARIES"),
-        implementation: P("packages/agent/src/adversarial-harness.ts", "runAdversarialCase"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        implementation: P("packages/agent/src/adversarial-evaluation.ts", "evaluateAdversarialFlows"),
+        discoverableUx: { surfaceId: "buyer-intent-canvas" },
         journey: P("packages/agent/test/fraud-evasion.test.ts"),
         evidence: P("packages/agent/test/fraud-evasion.test.ts"),
       },
@@ -102,9 +102,9 @@ export const SECTION: AuditSection = {
     {
       row: "adversarial-structure",
       rungs: {
-        contract: P("packages/agent/src/adversarial-cases-structure.ts", "STRUCTURE_ADVERSARIES"),
-        implementation: P("packages/agent/src/adversarial-harness.ts", "runAdversarialCase"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        contract: P("packages/agent/src/adversarial-cases-structure.ts", "STRUCTURAL_ADVERSARIES"),
+        implementation: P("packages/agent/src/adversarial-evaluation.ts", "evaluateAdversarialFlows"),
+        discoverableUx: { surfaceId: "buyer-intent-canvas" },
         journey: P("packages/agent/test/adversarial-suite.test.ts"),
         evidence: P("packages/agent/test/adversarial-suite.test.ts"),
       },
@@ -113,8 +113,8 @@ export const SECTION: AuditSection = {
       row: "adversarial-integrity",
       rungs: {
         contract: P("packages/agent/src/adversarial-cases-integrity.ts", "INTEGRITY_ADVERSARIES"),
-        implementation: P("packages/agent/src/adversarial-harness.ts", "runAdversarialCase"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        implementation: P("packages/agent/src/adversarial-evaluation.ts", "evaluateAdversarialFlows"),
+        discoverableUx: { surfaceId: "buyer-intent-canvas" },
         journey: P("packages/agent/test/adversarial-suite.test.ts"),
         evidence: P("packages/agent/test/adversarial-suite.test.ts"),
       },
@@ -122,9 +122,9 @@ export const SECTION: AuditSection = {
     {
       row: "adversarial-buyer",
       rungs: {
-        contract: P("packages/agent/src/adversarial-cases-buyer.ts", "BUYER_ADVERSARIES"),
-        implementation: P("packages/agent/src/adversarial-harness.ts", "runAdversarialCase"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        contract: P("packages/agent/src/adversarial-cases-buyer.ts", "BUYER_CONSTRAINT_ADVERSARIES"),
+        implementation: P("packages/agent/src/adversarial-evaluation.ts", "evaluateAdversarialFlows"),
+        discoverableUx: { surfaceId: "buyer-intent-canvas" },
         journey: P("packages/agent/test/adversarial-suite.test.ts"),
         evidence: P("packages/agent/test/adversarial-suite.test.ts"),
       },
@@ -132,9 +132,9 @@ export const SECTION: AuditSection = {
     {
       row: "immune-system",
       rungs: {
-        contract: P("packages/agent/src/adversarial-cases-immune.ts", "IMMUNE_ADVERSARIES"),
-        implementation: P("packages/agent/src/adversarial-harness.ts", "runAdversarialCase"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        contract: P("packages/agent/src/adversarial-cases-immune.ts", "IMMUNE_PLANE_ADVERSARIES"),
+        implementation: P("packages/agent/src/adversarial-evaluation.ts", "evaluateAdversarialFlows"),
+        discoverableUx: { surfaceId: "buyer-intent-canvas" },
         journey: P("packages/agent/test/immune-broadcast.test.ts"),
         evidence: P("packages/agent/test/immune-broadcast.test.ts"),
       },
@@ -145,7 +145,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/opportunity.ts", "WarrantyRecoveryTerms"),
         implementation: P("packages/agent/src/opportunity-engine-w2-007.ts", "seedFromW2_007Signal"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "buyer-intent-canvas" },
         journey: P("packages/agent/test/opportunity-engine.test.ts"),
         evidence: P("packages/agent/test/opportunity-engine.test.ts"),
         closureNote: "W2-007 closure: warranty/recovery opportunity terms",
@@ -156,7 +156,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/opportunity.ts", "UnusedSubscriptionTerms"),
         implementation: P("packages/agent/src/opportunity-engine-w2-007.ts", "seedFromW2_007Signal"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "buyer-intent-canvas" },
         journey: P("packages/agent/test/opportunity-engine.test.ts"),
         evidence: P("packages/agent/test/opportunity-engine.test.ts"),
         closureNote: "W2-007 closure: unused subscription optimization terms",
@@ -168,7 +168,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/intent-w2-008.ts", "RentalConstraint"),
         implementation: P("packages/agent/src/intent-w2-008.ts", "checkW2_008Constraints"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "buyer-intent-canvas" },
         journey: P("packages/agent/test/intent-w2-008.test.ts"),
         evidence: P("packages/agent/test/intent-w2-008.test.ts"),
         closureNote: "W2-008 closure: rental/borrow hard constraint + deterministic check",
@@ -179,7 +179,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/intent-w2-008.ts", "ResaleConstraint"),
         implementation: P("packages/agent/src/intent-w2-008.ts", "checkW2_008Constraints"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "buyer-intent-canvas" },
         journey: P("packages/agent/test/intent-w2-008.test.ts"),
         evidence: P("packages/agent/test/intent-w2-008.test.ts"),
         closureNote: "W2-008 closure: resale hard constraint + deterministic check",
@@ -190,7 +190,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/intent-w2-008.ts", "MultiHopTradeConstraint"),
         implementation: P("packages/agent/src/intent-w2-008.ts", "checkW2_008Constraints"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "buyer-intent-canvas" },
         journey: P("packages/agent/test/intent-w2-008.test.ts"),
         evidence: P("packages/agent/test/intent-w2-008.test.ts"),
         closureNote: "W2-008 closure: multi-hop trade hard constraint (bounded hop count, rule 13)",
@@ -201,7 +201,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/intent-w2-008.ts", "MerchantSuggestedGroupBuyConstraint"),
         implementation: P("packages/agent/src/intent-w2-008.ts", "checkW2_008Constraints"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "buyer-intent-canvas" },
         journey: P("packages/agent/test/intent-w2-008.test.ts"),
         evidence: P("packages/agent/test/intent-w2-008.test.ts"),
         closureNote: "W2-008 closure: merchant-suggested group-buy requires explicit authorization (rule 12)",
@@ -212,7 +212,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/intent-w2-008.ts", "LocalCommerceConstraint"),
         implementation: P("packages/agent/src/intent-w2-008.ts", "checkW2_008Constraints"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "buyer-intent-canvas" },
         journey: P("packages/agent/test/intent-w2-008.test.ts"),
         evidence: P("packages/agent/test/intent-w2-008.test.ts"),
         closureNote: "W2-008 closure: local-commerce constraint (distance + pickup)",
@@ -223,7 +223,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/opportunity-w2-008.ts", "SwapTerms"),
         implementation: P("packages/agent/src/opportunity-engine-w2-008.ts", "seedFromW2_008Signal"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "buyer-intent-canvas" },
         journey: P("packages/agent/test/opportunity-w2-008.test.ts"),
         evidence: P("packages/agent/test/opportunity-w2-008.test.ts"),
         closureNote: "W2-008 closure: swap/trade opportunity terms",
@@ -234,7 +234,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/opportunity-w2-008.ts", "GroupPurchaseTerms"),
         implementation: P("packages/agent/src/opportunity-engine-w2-008.ts", "seedFromW2_008Signal"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "buyer-intent-canvas" },
         journey: P("packages/agent/test/opportunity-w2-008.test.ts"),
         evidence: P("packages/agent/test/opportunity-w2-008.test.ts"),
         closureNote: "W2-008 closure: group-purchase opportunity terms",
@@ -245,7 +245,7 @@ export const SECTION: AuditSection = {
       rungs: {
         contract: P("packages/agent/src/opportunity-w2-008.ts", "PriceDropTimingTerms"),
         implementation: P("packages/agent/src/opportunity-engine-w2-008.ts", "seedFromW2_008Signal"),
-        discoverableUx: { surfaceId: "buyer-intent" },
+        discoverableUx: { surfaceId: "buyer-intent-canvas" },
         journey: P("packages/agent/test/opportunity-w2-008.test.ts"),
         evidence: P("packages/agent/test/opportunity-w2-008.test.ts"),
         closureNote: "W2-008 closure: price-drop + discount opportunity terms",

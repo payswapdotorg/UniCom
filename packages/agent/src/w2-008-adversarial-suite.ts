@@ -21,9 +21,16 @@ import {
   type AdversaryCategory,
   type AdversaryResult,
 } from "./adversarial-context.js";
-import { W2_008_RESIDUE_ADVERSARIES } from "./adversarial-cases-w2-008.js";
+import { W2_008_BOUNDARY_ADVERSARIES } from "./adversarial-cases-w2-008.js";
+import { W2_008_DETECTION_ADVERSARIES } from "./adversarial-cases-w2-008-detection.js";
 
-export { W2_008_RESIDUE_ADVERSARIES } from "./adversarial-cases-w2-008.js";
+// TL battery split: the 16 adversaries now live in two case files (the
+// combined file broke max-file-lines); the suite aggregates them under the
+// original export so consumers/tests see the same set.
+export const W2_008_RESIDUE_ADVERSARIES: readonly AdversaryCase[] = [
+  ...W2_008_BOUNDARY_ADVERSARIES,
+  ...W2_008_DETECTION_ADVERSARIES,
+];
 
 export const W2_008_REPORT_ID = "w2-008-adversarial-report:v1";
 

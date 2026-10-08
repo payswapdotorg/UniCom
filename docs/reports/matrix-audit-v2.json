@@ -1030,13 +1030,1393 @@
         "pass": 14,
         "fail": 0
       }
+    },
+    {
+      "section": "buyer-agent",
+      "rows": [
+        {
+          "section": "buyer-agent",
+          "row": "intent-declaration",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent.ts::BuyerCommerceIntent"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent.ts::checkHardConstraints"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "buyer-agent",
+          "row": "hard-constraint-check",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent.ts::HardConstraintCheck"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent.ts::checkHardConstraints"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "buyer-agent",
+          "row": "candidate-evaluation",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent.ts::ScoredCandidate"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent.ts::evaluateIntentCandidates"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "buyer-agent",
+          "row": "proof-level-selection",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/proof.ts::ProofLevel"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/proof.ts::pinProofSelection"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/proof.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/proof.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "buyer-agent",
+          "row": "financing-constraint",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-007.ts::FinancingConstraint"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-007.ts::checkW2_007Constraints"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "buyer-agent",
+          "row": "buy-now-vs-wait",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-007.ts::PriceTimingConstraint"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-007.ts::checkW2_007Constraints"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "buyer-agent",
+          "row": "negotiation-bounds",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-007.ts::NegotiationBounds"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-007.ts::checkW2_007Constraints"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "buyer-agent",
+          "row": "adversarial-fraud-detection",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-cases-fraud.ts::FRAUD_ADVERSARIES"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-evaluation.ts::evaluateAdversarialFlows"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/fraud-evasion.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/fraud-evasion.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "buyer-agent",
+          "row": "adversarial-structure",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-cases-structure.ts::STRUCTURAL_ADVERSARIES"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-evaluation.ts::evaluateAdversarialFlows"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/adversarial-suite.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/adversarial-suite.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "buyer-agent",
+          "row": "adversarial-integrity",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-cases-integrity.ts::INTEGRITY_ADVERSARIES"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-evaluation.ts::evaluateAdversarialFlows"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/adversarial-suite.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/adversarial-suite.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "buyer-agent",
+          "row": "adversarial-buyer",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-cases-buyer.ts::BUYER_CONSTRAINT_ADVERSARIES"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-evaluation.ts::evaluateAdversarialFlows"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/adversarial-suite.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/adversarial-suite.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "buyer-agent",
+          "row": "immune-system",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-cases-immune.ts::IMMUNE_PLANE_ADVERSARIES"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-evaluation.ts::evaluateAdversarialFlows"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/immune-broadcast.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/immune-broadcast.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "buyer-agent",
+          "row": "warranty-recovery-opportunity",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity.ts::WarrantyRecoveryTerms"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-engine-w2-007.ts::seedFromW2_007Signal"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-engine.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-engine.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "buyer-agent",
+          "row": "subscription-optimization",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity.ts::UnusedSubscriptionTerms"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-engine-w2-007.ts::seedFromW2_007Signal"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-engine.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-engine.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "buyer-agent",
+          "row": "rental-borrow-constraint",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::RentalConstraint"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::checkW2_008Constraints"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "buyer-agent",
+          "row": "resale-constraint",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::ResaleConstraint"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::checkW2_008Constraints"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "buyer-agent",
+          "row": "multi-hop-trade-constraint",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::MultiHopTradeConstraint"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::checkW2_008Constraints"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "buyer-agent",
+          "row": "group-buy-authorization",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::MerchantSuggestedGroupBuyConstraint"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::checkW2_008Constraints"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "buyer-agent",
+          "row": "local-commerce-constraint",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::LocalCommerceConstraint"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::checkW2_008Constraints"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "buyer-agent",
+          "row": "swap-trade-terms",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-w2-008.ts::SwapTerms"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-engine-w2-008.ts::seedFromW2_008Signal"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-w2-008.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-w2-008.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "buyer-agent",
+          "row": "group-purchase-terms",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-w2-008.ts::GroupPurchaseTerms"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-engine-w2-008.ts::seedFromW2_008Signal"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-w2-008.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-w2-008.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "buyer-agent",
+          "row": "price-drop-discount-terms",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-w2-008.ts::PriceDropTimingTerms"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-engine-w2-008.ts::seedFromW2_008Signal"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-w2-008.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-w2-008.test.ts"
+          },
+          "verdict": "PASS"
+        }
+      ],
+      "summary": {
+        "total": 22,
+        "pass": 22,
+        "fail": 0
+      }
+    },
+    {
+      "section": "user-opportunities",
+      "rows": [
+        {
+          "section": "user-opportunities",
+          "row": "opportunity-discovery",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity.ts::Opportunity"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-engine.ts::generateOpportunityCandidates"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:opportunity-inbox"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-engine.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-engine.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "user-opportunities",
+          "row": "epistemic-chain-validation",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity.ts::validateOpportunityChain"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity.ts::validateOpportunityChain"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:opportunity-inbox"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "user-opportunities",
+          "row": "candidate-generation",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-engine.ts::OpportunityCandidateGeneration"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-engine.ts::generateOpportunityCandidates"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:opportunity-inbox"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-engine.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-engine.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "user-opportunities",
+          "row": "candidate-scoring",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-engine.ts::scoreOpportunityCandidates"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-engine.ts::scoreOpportunityCandidates"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:opportunity-inbox"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-engine.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-engine.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "user-opportunities",
+          "row": "unknown-preservation",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-engine.ts::checkUnknownPreservation"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-engine.ts::checkUnknownPreservation"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:opportunity-inbox"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-engine.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-engine.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "user-opportunities",
+          "row": "swap-opportunity-terms",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-w2-008.ts::SwapTerms"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-engine-w2-008.ts::seedFromW2_008Signal"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:opportunity-inbox"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-w2-008.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-w2-008.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "user-opportunities",
+          "row": "group-purchase-opportunity-terms",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-w2-008.ts::GroupPurchaseTerms"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-engine-w2-008.ts::seedFromW2_008Signal"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:opportunity-inbox"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-w2-008.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-w2-008.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "user-opportunities",
+          "row": "price-drop-timing-terms",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-w2-008.ts::PriceDropTimingTerms"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-engine-w2-008.ts::seedFromW2_008Signal"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:opportunity-inbox"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-w2-008.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-w2-008.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "user-opportunities",
+          "row": "discount-terms",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-w2-008.ts::DiscountTerms"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-engine-w2-008.ts::seedFromW2_008Signal"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:opportunity-inbox"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-w2-008.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-w2-008.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "user-opportunities",
+          "row": "other-proactive-terms",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-w2-008.ts::OtherProactiveTerms"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-engine-w2-008.ts::seedFromW2_008Signal"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:opportunity-inbox"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-w2-008.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-w2-008.test.ts"
+          },
+          "verdict": "PASS"
+        }
+      ],
+      "summary": {
+        "total": 10,
+        "pass": 10,
+        "fail": 0
+      }
+    },
+    {
+      "section": "trust-and-security",
+      "rows": [
+        {
+          "section": "trust-and-security",
+          "row": "user-trust",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/trust.ts::UserTrust"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/trust-journal.ts::deriveUserTrust"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:trust-security-center"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/proof.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/proof.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "trust-and-security",
+          "row": "agent-trust",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/trust.ts::AgentTrust"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/trust-journal.ts::deriveAgentTrust"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:trust-security-center"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/proof.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/proof.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "trust-and-security",
+          "row": "capability-trust",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/trust.ts::CapabilityTrust"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/trust-journal.ts::verifyDerivedTrust"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:trust-security-center"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/proof.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/proof.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "trust-and-security",
+          "row": "transaction-proof",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/proof.ts::TransactionProof"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/transaction-proof.ts::bindTransactionProof"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:trust-security-center"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/proof.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/proof.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "trust-and-security",
+          "row": "proof-level-p0-p5",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/proof.ts::ProofLevel"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/proof.ts::pinProofSelection"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:trust-security-center"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/proof.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/proof.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "trust-and-security",
+          "row": "prompt-injection-detection",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-cases-fraud.ts::FRAUD_ADVERSARIES"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-evaluation.ts::evaluateAdversarialFlows"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:trust-security-center"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/fraud-evasion.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/fraud-evasion.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "trust-and-security",
+          "row": "price-manipulation-detection",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-cases-fraud.ts::FRAUD_ADVERSARIES"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-evaluation.ts::evaluateAdversarialFlows"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:trust-security-center"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/fraud-evasion.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/fraud-evasion.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "trust-and-security",
+          "row": "review-manipulation-detection",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-cases-fraud.ts::FRAUD_ADVERSARIES"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-evaluation.ts::evaluateAdversarialFlows"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:trust-security-center"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/fraud-evasion.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/fraud-evasion.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "trust-and-security",
+          "row": "identity-spoofing-detection",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-cases-structure.ts::STRUCTURAL_ADVERSARIES"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-evaluation.ts::evaluateAdversarialFlows"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:trust-security-center"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/adversarial-suite.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/adversarial-suite.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "trust-and-security",
+          "row": "data-exfiltration-detection",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-cases-integrity.ts::INTEGRITY_ADVERSARIES"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-evaluation.ts::evaluateAdversarialFlows"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:trust-security-center"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/adversarial-suite.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/adversarial-suite.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "trust-and-security",
+          "row": "constraint-bypass-detection",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-cases-buyer.ts::BUYER_CONSTRAINT_ADVERSARIES"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-evaluation.ts::evaluateAdversarialFlows"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:trust-security-center"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/adversarial-suite.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/adversarial-suite.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "trust-and-security",
+          "row": "immune-broadcast",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-cases-immune.ts::IMMUNE_PLANE_ADVERSARIES"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/adversarial-evaluation.ts::evaluateAdversarialFlows"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:trust-security-center"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/immune-broadcast.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/immune-broadcast.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "trust-and-security",
+          "row": "prompt-injection-immune-chain",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::checkW2_008Constraints"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::checkW2_008Constraints"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:trust-security-center"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "trust-and-security",
+          "row": "account-compromise-detection",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::AccountCompromiseConstraint"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::checkW2_008Constraints"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:trust-security-center"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "trust-and-security",
+          "row": "agent-compromise-detection",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::AgentCompromiseConstraint"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::checkW2_008Constraints"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:trust-security-center"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "trust-and-security",
+          "row": "connector-compromise-detection",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::ConnectorCompromiseConstraint"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::checkW2_008Constraints"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:trust-security-center"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "trust-and-security",
+          "row": "marketplace-collusion-detection",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::CollusionConstraint"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::checkW2_008Constraints"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:trust-security-center"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "trust-and-security",
+          "row": "sybil-detection",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::SybilConstraint"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::checkW2_008Constraints"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:trust-security-center"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "trust-and-security",
+          "row": "anomalous-agent-detection",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::AnomalousAgentConstraint"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent-w2-008.ts::checkW2_008Constraints"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:trust-security-center"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent-w2-008.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "trust-and-security",
+          "row": "trust-four-kinds-invariant",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/trust.ts::UserTrust"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/trust-journal.ts::verifyDerivedTrust"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:trust-security-center"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/proof.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/proof.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "trust-and-security",
+          "row": "proof-level-before-execution",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/proof.ts::ProofPinnedAction"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/proof.ts::pinProofSelection"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:trust-security-center"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/proof.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/proof.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "trust-and-security",
+          "row": "security-block-deterministic",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent.ts::HardConstraintCheck"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent.ts::checkHardConstraints"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:trust-security-center"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/intent.test.ts"
+          },
+          "verdict": "PASS"
+        }
+      ],
+      "summary": {
+        "total": 22,
+        "pass": 22,
+        "fail": 0
+      }
     }
   ],
   "summary": {
-    "sectionsAudited": 3,
-    "rowsTotal": 40,
-    "rowsGreen": 40,
+    "sectionsAudited": 6,
+    "rowsTotal": 94,
+    "rowsGreen": 94,
     "rowsFail": 0
   },
-  "digest": "ea9da51e58d0"
+  "digest": "71854b976093"
 }

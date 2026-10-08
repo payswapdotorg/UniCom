@@ -299,34 +299,28 @@ export function generateOpportunityCandidates(
     // W2-007: new opportunity-row signals (warranty/subscription/local-pickup/
     // shared-logistics) are delegated to opportunity-engine-w2-007.ts. The
     // seedFromW2_007Signal returns undefined when the kind is not W2-007.
-    else if (relevant) {
-      const w2_007 = seedFromW2_007Signal(signal as W2_007ObservationSignal, intent.intentId);
-      if (w2_007 !== undefined) {
-        seed = {
-          seedId: w2_007.seedId,
-          intentId: intent.intentId,
-          opportunityKind: w2_007.opportunityKind,
-          epistemics: w2_007.epistemics,
-          subjectRef: w2_007.subjectRef,
-          matchedSignalIds: w2_007.matchedSignalIds,
-          context: w2_007.context,
-        };
-      }
-    }
     // W2-008: residue opportunity-row signals (swap/group-buy-opening/
     // price-drop-prediction/discount/proactive-suggestion) are delegated
-    // to opportunity-engine-w2-008.ts.
+    // to opportunity-engine-w2-008.ts. THE BATTERY FIX (TL): the original
+    // delivery used two sequential `else if (relevant)` guards — the
+    // second (W2-008) was UNREACHABLE (dupe-else-if; every relevant signal
+    // entered the W2-007 branch and non-W2-007 kinds silently produced no
+    // seed). The delegations now cascade within ONE branch.
     else if (relevant) {
-      const w2_008 = seedFromW2_008Signal(signal as W2_008ObservationSignal, intent.intentId);
-      if (w2_008 !== undefined) {
+      const w2_007 = seedFromW2_007Signal(signal as W2_007ObservationSignal, intent.intentId);
+      const w2_008 = w2_007 === undefined
+        ? seedFromW2_008Signal(signal as W2_008ObservationSignal, intent.intentId)
+        : undefined;
+      const delegated = w2_007 ?? w2_008;
+      if (delegated !== undefined) {
         seed = {
-          seedId: w2_008.seedId,
+          seedId: delegated.seedId,
           intentId: intent.intentId,
-          opportunityKind: w2_008.opportunityKind,
-          epistemics: w2_008.epistemics,
-          subjectRef: w2_008.subjectRef,
-          matchedSignalIds: w2_008.matchedSignalIds,
-          context: w2_008.context,
+          opportunityKind: delegated.opportunityKind,
+          epistemics: delegated.epistemics,
+          subjectRef: delegated.subjectRef,
+          matchedSignalIds: delegated.matchedSignalIds,
+          context: delegated.context,
         };
       }
     }
