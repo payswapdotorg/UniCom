@@ -117,6 +117,31 @@ export const CONTEXTUAL_OPPORTUNITY_TYPES: readonly ContextualOpportunityType[] 
     relatedFeatures: ["browser-only-systems", "browser-sessions-isolated-authority"],
     actionSurfaceId: "connector-studio",
   },
+  // --- W1-007 (additive): merchant-parity discoverability ---
+  {
+    id: "campaign-performance-hint",
+    triggerTemplate: "Your campaign is live — see how much it has sold and discounted.",
+    relatedFeatures: ["marketing-analytics"],
+    actionSurfaceId: "operate-marketing-analytics",
+  },
+  {
+    id: "loyalty-tier-progress-hint",
+    triggerTemplate: "A customer is close to the next loyalty tier.",
+    relatedFeatures: ["customers-crm-loyalty-subscriptions"],
+    actionSurfaceId: "operate-customers",
+  },
+  {
+    id: "reorder-advisory-hint",
+    triggerTemplate: "Forecast says this product will run low — review a reorder suggestion.",
+    relatedFeatures: ["inventory-locations-transfers-receiving-forecasting"],
+    actionSurfaceId: "operate-inventory",
+  },
+  {
+    id: "demand-signal-hint",
+    triggerTemplate: "Recent sales show a demand pattern worth acting on.",
+    relatedFeatures: ["marketing-analytics", "inventory-locations-transfers-receiving-forecasting"],
+    actionSurfaceId: "operate-marketing-analytics",
+  },
 ];
 
 /** Onboarding / empty-state education pathway (zero-data onboarding). */
@@ -207,5 +232,27 @@ export const ONBOARDING_PATHWAYS: readonly OnboardingPathway[] = [
       "inventory-locations-transfers-receiving-forecasting",
       "user-group-buying",
     ],
+  },
+  {
+    id: "launch-a-campaign",
+    title: "Launch a marketing campaign",
+    steps: [
+      "Pick a product or your whole catalog",
+      "Choose a discount or coupon",
+      "Schedule when it starts and stops",
+      "Watch the sales and discount totals come in",
+    ],
+    relatedFeatures: ["marketing-analytics", "pricing-promotions-coupons"],
+  },
+  {
+    id: "set-up-loyalty",
+    title: "Reward your customers",
+    steps: [
+      "Create loyalty tiers and point rules",
+      "Customers earn points on every purchase",
+      "Customers redeem points for discounts",
+      "See who is close to the next tier",
+    ],
+    relatedFeatures: ["customers-crm-loyalty-subscriptions"],
   },
 ];
