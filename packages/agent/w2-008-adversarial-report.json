@@ -1,0 +1,245 @@
+{
+  "reportId": "w2-008-adversarial-report:v1",
+  "generatedAt": "2026-12-11T00:00:00.000Z",
+  "batteryDigest": "h1:82a81d2a",
+  "verdict": "PASS",
+  "totals": {
+    "adversaries": 16,
+    "evasionBlocked": 16,
+    "missedDeclared": 0,
+    "silentEvasions": 0
+  },
+  "entries": [
+    {
+      "adversaryId": "adversary:w2-008:rental-period-exceeds-max",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "rental-period-exceeds-max",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:w2-008:rental-period-exceeds-max",
+        "kind": "security-analysis",
+        "recordHash": "h1:ac484ef7"
+      },
+      "detail": "rental period exceeds max"
+    },
+    {
+      "adversaryId": "adversary:w2-008:rental-deposit-exceeds-max",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "rental-deposit-exceeds-max",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:w2-008:rental-deposit-exceeds-max",
+        "kind": "security-analysis",
+        "recordHash": "h1:6bb2ded7"
+      },
+      "detail": "rental deposit exceeds max"
+    },
+    {
+      "adversaryId": "adversary:w2-008:resale-value-below-min",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "resale-value-below-min",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:w2-008:resale-value-below-min",
+        "kind": "security-analysis",
+        "recordHash": "h1:412328a6"
+      },
+      "detail": "resale value below min"
+    },
+    {
+      "adversaryId": "adversary:w2-008:resale-depreciation-exceeds-max",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "resale-depreciation-exceeds-max",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:w2-008:resale-depreciation-exceeds-max",
+        "kind": "security-analysis",
+        "recordHash": "h1:7f39bcb0"
+      },
+      "detail": "resale depreciation exceeds max"
+    },
+    {
+      "adversaryId": "adversary:w2-008:trade-hop-count-exceeds-max",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "trade-hop-count-exceeds-max",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:w2-008:trade-hop-count-exceeds-max",
+        "kind": "security-analysis",
+        "recordHash": "h1:bf7da307"
+      },
+      "detail": "trade hop count exceeds max"
+    },
+    {
+      "adversaryId": "adversary:w2-008:trade-participants-below-min",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "trade-participants-below-min",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:w2-008:trade-participants-below-min",
+        "kind": "security-analysis",
+        "recordHash": "h1:25fd39ae"
+      },
+      "detail": "trade participants below min"
+    },
+    {
+      "adversaryId": "adversary:w2-008:group-buy-auth-missing",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "group-buy-authorization-missing",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:w2-008:group-buy-auth-missing",
+        "kind": "security-analysis",
+        "recordHash": "h1:666950cd"
+      },
+      "detail": "group-buy authorization missing"
+    },
+    {
+      "adversaryId": "adversary:w2-008:group-buy-discount-below-min",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "group-buy-discount-below-min",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:w2-008:group-buy-discount-below-min",
+        "kind": "security-analysis",
+        "recordHash": "h1:9083f038"
+      },
+      "detail": "group-buy discount below min"
+    },
+    {
+      "adversaryId": "adversary:w2-008:local-commerce-distance-exceeds",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "local-commerce-distance-exceeds-max",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:w2-008:local-commerce-distance-exceeds",
+        "kind": "security-analysis",
+        "recordHash": "h1:933792e3"
+      },
+      "detail": "local-commerce distance exceeds max"
+    },
+    {
+      "adversaryId": "adversary:w2-008:local-pickup-not-available",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "local-pickup-not-available",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:w2-008:local-pickup-not-available",
+        "kind": "security-analysis",
+        "recordHash": "h1:42f73da7"
+      },
+      "detail": "local pickup not available"
+    },
+    {
+      "adversaryId": "adversary:w2-008:account-anomalous-login-rate",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "account-anomalous-login-rate-exceeds",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:w2-008:account-anomalous-login-rate",
+        "kind": "security-analysis",
+        "recordHash": "h1:82495967"
+      },
+      "detail": "account anomalous login rate exceeds"
+    },
+    {
+      "adversaryId": "adversary:w2-008:agent-behavioral-deviation",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "agent-behavioral-deviation-exceeds",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:w2-008:agent-behavioral-deviation",
+        "kind": "security-analysis",
+        "recordHash": "h1:84fb120a"
+      },
+      "detail": "agent behavioral deviation exceeds"
+    },
+    {
+      "adversaryId": "adversary:w2-008:sybil-unique-identities-below",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "sybil-unique-identities-below-min",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:w2-008:sybil-unique-identities-below",
+        "kind": "security-analysis",
+        "recordHash": "h1:a500ae8e"
+      },
+      "detail": "Sybil unique identities below min"
+    },
+    {
+      "adversaryId": "adversary:w2-008:connector-attestation-stale",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "connector-attestation-stale",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:w2-008:connector-attestation-stale",
+        "kind": "security-analysis",
+        "recordHash": "h1:9dd47a1d"
+      },
+      "detail": "connector attestation stale"
+    },
+    {
+      "adversaryId": "adversary:w2-008:anomalous-agent-action-rate",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "anomalous-agent-action-rate-exceeds",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:w2-008:anomalous-agent-action-rate",
+        "kind": "security-analysis",
+        "recordHash": "h1:66196adc"
+      },
+      "detail": "anomalous agent action rate exceeds"
+    },
+    {
+      "adversaryId": "adversary:w2-008:anomalous-agent-capability-deviation",
+      "category": "BUYER_CONSTRAINT_VIOLATION",
+      "label": "anomalous-agent-capability-deviation-exceeds",
+      "expected": "EVASION_BLOCKED",
+      "result": "EVASION_BLOCKED",
+      "journaled": true,
+      "evidence": {
+        "evidenceId": "adversary:encounter:adversary:w2-008:anomalous-agent-capability-deviation",
+        "kind": "security-analysis",
+        "recordHash": "h1:823d83c4"
+      },
+      "detail": "anomalous agent capability deviation exceeds"
+    }
+  ],
+  "journalChainOk": true,
+  "unifiedChainOk": true,
+  "reportDigest": "h1:183c095c",
+  "gate": {
+    "decision": "W2_008_PASS",
+    "reasons": []
+  }
+}

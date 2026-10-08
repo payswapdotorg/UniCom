@@ -30,6 +30,38 @@ export type {
   NegotiationBounds,
   PriceTimingConstraint,
 } from "./intent-w2-007.js";
+// W2-008 additive: residue closure constraint types + deterministic check.
+import type {
+  RentalConstraint,
+  ResaleConstraint,
+  MultiHopTradeConstraint,
+  MerchantSuggestedGroupBuyConstraint,
+  LocalCommerceConstraint,
+  AccountCompromiseConstraint,
+  AgentCompromiseConstraint,
+  ConnectorCompromiseConstraint,
+  CollusionConstraint,
+  SybilConstraint,
+  AnomalousAgentConstraint,
+  W2_008ConstraintShape,
+  W2_008CandidateShape,
+  W2_008ConstraintViolation,
+} from "./intent-w2-008.js";
+import { checkW2_008Constraints } from "./intent-w2-008.js";
+export type {
+  RentalConstraint,
+  ResaleConstraint,
+  MultiHopTradeConstraint,
+  MerchantSuggestedGroupBuyConstraint,
+  LocalCommerceConstraint,
+  AccountCompromiseConstraint,
+  AgentCompromiseConstraint,
+  ConnectorCompromiseConstraint,
+  CollusionConstraint,
+  SybilConstraint,
+  AnomalousAgentConstraint,
+  W2_008ConstraintViolation,
+} from "./intent-w2-008.js";
 
 export type PrivacyRequirement =
   | "NO_THIRD_PARTY_SHARING"
@@ -84,6 +116,20 @@ export interface BuyerHardConstraints {
   readonly buyNowVsWait?: "BUY_NOW_REQUIRED" | "WAIT_PREFERRED" | "EITHER";
   readonly priceTiming?: PriceTimingConstraint;
   readonly negotiation?: NegotiationBounds;
+  // --- W2-008 (additive): residue closure hard constraints for
+  // buyer-agent + trust-and-security planes. Same discipline as W2-007:
+  // absent fields stay UNKNOWN; check logic in intent-w2-008.ts. ---
+  readonly rental?: RentalConstraint;
+  readonly resale?: ResaleConstraint;
+  readonly multiHopTrade?: MultiHopTradeConstraint;
+  readonly merchantSuggestedGroupBuy?: MerchantSuggestedGroupBuyConstraint;
+  readonly localCommerce?: LocalCommerceConstraint;
+  readonly accountCompromise?: AccountCompromiseConstraint;
+  readonly agentCompromise?: AgentCompromiseConstraint;
+  readonly connectorCompromise?: ConnectorCompromiseConstraint;
+  readonly collusion?: CollusionConstraint;
+  readonly sybil?: SybilConstraint;
+  readonly anomalousAgent?: AnomalousAgentConstraint;
 }
 
 /** Typed soft preferences — optimization hints, never gates. */
@@ -129,6 +175,13 @@ export interface IntentCandidate {
   readonly withinTargetDeadline?: boolean;
   readonly negotiationOpeningOffer?: Money;
   readonly negotiationRoundsElapsed?: number;
+  // --- W2-008 (additive): residue closure candidate details. ---
+  readonly rentalCandidate?: W2_008CandidateShape["rental"];
+  readonly resaleCandidate?: W2_008CandidateShape["resale"];
+  readonly multiHopCandidate?: W2_008CandidateShape["multiHop"];
+  readonly groupBuyCandidate?: W2_008CandidateShape["groupBuy"];
+  readonly localCommerceCandidate?: W2_008CandidateShape["localCommerce"];
+  readonly securityCandidate?: W2_008CandidateShape["security"];
 }
 
 export type HardConstraintViolation =
@@ -152,7 +205,9 @@ export type HardConstraintViolation =
   | "TARGET_DEADLINE_MISSED"
   | "NEGOTIATION_OUT_OF_BOUND"
   | "NEGOTIATION_ROUNDS_EXHAUSTED"
-  | "NEGOTIATION_PROOF_BELOW_REQUIRED";
+  | "NEGOTIATION_PROOF_BELOW_REQUIRED"
+  // --- W2-008 (additive): residue closure violations. ---
+  | W2_008ConstraintViolation;
 
 export type HardConstraintCheck =
   | { readonly satisfied: true }
@@ -274,6 +329,34 @@ export function checkHardConstraints(intent: BuyerCommerceIntent, candidate: Int
       proofLevel: candidate.proofLevel,
       estimatedDeliveryAt: candidate.estimatedDeliveryAt,
       recourseAvailable: candidate.recourseAvailable,
+    },
+  ));
+
+  // W2-008: residue closure checks (rental/resale/multi-hop/group-buy/
+  // local-commerce + security-plane compromise/collusion/Sybil/anomaly).
+  // Delegated to intent-w2-008.ts. Same discipline: pure projection, UNKNOWN
+  // never reaches it, returned violations are additive.
+  violations.push(...checkW2_008Constraints(
+    {
+      rental: hard.rental,
+      resale: hard.resale,
+      multiHopTrade: hard.multiHopTrade,
+      merchantSuggestedGroupBuy: hard.merchantSuggestedGroupBuy,
+      localCommerce: hard.localCommerce,
+      accountCompromise: hard.accountCompromise,
+      agentCompromise: hard.agentCompromise,
+      connectorCompromise: hard.connectorCompromise,
+      collusion: hard.collusion,
+      sybil: hard.sybil,
+      anomalousAgent: hard.anomalousAgent,
+    },
+    {
+      rental: candidate.rentalCandidate,
+      resale: candidate.resaleCandidate,
+      multiHop: candidate.multiHopCandidate,
+      groupBuy: candidate.groupBuyCandidate,
+      localCommerce: candidate.localCommerceCandidate,
+      security: candidate.securityCandidate,
     },
   ));
 
