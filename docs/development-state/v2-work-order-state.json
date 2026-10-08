@@ -84,6 +84,51 @@
         "cumulative_vitest": "1226/1226 (commerce 332 + agent 448 + experience 446; +57 experience tests)",
         "completion_report": "docs/work-orders/reports/W3-007-completion-report.md (5/5 scenarios evidenced, zero-orphan invariant held)"
       }
+    },
+    {
+      "id": "W1-008",
+      "owner": "worker-1",
+      "depends_on": [
+        "W1-007",
+        "W2-007",
+        "W3-007"
+      ],
+      "activated_at": "2026-10-08T01:35:00Z",
+      "base_sha": "311796e",
+      "session": "unicom-w1-008",
+      "delivery_branch": "work/w1-008",
+      "status": "ACTIVE",
+      "spec": "docs/work-orders/W1-008.md"
+    },
+    {
+      "id": "W2-008",
+      "owner": "worker-2",
+      "depends_on": [
+        "W1-007",
+        "W2-007",
+        "W3-007"
+      ],
+      "activated_at": "2026-10-08T01:35:00Z",
+      "base_sha": "311796e",
+      "session": "unicom-w2-008",
+      "delivery_branch": "work/w2-008",
+      "status": "ACTIVE",
+      "spec": "docs/work-orders/W2-008.md"
+    },
+    {
+      "id": "W3-008",
+      "owner": "worker-3",
+      "depends_on": [
+        "W1-007",
+        "W2-007",
+        "W3-007"
+      ],
+      "activated_at": "2026-10-08T01:35:00Z",
+      "base_sha": "311796e",
+      "session": "unicom-w3-008",
+      "delivery_branch": "work/w3-008",
+      "status": "ACTIVE",
+      "spec": "docs/work-orders/W3-008.md"
     }
   ],
   "frontier": [
@@ -112,5 +157,14 @@
     "local_commerce_edge": "REQUIRED",
     "promotion_gates_w2_006": "REQUIRED-WHERE-PROMOTION-TOUCHED"
   },
-  "tl_loop": "monitor → harvest (branch oracle; git is the gold standard) → review (TL battery on the merge result; never trust reported numbers) → approve (squash-merge via PR + one-commit state update) or require-changes (re-dispatch with the gap list) → dispatch next. No early returns."
+  "tl_loop": "monitor → harvest (branch oracle; git is the gold standard) → review (TL battery on the merge result; never trust reported numbers) → approve (squash-merge via PR + one-commit state update) or require-changes (re-dispatch with the gap list) → dispatch next. No early returns.",
+  "wave": {
+    "wave": 2,
+    "name": "Full-matrix audit + v2 release gate",
+    "activated": "2026-10-08T01:35:00Z",
+    "baseline": {
+      "main": "311796e",
+      "tests": "1226/1226"
+    }
+  }
 }
