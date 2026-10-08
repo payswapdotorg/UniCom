@@ -1,0 +1,204 @@
+{
+  "gateId": "unicom-release-gate-v2",
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-08T09:00:06.000Z",
+  "clockMode": "deterministic-drill",
+  "lineage": "v2",
+  "baseSha": "8cc5342",
+  "inputDigests": {
+    "matrixAudit": "2a0e09ebcc300666985494802f1311811016c657ada01ba2cbb6eff120734e8b",
+    "e2eJourneys": "ef92429f35b1ced12cfc4e8ab3af16357b2de6857b92feaef8d1fbf4cc011f87",
+    "observability": "6065ab69c21246676b7308cf5ce084a2924723eeab263a0c16d8663d941fb670",
+    "drDrill": "d12892d1fea1f993a50663d4d2460d213c5eb512311d2b74876fe3c2990c32a2",
+    "adversarial": "1c7548a3843e1bf9dd86d5168df447de3641b1fc8f9a3ab979cd8c7f88870bec",
+    "cumulativeSuite": "c55e733b1a7e2050da956825d06a9957db282c77d5279e2544ad27bfaf4e00f3"
+  },
+  "matrixAudit": {
+    "sectionsAudited": 3,
+    "rowsTotal": 44,
+    "rowsGreen": 44,
+    "rowsClosedThisBranch": 2,
+    "rowsBySection": [
+      {
+        "section": "commerce-network",
+        "rowsTotal": 18,
+        "rowsGreen": 18
+      },
+      {
+        "section": "deployment-coverage",
+        "rowsTotal": 12,
+        "rowsGreen": 12
+      },
+      {
+        "section": "physical-commerce",
+        "rowsTotal": 14,
+        "rowsGreen": 14
+      }
+    ]
+  },
+  "evidenceReports": [
+    {
+      "reportId": "rc-v2-e2e-journeys",
+      "kind": "e2e-journeys",
+      "verdict": "pass",
+      "summary": {
+        "total": 63,
+        "passed": 63,
+        "failed": 0
+      }
+    },
+    {
+      "reportId": "rc-v2-observability",
+      "kind": "observability",
+      "verdict": "pass",
+      "summary": {
+        "total": 6,
+        "passed": 6,
+        "failed": 0
+      }
+    },
+    {
+      "reportId": "rc-v2-dr-drill",
+      "kind": "dr-drill",
+      "verdict": "pass",
+      "summary": {
+        "total": 12,
+        "passed": 12,
+        "failed": 0
+      }
+    }
+  ],
+  "adversarialSummary": {
+    "reportId": "rc-adversarial-v2",
+    "subject": "W3-008 v2 adversarial summary (self-regenerated at this base; W2-008 contract shape)",
+    "adversariesTotal": 8,
+    "silentEvasions": 0,
+    "adversaries": [
+      {
+        "adversaryId": "ingestion:prompt-injection-via-webhook-payload",
+        "expected": "webhook payload carrying IGNORE ALL PREVIOUS INSTRUCTIONS is rejected as untrusted data; never executed",
+        "actual": "EVASION_BLOCKED — payload wrapped as UntrustedCommerceContent, sanitizer strips script/iframe, evidence journaled",
+        "verdict": "EVASION_BLOCKED",
+        "journaledEvidenceId": "ingestion-adversarial:webhook-prompt-injection"
+      },
+      {
+        "adversaryId": "ingestion:csv-injection-malicious-formula",
+        "expected": "CSV cell carrying =HYPERLINK(\"...evil...\") is rejected; never reaches canonical state",
+        "actual": "POLICY_MITIGATED — formula cells neutralized via untrusted-content boundary, evidence journaled",
+        "verdict": "POLICY_MITIGATED",
+        "journaledEvidenceId": "ingestion-adversarial:csv-formula-injection"
+      },
+      {
+        "adversaryId": "ingestion:sftp-poisoned-feed",
+        "expected": "SFTP-delivered XML feed carrying external entity injection is rejected",
+        "actual": "EVASION_BLOCKED — parsed as untrusted data, entity expansion refused, evidence journaled",
+        "verdict": "EVASION_BLOCKED",
+        "journaledEvidenceId": "ingestion-adversarial:sftp-xml-entity-injection"
+      },
+      {
+        "adversaryId": "ingestion:email-spoofed-order",
+        "expected": "spoofed email purporting to be a customer order is rejected as untrusted",
+        "actual": "POLICY_MITIGATED — DKIM/From-headers treated as untrusted observations, never commands, evidence journaled",
+        "verdict": "POLICY_MITIGATED",
+        "journaledEvidenceId": "ingestion-adversarial:email-spoofed-order"
+      },
+      {
+        "adversaryId": "protocol:mcp-untrusted-instruction",
+        "expected": "MCP adapter receives a frame claiming to be a trusted instruction; the boundary refuses",
+        "actual": "EVASION_BLOCKED — MCP frames are untrusted data; trusted-instruction brand check refuses, evidence journaled",
+        "verdict": "EVASION_BLOCKED",
+        "journaledEvidenceId": "protocol-adversarial:mcp-untrusted-instruction"
+      },
+      {
+        "adversaryId": "protocol:a2a-capability-impersonation",
+        "expected": "A2A peer claims a capability it does not have; the boundary refuses",
+        "actual": "POLICY_MITIGATED — capability instance required for execution (INVARIANT 8), evidence journaled",
+        "verdict": "POLICY_MITIGATED",
+        "journaledEvidenceId": "protocol-adversarial:a2a-capability-impersonation"
+      },
+      {
+        "adversaryId": "browser:untrusted-content-escape",
+        "expected": "browser-only connector ingests page content with embedded script; never reaches model context",
+        "actual": "EVASION_BLOCKED — sanitizer strips <script>/<iframe>/javascript:, evidence journaled",
+        "verdict": "EVASION_BLOCKED",
+        "journaledEvidenceId": "browser-adversarial:untrusted-content-escape"
+      },
+      {
+        "adversaryId": "credential:material-in-model-context",
+        "expected": "credential material is never reachable from model context (INVARIANT 27/50)",
+        "actual": "POLICY_MITIGATED — model-context gate refuses material presentation, evidence journaled",
+        "verdict": "POLICY_MITIGATED",
+        "journaledEvidenceId": "credential-adversarial:material-in-model-context"
+      }
+    ],
+    "verdict": "pass"
+  },
+  "cumulativeSuite": {
+    "passed": 81,
+    "total": 81,
+    "note": "W3-008 v2 release-gate drill rows; the surrounding vitest battery (this drill runs inside it) additionally verifies the 1226/1226 v1 baseline stays green"
+  },
+  "checks": [
+    {
+      "checkId": "gate:v2:matrix-audit-rows-green",
+      "description": "every matrix-audit row in my planes (commerce-network 18 + physical-commerce 14 + deployment-coverage 12) derives a PASS verdict",
+      "passed": true,
+      "evidenceNote": "44/44 rows green across 3 sections"
+    },
+    {
+      "checkId": "gate:v2:matrix-audit-sections-present",
+      "description": "all three of my matrix-audit sections are loaded (commerce-network, physical-commerce, deployment-coverage)",
+      "passed": true,
+      "evidenceNote": "commerce-network, deployment-coverage, physical-commerce"
+    },
+    {
+      "checkId": "gate:v2:evidence:e2e-journeys",
+      "description": "e2e-journeys evidence report present and passing on the v2 lineage",
+      "passed": true,
+      "evidenceNote": "rc-v2-e2e-journeys (63/63)"
+    },
+    {
+      "checkId": "gate:v2:evidence:observability",
+      "description": "observability evidence report present and passing on the v2 lineage",
+      "passed": true,
+      "evidenceNote": "rc-v2-observability (6/6)"
+    },
+    {
+      "checkId": "gate:v2:evidence:dr-drill",
+      "description": "DR drill evidence report present and passing on the v2 lineage (analytics/loyalty rebuild, ingestion registry replay, API projection rebuild equivalence)",
+      "passed": true,
+      "evidenceNote": "rc-v2-dr-drill (12/12)"
+    },
+    {
+      "checkId": "gate:v2:adversarial-zero-silent-evasions",
+      "description": "the v2 adversarial summary reports zero silent evasions across the v2 surface",
+      "passed": true,
+      "evidenceNote": "8 adversaries, 0 silent evasions"
+    },
+    {
+      "checkId": "gate:v2:input-digests-stable",
+      "description": "every input digest is regenerated from the consumed content; the committed digests match the regenerated digests",
+      "passed": true,
+      "evidenceNote": "matrixAudit=2a0e09eb… e2e=ef92429f… obs=6065ab69… dr=d12892d1… adversarial=1c7548a3…"
+    },
+    {
+      "checkId": "gate:v2:cumulative-suite",
+      "description": "the cumulative experience + commerce battery stays green (1226/1226 baseline — additive only, zero regressions)",
+      "passed": true,
+      "evidenceNote": "81/81 green — W3-008 v2 release-gate drill rows; the surrounding vitest battery (this drill runs inside it) additionally verifies the 1226/1226 v1 baseline stays green"
+    },
+    {
+      "checkId": "gate:v2:production-push-authorization",
+      "description": "production_deployment_authorized remains false — the gate reports readiness; the operator re-authorizes",
+      "passed": true,
+      "evidenceNote": "production push NOT authorized (by design of W3-008); readiness verdict derived from consumed inputs only"
+    }
+  ],
+  "allPass": true,
+  "readinessVerdict": "release-candidate-ready",
+  "productionPushAuthorized": false,
+  "deviationsFromSpec": [
+    "W1-008 matrix-audit harness artifact (docs/reports/matrix-audit-v2.json) NOT at base 8cc5342 — gate consumes self-loaded section files under scripts/matrix-audit/sections/ per the spec's 'gate on your own regenerated inputs' clause",
+    "W2-008 v2 adversarial report artifact (packages/agent/w2-008-adversarial-report.json) NOT at base 8cc5342 — gate consumes a self-regenerated adversarial summary (regenerateV2AdversarialSummary) covering ingestion/protocol/browser/credential adversaries, per the spec's 'gate on your own regenerated inputs' clause"
+  ]
+}
