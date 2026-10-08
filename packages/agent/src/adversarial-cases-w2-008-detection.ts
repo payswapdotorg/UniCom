@@ -15,6 +15,7 @@ import {
 } from "./adversarial-context.js";
 import {
   BUYER,
+  USD,
   buyerIntentWithAccountCompromise,
   buyerIntentWithAgentCompromise,
   buyerIntentWithSybil,

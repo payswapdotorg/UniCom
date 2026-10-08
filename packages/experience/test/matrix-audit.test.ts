@@ -48,12 +48,18 @@ describe("W1-008 acceptance scenario 1 — harness reproducibility", () => {
     expect((artifact as unknown as { generatedAt?: unknown }).generatedAt).toBeUndefined();
   });
 
-  it("audits exactly the three W1-008 sections in deterministic order", async () => {
+  it("audits exactly the six sections in deterministic order", async () => {
+    // W2-008 battery update: the W1-008 trio + the W2-008 trio
+    // (buyer-agent, user-opportunities, trust-and-security) — the harness
+    // section registry grows per wave; the order stays deterministic.
     const artifact = await runAudit();
     expect(artifact.sections.map((s) => s.section)).toEqual([
       "merchant-parity",
       "ai-native-merchant-layer",
       "coordination-organization",
+      "buyer-agent",
+      "user-opportunities",
+      "trust-and-security",
     ]);
   });
 
@@ -67,14 +73,15 @@ describe("W1-008 acceptance scenario 1 — harness reproducibility", () => {
         seen.add(key);
       }
     }
-    // 14 (merchant-parity) + 12 (ai-native) + 14 (coordination) = 40
-    expect(seen.size).toBe(40);
+    // 14 (merchant-parity) + 12 (ai-native) + 14 (coordination)
+    // + 22 (buyer-agent) + 10 (user-opportunities) + 22 (trust-and-security) = 94
+    expect(seen.size).toBe(94);
   });
 
-  it("all 40 rows are PASS after closure (W1-008 acceptance scenario 4)", async () => {
+  it("all 94 rows are PASS after closure (W1-008 scenario 4 + W2-008 closure)", async () => {
     const artifact = await runAudit();
-    expect(artifact.summary.rowsTotal).toBe(40);
-    expect(artifact.summary.rowsGreen).toBe(40);
+    expect(artifact.summary.rowsTotal).toBe(94);
+    expect(artifact.summary.rowsGreen).toBe(94);
     expect(artifact.summary.rowsFail).toBe(0);
   });
 });

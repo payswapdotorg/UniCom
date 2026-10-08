@@ -13,7 +13,6 @@ import {
   runW2_008Suite,
   evaluateW2_008Gate,
   W2_008_RESIDUE_ADVERSARIES,
-  w2_008ReportDigest,
 } from "../src/w2-008-adversarial-suite.js";
 import type { AdversaryCase } from "../src/adversarial-context.js";
 
