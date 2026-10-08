@@ -1,4 +1,41 @@
 {
   "version": 1,
-  "violations": []
+  "violations": [
+    {
+      "rule": "max-file-lines",
+      "file": "/home/z/UniCom/packages/agent/src/adversarial-cases-w2-008.ts",
+      "module": "agent",
+      "detail": "604",
+      "message": "文件 604 行，超过上限 400 行",
+      "fingerprint": "072a432b14abcbb3",
+      "global": false
+    },
+    {
+      "rule": "max-file-lines",
+      "file": "/home/z/UniCom/packages/agent/src/intent.ts",
+      "module": "agent",
+      "detail": "426",
+      "message": "文件 426 行，超过上限 400 行",
+      "fingerprint": "0d5fae20a6ffbb71",
+      "global": false
+    },
+    {
+      "rule": "max-file-lines",
+      "file": "/home/z/UniCom/packages/agent/src/opportunity-engine.ts",
+      "module": "agent",
+      "detail": "422",
+      "message": "文件 422 行，超过上限 400 行",
+      "fingerprint": "10193fe05403f9f4",
+      "global": false
+    },
+    {
+      "rule": "max-file-lines",
+      "file": "/home/z/UniCom/packages/agent/src/intent-w2-008.ts",
+      "module": "agent",
+      "detail": "524",
+      "message": "文件 524 行，超过上限 400 行",
+      "fingerprint": "75eeab375b35fc06",
+      "global": false
+    }
+  ]
 }
