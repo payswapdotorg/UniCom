@@ -534,6 +534,201 @@ export async function runLiveCommerceLateJoinerJourney(harness: ExperienceAppHar
 }
 
 // ---------------------------------------------------------------------------
+// Journey 8 — API Explorer (W3-007 §5)
+// ---------------------------------------------------------------------------
+
+export async function runApiExplorerJourney(harness: ExperienceAppHarness): Promise<JourneyOutcome> {
+  const view = harness.apiExplorer();
+  const intent = harness.resolveIntent("show me the api");
+  const manifest = harness.surfaceManifest("api-explorer");
+  const manifestSurfaceId = manifest?.surfaceId ?? "(missing manifest)";
+  const steps: JourneyStep[] = [
+    step(
+      "surface-ready-and-manifest-present",
+      "the API explorer surface reaches READY and has a four-state manifest (zero orphans)",
+      harness.surfaceReady(view).phase === "ready" && manifest?.surfaceId === "api-explorer",
+      `phase=ready; manifest present for surface ${manifestSurfaceId}`,
+    ),
+    step(
+      "endpoints-typed-and-versioned",
+      "every endpoint row is typed (verb, path, role) and versioned at v1",
+      view.endpoints.length >= 10 && view.endpoints.every((endpoint) => endpoint.verb.length > 0 && endpoint.path.startsWith("/v1/") && (endpoint.role === "projection" || endpoint.role === "command")),
+      `${view.endpoints.length} endpoints at version ${view.version}`,
+    ),
+    step(
+      "projection-endpoints-journal-derived",
+      "every projection endpoint is marked journal-derived with a truth class",
+      view.endpoints.filter((endpoint) => endpoint.role === "projection").every((endpoint) => endpoint.journalDerived === true && endpoint.truthClass !== undefined),
+      `${view.endpoints.filter((endpoint) => endpoint.role === "projection").length} projection endpoints journal-derived`,
+    ),
+    step(
+      "command-endpoints-explicit",
+      "every command endpoint requires explicit kernel command path (no freeform mutation)",
+      view.endpoints.filter((endpoint) => endpoint.role === "command").length >= 2,
+      `${view.endpoints.filter((endpoint) => endpoint.role === "command").length} command endpoints`,
+    ),
+    step(
+      "graphql-read-path-projection-equivalent",
+      "the GraphQL read path is in projection-equivalence with REST (no second truth)",
+      view.graphQlQueries.length === view.endpoints.filter((endpoint) => endpoint.role === "projection").length,
+      `${view.graphQlQueries.length} GraphQL query fields projection-equivalent to REST`,
+    ),
+    step(
+      "sdk-contract-equivalence",
+      "the typed SDK method registry is in 1:1 correspondence with the endpoint registry (no hand-written drift)",
+      view.sdkContractEquivalence === true,
+      `endpoints === SDK methods`,
+    ),
+    step(
+      "universal-intent-resolves",
+      "the universal intent surface resolves the API explorer through a typed command",
+      intent.status === "resolved" && intent.status === "resolved" && intent.matches.some((match) => match.command.surfaceId === "api-explorer"),
+      intent.status === "resolved" ? `alias "${intent.matches[0]?.matchedAlias}" → api-explorer` : "unresolved",
+    ),
+  ];
+  return outcome("e2e-api-explorer", "API Explorer (public API/SDK surface)", steps);
+}
+
+// ---------------------------------------------------------------------------
+// Journey 9 — Protocol Adapter Studio (W3-007 §5)
+// ---------------------------------------------------------------------------
+
+export async function runProtocolAdapterStudioJourney(harness: ExperienceAppHarness): Promise<JourneyOutcome> {
+  const view = harness.protocolAdapterStudio();
+  const intent = harness.resolveIntent("connect an agent protocol");
+  const manifest = harness.surfaceManifest("protocol-adapter-studio");
+  const manifestSurfaceId = manifest?.surfaceId ?? "(missing manifest)";
+  const steps: JourneyStep[] = [
+    step(
+      "surface-ready-and-manifest-present",
+      "the protocol adapter studio surface reaches READY and has a four-state manifest",
+      harness.surfaceReady(view).phase === "ready" && manifest?.surfaceId === "protocol-adapter-studio",
+      `phase=ready; manifest present for surface ${manifestSurfaceId}`,
+    ),
+    step(
+      "all-four-families-registered",
+      "the four agent-protocol families (UCP, ACP, MCP, A2A) are all registered as connector capabilities",
+      view.allFourFamiliesRegistered === true && view.adapters.length === 4,
+      `${view.adapters.length} adapter families registered`,
+    ),
+    step(
+      "every-adapter-has-canonical-capability-id",
+      "every adapter row carries a canonical capability definition id from @unicom/agent",
+      view.adapters.every((row) => row.capabilityDefinitionId.startsWith("agent-protocol.")),
+      `capability ids: ${view.adapters.map((row) => row.capabilityDefinitionId).join(", ")}`,
+    ),
+    step(
+      "unconnected-adapters-report-never-probed",
+      "an adapter without a peer connection reports lastHealth=never-probed (UNKNOWN preserved, never fabricated)",
+      view.adapters.every((row) => row.connected === false && row.lastHealth === "never-probed"),
+      "all four adapters never-probed (zero fabrication)",
+    ),
+    step(
+      "universal-intent-resolves",
+      "the universal intent surface resolves the protocol adapter studio through a typed command",
+      intent.status === "resolved" && intent.status === "resolved" && intent.matches.some((match) => match.command.surfaceId === "protocol-adapter-studio"),
+      intent.status === "resolved" ? `alias "${intent.matches[0]?.matchedAlias}" → protocol-adapter-studio` : "unresolved",
+    ),
+  ];
+  return outcome("e2e-protocol-adapter-studio", "Protocol Adapter Studio", steps);
+}
+
+// ---------------------------------------------------------------------------
+// Journey 10 — Ingestion Monitor (W3-007 §5)
+// ---------------------------------------------------------------------------
+
+export async function runIngestionMonitorJourney(harness: ExperienceAppHarness): Promise<JourneyOutcome> {
+  const view = harness.ingestionMonitor();
+  const intent = harness.resolveIntent("show ingestion events");
+  const manifest = harness.surfaceManifest("ingestion-monitor");
+  const manifestSurfaceId = manifest?.surfaceId ?? "(missing manifest)";
+  const steps: JourneyStep[] = [
+    step(
+      "surface-ready-and-manifest-present",
+      "the ingestion monitor surface reaches READY and has a four-state manifest",
+      harness.surfaceReady(view).phase === "ready" && manifest?.surfaceId === "ingestion-monitor",
+      `phase=ready; manifest present for surface ${manifestSurfaceId}`,
+    ),
+    step(
+      "all-five-source-families-wired",
+      "the five ingestion source families (webhook, CSV, XML-EDI, SFTP, email) are all wired",
+      view.allFiveSourceFamiliesWired === true,
+      `families: ${Object.keys(view.countsByFamily).join(", ")}`,
+    ),
+    step(
+      "events-journaled-as-evidence",
+      "every ingestion event is journaled as an evidence record (status, timestamps, command or observation ref)",
+      view.events.length > 0 && view.events.every((event) => event.eventId.length > 0 && event.receivedAt.length > 0 && event.decidedAt.length > 0),
+      `${view.events.length} journaled events`,
+    ),
+    step(
+      "ingested-event-produces-command-or-observation",
+      "an ingested event produces a typed kernel command or observation (not freeform content)",
+      view.events.some((event) => event.status === "ingested" && (event.commandRef !== undefined || event.observationRef !== undefined)),
+      "ingested event carries a typed command or observation ref",
+    ),
+    step(
+      "universal-intent-resolves",
+      "the universal intent surface resolves the ingestion monitor through a typed command",
+      intent.status === "resolved" && intent.status === "resolved" && intent.matches.some((match) => match.command.surfaceId === "ingestion-monitor"),
+      intent.status === "resolved" ? `alias "${intent.matches[0]?.matchedAlias}" → ingestion-monitor` : "unresolved",
+    ),
+  ];
+  return outcome("e2e-ingestion-monitor", "Ingestion Monitor", steps);
+}
+
+// ---------------------------------------------------------------------------
+// Journey 11 — Physical Capture (W3-007 §5)
+// ---------------------------------------------------------------------------
+
+export async function runPhysicalCaptureJourney(harness: ExperienceAppHarness): Promise<JourneyOutcome> {
+  const view = harness.physicalCapture();
+  const intent = harness.resolveIntent("scan a shelf");
+  const manifest = harness.surfaceManifest("physical-capture");
+  const manifestSurfaceId = manifest?.surfaceId ?? "(missing manifest)";
+  const manifestSurfacesObservationQueue = manifest?.offline.surfacesObservationQueue === true;
+  const steps: JourneyStep[] = [
+    step(
+      "surface-ready-and-manifest-present",
+      "the physical capture surface reaches READY and has a four-state manifest with offline observation queue",
+      harness.surfaceReady(view).phase === "ready" && manifest?.surfaceId === "physical-capture" && manifestSurfacesObservationQueue,
+      `phase=ready; manifest for ${manifestSurfaceId} declares surfacesObservationQueue=${manifestSurfacesObservationQueue}`,
+    ),
+    step(
+      "all-five-journeys-registered",
+      "the five physical journeys (camera, QR, NFC, shelf-photo, cycle-count) are all registered",
+      view.allFiveJourneysRegistered === true && view.journeys.length === 6,
+      `${view.journeys.length} journey catalog entries (5 kinds × device variants)`,
+    ),
+    step(
+      "observations-never-promoted",
+      "physical observations reconcile before becoming canonical state (INVARIANT 29 — never silently promoted)",
+      view.observationsNeverPromoted === true,
+      "observationsNeverPromoted=true (INVARIANT 29)",
+    ),
+    step(
+      "every-journey-offline-capable",
+      "every physical journey is offline-capable (queue + sync after reconnect)",
+      view.journeys.every((entry) => entry.offlineCapable === true),
+      "all journeys offline-capable",
+    ),
+    step(
+      "capture-counts-from-real-runtime",
+      "the surface shows real capture counts from the physical journey runtime (history)",
+      Object.values(view.countsByJourney).some((count) => count > 0) === true,
+      `counts: ${Object.entries(view.countsByJourney).map(([kind, count]) => `${kind}=${count}`).join(", ")}`,
+    ),
+    step(
+      "universal-intent-resolves",
+      "the universal intent surface resolves the physical capture surface through a typed command",
+      intent.status === "resolved" && intent.status === "resolved" && intent.matches.some((match) => match.command.surfaceId === "physical-capture"),
+      intent.status === "resolved" ? `alias "${intent.matches[0]?.matchedAlias}" → physical-capture` : "unresolved",
+    ),
+  ];
+  return outcome("e2e-physical-capture", "Physical Capture (camera/QR/NFC/shelf-photo/cycle-count)", steps);
+}
+
+// ---------------------------------------------------------------------------
 // All journeys (used by the RC drill)
 // ---------------------------------------------------------------------------
 
@@ -547,5 +742,9 @@ export async function runAllPrimaryPathJourneys(): Promise<readonly JourneyOutco
     await runConnectorStudioJourney(harness),
     await runTrustSecurityJourney(harness),
     await runLiveCommerceLateJoinerJourney(harness),
+    await runApiExplorerJourney(harness),
+    await runProtocolAdapterStudioJourney(harness),
+    await runIngestionMonitorJourney(harness),
+    await runPhysicalCaptureJourney(harness),
   ];
 }

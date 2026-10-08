@@ -56,6 +56,45 @@ import { CommerceKernelLane } from "../fixtures/commerce/kernel-rig";
 import { seedDrWorkload } from "../fixtures/commerce/dr-kernel-rig";
 import { TestDoubleConnectorAdapter, doubleDescriptor, fixedClock } from "../doubles";
 
+// W3-007 surface builders and runtimes (API Explorer, Protocol Adapter
+// Studio, Ingestion Monitor, Physical Capture).
+import {
+  buildApiExplorerView,
+  buildProtocolAdapterStudioView,
+  buildIngestionMonitorView,
+  buildPhysicalCaptureView,
+  type ApiExplorerView,
+  type ProtocolAdapterStudioView,
+  type IngestionMonitorView,
+  type PhysicalCaptureView,
+} from "../../src/surfaces/w3-007-surfaces";
+import {
+  COMMERCE_API_ENDPOINTS,
+} from "../../src/api/api-contracts";
+import {
+  COMMERCE_SDK_METHODS,
+} from "../../src/api/sdk";
+import { COMMERCE_GRAPHQL_QUERY_FIELDS } from "../../src/api/graphql-projection";
+import {
+  createMcpAdapter,
+  createUcpAdapter,
+  createAcpAdapter,
+  createA2aAdapter,
+} from "../../src/runtime/protocols/agent-protocol-adapters";
+import {
+  createIngestionDedupStore,
+} from "../../src/runtime/ingestion/ingestion-adversarial";
+import {
+  createIngestionEvidenceRegistry,
+  createIngestionPipeline,
+  type IngestionPipelineBinding,
+} from "../../src/runtime/ingestion/ingestion-pipeline";
+import { csvParser } from "../../src/runtime/ingestion/ingestion-parsers";
+import {
+  createPhysicalJourneyDedupStore,
+  createPhysicalJourneyRuntime,
+} from "../../src/runtime/edge/physical/physical-journeys";
+
 export const E2E_CLOCK_BASE = "2026-10-10T07:00:00Z";
 const CLOCK = fixedClock(E2E_CLOCK_BASE);
 const OPERATOR = asPrincipalRef("operator:e2e");
@@ -89,6 +128,12 @@ export interface ExperienceAppHarness {
   operatorDashboard(plane?: DeploymentPlaneStatus): OperatorDashboardView;
   resolveIntent(utterance: string): UniversalIntentResolutionResult;
   facts(): ReturnType<CommerceKernelLane["facts"]>;
+
+  // W3-007 surfaces (API Explorer, Protocol Adapter Studio, Ingestion Monitor, Physical Capture)
+  apiExplorer(): ApiExplorerView;
+  protocolAdapterStudio(): ProtocolAdapterStudioView;
+  ingestionMonitor(): IngestionMonitorView;
+  physicalCapture(): PhysicalCaptureView;
 }
 
 const NOT_BOOTED_PLANE: DeploymentPlaneStatus = {
@@ -656,6 +701,91 @@ export async function createExperienceAppHarness(): Promise<ExperienceAppHarness
         runbookStatuses: runbookStatusesOf([]),
         operatorRef: OPERATOR,
       }),
+
+    apiExplorer: () => {
+      // W3-007 surface — built from the real API contract registry.
+      const endpoints = COMMERCE_API_ENDPOINTS;
+      const graphQlQueries = COMMERCE_GRAPHQL_QUERY_FIELDS;
+      const sdkMethodCount = COMMERCE_SDK_METHODS.length;
+      return buildApiExplorerView(endpoints, graphQlQueries, sdkMethodCount, () => asUtcTimestamp(CLOCK()));
+    },
+
+    protocolAdapterStudio: () => {
+      // W3-007 surface — built from the four real agent-protocol adapters.
+      const adapters = [
+        { adapter: createMcpAdapter(), connected: false, lastHealth: "never-probed" as const },
+        { adapter: createUcpAdapter(), connected: false, lastHealth: "never-probed" as const },
+        { adapter: createAcpAdapter(), connected: false, lastHealth: "never-probed" as const },
+        { adapter: createA2aAdapter(), connected: false, lastHealth: "never-probed" as const },
+      ];
+      return buildProtocolAdapterStudioView(adapters, () => asUtcTimestamp(CLOCK()));
+    },
+
+    ingestionMonitor: () => {
+      // W3-007 surface — built from a seeded ingestion evidence registry.
+      const dedupe = createIngestionDedupStore();
+      const registry = createIngestionEvidenceRegistry();
+      const binding: IngestionPipelineBinding = {
+        sourceFamily: "csv",
+        parser: csvParser,
+        mappingRule: {
+          mappingId: "mapping:e2e",
+          commandRef: "kernel-command:order.ingest",
+          observationRef: "observation:order.ingest",
+          map: (fields) => ({ command: { orderRef: fields.order_id ?? "" } }),
+        },
+      };
+      const pipeline = createIngestionPipeline({
+        binding,
+        dedupe,
+        registry,
+        clock: () => asUtcTimestamp(CLOCK()),
+      });
+      const csv = "order_id,customer_email,sku,quantity,unit_price,currency\ne2e-ord-1,buyer@example.com,SKU-1,2,12.50,USD";
+      pipeline.ingest({
+        sourceFamily: "csv",
+        eventId: "e2e-csv-1",
+        receivedAt: asUtcTimestamp(CLOCK()),
+        rawContent: csv,
+        signatureVerification: "verified",
+        sourceTransportId: "transport:csv" as never,
+      });
+      return buildIngestionMonitorView(registry.all(), () => asUtcTimestamp(CLOCK()));
+    },
+
+    physicalCapture: () => {
+      // W3-007 surface — built from the real physical journey runtime.
+      const dedupe = createPhysicalJourneyDedupStore();
+      const runtime = createPhysicalJourneyRuntime({
+        deviceRef: "device:e2e" as never,
+        dedupe,
+        clock: () => asUtcTimestamp(CLOCK()),
+      });
+      // Seed a couple of captures so the surface has non-zero history.
+      runtime.capture({
+        journeyKind: "camera-capture",
+        deviceClass: "camera-phone",
+        idempotencyKey: asIdempotencyKey("e2e-physical-1"),
+        capturedAt: asUtcTimestamp(CLOCK()),
+        captureMode: "offline",
+        payload: {
+          kind: "barcode-scan",
+          scan: { symbology: "gtin", code: "0040000001234", scanContext: "count" },
+        },
+      });
+      runtime.capture({
+        journeyKind: "cycle-count",
+        deviceClass: "cycle-count-device",
+        idempotencyKey: asIdempotencyKey("e2e-physical-2"),
+        capturedAt: asUtcTimestamp(CLOCK()),
+        captureMode: "offline",
+        payload: {
+          kind: "cycle-count",
+          cycleCount: { countedEntries: [{ barcode: "0040000001234", countedQuantity: "5" }] },
+        },
+      });
+      return buildPhysicalCaptureView(runtime.catalog(), runtime.countsByJourney(), () => asUtcTimestamp(CLOCK()));
+    },
   };
   return harness;
 }

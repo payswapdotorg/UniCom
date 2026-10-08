@@ -109,3 +109,12 @@ export * from "./deployment/journal-chain";
 export * from "./deployment/dr-playbooks";
 export * from "./deployment/dr-objectives";
 export * from "./deployment/rc-evidence";
+
+// W3-007 runtimes — public Commerce API/SDK server, agent-protocol
+// adapters (UCP/ACP/MCP/A2A), ingestion pipelines (webhook/CSV/XML-EDI/
+// SFTP/email) with adversarial rejection, and physical journeys
+// (camera/QR/NFC/shelf-photo/cycle-count) on the LocalCommerceEdge.
+export * from "./api/server";
+export * from "./protocols";
+export * from "./ingestion";
+export * from "./edge/physical/physical-journeys";

@@ -42,6 +42,12 @@ export * from "./surfaces/surface-state";
 export * from "./surfaces/surface-state-manifests";
 export * from "./surfaces/autonomous-store";
 
+// W3-007 surfaces — API Explorer, Protocol Adapter Studio, Ingestion Monitor, Physical Capture
+export * from "./surfaces/w3-007-surfaces";
+
+// W3-007 API/SDK + protocol adapters + ingestion pipelines (typed contracts + runtimes)
+export * from "./api";
+
 export * from "./connector/transports";
 export * from "./connector/browser-session";
 export * from "./connector/observability";
