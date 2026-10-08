@@ -1,170 +1,184 @@
 {
-  "schema_version": "2.0",
-  "repository": "payswapdotorg/UniCom",
-  "architecture_version": "1.1-frozen-2026-10-05",
-  "foundation_commit": "29628c9acdb81b703bbd4080c207a0e7ce5e276e",
-  "program": "V2 — Product Completeness (per docs/V2-PRODUCT-COMPLETENESS-CHARTER.md)",
-  "implementation_authorized": true,
-  "production_deployment_authorized": true,
-  "production_authorization_scope": "v1 lineage @ 2f7499a (verified live). V2 lineage requires the v2 release gate + operator re-authorization.",
-  "max_concurrent_workers": 3,
-  "worker_lanes": {
-    "worker-1": "commerce-truth-economic-execution",
-    "worker-2": "agent-trust-lab-security",
-    "worker-3": "experience-connectors-physical-deployment"
+ "schema_version": "2.0",
+ "repository": "payswapdotorg/UniCom",
+ "architecture_version": "1.1-frozen-2026-10-05",
+ "foundation_commit": "29628c9acdb81b703bbd4080c207a0e7ce5e276e",
+ "program": "V2 — Product Completeness (per docs/V2-PRODUCT-COMPLETENESS-CHARTER.md)",
+ "implementation_authorized": true,
+ "production_deployment_authorized": true,
+ "production_authorization_scope": "v1 lineage @ 2f7499a (verified live). V2 lineage requires the v2 release gate + operator re-authorization.",
+ "max_concurrent_workers": 3,
+ "worker_lanes": {
+  "worker-1": "commerce-truth-economic-execution",
+  "worker-2": "agent-trust-lab-security",
+  "worker-3": "experience-connectors-physical-deployment"
+ },
+ "operator_charter": {
+  "date": "2026-10-07",
+  "document": "docs/V2-PRODUCT-COMPLETENESS-CHARTER.md",
+  "directive_verbatim": "continuous resident watch from here on: monitor → harvest → review → approve/require-changes → dispatch next, until the roadmap is complete. No early returns. Use the Unicom github repo as guide for roadmap",
+  "roadmap_guide": "docs/FEATURE-COMPLETENESS-MATRIX.md + the FINAL-FEATURE-AUDIT product-completeness rule (contract → implementation → discoverable UX → real journey → evidence → acceptance)"
+ },
+ "progress_authority": {
+  "sole_authority": "docs/development-state/v2-work-order-state.json",
+  "rule": "This state file is the single progress authority for the V2 program lifecycle. The v1 file (v1-work-order-state.json) is the frozen completed registry for the 18/18 v1 program and is not mutated by V2 activity. docs/work-orders/*.md are specification documents; their Status field is synced to this file at every reconciliation so the two can never contradict (per FINAL-TL-HANDOFF-2026-10-06 section 3, carried forward)."
+ },
+ "active_work_orders": [
+  {
+   "id": "W1-007",
+   "owner": "worker-1",
+   "depends_on": [],
+   "activated_at": "2026-10-07T18:00:00Z",
+   "base_sha": "2f7499abb0fae2fdf71d19efca46a807b2a602b3",
+   "session": "unicom-w1-007",
+   "delivery_branch": "work/w1-007",
+   "status": "MERGED",
+   "spec": "docs/work-orders/W1-007.md",
+   "merged_at": "2026-10-08T01:15:00Z",
+   "merge_commit": "b0b2a08edf8b7f4ee9e6358ef65fbaac169aa410",
+   "battery": {
+    "typecheck": "0 errors (commerce+experience+agent closure, deps dist-built)",
+    "lint": "0 errors",
+    "architecture": "0 violations",
+    "cumulative_vitest": "1132/1132 (agent 411 + commerce 332 + experience 389; v1 baseline 1093 + 39 additive)",
+    "certification": "7/7 PASS (packages/commerce/reports/w1-007-certification.json)",
+    "tl_fix_forward": "W1-005 per-step fuzz timeout budget 60s (13 new kernel commands grew the fuzzed surface)"
+   }
   },
-  "operator_charter": {
-    "date": "2026-10-07",
-    "document": "docs/V2-PRODUCT-COMPLETENESS-CHARTER.md",
-    "directive_verbatim": "continuous resident watch from here on: monitor → harvest → review → approve/require-changes → dispatch next, until the roadmap is complete. No early returns. Use the Unicom github repo as guide for roadmap",
-    "roadmap_guide": "docs/FEATURE-COMPLETENESS-MATRIX.md + the FINAL-FEATURE-AUDIT product-completeness rule (contract → implementation → discoverable UX → real journey → evidence → acceptance)"
+  {
+   "id": "W2-007",
+   "owner": "worker-2",
+   "depends_on": [],
+   "activated_at": "2026-10-07T18:00:00Z",
+   "base_sha": "2f7499abb0fae2fdf71d19efca46a807b2a602b3",
+   "session": "unicom-w2-007",
+   "delivery_branch": "work/w2-007",
+   "status": "MERGED",
+   "spec": "docs/work-orders/W2-007.md",
+   "merged_at": "2026-10-08T01:32:00Z",
+   "merge_commit": "ba91f04578d198c8da4bc106e03e50dd825afcae",
+   "battery": {
+    "typecheck": "0 errors (scoped closure; ids.ts additive-union merge with W1-007)",
+    "lint": "0 errors",
+    "architecture": "0 violations",
+    "cumulative_vitest": "1169/1169 (agent 448 + commerce 332 + experience 389; +37 agent tests)",
+    "adversarial_report": "PASS 8/8 evasion blocked, 0 silent evasions (packages/agent/w2-007-adversarial-report.json)"
+   }
   },
-  "progress_authority": {
-    "sole_authority": "docs/development-state/v2-work-order-state.json",
-    "rule": "This state file is the single progress authority for the V2 program lifecycle. The v1 file (v1-work-order-state.json) is the frozen completed registry for the 18/18 v1 program and is not mutated by V2 activity. docs/work-orders/*.md are specification documents; their Status field is synced to this file at every reconciliation so the two can never contradict (per FINAL-TL-HANDOFF-2026-10-06 section 3, carried forward)."
+  {
+   "id": "W3-007",
+   "owner": "worker-3",
+   "depends_on": [],
+   "activated_at": "2026-10-07T18:00:00Z",
+   "base_sha": "2f7499abb0fae2fdf71d19efca46a807b2a602b3",
+   "session": "unicom-w3-007",
+   "delivery_branch": "work/w3-007",
+   "status": "MERGED",
+   "spec": "docs/work-orders/W3-007.md",
+   "merged_at": "2026-10-08T01:45:00Z",
+   "merge_commit": "1a62546103b40de1be6b4057c5985ea8a3f23488",
+   "battery": {
+    "typecheck": "0 errors (discoverability hints union merge with W1-007)",
+    "lint": "0 errors",
+    "architecture": "0 violations",
+    "cumulative_vitest": "1226/1226 (commerce 332 + agent 448 + experience 446; +57 experience tests)",
+    "completion_report": "docs/work-orders/reports/W3-007-completion-report.md (5/5 scenarios evidenced, zero-orphan invariant held)"
+   }
   },
-  "active_work_orders": [
-    {
-      "id": "W1-007",
-      "owner": "worker-1",
-      "depends_on": [],
-      "activated_at": "2026-10-07T18:00:00Z",
-      "base_sha": "2f7499abb0fae2fdf71d19efca46a807b2a602b3",
-      "session": "unicom-w1-007",
-      "delivery_branch": "work/w1-007",
-      "status": "MERGED",
-      "spec": "docs/work-orders/W1-007.md",
-      "merged_at": "2026-10-08T01:15:00Z",
-      "merge_commit": "b0b2a08edf8b7f4ee9e6358ef65fbaac169aa410",
-      "battery": {
-        "typecheck": "0 errors (commerce+experience+agent closure, deps dist-built)",
-        "lint": "0 errors",
-        "architecture": "0 violations",
-        "cumulative_vitest": "1132/1132 (agent 411 + commerce 332 + experience 389; v1 baseline 1093 + 39 additive)",
-        "certification": "7/7 PASS (packages/commerce/reports/w1-007-certification.json)",
-        "tl_fix_forward": "W1-005 per-step fuzz timeout budget 60s (13 new kernel commands grew the fuzzed surface)"
-      }
-    },
-    {
-      "id": "W2-007",
-      "owner": "worker-2",
-      "depends_on": [],
-      "activated_at": "2026-10-07T18:00:00Z",
-      "base_sha": "2f7499abb0fae2fdf71d19efca46a807b2a602b3",
-      "session": "unicom-w2-007",
-      "delivery_branch": "work/w2-007",
-      "status": "MERGED",
-      "spec": "docs/work-orders/W2-007.md",
-      "merged_at": "2026-10-08T01:32:00Z",
-      "merge_commit": "ba91f04578d198c8da4bc106e03e50dd825afcae",
-      "battery": {
-        "typecheck": "0 errors (scoped closure; ids.ts additive-union merge with W1-007)",
-        "lint": "0 errors",
-        "architecture": "0 violations",
-        "cumulative_vitest": "1169/1169 (agent 448 + commerce 332 + experience 389; +37 agent tests)",
-        "adversarial_report": "PASS 8/8 evasion blocked, 0 silent evasions (packages/agent/w2-007-adversarial-report.json)"
-      }
-    },
-    {
-      "id": "W3-007",
-      "owner": "worker-3",
-      "depends_on": [],
-      "activated_at": "2026-10-07T18:00:00Z",
-      "base_sha": "2f7499abb0fae2fdf71d19efca46a807b2a602b3",
-      "session": "unicom-w3-007",
-      "delivery_branch": "work/w3-007",
-      "status": "MERGED",
-      "spec": "docs/work-orders/W3-007.md",
-      "merged_at": "2026-10-08T01:45:00Z",
-      "merge_commit": "1a62546103b40de1be6b4057c5985ea8a3f23488",
-      "battery": {
-        "typecheck": "0 errors (discoverability hints union merge with W1-007)",
-        "lint": "0 errors",
-        "architecture": "0 violations",
-        "cumulative_vitest": "1226/1226 (commerce 332 + agent 448 + experience 446; +57 experience tests)",
-        "completion_report": "docs/work-orders/reports/W3-007-completion-report.md (5/5 scenarios evidenced, zero-orphan invariant held)"
-      }
-    },
-    {
-      "id": "W1-008",
-      "owner": "worker-1",
-      "depends_on": [
-        "W1-007",
-        "W2-007",
-        "W3-007"
-      ],
-      "activated_at": "2026-10-08T01:35:00Z",
-      "base_sha": "311796e",
-      "session": "unicom-w1-008",
-      "delivery_branch": "work/w1-008",
-      "status": "ACTIVE",
-      "spec": "docs/work-orders/W1-008.md"
-    },
-    {
-      "id": "W2-008",
-      "owner": "worker-2",
-      "depends_on": [
-        "W1-007",
-        "W2-007",
-        "W3-007"
-      ],
-      "activated_at": "2026-10-08T01:35:00Z",
-      "base_sha": "311796e",
-      "session": "unicom-w2-008",
-      "delivery_branch": "work/w2-008",
-      "status": "ACTIVE",
-      "spec": "docs/work-orders/W2-008.md"
-    },
-    {
-      "id": "W3-008",
-      "owner": "worker-3",
-      "depends_on": [
-        "W1-007",
-        "W2-007",
-        "W3-007"
-      ],
-      "activated_at": "2026-10-08T01:35:00Z",
-      "base_sha": "311796e",
-      "session": "unicom-w3-008",
-      "delivery_branch": "work/w3-008",
-      "status": "ACTIVE",
-      "spec": "docs/work-orders/W3-008.md"
-    }
-  ],
-  "frontier": [
-    {
-      "id": "W*-008",
-      "status": "DERIVED-ON-WAVE-1",
-      "note": "Full-matrix discoverability audit + closure (zero orphan capabilities) + v2 release-gate re-run. Exact scope fixed only when Wave-1 merge evidence exists (charter §3)."
-    }
-  ],
-  "completed_work_orders": [],
-  "gates": {
-    "architecture_conformance": "REQUIRED",
-    "contract_tests": "REQUIRED",
-    "typecheck": "REQUIRED",
-    "lint": "REQUIRED",
-    "real_connector_evidence": "REQUIRED",
-    "browser_e2e_for_ui": "REQUIRED",
-    "unknown_reconciliation": "REQUIRED",
-    "idempotency": "REQUIRED",
-    "security_adversarial_tests": "REQUIRED",
-    "simulation_isolation": "REQUIRED",
-    "capability_scope": "REQUIRED",
-    "provider_state_preservation": "REQUIRED",
-    "incumbent_native_baseline": "REQUIRED",
-    "feature_discoverability": "REQUIRED",
-    "local_commerce_edge": "REQUIRED",
-    "promotion_gates_w2_006": "REQUIRED-WHERE-PROMOTION-TOUCHED"
+  {
+   "id": "W1-008",
+   "owner": "worker-1",
+   "depends_on": [
+    "W1-007",
+    "W2-007",
+    "W3-007"
+   ],
+   "activated_at": "2026-10-08T01:35:00Z",
+   "base_sha": "311796e",
+   "session": "unicom-w1-008",
+   "delivery_branch": "work/w1-008",
+   "status": "MERGED",
+   "spec": "docs/work-orders/W1-008.md",
+   "merged_at": "2026-10-08T08:35:56Z",
+   "merge_commit": "31530eaa445491f9df9913fafdc70cadb14683e7",
+   "battery": {
+    "typecheck": "0 errors (scoped commerce+experience, deps-first build)",
+    "lint": "0 errors (93 pre-existing warnings)",
+    "architecture": "0 violations",
+    "commerce": "349/349 (+17)",
+    "experience": "464/464 (+18)",
+    "agent": "448/448",
+    "cumulative": "1261/1261 @ merge 31530ea (1226 baseline + 35 additive)",
+    "matrix_audit": "40/40 rows green (14+12+14); harness tests 13/13; artifact digest ea9da51e58d0"
+   },
+   "acceptance": "6/6 PASS",
+   "notes": "First v2 delivery via the RESTORED agent plane (2026-10-08 F019 wall-break). Matrix doc defines 12 AI-native rows (spec prose said 14; registry matches the doc)."
   },
-  "tl_loop": "monitor → harvest (branch oracle; git is the gold standard) → review (TL battery on the merge result; never trust reported numbers) → approve (squash-merge via PR + one-commit state update) or require-changes (re-dispatch with the gap list) → dispatch next. No early returns.",
-  "wave": {
-    "wave": 2,
-    "name": "Full-matrix audit + v2 release gate",
-    "activated": "2026-10-08T01:35:00Z",
-    "baseline": {
-      "main": "311796e",
-      "tests": "1226/1226"
-    }
+  {
+   "id": "W2-008",
+   "owner": "worker-2",
+   "depends_on": [
+    "W1-007",
+    "W2-007",
+    "W3-007"
+   ],
+   "activated_at": "2026-10-08T01:35:00Z",
+   "base_sha": "311796e",
+   "session": "unicom-w2-008",
+   "delivery_branch": "work/w2-008",
+   "status": "ACTIVE",
+   "spec": "docs/work-orders/W2-008.md"
+  },
+  {
+   "id": "W3-008",
+   "owner": "worker-3",
+   "depends_on": [
+    "W1-007",
+    "W2-007",
+    "W3-007"
+   ],
+   "activated_at": "2026-10-08T01:35:00Z",
+   "base_sha": "311796e",
+   "session": "unicom-w3-008",
+   "delivery_branch": "work/w3-008",
+   "status": "ACTIVE",
+   "spec": "docs/work-orders/W3-008.md"
   }
+ ],
+ "frontier": [
+  {
+   "id": "W*-008",
+   "status": "DERIVED-ON-WAVE-1",
+   "note": "Full-matrix discoverability audit + closure (zero orphan capabilities) + v2 release-gate re-run. Exact scope fixed only when Wave-1 merge evidence exists (charter §3)."
+  }
+ ],
+ "completed_work_orders": [],
+ "gates": {
+  "architecture_conformance": "REQUIRED",
+  "contract_tests": "REQUIRED",
+  "typecheck": "REQUIRED",
+  "lint": "REQUIRED",
+  "real_connector_evidence": "REQUIRED",
+  "browser_e2e_for_ui": "REQUIRED",
+  "unknown_reconciliation": "REQUIRED",
+  "idempotency": "REQUIRED",
+  "security_adversarial_tests": "REQUIRED",
+  "simulation_isolation": "REQUIRED",
+  "capability_scope": "REQUIRED",
+  "provider_state_preservation": "REQUIRED",
+  "incumbent_native_baseline": "REQUIRED",
+  "feature_discoverability": "REQUIRED",
+  "local_commerce_edge": "REQUIRED",
+  "promotion_gates_w2_006": "REQUIRED-WHERE-PROMOTION-TOUCHED"
+ },
+ "tl_loop": "W1-008 MERGED (squash 31530ea) 2026-10-08T08:35:56Z; W2-008/W3-008 lanes live",
+ "wave": {
+  "wave": 2,
+  "name": "Full-matrix audit + v2 release gate",
+  "activated": "2026-10-08T01:35:00Z",
+  "baseline": {
+   "main": "311796e",
+   "tests": "1226/1226"
+  }
+ }
 }
