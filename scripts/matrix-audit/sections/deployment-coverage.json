@@ -1,0 +1,104 @@
+{
+  "section": "deployment-coverage",
+  "sectionTitle": "Deployment coverage",
+  "source": "docs/FEATURE-COMPLETENESS-MATRIX.md#deployment-coverage",
+  "harnessContract": "docs/work-orders/W1-008.md §scope-1 — entry shape {row, contract, implementation, discoverableUx, journey, evidence, verdict}; verdict derived by the gate consumer (file/symbol/surface/test resolvable). Provider names appear only in deployment configuration, never in domain contracts (INVARIANT 51/52).",
+  "rows": [
+    {
+      "row": "deploy-edge-api",
+      "contract": "packages/experience/src/deployment/provider-adapter.ts:DeploymentCapabilityKind",
+      "implementation": "packages/experience/src/runtime/api/server.ts:createCommerceApiServer",
+      "discoverableUx": "operator-console",
+      "journey": "packages/experience/test/api/sdk-round-trip.test.ts",
+      "evidence": "packages/experience/reports/rc/observability.json#obs:deployment-plane-live"
+    },
+    {
+      "row": "deploy-durable-workflows",
+      "contract": "packages/experience/src/deployment/realtime.ts:RealtimeTaskChannel",
+      "implementation": "packages/experience/src/runtime/edge/local-commerce-edge.ts:createLocalCommerceEdge",
+      "discoverableUx": "operator-console",
+      "journey": "packages/experience/test/local-commerce-edge.test.ts",
+      "evidence": "packages/experience/test/local-commerce-edge.test.ts"
+    },
+    {
+      "row": "deploy-async-queues",
+      "contract": "packages/experience/src/edge/offline-queue.ts:OfflineObservationQueueEntry",
+      "implementation": "packages/experience/src/runtime/edge/offline-queue-runtime.ts:createOfflineObservationQueue",
+      "discoverableUx": "operator-console",
+      "journey": "packages/experience/test/offline-queue-runtime.test.ts",
+      "evidence": "packages/experience/reports/rc/observability.json#obs:subsystems-typed"
+    },
+    {
+      "row": "deploy-realtime-coordination",
+      "contract": "packages/experience/src/deployment/realtime.ts:RealtimeSubscriptionContract",
+      "implementation": "packages/experience/src/runtime/surfaces/live-session.ts:createLiveSessionRuntime",
+      "discoverableUx": "operator-console",
+      "journey": "packages/experience/test/live-session-journey.test.ts",
+      "evidence": "packages/experience/reports/rc/e2e-journeys.json#e2e-live-commerce-late-joiner:backpressure-never-drops"
+    },
+    {
+      "row": "deploy-postgres",
+      "contract": "packages/experience/src/runtime/api/journal.ts:CommerceJournal",
+      "implementation": "packages/experience/src/runtime/api/journal.ts:createCommerceJournal",
+      "discoverableUx": "operator-console",
+      "journey": "packages/experience/test/api/sdk-round-trip.test.ts",
+      "evidence": "packages/experience/reports/rc/dr-drill.json#dr:restore-roundtrip"
+    },
+    {
+      "row": "deploy-object-evidence-storage",
+      "contract": "packages/experience/src/deployment/runbook.ts:JournalBackupArtifact",
+      "implementation": "packages/experience/src/runtime/deployment/journal-chain.ts:exportJournalBackup",
+      "discoverableUx": "operator-console",
+      "journey": "packages/experience/test/dr-backup-restore.test.ts",
+      "evidence": "packages/experience/reports/rc/dr-drill.json#dr:backup-export"
+    },
+    {
+      "row": "deploy-cache",
+      "contract": "packages/experience/src/deployment/provider-adapter.ts:DeploymentCapabilityKind",
+      "implementation": "packages/experience/src/runtime/deployment/target-plan.ts:NODE_SERVER_TARGET_PLAN",
+      "discoverableUx": "operator-console",
+      "journey": "packages/experience/test/deployment-boundary.test.ts",
+      "evidence": "packages/experience/src/deployment/provider-adapter.ts:DEPLOYMENT_CAPABILITIES"
+    },
+    {
+      "row": "deploy-browser-runtime",
+      "contract": "packages/experience/src/connector/browser-session.ts:BrowserSessionHandle",
+      "implementation": "packages/experience/src/runtime/browser/session-runtime.ts:createBrowserSessionRuntime",
+      "discoverableUx": "operator-console",
+      "journey": "packages/experience/test/browser-session-runtime.test.ts",
+      "evidence": "packages/experience/reports/rc/e2e-journeys.json#e2e-connector-studio:no-api-pathway-explicit"
+    },
+    {
+      "row": "deploy-local-merchant-edge",
+      "contract": "packages/experience/src/edge/local-edge.ts:LocalCommerceEdgeContract",
+      "implementation": "packages/experience/src/runtime/edge/local-commerce-edge.ts:createLocalCommerceEdge",
+      "discoverableUx": "operator-console",
+      "journey": "packages/experience/test/local-commerce-edge.test.ts",
+      "evidence": "packages/experience/reports/rc/observability.json#obs:subsystems-typed"
+    },
+    {
+      "row": "deploy-model-gateway",
+      "contract": "packages/experience/src/runtime/model-context-gate.ts:ModelContextGate",
+      "implementation": "packages/experience/src/runtime/model-context-gate.ts:createModelContextGate",
+      "discoverableUx": "operator-console",
+      "journey": "packages/experience/test/credential-vault.test.ts",
+      "evidence": "packages/experience/src/runtime/model-context-gate.ts:ModelContextGateRefused"
+    },
+    {
+      "row": "deploy-observability",
+      "contract": "packages/experience/src/deployment/observability.ts:ObservabilitySnapshot",
+      "implementation": "packages/experience/src/runtime/deployment/observability.ts:createObservabilityProjector",
+      "discoverableUx": "operator-console",
+      "journey": "packages/experience/test/observability-contracts.test.ts",
+      "evidence": "packages/experience/reports/rc/observability.json"
+    },
+    {
+      "row": "deploy-replaceable-compute-provider-adapters",
+      "contract": "packages/experience/src/deployment/provider-adapter.ts:DeploymentProviderAdapter",
+      "implementation": "packages/experience/src/runtime/deployment/target-adapter.ts:createTargetDeploymentAdapter",
+      "discoverableUx": "operator-console",
+      "journey": "packages/experience/test/deployment-target-adapter.test.ts",
+      "evidence": "packages/experience/reports/rc/observability.json#obs:deployment-plane-live"
+    }
+  ]
+}

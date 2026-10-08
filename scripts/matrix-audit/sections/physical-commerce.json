@@ -1,0 +1,120 @@
+{
+  "section": "physical-commerce",
+  "sectionTitle": "Physical commerce",
+  "source": "docs/FEATURE-COMPLETENESS-MATRIX.md#physical-commerce",
+  "harnessContract": "docs/work-orders/W1-008.md §scope-1 — entry shape {row, contract, implementation, discoverableUx, journey, evidence, verdict}; verdict derived by the gate consumer (file/symbol/surface/test resolvable). RFID is optional (INVARIANT 46; packages/experience/src/navigation/feature-matrix.ts:OPTIONAL_FEATURES).",
+  "rows": [
+    {
+      "row": "physical-rfid",
+      "contract": "packages/experience/src/edge/observation.ts:RfidReadPayload",
+      "implementation": "packages/experience/src/navigation/feature-matrix.ts:OPTIONAL_FEATURES",
+      "discoverableUx": "physical-commerce-tools",
+      "journey": "packages/experience/test/no-rfid-journey.test.ts",
+      "evidence": "packages/experience/src/navigation/feature-matrix.ts:OPTIONAL_FEATURES"
+    },
+    {
+      "row": "physical-barcode-scanners",
+      "contract": "packages/experience/src/edge/observation.ts:BarcodeScanPayload",
+      "implementation": "packages/experience/src/runtime/edge/physical/physical-journeys.ts:PHYSICAL_JOURNEY_CATALOG",
+      "discoverableUx": "physical-commerce-tools",
+      "journey": "packages/experience/test/barcode-mobile-count-journey.test.ts",
+      "evidence": "packages/experience/reports/rc/e2e-journeys.json#e2e-physical-capture:all-five-journeys-registered"
+    },
+    {
+      "row": "physical-phone-tablet-camera",
+      "contract": "packages/experience/src/edge/observation.ts:CameraCapturePayload",
+      "implementation": "packages/experience/src/runtime/edge/physical/physical-journeys.ts:createPhysicalJourneyRuntime",
+      "discoverableUx": "physical-capture",
+      "journey": "packages/experience/test/physical/physical-journeys.test.ts",
+      "evidence": "packages/experience/reports/rc/e2e-journeys.json#e2e-physical-capture:capture-counts-from-real-runtime"
+    },
+    {
+      "row": "physical-qr",
+      "contract": "packages/experience/src/edge/observation.ts:BarcodeScanPayload",
+      "implementation": "packages/experience/src/runtime/edge/physical/physical-journeys.ts:PHYSICAL_JOURNEY_CATALOG",
+      "discoverableUx": "physical-capture",
+      "journey": "packages/experience/test/physical/physical-journeys.test.ts",
+      "evidence": "packages/experience/reports/rc/e2e-journeys.json#e2e-physical-capture:all-five-journeys-registered"
+    },
+    {
+      "row": "physical-nfc",
+      "contract": "packages/experience/src/edge/observation.ts:PhysicalObservationPayload",
+      "implementation": "packages/experience/src/runtime/edge/physical/physical-journeys.ts:PHYSICAL_JOURNEY_CATALOG",
+      "discoverableUx": "physical-capture",
+      "journey": "packages/experience/test/physical/physical-journeys.test.ts",
+      "evidence": "packages/experience/reports/rc/e2e-journeys.json#e2e-physical-capture:all-five-journeys-registered"
+    },
+    {
+      "row": "physical-pos",
+      "contract": "packages/experience/src/edge/observation.ts:PosTransactionPayload",
+      "implementation": "packages/experience/src/runtime/providers/pos-import.ts:createPosImportAdapter",
+      "discoverableUx": "operate-pos",
+      "journey": "packages/experience/test/pos-import-journey.test.ts",
+      "evidence": "packages/experience/src/runtime/providers/matrix.ts:PROVIDER_EXECUTION_MODE_MATRIX"
+    },
+    {
+      "row": "physical-scanner-scales",
+      "contract": "packages/experience/src/edge/observation.ts:WeightMeasurementPayload",
+      "implementation": "packages/experience/src/runtime/edge/weighted-runtime.ts:createWeightedProductRuntime",
+      "discoverableUx": "physical-commerce-tools",
+      "journey": "packages/experience/test/weighted-product-journey.test.ts",
+      "evidence": "packages/experience/src/edge/weighted.ts:WeightedProductWorkflowBoundary"
+    },
+    {
+      "row": "physical-ordinary-weighing-workflows",
+      "contract": "packages/experience/src/edge/weighted.ts:WeightedProductWorkflowBoundary",
+      "implementation": "packages/experience/src/runtime/edge/weighted-runtime.ts:priceWeightedCapture",
+      "discoverableUx": "physical-commerce-tools",
+      "journey": "packages/experience/test/weighted-product-journey.test.ts",
+      "evidence": "packages/experience/src/runtime/edge/exact-integer.ts:ExactRational"
+    },
+    {
+      "row": "physical-shelf-photos-computer-vision",
+      "contract": "packages/experience/src/edge/observation.ts:CameraCapturePayload",
+      "implementation": "packages/experience/src/runtime/edge/physical/physical-journeys.ts:PHYSICAL_JOURNEY_CATALOG",
+      "discoverableUx": "physical-capture",
+      "journey": "packages/experience/test/physical/physical-journeys.test.ts",
+      "evidence": "packages/experience/reports/rc/e2e-journeys.json#e2e-physical-capture:all-five-journeys-registered"
+    },
+    {
+      "row": "physical-cycle-counts",
+      "contract": "packages/experience/src/edge/observation.ts:CycleCountPayload",
+      "implementation": "packages/experience/src/runtime/edge/physical/physical-journeys.ts:PHYSICAL_JOURNEY_CATALOG",
+      "discoverableUx": "physical-capture",
+      "journey": "packages/experience/test/physical/physical-journeys.test.ts",
+      "evidence": "packages/experience/reports/rc/e2e-journeys.json#e2e-physical-capture:capture-counts-from-real-runtime"
+    },
+    {
+      "row": "physical-receipts-invoices",
+      "contract": "packages/experience/src/edge/observation.ts:ReceiptCapturePayload",
+      "implementation": "packages/experience/src/runtime/edge/local-commerce-edge.ts:createLocalCommerceEdge",
+      "discoverableUx": "physical-commerce-tools",
+      "journey": "packages/experience/test/receipt-capture-journey.test.ts",
+      "evidence": "packages/experience/test/receipt-capture-journey.test.ts"
+    },
+    {
+      "row": "physical-local-network",
+      "contract": "packages/experience/src/edge/local-edge.ts:LocalEdgeInterfaceAuthorization",
+      "implementation": "packages/experience/src/runtime/edge/local-commerce-edge.ts:createLocalCommerceEdge",
+      "discoverableUx": "local-edge-setup",
+      "journey": "packages/experience/test/physical-edge-interfaces-journey.test.ts",
+      "evidence": "packages/experience/test/physical-edge-interfaces-journey.test.ts"
+    },
+    {
+      "row": "physical-usb-serial",
+      "contract": "packages/experience/src/edge/local-edge.ts:LocalEdgeInterfaceAuthorization",
+      "implementation": "packages/experience/src/runtime/edge/local-commerce-edge.ts:createLocalCommerceEdge",
+      "discoverableUx": "local-edge-setup",
+      "journey": "packages/experience/test/physical-edge-interfaces-journey.test.ts",
+      "evidence": "packages/experience/test/physical-edge-interfaces-journey.test.ts"
+    },
+    {
+      "row": "physical-offline-edge-operation",
+      "contract": "packages/experience/src/edge/offline-queue.ts:OfflineObservationQueueEntry",
+      "implementation": "packages/experience/src/runtime/edge/offline-queue-runtime.ts:createOfflineObservationQueue",
+      "discoverableUx": "local-edge-setup",
+      "journey": "packages/experience/test/offline-queue-runtime.test.ts",
+      "evidence": "packages/experience/reports/rc/e2e-journeys.json#e2e-physical-capture:every-journey-offline-capable"
+    }
+  ]
+}

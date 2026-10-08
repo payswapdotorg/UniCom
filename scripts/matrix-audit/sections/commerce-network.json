@@ -1,0 +1,160 @@
+{
+  "section": "commerce-network",
+  "sectionTitle": "Commerce Network",
+  "source": "docs/FEATURE-COMPLETENESS-MATRIX.md#commerce-network",
+  "harnessContract": "docs/work-orders/W1-008.md §scope-1 — entry shape {row, contract, implementation, discoverableUx, journey, evidence, verdict}; verdict derived by the gate consumer (file/symbol/surface/test resolvable)",
+  "rowShape": {
+    "row": "matrix row id (verbatim from packages/experience/src/navigation/feature-matrix.ts)",
+    "contract": "file:symbol — TypeScript interface/type/contract symbol",
+    "implementation": "file:symbol — runtime constructor/exported symbol",
+    "discoverableUx": "surface id (packages/experience/src/navigation/surfaces.ts:NAVIGATION_SURFACES) | intent alias | hint id",
+    "journey": "test file path under packages/experience/test/** that exercises the row",
+    "evidence": "report artifact path or runtime symbol that proves the row works"
+  },
+  "rows": [
+    {
+      "row": "push-pull-catalogs-prices-inventory-orders-permitted-customer-data",
+      "contract": "packages/experience/src/runtime/connector/adapter.ts:ConnectorAdapter",
+      "implementation": "packages/experience/src/runtime/connector/dispatch.ts:planJourney",
+      "discoverableUx": "connector-studio",
+      "journey": "packages/experience/test/e2e/connector-studio.journey.test.ts",
+      "evidence": "packages/experience/reports/rc/e2e-journeys.json#e2e-connector-studio:execution-modes-from-vocabulary"
+    },
+    {
+      "row": "shopify",
+      "contract": "packages/experience/src/runtime/providers/shopify.ts:ShopifyAdapter",
+      "implementation": "packages/experience/src/runtime/providers/shopify.ts:createShopifyAdapter",
+      "discoverableUx": "connector-studio",
+      "journey": "packages/experience/test/providers/shopify.test.ts",
+      "evidence": "packages/experience/src/runtime/providers/matrix.ts:PROVIDER_EXECUTION_MODE_MATRIX"
+    },
+    {
+      "row": "ebay",
+      "contract": "packages/experience/src/runtime/providers/ebay.ts:EbayAdapter",
+      "implementation": "packages/experience/src/runtime/providers/ebay.ts:createEbayAdapter",
+      "discoverableUx": "connector-studio",
+      "journey": "packages/experience/test/providers/ebay.test.ts",
+      "evidence": "packages/experience/test/providers/mode-journeys.test.ts"
+    },
+    {
+      "row": "amazon",
+      "contract": "packages/experience/src/runtime/providers/amazon-spapi.ts:AmazonSpApiAdapter",
+      "implementation": "packages/experience/src/runtime/providers/amazon-spapi.ts:createAmazonSpApiAdapter",
+      "discoverableUx": "connector-studio",
+      "journey": "packages/experience/test/providers/amazon.test.ts",
+      "evidence": "packages/experience/src/runtime/providers/matrix.ts:PROVIDER_EXECUTION_MODE_MATRIX"
+    },
+    {
+      "row": "jumia",
+      "contract": "packages/experience/src/runtime/providers/jumia.ts:JumiaSellerCenterAdapter",
+      "implementation": "packages/experience/src/runtime/providers/jumia.ts:createJumiaSellerCenterAdapter",
+      "discoverableUx": "connector-studio",
+      "journey": "packages/experience/test/providers/jumia.test.ts",
+      "evidence": "packages/experience/src/runtime/providers/matrix.ts:PROVIDER_EXECUTION_MODE_MATRIX"
+    },
+    {
+      "row": "depop",
+      "contract": "packages/experience/src/runtime/providers/depop.ts:DepopAdapter",
+      "implementation": "packages/experience/src/runtime/providers/depop.ts:createDepopAdapter",
+      "discoverableUx": "connector-studio",
+      "journey": "packages/experience/test/providers/depop.test.ts",
+      "evidence": "packages/experience/src/runtime/providers/matrix.ts:PROVIDER_EXECUTION_MODE_MATRIX"
+    },
+    {
+      "row": "whatnot-live-commerce",
+      "contract": "packages/experience/src/runtime/providers/whatnot.ts:WhatnotAdapter",
+      "implementation": "packages/experience/src/runtime/providers/whatnot.ts:createWhatnotAdapter",
+      "discoverableUx": "live-commerce-discovery",
+      "journey": "packages/experience/test/providers/whatnot.test.ts",
+      "evidence": "packages/experience/reports/rc/e2e-journeys.json#e2e-live-commerce-late-joiner:terminal-state-replayable"
+    },
+    {
+      "row": "ucp-acp-mcp-a2a-adapters",
+      "contract": "packages/experience/src/runtime/protocols/agent-protocol-adapter.ts:AgentProtocolDescriptor",
+      "implementation": "packages/experience/src/runtime/protocols/agent-protocol-adapters.ts:createMcpAdapter",
+      "discoverableUx": "protocol-adapter-studio",
+      "journey": "packages/experience/test/e2e/protocol-adapter-studio.journey.test.ts",
+      "evidence": "packages/experience/reports/rc/e2e-journeys.json#e2e-protocol-adapter-studio:all-four-families-registered"
+    },
+    {
+      "row": "api-sdk-rest-graphql",
+      "contract": "packages/experience/src/api/api-contracts.ts:ApiEndpointContract",
+      "implementation": "packages/experience/src/api/sdk.ts:createCommerceSdk",
+      "discoverableUx": "api-explorer",
+      "journey": "packages/experience/test/e2e/api-explorer.journey.test.ts",
+      "evidence": "packages/experience/reports/rc/e2e-journeys.json#e2e-api-explorer:sdk-contract-equivalence"
+    },
+    {
+      "row": "webhooks",
+      "contract": "packages/experience/src/connector/webhook-events.ts:WebhookIngestionContract",
+      "implementation": "packages/experience/src/runtime/ingestion/ingestion-pipeline.ts:createIngestionPipeline",
+      "discoverableUx": "ingestion-monitor",
+      "journey": "packages/experience/test/e2e/ingestion-monitor.journey.test.ts",
+      "evidence": "packages/experience/reports/rc/e2e-journeys.json#e2e-ingestion-monitor:all-five-source-families-wired"
+    },
+    {
+      "row": "cli",
+      "contract": "packages/experience/src/connector/transports.ts:ConnectorTransportDescriptor",
+      "implementation": "packages/experience/src/runtime/transport/router.ts:createTransportRouter",
+      "discoverableUx": "connector-studio",
+      "journey": "packages/experience/test/connector-transports.test.ts",
+      "evidence": "packages/experience/test/transport-router.test.ts"
+    },
+    {
+      "row": "csv-xml-edi-sftp-email",
+      "contract": "packages/experience/src/connector/feed-file.ts:FeedIngestionReport",
+      "implementation": "packages/experience/src/runtime/connector/feed-file.ts:createFeedFileConnector",
+      "discoverableUx": "ingestion-monitor",
+      "journey": "packages/experience/test/ingestion/ingestion-pipelines.test.ts",
+      "evidence": "packages/experience/reports/rc/e2e-journeys.json#e2e-ingestion-monitor:all-five-source-families-wired"
+    },
+    {
+      "row": "browser-only-systems",
+      "contract": "packages/experience/src/runtime/connector/browser-only.ts:BrowserProviderClient",
+      "implementation": "packages/experience/src/runtime/connector/browser-only.ts:createBrowserOnlyConnectorAdapter",
+      "discoverableUx": "connector-studio",
+      "journey": "packages/experience/test/browser-only-connector.test.ts",
+      "evidence": "packages/experience/reports/rc/e2e-journeys.json#e2e-connector-studio:no-api-pathway-explicit"
+    },
+    {
+      "row": "browser-sessions-isolated-authority",
+      "contract": "packages/experience/src/connector/browser-session.ts:BrowserSessionHandle",
+      "implementation": "packages/experience/src/runtime/browser/session-runtime.ts:createBrowserSessionRuntime",
+      "discoverableUx": "connector-studio",
+      "journey": "packages/experience/test/browser-session.test.ts",
+      "evidence": "packages/experience/test/browser-session-runtime.test.ts"
+    },
+    {
+      "row": "local-pos-no-api",
+      "contract": "packages/experience/src/edge/local-edge.ts:LocalCommerceEdgeContract",
+      "implementation": "packages/experience/src/runtime/edge/local-commerce-edge.ts:createLocalCommerceEdge",
+      "discoverableUx": "local-edge-setup",
+      "journey": "packages/experience/test/local-commerce-edge.test.ts",
+      "evidence": "packages/experience/src/navigation/discoverability.ts:CONTEXTUAL_OPPORTUNITY_TYPES"
+    },
+    {
+      "row": "usb-serial-lan",
+      "contract": "packages/experience/src/edge/local-edge.ts:LocalEdgeInterfaceAuthorization",
+      "implementation": "packages/experience/src/runtime/edge/local-commerce-edge.ts:createLocalCommerceEdge",
+      "discoverableUx": "local-edge-setup",
+      "journey": "packages/experience/test/physical-edge-interfaces-journey.test.ts",
+      "evidence": "packages/experience/test/physical-edge-interfaces-journey.test.ts"
+    },
+    {
+      "row": "live-streams",
+      "contract": "packages/experience/src/connector/live-commerce.ts:LiveCommerceExecutionRequest",
+      "implementation": "packages/experience/src/runtime/connector/live-commerce.ts:createLiveCommerceConnector",
+      "discoverableUx": "live-commerce-discovery",
+      "journey": "packages/experience/test/live-commerce-connector.test.ts",
+      "evidence": "packages/experience/reports/rc/e2e-journeys.json#e2e-live-commerce-late-joiner:session-announced-then-active"
+    },
+    {
+      "row": "physical-edge",
+      "contract": "packages/experience/src/edge/local-edge.ts:LocalCommerceEdgeContract",
+      "implementation": "packages/experience/src/runtime/edge/local-commerce-edge.ts:createLocalCommerceEdge",
+      "discoverableUx": "local-edge-setup",
+      "journey": "packages/experience/test/local-commerce-edge.test.ts",
+      "evidence": "packages/experience/reports/rc/e2e-journeys.json#e2e-physical-capture:every-journey-offline-capable"
+    }
+  ]
+}
