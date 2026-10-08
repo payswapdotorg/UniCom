@@ -23,10 +23,14 @@
 import type { BuyerCommerceIntent } from "./intent.js";
 import type { GroupBuyTerms } from "./groupbuy.js";
 import type { Money } from "./common.js";
+import type { ProofLevel } from "./proof.js";
 import type { OpportunityKind } from "./opportunity.js";
 import type { W2_007ObservationSignal } from "./opportunity-engine-w2-007.js";
 import { isW2_007OpportunityKind, seedFromW2_007Signal, w2_007EstimatePoints } from "./opportunity-engine-w2-007.js";
 export type { W2_007CandidateContext, W2_007ObservationSignal } from "./opportunity-engine-w2-007.js";
+import type { W2_008ObservationSignal } from "./opportunity-engine-w2-008.js";
+import { isW2_008OpportunityKind, seedFromW2_008Signal, w2_008EstimatePoints } from "./opportunity-engine-w2-008.js";
+export type { W2_008CandidateContext, W2_008ObservationSignal } from "./opportunity-engine-w2-008.js";
 
 // ---------------------------------------------------------------------------
 // Observed signals the engine matches against intents (opaque subjects)
@@ -67,7 +71,11 @@ export type OpportunityObservationSignal =
   // rows — warranty/subscription/local-pickup/shared-logistics. Defined
   // in opportunity-engine-w2-007.ts and unioned in here so the engine
   // matches them with the same dispatch loop. ---
-  | W2_007ObservationSignal;
+  | W2_007ObservationSignal
+  // --- W2-008 (additive): observation signals for the residue opportunity
+  // rows — swap, group-buy opening, price-drop prediction, discount,
+  // proactive suggestion. ---
+  | W2_008ObservationSignal;
 
 // ---------------------------------------------------------------------------
 // Candidate seeds: ESTIMATE-framed, lineage-bearing
@@ -93,6 +101,28 @@ export interface OpportunityCandidateContext {
   readonly participantCount?: number;
   readonly estimatedPerBuyerCost?: Money;
   readonly proximityWindow?: { readonly notBefore: string; readonly notAfter: string };
+  // --- W2-008 (additive): typed context for the residue opportunity rows. ---
+  readonly offeredItemRef?: string;
+  readonly desiredItemRef?: string;
+  readonly offeredValue?: Money;
+  readonly desiredValue?: Money;
+  readonly reciprocityProofLevel?: ProofLevel;
+  readonly groupBuyRef?: string;
+  readonly discountBps?: number;
+  readonly minParticipants?: number;
+  readonly currentParticipants?: number;
+  readonly merchantSuggested?: boolean;
+  readonly targetPrice?: Money;
+  readonly predictedDropAt?: string;
+  readonly confidenceBps?: number;
+  readonly predictionBasis?: string;
+  readonly discountRef?: string;
+  readonly discountKind?: "COUPON" | "LOYALTY_REDEMPTION" | "MERCHANT_OFFER" | "VOLUME_DISCOUNT";
+  readonly fixedAmount?: Money;
+  readonly merchantAuthorized?: boolean;
+  readonly opportunityRef?: string;
+  readonly proactiveKind?: "LOYALTY_OPTIMIZATION" | "FUTURE_DEMAND_SELLING" | "CROSS_CATEGORY_HINT" | "SPEND_TIMING_HINT";
+  readonly proactiveBasis?: string;
 }
 
 export interface OpportunityCandidateSeed {
@@ -283,6 +313,23 @@ export function generateOpportunityCandidates(
         };
       }
     }
+    // W2-008: residue opportunity-row signals (swap/group-buy-opening/
+    // price-drop-prediction/discount/proactive-suggestion) are delegated
+    // to opportunity-engine-w2-008.ts.
+    else if (relevant) {
+      const w2_008 = seedFromW2_008Signal(signal as W2_008ObservationSignal, intent.intentId);
+      if (w2_008 !== undefined) {
+        seed = {
+          seedId: w2_008.seedId,
+          intentId: intent.intentId,
+          opportunityKind: w2_008.opportunityKind,
+          epistemics: w2_008.epistemics,
+          subjectRef: w2_008.subjectRef,
+          matchedSignalIds: w2_008.matchedSignalIds,
+          context: w2_008.context,
+        };
+      }
+    }
 
     if (seed === undefined) continue;
     candidates.push(seed);
@@ -339,6 +386,14 @@ export function scoreOpportunityCandidates(
       else if (isW2_007OpportunityKind(seed.opportunityKind)) {
         points += w2_007EstimatePoints(seed.opportunityKind, {
           participantCount: seed.context?.participantCount,
+        });
+      }
+      // W2-008: scoring for the residue opportunity kinds.
+      else if (isW2_008OpportunityKind(seed.opportunityKind)) {
+        points += w2_008EstimatePoints(seed.opportunityKind, {
+          discountBps: seed.context?.discountBps as number | undefined,
+          currentParticipants: seed.context?.currentParticipants as number | undefined,
+          confidenceBps: (seed.epistemics.kind === "PREDICTION" ? seed.epistemics.confidenceBps : undefined),
         });
       }
       const confidenceBps = seed.epistemics.kind === "PREDICTION" ? seed.epistemics.confidenceBps : 8_000;

@@ -117,6 +117,11 @@ export interface SharedLogisticsTerms {
   readonly proximityWindow: { readonly notBefore: string; readonly notAfter: string };
 }
 
+// --- W2-008 (additive): typed terms for the new opportunity rows —
+// swaps, group-purchase, price-drop timing, discounts, other-proactive. ---
+import type { SwapTerms, GroupPurchaseTerms, PriceDropTimingTerms, DiscountTerms, OtherProactiveTerms } from "./opportunity-w2-008.js";
+export type { SwapTerms, GroupPurchaseTerms, PriceDropTimingTerms, DiscountTerms, OtherProactiveTerms } from "./opportunity-w2-008.js";
+
 export interface Opportunity {
   readonly opportunityId: string;
   readonly forRef: PrincipalRef;
@@ -132,6 +137,12 @@ export interface Opportunity {
   readonly unusedSubscriptionTerms?: UnusedSubscriptionTerms;
   readonly localPickupTerms?: LocalPickupTerms;
   readonly sharedLogisticsTerms?: SharedLogisticsTerms;
+  // --- W2-008 (additive): typed terms for the residue opportunity rows. ---
+  readonly swapTerms?: SwapTerms;
+  readonly groupPurchaseTerms?: GroupPurchaseTerms;
+  readonly priceDropTimingTerms?: PriceDropTimingTerms;
+  readonly discountTerms?: DiscountTerms;
+  readonly otherProactiveTerms?: OtherProactiveTerms;
   readonly proposedStrategyId?: string;
   readonly detectedAt: string;
 }

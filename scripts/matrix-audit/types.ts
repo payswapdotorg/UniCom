@@ -12,11 +12,14 @@
  * so merges are conflict-free.
  */
 
-/** One of the three W1-008 planes (others are W2-008 / W3-008 lanes). */
+/** Section ids across all audit planes (W1-008 + W2-008 lanes). */
 export type AuditSectionId =
   | "merchant-parity"
   | "ai-native-merchant-layer"
-  | "coordination-organization";
+  | "coordination-organization"
+  | "buyer-agent"
+  | "user-opportunities"
+  | "trust-and-security";
 
 /**
  * A `file:symbol` pointer. `file` is a path relative to the repo root;

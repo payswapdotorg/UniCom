@@ -32,6 +32,10 @@ const SECTION_IDS_IN_ORDER: readonly AuditSectionId[] = [
   "merchant-parity",
   "ai-native-merchant-layer",
   "coordination-organization",
+  // W2-008: buyer-agent, user-opportunities, trust-and-security planes.
+  "buyer-agent",
+  "user-opportunities",
+  "trust-and-security",
 ];
 
 /** Loads all section registries (W1-008 planes only — others extend this list). */
@@ -42,6 +46,11 @@ async function loadSections(): Promise<readonly AuditSection[]> {
   const aiNative = await import("./sections/ai-native-merchant-layer.js");
   const coordination = await import("./sections/coordination-organization.js");
   sections.push(merchant.SECTION, aiNative.SECTION, coordination.SECTION);
+  // W2-008's three planes.
+  const buyerAgent = await import("./sections/buyer-agent.js");
+  const userOpportunities = await import("./sections/user-opportunities.js");
+  const trustSecurity = await import("./sections/trust-and-security.js");
+  sections.push(buyerAgent.SECTION, userOpportunities.SECTION, trustSecurity.SECTION);
   // Validate section ids match the canonical order.
   for (let i = 0; i < SECTION_IDS_IN_ORDER.length; i += 1) {
     if (sections[i]?.section !== SECTION_IDS_IN_ORDER[i]) {
