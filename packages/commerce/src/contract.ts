@@ -1,19 +1,9 @@
 /**
- * @unicom/commerce — public contract surface (Stage 0, W1-001).
- *
+ * @unicom/commerce — public contract surface (W1-001..W1-007).
  * Worker 1 lane: Commerce Truth / Economic Execution.
- * This file is the module's ONLY public entrypoint (see architecture-policy.yaml).
- * Everything re-exported here is contract-frozen: types/interfaces plus the
- * minimal deterministic validation needed to exercise them.
- *
- * Contract laws enforced across this surface:
- * 1. Three-state truth: operational state / observation / estimate are distinct types.
- * 2. No floating-point money: integer minor units or exact decimal strings only.
- * 3. Immutable ids/revisions: history is append-only; facts are never mutated.
- * 4. Idempotency: consequential commands carry typed idempotency keys.
- * 5. UNKNOWN ≠ FAILED: ambiguous external observations resolve to UNKNOWN.
- * 6. Provider-agnostic: no provider shapes leak into domain contracts.
- * 7. No model/runtime authority: typed commands are the only mutation path.
+ * The module's ONLY public entrypoint (architecture-policy.yaml). Contract-frozen.
+ * Laws: three-state truth; no float money; immutable ids/revisions; idempotency keys;
+ * UNKNOWN ≠ FAILED; provider-agnostic; typed commands are the only mutation path.
  */
 
 // --- Identity, results, exact numerics ---
@@ -163,10 +153,7 @@ export {
   returnTransition, advanceReturn, refundNeedsReview, refundTransition,
 } from "./domain/returns.js";
 
-// --- W1-004: settlement tri-state, recourse, autonomous-store operations ---
-// Additive payment-plane extension: capture facts, settlement tri-state with
-// UNKNOWN preserved through every fold, the PartialCaptureBoundary and
-// SettlementObservationBoundary PORT extensions (providers adapt TO them).
+// --- Settlement tri-state, recourse, autonomous-store operations (W1-004 additive) ---
 
 export {
   type PaymentCaptureRecord, type CaptureKind, type SettlementRecord, type SettlementStatus,
@@ -189,7 +176,7 @@ export {
   storeSessionTransition, tillOperationDelta, applyTillOperation, cashVarianceOf,
 } from "./domain/store-ops.js";
 
-// --- W1-005: autonomous-store deterministic runtime (additive) ---
+// --- Autonomous-store deterministic runtime (W1-005 additive) ---
 
 export {
   type AutonomousActionKind, type AutonomousDenialReason, type StoreOperatingDenialReason,
@@ -242,13 +229,9 @@ export {
 } from "./domain/commands.js";
 
 // --- Deterministic kernel runtime (W1-002) ---
-//
-// The real event-sourced runtime behind the contracts above: command
-// dispatch with idempotency keys, the append-only CommerceEvent journal,
-// aggregate folds, autonomous policy enforcement at the boundary, the
-// payment boundary as an injected typed PORT (no provider implementation
-// ships in this package), and deterministic reconstruction from replay.
-// Additive only — the frozen domain surface above is untouched.
+// Event-sourced runtime: idempotent command dispatch, append-only journal,
+// aggregate folds, autonomous policy gate, injected payment boundary PORT,
+// deterministic reconstruction from replay. Additive only.
 
 export {
   CommerceKernel, type KernelPersistentState,
@@ -263,16 +246,8 @@ export {
 } from "./runtime/index.js";
 
 // --- Commerce Twin + event projections (W1-003) ---
-//
-// Deterministic read models folded from the kernel's append-only journal:
-// the projection engine (per-aggregate ordering, schema-versioned folds with
-// an explicit forward migration path), the named demand-side read models
-// (catalog / inventory / order / transfer / receiving / returns /
-// reconciliation), and the Commerce Twin — a full authoritative-state mirror
-// derived ONLY from events, queryable without mutating the kernel, with
-// snapshot-aware resume and the twin-verification harness (twin ≡ kernel).
-// The projection layer cannot import the runtime (layer order), so the twin
-// is structurally kernel-free. Additive only — nothing above is touched.
+// Journal-derived read models + the Commerce Twin (twin ≡ kernel, kernel-free
+// by layer order). Additive only.
 
 export {
   type ProjectionDefinition, type EventMigration, type ProjectionCheckpoint,
@@ -295,3 +270,16 @@ export {
   type AutonomousStoreFactsV1, commerceFacts,
   type TwinDivergence, compareTwinToAuthoritative, assertTwinMatchesAuthoritative, assertCanonicalEquivalence,
 } from "./projection/index.js";
+
+// --- W1-007 (additive): merchant-parity completeness ---
+// Marketing campaigns, CRM/loyalty ledger, inventory forecasting, analytics
+// projections. Deterministic kernel state + journaled evidence; analytics are
+// journal-derived (rebuild-from-journal); forecasting is advisory (never
+// auto-mutation); loyalty follows W1-006 conservation (zero-sum tested).
+
+export { type CampaignId, type CampaignEffectId, type CustomerRecordId, type LoyaltyAccountId, type LoyaltyLedgerEntryId, type DemandSignalId, type ReorderProposalId } from "./domain/ids.js";
+export { type Campaign, type CampaignState, type CampaignTrigger, type CampaignTransitionError, type CampaignEffect, type CampaignStackingPolicy, type CampaignStackingMode, type CampaignEligibilityError, type CampaignApplicationError, type StackingResolution, campaignTransition, advanceCampaign, isCampaignEligible, applyCampaignEffect, resolveStacking } from "./domain/marketing.js";
+export { type CustomerRecord, type CustomerRecordStatus, type LoyaltyAccount, type LoyaltyAccountStatus, type LoyaltyTier, type LoyaltyTierPolicy, type LoyaltyLedgerEntry, type LoyaltyEntryKind, type LoyaltyEntryReason, type LoyaltyLedgerError, type LoyaltyPoints, loyaltyPoints, pointsBigInt, addPoints, subtractPointsFloor, pointsEqual, signedDelta, applyLoyaltyAccrual, applyLoyaltyRedemption, applyLoyaltyExpiry, assertLoyaltyConservation, evaluateLoyaltyTier } from "./domain/crm.js";
+export { type DemandSignal, type ReorderPointProposal, type ReorderProposalStatus, type ForecastResolution, type ForecastHorizon, type ForecastMethod, type ReorderProposalTransitionError, reorderProposalTransition, advanceReorderProposal, computeDemandForecast, computeReorderProposal } from "./domain/forecasting.js";
+export { type MarketingCommandPayload, type CrmCommandPayload, type ForecastingCommandPayload } from "./runtime/index.js";
+export { type AnalyticsReadModelState, ANALYTICS_PROJECTION_ID, analyticsReadModel, salesTotalOf, campaignDiscountOf, type LoyaltyReadModelState, LOYALTY_PROJECTION_ID, loyaltyReadModel, ledgerEntriesFor, type ForecastingReadModelState, FORECASTING_PROJECTION_ID, forecastingReadModel } from "./projection/index.js";

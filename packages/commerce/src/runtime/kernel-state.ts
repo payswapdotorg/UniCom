@@ -30,6 +30,7 @@ import type { CashVarianceRecord, StoreCashSession } from "../domain/store-ops.j
 import { KernelRecourseFold } from "./kernel-fold-recourse.js";
 import { KernelStoreOpsFold } from "./kernel-fold-store-ops.js";
 import { KernelAutonomousStoreFold } from "./kernel-fold-autonomous.js";
+import { KernelMerchantFold } from "./kernel-fold-merchant.js";
 
 type OrderEventPayloadLike =
   | { readonly kind: "ORDER_PLACED"; readonly snapshot: OrderSnapshot }
@@ -67,6 +68,8 @@ export class KernelState {
   private readonly storeOps = new KernelStoreOpsFold();
   /** W1-005 autonomous-store runtime collections (control, cycles, applications, escalations, overrides, prices, adjustments, restocks). */
   private readonly autonomousFold = new KernelAutonomousStoreFold();
+  /** W1-007 merchant-parity collections (campaigns, customer records, loyalty ledger, demand signals, reorder proposals). */
+  private readonly merchantFold = new KernelMerchantFold();
 
   /** Fold one immutable fact into state. Pure with respect to inputs. */
   apply(event: AnyCommerceEvent): void {
@@ -137,6 +140,15 @@ export class KernelState {
         return;
       case "RECONCILIATION_RECORD":
         this.setReconciliationRecord(event.payload as { record?: ReconciliationRecord });
+        return;
+      case "CAMPAIGN":
+      case "CAMPAIGN_EFFECT":
+      case "CUSTOMER_RECORD":
+      case "LOYALTY_ACCOUNT":
+      case "LOYALTY_LEDGER_ENTRY":
+      case "DEMAND_SIGNAL":
+      case "REORDER_PROPOSAL":
+        this.merchantFold.apply(event);
         return;
       default:
         return;
@@ -264,78 +276,30 @@ export class KernelState {
 
   // --- read accessors (handlers/tests) ---
 
-  level(skuId: SkuId, locationId: LocationId): CanonicalInventoryLevel | undefined {
-    return this.levels.get(inventoryKey(skuId, locationId));
-  }
-  allLevels(): readonly CanonicalInventoryLevel[] {
-    return [...this.levels.values()].sort(byKey);
-  }
-  reservation(reservationId: string): InventoryReservation | undefined {
-    return this.reservations.get(reservationId);
-  }
-  allReservations(): readonly InventoryReservation[] {
-    return [...this.reservations.values()].sort(byKey);
-  }
-  cart(cartId: string): Cart | undefined {
-    return this.carts.get(cartId);
-  }
-  allCarts(): readonly Cart[] {
-    return [...this.carts.values()].sort(byKey);
-  }
-  checkoutSession(checkoutSessionId: string): CheckoutSession | undefined {
-    return this.checkoutSessions.get(checkoutSessionId);
-  }
-  allCheckoutSessions(): readonly CheckoutSession[] {
-    return [...this.checkoutSessions.values()].sort(byKey);
-  }
-  order(orderId: string): OrderSnapshot | undefined {
-    return this.orders.get(orderId);
-  }
-  allOrders(): readonly OrderSnapshot[] {
-    return [...this.orders.values()].sort(byKey);
-  }
-  paymentIntent(paymentId: string): PaymentIntent | undefined {
-    return this.payments.get(paymentId);
-  }
-  allPaymentIntents(): readonly PaymentIntent[] {
-    return [...this.payments.values()].sort(byKey);
-  }
-  transfer(transferId: string): StockTransfer | undefined {
-    return this.transfers.get(transferId);
-  }
-  allTransfers(): readonly StockTransfer[] {
-    return [...this.transfers.values()].sort(byKey);
-  }
-  purchaseOrder(purchaseOrderId: string): PurchaseOrder | undefined {
-    return this.purchaseOrders.get(purchaseOrderId);
-  }
-  allPurchaseOrders(): readonly PurchaseOrder[] {
-    return [...this.purchaseOrders.values()].sort(byKey);
-  }
-  fulfillmentOrder(fulfillmentOrderId: string): FulfillmentOrder | undefined {
-    return this.fulfillments.get(fulfillmentOrderId);
-  }
-  fulfillmentForOrder(orderId: string): FulfillmentOrder | undefined {
-    return this.fulfillmentByOrder.get(orderId);
-  }
-  shipmentIdForFulfillment(fulfillmentOrderId: string): string | undefined {
-    return this.shipmentByFulfillment.get(fulfillmentOrderId);
-  }
-  allFulfillments(): readonly FulfillmentOrder[] {
-    return [...this.fulfillments.values()].sort(byKey);
-  }
-  shipment(shipmentId: string): Shipment | undefined {
-    return this.shipments.get(shipmentId);
-  }
-  allShipments(): readonly Shipment[] {
-    return [...this.shipments.values()].sort(byKey);
-  }
-  returnAuthorization(returnId: string): ReturnAuthorization | undefined {
-    return this.returns.get(returnId);
-  }
-  allReturns(): readonly ReturnAuthorization[] {
-    return [...this.returns.values()].sort(byKey);
-  }
+  level(skuId: SkuId, locationId: LocationId): CanonicalInventoryLevel | undefined { return this.levels.get(inventoryKey(skuId, locationId)); }
+  allLevels(): readonly CanonicalInventoryLevel[] { return [...this.levels.values()].sort(byKey); }
+  reservation(reservationId: string): InventoryReservation | undefined { return this.reservations.get(reservationId); }
+  allReservations(): readonly InventoryReservation[] { return [...this.reservations.values()].sort(byKey); }
+  cart(cartId: string): Cart | undefined { return this.carts.get(cartId); }
+  allCarts(): readonly Cart[] { return [...this.carts.values()].sort(byKey); }
+  checkoutSession(checkoutSessionId: string): CheckoutSession | undefined { return this.checkoutSessions.get(checkoutSessionId); }
+  allCheckoutSessions(): readonly CheckoutSession[] { return [...this.checkoutSessions.values()].sort(byKey); }
+  order(orderId: string): OrderSnapshot | undefined { return this.orders.get(orderId); }
+  allOrders(): readonly OrderSnapshot[] { return [...this.orders.values()].sort(byKey); }
+  paymentIntent(paymentId: string): PaymentIntent | undefined { return this.payments.get(paymentId); }
+  allPaymentIntents(): readonly PaymentIntent[] { return [...this.payments.values()].sort(byKey); }
+  transfer(transferId: string): StockTransfer | undefined { return this.transfers.get(transferId); }
+  allTransfers(): readonly StockTransfer[] { return [...this.transfers.values()].sort(byKey); }
+  purchaseOrder(purchaseOrderId: string): PurchaseOrder | undefined { return this.purchaseOrders.get(purchaseOrderId); }
+  allPurchaseOrders(): readonly PurchaseOrder[] { return [...this.purchaseOrders.values()].sort(byKey); }
+  fulfillmentOrder(fulfillmentOrderId: string): FulfillmentOrder | undefined { return this.fulfillments.get(fulfillmentOrderId); }
+  fulfillmentForOrder(orderId: string): FulfillmentOrder | undefined { return this.fulfillmentByOrder.get(orderId); }
+  shipmentIdForFulfillment(fulfillmentOrderId: string): string | undefined { return this.shipmentByFulfillment.get(fulfillmentOrderId); }
+  allFulfillments(): readonly FulfillmentOrder[] { return [...this.fulfillments.values()].sort(byKey); }
+  shipment(shipmentId: string): Shipment | undefined { return this.shipments.get(shipmentId); }
+  allShipments(): readonly Shipment[] { return [...this.shipments.values()].sort(byKey); }
+  returnAuthorization(returnId: string): ReturnAuthorization | undefined { return this.returns.get(returnId); }
+  allReturns(): readonly ReturnAuthorization[] { return [...this.returns.values()].sort(byKey); }
   refund(refundId: string): RefundRecord | undefined { return this.recourse.refund(refundId); }
   allRefunds(): readonly RefundRecord[] { return this.recourse.allRefunds(); }
   capture(captureId: string): PaymentCaptureRecord | undefined { return this.recourse.capture(captureId); }
@@ -356,42 +320,20 @@ export class KernelState {
   allCashVariances(): readonly CashVarianceRecord[] { return this.storeOps.allCashVariances(); }
   /** W1-005 autonomous-store runtime collections (typed fold accessors). */
   autonomousOps(): KernelAutonomousStoreFold { return this.autonomousFold; }
-  subscription(subscriptionId: string): Subscription | undefined {
-    return this.subscriptions.get(subscriptionId);
-  }
-  allSubscriptions(): readonly Subscription[] {
-    return [...this.subscriptions.values()].sort(byKey);
-  }
-  listing(listingId: string): ResaleListing | undefined {
-    return this.listings.get(listingId);
-  }
-  allListings(): readonly ResaleListing[] {
-    return [...this.listings.values()].sort(byKey);
-  }
-  rental(rentalAgreementId: string): RentalAgreement | undefined {
-    return this.rentals.get(rentalAgreementId);
-  }
-  allRentals(): readonly RentalAgreement[] {
-    return [...this.rentals.values()].sort(byKey);
-  }
-  consignment(consignmentId: string): ConsignmentAgreement | undefined {
-    return this.consignments.get(consignmentId);
-  }
-  allConsignments(): readonly ConsignmentAgreement[] {
-    return [...this.consignments.values()].sort(byKey);
-  }
-  policyFor(autonomousStoreId: string): AutonomousStorePolicy | undefined {
-    return this.policies.get(autonomousStoreId);
-  }
-  allPolicies(): readonly AutonomousStorePolicy[] {
-    return [...this.policies.values()].sort(byKey);
-  }
-  reconciliationRecord(recordId: string): ReconciliationRecord | undefined {
-    return this.reconciliationRecords.get(recordId);
-  }
-  allReconciliationRecords(): readonly ReconciliationRecord[] {
-    return [...this.reconciliationRecords.values()].sort(byKey);
-  }
+  /** W1-007 merchant-parity collections (typed fold accessors). */
+  merchantOps(): KernelMerchantFold { return this.merchantFold; }
+  subscription(subscriptionId: string): Subscription | undefined { return this.subscriptions.get(subscriptionId); }
+  allSubscriptions(): readonly Subscription[] { return [...this.subscriptions.values()].sort(byKey); }
+  listing(listingId: string): ResaleListing | undefined { return this.listings.get(listingId); }
+  allListings(): readonly ResaleListing[] { return [...this.listings.values()].sort(byKey); }
+  rental(rentalAgreementId: string): RentalAgreement | undefined { return this.rentals.get(rentalAgreementId); }
+  allRentals(): readonly RentalAgreement[] { return [...this.rentals.values()].sort(byKey); }
+  consignment(consignmentId: string): ConsignmentAgreement | undefined { return this.consignments.get(consignmentId); }
+  allConsignments(): readonly ConsignmentAgreement[] { return [...this.consignments.values()].sort(byKey); }
+  policyFor(autonomousStoreId: string): AutonomousStorePolicy | undefined { return this.policies.get(autonomousStoreId); }
+  allPolicies(): readonly AutonomousStorePolicy[] { return [...this.policies.values()].sort(byKey); }
+  reconciliationRecord(recordId: string): ReconciliationRecord | undefined { return this.reconciliationRecords.get(recordId); }
+  allReconciliationRecords(): readonly ReconciliationRecord[] { return [...this.reconciliationRecords.values()].sort(byKey); }
 }
 
 function byKey(a: { readonly revision: number }, b: { readonly revision: number }): number {

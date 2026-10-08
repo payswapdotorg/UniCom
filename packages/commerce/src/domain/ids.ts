@@ -78,6 +78,14 @@ export type CommerceSubjectType =
   | "SKU_PRICE"
   | "PRICE_ADJUSTMENT"
   | "RESTOCK_ORDER"
+  // --- W1-007 (additive): merchant-parity completeness subjects ---
+  | "CAMPAIGN"
+  | "CAMPAIGN_EFFECT"
+  | "CUSTOMER_RECORD"
+  | "LOYALTY_ACCOUNT"
+  | "LOYALTY_LEDGER_ENTRY"
+  | "DEMAND_SIGNAL"
+  | "REORDER_PROPOSAL"
   // --- W2-007 (additive): opportunity-row commerce subjects. The commerce
   // plane references warranty claims, subscription actions, and
   // shared-logistics coordination as opaque subjects — the typed contracts
@@ -168,6 +176,15 @@ export type IdempotencyKey = Brand<string, "IdempotencyKey">;
 
 // --- Autonomous store ---
 export type AutonomousStorePolicyId = Brand<string, "AutonomousStorePolicyId">;
+
+// --- W1-007 (additive): merchant-parity completeness ids ---
+export type CampaignId = Brand<string, "CampaignId">;
+export type CampaignEffectId = Brand<string, "CampaignEffectId">;
+export type CustomerRecordId = Brand<string, "CustomerRecordId">;
+export type LoyaltyAccountId = Brand<string, "LoyaltyAccountId">;
+export type LoyaltyLedgerEntryId = Brand<string, "LoyaltyLedgerEntryId">;
+export type DemandSignalId = Brand<string, "DemandSignalId">;
+export type ReorderProposalId = Brand<string, "ReorderProposalId">;
 
 /** Construct a barcode value (GTIN-8/12/13/14 numeric form). */
 export function makeBarcode(value: string): Barcode {
