@@ -1,0 +1,1042 @@
+{
+  "schema": "matrix-audit-v2",
+  "sections": [
+    {
+      "section": "merchant-parity",
+      "rows": [
+        {
+          "section": "merchant-parity",
+          "row": "storefront-themes-content",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/domain/catalog.ts::Product"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/experience/src/surfaces/storefront.ts::StorefrontThemeView"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:storefront-studio"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/experience/test/e2e/storefront-checkout.journey.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/experience/test/e2e/storefront-checkout.journey.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "merchant-parity",
+          "row": "catalog-products-variants-skus-collections",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/domain/catalog.ts::Product"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/projection/catalog-projection.ts::catalogReadModel"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:operate-catalog"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/lifecycle.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/lifecycle.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "merchant-parity",
+          "row": "pricing-promotions-coupons",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/domain/pricing.ts::Promotion"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/runtime/handler-price-book.ts::handleAdjustSkuPrice"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:operate-catalog"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/pricing.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-price-adjustment.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "merchant-parity",
+          "row": "inventory-locations-transfers-receiving-forecasting",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/domain/inventory.ts::CanonicalInventoryLevel"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/runtime/handler-inventory.ts::handleReserveInventory"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:operate-inventory + hint:low-stock-replenish-hint"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/inventory.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-po-receiving.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "merchant-parity",
+          "row": "cart-checkout-payments",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/domain/cart.ts::Cart"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/runtime/handler-checkout.ts::handleCompleteCheckout"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:storefront-studio"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-checkout.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-checkout.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "merchant-parity",
+          "row": "orders-fulfillment-returns-exchanges-refunds",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/domain/orders.ts::OrderSnapshot"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/runtime/handler-fulfillment.ts::handleOpenFulfillment"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:operate-orders"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-lifecycle.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-recourse.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "merchant-parity",
+          "row": "customers-crm-loyalty-subscriptions",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/domain/crm.ts::CustomerRecord"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/runtime/handler-crm.ts::handleAccrueLoyalty"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:operate-customers + hint:loyalty-tier-progress-hint"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-crm-loyalty.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/certification/certification-w1-007.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "merchant-parity",
+          "row": "marketing-analytics",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/domain/marketing.ts::Campaign"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/runtime/handler-marketing.ts::handleOpenCampaign"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:operate-marketing-analytics + hint:campaign-performance-hint"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-marketing.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/projection/analytics-projection.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "merchant-parity",
+          "row": "b2b",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/domain/b2b.ts::B2BPriceList"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/runtime/handler-commerce.ts::handlePlaceOrder"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:operate-marketing-analytics"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/runtime-circular.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/state-machines.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "merchant-parity",
+          "row": "pos",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/domain/store-ops.ts::StoreCashSession"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/runtime/handler-store-ops.ts::handleOpenStoreCashSession"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:operate-pos"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-store-ops.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-override-handover.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "merchant-parity",
+          "row": "multi-location-channel-commerce",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/domain/transfers.ts::StockTransfer"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/runtime/handler-supply.ts::handleOpenTransfer"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:operate-inventory"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-transfer.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-transfer.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "merchant-parity",
+          "row": "app-extension-ecosystem",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/domain/app-extensions.ts::AppExtension"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/experience/src/surfaces/app-extensions-studio.ts::AppExtensionsStudioView"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:app-extensions"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-app-extensions.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-app-extensions.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "merchant-parity",
+          "row": "ai-generated-apps-workflows",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/domain/ai-generated-apps.ts::AiGeneratedAppRequest"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/experience/src/surfaces/app-extensions-studio.ts::buildAiGeneratedAppRequestView"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:app-extensions + alias:build me a tool"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-ai-generated-apps.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-ai-generated-apps.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "merchant-parity",
+          "row": "autonomous-store",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/domain/autonomous-store.ts::AutonomousStoreControl"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/runtime/handler-autonomous-ops.ts::handleAutonomousRestock"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:autonomous-store-config"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/autonomous-store.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-autonomous-day.test.ts"
+          },
+          "verdict": "PASS"
+        }
+      ],
+      "summary": {
+        "total": 14,
+        "pass": 14,
+        "fail": 0
+      }
+    },
+    {
+      "section": "ai-native-merchant-layer",
+      "rows": [
+        {
+          "section": "ai-native-merchant-layer",
+          "row": "global-merchant-agent",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/agent.ts::MainAgent"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/agent.ts::createActiveTask"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:command-center-work-graph"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/runtime/identity-skills.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/runtime/identity-skills.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "ai-native-merchant-layer",
+          "row": "goal-driven-operation",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/experience/src/surfaces/command-center.ts::MerchantObjectiveInput"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/experience/src/surfaces/command-center.ts::CommandCenterView"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:command-center-work-graph"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-autonomous-day.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-autonomous-day.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "ai-native-merchant-layer",
+          "row": "persistent-merchant-memory",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/projection/twin-state.ts::TwinState"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/projection/twin.ts::CommerceTwin"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:command-center-work-graph"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/projection/twin-rebuild.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/projection/twin-resume.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "ai-native-merchant-layer",
+          "row": "goal-plan-simulate-approve-execute-verify-learn",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/domain/autonomous-store.ts::PolicyApplication"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/runtime/autonomous-ops-core.ts::planAutonomousRestock"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:autonomous-store-config"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-autonomous-restock.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-autonomous-replay.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "ai-native-merchant-layer",
+          "row": "commerce-twin",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/projection/twin.ts::CommerceTwin"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/projection/twin.ts::twinProjection"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:lab-surface"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/projection/twin-verification.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/projection/twin-verification-w1-005.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "ai-native-merchant-layer",
+          "row": "what-if-counterfactual-simulation",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/projection/twin.ts::CommerceTwin"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/projection/twin-verify.ts::compareTwinToAuthoritative"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:lab-surface + hint:run-a-simulation"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/projection/twin-rebuild.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/projection/twin-rebuild.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "ai-native-merchant-layer",
+          "row": "causal-diagnosis",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/projection/analytics-projection.ts::AnalyticsReadModelState"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/projection/analytics-projection.ts::analyticsReadModel"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:operate-marketing-analytics + hint:demand-signal-hint"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/projection/analytics-projection.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/projection/analytics-projection.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "ai-native-merchant-layer",
+          "row": "autonomous-pricing-merchandising-replenishment-campaigns",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/domain/autonomous-store.ts::AutonomousStoreControl"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/runtime/autonomous-ops-core.ts::planAutonomousPriceAdjustment"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:autonomous-store-config"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-autonomous-day.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-autonomous-day.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "ai-native-merchant-layer",
+          "row": "supplier-optimization",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/domain/purchasing.ts::PurchaseOrder"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/runtime/handler-supply.ts::handleOpenPurchaseOrder"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:lab-surface"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-po-receiving.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-po-receiving.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "ai-native-merchant-layer",
+          "row": "experimentation-canary-rollout",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/experiment.ts::ExperimentSpec"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/experiment.ts::evaluatePromotionEligibility"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:lab-surface"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/experiment.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/lab-promotion.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "ai-native-merchant-layer",
+          "row": "agent-generated-business-tools",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/domain/ai-generated-apps.ts::AgentGeneratedToolRequest"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/experience/src/surfaces/app-extensions-studio.ts::buildAgentGeneratedToolView"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:lab-surface + alias:build me a tool"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-ai-generated-apps.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/commerce/src/test/runtime/scenario-ai-generated-apps.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "ai-native-merchant-layer",
+          "row": "continuous-opportunity-discovery",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-engine.ts::OpportunityCandidateGeneration"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-engine.ts::generateOpportunityCandidates"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:opportunity-inbox + hint:find-first-opportunity"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/runtime/opportunity-lab.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-graph.test.ts"
+          },
+          "verdict": "PASS"
+        }
+      ],
+      "summary": {
+        "total": 12,
+        "pass": 12,
+        "fail": 0
+      }
+    },
+    {
+      "section": "coordination-organization",
+      "rows": [
+        {
+          "section": "coordination-organization",
+          "row": "one-main-agent",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/agent.ts::MainAgent"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/agent.ts::isMainAgent"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:command-center-work-graph"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/runtime/identity-skills.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/delegate.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "coordination-organization",
+          "row": "skills",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/agent.ts::SkillDefinition"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/agent.ts::SkillReference"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:app-extensions + alias:add a skill"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/runtime/identity-skills.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/runtime/identity-skills.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "coordination-organization",
+          "row": "ephemeral-system-actors-delegates",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/agent.ts::EphemeralDelegate"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/agent.ts::validateDelegation"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:lab-surface"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/delegate.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/delegate.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "coordination-organization",
+          "row": "capability-based-actor-representation",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/actor-capability.ts::PositionCapabilityGrant"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/actor-capability.ts::ActorCapabilityLedger"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:lab-surface"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/actor-capability.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/actor-capability.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "coordination-organization",
+          "row": "strategy-search",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/strategy.ts::Strategy"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/strategy.ts::StrategyConstraints"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:lab-surface"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/strategy-organization.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/strategy-organization.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "coordination-organization",
+          "row": "organization-search",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/organization.ts::Organization"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/organization.ts::validateOrganization"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:lab-surface"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/strategy-organization.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/strategy-organization.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "coordination-organization",
+          "row": "opportunity-discovery",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-engine.ts::OpportunityCandidateSeed"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/opportunity-engine.ts::generateOpportunityCandidates"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:opportunity-inbox + hint:find-first-opportunity"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/runtime/opportunity-lab.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/opportunity-graph.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "coordination-organization",
+          "row": "group-buy-formation",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/groupbuy-formation.ts::GroupBuyFormationEngine"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/groupbuy-formation.ts::discoverGroupBuysForIntent"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:opportunity-inbox + hint:group-buy-demand-hint"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/groupbuy.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/groupbuy.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "coordination-organization",
+          "row": "merchant-demand-generation-proposals",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/demand-aggregation.ts::MerchantDemandOpportunity"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/demand-aggregation.ts::MerchantDemandView"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:opportunity-inbox"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/demand-aggregation.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/demand-aggregation.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "coordination-organization",
+          "row": "bounded-multi-hop-trade",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/coordination.ts::TradeCycle"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/tradecycle-discovery.ts::discoverTradeCycles"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:opportunity-inbox + hint:trade-cycle-found-hint"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/tradecycle.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/tradecycle.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "coordination-organization",
+          "row": "privacy-aware-matching",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/coordination-privacy.ts::CoordinationDisclosurePolicy"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/coordination-privacy.ts::enforceMinimumNecessary"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:opportunity-inbox"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/demand-aggregation.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/demand-aggregation.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "coordination-organization",
+          "row": "deadline-aware-waiting",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent.ts::BuyerHardConstraints"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent.ts::checkHardConstraints"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:opportunity-inbox + hint:price-drop-timing-hint"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/w2-007-buyer-vocabulary.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/w2-007-buyer-vocabulary.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "coordination-organization",
+          "row": "multi-objective-optimization",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent.ts::BuyerSoftPreferences"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/intent.ts::evaluateIntentCandidates"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:buyer-intent-canvas"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/w2-007-buyer-vocabulary.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/w2-007-buyer-vocabulary.test.ts"
+          },
+          "verdict": "PASS"
+        },
+        {
+          "section": "coordination-organization",
+          "row": "system1-jepa-system2-routing",
+          "contract": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/model-route.ts::ModelRouteClass"
+          },
+          "implementation": {
+            "status": "PASS",
+            "resolved": "packages/agent/src/model-route.ts::routeModelTask"
+          },
+          "discoverableUx": {
+            "status": "PASS",
+            "resolved": "surface:lab-surface"
+          },
+          "journey": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/routing-policy.test.ts"
+          },
+          "evidence": {
+            "status": "PASS",
+            "resolved": "packages/agent/test/routing-comparison.test.ts"
+          },
+          "verdict": "PASS"
+        }
+      ],
+      "summary": {
+        "total": 14,
+        "pass": 14,
+        "fail": 0
+      }
+    }
+  ],
+  "summary": {
+    "sectionsAudited": 3,
+    "rowsTotal": 40,
+    "rowsGreen": 40,
+    "rowsFail": 0
+  },
+  "digest": "ea9da51e58d0"
+}

@@ -283,3 +283,15 @@ export { type CustomerRecord, type CustomerRecordStatus, type LoyaltyAccount, ty
 export { type DemandSignal, type ReorderPointProposal, type ReorderProposalStatus, type ForecastResolution, type ForecastHorizon, type ForecastMethod, type ReorderProposalTransitionError, reorderProposalTransition, advanceReorderProposal, computeDemandForecast, computeReorderProposal } from "./domain/forecasting.js";
 export { type MarketingCommandPayload, type CrmCommandPayload, type ForecastingCommandPayload } from "./runtime/index.js";
 export { type AnalyticsReadModelState, ANALYTICS_PROJECTION_ID, analyticsReadModel, salesTotalOf, campaignDiscountOf, type LoyaltyReadModelState, LOYALTY_PROJECTION_ID, loyaltyReadModel, ledgerEntriesFor, type ForecastingReadModelState, FORECASTING_PROJECTION_ID, forecastingReadModel } from "./projection/index.js";
+
+// --- W1-008 (additive): app-extension ecosystem + AI-generated apps/workflows ---
+// Closes three matrix rows (app-extension-ecosystem, ai-generated-apps-
+// workflows, agent-generated-business-tools) under the product-completeness
+// rule. Typed domain contracts + lifecycle state machines + sandboxed
+// artifact references; agents PROPOSE, never mutate truth (AGENTS rule 1);
+// third-party content is untrusted data (INVARIANT 26); the human-approval
+// gate is mandatory (cannot self-approve).
+
+export { type AppExtensionId, type AppExtensionInstallId, type AiGeneratedAppRequestId, type AgentGeneratedToolRequestId } from "./domain/ids.js";
+export { type AppExtensionPermission, type AppExtensionPermissionRejectionReason, type AppExtensionState, type AppExtensionTrigger, type AppExtensionTransitionError, type AppExtension, type AppExtensionInstall, appExtensionTransition, advanceAppExtension, validatePermissionRequest } from "./domain/app-extensions.js";
+export { type AiGeneratedAppRequestOrigin, type AiGeneratedAppRequestState, type AiGeneratedAppRequestTrigger, type AiGeneratedAppRequestTransitionError, type SandboxedArtifact, type AiGeneratedAppRequest, type AgentGeneratedToolRequest, aiGeneratedAppRequestTransition, advanceAiGeneratedAppRequest, advanceAgentGeneratedToolRequest, canApprove } from "./domain/ai-generated-apps.js";

@@ -186,6 +186,12 @@ export type LoyaltyLedgerEntryId = Brand<string, "LoyaltyLedgerEntryId">;
 export type DemandSignalId = Brand<string, "DemandSignalId">;
 export type ReorderProposalId = Brand<string, "ReorderProposalId">;
 
+// --- W1-008 (additive): app-extension + AI-generated app/workflow ids ---
+export type AppExtensionId = Brand<string, "AppExtensionId">;
+export type AppExtensionInstallId = Brand<string, "AppExtensionInstallId">;
+export type AiGeneratedAppRequestId = Brand<string, "AiGeneratedAppRequestId">;
+export type AgentGeneratedToolRequestId = Brand<string, "AgentGeneratedToolRequestId">;
+
 /** Construct a barcode value (GTIN-8/12/13/14 numeric form). */
 export function makeBarcode(value: string): Barcode {
   const validLength = value.length === 8 || value.length === 12 || value.length === 13 || value.length === 14;
