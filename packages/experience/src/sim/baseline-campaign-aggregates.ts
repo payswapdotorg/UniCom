@@ -29,6 +29,7 @@ import {
 } from "@unicom/agent";
 import type { JourneyOutcomeForPersona } from "@unicom/agent";
 import { mapJourneyEvidenceToPersonaOutcome } from "./adoption-mapper";
+import { w2JourneySetToW1 } from "./w2-w1-journey-map";
 
 /** Build per-persona (persona, JourneyOutcomeForPersona) tuples for scoring. */
 export function buildPersonaOutcomes(
@@ -38,11 +39,19 @@ export function buildPersonaOutcomes(
   readonly persona: Persona;
   readonly outcome: JourneyOutcomeForPersona;
 }> {
-  const byPersona = new Map<string, JourneyEvidenceRecord[]>();
+  // W3-012 persona coverage: attribution by (firm, role, mapped families) —
+  // every persona receives the records their firm executed under THEIR
+  // role family for the families in their mapped applicable set. The
+  // executing representative personaId on the record names the executor;
+  // attribution is role-scoped (all personas of the role share the
+  // evidence their role produced — the honest bundle for a role-level
+  // journey experience).
+  const byFirmRoleFamily = new Map<string, JourneyEvidenceRecord[]>();
   for (const record of evidenceRecords) {
-    const bucket = byPersona.get(record.personaId) ?? [];
+    const key = `${record.firmId}::${record.role}::${record.journeyFamilyId}`;
+    const bucket = byFirmRoleFamily.get(key) ?? [];
     bucket.push(record);
-    byPersona.set(record.personaId, bucket);
+    byFirmRoleFamily.set(key, bucket);
   }
 
   const results: Array<{ readonly persona: Persona; readonly outcome: JourneyOutcomeForPersona }> = [];
@@ -50,7 +59,12 @@ export function buildPersonaOutcomes(
   // the agent Persona carries the scoring-relevant fields like roleFamily,
   // seniority, switchingCost, applicableJourneys etc.).
   for (const persona of contracts.agentPersonas) {
-    const records = byPersona.get(persona.personaId) ?? [];
+    const mappedFamilies = w2JourneySetToW1(persona.applicableJourneys as readonly string[]);
+    const records: JourneyEvidenceRecord[] = [];
+    for (const family of mappedFamilies) {
+      const bucket = byFirmRoleFamily.get(`${persona.firmId}::${persona.roleFamily}::${family}`);
+      if (bucket) records.push(...bucket);
+    }
     const outcome = mapJourneyEvidenceToPersonaOutcome({ persona, records }, contracts);
     results.push({ persona, outcome });
   }

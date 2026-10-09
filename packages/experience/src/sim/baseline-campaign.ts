@@ -30,6 +30,7 @@ import {
 import { buildRunnerEnvironment, DiscoveryRunner, fixedClock, type RunnerEnvironment } from "./discovery-runner";
 import { buildAllJourneyDrivers } from "./journey-drivers";
 import { JOURNEY_FAMILY_IDS } from "./journey-registry";
+import { buildRoleFamiliesByFirm, executingRolesForFamily, type RoleFamilyPlan } from "./baseline-campaign-roles";
 import { markExecuted, markBlocked, markSkipped } from "./campaign-scheduler";
 import type { CampaignSchedule, ScheduledProject } from "./campaign-scheduler";
 import { buildZeroOrphanMap } from "./zero-orphan-map";
@@ -184,10 +185,10 @@ export async function runBaselineCampaign(args: {
     buildCommit,
   });
 
-  // Anti-overfitting assertion: zero holdout-namespace projects in the schedule.
+  // §7 anti-overfitting: zero holdout projects in the schedule.
   assertNoHoldoutInSchedule(schedule);
 
-  // Sample mode: for smoke tests, run only a small subset of projects.
+  // Smoke mode: a small subset (one project per firm).
   const projectsToRun = sampleMode === "smoke"
     ? schedule.projects.slice(0, 39)
     : schedule.projects;
@@ -197,48 +198,49 @@ export async function runBaselineCampaign(args: {
   const startMs = Date.now();
   let totalJourneyRuns = 0;
 
+  // W3-012 persona coverage (design: baseline-campaign-roles.ts).
+  const roleFamiliesByFirm = buildRoleFamiliesByFirm(contracts.agentPersonas);
+
   for (const project of projectsToRun) {
     let anyFamilyPassed = false;
     let anyFamilyThrew = false;
+    const rolesForFirm: ReadonlyMap<string, RoleFamilyPlan> = roleFamiliesByFirm.get(project.firmId) ?? new Map();
     for (const familyId of project.journeyFamilies) {
-      const personaId = project.personaIds[0] ?? `${project.firmId}-persona-default`;
-      try {
-        const record = await runner.runJourney({
-          cohortId: schedule.cohortId,
-          journeyFamilyId: familyId,
-          projectId: project.projectId,
-          personaId,
-          role: "project-owner",
-          industry: project.industry,
-          firmSize: project.firmSize,
-          firmId: project.firmId,
-        });
-        evidenceRecords.push(record);
-        totalJourneyRuns += 1;
-        if (record.outcome === "pass") anyFamilyPassed = true;
-      } catch (error) {
-        // A blocked journey still produces an evidence record (law §2 —
-        // failures captured too). We do NOT mark the project blocked yet —
-        // a later journey family may still pass.
-        anyFamilyThrew = true;
-        const blockedRecord = makeBlockedEvidenceRecord(
-          env,
-          project,
-          familyId,
-          personaId,
-          error instanceof Error ? error.message : "unknown-error",
-        );
-        evidenceRecords.push(blockedRecord);
-        totalJourneyRuns += 1;
+      const executingRoles = executingRolesForFamily(rolesForFirm, familyId, project);
+      for (const { personaId, role } of executingRoles) {
+        try {
+          const record = await runner.runJourney({
+            cohortId: schedule.cohortId, journeyFamilyId: familyId,
+            projectId: project.projectId, personaId, role,
+            industry: project.industry, firmSize: project.firmSize, firmId: project.firmId,
+          });
+          evidenceRecords.push(record);
+          totalJourneyRuns += 1;
+          if (record.outcome === "pass") anyFamilyPassed = true;
+        } catch (error) {
+          // A blocked journey still produces an evidence record (law §2 —
+          // failures captured too). We do NOT mark the project blocked yet —
+          // a later journey family may still pass.
+          anyFamilyThrew = true;
+          const blockedRecord = makeBlockedEvidenceRecord(
+            env,
+            project,
+            familyId,
+            personaId,
+            error instanceof Error ? error.message : "unknown-error",
+          );
+          evidenceRecords.push(blockedRecord);
+          totalJourneyRuns += 1;
+        }
       }
     }
-    // Project-level transition happens AFTER all journey families have run.
+    // Project transition AFTER all families+roles have run.
     if (anyFamilyPassed) {
       markExecuted(schedule, project.projectId, `${project.projectId}-evidence`);
     } else if (anyFamilyThrew) {
       markBlocked(schedule, project.projectId, "runner-threw-on-all-families");
     } else {
-      // No pass; no throw — every family produced a fail/absent/unknown record.
+      // No pass; no throw — all families produced fail/absent/unknown.
       const stillScheduled = schedule.projects.find(
         (p) => p.projectId === project.projectId,
       )?.status === "scheduled";

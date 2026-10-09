@@ -18,6 +18,7 @@
  */
 
 import type { JourneyEvidenceRecord, JourneyOutcome } from "./journey-evidence";
+import { w2JourneySetToW1 } from "./w2-w1-journey-map";
 import type { RealArtifactContracts } from "./real-artifact-loader";
 import type {
   JourneyOutcomeForPersona,
@@ -46,7 +47,10 @@ export function mapJourneyEvidenceToPersonaOutcome(
   contracts: RealArtifactContracts,
 ): JourneyOutcomeForPersona {
   const { persona, records } = bundle;
-  const applicable = persona.applicableJourneys.length;
+  // W3-012: the applicable count is the persona's MAPPED W1 family count
+  // (the W2 working vocabulary mapped through the total w2-w1 map), not
+  // the raw W2 id count.
+  const applicable = w2JourneySetToW1(persona.applicableJourneys as readonly string[]).length;
   const applicableJourneyCount = applicable > 0 ? applicable : records.length;
 
   // Journey completion rate: fraction of records that PASSED.
