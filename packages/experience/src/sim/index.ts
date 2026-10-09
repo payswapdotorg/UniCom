@@ -36,3 +36,10 @@ export * from "./role-access";
 export * from "./no-rfid-journeys";
 export * from "./failure-variants";
 export * from "./cohort-pilot";
+// W3-010 — real-artifact loader types + baseline campaign + report types.
+export * from "./real-artifact-loader";
+export * from "./campaign-report";
+export * from "./adoption-mapper";
+export * from "./baseline-campaign-helpers";
+export * from "./baseline-campaign-aggregates";
+export * from "./baseline-campaign";
