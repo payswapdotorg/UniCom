@@ -38,24 +38,34 @@
     "baseline_required": true,
     "held_out_final_run_required": true
   },
-  "active_work_orders": [
-    {
-      "id": "W3-011",
-      "lane": "worker-3",
-      "dispatched_at": "2026-10-09T09:50:00Z",
-      "phase": "cycles.improvement_1"
-    }
-  ],
+  "active_work_orders": [],
   "frontier": [
     {
-      "id": "W3-011",
-      "status": "DISPATCHED",
+      "id": "W1-012",
+      "status": "PENDING_RANKING",
+      "owner": "worker-1",
+      "depends_on": [
+        "W3-011"
+      ],
+      "note": "cycle-1 product remediation \u2014 pending TL root-cause ranking of the adoption-ceiling finding"
+    },
+    {
+      "id": "W2-011",
+      "status": "PENDING_RANKING",
+      "owner": "worker-2",
+      "depends_on": [
+        "W3-011"
+      ],
+      "note": "cycle-1 product remediation \u2014 pending TL root-cause ranking"
+    },
+    {
+      "id": "W3-012",
+      "status": "PENDING_RANKING",
       "owner": "worker-3",
       "depends_on": [
-        "W3-010"
+        "W3-011"
       ],
-      "dispatched_at": "2026-10-09T09:50:00Z",
-      "note": "Cycle-1 remediation order 1: journey-registry reconciliation with the W1 authoritative family list + negotiation-substitution driver + amended baseline re-run (baseline namespace only) + amended report"
+      "note": "cycle-1 product remediation \u2014 pending TL root-cause ranking"
     }
   ],
   "completed_work_orders": [
@@ -211,33 +221,59 @@
         "consequence": "adoption outputs are a LOWER BOUND for negotiation-substitution-inclusive eligibility until the amended baseline re-run"
       },
       "acceptance": "All 10 WO acceptance criteria verified by TL with evidence map in the completion report"
+    },
+    {
+      "id": "W3-011",
+      "title": "Cycle-1 Remediation Order 1: Journey-Registry Reconciliation + Negotiation-Substitution Driver + Amended Baseline Re-Run",
+      "completed_at": "2026-10-09T10:55:00Z",
+      "merged_sha": "c21253a",
+      "merge_mode": "no-ff (branch 7feee21; base 46ab390)",
+      "verdict": "ACCEPT \u2014 TL-executed under the local-chain doctrine (the dispatched vehicle never pushed within the window; full disclosure in the completion report). BOTH root-cause halves repaired: the registry gains the W1-authoritative negotiation-substitution family with the derivation-law header, and buildAllJourneyDrivers + the local fixture + the JourneyFamilyId union all derive from the registry (three duplicated family lists eliminated). Amended baseline: 48,300/48,300 journeys executed, 0 blocked/absent/fail; negotiation-substitution MEASURES 3,900/3,900 pass; four outputs recomputed under the frozen w2-009:v1 \u2014 full-switch eligible 0\u219239/15,275; main-interface 39/15,275 (synthetic simulation estimates). First-measurement artifacts preserved byte-identical; amendment record isolates exactly one changed family row",
+      "tl_battery": {
+        "tests": "branch + merged lineage: experience 612/612 (+8) + commerce 405/405 + agent 559/559 = 1576/1576, zero regressions",
+        "typecheck": "12/12 branch-reachable projects exit 0",
+        "lint": "99 warnings, 0 errors (baseline tier)",
+        "architecture_check": "violations: 0"
+      },
+      "deliverables": {
+        "src": "journey-registry.ts (entry + derivation law), journey-drivers.ts (registry-derived driver set), journey-evidence.ts (type union), local-fixtures.ts (registry-derived fixture families), run-baseline-campaign.ts (--amendment=N mode)",
+        "tests": "+8 (derivation law, driver coverage, negotiation-substitution end-to-end, amended artifacts, amendment record)",
+        "reports": "baseline-report.amended-1.json + .slim.json + BASELINE-REPORT-AMENDED-1.md (versioned; first measurement preserved)",
+        "completion_report": "docs/work-orders/reports/W3-011-completion-report.md"
+      },
+      "cycle1_product_finding": "with every journey passing, the adoption ceiling (39/15,275 on both eligibility axes; willing scores 5 vs thresholds 65/55) is produced entirely by the frozen contract's veto/threshold structure over per-persona journey evidence \u2014 no GUI friction, blocked paths, or absent features remain measured. Product remediation must change what the contract measures (per-persona journey evidence / persona decision inputs), never the contract (frozen w2-009:v1)"
     }
   ],
   "cycles": {
     "baseline": {
-      "status": "COMPLETE_FIRST_MEASUREMENT",
-      "completed_at": "2026-10-09T09:50:00Z",
-      "merged_sha": "b547e3c",
-      "amendment_required": true,
-      "amendment_reason": "harness vocabulary gap (negotiation-substitution blocked x3,900 \u2014 see W3-010 root_cause_register); W3-011 amends within the baseline namespace",
+      "status": "COMPLETE_AMENDED",
+      "completed_at": "2026-10-09T10:55:00Z",
+      "first_measurement": {
+        "merged_sha": "b547e3c",
+        "blocked_journeys": 3900,
+        "root_cause": "harness vocabulary gap (W3-010 register)"
+      },
+      "amendment_1": {
+        "merged_sha": "c21253a",
+        "bound_commit": "28783aa",
+        "determinism_fingerprint": "ded4f86d7ad26be3",
+        "outcomes": "48300 pass / 0 fail / 0 blocked / 0 absent / 0 unknown"
+      },
       "results": {
-        "projects": "3900 executed / 0 blocked / 0 skipped (drift 0)",
-        "journeys": "44400 executed + 3900 blocked + 0 skipped of 48300 planned (drift 0)",
         "four_adoption_outputs": {
-          "a_full_switch_eligible": "0/15275",
-          "b_willing_switch": "0 (meanScore 5)",
+          "a_full_switch_eligible": "39/15275",
+          "b_willing_switch": "39 (meanScore 5, threshold 65)",
           "c_main_interface_eligible": "39/15275",
-          "d_willing_main_interface": "39 (meanScore 5)"
+          "d_willing_main_interface": "39 (meanScore 5, threshold 55)"
         },
-        "determinism_fingerprint": "6d41dc822423e598",
         "synthetic_estimate_label": "synthetic simulation estimate (all willingness numbers)"
       }
     },
     "improvement_1": {
-      "status": "IN_PROGRESS",
+      "status": "REMEDIATION_ORDER_1_COMPLETE",
       "started_at": "2026-10-09T09:50:00Z",
-      "first_remediation_order": "W3-011 (harness repair: registry reconciliation + negotiation-substitution driver + amended baseline re-run)",
-      "product_remediation_pending": "product-facing orders derive from the AMENDED failure list (charter: a harness fix is measurement repair, not a product improvement)"
+      "harness_repair": "W3-011 accepted (measurement repair, not product improvement)",
+      "product_ranking_pending": "the TL ranks the product remediation orders from the amended finding: the adoption ceiling lives in the veto/threshold structure over per-persona journey evidence (no GUI friction remains measured)"
     },
     "improvement_2": {
       "status": "NOT_STARTED"
@@ -261,8 +297,8 @@
     "cycle_reports": "docs/simulations/results/cycles/",
     "final_report": "docs/simulations/results/final/"
   },
-  "overall_status": "CYCLE_1_REMEDIATION_DISPATCHED",
-  "last_reviewed_at": "2026-10-09T09:50:00Z",
+  "overall_status": "CYCLE_1_PRODUCT_RANKING",
+  "last_reviewed_at": "2026-10-09T10:55:00Z",
   "benchmark_scope": {
     "mandate": "Commerce capabilities only; do not score broad vertical industry software as overall competitors.",
     "authoritative_matrix": "docs/simulations/V3-INDUSTRY-AND-COMPETITOR-MATRIX.md",
@@ -348,6 +384,10 @@
     {
       "ts": "2026-10-09T09:50:00Z",
       "event": "W3-010 ACCEPTED by TL under the local-chain doctrine \u2014 no-ff merge b547e3c; merged battery 1568/1568 (experience 604 + commerce 405 + agent 559); typecheck 12/12; lint 99w/0e; arch 0. cycles.baseline COMPLETE_FIRST_MEASUREMENT with the disclosed harness amendment (root cause: negotiation-substitution absent from the W3-009 journey registry \u2014 3,900 blocked journeys are a harness vocabulary gap, not product failures; outputs are a lower bound). W3-011 (cycle-1 remediation order 1) DISPATCHED to worker-3: registry reconciliation + driver + amended baseline re-run."
+    },
+    {
+      "ts": "2026-10-09T10:55:00Z",
+      "event": "W3-011 ACCEPTED \u2014 TL-executed locally (local-chain doctrine: the dispatched vehicle never pushed; disclosure in the completion report); no-ff merge c21253a; merged battery 1576/1576, typecheck 12/12, lint 99w/0e, arch 0. cycles.baseline COMPLETE_AMENDED (amendment 1 bound to 28783aa, fingerprint ded4f86d; full-switch eligible 0\u219239). CYCLE-1 PRODUCT RANKING now open: the adoption ceiling is entirely the frozen contract's veto/threshold structure over per-persona journey evidence \u2014 the TL ranks the product remediation orders next."
     }
   ]
 }
