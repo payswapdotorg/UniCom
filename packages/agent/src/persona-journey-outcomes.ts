@@ -70,7 +70,6 @@ import type { AttributedRecord, JourneyEvidenceRecordInput } from "./persona-evi
 export type { AttributedRecord } from "./persona-evidence-input.js";
 import { normalizeFirmId, normalizeJourneyFamilyId } from "./persona-evidence-input.js";
 import {
-  CONNECTOR_HEALTH_VALUE,
   deriveBlockers,
   deriveCriticalFailures,
   deriveFriction,
@@ -81,13 +80,7 @@ import {
   recordIntegration,
   recordUsability,
 } from "./persona-outcome-reasons.js";
-import type {
-  CriticalFailureCategory,
-  JourneyOutcomeForPersona,
-  JourneyFamily,
-  Persona,
-  ReasonCode,
-} from "./persona-types.js";
+import type { JourneyOutcomeForPersona, Persona } from "./persona-types.js";
 
 /** Version of this wiring (evidence → outcome mapping laws). */
 export const WIRING_CONTRACT_VERSION = "w2-010:v1";
@@ -307,12 +300,6 @@ function average(values: ReadonlyArray<number>): number {
     return 0;
   }
   return values.reduce((sum, value) => sum + value, 0) / values.length;
-}
-
-function clamp01(value: number): number {
-  if (value < 0) return 0;
-  if (value > 1) return 1;
-  return value;
 }
 
 function round4(value: number): number {

@@ -12,7 +12,6 @@
 import type { AttributedRecord } from "./persona-evidence-input.js";
 import type {
   CriticalFailureCategory,
-  JourneyOutcomeForPersona,
   Persona,
   ReasonCode,
 } from "./persona-types.js";

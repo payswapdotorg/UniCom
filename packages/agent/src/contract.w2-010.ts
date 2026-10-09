@@ -92,6 +92,18 @@ export {
   WIRING_CONTRACT_VERSION,
   buildJourneyOutcomes,
 } from "./persona-journey-outcomes.js";
+// Wiring law implementations (machine-test surface for the W8 veto laws).
+export {
+  CONNECTOR_HEALTH_VALUE,
+  PROOF_LEVEL_VALUE,
+  deriveBlockers,
+  deriveCriticalFailures,
+  deriveFriction,
+  deriveMissingCapability,
+  derivePreference,
+  recordIntegration,
+  recordUsability,
+} from "./persona-outcome-reasons.js";
 
 // --- Measurement pipeline + report contract ---
 export type {

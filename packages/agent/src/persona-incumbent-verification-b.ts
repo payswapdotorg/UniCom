@@ -153,7 +153,7 @@ export const VERIFIED_INCUMBENT_PRODUCTS_B: Readonly<
     officialDomains: ["squareup.com"],
     verification: SEARCHED,
     verifiedAt: INCUMBENT_VERIFICATION_DATE,
-    note: "Official POS platform site; public interactive product and pricing UI.",
+    note: "Official POS platform site; public interactive product and plan-selection UI.",
   },
   shopify: {
     productKey: "shopify",

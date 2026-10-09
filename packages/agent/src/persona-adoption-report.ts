@@ -38,15 +38,13 @@ import type { EvidenceSourceInfo, JourneyEvidenceRecordInput } from "./persona-e
 import { buildJourneyOutcomes } from "./persona-journey-outcomes.js";
 import { WIRING_CONTRACT_VERSION } from "./persona-journey-outcomes.js";
 import type { AttributionStats } from "./persona-journey-outcomes.js";
-import { aggregateAdoption } from "./persona-aggregation.js";
 import { computeAdoptionDecision } from "./persona-scoring.js";
-import { runSensitivityAnalysis } from "./persona-sensitivity.js";
-import type { AdoptionAggregate, AdoptionGrouping, CriticalFailureCategory, JourneyOutcomeForPersona, ReasonCode } from "./persona-types.js";
+import type { AdoptionAggregate, AdoptionGrouping, CriticalFailureCategory, ReasonCode } from "./persona-types.js";
 import { CRITICAL_FAILURE_CATEGORIES, REASON_CODES, SCORING_CONTRACT_VERSION } from "./persona-types.js";
 import type { Persona } from "./persona-types.js";
 import { normalizeJourneyFamilyId } from "./persona-evidence-input.js";
-import type { MetricSensitivity, RangedAdoptionAggregate } from "./persona-adoption-sensitivity.js";
 import { aggregatesWithSensitivity } from "./persona-adoption-sensitivity.js";
+import type { MetricSensitivity, RangedAdoptionAggregate } from "./persona-adoption-sensitivity.js";
 export type { MetricSensitivity, RangedAdoptionAggregate } from "./persona-adoption-sensitivity.js";
 
 /** Schema id of the machine-readable adoption report. */
