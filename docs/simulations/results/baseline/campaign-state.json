@@ -126,15 +126,34 @@
       "records": 900,
       "evidenceSha256": "a1957d6d39bad6913256d2410f1050a669edfd06f1229a007c367867dab0cb14",
       "noRfidPathRuns": 0
+    },
+    {
+      "batch": {
+        "index": 6,
+        "firmId": "sales-business-development-small",
+        "w1IndustryId": "sales-business-development",
+        "w2IndustryId": "sales",
+        "firmSize": "small",
+        "cohortId": "baseline-sales-business-development-small"
+      },
+      "scheduleDigest": "1b9a2df761cc77c304b10a90dc9c1e251c0100dfe50a1e827cd33e7f8303b101",
+      "planned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0,
+      "records": 1700,
+      "evidenceSha256": "b2567b1c107feec71fe64e4d298e9597f5ac07eb2cb89341bd63bf8442d12952",
+      "noRfidPathRuns": 0
     }
   ],
   "totals": {
-    "firmsCompleted": 6,
-    "projectsPlanned": 600,
-    "projectsExecuted": 600,
+    "firmsCompleted": 7,
+    "projectsPlanned": 700,
+    "projectsExecuted": 700,
     "projectsBlocked": 0,
     "projectsSkipped": 0,
-    "evidenceRecords": 6600,
+    "evidenceRecords": 8300,
     "drift": 0
   }
 }

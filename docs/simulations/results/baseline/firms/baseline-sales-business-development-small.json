@@ -1,0 +1,213 @@
+{
+  "schema": "unicom-w3-010-firm-report/1",
+  "experimentId": "v3-baseline",
+  "buildCommit": "c51703e4df2919859a56d5b24f8fda2bd4283c00",
+  "generatedAt": "2026-10-12T00:00:00Z",
+  "clockStartUtc": "2026-10-12T00:00:00Z",
+  "deploymentTarget": "local-dev-real-contracts",
+  "seedNamespace": "baseline",
+  "batch": {
+    "index": 6,
+    "firmId": "sales-business-development-small",
+    "w1IndustryId": "sales-business-development",
+    "w2IndustryId": "sales",
+    "firmSize": "small",
+    "cohortId": "baseline-sales-business-development-small"
+  },
+  "loaderProvenance": {
+    "w1Source": "packages/commerce/src/test/w1-009/portfolio/ (W1-009 test-only public surface)",
+    "w2Source": "@unicom/agent contract.w2-009 (persona-cohort + persona-scoring)",
+    "seedNamespace": "baseline",
+    "baselineProjects": 3900,
+    "holdoutLoaded": false,
+    "personaTarget": 15275
+  },
+  "scheduleDigest": "1b9a2df761cc77c304b10a90dc9c1e251c0100dfe50a1e827cd33e7f8303b101",
+  "reconciliation": {
+    "experimentId": "v3-baseline",
+    "cohortId": "baseline-sales-business-development-small",
+    "totalPlanned": 100,
+    "executed": 100,
+    "blocked": 0,
+    "skipped": 0,
+    "reconciled": true,
+    "drift": 0,
+    "byJourneyFamily": [
+      {
+        "journeyFamilyId": "buyer-intent-constraints",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "offer-sourcing-comparison",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "buy-now-vs-wait-price-timing",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "existing-group-buy",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "latent-demand-merchant-group-buy-proposal",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "rent-borrow-vs-buy",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "resale-rental-consignment",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "proactive-economic-opportunities",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "bounded-multi-hop-trade-cycle",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "merchant-commerce-lifecycle",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "supplier-procurement-receiving",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "commerce-twin-what-if",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "connected-commerce-channels-and-live-commerce",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "trust-security-fraud-and-recourse",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "failure-unknown-idempotency-recovery",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "gui-feature-discoverability",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "b2b-multi-location-supplier-coordination",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      }
+    ],
+    "byOutcome": {
+      "pass": 1700,
+      "fail": 0,
+      "blocked": 0,
+      "absent": 0,
+      "unknown": 0
+    }
+  },
+  "evidence": {
+    "file": "packages/experience/reports/sim/v3-baseline/evidence/baseline-sales-business-development-small.ndjson.gz",
+    "records": 1700,
+    "sha256": "b2567b1c107feec71fe64e4d298e9597f5ac07eb2cb89341bd63bf8442d12952",
+    "bytesUncompressed": 8287824,
+    "bytesGzip": 412655
+  },
+  "noRfid": null,
+  "failureVariants": {
+    "count": 100,
+    "byOutcome": {
+      "fail": 25,
+      "unknown": 15,
+      "blocked": 50,
+      "absent": 5,
+      "pass": 5
+    }
+  },
+  "roleAccess": {
+    "transitions": 7,
+    "roles": [
+      "project-owner",
+      "procurement",
+      "finance",
+      "ops",
+      "end-user",
+      "approver",
+      "supplier",
+      "auditor"
+    ]
+  },
+  "journeyRunsByRole": {
+    "industry-specialist": 672,
+    "project-program-mgmt": 67,
+    "procurement": 342,
+    "sales": 144,
+    "field-ops": 196,
+    "approver-executive": 184,
+    "compliance-audit": 37,
+    "it": 48,
+    "finance-accounting": 10
+  },
+  "guiOnlyProof": {
+    "recordsChecked": 1700,
+    "violations": 0,
+    "deepLinkUsedForDiscovery": 0,
+    "sensitiveValueScrubbed": 1700
+  },
+  "holdoutLeakage": 0
+}
