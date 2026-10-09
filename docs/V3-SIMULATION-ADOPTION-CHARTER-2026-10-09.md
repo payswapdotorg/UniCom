@@ -146,3 +146,16 @@ At minimum:
 - docs/development-state/v3-simulation-state.json
 - per-Work-Order completion and acceptance reports
 - an executive graph: green = evidenced, amber = active/blocked, red = failed
+## Amendment 2026-10-09 — commerce-only competitors and full UNiCOM journeys
+
+This amendment is authoritative for V3 and supersedes any broader reading of "industry incumbent stack" in earlier drafts.
+
+UNiCOM is a commerce product. Do NOT score general vertical industry platforms—such as broad construction/project management, engineering design, clinical records, fleet dispatch, creative production, legal matter management or security/command systems—as UNiCOM competitors. Compare only tools and workflows that perform the same commerce capabilities UNiCOM provides or intends to provide: procurement, supplier discovery, quote comparison, catalog/storefront, purchasing, inventory/POS, ordering, marketplace/channel commerce, resale/rental, group-buying, trade/swap, opportunity discovery, fulfillment, returns/recourse, commerce-related security, and related connector paths. See the revised industry matrix for approved boundaries.
+
+Every cohort must simulate relevant UNiCOM user journeys, not just conventional purchase/order journeys. The campaign-wide scenario registry must cover buyer intent and constraint optimization; buy-vs-wait; price timing; negotiation/substitution; existing and merchant-proposed group-buy; recruit/commitment flows; rent/borrow; resale/rental/consignment; proactive economic opportunities; bounded multi-hop TradeCycle; merchant catalog/storefront/inventory/order/fulfillment/return operations; autonomous-store approval limits; Commerce Twin what-if; connectors/live commerce; trust/security/recourse; and physical supermarket commerce without RFID.
+
+Role relevance is allowed: a given professional should be tested on journeys relevant to their work, while coverage across each industry cohort must ensure that every applicable journey family is exercised. The UI-only rule remains strict: an undiscoverable journey is ABSENT.
+
+Competitor evidence must be classed A (real authorized UI), B (authentic official demo/UI), C (official documentation capability checklist) or D (unverified/inaccessible). D evidence cannot support performance or superiority claims. Do not invent competitor UI activity, pricing, popularity rankings or speed results.
+
+No change to frozen architecture, production deployment authority or V1/V2 progress registries.
