@@ -1,0 +1,101 @@
+{
+  "schema": "unicom-w1-009-journey-families/1",
+  "count": 19,
+  "families": [
+    {
+      "id": "buyer-intent-constraints",
+      "description": "Natural-language goal, budget/max total cost, deadline, quality, seller trust, privacy/security, delivery/pickup, acceptable substitutes and proof/recourse constraints.",
+      "guiEntrySurface": "intent-canvas"
+    },
+    {
+      "id": "offer-sourcing-comparison",
+      "description": "Compare sellers/providers and offers; expose live vs stale vs UNKNOWN state.",
+      "guiEntrySurface": "command-center"
+    },
+    {
+      "id": "buy-now-vs-wait-price-timing",
+      "description": "Buy now vs wait for price/inventory; negotiation, substitution and multi-merchant fulfilment.",
+      "guiEntrySurface": "intent-canvas"
+    },
+    {
+      "id": "negotiation-substitution",
+      "description": "Negotiate or substitute while respecting hard constraints.",
+      "guiEntrySurface": "command-center"
+    },
+    {
+      "id": "existing-group-buy",
+      "description": "Existing GroupBuy discovery, eligibility, visible joining and leaving/commitment rules.",
+      "guiEntrySurface": "command-center"
+    },
+    {
+      "id": "latent-demand-merchant-group-buy-proposal",
+      "description": "Discover compatible demand, recruit willing synthetic buyers, create merchant proposal; merchant accepts/rejects/counters threshold, window and discount. No silent enrollment.",
+      "guiEntrySurface": "intent-canvas"
+    },
+    {
+      "id": "rent-borrow-vs-buy",
+      "description": "Rent/borrow vs buy: availability, period, deposit, condition, delivery, return and recourse.",
+      "guiEntrySurface": "intent-canvas"
+    },
+    {
+      "id": "resale-rental-consignment",
+      "description": "Resale/rental/consignment of under-used assets: identify opportunity, show evidence, estimate outcome and require explicit user action before listing/committing.",
+      "guiEntrySurface": "opportunity-inbox"
+    },
+    {
+      "id": "proactive-economic-opportunities",
+      "description": "Proactive opportunities: price drop/timing, warranty/recovery, subscription savings, loyalty, future-demand selling, local pickup, shared logistics and unused inventory value recovery.",
+      "guiEntrySurface": "opportunity-inbox"
+    },
+    {
+      "id": "bounded-multi-hop-trade-cycle",
+      "description": "Multi-hop TradeCycle with at least three synthetic participants: discover cycle, constrain hops, show each participant's own leg, acquire each authorization, prove completion/recourse; include missing consent, participant exit, invalid cycle and privacy boundary variants.",
+      "guiEntrySurface": "command-center"
+    },
+    {
+      "id": "merchant-commerce-lifecycle",
+      "description": "Merchant lifecycle: create/list product, catalog/variants, price/promotions, inventory, checkout/order, fulfilment, delivery/pickup, returns/exchanges/refunds and customer support.",
+      "guiEntrySurface": "command-center"
+    },
+    {
+      "id": "supplier-procurement-receiving",
+      "description": "Supplier/procurement lifecycle: supplier discovery, quotes, purchasing approvals, purchase orders, partial receiving, substitution, stock update only after reconciliation, invoice/receipt evidence.",
+      "guiEntrySurface": "command-center"
+    },
+    {
+      "id": "autonomous-store-policy",
+      "description": "Autonomous-store runtime: policies, spend/margin floors, supplier/replenishment, promotion limits, stop conditions, approval/handover and audit.",
+      "guiEntrySurface": "command-center"
+    },
+    {
+      "id": "commerce-twin-what-if",
+      "description": "Commerce Twin simulation and what-if/counterfactual planning; prove forecasts never directly mutate canonical state.",
+      "guiEntrySurface": "command-center"
+    },
+    {
+      "id": "connected-commerce-channels-and-live-commerce",
+      "description": "Capability/connector discovery and execution through relevant API/SDK, marketplace, browser-only, file/feed, live-commerce, local-edge and protocol surfaces; preserve provider state and UNKNOWN.",
+      "guiEntrySurface": "connector-studio"
+    },
+    {
+      "id": "physical-no-rfid-supermarket",
+      "description": "Physical/local supermarket operations without RFID: POS/file import, barcode/camera count, weighted item, purchase-order receiving, offline observation replay, conflicting observations and explicit reconciliation.",
+      "guiEntrySurface": "physical-edge"
+    },
+    {
+      "id": "trust-security-fraud-and-recourse",
+      "description": "Commerce trust/security: fake reviews/review rings, counterfeit/wrong item, false non-delivery or item-mismatch claim, returns/refunds abuse, connector compromise, capability-scope abuse, third-party content injection and evidence/recourse.",
+      "guiEntrySurface": "trust-security"
+    },
+    {
+      "id": "failure-unknown-idempotency-recovery",
+      "description": "Failure and recovery: stale/expired connection, partial failure, duplicate submissions/idempotency, denied permissions, missing approval, session interruption, supplier disappearance and settlement UNKNOWN.",
+      "guiEntrySurface": "command-center"
+    },
+    {
+      "id": "gui-feature-discoverability",
+      "description": "Discovery-only checks: start from homepage/ordinary role landing screen and find a feature via visible navigation, universal intent, contextual opportunity or onboarding. No deep-link shortcut for initial discovery.",
+      "guiEntrySurface": "homepage"
+    }
+  ]
+}

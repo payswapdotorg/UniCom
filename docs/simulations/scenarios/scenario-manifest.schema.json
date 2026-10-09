@@ -1,0 +1,213 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://unicom.local/simulations/scenarios/scenario-manifest.schema.json",
+  "title": "W1-009 ProjectManifest",
+  "type": "object",
+  "required": [
+    "schema", "projectId", "namespace", "industryId", "industryName",
+    "firmSize", "firmCohortId", "firmDescriptor", "seed", "roleMix",
+    "projectTemplate", "taskOutcome", "outcomeOracleRef",
+    "determinismFingerprint"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "unicom-w1-009-project-manifest/1" },
+    "projectId": {
+      "type": "string",
+      "pattern": "^W1-009-[BH]-[a-z0-9-]+-(small|medium|large)-[0-9]{4}$"
+    },
+    "namespace": { "enum": ["baseline", "holdout"] },
+    "industryId": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "industryName": { "type": "string" },
+    "firmSize": { "enum": ["small", "medium", "large"] },
+    "firmCohortId": { "type": "string", "pattern": "^[a-z0-9-]+-(small|medium|large)$" },
+    "firmDescriptor": {
+      "type": "object",
+      "required": ["syntheticStaff", "primaryCommerceStressor", "incumbentStack", "excludedComparators"],
+      "additionalProperties": false,
+      "properties": {
+        "syntheticStaff": { "type": "integer", "minimum": 1 },
+        "primaryCommerceStressor": { "type": "string" },
+        "incumbentStack": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "excludedComparators": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "seed": {
+      "type": "object",
+      "required": ["namespace", "seedValue", "seedMaterial", "prng"],
+      "additionalProperties": false,
+      "properties": {
+        "namespace": { "enum": ["baseline", "holdout"] },
+        "seedValue": { "type": "integer", "minimum": 0, "maximum": 4294967295 },
+        "seedMaterial": { "type": "string" },
+        "prng": { "enum": ["mulberry32"] }
+      }
+    },
+    "roleMix": {
+      "type": "array",
+      "minItems": 8,
+      "items": {
+        "type": "object",
+        "required": ["roleFamily", "personas", "authorityScope"],
+        "additionalProperties": false,
+        "properties": {
+          "roleFamily": { "type": "string" },
+          "personas": { "type": "integer", "minimum": 1 },
+          "authorityScope": { "type": "string" }
+        }
+      }
+    },
+    "projectTemplate": {
+      "type": "object",
+      "required": [
+        "templateId", "title", "commerceScope", "applicableJourneyFamilies",
+        "purchasingList", "budget", "deadline", "qualityThresholds",
+        "approvals", "delivery", "returns", "evidenceRequired"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "templateId": { "type": "string" },
+        "title": { "type": "string" },
+        "commerceScope": { "type": "string" },
+        "applicableJourneyFamilies": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        },
+        "purchasingList": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["lineId", "sku", "description", "quantity", "unitPriceMinor", "currency", "supplierOptions", "substitutes", "evidenceRequired"],
+            "additionalProperties": false,
+            "properties": {
+              "lineId": { "type": "string" },
+              "sku": { "type": "string" },
+              "description": { "type": "string" },
+              "quantity": {
+                "type": "object",
+                "required": ["kind"],
+                "additionalProperties": false,
+                "properties": {
+                  "kind": { "enum": ["COUNT", "MEASURED"] },
+                  "units": { "type": "integer", "minimum": 0 },
+                  "amount": { "type": "string" },
+                  "uom": { "type": "string" }
+                }
+              },
+              "unitPriceMinor": { "type": "string", "pattern": "^[0-9]+$" },
+              "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+              "supplierOptions": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "required": ["supplierId", "quoteMinor", "leadTimeDays", "qualityTier"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "supplierId": { "type": "string" },
+                    "quoteMinor": { "type": "string", "pattern": "^[0-9]+$" },
+                    "leadTimeDays": { "type": "integer", "minimum": 0 },
+                    "qualityTier": { "enum": ["STANDARD", "PREMIUM", "ECONOMY"] }
+                  }
+                }
+              },
+              "substitutes": { "type": "array", "items": { "type": "string" } },
+              "evidenceRequired": { "enum": ["P0", "P1", "P2", "P3", "P4", "P5"] }
+            }
+          }
+        },
+        "budget": {
+          "type": "object",
+          "required": ["totalMinor", "currency"],
+          "additionalProperties": false,
+          "properties": {
+            "totalMinor": { "type": "string", "pattern": "^[0-9]+$" },
+            "currency": { "type": "string", "pattern": "^[A-Z]{3}$" }
+          }
+        },
+        "deadline": {
+          "type": "object",
+          "required": ["hard", "soft"],
+          "additionalProperties": false,
+          "properties": {
+            "hard": { "type": "string", "format": "date" },
+            "soft": { "type": "string", "format": "date" }
+          }
+        },
+        "qualityThresholds": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["dimension", "min"],
+            "additionalProperties": false,
+            "properties": {
+              "dimension": { "type": "string" },
+              "min": { "type": "string" }
+            }
+          }
+        },
+        "approvals": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["step", "roleFamily", "action"],
+            "additionalProperties": false,
+            "properties": {
+              "step": { "type": "integer", "minimum": 1 },
+              "roleFamily": { "type": "string" },
+              "action": { "type": "string" },
+              "maxAmountMinor": { "type": "string", "pattern": "^[0-9]+$" }
+            }
+          }
+        },
+        "delivery": {
+          "type": "object",
+          "required": ["mode"],
+          "additionalProperties": false,
+          "properties": {
+            "mode": { "enum": ["SITE_DELIVERY", "PICKUP", "SHIP_TO_LOCATION", "LOCAL_EDGE"] },
+            "location": { "type": "string" }
+          }
+        },
+        "returns": {
+          "type": "object",
+          "required": ["allowed"],
+          "additionalProperties": false,
+          "properties": {
+            "allowed": { "type": "boolean" },
+            "windowDays": { "type": "integer", "minimum": 0 },
+            "recourse": { "enum": ["CREDIT", "REPLACEMENT", "REFUND", "NONE"] }
+          }
+        },
+        "evidenceRequired": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "taskOutcome": {
+      "type": "object",
+      "required": ["guiTaskGoal", "guiEntrySurface", "applicableRoles", "expectedPostJourneyState"],
+      "additionalProperties": false,
+      "properties": {
+        "guiTaskGoal": { "type": "string", "minLength": 1 },
+        "guiEntrySurface": { "type": "string" },
+        "applicableRoles": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        },
+        "expectedPostJourneyState": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "outcomeOracleRef": { "type": "string" },
+    "determinismFingerprint": { "type": "string" }
+  }
+}
