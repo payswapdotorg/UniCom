@@ -170,3 +170,32 @@ Only recommend broad user adoption after:
 - key metrics are stable across seeds;
 - known gaps and integration preconditions are visible;
 - a separate human-user study is planned or completed.
+## 10. Mandatory end-to-end UNiCOM journey coverage
+
+The campaign-wide registry must explicitly schedule and score all applicable journey families below. Role-specific sampling is valid; omitting a journey family from the overall campaign is not.
+
+1. Buyer Intent Canvas: natural-language goal, budget/max total cost, deadline, quality, seller trust, privacy/security, delivery/pickup, acceptable substitutes and proof/recourse constraints.
+2. Compare sellers/providers and offers; expose live vs stale vs UNKNOWN state.
+3. Buy now vs wait for price/inventory; negotiation, substitution and multi-merchant fulfilment.
+4. Existing GroupBuy discovery, eligibility, visible joining and leaving/commitment rules.
+5. Latent-demand group-buy: discover compatible demand, recruit willing synthetic buyers, create merchant proposal; merchant accepts/rejects/counters threshold, window and discount. No silent enrollment.
+6. Rent/borrow vs buy: availability, period, deposit, condition, delivery, return and recourse.
+7. Resale/rental/consignment of under-used assets: identify opportunity, show evidence, estimate outcome and require explicit user action before listing/committing.
+8. Proactive opportunities: price drop/timing, warranty/recovery, subscription savings, loyalty, future-demand selling, local pickup, shared logistics and unused inventory value recovery.
+9. Multi-hop TradeCycle with at least three synthetic participants: discover cycle, constrain hops, show each participant's own leg, acquire each authorization, prove completion/recourse; include missing consent, participant exit, invalid cycle and privacy boundary variants.
+10. Merchant lifecycle: create/list product, catalog/variants, price/promotions, inventory, checkout/order, fulfilment, delivery/pickup, returns/exchanges/refunds and customer support.
+11. Supplier/procurement lifecycle: supplier discovery, quotes, purchasing approvals, purchase orders, partial receiving, substitution, stock update only after reconciliation, invoice/receipt evidence.
+12. B2B, multi-location/channel and supplier coordination where supported.
+13. Autonomous-store runtime: policies, spend/margin floors, supplier/replenishment, promotion limits, stop conditions, approval/handover and audit.
+14. Commerce Twin simulation and what-if/counterfactual planning; prove forecasts never directly mutate canonical state.
+15. Capability/connector discovery and execution through relevant API/SDK, marketplace, browser-only, file/feed, live-commerce, local-edge and protocol surfaces; preserve provider state and UNKNOWN.
+16. Physical/local supermarket operations without RFID: POS/file import, barcode/camera count, weighted item, purchase-order receiving, offline observation replay, conflicting observations and explicit reconciliation.
+17. Commerce trust/security: fake reviews/review rings, counterfeit/wrong item, false non-delivery or item-mismatch claim, returns/refunds abuse, connector compromise, capability-scope abuse, third-party content injection and evidence/recourse.
+18. Failure and recovery: stale/expired connection, partial failure, duplicate submissions/idempotency, denied permissions, missing approval, session interruption, supplier disappearance and settlement UNKNOWN.
+19. Discovery-only checks: start from homepage/ordinary role landing screen and find a feature via visible navigation, universal intent, contextual opportunity or onboarding. No deep-link shortcut for initial discovery.
+
+For each journey result save: journey-family ID, industry, firm size, applicable role, persona, project seed, code/deployment version, initial visible UI, interaction trace, screenshots, result and error/recovery evidence. Failure and BLOCKED/UNKNOWN outcomes remain in the denominator. A feature that exists only below the GUI scores ABSENT.
+
+## 11. Competitor scope restriction
+
+Benchmark only equivalent commerce workflows. A vertical system the company uses for non-commerce operations is context, not a competitor and not a scored alternative. Examples excluded from overall competitive scoring are construction design/project platforms, generic project management, EHR/clinical systems, fleet dispatch/telematics, creative tools and legal matter management. If an adjacent system has a distinct, in-scope commerce feature, isolate and score only that exact feature and identify its evidence class.
