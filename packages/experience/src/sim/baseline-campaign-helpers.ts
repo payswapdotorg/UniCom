@@ -17,15 +17,28 @@ import { BASELINE_NAMESPACE } from "./real-artifact-loader";
 
 /** Assert zero holdout-namespace projects in the schedule (§7 anti-overfitting). */
 export function assertNoHoldoutInSchedule(schedule: CampaignSchedule): void {
-  if (schedule.seedNamespace !== BASELINE_NAMESPACE) {
+  assertOnlyNamespaceInSchedule(schedule, BASELINE_NAMESPACE);
+}
+
+/**
+ * W3-013 (Wave D): the namespace guard generalized — the schedule carries
+ * ONLY the requested namespace's projects (baseline runs assert zero
+ * holdout; the held-out final asserts zero baseline — the §7 mirror).
+ */
+export function assertOnlyNamespaceInSchedule(
+  schedule: CampaignSchedule,
+  namespace: "baseline" | "holdout",
+): void {
+  if (schedule.seedNamespace !== namespace) {
     throw new Error(
-      `W3-010 anti-overfitting violation: schedule seedNamespace is ${schedule.seedNamespace}, expected baseline`,
+      `anti-overfitting violation: schedule seedNamespace is ${schedule.seedNamespace}, expected ${namespace}`,
     );
   }
+  const forbiddenPrefix = namespace === "baseline" ? "W1-009-H-" : "W1-009-B-";
   for (const project of schedule.projects) {
-    if (project.projectId.startsWith("W1-009-H-")) {
+    if (project.projectId.startsWith(forbiddenPrefix)) {
       throw new Error(
-        `W3-010 anti-overfitting violation: holdout project ${project.projectId} scheduled`,
+        `anti-overfitting violation: ${namespace === "baseline" ? "holdout" : "baseline"} project ${project.projectId} scheduled`,
       );
     }
   }

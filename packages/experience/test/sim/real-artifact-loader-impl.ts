@@ -99,6 +99,24 @@ function fingerprintString(content: string): { sha256Hex16: string; byteLength: 
 /** The real-artifact loader implementation. */
 export const realArtifactLoader: RealArtifactLoader = {
   load(): RealArtifactContracts {
+    return loadForNamespace("baseline");
+  },
+};
+
+/**
+ * W3-013 (Wave D): load the contracts for the requested seed namespace.
+ * "baseline" = the 3,900 W1-009-B-* projects (the amended-2 measurement);
+ * "holdout" = the 3,900 W1-009-H-* projects (never executed before the
+ * held-out final — the §7 anti-overfitting law). The portfolio
+ * fingerprint field carries the LOADED namespace's portfolio fingerprint.
+ */
+export function loadRealArtifactsForNamespace(
+  namespace: "baseline" | "holdout",
+): RealArtifactContracts {
+  return loadForNamespace(namespace);
+}
+
+function loadForNamespace(namespace: "baseline" | "holdout"): RealArtifactContracts {
     // 1. Load W1 JSON manifests (scenarios/).
     const w1ManifestFp = fingerprintFile("docs/simulations/scenarios/manifest.json");
     const w1IndustriesFp = fingerprintFile("docs/simulations/scenarios/industries.json");
@@ -107,16 +125,16 @@ export const realArtifactLoader: RealArtifactLoader = {
     const w1NoRfidFp = fingerprintFile("docs/simulations/scenarios/no-rfid-coverage.json");
     const w1SeedNamespacesFp = fingerprintFile("docs/simulations/scenarios/seed-namespaces.json");
 
-    // 2. Generate the 3,900 baseline-namespace W1 project manifests via the
-    //    canonical generator (imported, not copy-forked — the commerce
+    // 2. Generate the 3,900 requested-namespace W1 project manifests via
+    //    the canonical generator (imported, not copy-forked — the commerce
     //    package is a devDependency per the W3-010 work order).
     const baselinePortfolio: GeneratedPortfolio = generatePortfolio({
-      namespace: "baseline",
+      namespace,
       projectsPerFirm: 100,
     });
     if (baselinePortfolio.pairs.length !== 3900) {
       throw new Error(
-        `W3-010 loader: baseline portfolio has ${baselinePortfolio.pairs.length} pairs, expected 3900`,
+        `W3-010 loader: ${namespace} portfolio has ${baselinePortfolio.pairs.length} pairs, expected 3900`,
       );
     }
     const baselinePortfolioFpString = JSON.stringify(
@@ -161,7 +179,7 @@ export const realArtifactLoader: RealArtifactLoader = {
         industry: entry.industry,
         firmSize: entry.firmSize,
         projectIds: entry.projectIds,
-        seedNamespace: "baseline",
+        seedNamespace: namespace,
         deterministicSeed: entry.deterministicSeed,
       });
     }
@@ -357,8 +375,7 @@ export const realArtifactLoader: RealArtifactLoader = {
     };
 
     return contracts;
-  },
-};
+}
 
 /** Build the real-artifact contracts (one-line entry for tests + scripts). */
 export function loadRealArtifacts(): RealArtifactContracts {
