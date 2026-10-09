@@ -506,15 +506,34 @@
       "records": 1200,
       "evidenceSha256": "6203208b35966f3aea7a736bff6dd719a525d327d9a98745f8e74c054f36daeb",
       "noRfidPathRuns": 0
+    },
+    {
+      "batch": {
+        "index": 26,
+        "firmId": "entertainment-media-production-large",
+        "w1IndustryId": "entertainment-media-production",
+        "w2IndustryId": "entertainment",
+        "firmSize": "large",
+        "cohortId": "baseline-entertainment-media-production-large"
+      },
+      "scheduleDigest": "00f3e9bd0a0652cd4f77eb0a15238faaa50ee531daba7d17b0c58ef50bf5d342",
+      "planned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0,
+      "records": 1200,
+      "evidenceSha256": "602c956143ca325e65fbc75c830d7548913bc90d8b77cfd9cbebdd2367e86942",
+      "noRfidPathRuns": 0
     }
   ],
   "totals": {
-    "firmsCompleted": 26,
-    "projectsPlanned": 2600,
-    "projectsExecuted": 2600,
+    "firmsCompleted": 27,
+    "projectsPlanned": 2700,
+    "projectsExecuted": 2700,
     "projectsBlocked": 0,
     "projectsSkipped": 0,
-    "evidenceRecords": 33300,
+    "evidenceRecords": 34500,
     "drift": 0
   }
 }
