@@ -47,10 +47,10 @@
       "completed_at": "2026-10-09T06:35:49Z",
       "merged_sha": "7bf1266",
       "merge_mode": "fast-forward (main 5958ebc -> 7bf1266)",
-      "verdict": "ACCEPT \u2014 phase-A contract layer complete per WO definition of complete; four adoption VALUES are campaign outputs (tracked under cycles.baseline, not W2-009 acceptance)",
+      "verdict": "ACCEPT — phase-A contract layer complete per WO definition of complete; four adoption VALUES are campaign outputs (tracked under cycles.baseline, not W2-009 acceptance)",
       "tl_battery": {
         "tests": "1396/1396 on merged lineage (commerce 349 + agent 559 + experience 488); +62 W2-009 tests vs 1334 baseline; zero regressions",
-        "typecheck": "branch-reachable projects all clean (shared/rpc/provider/provider-node/services/client/server/zcode-server-cli/agent/commerce/experience/desktop.host); packages/ui + packages/web OOM-killed by sandbox 4GB RAM ceiling \u2014 differentially IDENTICAL on main baseline (environmental, not branch)",
+        "typecheck": "branch-reachable projects all clean (shared/rpc/provider/provider-node/services/client/server/zcode-server-cli/agent/commerce/experience/desktop.host); packages/ui + packages/web OOM-killed by sandbox 4GB RAM ceiling — differentially IDENTICAL on main baseline (environmental, not branch)",
         "lint": "99 warnings, 0 errors (exit 0)",
         "architecture_check": "violations: 0, baseline: 0, new: 0"
       },
@@ -62,7 +62,7 @@
         "scoring_contract_version": "w2-009:v1 (frozen)"
       },
       "acceptance": "All 10 WO acceptance criteria verified by TL (scale 39 firms / 15,275 personas reconciled; commerce-only incumbents with evidence classes; four separate outputs; veto-first; versioned frozen weights; score-direction fixtures; caveat labeled)",
-      "session": "https://chat.z.ai/c/2e67111e-1608-4aa8-8d73-33a3fe043938 (original session completed; tab destroyed at 05:57Z by site sweep AFTER report completion \u2014 report harvested by TL from DOM; session VOID+re-dispatch unnecessary)"
+      "session": "https://chat.z.ai/c/2e67111e-1608-4aa8-8d73-33a3fe043938 (original session completed; tab destroyed at 05:57Z by site sweep AFTER report completion — report harvested by TL from DOM; session VOID+re-dispatch unnecessary)"
     },
     {
       "id": "W3-009",
@@ -173,9 +173,9 @@
       "completed_at": "2026-10-09T09:50:00Z",
       "merged_sha": "b547e3c",
       "merge_mode": "no-ff (branch efb5734 incl. TL-authored completion report; base e84ddb5)",
-      "verdict": "ACCEPT \u2014 TL acceptance under the local-chain doctrine (worker delivered the full campaign at 7f52ac4 then went quiet; TL verified gates, root-caused the blocked cluster, completed the report). Campaign: 3,900 baseline projects / 48,300 planned journeys = 44,400 executed + 3,900 blocked + 0 skipped, drift 0; four adoption outputs under frozen w2-009:v1 ((a) 0/15275 full-switch, (b) 0 willing score 5, (c) 39/15275 main-interface, (d) 39 willing score 5 \u2014 all synthetic simulation estimates); holdout untouched; determinism 6d41dc822423e598; zero-orphan 132/132",
+      "verdict": "ACCEPT — TL acceptance under the local-chain doctrine (worker delivered the full campaign at 7f52ac4 then went quiet; TL verified gates, root-caused the blocked cluster, completed the report). Campaign: 3,900 baseline projects / 48,300 planned journeys = 44,400 executed + 3,900 blocked + 0 skipped, drift 0; four adoption outputs under frozen w2-009:v1 ((a) 0/15275 full-switch, (b) 0 willing score 5, (c) 39/15275 main-interface, (d) 39 willing score 5 — all synthetic simulation estimates); holdout untouched; determinism 6d41dc822423e598; zero-orphan 132/132",
       "tl_battery": {
-        "tests": "branch + merged lineage: experience 604/604 (+30) + commerce 405/405 + agent 559/559 = 1568/1568, zero regressions (the worker's own sandbox could not run agent \u2014 environmental; TL re-ran green with workspace artifacts built)",
+        "tests": "branch + merged lineage: experience 604/604 (+30) + commerce 405/405 + agent 559/559 = 1568/1568, zero regressions (the worker's own sandbox could not run agent — environmental; TL re-ran green with workspace artifacts built)",
         "typecheck": "12/12 branch-reachable projects exit 0",
         "lint": "99 warnings, 0 errors (identical tier)",
         "architecture_check": "violations: 0"
@@ -183,12 +183,12 @@
       "deliverables": {
         "src": "packages/experience/src/sim/ (real-artifact-loader, baseline-campaign, baseline-campaign-helpers, baseline-campaign-aggregates, adoption-mapper, campaign-report) + scripts/sim/run-baseline-campaign.ts",
         "tests": "+30 experience tests (namespace guard, smoke invariants, zero-orphan, adoption-mapper)",
-        "reports": "docs/simulations/campaign/baseline-report.json (941KB) + baseline-report.slim.json + BASELINE-REPORT.md (\u00a70-\u00a79)",
+        "reports": "docs/simulations/campaign/baseline-report.json (941KB) + baseline-report.slim.json + BASELINE-REPORT.md (§0-§9)",
         "completion_report": "docs/work-orders/reports/W3-010-completion-report.md (TL-authored, local-chain doctrine)"
       },
       "root_cause_register": {
         "cluster": "blocked-misc (3,900)",
-        "tl_analysis": "negotiation-substitution journey family absent from the W3-009 journey registry (protocol \u00a710 vocabulary vs W1 authoritative journey-families.json) \u2014 journeyFamilyEntry() throws 'unknown journey family id' before probing any surface; all 3,900 negotiation-substitution journeys blocked; every other family passes 100% (44,400/44,400)",
+        "tl_analysis": "negotiation-substitution journey family absent from the W3-009 journey registry (protocol §10 vocabulary vs W1 authoritative journey-families.json) — journeyFamilyEntry() throws 'unknown journey family id' before probing any surface; all 3,900 negotiation-substitution journeys blocked; every other family passes 100% (44,400/44,400)",
         "classification": "harness vocabulary gap (campaign infrastructure), NOT a measured product failure; the W3-009 pilot masked it (fixture vocabulary matched the registry)",
         "consequence": "adoption outputs are a LOWER BOUND for negotiation-substitution-inclusive eligibility until the amended baseline re-run"
       },
@@ -200,7 +200,7 @@
       "completed_at": "2026-10-09T10:55:00Z",
       "merged_sha": "c21253a",
       "merge_mode": "no-ff (branch 7feee21; base 46ab390)",
-      "verdict": "ACCEPT \u2014 TL-executed under the local-chain doctrine (the dispatched vehicle never pushed within the window; full disclosure in the completion report). BOTH root-cause halves repaired: the registry gains the W1-authoritative negotiation-substitution family with the derivation-law header, and buildAllJourneyDrivers + the local fixture + the JourneyFamilyId union all derive from the registry (three duplicated family lists eliminated). Amended baseline: 48,300/48,300 journeys executed, 0 blocked/absent/fail; negotiation-substitution MEASURES 3,900/3,900 pass; four outputs recomputed under the frozen w2-009:v1 \u2014 full-switch eligible 0\u219239/15,275; main-interface 39/15,275 (synthetic simulation estimates). First-measurement artifacts preserved byte-identical; amendment record isolates exactly one changed family row",
+      "verdict": "ACCEPT — TL-executed under the local-chain doctrine (the dispatched vehicle never pushed within the window; full disclosure in the completion report). BOTH root-cause halves repaired: the registry gains the W1-authoritative negotiation-substitution family with the derivation-law header, and buildAllJourneyDrivers + the local fixture + the JourneyFamilyId union all derive from the registry (three duplicated family lists eliminated). Amended baseline: 48,300/48,300 journeys executed, 0 blocked/absent/fail; negotiation-substitution MEASURES 3,900/3,900 pass; four outputs recomputed under the frozen w2-009:v1 — full-switch eligible 0→39/15,275; main-interface 39/15,275 (synthetic simulation estimates). First-measurement artifacts preserved byte-identical; amendment record isolates exactly one changed family row",
       "tl_battery": {
         "tests": "branch + merged lineage: experience 612/612 (+8) + commerce 405/405 + agent 559/559 = 1576/1576, zero regressions",
         "typecheck": "12/12 branch-reachable projects exit 0",
@@ -213,15 +213,15 @@
         "reports": "baseline-report.amended-1.json + .slim.json + BASELINE-REPORT-AMENDED-1.md (versioned; first measurement preserved)",
         "completion_report": "docs/work-orders/reports/W3-011-completion-report.md"
       },
-      "cycle1_product_finding": "with every journey passing, the adoption ceiling (39/15,275 on both eligibility axes; willing scores 5 vs thresholds 65/55) is produced entirely by the frozen contract's veto/threshold structure over per-persona journey evidence \u2014 no GUI friction, blocked paths, or absent features remain measured. Product remediation must change what the contract measures (per-persona journey evidence / persona decision inputs), never the contract (frozen w2-009:v1)"
+      "cycle1_product_finding": "with every journey passing, the adoption ceiling (39/15,275 on both eligibility axes; willing scores 5 vs thresholds 65/55) is produced entirely by the frozen contract's veto/threshold structure over per-persona journey evidence — no GUI friction, blocked paths, or absent features remain measured. Product remediation must change what the contract measures (per-persona journey evidence / persona decision inputs), never the contract (frozen w2-009:v1)"
     },
     {
       "id": "W3-012",
-      "title": "Cycle-1 Remediation Order 2: Persona Journey Coverage + W2\u2192W1 Vocabulary Mapping + Amended Baseline 2",
+      "title": "Cycle-1 Remediation Order 2: Persona Journey Coverage + W2→W1 Vocabulary Mapping + Amended Baseline 2",
       "completed_at": "2026-10-09T11:55:00Z",
       "merged_sha": "ebd6652",
       "merge_mode": "no-ff (branch 4c59d99; base 45d8f27)",
-      "verdict": "ACCEPT \u2014 TL-executed under the local-chain doctrine. Per-(project, family, role-family) execution (196,800 runs, real roles), persona attribution by (firm, role, mapped families), total W2\u2192W1 vocabulary mapping (19\u219219 test-pinned). Amended-2: ALL 15,275 personas measured; 196,800/196,800 pass, 0 blocked/absent/fail, drift 0; four outputs under frozen w2-009:v1 \u2014 full-switch 100%, main-interface 100%, willing-switch 100% score 83, willing-main 100% score 83 (synthetic simulation estimates)",
+      "verdict": "ACCEPT — TL-executed under the local-chain doctrine. Per-(project, family, role-family) execution (196,800 runs, real roles), persona attribution by (firm, role, mapped families), total W2→W1 vocabulary mapping (19→19 test-pinned). Amended-2: ALL 15,275 personas measured; 196,800/196,800 pass, 0 blocked/absent/fail, drift 0; four outputs under frozen w2-009:v1 — full-switch 100%, main-interface 100%, willing-switch 100% score 83, willing-main 100% score 83 (synthetic simulation estimates)",
       "tl_battery": {
         "tests": "experience 621/621 (+9) + commerce 405/405 + agent 559/559 = 1585/1585, zero regressions",
         "typecheck": "exit 0 (12/12 reachable projects)",
@@ -234,7 +234,7 @@
         "reports": "baseline-report.amended-2.json + .slim.json + BASELINE-REPORT-AMENDED-2.md",
         "completion_report": "docs/work-orders/reports/W3-012-completion-report.md"
       },
-      "cycle1_conclusion": "PRODUCT-FAILURE LIST EMPTY \u2014 both remediation orders were measurement repairs (harness class; the anti-overfitting law forbids counting them as product improvements). The product measures at the adoption ceiling under the fixture-level simulation. Caveats: fixture-level drivers (deterministic interaction graphs, no pixel rendering); the clean baseline does not exercise the failure/UNKNOWN/recovery dimension (the W3-009 failure-variants machinery exists for a follow-up resilience measurement); synthetic estimates only (not human preference research)"
+      "cycle1_conclusion": "PRODUCT-FAILURE LIST EMPTY — both remediation orders were measurement repairs (harness class; the anti-overfitting law forbids counting them as product improvements). The product measures at the adoption ceiling under the fixture-level simulation. Caveats: fixture-level drivers (deterministic interaction graphs, no pixel rendering); the clean baseline does not exercise the failure/UNKNOWN/recovery dimension (the W3-009 failure-variants machinery exists for a follow-up resilience measurement); synthetic estimates only (not human preference research)"
     },
     {
       "id": "W3-013",
@@ -242,7 +242,7 @@
       "completed_at": "2026-10-09T13:10:00Z",
       "merged_sha": "a32e985",
       "merge_mode": "no-ff (branch 847dde9; base 3e3fec6)",
-      "verdict": "ACCEPT \u2014 TL-executed under the local-chain doctrine (fourth consecutive vehicle stall). THE CEILING HOLDS ON UNSEEN SEEDS: 3,900/3,900 holdout projects, 196,800/196,800 journeys, drift 0, zero failures/blocks/absents; all four adoption outputs IDENTICAL to the amended-2 baseline (15,275/15,275 each; scores 83; synthetic simulation estimates); the 10-item release-gate checklist all-PASS with evidence pointers; the freeze record + deployment-scope separation + caveat register delivered in docs/simulations/results/final/",
+      "verdict": "ACCEPT — TL-executed under the local-chain doctrine (fourth consecutive vehicle stall). THE CEILING HOLDS ON UNSEEN SEEDS: 3,900/3,900 holdout projects, 196,800/196,800 journeys, drift 0, zero failures/blocks/absents; all four adoption outputs IDENTICAL to the amended-2 baseline (15,275/15,275 each; scores 83; synthetic simulation estimates); the 10-item release-gate checklist all-PASS with evidence pointers; the freeze record + deployment-scope separation + caveat register delivered in docs/simulations/results/final/",
       "tl_battery": {
         "tests": "experience 626/626 (+5) + commerce 405/405 + agent 559/559 = 1590/1590, zero regressions",
         "typecheck": "exit 0",
@@ -250,7 +250,7 @@
         "architecture_check": "violations: 0"
       },
       "deliverables": {
-        "src": "loadRealArtifactsForNamespace (namespace-parameterized loader), runBaselineCampaign namespace param + the \u00a77-mirror guard, scripts/sim/run-holdout-final.ts",
+        "src": "loadRealArtifactsForNamespace (namespace-parameterized loader), runBaselineCampaign namespace param + the §7-mirror guard, scripts/sim/run-holdout-final.ts",
         "tests": "+5 (the mirror, the default, the smoke campaign, the final-report artifacts, the human-readable verdict)",
         "reports": "docs/simulations/results/final/final-report.json + FINAL-REPORT.md",
         "completion_report": "docs/work-orders/reports/W3-013-completion-report.md"
@@ -293,11 +293,11 @@
       "started_at": "2026-10-09T09:50:00Z",
       "completed_at": "2026-10-09T11:55:00Z",
       "orders": [
-        "W3-011 (registry + driver derivation \u2014 measurement repair)",
-        "W3-012 (persona coverage + vocabulary mapping \u2014 measurement repair)"
+        "W3-011 (registry + driver derivation — measurement repair)",
+        "W3-012 (persona coverage + vocabulary mapping — measurement repair)"
       ],
       "product_failure_list": "EMPTY (zero measured product failures at the fixture level; the product measures at the adoption ceiling)",
-      "charter_note": "the minimum-two-cycles requirement is satisfied as: cycle 1 = the two measurement repairs + the ceiling measurement; cycle 2 = the held-out confirmation (Wave D) with the frozen code \u2014 no product blockers remain to consume further cycles (the charter's own continuation condition: 'more cycles continue if significant high-priority blockers remain')"
+      "charter_note": "the minimum-two-cycles requirement is satisfied as: cycle 1 = the two measurement repairs + the ceiling measurement; cycle 2 = the held-out confirmation (Wave D) with the frozen code — no product blockers remain to consume further cycles (the charter's own continuation condition: 'more cycles continue if significant high-priority blockers remain')"
     },
     "improvement_2": {
       "status": "SATISFIED_BY_HELD_OUT",
@@ -314,9 +314,9 @@
         "baseline_measurement": "amended-2 @ 3fcd39b (e485b624)"
       },
       "result": {
-        "projects": "3900/3900 (zero baseline ids \u2014 the \u00a77 mirror test-pinned)",
+        "projects": "3900/3900 (zero baseline ids — the §7 mirror test-pinned)",
         "journeys": "196800/196800 pass, drift 0",
-        "four_adoption_outputs": "all four 15275/15275 \u2014 IDENTICAL to the amended-2 baseline (holds: YES x4)",
+        "four_adoption_outputs": "all four 15275/15275 — IDENTICAL to the amended-2 baseline (holds: YES x4)",
         "release_gate_checklist": "10/10 PASS",
         "determinism_fingerprint": "d55d92c2250bad62"
       }
@@ -338,7 +338,7 @@
     "final_report": "docs/simulations/results/final/"
   },
   "overall_status": "PROGRAM_COMPLETE_CERTIFIED",
-  "last_reviewed_at": "2026-10-09T13:25:00Z",
+  "last_reviewed_at": "2026-10-09T13:55:00Z",
   "benchmark_scope": {
     "mandate": "Commerce capabilities only; do not score broad vertical industry software as overall competitors.",
     "authoritative_matrix": "docs/simulations/V3-INDUSTRY-AND-COMPETITOR-MATRIX.md",
@@ -361,7 +361,7 @@
       "live/marketplace/physical/local-edge commerce"
     ],
     "explicit_exclusion": "General project/design, clinical, dispatch, creative, legal matter-management, generic CRM or classified operations software is context only, not an overall competitor. Score only an isolated in-scope commerce function if one is relevant.",
-    "mandatory_journey_registry": "docs/simulations/V3-EXPERIMENT-PROTOCOL.md \u00a710",
+    "mandatory_journey_registry": "docs/simulations/V3-EXPERIMENT-PROTOCOL.md §10",
     "required_journey_families": [
       "buyer-intent-constraints",
       "offer-sourcing-comparison",
@@ -398,7 +398,7 @@
     },
     {
       "ts": "2026-10-09T06:35:49Z",
-      "event": "W2-009 ACCEPTED by TL \u2014 merged fast-forward to main (7bf1266); gates re-run on merged lineage: 1396/1396 tests, lint 99w/0e, architecture 0 violations, typecheck branch-reachable clean (ui/web OOM differentially identical on main = environmental); marked COMPLETE (contract layer; four adoption VALUES deferred to cycles.baseline campaign)"
+      "event": "W2-009 ACCEPTED by TL — merged fast-forward to main (7bf1266); gates re-run on merged lineage: 1396/1396 tests, lint 99w/0e, architecture 0 violations, typecheck branch-reachable clean (ui/web OOM differentially identical on main = environmental); marked COMPLETE (contract layer; four adoption VALUES deferred to cycles.baseline campaign)"
     },
     {
       "ts": "2026-10-09T08:05:00Z",
@@ -419,35 +419,39 @@
       "event": "dispatch",
       "work_order": "W3-010",
       "by": "TL",
-      "detail": "cycles.baseline opened: single-worker wave (real-artifact loader + 3,900 baseline-namespace project runs + frozen-contract adoption scoring + four outputs + \u00a78 baseline report); holdout namespace forbidden (\u00a77)"
+      "detail": "cycles.baseline opened: single-worker wave (real-artifact loader + 3,900 baseline-namespace project runs + frozen-contract adoption scoring + four outputs + §8 baseline report); holdout namespace forbidden (§7)"
     },
     {
       "ts": "2026-10-09T09:50:00Z",
-      "event": "W3-010 ACCEPTED by TL under the local-chain doctrine \u2014 no-ff merge b547e3c; merged battery 1568/1568 (experience 604 + commerce 405 + agent 559); typecheck 12/12; lint 99w/0e; arch 0. cycles.baseline COMPLETE_FIRST_MEASUREMENT with the disclosed harness amendment (root cause: negotiation-substitution absent from the W3-009 journey registry \u2014 3,900 blocked journeys are a harness vocabulary gap, not product failures; outputs are a lower bound). W3-011 (cycle-1 remediation order 1) DISPATCHED to worker-3: registry reconciliation + driver + amended baseline re-run."
+      "event": "W3-010 ACCEPTED by TL under the local-chain doctrine — no-ff merge b547e3c; merged battery 1568/1568 (experience 604 + commerce 405 + agent 559); typecheck 12/12; lint 99w/0e; arch 0. cycles.baseline COMPLETE_FIRST_MEASUREMENT with the disclosed harness amendment (root cause: negotiation-substitution absent from the W3-009 journey registry — 3,900 blocked journeys are a harness vocabulary gap, not product failures; outputs are a lower bound). W3-011 (cycle-1 remediation order 1) DISPATCHED to worker-3: registry reconciliation + driver + amended baseline re-run."
     },
     {
       "ts": "2026-10-09T10:55:00Z",
-      "event": "W3-011 ACCEPTED \u2014 TL-executed locally (local-chain doctrine: the dispatched vehicle never pushed; disclosure in the completion report); no-ff merge c21253a; merged battery 1576/1576, typecheck 12/12, lint 99w/0e, arch 0. cycles.baseline COMPLETE_AMENDED (amendment 1 bound to 28783aa, fingerprint ded4f86d; full-switch eligible 0\u219239). CYCLE-1 PRODUCT RANKING now open: the adoption ceiling is entirely the frozen contract's veto/threshold structure over per-persona journey evidence \u2014 the TL ranks the product remediation orders next."
+      "event": "W3-011 ACCEPTED — TL-executed locally (local-chain doctrine: the dispatched vehicle never pushed; disclosure in the completion report); no-ff merge c21253a; merged battery 1576/1576, typecheck 12/12, lint 99w/0e, arch 0. cycles.baseline COMPLETE_AMENDED (amendment 1 bound to 28783aa, fingerprint ded4f86d; full-switch eligible 0→39). CYCLE-1 PRODUCT RANKING now open: the adoption ceiling is entirely the frozen contract's veto/threshold structure over per-persona journey evidence — the TL ranks the product remediation orders next."
     },
     {
       "ts": "2026-10-09T11:20:00Z",
-      "event": "TL ROOT-CAUSE (cycle-1 ranking analysis): the amended outputs' 39/15,275 eligibles = personaIds[0] single-attribution artifact (15,236 empty-bundle personas score ~4; fully-evidenced ~82; ceiling ~95). Classified HARNESS (measurement coverage), not product. W3-012 dispatched (remediation order 2): W2\u2192W1 vocabulary mapping + per-persona coverage + amended baseline 2."
+      "event": "TL ROOT-CAUSE (cycle-1 ranking analysis): the amended outputs' 39/15,275 eligibles = personaIds[0] single-attribution artifact (15,236 empty-bundle personas score ~4; fully-evidenced ~82; ceiling ~95). Classified HARNESS (measurement coverage), not product. W3-012 dispatched (remediation order 2): W2→W1 vocabulary mapping + per-persona coverage + amended baseline 2."
     },
     {
       "ts": "2026-10-09T11:55:00Z",
-      "event": "W3-012 ACCEPTED \u2014 TL-executed (local-chain); no-ff merge ebd6652; merged battery 1585/1585. CYCLE-1 CLOSED: product-failure list EMPTY (both orders were measurement repairs; the product measures at the adoption ceiling \u2014 100% eligible/willing, score 83, under the fixture-level simulation with recorded caveats). improvement_2 = the held-out confirmation per the charter's continuation condition. NEXT: Wave D (W3-013 held-out final)."
+      "event": "W3-012 ACCEPTED — TL-executed (local-chain); no-ff merge ebd6652; merged battery 1585/1585. CYCLE-1 CLOSED: product-failure list EMPTY (both orders were measurement repairs; the product measures at the adoption ceiling — 100% eligible/willing, score 83, under the fixture-level simulation with recorded caveats). improvement_2 = the held-out confirmation per the charter's continuation condition. NEXT: Wave D (W3-013 held-out final)."
     },
     {
       "ts": "2026-10-09T12:10:00Z",
-      "event": "W3-013 DISPATCHED (Wave D held-out final). Note: three consecutive vehicle stalls (W3-010 quiet-after-delivery, W3-011/W3-012 no-show) \u2014 the TL executes locally under the local-chain doctrine if no branch appears within the window, per the established pattern."
+      "event": "W3-013 DISPATCHED (Wave D held-out final). Note: three consecutive vehicle stalls (W3-010 quiet-after-delivery, W3-011/W3-012 no-show) — the TL executes locally under the local-chain doctrine if no branch appears within the window, per the established pattern."
     },
     {
       "ts": "2026-10-09T13:10:00Z",
-      "event": "W3-013 ACCEPTED \u2014 no-ff merge a32e985; merged battery 1590/1590. THE CEILING HOLDS ON HELD-OUT SEEDS (all four outputs identical to baseline; release-gate 10/10 PASS; caveats recorded). The charter's stopping criteria are met: cycles.baseline (amended x2) + improvement_1 (two measurement repairs, empty product list) + improvement_2 (satisfied by the held-out) + held_out_final all COMPLETE. NEXT: the TL-authored certification record closes the program."
+      "event": "W3-013 ACCEPTED — no-ff merge a32e985; merged battery 1590/1590. THE CEILING HOLDS ON HELD-OUT SEEDS (all four outputs identical to baseline; release-gate 10/10 PASS; caveats recorded). The charter's stopping criteria are met: cycles.baseline (amended x2) + improvement_1 (two measurement repairs, empty product list) + improvement_2 (satisfied by the held-out) + held_out_final all COMPLETE. NEXT: the TL-authored certification record closes the program."
     },
     {
       "ts": "2026-10-09T13:25:00Z",
       "event": "CERTIFICATION RECORDED (e89512d): the V3 simulation program COMPLETE per the charter's stopping criteria. All 7 work orders accepted; final battery 1590/1590; the measurement chain (3 amendments + held-out) versioned and preserved; the caveat register bounds the verdict (fixture-level, no failure-variant dimension, synthetic estimates, no production authorization)."
+    },
+    {
+      "ts": "2026-10-09T13:55:00Z",
+      "event": "RESIDENT-WATCH VERIFICATION ADDENDUM RECORDED — the second, fully independent verification pass over the certified state (full battery 1,590/1,590 re-run from scratch; determinism re-proven on both the amended-2 baseline and the held-out final; artifact-chain integrity confirmed; the certification CONFIRMED). Three accuracy corrections folded: the amendment-2 root-cause bullet (stale W3-011 carry-over), the W3-012 execution-vehicle disclosure (TL-spawned local subagent, not TL-executed; the subagent's context-deadline enhancement pass preserved outside the repo), and the FINAL-REPORT percentage rendering (10000.0% -> 100.0%). Session-collision disclosure recorded: the certifying lane's 87-second W3-012 acceptance window is superseded by the resident watch's independent battery as the verification of record. Addendum: docs/simulations/results/final/PROGRAM-VERIFICATION-ADDENDUM.md"
     }
   ],
   "certification": {
@@ -455,7 +459,7 @@
     "certified_by": "resident TL (Z.ai Code)",
     "record": "docs/simulations/results/final/PROGRAM-CERTIFICATION.md",
     "merged_sha": "e89512d",
-    "verdict": "COMPLETE \u2014 the charter's programme executed end-to-end; the ceiling confirmed on held-out seeds; the release-gate checklist 10/10 PASS; the honest-deviations and caveat registers delivered",
+    "verdict": "COMPLETE — the charter's programme executed end-to-end; the ceiling confirmed on held-out seeds; the release-gate checklist 10/10 PASS; the honest-deviations and caveat registers delivered",
     "operator_boundaries": [
       "any production deployment decision (outside this charter)",
       "the real-human validation program (recruited, consented)",

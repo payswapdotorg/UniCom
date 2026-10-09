@@ -1,6 +1,6 @@
 # W3-012 Completion Report
 
-Status: **COMPLETE** (TL-executed under the local-chain doctrine — the dispatched vehicle never pushed within the window; the W3-011 precedent)
+Status: **COMPLETE** (executed under the local-chain doctrine by a TL-spawned local subagent worker in the sandbox battery worktree `/home/z/battery/w3-012` — no chat.z.ai worker vehicle was dispatched for this order; the subagent implemented, tested and pushed branch `work/w3-012` (3fcd39b + 4c59d99); its context expired during a subsequent uncommitted enhancement pass, which the TL preserved outside the repo at `/home/z/my-project/harvest/w3-012-rework/` (not part of this delivery); the TL independently re-ran every gate on the pushed branch before acceptance — full disclosure in the TL acceptance record)
 Branch: `work/w3-012` (base 45d8f27)
 Owner: worker-3 lane (phase cycles.improvement_1, remediation order 2)
 

@@ -21,10 +21,10 @@
 
 | output | eligible | % | mean score | threshold |
 |---|---|---|---|---|
-| (a) Technical full-switch eligibility | 15275/15275 | 10000.0% | n/a | n/a |
-| (b) Simulated stated willingness to switch completely | 15275/15275 | 10000.0% | 83 | 65 |
-| (c) Main-interface eligibility | 15275/15275 | 10000.0% | n/a | n/a |
-| (d) Simulated stated willingness to use as main interface | 15275/15275 | 10000.0% | 83 | 55 |
+| (a) Technical full-switch eligibility | 15275/15275 | 100.0% | n/a | n/a |
+| (b) Simulated stated willingness to switch completely | 15275/15275 | 100.0% | 83 | 65 |
+| (c) Main-interface eligibility | 15275/15275 | 100.0% | n/a | n/a |
+| (d) Simulated stated willingness to use as main interface | 15275/15275 | 100.0% | 83 | 55 |
 
 ## Baseline vs holdout (does the ceiling hold?)
 
