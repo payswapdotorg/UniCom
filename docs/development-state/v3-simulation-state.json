@@ -38,25 +38,44 @@
     "baseline_required": true,
     "held_out_final_run_required": true
   },
-  "active_work_orders": [],
-  "frontier": [
+  "active_work_orders": [
     {
       "id": "W1-009",
-      "status": "READY",
-      "owner": "worker-1",
-      "depends_on": []
+      "lane": "worker-1",
+      "dispatched_at": "2026-10-09T04:55:00Z"
     },
     {
       "id": "W2-009",
-      "status": "READY",
-      "owner": "worker-2",
-      "depends_on": []
+      "lane": "worker-2",
+      "dispatched_at": "2026-10-09T04:55:00Z"
     },
     {
       "id": "W3-009",
-      "status": "READY",
+      "lane": "worker-3",
+      "dispatched_at": "2026-10-09T04:55:00Z"
+    }
+  ],
+  "frontier": [
+    {
+      "id": "W1-009",
+      "status": "DISPATCHED",
+      "owner": "worker-1",
+      "depends_on": [],
+      "dispatched_at": "2026-10-09T04:55:00Z"
+    },
+    {
+      "id": "W2-009",
+      "status": "DISPATCHED",
+      "owner": "worker-2",
+      "depends_on": [],
+      "dispatched_at": "2026-10-09T04:55:00Z"
+    },
+    {
+      "id": "W3-009",
+      "status": "DISPATCHED",
       "owner": "worker-3",
-      "depends_on": []
+      "depends_on": [],
+      "dispatched_at": "2026-10-09T04:55:00Z"
     }
   ],
   "completed_work_orders": [],
@@ -89,7 +108,7 @@
     "cycle_reports": "docs/simulations/results/cycles/",
     "final_report": "docs/simulations/results/final/"
   },
-  "overall_status": "READY_TO_DISPATCH_SCOPE_CORRECTED",
+  "overall_status": "WAVE_009_DISPATCHED",
   "last_reviewed_at": "2026-10-09",
   "benchmark_scope": {
     "mandate": "Commerce capabilities only; do not score broad vertical industry software as overall competitors.",
@@ -141,5 +160,12 @@
       "C": "official documentation capability checklist only",
       "D": "unverified/inaccessible; excluded from performance superiority claims"
     }
-  }
+  },
+  "dispatch_log": [
+    {
+      "ts": "2026-10-09T04:55:00Z",
+      "event": "W1-009 + W2-009 + W3-009 dispatched in parallel per FINAL-TL-HANDOFF-V3-SIMULATIONS-2026-10-09.md (three workers, TL orchestration/acceptance lane); activation recorded before dispatch",
+      "dispatch_issue": "https://github.com/payswapdotorg/UniCom/issues/8"
+    }
+  ]
 }
