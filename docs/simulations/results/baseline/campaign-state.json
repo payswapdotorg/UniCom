@@ -202,15 +202,34 @@
       "records": 1300,
       "evidenceSha256": "cb16d5ab00a218643699a38a302c2a9fc5b38157d2cd37728741124e60da51b1",
       "noRfidPathRuns": 0
+    },
+    {
+      "batch": {
+        "index": 10,
+        "firmId": "technology-software-it-services-medium",
+        "w1IndustryId": "technology-software-it-services",
+        "w2IndustryId": "technology",
+        "firmSize": "medium",
+        "cohortId": "baseline-technology-software-it-services-medium"
+      },
+      "scheduleDigest": "cf39dfaa248cc36c619b0377f70b7b20187c40fe7fb4edf1f491894276f5ff3c",
+      "planned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0,
+      "records": 1300,
+      "evidenceSha256": "8c8b0883d071683a80cbd249efbc6863920c439e4814f93d60e8708e417e308d",
+      "noRfidPathRuns": 0
     }
   ],
   "totals": {
-    "firmsCompleted": 10,
-    "projectsPlanned": 1000,
-    "projectsExecuted": 1000,
+    "firmsCompleted": 11,
+    "projectsPlanned": 1100,
+    "projectsExecuted": 1100,
     "projectsBlocked": 0,
     "projectsSkipped": 0,
-    "evidenceRecords": 13000,
+    "evidenceRecords": 14300,
     "drift": 0
   }
 }
