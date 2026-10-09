@@ -45,11 +45,6 @@
       "dispatched_at": "2026-10-09T04:55:00Z"
     },
     {
-      "id": "W2-009",
-      "lane": "worker-2",
-      "dispatched_at": "2026-10-09T04:55:00Z"
-    },
-    {
       "id": "W3-009",
       "lane": "worker-3",
       "dispatched_at": "2026-10-09T04:55:00Z"
@@ -65,10 +60,11 @@
     },
     {
       "id": "W2-009",
-      "status": "DISPATCHED",
+      "status": "COMPLETE",
       "owner": "worker-2",
       "depends_on": [],
-      "dispatched_at": "2026-10-09T04:55:00Z"
+      "dispatched_at": "2026-10-09T04:55:00Z",
+      "completed_at": "2026-10-09T06:35:49Z"
     },
     {
       "id": "W3-009",
@@ -78,7 +74,31 @@
       "dispatched_at": "2026-10-09T04:55:00Z"
     }
   ],
-  "completed_work_orders": [],
+  "completed_work_orders": [
+    {
+      "id": "W2-009",
+      "title": "Professional Personas, Incumbent Baselines and Adoption Measurement",
+      "completed_at": "2026-10-09T06:35:49Z",
+      "merged_sha": "7bf1266",
+      "merge_mode": "fast-forward (main 5958ebc -> 7bf1266)",
+      "verdict": "ACCEPT — phase-A contract layer complete per WO definition of complete; four adoption VALUES are campaign outputs (tracked under cycles.baseline, not W2-009 acceptance)",
+      "tl_battery": {
+        "tests": "1396/1396 on merged lineage (commerce 349 + agent 559 + experience 488); +62 W2-009 tests vs 1334 baseline; zero regressions",
+        "typecheck": "branch-reachable projects all clean (shared/rpc/provider/provider-node/services/client/server/zcode-server-cli/agent/commerce/experience/desktop.host); packages/ui + packages/web OOM-killed by sandbox 4GB RAM ceiling — differentially IDENTICAL on main baseline (environmental, not branch)",
+        "lint": "99 warnings, 0 errors (exit 0)",
+        "architecture_check": "violations: 0, baseline: 0, new: 0"
+      },
+      "deliverables": {
+        "src": "packages/agent/src/persona-*.ts + contract.w2-009.ts (12 files, 1808 lines, additive)",
+        "tests": "packages/agent/test/w2-009-{cohort,scoring,sensitivity}.test.ts (62 tests)",
+        "docs": "docs/simulations/personas/{SCHEMA.md,adoption-contract.json,cohort-manifest.json}",
+        "generator": "packages/agent/scripts/generate-w2-009-artifacts.ts",
+        "scoring_contract_version": "w2-009:v1 (frozen)"
+      },
+      "acceptance": "All 10 WO acceptance criteria verified by TL (scale 39 firms / 15,275 personas reconciled; commerce-only incumbents with evidence classes; four separate outputs; veto-first; versioned frozen weights; score-direction fixtures; caveat labeled)",
+      "session": "https://chat.z.ai/c/2e67111e-1608-4aa8-8d73-33a3fe043938 (original session completed; tab destroyed at 05:57Z by site sweep AFTER report completion — report harvested by TL from DOM; session VOID+re-dispatch unnecessary)"
+    }
+  ],
   "cycles": {
     "baseline": {
       "status": "NOT_STARTED"
@@ -109,7 +129,7 @@
     "final_report": "docs/simulations/results/final/"
   },
   "overall_status": "WAVE_009_DISPATCHED",
-  "last_reviewed_at": "2026-10-09",
+  "last_reviewed_at": "2026-10-09T06:35:49Z",
   "benchmark_scope": {
     "mandate": "Commerce capabilities only; do not score broad vertical industry software as overall competitors.",
     "authoritative_matrix": "docs/simulations/V3-INDUSTRY-AND-COMPETITOR-MATRIX.md",
@@ -166,6 +186,10 @@
       "ts": "2026-10-09T04:55:00Z",
       "event": "W1-009 + W2-009 + W3-009 dispatched in parallel per FINAL-TL-HANDOFF-V3-SIMULATIONS-2026-10-09.md (three workers, TL orchestration/acceptance lane); activation recorded before dispatch",
       "dispatch_issue": "https://github.com/payswapdotorg/UniCom/issues/8"
+    },
+    {
+      "ts": "2026-10-09T06:35:49Z",
+      "event": "W2-009 ACCEPTED by TL — merged fast-forward to main (7bf1266); gates re-run on merged lineage: 1396/1396 tests, lint 99w/0e, architecture 0 violations, typecheck branch-reachable clean (ui/web OOM differentially identical on main = environmental); marked COMPLETE (contract layer; four adoption VALUES deferred to cycles.baseline campaign)"
     }
   ]
 }
