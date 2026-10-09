@@ -138,7 +138,7 @@
     "No participant research occurs until operator authorization and informed consent.",
     "No production deployment or live commerce mutation is authorized by this phase."
   ],
-  "last_reviewed_at": "2026-10-09T18:25:00Z",
+  "last_reviewed_at": "2026-10-09T22:25:00Z",
   "active_work_orders": [],
   "frontier": [
     {
@@ -190,6 +190,25 @@
       "recorded_by": "resident TL (Z.ai Code)",
       "action": "G3G4_COMPLETE_PROGRAM_RECORD",
       "detail": "G3 acceptance substance verified + G4 final report committed (docs/simulations/post-v3/FINAL-REPORT.md). The phase is PROGRAM_COMPLETE_PENDING_OPERATOR_DECISIONS: all three work orders accepted, all gates complete, the frontier is exclusively operator-owned decisions (rendered commerce UI, human-research authorization, production deployment). Blocked work was never marked complete; the browser-lane expansion is honestly bounded by the commerce-UI absence (evidence-backed), not silently skipped."
+    },
+    {
+      "recorded_at": "2026-10-09T22:25:00Z",
+      "recorded_by": "resident TL (Z.ai Code)",
+      "action": "TERMINAL_AUDIT_AND_RESIDUAL_CLASSIFICATION",
+      "detail": "Roadmap-terminal audit of the full repository: all four programs verified complete from their state authorities (V1 18/18; V2 release-candidate-ready; V3 PROGRAM_COMPLETE_CERTIFIED frontier-empty; POST-V3 all gates COMPLETE); 0 open PRs; the handoff lineage (10-05 -> 10-06 -> V3 10-09 -> POST-V3 10-09) confirmed terminal — no newer charter exists; the V3 certified evidence chain re-verified IN main (baseline-report.amended-1.json contains 48300; amended-2 contains 196800 + 15275; W3-010 merge b547e3c in main history; certification section-5 artifact map holds).",
+      "residual_branch_classification": {
+        "recorded_for": "the five intermediate-chain branches pushed 2026-10-09 08:04-12:46Z by the parallel replay-dispatch TL chain (four deliveries + one voided attempt, all green-reviewed per the tl/program-audit addendum)",
+        "branches": {
+          "work/w3-010-int": "41 commits — the raw baseline campaign evidence (39 firm batches, CAMPAIGN-REPORT, counts-reconciliation, determinism-proof; 89 files). The charter-required distilled artifacts ARE in main (docs/simulations/campaign/ amended reports; certification s5 map).",
+          "work/w1-010-int": "5 commits — campaign certification tooling + the 48,300/48,300 full-campaign certification bundle (46 files).",
+          "work/w2-010-int": "3 commits — adoption measurement pipeline + incumbent verification evidence (43 products) + 63-test wiring battery (23 files).",
+          "work/w2-011-int": "5 commits — cycle-1 ranking prep reframed as the frozen-contract structure audit (ceiling arithmetic 83.9/4.4/93.4 confirming the certified 83; 15 levers; veto/threshold maps; 11 files).",
+          "tl/program-audit": "1 commit — TL-RESIDENT-VERIFICATION-2026-10-09.md addendum (the W2-011 audit acceptance + the five-dispatch chain record)."
+        },
+        "ruling": "CLASSIFIED AUXILIARY-REFERENCE, PRESERVED-ON-ORIGIN, NOT MERGED. Rationale: (a) the V3 charter's required artifacts are all in main per the certification's own artifact map — the certified numbers' evidence chain is complete without the branches (re-verified above); (b) the ranking question was CLOSED via the accepted W3-012 (product-failure list empty) and the levers stand as reference material for any future operator-owned follow-up, per the audit addendum's own words; (c) the incumbent-evidence dimension was superseded by this phase's W3-014 (28 incumbents, 73 A/B/C/D-classed observations with committed captures); (d) post-certification merges into the V3 evidence tree would be out of charter scope and would muddy the certified record. No state or certification file was modified; the branches remain fetchable on origin indefinitely.",
+        "precedent": "matches the prior residual-branch rulings (post-merge completion reports, TL fix-forwards, battery merges on work/* branches; feat/ui-plugin classified non-roadmap exploratory)"
+      },
+      "issue_tracker_close_out": "Issue #8 (the V3 dispatch issue, open since 2026-10-09T05:01Z) closed with the full V3 program record — the program it tracked is PROGRAM_COMPLETE_CERTIFIED with an empty frontier; matches the #9 close-out precedent. After this, zero open issues/PRs remain; the actionable frontier is exclusively the three operator-owned decisions."
     }
   ],
   "merged_lineage_battery": {
