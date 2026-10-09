@@ -38,20 +38,15 @@
     "baseline_required": true,
     "held_out_final_run_required": true
   },
-  "active_work_orders": [
-    {
-      "id": "W1-009",
-      "lane": "worker-1",
-      "dispatched_at": "2026-10-09T04:55:00Z"
-    }
-  ],
+  "active_work_orders": [],
   "frontier": [
     {
       "id": "W1-009",
-      "status": "DISPATCHED",
+      "status": "COMPLETE",
       "owner": "worker-1",
       "depends_on": [],
-      "dispatched_at": "2026-10-09T04:55:00Z"
+      "dispatched_at": "2026-10-09T04:55:00Z",
+      "completed_at": "2026-10-09T08:25:00Z"
     },
     {
       "id": "W2-009",
@@ -141,6 +136,61 @@
         "merge_kind": "no-ff (W3 branched from 5958ebc pre-W2-merge 7bf1266; write surfaces pairwise disjoint)"
       },
       "notes": "GUI-only runner + instrumentation delivered; campaign run deferred to cycles.baseline per pilot law (TL acceptance gate passed). Local-dev fixture swap for real W1/W2 artifacts is the follow-up once W1-009 lands."
+    },
+    {
+      "id": "W1-009",
+      "owner": "worker-1",
+      "lane": "commerce-truth-economic-execution",
+      "branch": "work/w1-009",
+      "merged_commit": "47c07ce",
+      "branch_head_at_acceptance": "da8d122",
+      "accepted_at": "2026-10-09T08:25:00Z",
+      "acceptance_evidence": {
+        "branch_battery": {
+          "tests": "1390/1390",
+          "commerce": 405,
+          "agent": 497,
+          "experience": 488,
+          "new_portfolio_tests": 56,
+          "regressions": 0,
+          "lint": "97w/0e",
+          "architecture": "0 violations (milestone-3 file splits completed the arch fix)",
+          "typecheck": "shared+commerce clean"
+        },
+        "merged_lineage_battery": {
+          "commit": "47c07ce",
+          "tests": "1538/1538",
+          "commerce": 405,
+          "agent": 559,
+          "experience": 574,
+          "lint": "99w/0e",
+          "architecture": "0 violations",
+          "typecheck": "commerce/agent/experience clean"
+        },
+        "portfolio": {
+          "firms": 39,
+          "industries": 13,
+          "sizes": 3,
+          "projects_per_firm": 200,
+          "total_manifests": 7800,
+          "baseline": 3900,
+          "holdout": 3900,
+          "seed_namespaces_disjoint": true,
+          "role_families_per_industry": 8,
+          "journey_families": 19,
+          "no_rfid": {
+            "supermarket_projects": 300,
+            "scenarios": 8,
+            "binding": [
+              "docs/SUPERMARKET-WITHOUT-RFID.md",
+              "docs/work-orders/W3-004.md"
+            ]
+          }
+        },
+        "certification": "13/13 scenarios PASS at packages/commerce/reports/w1-009-portfolio-certification.json",
+        "merge_kind": "no-ff (W1 branched from 5958ebc; write surfaces pairwise disjoint)"
+      },
+      "notes": "Turn died post-milestone-3 before writing the completion-report markdown; TL battery independently verified all 10 WO acceptance criteria (deviation noted). Assertion-only oracle: fixtures can never mark a GUI journey successful (S12)."
     }
   ],
   "cycles": {
@@ -172,8 +222,8 @@
     "cycle_reports": "docs/simulations/results/cycles/",
     "final_report": "docs/simulations/results/final/"
   },
-  "overall_status": "WAVE_009_IN_FLIGHT_W1_REMAINING",
-  "last_reviewed_at": "2026-10-09T08:05:00Z",
+  "overall_status": "WAVE_009_COMPLETE",
+  "last_reviewed_at": "2026-10-09T08:25:00Z",
   "benchmark_scope": {
     "mandate": "Commerce capabilities only; do not score broad vertical industry software as overall competitors.",
     "authoritative_matrix": "docs/simulations/V3-INDUSTRY-AND-COMPETITOR-MATRIX.md",
@@ -241,6 +291,13 @@
       "work_order": "W3-009",
       "by": "TL",
       "detail": "accepted after branch battery (1420/1420) + merged-lineage gate (1482/1482 at 2f1ff1f); no-ff merge; pilot law satisfied; campaign deferred to cycles.baseline"
+    },
+    {
+      "ts": "2026-10-09T08:25:00Z",
+      "event": "accept",
+      "work_order": "W1-009",
+      "by": "TL",
+      "detail": "accepted after branch battery (1390/1390) + merged-lineage gate (1538/1538 at 47c07ce); turn died post-milestone-3 (no worker completion report - TL battery verified all 10 criteria); wave-009 now complete (W1+W2+W3)"
     }
   ]
 }
