@@ -1,0 +1,4 @@
+ZCode Conversation Share
+Invalid share content
+
+The shared content failed the public safety contract.

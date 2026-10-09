@@ -1,0 +1,15 @@
+2026-10-09T17:01:38.840Z [env] starting Hono server from packages/server/dist/entry-http.js (port 3030)
+2026-10-09T17:01:38.843Z [env] starting Vite dev server (port 5173, heap cap 512MB)
+2026-10-09T17:01:42.093Z [env] server-up=true web-up=true (freeMem=1499MB)
+2026-10-09T17:01:42.382Z [browser] chromium 153.0.8010.12 (playwright from import:playwright)
+2026-10-09T17:02:07.010Z [env] warm-up cold boot: painted=true bodyLen=118 in 24466ms (freeMem=678MB)
+2026-10-09T17:02:25.529Z [walk] landing small: rendered=true (18370ms)
+2026-10-09T17:02:43.045Z [walk] landing medium: rendered=true (17369ms)
+2026-10-09T17:03:02.117Z [walk] landing large: rendered=true (18930ms)
+2026-10-09T17:03:25.521Z [walk] onboarding api-key panel: rendered=true
+2026-10-09T17:04:53.675Z [walk] oauth redirect targets: 2
+2026-10-09T17:05:33.176Z [walk] share /share: rendered=true
+2026-10-09T17:05:33.176Z [walk] share /cn/share: rendered=true
+2026-10-09T17:05:35.374Z [manifest] /home/z/battery/w1-010/docs/simulations/post-v3/w1-010/pilot-manifest.json (valid=true)
+2026-10-09T17:05:35.374Z [evidence] 13 pointers checked, missing=0
+2026-10-09T17:05:35.374Z [denominator] planned = executed + blocked + skipped = ΣbyOutcome → 57 = 57 + 0 + 0 = 57 (zero drift); outcomes pass=0 fail=0 blocked=0 absent=57 unknown=0
