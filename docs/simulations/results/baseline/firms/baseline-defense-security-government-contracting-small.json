@@ -1,0 +1,157 @@
+{
+  "schema": "unicom-w3-010-firm-report/1",
+  "experimentId": "v3-baseline",
+  "buildCommit": "c51703e4df2919859a56d5b24f8fda2bd4283c00",
+  "generatedAt": "2026-10-12T00:00:00Z",
+  "clockStartUtc": "2026-10-12T00:00:00Z",
+  "deploymentTarget": "local-dev-real-contracts",
+  "seedNamespace": "baseline",
+  "batch": {
+    "index": 30,
+    "firmId": "defense-security-government-contracting-small",
+    "w1IndustryId": "defense-security-government-contracting",
+    "w2IndustryId": "defense",
+    "firmSize": "small",
+    "cohortId": "baseline-defense-security-government-contracting-small"
+  },
+  "loaderProvenance": {
+    "w1Source": "packages/commerce/src/test/w1-009/portfolio/ (W1-009 test-only public surface)",
+    "w2Source": "@unicom/agent contract.w2-009 (persona-cohort + persona-scoring)",
+    "seedNamespace": "baseline",
+    "baselineProjects": 3900,
+    "holdoutLoaded": false,
+    "personaTarget": 15275
+  },
+  "scheduleDigest": "82b60b4bcc3134a51f74681c5c34f1357a09d6e571ca5215a0073cb52f52cbd6",
+  "reconciliation": {
+    "experimentId": "v3-baseline",
+    "cohortId": "baseline-defense-security-government-contracting-small",
+    "totalPlanned": 100,
+    "executed": 100,
+    "blocked": 0,
+    "skipped": 0,
+    "reconciled": true,
+    "drift": 0,
+    "byJourneyFamily": [
+      {
+        "journeyFamilyId": "buyer-intent-constraints",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "offer-sourcing-comparison",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "buy-now-vs-wait-price-timing",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "rent-borrow-vs-buy",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "supplier-procurement-receiving",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "trust-security-fraud-and-recourse",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "failure-unknown-idempotency-recovery",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "gui-feature-discoverability",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "b2b-multi-location-supplier-coordination",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      }
+    ],
+    "byOutcome": {
+      "pass": 900,
+      "fail": 0,
+      "blocked": 0,
+      "absent": 0,
+      "unknown": 0
+    }
+  },
+  "evidence": {
+    "file": "packages/experience/reports/sim/v3-baseline/evidence/baseline-defense-security-government-contracting-small.ndjson.gz",
+    "records": 900,
+    "sha256": "afe10f51eb48379e6870f9620a0f71aa4d4f09507da648370842151dbda2bddc",
+    "bytesUncompressed": 4433652,
+    "bytesGzip": 204035
+  },
+  "noRfid": null,
+  "failureVariants": {
+    "count": 100,
+    "byOutcome": {
+      "fail": 25,
+      "unknown": 15,
+      "blocked": 50,
+      "absent": 5,
+      "pass": 5
+    }
+  },
+  "roleAccess": {
+    "transitions": 7,
+    "roles": [
+      "project-owner",
+      "procurement",
+      "finance",
+      "ops",
+      "end-user",
+      "approver",
+      "supplier",
+      "auditor"
+    ]
+  },
+  "journeyRunsByRole": {
+    "project-program-mgmt": 99,
+    "approver-executive": 145,
+    "procurement": 187,
+    "field-ops": 134,
+    "compliance-audit": 30,
+    "sales": 31,
+    "industry-specialist": 259,
+    "it": 5,
+    "finance-accounting": 10
+  },
+  "guiOnlyProof": {
+    "recordsChecked": 900,
+    "violations": 0,
+    "deepLinkUsedForDiscovery": 0,
+    "sensitiveValueScrubbed": 900
+  },
+  "holdoutLeakage": 0
+}
