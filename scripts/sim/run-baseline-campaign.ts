@@ -35,19 +35,34 @@ const REPORT_DIR = resolve(REPO_ROOT, "docs/simulations/campaign");
 /** W3-011: the amendment record — before/after journey-family table vs the
  * first measurement, with the explicit root-cause pointer. Measurement
  * repair, not product improvement (the anti-overfitting law). */
+const AMENDMENT_RECORDS: ReadonlyMap<number, { workOrder: string; repair: string }> = new Map([
+  [1, {
+    workOrder: "W3-011",
+    repair: "the journey-registry reconciliation that added the W1-authoritative `negotiation-substitution` family (absent from the original protocol-§10 hard-code — the root cause of the 3,900 blocked journeys in the first measurement; see the W3-010 completion report's root-cause register)",
+  }],
+  [2, {
+    workOrder: "W3-012",
+    repair: "the persona journey coverage repair: the campaign's `personaIds[0]` single-attribution left 15,236/15,275 personas with empty evidence bundles (score ~4), and the W2 persona `applicableJourneys` vocabulary was never reconciled with the W1 authoritative family ids (the third seam). Now every persona is measured over their mapped applicable journeys, executed per role family with real roles on every record",
+  }],
+]);
+
 function renderAmendmentSection(amendment: number, full: BaselineCampaignReport): string {
   const firstPath = resolve(REPORT_DIR, "baseline-report.json");
   let before: { journeyFamilyEvidence?: Array<{ journeyFamilyId: string; totalRuns: number; passCount: number; blockedCount: number; failCount: number }> } = {};
   try {
     before = JSON.parse(readFileSync(firstPath, "utf8")) as typeof before;
   } catch {
-    throw new Error(`W3-011 amendment ${amendment}: cannot read the first measurement at ${firstPath} — the amendment record requires it`);
+    throw new Error(`amendment ${amendment}: cannot read the first measurement at ${firstPath} — the amendment record requires it`);
+  }
+  const record = AMENDMENT_RECORDS.get(amendment);
+  if (record === undefined) {
+    throw new Error(`amendment ${amendment}: no AMENDMENT_RECORDS entry — record the repair classification before amending`);
   }
   const beforeByFamily = new Map((before.journeyFamilyEvidence ?? []).map((e) => [e.journeyFamilyId, e]));
   const lines: string[] = [];
-  lines.push(`# W3-011 — Baseline Amendment ${amendment} Record`);
+  lines.push(`# ${record.workOrder} — Baseline Amendment ${amendment} Record`);
   lines.push("");
-  lines.push("> **MEASUREMENT REPAIR, NOT PRODUCT IMPROVEMENT** (the charter's anti-overfitting law). This amendment re-measures the campaign after the W3-011 harness repair: the journey-registry reconciliation that added the W1-authoritative `negotiation-substitution` family (absent from the original protocol-§10 hard-code — the root cause of the 3,900 blocked journeys in the first measurement; see the W3-010 completion report's root-cause register). The product is unchanged.");
+  lines.push(`> **MEASUREMENT REPAIR, NOT PRODUCT IMPROVEMENT** (the charter's anti-overfitting law). This amendment re-measures the campaign after the ${record.workOrder} harness repair: ${record.repair}. The product is unchanged.`);
   lines.push("");
   lines.push("## Before/after — journey-family evidence");
   lines.push("");
