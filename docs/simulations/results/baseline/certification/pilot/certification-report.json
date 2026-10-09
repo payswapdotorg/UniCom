@@ -14,7 +14,7 @@
     "generatedAt": "2026-10-10T07:00:00Z",
     "sampleMode": "pilot",
     "recordCount": 1092,
-    "evidenceSha256": "8f2f1f3d2eaa846953ad630e2cc0a7fcc8851210499bfc35d5cc7136ea35c9f3"
+    "evidenceSha256": "17a7f440552175f9e5fb5dc56be8359a0c689b1cb35a949d22b34a8a8850c124"
   },
   "verdicts": {
     "counts": {
@@ -18852,8 +18852,8 @@
   ],
   "integrity": {
     "evidenceUnmutated": true,
-    "evidenceSha256Before": "8f2f1f3d2eaa846953ad630e2cc0a7fcc8851210499bfc35d5cc7136ea35c9f3",
-    "evidenceSha256After": "8f2f1f3d2eaa846953ad630e2cc0a7fcc8851210499bfc35d5cc7136ea35c9f3"
+    "evidenceSha256Before": "17a7f440552175f9e5fb5dc56be8359a0c689b1cb35a949d22b34a8a8850c124",
+    "evidenceSha256After": "17a7f440552175f9e5fb5dc56be8359a0c689b1cb35a949d22b34a8a8850c124"
   },
   "lineage": [
     {
@@ -18876,8 +18876,8 @@
   ],
   "reproducibility": {
     "certifierVersion": "w1-010-certifier/1.0.0",
-    "outputCanonicalSha256": "863fe16afeb2d720edb47f2fbb562b18594b108c64e96a2c6588dc7f2f1884c8",
-    "rerunDigest": "863fe16afeb2d720edb47f2fbb562b18594b108c64e96a2c6588dc7f2f1884c8",
+    "outputCanonicalSha256": "ce5017e7dc3c0ead49ba8e2e771e855038bea0973598660c2d28bf6269ae0fab",
+    "rerunDigest": "ce5017e7dc3c0ead49ba8e2e771e855038bea0973598660c2d28bf6269ae0fab",
     "byteIdenticalOnRerun": true
   }
 }

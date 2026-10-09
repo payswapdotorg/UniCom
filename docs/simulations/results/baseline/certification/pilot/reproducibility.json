@@ -1,11 +1,11 @@
 {
   "certifierVersion": "w1-010-certifier/1.0.0",
   "source": "pilot (W3-009 evidence)",
-  "artifactSha256": "e660b0144d4900db9ab84e193199db016da8672ea9063c3e4f87a41a4a5437a5",
+  "artifactSha256": "2b23a69ebd2221bc3b8253b8e3c6c00c4b33dc9c7f44c662f1b33dcce88df4ce",
   "inProcessRerun": {
     "certifierVersion": "w1-010-certifier/1.0.0",
-    "outputCanonicalSha256": "863fe16afeb2d720edb47f2fbb562b18594b108c64e96a2c6588dc7f2f1884c8",
-    "rerunDigest": "863fe16afeb2d720edb47f2fbb562b18594b108c64e96a2c6588dc7f2f1884c8",
+    "outputCanonicalSha256": "ce5017e7dc3c0ead49ba8e2e771e855038bea0973598660c2d28bf6269ae0fab",
+    "rerunDigest": "ce5017e7dc3c0ead49ba8e2e771e855038bea0973598660c2d28bf6269ae0fab",
     "byteIdenticalOnRerun": true
   },
   "howToReproduce": "npx tsx packages/commerce/scripts/run-w1-010-certification.ts (deterministic — byte-identical artifacts)"

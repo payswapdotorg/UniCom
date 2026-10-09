@@ -6,7 +6,7 @@
 
 - Source kind: `pilot` (sampleMode `pilot`)
 - Experiment: `v3-baseline` @ build `w3-009-pilot`
-- Evidence: `packages/experience/reports/sim/pilot-summary.json` (1092 records, sha256 `8f2f1f3d2eaa8469…`)
+- Evidence: `packages/experience/reports/sim/pilot-summary.json` (1092 records, sha256 `17a7f440552175f9…`)
 
 ## Oracle certification verdicts
 

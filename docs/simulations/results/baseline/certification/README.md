@@ -75,11 +75,15 @@ artifacts, verified in-process and cross-process).
 6. **Pilot money scope**: the W3-009 pilot evidence carries no money-valued
    fields (fixture money lives in project manifests, not journey records);
    money integrity is proven non-vacuously on the campaign evidence set.
-7. **Pilot evidence lineage**: the pilot certification runs over the pilot
-   summary as committed at this branch's base `47c07ce`. A later main commit
-   (`7f52ac4`, lint cleanup) adjusted the pilot summary's wall-clock
-   `throughput.totalDurationMs` (45→34) — outside the certification surface;
-   the certified bytes are bound by the recorded evidence sha256.
+7. **Pilot evidence lineage**: the pilot certification binds to the pilot
+   summary exactly as committed at this branch's base `47c07ce`
+   (sha256 `17a7f440…`). NOTE: the W3-009 experience test suite rewrites
+   that file's wall-clock `throughput.totalDurationMs` on every battery run
+   (a pre-existing runner behavior — the field is outside the certification
+   surface). After running the experience battery, restore the file
+   (`git checkout -- packages/experience/reports/sim/pilot-summary.json`)
+   and re-run the certification to re-bind; verdicts are unaffected (only
+   the whole-file hash moves with the wall-clock field).
 
 ## Laws honored
 
