@@ -21,6 +21,9 @@ export type JourneyFamilyId =
   | "buyer-intent-constraints"
   | "offer-sourcing-comparison"
   | "buy-now-vs-wait-price-timing"
+  // W3-011: the W1-authoritative family (journey-families.json id; charter
+  // mandatory journey #3) — the W3-010 root-cause repair.
+  | "negotiation-substitution"
   | "existing-group-buy"
   | "latent-demand-merchant-group-buy-proposal"
   | "rent-borrow-vs-buy"

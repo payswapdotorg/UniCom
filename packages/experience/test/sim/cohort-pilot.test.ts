@@ -3,14 +3,16 @@
  *
  * The pilot law (W3-009 acceptance §8): at least one complete small, medium
  * AND large cohort runs end-to-end with evidence BEFORE the full 7,800-
- * project campaign launches. The pilot covers ALL 19 §10 journey families.
+ * project campaign launches. The pilot covers ALL registry journey families
+ * (W3-011 derivation law: 19 W1-authoritative + the retained protocol-only
+ * b2b-multi-location-supplier-coordination = 20).
  *
  * This test runs the pilot, writes the pilot summary report to
  * `packages/experience/reports/sim/pilot-summary.json` (the committed
  * evidence artifact the TL consumes), and asserts:
  * - all 3 cohorts run end-to-end (pilotLawSatisfied === true);
  * - counts reconcile (planned = executed + blocked + skipped);
- * - all 19 journey families are covered across the pilot;
+ * - all 20 registry journey families are covered across the pilot;
  * - the no-RFID supermarket paths ran for the large cohort;
  * - failure variants ran (one per project);
  * - role-access tests ran (one switch per role family);
@@ -56,14 +58,14 @@ describe("W3-009 cohort pilot (S+M+L end-to-end with evidence stores)", () => {
       .toBe(report.campaignReconciliation.totalPlanned);
   }, 30000);
 
-  it("covers ALL 19 journey families across the pilot (no family omitted — protocol §10)", async () => {
+  it("covers ALL 20 registry journey families across the pilot (no family omitted — W3-011 derivation law)", async () => {
     const report = await runPilot({
       experimentId: "v3-baseline",
       buildCommit: "w3-009-pilot",
       generatedAt: "2026-10-10T07:00:00Z",
     });
     expect(report.totalJourneyFamiliesCovered).toBe(JOURNEY_FAMILY_IDS.length);
-    expect(report.totalJourneyFamiliesCovered).toBe(19);
+    expect(report.totalJourneyFamiliesCovered).toBe(20); // W3-011: 19 W1 + 1 protocol-only retained
   }, 30000);
 
   it("the large cohort (pilot-L) runs all 6 no-RFID supermarket paths per project", async () => {
@@ -136,7 +138,7 @@ describe("W3-009 cohort pilot (S+M+L end-to-end with evidence stores)", () => {
     const parsed = JSON.parse(JSON.stringify(report));
     expect(parsed.pilotLawSatisfied).toBe(true);
     expect(parsed.cohorts.length).toBe(3);
-    expect(parsed.totalJourneyFamiliesCovered).toBe(19);
+    expect(parsed.totalJourneyFamiliesCovered).toBe(20); // W3-011: 19 W1 + 1 protocol-only retained
   }, 30000);
 
   it("uses the local-dev fixture (W1/W2 self-regeneration when not at base — W3-008 deviation §1 pattern)", async () => {

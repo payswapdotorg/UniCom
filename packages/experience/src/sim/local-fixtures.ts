@@ -11,6 +11,7 @@
  * No production data. No real credentials. No live accounts.
  */
 
+import { JOURNEY_FAMILY_IDS } from "./journey-registry";
 import type {
   W1ScenarioManifest,
   W1FirmManifest,
@@ -302,27 +303,11 @@ export function buildLocalDevFixture(): RunnerConsumedContracts {
     buildFirmManifest(entry.firmId, entry.industry, entry.firmSize, entry.projectsPerFirm, "baseline"),
   );
 
-  const allJourneyFamilies = [
-    "buyer-intent-constraints",
-    "offer-sourcing-comparison",
-    "buy-now-vs-wait-price-timing",
-    "existing-group-buy",
-    "latent-demand-merchant-group-buy-proposal",
-    "rent-borrow-vs-buy",
-    "resale-rental-consignment",
-    "proactive-economic-opportunities",
-    "bounded-multi-hop-trade-cycle",
-    "merchant-commerce-lifecycle",
-    "supplier-procurement-receiving",
-    "b2b-multi-location-supplier-coordination",
-    "autonomous-store-policy",
-    "commerce-twin-what-if",
-    "connected-commerce-channels-and-live-commerce",
-    "physical-no-rfid-supermarket",
-    "trust-security-fraud-and-recourse",
-    "failure-unknown-idempotency-recovery",
-    "gui-feature-discoverability",
-  ];
+  // W3-011 derivation law: the fixture's applicable families derive from
+  // the journey REGISTRY (the single source of truth) — never a third
+  // hard-coded list. 19 W1-authoritative + the retained protocol-only
+  // b2b-multi-location-supplier-coordination = 20.
+  const allJourneyFamilies: readonly string[] = [...JOURNEY_FAMILY_IDS];
 
   const projectManifests = new Map<string, W1ProjectManifest>();
   const outcomeOracles = new Map<string, W1OutcomeOracle>();

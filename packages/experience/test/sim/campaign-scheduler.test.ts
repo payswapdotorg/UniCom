@@ -121,7 +121,7 @@ describe("W3-009 campaign scheduler (determinism + append-only status)", () => {
     expect(p1.blockReason).toBe("out-of-scope");
   });
 
-  it("journey family sampling covers all 19 families across a cohort (no family omitted)", () => {
+  it("journey family sampling covers all 20 registry families across a cohort (no family omitted — W3-011 derivation law)", () => {
     const contracts = buildLocalDevFixture();
     const cohort = PILOT_COHORTS[2]!; // large cohort (48 projects)
     const schedule = buildCampaignSchedule({
@@ -137,7 +137,7 @@ describe("W3-009 campaign scheduler (determinism + append-only status)", () => {
         families.add(family);
       }
     }
-    expect(families.size).toBe(19);
+    expect(families.size).toBe(20); // W3-011: 19 W1-authoritative + the retained protocol-only family
   });
 
   it("pilotFirmManifests resolves against the contracts (3 pilot firms)", () => {
