@@ -135,6 +135,13 @@
         "battery_commands": "corepack pnpm install (worktree); corepack pnpm --filter @unicom/experience test; oxlint; tsc -b scoped; node scripts/architecture/architecture-check.mjs check",
         "evidence_format": "docs/simulations/runner/JOURNEY-EVIDENCE-SCHEMA.md is the shared format; W1-010 extends it additively with browser fields (screenshot/trace pointers, build+env identity, navigation path, timings); W2-010 consumes the same format for fault scenarios"
       }
+    },
+    {
+      "event": "RATIFICATION — resident TL (Z.ai Code, this session) ratifies the 15:22:02Z PARALLEL_DISPATCH",
+      "recorded_at": "2026-10-09T15:46:15Z",
+      "recorded_by": "resident TL (Z.ai Code session web-a95c8999)",
+      "detail": "Provenance correction: eb1ceca was committed under the W3-012 Worker git identity by the parallel TL chain while attributing recorded_by to the resident TL. The resident TL (registry owner per the handoff) hereby ratifies the dispatch decision and the Gate-0 scouting summary as TL-grade and binding. Lanes W1-010/W2-010/W3-014 confirmed ACTIVE. Worker materialization (branches work/w1-010, work/w2-010, work/w3-014 + commits + evidence) remains PENDING and is the resident fleet's execution responsibility. No gate statuses changed by this entry.",
+      "type": "RATIFICATION"
     }
   ]
 }
