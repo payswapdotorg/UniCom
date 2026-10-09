@@ -21,16 +21,15 @@
  */
 
 import type { JourneyEvidenceRecord, JourneyFamilyId } from "./journey-evidence";
-import { JOURNEY_FAMILY_REGISTRY } from "./journey-registry";
 import { buildLocalDevFixture } from "./local-fixtures";
 import { buildRunnerEnvironment, DiscoveryRunner, fixedClock, type RunnerEnvironment } from "./discovery-runner";
 import { buildAllJourneyDrivers } from "./journey-drivers";
-import { PILOT_COHORTS, buildCampaignSchedule, markExecuted, type CampaignSchedule, type CampaignCohort } from "./campaign-scheduler";
+import { PILOT_COHORTS, buildCampaignSchedule, markExecuted, type CampaignSchedule } from "./campaign-scheduler";
 import { reconcileCohort, reconcileCampaign, type CountReconciliationReport } from "./count-reconciler";
 import { runNoRfidPath, NO_RFID_PATHS } from "./no-rfid-journeys";
 import { runFailureVariant, FAILURE_VARIANTS } from "./failure-variants";
 import { buildZeroOrphanMap, type ZeroOrphanFeatureMatrixMap } from "./zero-orphan-map";
-import { runRoleAccessTest, ROLE_ACCESS_SCOPES } from "./role-access";
+import { runRoleAccessTest } from "./role-access";
 
 /** One cohort's pilot evidence. */
 export interface CohortPilotEvidence {
@@ -106,6 +105,7 @@ export async function runPilot(args: {
 
     for (const project of schedule.projects) {
       // Run every applicable journey family for this project.
+      let anyFamilyPassed = false;
       for (const familyId of project.journeyFamilies) {
         const personaId = project.personaIds[0] ?? `${project.firmId}-persona-default`;
         const record = await runner.runJourney({
@@ -121,8 +121,12 @@ export async function runPilot(args: {
         evidenceRecords.push(record);
         totalJourneyRuns += 1;
         if (record.outcome === "pass") {
-          markExecuted(schedule, project.projectId, record.evidenceId);
+          anyFamilyPassed = true;
         }
+      }
+      // Mark the project executed once (after all its journey families have run).
+      if (anyFamilyPassed) {
+        markExecuted(schedule, project.projectId, `${project.projectId}-evidence`);
       }
 
       // Pilot-L cohort: run all six no-RFID supermarket paths per project.

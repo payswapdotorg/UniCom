@@ -149,7 +149,7 @@ function buildFirmManifest(
   };
 }
 
-function buildOutcomeOracle(projectId: string, journeyFamilies: readonly string[]): W1OutcomeOracle {
+function buildOutcomeOracle(projectId: string, _journeyFamilies: readonly string[]): W1OutcomeOracle {
   return {
     projectId,
     assertions: [
@@ -330,6 +330,10 @@ export function buildLocalDevFixture(): RunnerConsumedContracts {
     for (let i = 0; i < firm.projectsPerFirm; i++) {
       const projectId = `${firm.firmId}-proj-${(i + 1).toString().padStart(3, "0")}`;
       const applicableFamilies = allJourneyFamilies.filter((_, idx) => (i + idx) % 3 !== 0);
+      // Ensure gui-feature-discoverability is always included (the §10.19 family).
+      if (!applicableFamilies.includes("gui-feature-discoverability")) {
+        applicableFamilies.push("gui-feature-discoverability");
+      }
       const manifest = buildProjectManifest(
         projectId,
         firm.firmId,

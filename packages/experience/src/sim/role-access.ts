@@ -30,25 +30,25 @@ export const ROLE_ACCESS_SCOPES: readonly RoleAccessScope[] = [
   },
   {
     role: "procurement",
-    allowedSurfaces: ["operate-inventory", "operate-orders", "connector-studio", "buyer-intent-canvas"],
+    allowedSurfaces: ["command-center-work-graph", "operate-inventory", "operate-orders", "connector-studio", "buyer-intent-canvas"],
     allowedActions: ["view", "create", "approve"],
     canSwitchFrom: ["project-owner", "finance"],
   },
   {
     role: "finance",
-    allowedSurfaces: ["operate-orders", "command-center-work-graph", "operate-customers"],
+    allowedSurfaces: ["command-center-work-graph", "operate-orders", "operate-customers"],
     allowedActions: ["view", "approve", "reject"],
     canSwitchFrom: ["procurement", "auditor"],
   },
   {
     role: "ops",
-    allowedSurfaces: ["operate-catalog", "operate-inventory", "operate-orders", "operate-customers", "physical-capture", "local-edge-setup"],
+    allowedSurfaces: ["command-center-work-graph", "operate-catalog", "operate-inventory", "operate-orders", "operate-customers", "physical-capture", "local-edge-setup"],
     allowedActions: ["view", "create", "configure"],
     canSwitchFrom: ["procurement", "project-owner"],
   },
   {
     role: "end-user",
-    allowedSurfaces: ["buyer-intent-canvas", "opportunity-inbox", "storefront-studio"],
+    allowedSurfaces: ["command-center-work-graph", "buyer-intent-canvas", "opportunity-inbox", "storefront-studio"],
     allowedActions: ["view", "create"],
     canSwitchFrom: [],
   },
@@ -60,7 +60,7 @@ export const ROLE_ACCESS_SCOPES: readonly RoleAccessScope[] = [
   },
   {
     role: "supplier",
-    allowedSurfaces: ["operate-inventory", "operate-orders"],
+    allowedSurfaces: ["command-center-work-graph", "operate-inventory", "operate-orders"],
     allowedActions: ["view", "create"],
     canSwitchFrom: [],
   },

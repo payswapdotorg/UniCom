@@ -18,7 +18,7 @@
  * for which surfaces a journey touches.
  */
 
-import type { JourneyFamilyId, InteractionStep, InteractionControl, ScreenshotCheckpoint, NavigationNode, BacktrackRecord, FailedStep, ApprovalState, EvidenceState, ConnectorProviderState, CommerceAssertionRef, ErrorRecoveryEntry, PostTaskAdoptionResponse } from "./journey-evidence";
+import type { JourneyFamilyId, InteractionStep, ScreenshotCheckpoint, NavigationNode, BacktrackRecord, FailedStep, ApprovalState, EvidenceState, ConnectorProviderState, CommerceAssertionRef, ErrorRecoveryEntry, PostTaskAdoptionResponse } from "./journey-evidence";
 import { journeyFamilyEntry } from "./journey-registry";
 import type { JourneyDriver, JourneyDriverResult } from "./discovery-runner";
 import { buildScreenshotCheckpoint } from "./interaction-trace";

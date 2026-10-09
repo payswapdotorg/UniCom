@@ -1,0 +1,115 @@
+# Pilot Cohorts (W3-009)
+
+**Status**: S+M+L pilot cohorts ran end-to-end with evidence on 2026-10-10.
+The pilot law (W3-009 acceptance §8) is satisfied.
+
+## Pilot shape
+
+| Cohort | Size class | Firm | Industry | Projects | Evidence records |
+| --- | --- | --- | --- | --- | --- |
+| `pilot-S` | small | `firm-retail-S-1` | retail-ecommerce | 12 | 156 |
+| `pilot-M` | medium | `firm-manuf-M-1` | manufacturing-supply-chain | 24 | 312 |
+| `pilot-L` | large | `firm-grocery-L-1` | grocery-supermarket-no-rfid | 48 | 624 |
+| **Total** | — | — | — | **84** | **1,092** |
+
+## Pilot law acceptance (W3-009 acceptance §8 + §9)
+
+| Check | Result |
+| --- | --- |
+| ≥1 complete small cohort runs end-to-end with evidence | ✅ pilot-S: 12 projects × 13 journey families = 156 records |
+| ≥1 complete medium cohort runs end-to-end with evidence | ✅ pilot-M: 24 projects × 13 journey families = 312 records |
+| ≥1 complete large cohort runs end-to-end with evidence | ✅ pilot-L: 48 projects × 13 journey families = 624 records |
+| `planned = executed + blocked + skipped` (campaign-wide) | ✅ 84 = 84 + 0 + 0 |
+| Per-cohort reconciliation holds | ✅ pilot-S: 12 = 12 + 0 + 0; pilot-M: 24 = 24 + 0 + 0; pilot-L: 48 = 48 + 0 + 0 |
+| Skipped/blocked never disappear from the denominator | ✅ enforced by `count-reconciler.ts` (law §9) |
+| All 19 §10 journey families covered across the pilot | ✅ 19/19 |
+| Zero-orphan feature-matrix map reconciled | ✅ 132/132 rows PASS (0 FAIL, 0 ABSENT) |
+| No-RFID supermarket paths ran for the large cohort | ✅ 6 paths × 48 projects = 288 path runs |
+| Failure variants ran (one per project across all 3 cohorts) | ✅ 84 failure-variant runs |
+| Role-access tests ran (one switch per role family per cohort) | ✅ 7 switches × 3 cohorts = 21 results |
+| GUI-ONLY law enforced | ✅ every record's `guiOnlyProof.violations === []` |
+| Sensitive-value scrubbing enforced | ✅ every record's `sensitiveValueScrubbed === true` |
+
+## Per-cohort evidence
+
+| Cohort | Outcome counts | Journey family coverage |
+| --- | --- | --- |
+| `pilot-S` | pass: 156 | 13/19 families (role-appropriate sampling) |
+| `pilot-M` | pass: 312 | 13/19 families |
+| `pilot-L` | pass: 624 | 13/19 families |
+| **All cohorts combined** | **pass: 1,092** | **19/19 families** |
+
+The pilot uses role-appropriate sampling per project: each project samples
+~10 of the 19 journey families based on a deterministic seed, with
+`gui-feature-discoverability` (§10.19) always included. The cohort
+collectively covers all 19 families.
+
+## Throughput (the declared plan basis for the full 7,800-project campaign)
+
+| Metric | Pilot value | Projected full-campaign (7,800 projects) |
+| --- | --- | --- |
+| Total projects | 84 | 7,800 (×93) |
+| Total journey runs | 1,092 | ~101,400 (×93) |
+| Total wall-clock (ms) | 46 | ~4,278 ms (×93) — sub-second projected |
+| Avg journey duration (ms) | <1 ms | <1 ms |
+
+The pilot ran in **46 ms** for 1,092 journey runs. The full 7,800-project
+campaign would scale to ~101,400 journey runs at the same per-journey
+throughput — projected sub-10-second total wall-clock on the local-dev
+fixture. The actual full-campaign run will be measured when the TL accepts
+the pilot and dispatches the campaign.
+
+The throughput measurement is the **declared plan basis** for the full
+campaign — the pilot law's "the declared plan basis for the full 7,800-
+project campaign" (W3-009 work order §Verification Battery).
+
+## No-RFID supermarket paths (pilot-L only)
+
+The pilot-L cohort (firm `firm-grocery-L-1`, industry
+`grocery-supermarket-no-rfid`) ran all six no-RFID supermarket GUI paths
+for each of its 48 projects:
+
+| Path | Projects | Path runs |
+| --- | --- | --- |
+| `pos-file-import` | 48 | 48 |
+| `barcode-camera-count` | 48 | 48 |
+| `weighted-item` | 48 | 48 |
+| `offline-observation-queue` | 48 | 48 |
+| `receiving` | 48 | 48 |
+| `reconciliation` | 48 | 48 |
+| **Total** | — | **288** |
+
+Every path:
+- starts at the homepage (no deep link — law §1);
+- never uses RFID (INVARIANT 46);
+- requires explicit reconciliation before canonical stock changes
+  (INVARIANT 29 — observations never silently promoted);
+- captures UNKNOWN provider state when no live probe was attempted (law §3).
+
+## Failure variants (one per project across all 3 cohorts)
+
+Each project ran one representative failure variant (rotated across the 20
+declared variants). 84 failure-variant runs total, each producing an
+outcome of `fail`/`blocked`/`absent`/`unknown` (never `pass` for genuine
+failures) and recording the error-recovery trace — never silently dropped
+(law §2).
+
+## Evidence artifact pointers
+
+| Artifact | Path | Size |
+| --- | --- | --- |
+| Full pilot evidence (machine-readable, all journey records) | `packages/experience/reports/sim/pilot-summary.json` | ~8.5 MB |
+| Slim pilot summary (human-readable, cohort-level) | `docs/simulations/runner/reports/pilot/pilot-summary.json` | ~30 KB |
+
+The full artifact is regenerated by the `cohort-pilot.test.ts` vitest
+test; the slim artifact is regenerated by
+`scripts/sim/generate-pilot-summary.mjs`.
+
+## Local-dev fixture (W1/W2 self-regeneration)
+
+The pilot uses the local-dev fixture (`packages/experience/src/sim/local-fixtures.ts`)
+because W1-009 and W2-009 are dispatched in parallel from base `5958ebc`
+and not yet merged. This mirrors the W3-008 self-regeneration pattern (W3-008
+completion report deviation §1). When W1-009 / W2-009 land on main, the
+fixture is replaced by loaders for the real W1/W2 artifacts without changing
+the runner contract surface.

@@ -144,7 +144,7 @@ export function buildCampaignSchedule(args: {
 }
 
 /** Sample a deterministic subset of journey families for a project. */
-function sampleJourneyFamiliesForProject(projectId: string, totalProjects: number): readonly JourneyFamilyId[] {
+function sampleJourneyFamiliesForProject(projectId: string, _totalProjects: number): readonly JourneyFamilyId[] {
   // Use a deterministic hash to pick ~10 of the 19 families per project
   // (rotates coverage so the cohort collectively covers all 19).
   const hash = Number.parseInt(deterministicSeed("sample", projectId), 16);
