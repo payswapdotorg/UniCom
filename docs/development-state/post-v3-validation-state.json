@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0",
+  "repository": "payswapdotorg/UniCom",
+  "program": "Post-V3 Real-World Validation and Resilience",
+  "status": "READY_FOR_TL_DISPATCH",
+  "dispatch_issue": "https://github.com/payswapdotorg/UniCom/issues/9",
+  "tl_handoff": "docs/FINAL-TL-HANDOFF-POST-V3-REAL-WORLD-VALIDATION-2026-10-09.md",
+  "architecture_version": "1.1-frozen-2026-10-05",
+  "v3_prior_phase": {
+    "status": "PROGRAM_COMPLETE_CERTIFIED",
+    "immutable_state": "docs/development-state/v3-simulation-state.json",
+    "certification": "docs/simulations/results/final/PROGRAM-CERTIFICATION.md",
+    "independent_verification": "docs/simulations/results/final/PROGRAM-VERIFICATION-ADDENDUM.md"
+  },
+  "authority": {
+    "architecture_changes_authorized": false,
+    "production_deployment_authorized": false,
+    "production_mutation_allowed": false,
+    "real_human_research_authorized": false,
+    "production_data_allowed": false,
+    "max_workers": 3,
+    "tl_is_worker": false
+  },
+  "progress_authority": {
+    "sole_source_of_truth": "docs/development-state/post-v3-validation-state.json",
+    "rule": "All post-V3 progress, blockers, activation, evidence pointers and acceptance decisions must be recorded here. V3 state and certification remain immutable."
+  },
+  "work_orders": [
+    {
+      "id": "W1-010",
+      "path": "docs/work-orders/W1-010.md",
+      "lane": "rendered-browser-commerce-journey-validation",
+      "status": "READY",
+      "owner": null,
+      "branch": null,
+      "commit": null,
+      "accepted_at": null,
+      "evidence": []
+    },
+    {
+      "id": "W2-010",
+      "path": "docs/work-orders/W2-010.md",
+      "lane": "gui-visible-resilience-authority-recourse",
+      "status": "READY",
+      "owner": null,
+      "branch": null,
+      "commit": null,
+      "accepted_at": null,
+      "evidence": []
+    },
+    {
+      "id": "W3-014",
+      "path": "docs/work-orders/W3-014.md",
+      "lane": "commerce-incumbent-evidence-human-validation-readiness",
+      "status": "READY",
+      "owner": null,
+      "branch": null,
+      "commit": null,
+      "accepted_at": null,
+      "evidence": []
+    }
+  ],
+  "gates": [
+    {
+      "id": "G0",
+      "name": "safe-real-UI-environment-identified",
+      "status": "PENDING"
+    },
+    {
+      "id": "G1",
+      "name": "rendered-browser-pilot-with-reviewable-evidence",
+      "status": "PENDING"
+    },
+    {
+      "id": "G2",
+      "name": "failure-UNKNOWN-recovery-and-comparator-evidence",
+      "status": "PENDING"
+    },
+    {
+      "id": "G3",
+      "name": "expanded-journey-suite-and-independent-merged-lineage-acceptance",
+      "status": "PENDING"
+    },
+    {
+      "id": "G4",
+      "name": "final-report-and-operator-owned-next-step-decision",
+      "status": "PENDING"
+    }
+  ],
+  "required_report_categories": [
+    "pass",
+    "fail",
+    "blocked",
+    "absent",
+    "UNKNOWN",
+    "skipped"
+  ],
+  "non_negotiable_caveats": [
+    "A fixture-level interaction graph is not actual browser execution.",
+    "Unavailable competitor access is not evidence that the competitor lacks a capability.",
+    "Synthetic adoption estimates are not human market research.",
+    "No participant research occurs until operator authorization and informed consent.",
+    "No production deployment or live commerce mutation is authorized by this phase."
+  ],
+  "last_reviewed_at": "2026-10-09",
+  "active_work_orders": [],
+  "frontier": [
+    "G0",
+    "G1",
+    "G2",
+    "G3",
+    "G4"
+  ]
+}
