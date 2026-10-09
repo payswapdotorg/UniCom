@@ -109,3 +109,26 @@ Do not invent results before the browser campaign actually runs.
 - Invariants: spec/architecture/INVARIANTS.md
 - Feature matrix: docs/FEATURE-COMPLETENESS-MATRIX.md
 - No-RFID supermarket: docs/SUPERMARKET-WITHOUT-RFID.md
+## Operator correction — binding benchmark scope amendment (2026-10-09)
+
+UNiCOM is commerce-only. Do not compare it against Autodesk, Procore or other broad vertical project/operations tools as overall competitors. Those may exist in a firm's environment, but only purchasing, supplier sourcing, POS/inventory, storefront/catalog, order/fulfillment, procurement, marketplace, rental/resale, group-buy, trade and other in-scope commerce tasks are to be compared. Use the revised industry matrix as the authoritative set of commerce-only incumbents and evidence classes.
+
+The simulation must explore ALL major UNiCOM journeys, not just ordinary item procurement:
+- buyer intent, constraint satisfaction, buy-vs-wait, price timing, negotiation and substitution;
+- current offer/provider comparison and explicit uncertainty;
+- finding/joining existing GroupBuy;
+- latent buyer-demand detection, merchant group-buy proposal, merchant counter-proposal and willing-buyer commitments;
+- rent/borrow vs buy;
+- resale/rental/consignment and under-used-item value recovery;
+- proactive price, warranty, subscription, loyalty, local pickup and shared-logistics opportunities;
+- bounded multi-hop TradeCycle for at least three participants with per-leg authorization, proof, privacy and recourse;
+- merchant catalog, pricing, promotions, inventory, checkout/orders, B2B, fulfilment, returns and refunds;
+- supplier discovery, quotes, purchasing/receiving/reconciliation;
+- autonomous-store policy and Commerce Twin what-if;
+- connectors/live commerce;
+- trust/security/fraud and dispute paths;
+- supermarket and physical commerce with NO RFID as a required path.
+
+The complete list and acceptance requirements are in docs/simulations/V3-EXPERIMENT-PROTOCOL.md §10 and the revised industry matrix. Role-specific tests must be relevant, but the entire journey registry must be covered across the campaign.
+
+These requirements supersede any broader industry competitor descriptions in the first V3 draft. The 13 industries remain scenario contexts; UNiCOM is judged only on the commerce capability within each scenario. Maintain GUI-only scoring: not discoverable means ABSENT. Do not invent incumbent UI trials or market-share claims.
