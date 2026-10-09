@@ -1,0 +1,592 @@
+{
+  "schema": "unicom-cycle1-rankprep-ceiling/1",
+  "generatedFrom": {
+    "scoringContractVersion": "w2-009:v1",
+    "personaCount": 15275,
+    "analysisSideW2ToW1Map": "docs/simulations/cycle-1/analysis/lib.ts (W3-012 owns the authoritative campaign-side mapping)",
+    "weightSum": 1,
+    "registryFamilyCount": 20,
+    "firmBestIncumbentClasses": [
+      {
+        "firmId": "firm:construction:small",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:construction:medium",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:construction:large",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:finance:small",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:finance:medium",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:finance:large",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:sales:small",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:sales:medium",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:sales:large",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:technology:small",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:technology:medium",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:technology:large",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:healthcare:small",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:healthcare:medium",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:healthcare:large",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:transportation:small",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:transportation:medium",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:transportation:large",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:hospitality:small",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:hospitality:medium",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:hospitality:large",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:fashion:small",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:fashion:medium",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:fashion:large",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:entertainment:small",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:entertainment:medium",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:entertainment:large",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:legal:small",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:legal:medium",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:legal:large",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:defense:small",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:defense:medium",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:defense:large",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:manufacturing:small",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:manufacturing:medium",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:manufacturing:large",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:supermarket:small",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:supermarket:medium",
+        "bestIncumbentEvidenceClass": "B"
+      },
+      {
+        "firmId": "firm:supermarket:large",
+        "bestIncumbentEvidenceClass": "B"
+      }
+    ],
+    "firmsWithBestClassD": []
+  },
+  "tlEstimates": {
+    "fullyEvidenced": 82,
+    "emptyBundle": 4,
+    "ceiling": 95
+  },
+  "derived": {
+    "emptyBundle": {
+      "scenario": "empty-bundle",
+      "personaCount": 15275,
+      "meanScore": 4.404726677577745,
+      "medianScore": 4.3,
+      "minScore": 1.1,
+      "maxScore": 7.7,
+      "p05": 2.3,
+      "p95": 7,
+      "componentMeans": {
+        "journeyCompletion": 0,
+        "usabilityFriction": 0,
+        "outcomeVsBenchmark": 0,
+        "trustProof": 0,
+        "integrationQuality": 0,
+        "switchingCostFit": 0.5849974364453341,
+        "preferenceFit": 0.2959999999999818
+      },
+      "fullSwitchEligible": 0,
+      "willingToSwitchCount": 0,
+      "mainInterfaceEligible": 0,
+      "willingToUseAsMainCount": 0,
+      "vetoedCount": 0,
+      "byRoleFamily": [
+        {
+          "roleFamily": "approver-executive",
+          "count": 521,
+          "meanScore": 4.827639155470245,
+          "minScore": 1.1,
+          "maxScore": 6.5,
+          "willingToSwitch": 0
+        },
+        {
+          "roleFamily": "compliance-audit",
+          "count": 890,
+          "meanScore": 3.7512359550561762,
+          "minScore": 1.3,
+          "maxScore": 6.7,
+          "willingToSwitch": 0
+        },
+        {
+          "roleFamily": "field-ops",
+          "count": 2328,
+          "meanScore": 4.1874999999999964,
+          "minScore": 1.9,
+          "maxScore": 7.1,
+          "willingToSwitch": 0
+        },
+        {
+          "roleFamily": "finance-accounting",
+          "count": 1475,
+          "meanScore": 3.862169491525424,
+          "minScore": 1.6,
+          "maxScore": 6.8,
+          "willingToSwitch": 0
+        },
+        {
+          "roleFamily": "industry-specialist",
+          "count": 2838,
+          "meanScore": 4.2337561663143015,
+          "minScore": 2,
+          "maxScore": 7.2,
+          "willingToSwitch": 0
+        },
+        {
+          "roleFamily": "it",
+          "count": 1184,
+          "meanScore": 6.350591216216205,
+          "minScore": 2.9,
+          "maxScore": 7.7,
+          "willingToSwitch": 0
+        },
+        {
+          "roleFamily": "procurement",
+          "count": 2372,
+          "meanScore": 4.228625632377741,
+          "minScore": 2,
+          "maxScore": 7.2,
+          "willingToSwitch": 0
+        },
+        {
+          "roleFamily": "project-program-mgmt",
+          "count": 1775,
+          "meanScore": 4.338873239436632,
+          "minScore": 2,
+          "maxScore": 7.2,
+          "willingToSwitch": 0
+        },
+        {
+          "roleFamily": "sales",
+          "count": 1892,
+          "meanScore": 4.607241014799162,
+          "minScore": 2.5,
+          "maxScore": 7.4,
+          "willingToSwitch": 0
+        }
+      ]
+    },
+    "fullyEvidenced": {
+      "scenario": "generic-driver",
+      "personaCount": 15275,
+      "meanScore": 83.92989852700607,
+      "medianScore": 83.7,
+      "minScore": 80.5,
+      "maxScore": 88.1,
+      "p05": 81.7,
+      "p95": 86.5,
+      "componentMeans": {
+        "journeyCompletion": 1,
+        "usabilityFriction": 1,
+        "outcomeVsBenchmark": 1,
+        "trustProof": 0.6264371816303667,
+        "integrationQuality": 0.4110554862037382,
+        "switchingCostFit": 0.5849974364453341,
+        "preferenceFit": 0.49953708114207496
+      },
+      "fullSwitchEligible": 15275,
+      "willingToSwitchCount": 15275,
+      "mainInterfaceEligible": 15275,
+      "willingToUseAsMainCount": 15275,
+      "vetoedCount": 0,
+      "byRoleFamily": [
+        {
+          "roleFamily": "approver-executive",
+          "count": 521,
+          "meanScore": 83.05239923224579,
+          "minScore": 80.5,
+          "maxScore": 84.7,
+          "willingToSwitch": 521
+        },
+        {
+          "roleFamily": "compliance-audit",
+          "count": 890,
+          "meanScore": 84.21022471910125,
+          "minScore": 82.6,
+          "maxScore": 86.7,
+          "willingToSwitch": 890
+        },
+        {
+          "roleFamily": "field-ops",
+          "count": 2328,
+          "meanScore": 83.43767182130601,
+          "minScore": 81.9,
+          "maxScore": 85.9,
+          "willingToSwitch": 2328
+        },
+        {
+          "roleFamily": "finance-accounting",
+          "count": 1475,
+          "meanScore": 83.43105084745771,
+          "minScore": 82,
+          "maxScore": 86.1,
+          "willingToSwitch": 1475
+        },
+        {
+          "roleFamily": "industry-specialist",
+          "count": 2838,
+          "meanScore": 84.05968992248054,
+          "minScore": 82.5,
+          "maxScore": 86.6,
+          "willingToSwitch": 2838
+        },
+        {
+          "roleFamily": "it",
+          "count": 1184,
+          "meanScore": 85.84121621621597,
+          "minScore": 83.4,
+          "maxScore": 87.2,
+          "willingToSwitch": 1184
+        },
+        {
+          "roleFamily": "procurement",
+          "count": 2372,
+          "meanScore": 83.53971332209109,
+          "minScore": 82,
+          "maxScore": 86.1,
+          "willingToSwitch": 2372
+        },
+        {
+          "roleFamily": "project-program-mgmt",
+          "count": 1775,
+          "meanScore": 82.2041690140845,
+          "minScore": 80.5,
+          "maxScore": 84.9,
+          "willingToSwitch": 1775
+        },
+        {
+          "roleFamily": "sales",
+          "count": 1892,
+          "meanScore": 85.75163847780135,
+          "minScore": 84.2,
+          "maxScore": 88.1,
+          "willingToSwitch": 1892
+        }
+      ]
+    },
+    "ceiling": {
+      "scenario": "ceiling-p5-healthy",
+      "personaCount": 15275,
+      "meanScore": 93.37982978723413,
+      "medianScore": 93.6,
+      "minScore": 88.5,
+      "maxScore": 97.7,
+      "p05": 89.6,
+      "p95": 96.3,
+      "componentMeans": {
+        "journeyCompletion": 1,
+        "usabilityFriction": 1,
+        "outcomeVsBenchmark": 1,
+        "trustProof": 1,
+        "integrationQuality": 0.7223612844907088,
+        "switchingCostFit": 0.5849974364453341,
+        "preferenceFit": 0.6462669534459631
+      },
+      "fullSwitchEligible": 15275,
+      "willingToSwitchCount": 15275,
+      "mainInterfaceEligible": 15275,
+      "willingToUseAsMainCount": 15275,
+      "vetoedCount": 0,
+      "byRoleFamily": [
+        {
+          "roleFamily": "approver-executive",
+          "count": 521,
+          "meanScore": 93.45796545105561,
+          "minScore": 91.1,
+          "maxScore": 95.1,
+          "willingToSwitch": 521
+        },
+        {
+          "roleFamily": "compliance-audit",
+          "count": 890,
+          "meanScore": 90.08988764044942,
+          "minScore": 88.5,
+          "maxScore": 93.8,
+          "willingToSwitch": 890
+        },
+        {
+          "roleFamily": "field-ops",
+          "count": 2328,
+          "meanScore": 93.87315292096238,
+          "minScore": 92.1,
+          "maxScore": 96.1,
+          "willingToSwitch": 2328
+        },
+        {
+          "roleFamily": "finance-accounting",
+          "count": 1475,
+          "meanScore": 90.3995932203391,
+          "minScore": 88.8,
+          "maxScore": 95.4,
+          "willingToSwitch": 1475
+        },
+        {
+          "roleFamily": "industry-specialist",
+          "count": 2838,
+          "meanScore": 93.89094432699082,
+          "minScore": 92.2,
+          "maxScore": 96.1,
+          "willingToSwitch": 2838
+        },
+        {
+          "roleFamily": "it",
+          "count": 1184,
+          "meanScore": 96.00937500000005,
+          "minScore": 93.8,
+          "maxScore": 97.7,
+          "willingToSwitch": 1184
+        },
+        {
+          "roleFamily": "procurement",
+          "count": 2372,
+          "meanScore": 93.69426644182138,
+          "minScore": 92,
+          "maxScore": 96.1,
+          "willingToSwitch": 2372
+        },
+        {
+          "roleFamily": "project-program-mgmt",
+          "count": 1775,
+          "meanScore": 94.75064788732395,
+          "minScore": 92.9,
+          "maxScore": 97,
+          "willingToSwitch": 1775
+        },
+        {
+          "roleFamily": "sales",
+          "count": 1892,
+          "meanScore": 92.52980972515864,
+          "minScore": 91.3,
+          "maxScore": 95.4,
+          "willingToSwitch": 1892
+        }
+      ]
+    },
+    "absoluteUpperBound": {
+      "scenario": "ceiling-absolute",
+      "personaCount": 15275,
+      "meanScore": 96.83091325695936,
+      "medianScore": 97.1,
+      "minScore": 93.6,
+      "maxScore": 99.2,
+      "p05": 94.9,
+      "p95": 98.5,
+      "componentMeans": {
+        "journeyCompletion": 1,
+        "usabilityFriction": 1,
+        "outcomeVsBenchmark": 1,
+        "trustProof": 1,
+        "integrationQuality": 1,
+        "switchingCostFit": 0.5849974364453341,
+        "preferenceFit": 0.7812111292963395
+      },
+      "fullSwitchEligible": 15275,
+      "willingToSwitchCount": 15275,
+      "mainInterfaceEligible": 15275,
+      "willingToUseAsMainCount": 15275,
+      "vetoedCount": 0,
+      "byRoleFamily": [
+        {
+          "roleFamily": "approver-executive",
+          "count": 521,
+          "meanScore": 96.30537428023027,
+          "minScore": 93.6,
+          "maxScore": 98,
+          "willingToSwitch": 521
+        },
+        {
+          "roleFamily": "compliance-audit",
+          "count": 890,
+          "meanScore": 96.1614606741572,
+          "minScore": 93.9,
+          "maxScore": 98.2,
+          "willingToSwitch": 890
+        },
+        {
+          "roleFamily": "field-ops",
+          "count": 2328,
+          "meanScore": 96.69140893470775,
+          "minScore": 94.4,
+          "maxScore": 98.6,
+          "willingToSwitch": 2328
+        },
+        {
+          "roleFamily": "finance-accounting",
+          "count": 1475,
+          "meanScore": 96.43206779661038,
+          "minScore": 94.2,
+          "maxScore": 98.3,
+          "willingToSwitch": 1475
+        },
+        {
+          "roleFamily": "industry-specialist",
+          "count": 2838,
+          "meanScore": 96.83467230443948,
+          "minScore": 94.6,
+          "maxScore": 98.7,
+          "willingToSwitch": 2838
+        },
+        {
+          "roleFamily": "it",
+          "count": 1184,
+          "meanScore": 97.8972128378377,
+          "minScore": 95.4,
+          "maxScore": 99.2,
+          "willingToSwitch": 1184
+        },
+        {
+          "roleFamily": "procurement",
+          "count": 2372,
+          "meanScore": 96.81378583473887,
+          "minScore": 94.5,
+          "maxScore": 98.7,
+          "willingToSwitch": 2372
+        },
+        {
+          "roleFamily": "project-program-mgmt",
+          "count": 1775,
+          "meanScore": 96.7976901408451,
+          "minScore": 94.5,
+          "maxScore": 98.7,
+          "willingToSwitch": 1775
+        },
+        {
+          "roleFamily": "sales",
+          "count": 1892,
+          "meanScore": 97.15285412262152,
+          "minScore": 95,
+          "maxScore": 98.9,
+          "willingToSwitch": 1892
+        }
+      ]
+    }
+  },
+  "deviations": [
+    {
+      "metric": "fully-evidenced generic-driver mean score",
+      "tlEstimate": 82,
+      "derived": 83.9,
+      "delta": 1.9,
+      "verdict": "match"
+    },
+    {
+      "metric": "empty-bundle mean score (TL ≈4; amended-1 observed global mean 5)",
+      "tlEstimate": 4,
+      "derived": 4.4,
+      "delta": 0.4,
+      "verdict": "match"
+    },
+    {
+      "metric": "product ceiling (P5 + healthy connectors) mean score",
+      "tlEstimate": 95,
+      "derived": 93.4,
+      "delta": -1.6,
+      "verdict": "match"
+    }
+  ],
+  "humanTables": "=== W2-011 ceiling arithmetic (frozen w2-009:v1, 15,275 personas) ===\n\nweight sum check: 1 (must be 1)\nfirms with best incumbent class D (parity would zero): 0\n\n--- (a) empty bundle (amended-1 status quo for 15,236/15,275 personas) ---\nmean=4.4 median=4.3 min=1.1 max=7.7 p05=2.3 p95=7\ncomponent means: journeyCompletion=0.000 usabilityFriction=0.000 outcomeVsBenchmark=0.000 trustProof=0.000 integrationQuality=0.000 switchingCostFit=0.585 preferenceFit=0.296\neligible a/b/c/d: 0/0/0/0 (of 15275)\n\n--- (b) fully-evidenced, generic-driver evidence ---\nmean=83.93 median=83.7 min=80.5 max=88.1 p05=81.7 p95=86.5\ncomponent means: journeyCompletion=1.000 usabilityFriction=1.000 outcomeVsBenchmark=1.000 trustProof=0.626 integrationQuality=0.411 switchingCostFit=0.585 preferenceFit=0.500\neligible a/b/c/d: 15275/15275/15275/15275 (of 15275)\nby role family (mean score / willing-to-switch count):\n  approver-executive: n=521 mean=83.1 range=[80.5, 84.7] willing=521\n  compliance-audit: n=890 mean=84.2 range=[82.6, 86.7] willing=890\n  field-ops: n=2328 mean=83.4 range=[81.9, 85.9] willing=2328\n  finance-accounting: n=1475 mean=83.4 range=[82, 86.1] willing=1475\n  industry-specialist: n=2838 mean=84.1 range=[82.5, 86.6] willing=2838\n  it: n=1184 mean=85.8 range=[83.4, 87.2] willing=1184\n  procurement: n=2372 mean=83.5 range=[82, 86.1] willing=2372\n  project-program-mgmt: n=1775 mean=82.2 range=[80.5, 84.9] willing=1775\n  sales: n=1892 mean=85.8 range=[84.2, 88.1] willing=1892\n\n--- (c) product ceiling: healthy connectors + P5 proof (honest max) ---\nmean=93.38 median=93.6 min=88.5 max=97.7 p05=89.6 p95=96.3\ncomponent means: journeyCompletion=1.000 usabilityFriction=1.000 outcomeVsBenchmark=1.000 trustProof=1.000 integrationQuality=0.722 switchingCostFit=0.585 preferenceFit=0.646\neligible a/b/c/d: 15275/15275/15275/15275 (of 15275)\n\n--- (d) absolute upper bound (NON-STRUCTURAL, analysis-only) ---\nmean=96.83 median=97.1 max=99.2\ncomponent means: journeyCompletion=1.000 usabilityFriction=1.000 outcomeVsBenchmark=1.000 trustProof=1.000 integrationQuality=1.000 switchingCostFit=0.585 preferenceFit=0.781\n\n--- TL estimate comparison (W3-012 work order §TL quantitative analysis) ---\n  fully-evidenced generic-driver mean score: TL=82 derived=83.9 delta=+1.9 → match\n  empty-bundle mean score (TL ≈4; amended-1 observed global mean 5): TL=4 derived=4.4 delta=+0.4 → match\n  product ceiling (P5 + healthy connectors) mean score: TL=95 derived=93.4 delta=-1.6 → match\n"
+}
