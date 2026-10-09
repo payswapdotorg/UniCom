@@ -408,7 +408,6 @@ async function main() {
     note: "every evidence pointer resolves to a file on disk relative to the manifest",
   };
   writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 1)}\n`);
-  writeFileSync(path.join(outDir, "run-log.txt"), `${state.runLog.join("\n")}\n`);
   log(`[manifest] ${manifestPath} (valid=${validation.valid}${validation.valid ? "" : ` errors=${validation.errors.length}`})`);
   log(
     `[evidence] ${pointers.size} pointers checked, missing=${missing.length}${missing.length > 0 ? `: ${missing.slice(0, 5).join(", ")}` : ""}`,
@@ -416,6 +415,9 @@ async function main() {
   log(
     `[denominator] ${denom.reconciliation}; outcomes pass=${byOutcome.pass} fail=${byOutcome.fail} blocked=${byOutcome.blocked} absent=${byOutcome.absent} unknown=${byOutcome.unknown}`,
   );
+  // the run-log is written LAST so it contains the manifest/evidence/denominator
+  // summary lines a reviewer needs without re-running anything
+  writeFileSync(path.join(outDir, "run-log.txt"), `${state.runLog.join("\n")}\n`);
   return validation.valid && !walkError && missing.length === 0 ? 0 : 1;
 }
 
