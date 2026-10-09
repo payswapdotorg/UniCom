@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "payswapdotorg/UniCom",
   "program": "Post-V3 Real-World Validation and Resilience",
-  "status": "READY_FOR_TL_DISPATCH",
+  "status": "DISPATCHED",
   "dispatch_issue": "https://github.com/payswapdotorg/UniCom/issues/9",
   "tl_handoff": "docs/FINAL-TL-HANDOFF-POST-V3-REAL-WORLD-VALIDATION-2026-10-09.md",
   "architecture_version": "1.1-frozen-2026-10-05",
@@ -30,41 +30,47 @@
       "id": "W1-010",
       "path": "docs/work-orders/W1-010.md",
       "lane": "rendered-browser-commerce-journey-validation",
-      "status": "READY",
-      "owner": null,
-      "branch": null,
+      "status": "DISPATCHED",
+      "owner": "worker-1",
+      "branch": "work/w1-010",
       "commit": null,
       "accepted_at": null,
-      "evidence": []
+      "evidence": [],
+      "activated_at": "2026-10-09T15:22:02Z",
+      "base_sha": "e60d568"
     },
     {
       "id": "W2-010",
       "path": "docs/work-orders/W2-010.md",
       "lane": "gui-visible-resilience-authority-recourse",
-      "status": "READY",
-      "owner": null,
-      "branch": null,
+      "status": "DISPATCHED",
+      "owner": "worker-2",
+      "branch": "work/w2-010",
       "commit": null,
       "accepted_at": null,
-      "evidence": []
+      "evidence": [],
+      "activated_at": "2026-10-09T15:22:02Z",
+      "base_sha": "e60d568"
     },
     {
       "id": "W3-014",
       "path": "docs/work-orders/W3-014.md",
       "lane": "commerce-incumbent-evidence-human-validation-readiness",
-      "status": "READY",
-      "owner": null,
-      "branch": null,
+      "status": "DISPATCHED",
+      "owner": "worker-3",
+      "branch": "work/w3-014",
       "commit": null,
       "accepted_at": null,
-      "evidence": []
+      "evidence": [],
+      "activated_at": "2026-10-09T15:22:02Z",
+      "base_sha": "e60d568"
     }
   ],
   "gates": [
     {
       "id": "G0",
       "name": "safe-real-UI-environment-identified",
-      "status": "PENDING"
+      "status": "IN_PROGRESS"
     },
     {
       "id": "G1",
@@ -102,13 +108,33 @@
     "No participant research occurs until operator authorization and informed consent.",
     "No production deployment or live commerce mutation is authorized by this phase."
   ],
-  "last_reviewed_at": "2026-10-09",
-  "active_work_orders": [],
+  "last_reviewed_at": "2026-10-09T15:22:02Z",
+  "active_work_orders": [
+    "W1-010",
+    "W2-010",
+    "W3-014"
+  ],
   "frontier": [
     "G0",
     "G1",
     "G2",
     "G3",
     "G4"
+  ],
+  "dispatch_log": [
+    {
+      "recorded_at": "2026-10-09T15:22:02Z",
+      "recorded_by": "resident TL (Z.ai Code)",
+      "action": "PARALLEL_DISPATCH",
+      "detail": "All three READY work orders dispatched concurrently per the handoff. Lanes: W1-010 rendered-browser validation (owns G0 environment establishment + G1 pilot), W2-010 resilience matrix (parallel build; browser-labeled runs await W1-010 runner format), W3-014 incumbent evidence + human-validation readiness (docs-only lane). Pairwise-separated write surfaces; TL owns this registry and final acceptance.",
+      "tl_gate0_scouting_summary": {
+        "browser_runtime": "AVAILABLE - Playwright 1.63.0 global (npx), chromium-1200 + chromium-1243 + headless-shell + ffmpeg in ~/.cache/ms-playwright, xvfb-run present; workspace playwright-core 1.59.1 via packages/desktop",
+        "rendered_surfaces_found": "ZCode desktop Electron app (packages/desktop -> @zcode/ui Root, agent workspace) NOT launchable in this sandbox (electron binary not installed, 1.7GB disk / 3.9GB RAM ceiling); web shell (packages/web: OAuth callback + conversation share landing ONLY, Vite dev port 5173, server @zcode/server Hono port 3030 via pnpm run dev:web)",
+        "critical_finding": "The commerce experience surfaces (Command Center, Intent Canvas, Storefront, Opportunity Inbox, Trust/Security etc. per FROZEN-ARCHITECTURE s19) exist ONLY as typed view contracts + runtime constructors in packages/experience/src/surfaces/*.ts with ZERO non-test consumers: no React renderer, no host registration, no @unicom/* imports from the desktop/web/server/services/client/ui packages. The commerce/agent/experience packages form an isolated subgraph consumed only by their own test harness (fixture-level, as the V3 certification honestly recorded).",
+        "consequence": "W1-010 executes G0+G1 honestly: launch a real browser against the reachable rendered surfaces (dev:web), attempt first-discovery of the 19-family journey registry from the ordinary landing surface, record absent/blocked per family with genuine browser evidence, and document the exact missing prerequisite (a rendered host UI for the experience plane). No product-UI building is authorized by the WO (validation only).",
+        "battery_commands": "corepack pnpm install (worktree); corepack pnpm --filter @unicom/experience test; oxlint; tsc -b scoped; node scripts/architecture/architecture-check.mjs check",
+        "evidence_format": "docs/simulations/runner/JOURNEY-EVIDENCE-SCHEMA.md is the shared format; W1-010 extends it additively with browser fields (screenshot/trace pointers, build+env identity, navigation path, timings); W2-010 consumes the same format for fault scenarios"
+      }
+    }
   ]
 }
