@@ -316,15 +316,34 @@
       "records": 1000,
       "evidenceSha256": "d739f1c5eabb0d6c4122c4d9f84fe76ed63a191250a815dae3e9717523229f97",
       "noRfidPathRuns": 0
+    },
+    {
+      "batch": {
+        "index": 16,
+        "firmId": "transportation-delivery-medium",
+        "w1IndustryId": "transportation-delivery",
+        "w2IndustryId": "transportation",
+        "firmSize": "medium",
+        "cohortId": "baseline-transportation-delivery-medium"
+      },
+      "scheduleDigest": "585ddd8cecad528836302c791d09b5adaeaec6a7db3924028b95f4fb9a099769",
+      "planned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0,
+      "records": 1000,
+      "evidenceSha256": "77512fac62d6c8954d05a4eeca278ebbfe4c3d50f44ab31cd065b4c1a8fac05b",
+      "noRfidPathRuns": 0
     }
   ],
   "totals": {
-    "firmsCompleted": 16,
-    "projectsPlanned": 1600,
-    "projectsExecuted": 1600,
+    "firmsCompleted": 17,
+    "projectsPlanned": 1700,
+    "projectsExecuted": 1700,
     "projectsBlocked": 0,
     "projectsSkipped": 0,
-    "evidenceRecords": 19300,
+    "evidenceRecords": 20300,
     "drift": 0
   }
 }
