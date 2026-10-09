@@ -1,0 +1,22 @@
+{
+  "schema": "unicom-w1-009-seed-namespaces/1",
+  "namespaces": [
+    {
+      "id": "baseline",
+      "seedPrefix": 106816,
+      "projectIdPrefix": "W1-009-B-",
+      "projectCount": 3900,
+      "disjointFrom": "holdout",
+      "fingerprintRule": "namespace seed must never collide with holdout seed"
+    },
+    {
+      "id": "holdout",
+      "seedPrefix": 176337,
+      "projectIdPrefix": "W1-009-H-",
+      "projectCount": 3900,
+      "disjointFrom": "baseline",
+      "fingerprintRule": "namespace seed must never collide with baseline seed"
+    }
+  ],
+  "disjointnessAssertion": "for any (industry, size, idx), baselineSeed(industry,size,idx) ≠ holdoutSeed(industry,size,idx) AND baselineProjectId ≠ holdoutProjectId. The seedPrefix values (106816=0x1A0C0 and 176337=0x2B1D1) are chosen so that no two seeds collide across namespaces for any valid (industry, size, idx) triple."
+}

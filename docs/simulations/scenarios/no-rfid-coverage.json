@@ -1,0 +1,128 @@
+{
+  "schema": "unicom-w1-009-no-rfid-coverage/1",
+  "bindingDocuments": [
+    "docs/SUPERMARKET-WITHOUT-RFID.md",
+    "docs/work-orders/W3-004.md"
+  ],
+  "deploymentLadders": ["L0_DATA_IMPORT", "L1_MOBILE_BARCODE", "L2_EXISTING_POS", "L3_UNICOM_EDGE", "L4_VISUAL_SHELF", "L5_RFID_OPTIONAL"],
+  "rfidIsOptional": true,
+  "rfidRequiredForAnyProject": false,
+  "supermarketIndustryCohorts": [
+    { "industryId": "supermarkets-local-retail", "firmSize": "small",  "cohortProjects": 200, "baselineProjects": 100, "holdoutProjects": 100 },
+    { "industryId": "supermarkets-local-retail", "firmSize": "medium", "cohortProjects": 200, "baselineProjects": 100, "holdoutProjects": 100 },
+    { "industryId": "supermarkets-local-retail", "firmSize": "large",  "cohortProjects": 200, "baselineProjects": 100, "holdoutProjects": 100 }
+  ],
+  "weightedJourneyAssignments": [
+    {
+      "w3_004_acceptanceScenario": 1,
+      "name": "POS/import journey",
+      "weight": 0.20,
+      "appliesToCohorts": ["supermarkets-local-retail-small", "supermarkets-local-retail-medium", "supermarkets-local-retail-large"],
+      "journeyFamily": "physical-no-rfid-supermarket",
+      "deploymentLadder": ["L0_DATA_IMPORT", "L2_EXISTING_POS"],
+      "expectedContractState": {
+        "executionMode": ["PASS_THROUGH_NATIVE", "COMPOSED", "OPTIMIZED_MULTI_PROVIDER"],
+        "idempotentReimport": true,
+        "duplicateFactsOnDoubleImport": 0
+      }
+    },
+    {
+      "w3_004_acceptanceScenario": 2,
+      "name": "Barcode/mobile count journey",
+      "weight": 0.18,
+      "appliesToCohorts": ["supermarkets-local-retail-small", "supermarkets-local-retail-medium", "supermarkets-local-retail-large"],
+      "journeyFamily": "physical-no-rfid-supermarket",
+      "deploymentLadder": ["L1_MOBILE_BARCODE"],
+      "expectedContractState": {
+        "exactlyOnceJournaling": true,
+        "triStatePreservation": true,
+        "foldsIntoCommerceFacts": true
+      }
+    },
+    {
+      "w3_004_acceptanceScenario": 3,
+      "name": "Weighted-product journey",
+      "weight": 0.15,
+      "appliesToCohorts": ["supermarkets-local-retail-small", "supermarkets-local-retail-medium", "supermarkets-local-retail-large"],
+      "journeyFamily": "physical-no-rfid-supermarket",
+      "deploymentLadder": ["L1_MOBILE_BARCODE"],
+      "expectedContractState": {
+        "integerMinorUnitsOnly": true,
+        "toleranceBandBps": 200,
+        "outOfToleranceResolution": "UNKNOWN",
+        "noFloatingPointMoney": true
+      }
+    },
+    {
+      "w3_004_acceptanceScenario": 4,
+      "name": "Offline observation queue journey",
+      "weight": 0.15,
+      "appliesToCohorts": ["supermarkets-local-retail-small", "supermarkets-local-retail-medium", "supermarkets-local-retail-large"],
+      "journeyFamily": "physical-no-rfid-supermarket",
+      "deploymentLadder": ["L3_UNICOM_EDGE"],
+      "expectedContractState": {
+        "captureTimeTruth": true,
+        "exactlyOnceReplay": true,
+        "staleSupersedeRule": "explicit_journaled_state",
+        "silentOverwriteForbidden": true
+      }
+    },
+    {
+      "w3_004_acceptanceScenario": 5,
+      "name": "Reconciliation journey",
+      "weight": 0.15,
+      "appliesToCohorts": ["supermarkets-local-retail-small", "supermarkets-local-retail-medium", "supermarkets-local-retail-large"],
+      "journeyFamily": "physical-no-rfid-supermarket",
+      "deploymentLadder": ["L0_DATA_IMPORT", "L1_MOBILE_BARCODE", "L2_EXISTING_POS"],
+      "expectedContractState": {
+        "edgeVsSystemVsPosDelta": true,
+        "unknownPreservation": true,
+        "varianceIsJournaledState": true
+      }
+    },
+    {
+      "w3_004_acceptanceScenario": 6,
+      "name": "Live-commerce session journey",
+      "weight": 0.10,
+      "appliesToCohorts": ["supermarkets-local-retail-medium", "supermarkets-local-retail-large"],
+      "journeyFamily": "connected-commerce-channels-and-live-commerce",
+      "deploymentLadder": [],
+      "expectedContractState": {
+        "lifecycleAnnounceActiveEnded": true,
+        "lateJoinerReplayFromStart": true,
+        "backpressureNoSilentReorderOrDrop": true
+      }
+    },
+    {
+      "w3_004_acceptanceScenario": 7,
+      "name": "Trust signal consumption",
+      "weight": 0.04,
+      "appliesToCohorts": ["supermarkets-local-retail-medium", "supermarkets-local-retail-large"],
+      "journeyFamily": "trust-security-fraud-and-recourse",
+      "deploymentLadder": [],
+      "expectedContractState": {
+        "opaqueBrandedReferences": true,
+        "noTrustSemanticsInThisLane": true
+      }
+    },
+    {
+      "w3_004_acceptanceScenario": 8,
+      "name": "Execution-mode gates",
+      "weight": 0.03,
+      "appliesToCohorts": ["supermarkets-local-retail-small", "supermarkets-local-retail-medium", "supermarkets-local-retail-large"],
+      "journeyFamily": "connected-commerce-channels-and-live-commerce",
+      "deploymentLadder": [],
+      "expectedContractState": {
+        "w3_003_modePermissionMatrixEnforced": true,
+        "capabilityScopeGatesEnforced": true,
+        "outOfScopeConnectorRejected": true
+      }
+    }
+  ],
+  "totalWeights": 1.00,
+  "hardRequirements": [
+    "Every supermarket-industry project (400 = 200 baseline + 200 holdout) declares physical-no-rfid-supermarket in its applicable journey families.",
+    "Across the supermarket industry, every W3-004 acceptance scenario appears in at least one project's taskOutcome.expectedPostJourneyState paths.",
+    "No supermarket project requires RFID (no requiresRfid: true flag in any manifest)."
+  ]
+}

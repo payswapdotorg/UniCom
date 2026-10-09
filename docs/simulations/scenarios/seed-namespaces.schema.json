@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://unicom.local/simulations/scenarios/seed-namespaces.schema.json",
+  "title": "W1-009 SeedNamespaces",
+  "type": "object",
+  "required": ["schema", "namespaces", "disjointnessAssertion"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "unicom-w1-009-seed-namespaces/1" },
+    "namespaces": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["id", "seedPrefix", "projectIdPrefix", "projectCount", "disjointFrom", "fingerprintRule"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "enum": ["baseline", "holdout"] },
+          "seedPrefix": { "type": "integer", "minimum": 0, "maximum": 4294967295 },
+          "projectIdPrefix": { "type": "string" },
+          "projectCount": { "type": "integer", "minimum": 0 },
+          "disjointFrom": { "type": "string" },
+          "fingerprintRule": { "type": "string" }
+        }
+      }
+    },
+    "disjointnessAssertion": { "type": "string", "minLength": 1 }
+  }
+}

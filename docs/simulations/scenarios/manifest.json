@@ -1,0 +1,52 @@
+{
+  "schema": "unicom-w1-009-portfolio-manifest/1",
+  "workOrder": "W1-009",
+  "program": "V3 Cross-Industry Simulation and Adoption Optimization",
+  "lane": "worker-1-commerce-truth-economic-execution",
+  "generatorVersion": "1.0.0",
+  "generatedAt": "2026-10-09T00:00:00Z",
+  "counts": {
+    "industries": 13,
+    "sizes": 3,
+    "firms": 39,
+    "projectsPerFirm": 200,
+    "baselineProjects": 3900,
+    "holdoutProjects": 3900,
+    "totalProjects": 7800,
+    "totalManifests": 15600,
+    "roleFamiliesPerIndustryMin": 8,
+    "journeyFamilies": 19,
+    "supermarketProjectsTotal": 600,
+    "supermarketProjectsPerNamespace": 300
+  },
+  "seedNamespaces": ["baseline", "holdout"],
+  "industriesRef": "industries.json",
+  "rolesRef": "roles.json",
+  "journeyFamiliesRef": "journey-families.json",
+  "noRfidCoverageRef": "no-rfid-coverage.json",
+  "seedNamespacesRef": "seed-namespaces.json",
+  "schemaRefs": {
+    "projectManifest": "scenario-manifest.schema.json",
+    "outcomeOracle": "outcome-oracle.schema.json",
+    "seedNamespaces": "seed-namespaces.schema.json"
+  },
+  "generatorModule": "packages/commerce/src/test/w1-009/portfolio/generator.ts",
+  "oracleModule": "packages/commerce/src/test/w1-009/portfolio/oracle.ts",
+  "testSuite": "packages/commerce/src/test/w1-009/**/*.test.ts",
+  "verificationBattery": [
+    "pnpm install",
+    "pnpm -r --if-present test",
+    "pnpm typecheck",
+    "pnpm lint",
+    "pnpm architecture:check"
+  ],
+  "invariants": [
+    "Deterministic: identical seeds produce byte-identical portfolios (canonicalJson).",
+    "Commerce workloads only: no general PM/engineering/clinical/dispatch/creative/legal operations.",
+    "Architecture frozen: additive test/fixture code under packages/commerce/src/test/w1-009/**.",
+    "No float money: all money values are integer minor units (BigInt-safe).",
+    "Twin/prediction stays non-authoritative: predictive fields tagged predictive: true.",
+    "Fixtures never mark journeys successful: oracle asserts post-journey state only.",
+    "V1/V2 registries immutable: never edits any state file."
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "schema": "unicom-w1-009-roles/1",
+  "mandatoryRoleFamilies": [
+    { "roleFamily": "project-owner",     "authorityScope": "APPROVE_BUDGET",   "presentInAllIndustries": true },
+    { "roleFamily": "procurement",        "authorityScope": "ISSUE_PO",         "presentInAllIndustries": true },
+    { "roleFamily": "finance",            "authorityScope": "RECONCILE_INVOICE", "presentInAllIndustries": true },
+    { "roleFamily": "ops",                "authorityScope": "RECEIVE_STOCK",    "presentInAllIndustries": true },
+    { "roleFamily": "end-user",           "authorityScope": "REQUEST_PURCHASE", "presentInAllIndustries": true },
+    { "roleFamily": "approver",           "authorityScope": "APPROVE_PURCHASE",  "presentInAllIndustries": true },
+    { "roleFamily": "supplier",           "authorityScope": "QUOTE",             "presentInAllIndustries": true },
+    { "roleFamily": "auditor-security",   "authorityScope": "AUDIT",            "presentInAllIndustries": true }
+  ],
+  "additionalRoleFamiliesByIndustry": {
+    "healthcare-organizations": [
+      { "roleFamily": "recall-coordinator", "authorityScope": "RECALL_HOLD", "presentInAllIndustries": false }
+    ],
+    "fashion-apparel-retail-brands": [
+      { "roleFamily": "merchandiser", "authorityScope": "MERCHANDISE_PLAN", "presentInAllIndustries": false }
+    ],
+    "defense-security-government-contracting": [
+      { "roleFamily": "security-officer-classified-avoidance", "authorityScope": "ENSURE_UNCLASSIFIED", "presentInAllIndustries": false }
+    ],
+    "supermarkets-local-retail": [
+      { "roleFamily": "store-manager",       "authorityScope": "STORE_OPS",         "presentInAllIndustries": false },
+      { "roleFamily": "edge-operator",       "authorityScope": "LOCAL_EDGE",        "presentInAllIndustries": false },
+      { "roleFamily": "reconciliation-clerk","authorityScope": "COUNT_RECONCILE",   "presentInAllIndustries": false }
+    ],
+    "manufacturing-supply-chain": [
+      { "roleFamily": "materials-planner", "authorityScope": "BOM_PLAN", "presentInAllIndustries": false }
+    ],
+    "hospitality-restaurants-hotels": [
+      { "roleFamily": "banquet-coordinator", "authorityScope": "EVENT_GROUP_BUY", "presentInAllIndustries": false }
+    ]
+  },
+  "industryRoleFamilyCount": {
+    "construction": 8,
+    "finance-banking-accounting": 8,
+    "sales-business-development": 8,
+    "technology-software-it-services": 8,
+    "healthcare-organizations": 9,
+    "transportation-delivery": 8,
+    "hospitality-restaurants-hotels": 9,
+    "fashion-apparel-retail-brands": 9,
+    "entertainment-media-production": 8,
+    "legal-professional-services": 8,
+    "defense-security-government-contracting": 9,
+    "manufacturing-supply-chain": 9,
+    "supermarkets-local-retail": 11
+  },
+  "minimumRoleFamiliesPerIndustry": 8,
+  "allIndustriesMeetMinimum": true
+}

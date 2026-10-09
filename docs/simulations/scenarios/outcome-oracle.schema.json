@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://unicom.local/simulations/scenarios/outcome-oracle.schema.json",
+  "title": "W1-009 OutcomeOracle",
+  "type": "object",
+  "required": [
+    "schema", "projectId", "namespace", "industryId", "firmSize",
+    "assertions", "failureConditions", "unknownConditions",
+    "blockedConditions", "expectedState", "journeyFamilyApplicability"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "unicom-w1-009-outcome-oracle/1" },
+    "projectId": {
+      "type": "string",
+      "pattern": "^W1-009-[BH]-[a-z0-9-]+-(small|medium|large)-[0-9]{4}$"
+    },
+    "namespace": { "enum": ["baseline", "holdout"] },
+    "industryId": { "type": "string" },
+    "firmSize": { "enum": ["small", "medium", "large"] },
+    "assertions": {
+      "type": "array",
+      "minItems": 8,
+      "items": {
+        "type": "object",
+        "required": ["id", "kind", "description", "check", "severity"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "kind": {
+            "enum": [
+              "MONEY_CONSERVATION", "BUDGET", "DEADLINE", "RECONCILIATION",
+              "IDEMPOTENCY", "UNKNOWN", "APPROVAL", "PROVIDER_UNKNOWN",
+              "EVIDENCE", "QUALITY", "SUBSTITUTION", "DELIVERY"
+            ]
+          },
+          "description": { "type": "string", "minLength": 1 },
+          "check": { "type": "string", "minLength": 1 },
+          "severity": { "enum": ["CRITICAL", "MAJOR", "MINOR"] }
+        }
+      }
+    },
+    "failureConditions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "enum": [
+          "BUDGET_EXCEEDED", "DEADLINE_MISSED", "QUALITY_BELOW_THRESHOLD",
+          "MISSING_APPROVAL", "MISSING_EVIDENCE", "SUBSTITUTION_REJECTED",
+          "DELIVERY_UNKNOWN", "PAYMENT_UNKNOWN", "STOCKOUT",
+          "SUPPLIER_DISAPPEARED", "PAYMENT_DECLINED", "IDEMPOTENCY_VIOLATED"
+        ]
+      }
+    },
+    "unknownConditions": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "SUPPLIER_QUOTE_UNKNOWN", "DELIVERY_OBSERVATION_UNKNOWN",
+          "PAYMENT_SETTLEMENT_UNKNOWN", "INVENTORY_COUNT_UNKNOWN",
+          "CONNECTOR_UNKNOWN", "TWIN_PREDICTION_UNKNOWN"
+        ]
+      }
+    },
+    "blockedConditions": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "USER_LACKS_AUTHORITY", "SECURITY_BLOCK", "CONNECTOR_SCOPE_ABUSE",
+          "MISSING_FEATURE", "INTERRUPTED_SESSION", "PROVIDER_DISAPPEARED"
+        ]
+      }
+    },
+    "expectedState": {
+      "type": "object",
+      "required": ["purchaseOrder", "inventory", "money", "evidence", "predictive"],
+      "additionalProperties": false,
+      "properties": {
+        "purchaseOrder": {
+          "type": "object",
+          "required": ["state", "outstandingUnits"],
+          "additionalProperties": false,
+          "properties": {
+            "state": {
+              "enum": ["DRAFT", "ISSUED", "PARTIALLY_RECEIVED", "RECEIVED", "CANCELLED"]
+            },
+            "outstandingUnits": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "inventory": {
+          "type": "object",
+          "required": ["onHandByLine"],
+          "additionalProperties": false,
+          "properties": {
+            "onHandByLine": {
+              "type": "object",
+              "additionalProperties": { "type": "integer" }
+            }
+          }
+        },
+        "money": {
+          "type": "object",
+          "required": ["capturedMinor", "refundedMinor", "currency"],
+          "additionalProperties": false,
+          "properties": {
+            "capturedMinor": { "type": "string", "pattern": "^[0-9]+$" },
+            "refundedMinor": { "type": "string", "pattern": "^[0-9]+$" },
+            "currency": { "type": "string", "pattern": "^[A-Z]{3}$" }
+          }
+        },
+        "evidence": { "type": "array", "items": { "type": "string" } },
+        "predictive": { "type": "boolean" }
+      }
+    },
+    "journeyFamilyApplicability": {
+      "type": "object",
+      "additionalProperties": { "type": "boolean" }
+    }
+  }
+}
