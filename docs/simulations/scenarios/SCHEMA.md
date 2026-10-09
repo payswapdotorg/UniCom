@@ -5,13 +5,13 @@
 > forbidden — append new optional fields, never remove or rename.
 
 The portfolio is a deterministic enumeration of **7,800 project manifests**
-(13 industries × 3 firm sizes × 200 projects per firm) split into two
+(13 industries × 3 firm sizes × 200 projects per firm), split into two
 disjoint seed namespaces:
 
-- `baseline` — projects `W1-009-B-<industry>-<size>-<NNN>` (1..200 per firm)
-- `holdout`  — projects `W1-009-H-<industry>-<size>-<NNN>` (1..200 per firm)
+- `baseline` — projects `W1-009-B-<industry>-<size>-<NNN>` (1..100 per firm per namespace)
+- `holdout`  — projects `W1-009-H-<industry>-<size>-<NNN>` (1..100 per firm per namespace)
 
-Total = 7,800 baseline + 7,800 holdout = 15,600 manifests. Each manifest
+Total = 3,900 baseline + 3,900 holdout = 7,800 manifests. Each manifest
 has a paired `OutcomeOracle`. The two namespaces are **disjoint**: a
 baseline seed can never produce a holdout project id, and vice versa
 (asserted by `portfolio-namespace-separation.test.ts`).
@@ -30,10 +30,11 @@ baseline seed can never produce a holdout project id, and vice versa
     "sizes": 3,
     "firms": 39,
     "projectsPerFirm": 200,
+    "projectsPerFirmPerNamespace": 100,
     "baselineProjects": 3900,
     "holdoutProjects": 3900,
     "totalProjects": 7800,
-    "totalManifests": 15600,                       // baseline + holdout
+    "totalManifests": 7800,
     "roleFamiliesPerIndustryMin": 8,
     "journeyFamilies": 19
   },
@@ -290,13 +291,14 @@ The portfolio generator enumerates projects in this exact order:
 for industry in industries:                   // 13
   for size in [small, medium, large]:         // 3
     for namespace in [baseline, holdout]:     // 2 (separate generators)
-      for idx in 1..200:                      // 200
+      for idx in 1..100:                      // 100 per namespace per firm
         emit ProjectManifest + OutcomeOracle
 ```
 
 When run for a single namespace, the generator emits 3,900 manifests.
 When run for both namespaces, it emits 7,800. The total reconciles to
-`13 × 3 × 200 = 7,800` per namespace.
+`13 × 3 × 100 = 3,900` per namespace, `13 × 3 × 200 = 7,800` grand total
+(200 per firm = 100 baseline + 100 holdout).
 
 The reconciliation test `portfolio-reconciliation.test.ts` runs the generator
 across both namespaces and asserts:
@@ -304,7 +306,7 @@ across both namespaces and asserts:
 - `baseline.length === 3900`
 - `holdout.length === 3900`
 - `total === 7800`
-- All 39 firm cohorts × 200 projects each appear in both namespaces.
+- All 39 firm cohorts × 200 projects each (100 per namespace) appear in both namespaces.
 - No two project ids collide within or across namespaces.
 - No two seeds collide within or across namespaces.
 
@@ -382,8 +384,7 @@ Level 4; Level 5 RFID is explicitly optional and never required).
 
 The `no-rfid-coverage.test.ts` contract test asserts:
 
-- Every supermarket-industry project (400 = 200 baseline + 200 holdout)
-  declares `physical-no-rfid-supermarket` in its applicable journey
+- Every supermarket-industry project (300 = 100 baseline + 100 holdout per firm × 3 sizes = 600 total, but per-namespace 300) declares `physical-no-rfid-supermarket` in its applicable journey
   families.
 - Across the supermarket industry, every W3-004 acceptance scenario appears
   in at least one project's `taskOutcome.expectedPostJourneyState` paths.

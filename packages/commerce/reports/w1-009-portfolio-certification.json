@@ -1,0 +1,251 @@
+{
+  "schema": "unicom-commerce-w1-009-certification/1",
+  "workOrder": "W1-009",
+  "package": "@unicom/commerce",
+  "suite": "src/test/w1-009/portfolio",
+  "scenarios": [
+    {
+      "id": "W1-009-S1",
+      "scenario": 1,
+      "title": "7,800 manifest reconciliation (13×3×100 baseline + 13×3×100 holdout)",
+      "status": "PASS",
+      "evidence": {
+        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "tests": [
+          "generates exactly 3,900 baseline projects",
+          "generates exactly 3,900 holdout projects",
+          "reconciles to 13 industries × 3 sizes × 100 per namespace = 7,800 total"
+        ]
+      },
+      "metrics": {
+        "baselineProjects": 3900,
+        "holdoutProjects": 3900,
+        "total": 7800,
+        "firms": 39
+      }
+    },
+    {
+      "id": "W1-009-S2",
+      "scenario": 2,
+      "title": "Deterministic reproduction (same seed ⇒ byte-identical portfolio)",
+      "status": "PASS",
+      "evidence": {
+        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "tests": [
+          "byte-identical canonicalJson for two runs of the same inputs",
+          "identical fingerprints for two runs of the full baseline",
+          "byte-identical manifests by projectId across runs"
+        ]
+      },
+      "metrics": {
+        "sampleSize": 25,
+        "fingerprintMatch": 1
+      }
+    },
+    {
+      "id": "W1-009-S3",
+      "scenario": 3,
+      "title": "Idempotency of generator (same inputs ⇒ same output)",
+      "status": "PASS",
+      "evidence": {
+        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "tests": [
+          "returns identical results when called twice with identical inputs"
+        ]
+      },
+      "metrics": {
+        "pairs": 10,
+        "mismatches": 0
+      }
+    },
+    {
+      "id": "W1-009-S4",
+      "scenario": 4,
+      "title": "UNKNOWN preservation (oracle never auto-promotes UNKNOWN)",
+      "status": "PASS",
+      "evidence": {
+        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "tests": [
+          "every oracle declares at least one UNKNOWN condition",
+          "every oracle has an UNKNOWN-preservation assertion (kind=UNKNOWN)",
+          "predictive fields are tagged predictive=true"
+        ]
+      },
+      "metrics": {
+        "projectsChecked": 13,
+        "missingUnknown": 0
+      }
+    },
+    {
+      "id": "W1-009-S5",
+      "scenario": 5,
+      "title": "Baseline/holdout namespace separation (disjoint seeds + project ids)",
+      "status": "PASS",
+      "evidence": {
+        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "tests": [
+          "seed namespaces have disjoint prefixes",
+          "baseline and holdout project ids NEVER collide",
+          "baseline and holdout seeds NEVER collide for any (industry, size, idx)"
+        ]
+      },
+      "metrics": {
+        "seedCollisions": 0,
+        "idCollisions": 0
+      }
+    },
+    {
+      "id": "W1-009-S6",
+      "scenario": 6,
+      "title": "Role-mix ≥8 role families per industry",
+      "status": "PASS",
+      "evidence": {
+        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "tests": [
+          "every industry has ≥8 role families in the registry",
+          "every project manifest declares ≥8 role families in roleMix",
+          "all 8 mandatory role families appear in every industry"
+        ]
+      },
+      "metrics": {
+        "industries": 13,
+        "belowMinimum": 0,
+        "supermarketRoleFamilies": 11
+      }
+    },
+    {
+      "id": "W1-009-S7",
+      "scenario": 7,
+      "title": "19 mandatory journey families covered across the campaign",
+      "status": "PASS",
+      "evidence": {
+        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "tests": [
+          "exposes exactly 19 journey families",
+          "every journey family appears in at least one industry cohort",
+          "every project manifest declares at least one applicable journey family"
+        ]
+      },
+      "metrics": {
+        "totalFamilies": 19,
+        "uncovered": 0,
+        "sampleCoverage": 2
+      }
+    },
+    {
+      "id": "W1-009-S8",
+      "scenario": 8,
+      "title": "No-RFID coverage passing the W3-004 contracts",
+      "status": "PASS",
+      "evidence": {
+        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "tests": [
+          "RFID is never required for any project",
+          "every supermarket-industry project declares physical-no-rfid-supermarket",
+          "every W3-004 acceptance scenario (1-8) appears in at least one supermarket project"
+        ]
+      },
+      "metrics": {
+        "supermarketProjects": 300,
+        "missingFamily": 0,
+        "missingAssertion": 0,
+        "scenariosCovered": 8
+      }
+    },
+    {
+      "id": "W1-009-S9",
+      "scenario": 9,
+      "title": "Provider UNKNOWN preservation (oracle preserves UNKNOWN)",
+      "status": "PASS",
+      "evidence": {
+        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "tests": [
+          "every oracle has a PROVIDER_UNKNOWN assertion"
+        ]
+      },
+      "metrics": {
+        "projectsChecked": 13,
+        "missingProviderUnknown": 0
+      }
+    },
+    {
+      "id": "W1-009-S10",
+      "scenario": 10,
+      "title": "Approval policy (purchase above maxAmountMinor requires approval)",
+      "status": "PASS",
+      "evidence": {
+        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "tests": [
+          "every oracle has an APPROVAL assertion",
+          "every project template declares an APPROVE_PURCHASE step",
+          "every oracle declares MISSING_APPROVAL as a failure condition"
+        ]
+      },
+      "metrics": {
+        "projectsChecked": 13,
+        "missingApproval": 0,
+        "missingFailureCondition": 0
+      }
+    },
+    {
+      "id": "W1-009-S11",
+      "scenario": 11,
+      "title": "Money conservation (integer minor units only; no float)",
+      "status": "PASS",
+      "evidence": {
+        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "tests": [
+          "every line total uses integer minor units",
+          "every oracle expected money values use integer minor units",
+          "computeTotalCostMinor uses BigInt arithmetic"
+        ]
+      },
+      "metrics": {
+        "projectsChecked": 13,
+        "floatMoneyDetected": 0
+      }
+    },
+    {
+      "id": "W1-009-S12",
+      "scenario": 12,
+      "title": "Fixtures never mark journeys successful (oracle is assertion-only)",
+      "status": "PASS",
+      "evidence": {
+        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "tests": [
+          "no oracle contains a 'journey-successful' field",
+          "every oracle assertion is a CHECK (not a verdict)",
+          "the oracle schema declares 'assertions' and 'expectedState' but no 'verdict' or 'result' field"
+        ]
+      },
+      "metrics": {
+        "projectsChecked": 13,
+        "fixtureViolations": 0
+      }
+    },
+    {
+      "id": "W1-009-S13",
+      "scenario": 13,
+      "title": "Certification report artifact (this row)",
+      "status": "PASS",
+      "evidence": {
+        "file": "src/test/w1-009/portfolio/w1-009-portfolio-report.ts",
+        "tests": [
+          "machine-readable, 13/13 scenario verdicts, committed as artifact"
+        ]
+      },
+      "metrics": {
+        "scenariosCertified": 13,
+        "totalProjects": 7800,
+        "totalManifests": 7800,
+        "journeyFamilies": 19
+      }
+    }
+  ],
+  "summary": {
+    "total": 13,
+    "passed": 13,
+    "failed": 0,
+    "allPass": true
+  }
+}
