@@ -601,15 +601,34 @@
       "records": 900,
       "evidenceSha256": "afe10f51eb48379e6870f9620a0f71aa4d4f09507da648370842151dbda2bddc",
       "noRfidPathRuns": 0
+    },
+    {
+      "batch": {
+        "index": 31,
+        "firmId": "defense-security-government-contracting-medium",
+        "w1IndustryId": "defense-security-government-contracting",
+        "w2IndustryId": "defense",
+        "firmSize": "medium",
+        "cohortId": "baseline-defense-security-government-contracting-medium"
+      },
+      "scheduleDigest": "5c1a21ba3c3ac9089b5e924597e11bd5f35f6241cc1884c7daa9e53afe34029e",
+      "planned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0,
+      "records": 900,
+      "evidenceSha256": "8eccc922296e6ad2057f5be5cbbf68f31e7709a86945ffa5fc509dd7585f35d1",
+      "noRfidPathRuns": 0
     }
   ],
   "totals": {
-    "firmsCompleted": 31,
-    "projectsPlanned": 3100,
-    "projectsExecuted": 3100,
+    "firmsCompleted": 32,
+    "projectsPlanned": 3200,
+    "projectsExecuted": 3200,
     "projectsBlocked": 0,
     "projectsSkipped": 0,
-    "evidenceRecords": 38100,
+    "evidenceRecords": 39000,
     "drift": 0
   }
 }
