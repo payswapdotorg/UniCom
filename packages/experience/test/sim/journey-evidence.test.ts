@@ -18,8 +18,8 @@ import {
 } from "../../src/sim";
 
 describe("W3-009 journey-evidence schema", () => {
-  it("exposes all 19 §10 journey family ids + the discoverability family", () => {
-    expect(JOURNEY_FAMILY_IDS.length).toBe(19);
+  it("exposes all registry journey family ids (W3-011: 19 W1-authoritative + the retained protocol-only family)", () => {
+    expect(JOURNEY_FAMILY_IDS.length).toBe(20); // W3-011 derivation law
     expect(JOURNEY_FAMILY_IDS).toContain("gui-feature-discoverability");
     expect(JOURNEY_FAMILY_IDS).toContain("physical-no-rfid-supermarket");
     expect(JOURNEY_FAMILY_IDS).toContain("failure-unknown-idempotency-recovery");

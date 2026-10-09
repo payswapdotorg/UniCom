@@ -149,6 +149,6 @@ describe("W3-011 amended baseline artifacts", () => {
     // All other families unchanged.
     const unchangedRows = md.match(/\| (?!negotiation-substitution|family)[a-z-]+ \| \d+\/\d+\/\d+ \| \d+\/\d+\/\d+ \| no \|/g) ?? [];
     expect(unchangedRows.length).toBe(18);
-    expect(md).toContain("| changed |") || expect(md).toContain("| changed |");
+    expect(md).toContain("| changed |");
   });
 });
