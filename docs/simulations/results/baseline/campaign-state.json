@@ -278,15 +278,34 @@
       "records": 900,
       "evidenceSha256": "f6a5175d26eca8aa39b15d4d542b509cd3daffba8a10dff1795a7858154862c3",
       "noRfidPathRuns": 0
+    },
+    {
+      "batch": {
+        "index": 14,
+        "firmId": "healthcare-organizations-large",
+        "w1IndustryId": "healthcare-organizations",
+        "w2IndustryId": "healthcare",
+        "firmSize": "large",
+        "cohortId": "baseline-healthcare-organizations-large"
+      },
+      "scheduleDigest": "f8c3168a06377ece351de15dcb231a8e1c0d82e729b5cd2bc5174568ed59bfef",
+      "planned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0,
+      "records": 900,
+      "evidenceSha256": "f40293a6b87bad24868ea681b869c5764dd278739f4a111ecbddc3f67789f8b0",
+      "noRfidPathRuns": 0
     }
   ],
   "totals": {
-    "firmsCompleted": 14,
-    "projectsPlanned": 1400,
-    "projectsExecuted": 1400,
+    "firmsCompleted": 15,
+    "projectsPlanned": 1500,
+    "projectsExecuted": 1500,
     "projectsBlocked": 0,
     "projectsSkipped": 0,
-    "evidenceRecords": 17400,
+    "evidenceRecords": 18300,
     "drift": 0
   }
 }
