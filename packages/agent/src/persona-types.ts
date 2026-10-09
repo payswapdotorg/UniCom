@@ -87,6 +87,55 @@ export type JourneyFamily = (typeof JOURNEY_FAMILIES)[number];
 export type EvidenceClass = "A" | "B" | "C" | "D";
 
 // ---------------------------------------------------------------------------
+// Incumbent verification (W2-010) — frozen constants + types (leaf layer)
+// ---------------------------------------------------------------------------
+
+/** Date of the W2-010 official-domain incumbent verification pass. */
+export const INCUMBENT_VERIFICATION_DATE = "2026-10-09";
+
+/**
+ * Class-A observations in the W2-010 verification pass. Zero by law: no
+ * authorized live incumbent trials were executed (no incumbent accounts, no
+ * vendor outreach, no real orders).
+ */
+export const INCUMBENT_CLASS_A_OBSERVATIONS = 0;
+
+/** How an incumbent product entry was verified (W2-010). */
+export type IncumbentVerificationMethod =
+  | "official-domain-web-search"
+  | "generic-manual-workflow"
+  | "generic-category-unverified";
+
+/** Semantic commerce capability kinds of frozen incumbent stack rows (W2-010). */
+export type IncumbentCapabilityKind =
+  | "sourcing-catalog"
+  | "supplier-portal-quotes"
+  | "procurement-suite"
+  | "rental"
+  | "resale"
+  | "pos"
+  | "shopping-platform"
+  | "manual";
+
+/** One verified incumbent product (or generic workflow row). */
+export interface VerifiedIncumbentProduct {
+  /** Stable key used by the benchmark row mapping. */
+  readonly productKey: string;
+  /** Display label (matches the frozen stack naming). */
+  readonly label: string;
+  /** Evidence class assigned by the verification pass. */
+  readonly evidenceClass: EvidenceClass;
+  /** Official domains verified by search (empty for generic rows). */
+  readonly officialDomains: readonly string[];
+  /** How this entry was verified. */
+  readonly verification: IncumbentVerificationMethod;
+  /** ISO date of the verification pass (null for generic rows). */
+  readonly verifiedAt: string | null;
+  /** Concise evidence note (no chain-of-thought, no performance data). */
+  readonly note: string;
+}
+
+// ---------------------------------------------------------------------------
 // Persona record — the W3-consumed contract surface
 // ---------------------------------------------------------------------------
 

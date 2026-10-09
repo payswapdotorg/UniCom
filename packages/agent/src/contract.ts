@@ -288,12 +288,12 @@ export type {
 } from "./experiment.js";
 export { EXPERIMENT_KINDS, evaluatePromotionEligibility } from "./experiment.js";
 
-// W2-003..W2-006 — Lab/Trust/Reality/adversarial artifacts (line budget).
-// W2-007 — buyer-agent vocabulary + opportunity-engine extensions.
+// W2-003..W2-007 — Lab/Trust/Reality/adversarial + buyer-vocabulary artifacts.
 export * from "./contract.w2-003.js";
 export * from "./contract.w2-004.js";
 export * from "./contract.w2-005.js";
 export * from "./contract.w2-006.js";
 export * from "./contract.w2-007.js";
-// W2-009 — synthetic personas, incumbent baselines, adoption measurement.
+// W2-009 + W2-010 — personas, incumbents, adoption measurement.
 export * from "./contract.w2-009.js";
+export * from "./contract.w2-010.js";
