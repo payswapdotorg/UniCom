@@ -38,16 +38,24 @@
     "baseline_required": true,
     "held_out_final_run_required": true
   },
-  "active_work_orders": [],
+  "active_work_orders": [
+    {
+      "id": "W3-013",
+      "lane": "worker-3",
+      "dispatched_at": "2026-10-09T12:10:00Z",
+      "phase": "cycles.held_out_final"
+    }
+  ],
   "frontier": [
     {
       "id": "W3-013",
-      "status": "PENDING_DISPATCH",
+      "status": "DISPATCHED",
       "owner": "worker-3",
       "depends_on": [
         "W3-012"
       ],
-      "note": "Wave D held-out final: freeze the code + benchmark definitions, run the 3,900 holdout-namespace projects (never executed per \u00a77), rerun critical paths, produce the final machine-readable report with results by industry/size/role/capability"
+      "dispatched_at": "2026-10-09T12:10:00Z",
+      "note": "Wave D held-out final"
     }
   ],
   "completed_work_orders": [
@@ -294,7 +302,9 @@
       "note": "no measured blockers remain; the held-out final (Wave D) serves as the second improvement-cycle verification per the charter's continuation condition"
     },
     "held_out_final": {
-      "status": "NOT_STARTED"
+      "status": "IN_PROGRESS",
+      "started_at": "2026-10-09T12:10:00Z",
+      "work_order": "W3-013"
     }
   },
   "release_gate": {
@@ -312,8 +322,8 @@
     "cycle_reports": "docs/simulations/results/cycles/",
     "final_report": "docs/simulations/results/final/"
   },
-  "overall_status": "WAVE_D_HELD_OUT_PENDING",
-  "last_reviewed_at": "2026-10-09T11:55:00Z",
+  "overall_status": "WAVE_D_IN_PROGRESS",
+  "last_reviewed_at": "2026-10-09T12:10:00Z",
   "benchmark_scope": {
     "mandate": "Commerce capabilities only; do not score broad vertical industry software as overall competitors.",
     "authoritative_matrix": "docs/simulations/V3-INDUSTRY-AND-COMPETITOR-MATRIX.md",
@@ -411,6 +421,10 @@
     {
       "ts": "2026-10-09T11:55:00Z",
       "event": "W3-012 ACCEPTED \u2014 TL-executed (local-chain); no-ff merge ebd6652; merged battery 1585/1585. CYCLE-1 CLOSED: product-failure list EMPTY (both orders were measurement repairs; the product measures at the adoption ceiling \u2014 100% eligible/willing, score 83, under the fixture-level simulation with recorded caveats). improvement_2 = the held-out confirmation per the charter's continuation condition. NEXT: Wave D (W3-013 held-out final)."
+    },
+    {
+      "ts": "2026-10-09T12:10:00Z",
+      "event": "W3-013 DISPATCHED (Wave D held-out final). Note: three consecutive vehicle stalls (W3-010 quiet-after-delivery, W3-011/W3-012 no-show) \u2014 the TL executes locally under the local-chain doctrine if no branch appears within the window, per the established pattern."
     }
   ]
 }
