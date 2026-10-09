@@ -1,0 +1,164 @@
+{
+  "schema": "unicom-w3-010-firm-report/1",
+  "experimentId": "v3-baseline",
+  "buildCommit": "c51703e4df2919859a56d5b24f8fda2bd4283c00",
+  "generatedAt": "2026-10-12T00:00:00Z",
+  "clockStartUtc": "2026-10-12T00:00:00Z",
+  "deploymentTarget": "local-dev-real-contracts",
+  "seedNamespace": "baseline",
+  "batch": {
+    "index": 15,
+    "firmId": "transportation-delivery-small",
+    "w1IndustryId": "transportation-delivery",
+    "w2IndustryId": "transportation",
+    "firmSize": "small",
+    "cohortId": "baseline-transportation-delivery-small"
+  },
+  "loaderProvenance": {
+    "w1Source": "packages/commerce/src/test/w1-009/portfolio/ (W1-009 test-only public surface)",
+    "w2Source": "@unicom/agent contract.w2-009 (persona-cohort + persona-scoring)",
+    "seedNamespace": "baseline",
+    "baselineProjects": 3900,
+    "holdoutLoaded": false,
+    "personaTarget": 15275
+  },
+  "scheduleDigest": "00f6de280d2a0da4da1a109e9b3c758ff3d85245113a5716f62dbd3df60fefbe",
+  "reconciliation": {
+    "experimentId": "v3-baseline",
+    "cohortId": "baseline-transportation-delivery-small",
+    "totalPlanned": 100,
+    "executed": 100,
+    "blocked": 0,
+    "skipped": 0,
+    "reconciled": true,
+    "drift": 0,
+    "byJourneyFamily": [
+      {
+        "journeyFamilyId": "buyer-intent-constraints",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "offer-sourcing-comparison",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "buy-now-vs-wait-price-timing",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "rent-borrow-vs-buy",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "proactive-economic-opportunities",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "supplier-procurement-receiving",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "connected-commerce-channels-and-live-commerce",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "failure-unknown-idempotency-recovery",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "gui-feature-discoverability",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "b2b-multi-location-supplier-coordination",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      }
+    ],
+    "byOutcome": {
+      "pass": 1000,
+      "fail": 0,
+      "blocked": 0,
+      "absent": 0,
+      "unknown": 0
+    }
+  },
+  "evidence": {
+    "file": "packages/experience/reports/sim/v3-baseline/evidence/baseline-transportation-delivery-small.ndjson.gz",
+    "records": 1000,
+    "sha256": "d739f1c5eabb0d6c4122c4d9f84fe76ed63a191250a815dae3e9717523229f97",
+    "bytesUncompressed": 4817428,
+    "bytesGzip": 233335
+  },
+  "noRfid": null,
+  "failureVariants": {
+    "count": 100,
+    "byOutcome": {
+      "fail": 25,
+      "unknown": 15,
+      "blocked": 50,
+      "absent": 5,
+      "pass": 5
+    }
+  },
+  "roleAccess": {
+    "transitions": 7,
+    "roles": [
+      "project-owner",
+      "procurement",
+      "finance",
+      "ops",
+      "end-user",
+      "approver",
+      "supplier",
+      "auditor"
+    ]
+  },
+  "journeyRunsByRole": {
+    "procurement": 201,
+    "field-ops": 169,
+    "project-program-mgmt": 92,
+    "industry-specialist": 360,
+    "it": 39,
+    "sales": 42,
+    "approver-executive": 78,
+    "finance-accounting": 14,
+    "compliance-audit": 5
+  },
+  "guiOnlyProof": {
+    "recordsChecked": 1000,
+    "violations": 0,
+    "deepLinkUsedForDiscovery": 0,
+    "sensitiveValueScrubbed": 1000
+  },
+  "holdoutLeakage": 0
+}
