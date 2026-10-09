@@ -1,0 +1,276 @@
+{
+  "schema": "unicom-cycle1-rankprep/1",
+  "artifact": "component-surface-map",
+  "workOrder": "W2-011",
+  "scoringContractVersion": "w2-009:v1",
+  "baseSha": "45d8f274ba6c8ae3b8be0a08a6f7777a5ba0f219",
+  "purpose": "Each frozen scoring component mapped to the product surfaces that generate its evidence records (the record fields each surface emits). All paths verified to exist at the base SHA. Evidence surfaces under packages/experience/src/sim/** are READ-ONLY for W2-011 (W3-lane); the maps below cite them for analysis.",
+  "evidenceRecordType": {
+    "file": "packages/experience/src/sim/journey-evidence.ts",
+    "type": "JourneyEvidenceRecord",
+    "fieldsPerComponent": {
+      "journeyCompletion": ["outcome"],
+      "usabilityFriction": ["backtracks", "failedOrBlockedSteps", "errorRecoveryTrace", "outcome"],
+      "outcomeVsBenchmark": ["commerceAssertionRefs"],
+      "trustProof": ["evidenceState.proofLevel", "evidenceState.evidenceArtifacts", "evidenceState.preservedThroughReconnect"],
+      "integrationQuality": ["connectorProviderState[].state"],
+      "switchingCostFit": "NONE — persona attributes (persona.switchingCost, persona.trainingAvailability); no evidence record field",
+      "preferenceFit": "NONE directly — derived from persona.preferredWorkflow × (integrationQuality, usabilityFriction)"
+    }
+  },
+  "mapper": {
+    "file": "packages/experience/src/sim/adoption-mapper.ts",
+    "function": "mapJourneyEvidenceToPersonaOutcome",
+    "lines": "44-110",
+    "role": "aggregates per-journey evidence records into the per-persona JourneyOutcomeForPersona consumed by computeAdoptionDecision"
+  },
+  "components": [
+    {
+      "component": "journeyCompletion",
+      "weight": 0.3,
+      "contractCodeCite": "packages/agent/src/persona-types.ts:144 (FROZEN_SCORE_WEIGHTS.journeyCompletion); packages/agent/src/contract.w2-009.ts:84",
+      "contractDataCite": "$.frozenScoreWeights.journeyCompletion in docs/simulations/personas/adoption-contract.json",
+      "mapperCite": "packages/experience/src/sim/adoption-mapper.ts:56-57 (pass fraction of records)",
+      "evidenceSurfaces": [
+        {
+          "path": "packages/experience/src/sim/journey-drivers.ts",
+          "surface": "per-family visible-UI drivers (buildDriverForFamily / buildAllJourneyDrivers, lines 27-186)",
+          "emits": "outcome ('pass'|'fail'|'blocked'|'absent'|'unknown'), successfulSteps, failedOrBlockedSteps, routeOrigin, discoveryPathKind",
+          "notes": "the generic driver always emits outcome 'pass' (line 156); family-specific depth is the lever surface"
+        },
+        {
+          "path": "packages/experience/src/sim/discovery-runner.ts",
+          "surface": "DiscoveryRunner.runJourney + buildAbsentRecord (lines 139-207)",
+          "emits": "outcome 'absent' with failedOrBlockedSteps[0].reason 'no driver registered — feature not discoverable via visible UI' when a family has no driver (lines 153-207); guiOnlyProof invariant"
+        },
+        {
+          "path": "packages/experience/src/sim/journey-registry.ts",
+          "surface": "JOURNEY_FAMILY_REGISTRY (lines 73-287): applicableRoles, surfaces, connectorDependent, approvalRequired per family",
+          "emits": "the applicability matrix that decides which families a persona's bundle must cover"
+        },
+        {
+          "path": "packages/experience/src/navigation/feature-matrix.ts",
+          "surface": "FEATURE_MATRIX + OPTIONAL_FEATURES (lines 40, 227) — the real navigation feature rows the gui-feature-discoverability family probes",
+          "emits": "discoverable-feature rows (visible labels/groups) backing discoveryPathKind 'primary-navigation' and the §10.19 family"
+        },
+        {
+          "path": "packages/experience/src/sim/role-access.ts",
+          "surface": "ROLE_ACCESS_SCOPES (lines 24-73) — 8 W1 roles × allowedSurfaces/allowedActions/canSwitchFrom",
+          "emits": "blocked role-switch journeys (accessDeniedSurfaces, blocked flag) when a persona's role cannot reach a family's surface"
+        },
+        {
+          "path": "packages/experience/src/sim/no-rfid-journeys.ts",
+          "surface": "physical no-RFID supermarket journey surface (supermarket cohort only)",
+          "emits": "physical-capture outcomes for the physical-no-rfid-supermarket family"
+        }
+      ]
+    },
+    {
+      "component": "usabilityFriction",
+      "weight": 0.15,
+      "contractCodeCite": "packages/agent/src/persona-types.ts:145; packages/agent/src/contract.w2-009.ts:84",
+      "contractDataCite": "$.frozenScoreWeights.usabilityFriction",
+      "mapperCite": "packages/experience/src/sim/adoption-mapper.ts:59-64, 121-140 (1 - mean friction penalty; backtrack 0.1, failed 0.15, blocked 0.2, error-recovery 0.1, non-pass outcome 0.3/0.5)",
+      "evidenceSurfaces": [
+        {
+          "path": "packages/experience/src/sim/journey-evidence.ts",
+          "surface": "BacktrackRecord (lines 78-91: reasons dead-end/wrong-surface/permission-denied/form-validation-error/user-cancelled/session-error) + FailedStep (lines 331-336)",
+          "emits": "backtracks[] and failedOrBlockedSteps[] — the friction penalty inputs"
+        },
+        {
+          "path": "packages/experience/src/sim/interaction-trace.ts",
+          "surface": "interaction-trace builders (buildScreenshotCheckpoint, scrubSensitiveValue, buildEvidenceId)",
+          "emits": "InteractionStep/ScreenshotCheckpoint projections of the visible UI (the raw material backtracks reference)"
+        },
+        {
+          "path": "packages/experience/src/navigation/universal-intent.ts",
+          "surface": "UniversalIntentVerb/Target/Command/Match types (lines 29-80)",
+          "emits": "intent-resolution navigation nodes — the alternative to backtrack-prone manual navigation (discoveryPathKind 'universal-intent')"
+        },
+        {
+          "path": "packages/experience/src/sim/failure-variants.ts",
+          "surface": "FAILURE_VARIANTS (lines 79-100) — 20 canonical failure kinds with outcomes and recovery actions",
+          "emits": "errorRecoveryTrace[] entries (errorKind, recoveryAction, recoveredToInteractionIndex) and failedSteps — each entry costs 0.1 friction even when recovered"
+        }
+      ]
+    },
+    {
+      "component": "outcomeVsBenchmark",
+      "weight": 0.2,
+      "contractCodeCite": "packages/agent/src/persona-types.ts:146; packages/agent/src/persona-scoring.ts:101-104 (class D → 0); packages/agent/src/contract.w2-009.ts:84",
+      "contractDataCite": "$.frozenScoreWeights.outcomeVsBenchmark; $.evidenceClasses[0..3]",
+      "mapperCite": "packages/experience/src/sim/adoption-mapper.ts:66-69, 143-158 (≥1 assertion AND all passed per record; 0-assertion records count 0), 224-249 (bestIncumbentEvidenceClass from firm stack)",
+      "evidenceSurfaces": [
+        {
+          "path": "packages/experience/src/sim/journey-drivers.ts",
+          "surface": "assertionRefs emitted by the generic driver (lines 127-134): exactly one 'assert-budget' post-journey assertion per journey",
+          "emits": "commerceAssertionRefs[] {assertionId, checkedAfterJourney: true, passed, evidenceNote}"
+        },
+        {
+          "path": "packages/agent/src/persona-incumbent-stacks.ts",
+          "surface": "COMMERCE_INCUMBENT_ROWS (lines 36+): per-industry commerce-only incumbent stacks with conservative default evidence classes",
+          "emits": "IncumbentStackEntry.evidenceClass — feeds bestIncumbentEvidenceClass (the D-gate)"
+        },
+        {
+          "path": "packages/commerce/src/test/w1-009/portfolio/generator.ts",
+          "surface": "W1 baseline-namespace portfolio generator (fingerprinted in the baseline report: sha256Hex16 5a5ba45fa452e3cf)",
+          "emits": "W1 project manifests (purchasingList, budget, deadline, requiredApprovals, allowedSubstitutions, recourseContract) — the oracle ground truth the post-journey assertions check against"
+        }
+      ]
+    },
+    {
+      "component": "trustProof",
+      "weight": 0.15,
+      "contractCodeCite": "packages/agent/src/persona-types.ts:147; packages/agent/src/contract.w2-009.ts:84",
+      "contractDataCite": "$.frozenScoreWeights.trustProof",
+      "mapperCite": "packages/experience/src/sim/adoption-mapper.ts:71-74, 161-180 (P0..P5 → 0..1 in 0.2 steps; +0.1 preservedThroughReconnect; +0.05 ≥1 artifact; min(1, ·))",
+      "evidenceSurfaces": [
+        {
+          "path": "packages/experience/src/sim/journey-evidence.ts",
+          "surface": "EvidenceState (lines 176-187): proofLevel P0..P5|none, evidenceArtifacts[] (journaled-command | observation | approval | proof), preservedThroughReconnect",
+          "emits": "the three trust inputs per record"
+        },
+        {
+          "path": "packages/experience/src/sim/journey-drivers.ts",
+          "surface": "generic driver evidenceState (lines 121-125): P3 when approvalRequired else P2; 1 journaled-command artifact; preservedThroughReconnect true",
+          "emits": "the current per-record proof floor (0.75 / 0.55 trustProof) the proof-level levers move"
+        },
+        {
+          "path": "packages/experience/src/edge/offline-queue.ts",
+          "surface": "OfflineObservationQueueEntry / ReconciliationHandoff / OfflineQueueHealthView (lines 27-62)",
+          "emits": "the offline-queue survival that preservedThroughReconnect asserts (reconnect bonus +0.1)"
+        },
+        {
+          "path": "packages/experience/src/surfaces/trust-security.ts",
+          "surface": "TrustComponentView / TrustCenterView / SecurityIncidentView (lines 18-75)",
+          "emits": "the trust-security-center surface for the trust-security-fraud-and-recourse family (P-level proof surfaces for approvals/recourse)"
+        }
+      ]
+    },
+    {
+      "component": "integrationQuality",
+      "weight": 0.1,
+      "contractCodeCite": "packages/agent/src/persona-types.ts:148; packages/agent/src/contract.w2-009.ts:84",
+      "contractDataCite": "$.frozenScoreWeights.integrationQuality",
+      "mapperCite": "packages/experience/src/sim/adoption-mapper.ts:76-80, 192-217 (healthy 1.0, degraded 0.6, stale 0.4, unknown 0.3, disconnected 0.2, unauthorized 0.1, compromised 0.0; no-states → neutral 0.5)",
+      "evidenceSurfaces": [
+        {
+          "path": "packages/experience/src/sim/journey-evidence.ts",
+          "surface": "ConnectorProviderState (lines 189-204): connectorInstanceId, providerId, state, lastHealthAt, evidenceClass",
+          "emits": "per-record connector observations — the integration input"
+        },
+        {
+          "path": "packages/experience/src/sim/journey-drivers.ts",
+          "surface": "generic driver connectorState (lines 112-115): 'unknown' (0.3) for connectorDependent families, no states otherwise (0.5)",
+          "emits": "the current per-record integration floor"
+        },
+        {
+          "path": "packages/experience/src/connector/observability.ts",
+          "surface": "ConnectorHealthStatus / ConnectorHealthSnapshot / ConnectorExecutionEvidence (lines 24-67): healthy|degraded|customer-action-required|unknown|down with evidence refs",
+          "emits": "the REAL connector health snapshots a health-probing product surface would record (the honest upgrade path from 'unknown')"
+        },
+        {
+          "path": "packages/experience/src/connector/health-surface.ts",
+          "surface": "ConnectorHealthSurfaceEntry / ConnectorRecoveryPlan / ConnectorJourneyHealthSummary (lines 26-86)",
+          "emits": "per-journey connector health summaries + recovery plans (the connector-studio health surface)"
+        },
+        {
+          "path": "packages/experience/src/surfaces/connector-studio.ts",
+          "surface": "ConnectorCard / AvailableCapabilityView / ConnectedScopeView (lines 29-68)",
+          "emits": "the connector-studio GUI the connected-commerce / failure-recovery families traverse"
+        },
+        {
+          "path": "packages/experience/src/connector/transports.ts",
+          "surface": "CONNECTOR_TRANSPORTS / ConnectorTransportDescriptor (lines 52-86)",
+          "emits": "the transport families (API/SDK, marketplace, browser-only, file/feed, live-commerce, local-edge, protocol) whose state the journeys observe"
+        }
+      ]
+    },
+    {
+      "component": "switchingCostFit",
+      "weight": 0.05,
+      "contractCodeCite": "packages/agent/src/persona-types.ts:149; packages/agent/src/persona-scoring.ts:107-114; packages/agent/src/contract.w2-009.ts:84",
+      "contractDataCite": "$.frozenScoreWeights.switchingCostFit",
+      "mapperCite": "packages/agent/src/persona-scoring.ts:112-114 (1 - switchingCost * (1 - trainingAvailability * 0.5)) — computed from FROZEN persona attributes, no evidence record field",
+      "evidenceSurfaces": [
+        {
+          "path": "packages/agent/src/persona-population.ts",
+          "surface": "roleFamilyAttributeBias (lines 27-133): per-role-family switchingCost/trainingAvailability draw ranges",
+          "emits": "the persona attribute distribution that fixes this component's cohort mean at 0.585 (analysis-derived)"
+        }
+      ],
+      "productInfluence": "NONE directly — persona-bound by the frozen contract. Only indirect: nothing. This component is the unmoved floor the other levers must overcome."
+    },
+    {
+      "component": "preferenceFit",
+      "weight": 0.05,
+      "contractCodeCite": "packages/agent/src/persona-types.ts:150; packages/agent/src/persona-scoring.ts:115-120, 199-217; packages/agent/src/contract.w2-009.ts:84",
+      "contractDataCite": "$.frozenScoreWeights.preferenceFit",
+      "mapperCite": "packages/agent/src/persona-scoring.ts:199-217 — single-tool: 0.7+0.3*integrationQuality; specialist-stack: 0.85*integrationQuality; spreadsheet: 0.8*usabilityFriction; mixed: 0.5",
+      "evidenceSurfaces": [
+        {
+          "path": "packages/agent/src/persona-cohort.ts",
+          "surface": "preferredWorkflowFor (lines 221-237): the frozen workflow distribution per (roleFamily, firmSize)",
+          "emits": "persona.preferredWorkflow — which coupling (integration vs usability vs neutral) applies"
+        }
+      ],
+      "productInfluence": "INDIRECT — moves with integrationQuality (single-tool +0.3·i, specialist +0.85·i) and usabilityFriction (spreadsheet +0.8·u); a second-order dividend of the integration/usability levers."
+    }
+  ],
+  "vetoCategorySurfaces": [
+    {
+      "category": "authority",
+      "triggerErrorKinds": ["denied-permission", "missing-approval", "disabled-permission"],
+      "surfaces": [
+        "packages/experience/src/sim/role-access.ts (ROLE_ACCESS_SCOPES — visible access control that yields denied-permission)",
+        "packages/experience/src/sim/journey-evidence.ts:159-174 (ApprovalState — visible approval controls; approvalKind merchant/operator/buyer/supplier/auditor)",
+        "packages/experience/src/sim/failure-variants.ts:86-87 (missing-approval / user-lacks-authority variants)"
+      ],
+      "mapperCite": "packages/experience/src/sim/adoption-mapper.ts:265-279, 283-288"
+    },
+    {
+      "category": "financial-truth",
+      "triggerErrorKinds": ["settlement-unknown"],
+      "surfaces": [
+        "packages/experience/src/sim/failure-variants.ts:84 (payment-settlement-unknown variant — outcome 'unknown', provider state cannot be confirmed)"
+      ],
+      "mapperCite": "packages/experience/src/sim/adoption-mapper.ts:289-290"
+    },
+    {
+      "category": "data-integrity",
+      "triggerErrorKinds": ["supplier-disappearance"],
+      "surfaces": [
+        "packages/experience/src/sim/failure-variants.ts:95 (supplier-disappearance variant — blocked)"
+      ],
+      "mapperCite": "packages/experience/src/sim/adoption-mapper.ts:291-292"
+    },
+    {
+      "category": "privacy",
+      "triggerErrorKinds": ["session-interruption"],
+      "surfaces": [
+        "packages/experience/src/connector/browser-session.ts (browser-session runtime — session interruption surface)",
+        "packages/experience/src/sim/failure-variants.ts:91 (interrupted-session-recovery variant)"
+      ],
+      "mapperCite": "packages/experience/src/sim/adoption-mapper.ts:293-294"
+    },
+    {
+      "category": "security",
+      "triggerErrorKinds": ["compromised", "unsupported-competitor"],
+      "surfaces": [
+        "packages/experience/src/surfaces/trust-security.ts (security pipeline stages + incident views)",
+        "packages/experience/src/sim/failure-variants.ts:88 (security-block), :99 (unsupported-competitor — UNKNOWN preserved, law §3)"
+      ],
+      "mapperCite": "packages/experience/src/sim/adoption-mapper.ts:295-297"
+    }
+  ],
+  "attributionPipeline": {
+    "note": "How records reach personas (the W3-012 owner's repair surface — read-only for W2-011):",
+    "campaignLoop": "packages/experience/src/sim/baseline-campaign.ts:200-249 — currently personaIds[0] per firm with hardcoded role 'project-owner' (line 204, 211) — the single-attribution artifact",
+    "bundleBuilder": "packages/experience/src/sim/baseline-campaign-aggregates.ts:34-58 — buildPersonaOutcomes groups records by personaId then maps every one of the 15,275 frozen agent personas (empty bundle when no records)",
+    "decisionEngine": "packages/agent/src/persona-scoring.ts:75-197 — computeAdoptionDecision (frozen)"
+  },
+  "completenessCrossCheck": {
+    "method": "docs/simulations/cycle-1/analysis/verify-deliverables.ts asserts this map covers all 7 SCORE_COMPONENTS from the frozen contract and that every cited path exists on disk at the base SHA.",
+    "command": "node_modules/.bin/tsx docs/simulations/cycle-1/analysis/verify-deliverables.ts"
+  }
+}

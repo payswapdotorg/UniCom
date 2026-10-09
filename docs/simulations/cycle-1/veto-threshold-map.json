@@ -1,0 +1,436 @@
+{
+  "schema": "unicom-cycle1-rankprep/1",
+  "artifact": "veto-threshold-map",
+  "workOrder": "W2-011",
+  "scoringContractVersion": "w2-009:v1",
+  "baseSha": "45d8f274ba6c8ae3b8be0a08a6f7777a5ba0f219",
+  "frozenContract": true,
+  "purpose": "Structural map of WHERE the adoption score is lost: every veto condition, every threshold, every scoring component and weight of the frozen w2-009:v1 contract, dual-cited (code + data). Mapper-side operational semantics (the evidence-side numbers that realize the contract) are included in a separate, clearly-labelled section.",
+
+  "citationFiles": {
+    "contractSurface": "packages/agent/src/contract.w2-009.ts",
+    "frozenConstants": "packages/agent/src/persona-types.ts",
+    "scoringEngine": "packages/agent/src/persona-scoring.ts",
+    "dataContract": "docs/simulations/personas/adoption-contract.json",
+    "evidenceMapper": "packages/experience/src/sim/adoption-mapper.ts",
+    "evidenceRecord": "packages/experience/src/sim/journey-evidence.ts",
+    "genericDriver": "packages/experience/src/sim/journey-drivers.ts"
+  },
+
+  "vetoes": [
+    {
+      "id": "critical-failure-veto",
+      "rank": 1,
+      "enforcement": "FIRST — before any weighted-score comparison",
+      "categories": ["security", "authority", "financial-truth", "privacy", "data-integrity"],
+      "effect": "A vetoed persona is NOT eligible for (a) or (c) and NOT willing for (b) or (d); switchScore and mainInterfaceScore are forced to 0 regardless of the weighted score.",
+      "codeCite": {
+        "file": "packages/agent/src/persona-scoring.ts",
+        "lines": "85-86",
+        "symbol": "computeAdoptionDecision — vetoCategories/vetoed",
+        "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:11-13 (law 1) and :77 (CriticalFailureCategory re-export)"
+      },
+      "dataCite": {
+        "path": "$.criticalFailureCategories",
+        "value": ["security", "authority", "financial-truth", "privacy", "data-integrity"]
+      },
+      "upstreamDetection": {
+        "file": "packages/experience/src/sim/adoption-mapper.ts",
+        "lines": "251-301",
+        "semantics": "errorKind → veto category: denied-permission/missing-approval/disabled-permission → authority; settlement-unknown → financial-truth; supplier-disappearance → data-integrity; session-interruption → privacy; compromised/unsupported-competitor → security. Union across all records; a single occurrence vetoes the persona."
+      }
+    },
+    {
+      "id": "full-switch-blocker-veto",
+      "rank": 2,
+      "enforcement": "gate on output (a) technical full-switch eligibility",
+      "effect": "Any missing-capability reason code OR any blocker reason code ⇒ NOT full-switch eligible (regardless of score).",
+      "codeCite": {
+        "file": "packages/agent/src/persona-scoring.ts",
+        "lines": "139-149",
+        "symbol": "computeAdoptionDecision — fullSwitchBlockers / technicalFullSwitchEligible",
+        "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:94 (computeAdoptionDecision re-export)"
+      },
+      "dataCite": {
+        "path": "$.fourAdoptionOutputs[0].rule",
+        "value": "no veto AND all applicable journeys discoverable+completable AND no missing-capability reason codes AND no blocker reason codes"
+      }
+    },
+    {
+      "id": "main-interface-blocker-veto",
+      "rank": 3,
+      "enforcement": "gate on output (c) main-interface eligibility",
+      "effect": "Blocker reason codes veto (c); missing-capability codes veto (c) EXCEPT capability-gap (a main-interface user can lack one full-switch capability).",
+      "codeCite": {
+        "file": "packages/agent/src/persona-scoring.ts",
+        "lines": "156-166",
+        "symbol": "computeAdoptionDecision — mainInterfaceBlockers / mainInterfaceEligible (capability-gap exempted at line 158)",
+        "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:94"
+      },
+      "dataCite": {
+        "path": "$.fourAdoptionOutputs[2].rule",
+        "value": "no veto AND >= 80% of applicable journeys can start/be supervised from UNiCOM AND no main-interface-blocking reason codes"
+      }
+    },
+    {
+      "id": "zero-applicable-journeys-veto",
+      "rank": 4,
+      "enforcement": "gate on outputs (a) and (c)",
+      "effect": "applicableJourneyCount === 0 ⇒ NOT eligible for (a) or (c) (degenerate persona).",
+      "codeCite": {
+        "file": "packages/agent/src/persona-scoring.ts",
+        "lines": "145-147, 162-164",
+        "symbol": "computeAdoptionDecision — allJourneysComplete / supervisionFloorMet (count > 0 conjunct)"
+      },
+      "dataCite": {
+        "path": "$.fourAdoptionOutputs[0].rule",
+        "value": "…all applicable journeys discoverable+completable…"
+      }
+    },
+    {
+      "id": "incumbent-class-d-parity-gate",
+      "rank": 5,
+      "enforcement": "component-level gate on outcomeVsBenchmark (not an eligibility veto)",
+      "effect": "incumbentEvidenceClass === 'D' ⇒ outcomeVsBenchmark is forced to 0 (a −20-point weighted loss): no superiority claim against an unverified incumbent.",
+      "codeCite": {
+        "file": "packages/agent/src/persona-scoring.ts",
+        "lines": "101-104",
+        "symbol": "computeAdoptionDecision — outcomeVsBenchmark (D → 0)"
+      },
+      "dataCite": {
+        "path": "$.evidenceClasses[3]",
+        "value": { "code": "D", "label": "Unverified/inaccessible/hearsay", "supportsPerformanceClaims": false }
+      },
+      "upstreamDetection": {
+        "file": "packages/experience/src/sim/adoption-mapper.ts",
+        "lines": "224-249",
+        "semantics": "bestIncumbentEvidenceClass = best (A>B>C>D) across the persona's firm incumbent stack; a missing firm stack defaults to D."
+      }
+    }
+  ],
+
+  "thresholds": [
+    {
+      "id": "FULL_SWITCH_THRESHOLD",
+      "value": 65,
+      "unit": "weighted score points (0..100)",
+      "gates": "output (b) simulated willingness to switch completely",
+      "codeCite": {
+        "file": "packages/agent/src/persona-types.ts",
+        "lines": "164",
+        "symbol": "FULL_SWITCH_THRESHOLD",
+        "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:86"
+      },
+      "dataCite": { "path": "$.thresholds.fullSwitchThreshold", "value": 65 }
+    },
+    {
+      "id": "MAIN_INTERFACE_THRESHOLD",
+      "value": 55,
+      "unit": "weighted score points (0..100)",
+      "gates": "output (d) simulated willingness to use as main interface",
+      "codeCite": {
+        "file": "packages/agent/src/persona-types.ts",
+        "lines": "165",
+        "symbol": "MAIN_INTERFACE_THRESHOLD",
+        "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:88"
+      },
+      "dataCite": { "path": "$.thresholds.mainInterfaceThreshold", "value": 55 }
+    },
+    {
+      "id": "FULL_SWITCH_JOURNEY_COMPLETION_FLOOR",
+      "value": 1.0,
+      "unit": "fraction of applicable journeys passed",
+      "gates": "output (a) — ALL applicable journeys must be discoverable+completable",
+      "codeCite": {
+        "file": "packages/agent/src/persona-types.ts",
+        "lines": "167",
+        "symbol": "FULL_SWITCH_JOURNEY_COMPLETION_FLOOR",
+        "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:85"
+      },
+      "dataCite": { "path": "$.thresholds.fullSwitchJourneyCompletionFloor", "value": 1 }
+    },
+    {
+      "id": "MAIN_INTERFACE_JOURNEY_SUPERVISION_FLOOR",
+      "value": 0.8,
+      "unit": "fraction of applicable journeys startable/supervisable from UNiCOM",
+      "gates": "output (c) — ≥80% supervision coverage",
+      "codeCite": {
+        "file": "packages/agent/src/persona-types.ts",
+        "lines": "166",
+        "symbol": "MAIN_INTERFACE_JOURNEY_SUPERVISION_FLOOR",
+        "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:87"
+      },
+      "dataCite": { "path": "$.thresholds.mainInterfaceJourneySupervisionFloor", "value": 0.8 }
+    },
+    {
+      "id": "SENSITIVITY_PERTURBATION_MAGNITUDE",
+      "value": 0.05,
+      "unit": "component perturbation (sensitivity analysis only — vetoes preserved)",
+      "gates": "cohort-seed sensitivity reporting (persona-sensitivity.ts), not eligibility",
+      "codeCite": {
+        "file": "packages/agent/src/persona-sensitivity.ts",
+        "lines": "exported constant SENSITIVITY_PERTURBATION_MAGNITUDE",
+        "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:107"
+      },
+      "dataCite": { "path": "$.sensitivity.perturbationMagnitude", "value": 0.05 }
+    },
+    {
+      "id": "SENSITIVITY_SEED_COUNT",
+      "value": 5,
+      "unit": "seeds",
+      "gates": "sensitivity analysis replication count",
+      "codeCite": {
+        "file": "packages/agent/src/persona-sensitivity.ts",
+        "lines": "exported constant SENSITIVITY_SEED_COUNT",
+        "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:108"
+      },
+      "dataCite": { "path": "$.sensitivity.seedCount", "value": 5 }
+    }
+  ],
+
+  "scoreComponents": [
+    {
+      "id": "journeyCompletion",
+      "weight": 0.3,
+      "weightPoints": 30,
+      "inputField": "JourneyOutcomeForPersona.journeyCompletionRate",
+      "normalization": "clamp01(outcome.journeyCompletionRate)",
+      "codeCite": {
+        "file": "packages/agent/src/persona-types.ts",
+        "lines": "144",
+        "symbol": "FROZEN_SCORE_WEIGHTS.journeyCompletion",
+        "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:84"
+      },
+      "dataCite": { "path": "$.frozenScoreWeights.journeyCompletion", "value": 0.3 }
+    },
+    {
+      "id": "usabilityFriction",
+      "weight": 0.15,
+      "weightPoints": 15,
+      "inputField": "JourneyOutcomeForPersona.usabilityFrictionScore",
+      "normalization": "clamp01(outcome.usabilityFrictionScore) — 1 = no friction",
+      "codeCite": {
+        "file": "packages/agent/src/persona-types.ts",
+        "lines": "145",
+        "symbol": "FROZEN_SCORE_WEIGHTS.usabilityFriction",
+        "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:84"
+      },
+      "dataCite": { "path": "$.frozenScoreWeights.usabilityFriction", "value": 0.15 }
+    },
+    {
+      "id": "outcomeVsBenchmark",
+      "weight": 0.2,
+      "weightPoints": 20,
+      "inputField": "JourneyOutcomeForPersona.outcomeParityRate + incumbentEvidenceClass",
+      "normalization": "incumbentEvidenceClass === 'D' ? 0 : clamp01(outcome.outcomeParityRate)",
+      "codeCite": {
+        "file": "packages/agent/src/persona-types.ts",
+        "lines": "146",
+        "symbol": "FROZEN_SCORE_WEIGHTS.outcomeVsBenchmark",
+        "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:84"
+      },
+      "dataCite": { "path": "$.frozenScoreWeights.outcomeVsBenchmark", "value": 0.2 }
+    },
+    {
+      "id": "trustProof",
+      "weight": 0.15,
+      "weightPoints": 15,
+      "inputField": "JourneyOutcomeForPersona.trustProofScore",
+      "normalization": "clamp01(outcome.trustProofScore)",
+      "codeCite": {
+        "file": "packages/agent/src/persona-types.ts",
+        "lines": "147",
+        "symbol": "FROZEN_SCORE_WEIGHTS.trustProof",
+        "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:84"
+      },
+      "dataCite": { "path": "$.frozenScoreWeights.trustProof", "value": 0.15 }
+    },
+    {
+      "id": "integrationQuality",
+      "weight": 0.1,
+      "weightPoints": 10,
+      "inputField": "JourneyOutcomeForPersona.integrationQualityScore",
+      "normalization": "clamp01(outcome.integrationQualityScore)",
+      "codeCite": {
+        "file": "packages/agent/src/persona-types.ts",
+        "lines": "148",
+        "symbol": "FROZEN_SCORE_WEIGHTS.integrationQuality",
+        "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:84"
+      },
+      "dataCite": { "path": "$.frozenScoreWeights.integrationQuality", "value": 0.1 }
+    },
+    {
+      "id": "switchingCostFit",
+      "weight": 0.05,
+      "weightPoints": 5,
+      "inputField": "persona.switchingCost, persona.trainingAvailability (FROZEN persona attributes — not evidence-controllable)",
+      "normalization": "clamp01(1 - persona.switchingCost * (1 - persona.trainingAvailability * 0.5))",
+      "codeCite": {
+        "file": "packages/agent/src/persona-types.ts",
+        "lines": "149",
+        "symbol": "FROZEN_SCORE_WEIGHTS.switchingCostFit",
+        "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:84"
+      },
+      "dataCite": { "path": "$.frozenScoreWeights.switchingCostFit", "value": 0.05 }
+    },
+    {
+      "id": "preferenceFit",
+      "weight": 0.05,
+      "weightPoints": 5,
+      "inputField": "persona.preferredWorkflow × (integrationQuality, usabilityFriction)",
+      "normalization": "single-tool: clamp01(0.7 + integrationQuality*0.3); specialist-stack: clamp01(integrationQuality*0.85); spreadsheet: clamp01(usabilityFriction*0.8); mixed: 0.5",
+      "codeCite": {
+        "file": "packages/agent/src/persona-types.ts",
+        "lines": "150",
+        "symbol": "FROZEN_SCORE_WEIGHTS.preferenceFit",
+        "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:84"
+      },
+      "dataCite": { "path": "$.frozenScoreWeights.preferenceFit", "value": 0.05 }
+    }
+  ],
+
+  "weightedScoreFormula": {
+    "expression": "score = round_1dp(100 * Σ weight[c] * component[c]) over SCORE_COMPONENTS",
+    "codeCite": {
+      "file": "packages/agent/src/persona-scoring.ts",
+      "lines": "219-225",
+      "symbol": "weightedScore (Math.round(sum*1000)/10 — 0..100, one decimal)"
+    },
+    "dataCite": { "path": "$.frozenScoreWeights", "value": "the seven weights, sum = 1.0" }
+  },
+
+  "reasonCodes": [
+    {
+      "id": "capability-gap",
+      "feeds": "missingCapabilityReasonCodes — vetoes (a); vetoes (c) too (only capability-gap is exempted from (c)-blockers when OTHER codes are absent — see persona-scoring.ts:158)",
+      "codeCite": { "file": "packages/agent/src/persona-types.ts", "lines": "185", "symbol": "ReasonCode", "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:79" },
+      "dataCite": { "path": "$.reasonCodes[0]", "value": "capability-gap" }
+    },
+    {
+      "id": "ui-friction",
+      "feeds": "frictionReasonCodes — never blocks eligibility; recorded as reason code on the decision",
+      "codeCite": { "file": "packages/agent/src/persona-types.ts", "lines": "186", "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:79" },
+      "dataCite": { "path": "$.reasonCodes[1]", "value": "ui-friction" }
+    },
+    {
+      "id": "trust-compliance",
+      "feeds": "blocker or friction bucket depending on record-level hardBlockers",
+      "codeCite": { "file": "packages/agent/src/persona-types.ts", "lines": "187", "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:79" },
+      "dataCite": { "path": "$.reasonCodes[2]", "value": "trust-compliance" }
+    },
+    {
+      "id": "price-cost",
+      "feeds": "blocker or friction bucket depending on record-level hardBlockers",
+      "codeCite": { "file": "packages/agent/src/persona-types.ts", "lines": "188", "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:79" },
+      "dataCite": { "path": "$.reasonCodes[3]", "value": "price-cost" }
+    },
+    {
+      "id": "integration-readiness",
+      "feeds": "blocker or friction bucket depending on record-level hardBlockers",
+      "codeCite": { "file": "packages/agent/src/persona-types.ts", "lines": "189", "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:79" },
+      "dataCite": { "path": "$.reasonCodes[4]", "value": "integration-readiness" }
+    },
+    {
+      "id": "training-switch-cost",
+      "feeds": "blocker or friction bucket depending on record-level hardBlockers",
+      "codeCite": { "file": "packages/agent/src/persona-types.ts", "lines": "190", "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:79" },
+      "dataCite": { "path": "$.reasonCodes[5]", "value": "training-switch-cost" }
+    },
+    {
+      "id": "preference",
+      "feeds": "preferenceReasonCodes — never blocks eligibility",
+      "codeCite": { "file": "packages/agent/src/persona-types.ts", "lines": "191", "contractSurfaceLine": "packages/agent/src/contract.w2-009.ts:79" },
+      "dataCite": { "path": "$.reasonCodes[6]", "value": "preference" }
+    }
+  ],
+
+  "fourAdoptionOutputs": [
+    {
+      "id": "a",
+      "label": "Technical full-switch eligibility",
+      "rule": "no veto AND applicableJourneyCount > 0 AND journeyCompletionRate >= 1.0 AND no missing-capability codes AND no blocker codes",
+      "codeCite": { "file": "packages/agent/src/persona-scoring.ts", "lines": "139-149" },
+      "dataCite": { "path": "$.fourAdoptionOutputs[0].rule" }
+    },
+    {
+      "id": "b",
+      "label": "Simulated stated willingness to switch completely",
+      "rule": "no veto AND (a) AND weighted score >= 65",
+      "codeCite": { "file": "packages/agent/src/persona-scoring.ts", "lines": "170-171" },
+      "dataCite": { "path": "$.fourAdoptionOutputs[1].rule" }
+    },
+    {
+      "id": "c",
+      "label": "Main-interface eligibility",
+      "rule": "no veto AND applicableJourneyCount > 0 AND journeyCompletionRate >= 0.8 AND no blockers (capability-gap exempt) AND no other missing-capability codes",
+      "codeCite": { "file": "packages/agent/src/persona-scoring.ts", "lines": "156-166" },
+      "dataCite": { "path": "$.fourAdoptionOutputs[2].rule" }
+    },
+    {
+      "id": "d",
+      "label": "Simulated stated willingness to use as main interface",
+      "rule": "no veto AND (c) AND weighted score >= 55",
+      "codeCite": { "file": "packages/agent/src/persona-scoring.ts", "lines": "175-176" },
+      "dataCite": { "path": "$.fourAdoptionOutputs[3].rule" }
+    }
+  ],
+
+  "contractLaws": [
+    { "law": 1, "text": "Persona autonomy protected; critical failures VETO adoption regardless of weighted score.", "codeCite": { "file": "packages/agent/src/contract.w2-009.ts", "lines": "11-13" } },
+    { "law": 2, "text": "Commerce-only incumbents; broad vertical applications never scored as overall competitors.", "codeCite": { "file": "packages/agent/src/contract.w2-009.ts", "lines": "14-18" } },
+    { "law": 3, "text": "Simulated willingness is NOT human survey intent; caveat on every report.", "codeCite": { "file": "packages/agent/src/contract.w2-009.ts", "lines": "18-21" } },
+    { "law": 4, "text": "No chain-of-thought capture; concise reason codes only.", "codeCite": { "file": "packages/agent/src/contract.w2-009.ts", "lines": "21-24" } },
+    { "law": 5, "text": "Score formulas VERSIONED and FROZEN before baseline; any change requires rescoring + TL sign-off.", "codeCite": { "file": "packages/agent/src/contract.w2-009.ts", "lines": "24-26" } },
+    { "law": 6, "text": "V1/V2 registries immutable; v3-simulation-state.json is TL-only.", "codeCite": { "file": "packages/agent/src/contract.w2-009.ts", "lines": "26-27" } },
+    { "law": 7, "text": "Four separate outputs — never merged into a single adoption metric.", "codeCite": { "file": "packages/agent/src/contract.w2-009.ts", "lines": "27-34" } },
+    { "law": 8, "text": "Reality/Lab seven-way configurations evaluated for decision quality only; NEVER confound the GUI adoption score.", "codeCite": { "file": "packages/agent/src/contract.w2-009.ts", "lines": "35-38" } }
+  ],
+
+  "operationalEvidenceSemantics": {
+    "note": "NOT part of the frozen w2-009:v1 constants — these are the evidence-mapper numbers (packages/experience/src/sim/adoption-mapper.ts) that realize the contract's components from JourneyEvidenceRecords. They are where evidence-side score is structurally gained/lost, so they are mapped here for the ranking; the contract weights/thresholds above remain the frozen authority.",
+    "zeroOnEmptyBundle": {
+      "id": "empty-bundle-zeroing",
+      "semantics": "records.length === 0 ⇒ journeyCompletionRate, usabilityFrictionScore, outcomeParityRate, trustProofScore, integrationQualityScore ALL = 0 (only persona-bound switchingCostFit and preferenceFit survive) — the structural root of the empty-bundle score ≈ 4.4.",
+      "codeCite": { "file": "packages/experience/src/sim/adoption-mapper.ts", "lines": "56-57, 63-64, 68-69, 73-74, 79-80" }
+    },
+    "frictionPenalties": [
+      { "penalty": "backtrack", "per": "0.1 per backtrack entry", "codeCite": { "file": "packages/experience/src/sim/adoption-mapper.ts", "lines": "132" } },
+      { "penalty": "failedStep", "per": "0.15 per non-blocked failed step", "codeCite": { "file": "packages/experience/src/sim/adoption-mapper.ts", "lines": "133" } },
+      { "penalty": "blockedStep", "per": "0.2 per blocked step", "codeCite": { "file": "packages/experience/src/sim/adoption-mapper.ts", "lines": "134" } },
+      { "penalty": "errorRecoveryEntry", "per": "0.1 per error-recovery entry (recovered or not)", "codeCite": { "file": "packages/experience/src/sim/adoption-mapper.ts", "lines": "135" } },
+      { "penalty": "outcome", "per": "pass 0 / unknown 0.3 / fail|blocked|absent 0.5", "codeCite": { "file": "packages/experience/src/sim/adoption-mapper.ts", "lines": "136" } },
+      { "penalty": "clamp", "per": "per-record penalty clamped to [0,1]; persona value = 1 - mean(penalties)", "codeCite": { "file": "packages/experience/src/sim/adoption-mapper.ts", "lines": "121-127, 139" } }
+    ],
+    "parityRule": {
+      "id": "assertion-parity",
+      "semantics": "a record counts toward parity ONLY if it has ≥1 commerce assertion AND all assertions passed; zero-assertion records count as parity 0 for that journey.",
+      "codeCite": { "file": "packages/experience/src/sim/adoption-mapper.ts", "lines": "143-158" }
+    },
+    "trustProofMapping": [
+      { "input": "proofLevel P0..P5", "mapsTo": "0, 0.2, 0.4, 0.6, 0.8, 1.0 (none → 0)", "codeCite": { "file": "packages/experience/src/sim/adoption-mapper.ts", "lines": "170-174" } },
+      { "input": "preservedThroughReconnect", "mapsTo": "+0.1", "codeCite": { "file": "packages/experience/src/sim/adoption-mapper.ts", "lines": "176" } },
+      { "input": "evidenceArtifacts.length > 0", "mapsTo": "+0.05", "codeCite": { "file": "packages/experience/src/sim/adoption-mapper.ts", "lines": "178" } },
+      { "input": "sum", "mapsTo": "min(1, proofScore + reconnectBonus + hasArtifacts)", "codeCite": { "file": "packages/experience/src/sim/adoption-mapper.ts", "lines": "179" } }
+    ],
+    "integrationQualityMapping": [
+      { "input": "connector state healthy", "mapsTo": "1.0", "codeCite": { "file": "packages/experience/src/sim/adoption-mapper.ts", "lines": "208" } },
+      { "input": "degraded", "mapsTo": "0.6", "codeCite": { "file": "packages/experience/src/sim/adoption-mapper.ts", "lines": "209" } },
+      { "input": "stale", "mapsTo": "0.4", "codeCite": { "file": "packages/experience/src/sim/adoption-mapper.ts", "lines": "210" } },
+      { "input": "unknown", "mapsTo": "0.3", "codeCite": { "file": "packages/experience/src/sim/adoption-mapper.ts", "lines": "211" } },
+      { "input": "disconnected", "mapsTo": "0.2", "codeCite": { "file": "packages/experience/src/sim/adoption-mapper.ts", "lines": "212" } },
+      { "input": "unauthorized", "mapsTo": "0.1", "codeCite": { "file": "packages/experience/src/sim/adoption-mapper.ts", "lines": "213" } },
+      { "input": "compromised", "mapsTo": "0.0", "codeCite": { "file": "packages/experience/src/sim/adoption-mapper.ts", "lines": "214" } },
+      { "input": "no connector states recorded (journey touched no connector)", "mapsTo": "neutral 0.5 — STRUCTURAL CAP: honest ceiling < 1.0 whenever a persona's applicable families include non-connector journeys", "codeCite": { "file": "packages/experience/src/sim/adoption-mapper.ts", "lines": "194-197" } }
+    ],
+    "genericDriverEvidenceFloor": {
+      "id": "generic-driver-evidence",
+      "semantics": "the current generic driver (journey-drivers.ts) records: proofLevel P3 (approvalRequired) / P2 (otherwise) ⇒ trust 0.75 / 0.55; connector state 'unknown' (0.3) on connectorDependent families; 1 journaled-command artifact; preservedThroughReconnect true; exactly 1 passing assertion. These are the per-record floors the product levers move.",
+      "codeCite": { "file": "packages/experience/src/sim/journey-drivers.ts", "lines": "112-134" }
+    }
+  },
+
+  "completenessCrossCheck": {
+    "method": "docs/simulations/cycle-1/analysis/verify-deliverables.ts imports the frozen constants from packages/agent/src (the same exports contract.w2-009.ts re-exports) and asserts every weight, threshold, component, veto category and reason code in this file matches the source and the adoption-contract.json data side; weight sum must equal 1.0.",
+    "command": "node_modules/.bin/tsx docs/simulations/cycle-1/analysis/verify-deliverables.ts"
+  }
+}
