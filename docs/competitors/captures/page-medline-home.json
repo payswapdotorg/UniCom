@@ -1,0 +1,31 @@
+{
+  "code": 200,
+  "data": {
+    "description": "",
+    "external": {},
+    "html": "<html lang=\"en\"><head><title>medline.com</title><style>#cmsg{animation: A 1.5s;}@keyframes A{0%{opacity:0;}99%{opacity:0;}100%{opacity:1;}}</style><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"></head><body style=\"margin:0\"><script data-cfasync=\"false\">var dd={'rt':'c','cid':'AHrlqAAAAAMApL24TUbFnusA-Jv7Yg==','hsh':'6667AB34829BB05425DE41F9167578','t':'bv','qp':'','s':35519,'e':'e9f1977cf52079a30f76e1ac3ab040a6af9410a7280545e796de736a1acd38aceb712a63572f77d4d0a95c85d4d77638','host':'geo.captcha-delivery.com','cookie':'CMOoGbi5BOH8Iznv74WPWUEDKVpjZB7iGSsbZj6FAzAB39d_RdnxyxBpU8ZfWSasxNrSCkRtWeK3Q6j3FxMXU8jCiRbAiQLC3XHf_~sYqXIHPc_srWuDUYnAReGaFj8~'}</script><script data-cfasync=\"false\" src=\"https://ct.captcha-delivery.com/c.js\"></script><iframe src=\"https://geo.captcha-delivery.com/captcha/?initialCid=AHrlqAAAAAMApL24TUbFnusA-Jv7Yg%3D%3D&amp;hash=6667AB34829BB05425DE41F9167578&amp;cid=CMOoGbi5BOH8Iznv74WPWUEDKVpjZB7iGSsbZj6FAzAB39d_RdnxyxBpU8ZfWSasxNrSCkRtWeK3Q6j3FxMXU8jCiRbAiQLC3XHf_~sYqXIHPc_srWuDUYnAReGaFj8~&amp;t=bv&amp;referer=https%3A%2F%2Fwww.medline.com%2F&amp;s=35519&amp;e=e9f1977cf52079a30f76e1ac3ab040a6af9410a7280545e796de736a1acd38aceb712a63572f77d4d0a95c85d4d77638&amp;dm=cd\" sandbox=\"allow-scripts allow-same-origin allow-forms\" allow=\"accelerometer; gyroscope; magnetometer\" title=\"DataDome CAPTCHA\" width=\"100%\" height=\"100%\" style=\"height:100vh;\" frameborder=\"0\" border=\"0\" scrolling=\"yes\"></iframe><script type=\"module\" src=\"https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920\" integrity=\"sha512-L0ha0OXavK/8okipN9F8BtP84dg9DUhPERbBXzwI6dgTA55d2+yweo3pn5CSFYs45/r8md2+xvUPtTdvTNRfjA==\" data-cf-beacon=\"{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;8060abe91d77431591075327aeecfe08&quot;,&quot;spa&quot;:2}\" crossorigin=\"anonymous\"></script>\n<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML=\"window.__CF$cv$params={r:'a47e76acced727a4',t:'MTc5MTU2MDIxNA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);\";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height=\"1\" width=\"1\" style=\"position: absolute; top: 0px; left: 0px; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; visibility: hidden;\"></iframe></body></html>",
+    "httpStatus": 200,
+    "httpStatusText": "OK",
+    "metadata": {
+      "lang": "en",
+      "viewport": "width=device-width, initial-scale=1.0"
+    },
+    "title": "medline.com",
+    "url": "https://www.medline.com/",
+    "usage": {
+      "measuredTokens": 0,
+      "outputTokens": 0,
+      "scaledTokens": 1103,
+      "tokens": 1103
+    }
+  },
+  "meta": {
+    "usage": {
+      "measuredTokens": 0,
+      "outputTokens": 0,
+      "scaledTokens": 1103,
+      "tokens": 1103
+    }
+  },
+  "status": 20000
+}

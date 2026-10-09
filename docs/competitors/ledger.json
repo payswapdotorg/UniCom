@@ -1,0 +1,1624 @@
+{
+  "ledger_id": "W3-014-INCUMBENT-EVIDENCE-LEDGER",
+  "version": "1.0.0",
+  "frozen_task_pack": "docs/competitors/task-pack.json (frozen 2026-10-09, committed before evidence capture)",
+  "observation_window": "2026-10-09, ~15:30-17:20 UTC",
+  "evaluator": "W3-014 worker (no vendor accounts, no paid plans, no vendor outreach)",
+  "method": {
+    "tools": "z-ai web_search (query -> official URLs) + page_reader (content extraction of official pages); captures committed under docs/competitors/captures/ (search-*.json, page-*.json raw, text-*.txt extracted text)",
+    "class_assignment": "A=authorized account/sandbox (none available; 0 produced). B=authentic official interactive demo/public UI observed via content extraction (no login, no interaction, no transaction; limitation always recorded). C=official documentation page READ by evaluator (page capture in repo; nav-level or marketing-level depth recorded as limitation). D=unverified/not accessible (JS-walled, stub, tracker junk, timeout) \u2014 official URLs recorded as pointers; D supports NO claim including superiority.",
+    "status_vocabulary": {
+      "offered": "capability present per captured evidence (coverage field may say partial)",
+      "not_verified": "no sufficient evidence either way",
+      "not_accessible": "evaluator blocked (JS wall, login wall, site down) \u2014 NOT proof the competitor lacks the capability",
+      "not_applicable": "outside this incumbent's product category per task-pack applicability guidance"
+    },
+    "honesty_rules": [
+      "no fabricated UI actions, features, prices, latency, market share or position",
+      "no timing claims (no reproducible comparable-condition method exists)",
+      "categories strictly separated",
+      "workflow-level tables only; no aggregate winner",
+      "UNiCOM column cites contract-level surfaces only; rendered-browser evidence belongs to W1-010's lane",
+      "V3 numbers are synthetic simulation estimates, labelled as such"
+    ]
+  },
+  "evidence_class_counts_overall": {
+    "A": 0,
+    "B": 11,
+    "C": 51,
+    "D": 11
+  },
+  "incumbents": [
+    {
+      "id": "coupa",
+      "vendor": "Coupa Software",
+      "product": "Coupa Procurement (Procure-to-Order) + Coupa Sourcing",
+      "edition": "not identifiable from public pages; no account access",
+      "category": "procurement suite",
+      "industries": [
+        "Finance/Banking",
+        "Technology/IT",
+        "Defense/Gov",
+        "Manufacturing",
+        "Legal/Prof Services"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "official public web pages read via content extraction",
+      "urls": [
+        "https://www.coupa.com/products/procure-to-pay/procurement",
+        "https://www.coupa.com/products/source-to-contract/sourcing"
+      ],
+      "captures": [
+        "page-coupa-proc.json",
+        "page-coupa-sourcing.json"
+      ],
+      "best_class": "C"
+    },
+    {
+      "id": "ariba",
+      "vendor": "SAP",
+      "product": "SAP Ariba Buying and Invoicing (Procure-to-Pay)",
+      "edition": "not identifiable from public pages",
+      "category": "procurement suite",
+      "industries": [
+        "Finance/Banking",
+        "Technology/IT",
+        "Defense/Gov",
+        "Manufacturing"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "official public web page read",
+      "urls": [
+        "https://www.sap.com/products/spend-management/procure-to-pay.html"
+      ],
+      "captures": [
+        "page-ariba-p2p.json"
+      ],
+      "best_class": "C"
+    },
+    {
+      "id": "ambiz",
+      "vendor": "Amazon",
+      "product": "Amazon Business (Guided Buying, Approvals)",
+      "edition": "not identifiable; no Business account",
+      "category": "B2B marketplace + purchasing controls",
+      "industries": [
+        "Construction",
+        "Finance/Banking",
+        "Sales/BD",
+        "Technology/IT",
+        "Transportation",
+        "Healthcare",
+        "Legal/Prof Services",
+        "Defense/Gov",
+        "Manufacturing",
+        "Supermarkets"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "official public web page read",
+      "urls": [
+        "https://business.amazon.com/en/solutions/compliance-management/guided-buying"
+      ],
+      "captures": [
+        "page-ambiz-guided.json"
+      ],
+      "best_class": "C"
+    },
+    {
+      "id": "alibaba",
+      "vendor": "Alibaba Group",
+      "product": "Alibaba.com B2B marketplace (RFQ, Trade Assurance)",
+      "edition": "public site",
+      "category": "B2B marketplace",
+      "industries": [
+        "Sales/BD",
+        "Fashion/Apparel",
+        "Manufacturing",
+        "Construction",
+        "Technology/IT"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "public RFQ UI observed via content extraction + official buying guide read",
+      "urls": [
+        "https://rfq.alibaba.com",
+        "https://smartbuy.alibaba.com/b2b/how-does-alibaba-b2b-work"
+      ],
+      "captures": [
+        "page-alibaba-rfq.json",
+        "page-alibaba-how.json"
+      ],
+      "best_class": "B"
+    },
+    {
+      "id": "gsa",
+      "vendor": "U.S. General Services Administration",
+      "product": "GSA Advantage! / GSA eBuy / GSA Global Supply (buy.gsa.gov)",
+      "edition": "public federal system",
+      "category": "government purchasing portal",
+      "industries": [
+        "Defense/Gov"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "official .gov page read",
+      "urls": [
+        "https://buy.gsa.gov/buy-now"
+      ],
+      "captures": [
+        "page-gsa-buynow.json"
+      ],
+      "best_class": "C"
+    },
+    {
+      "id": "faire",
+      "vendor": "Faire",
+      "product": "Faire wholesale marketplace",
+      "edition": "unknown",
+      "category": "B2B wholesale marketplace",
+      "industries": [
+        "Sales/BD",
+        "Fashion/Apparel"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "page-read attempts returned ad-tracker stub; search-only",
+      "urls": [
+        "https://www.faire.com",
+        "https://www.faire.com/discover/apply-for-net-60"
+      ],
+      "captures": [
+        "page-faire-home.json",
+        "search-faire.json"
+      ],
+      "best_class": "D"
+    },
+    {
+      "id": "joor",
+      "vendor": "JOOR",
+      "product": "JOOR digital wholesale platform (buyer side)",
+      "edition": "not identifiable",
+      "category": "B2B wholesale platform",
+      "industries": [
+        "Fashion/Apparel",
+        "Sales/BD"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "official public web page read",
+      "urls": [
+        "https://www.joor.com/retailers"
+      ],
+      "captures": [
+        "page-joor-retail.json"
+      ],
+      "best_class": "C"
+    },
+    {
+      "id": "nuorder",
+      "vendor": "NuORDER (LBMB)",
+      "product": "NuORDER B2B wholesale platform",
+      "edition": "unknown",
+      "category": "B2B wholesale platform",
+      "industries": [
+        "Fashion/Apparel",
+        "Sales/BD"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "read attempt failed; search-only",
+      "urls": [
+        "https://www.nuorder.com",
+        "https://www.nuorder.com/wholesale"
+      ],
+      "captures": [
+        "search-nuorder.json"
+      ],
+      "best_class": "D"
+    },
+    {
+      "id": "shopify",
+      "vendor": "Shopify",
+      "product": "Shopify B2B (help-center capability list) + Shopify POS",
+      "edition": "B2B features documented incl. Plus-only items",
+      "category": "storefront platform + POS",
+      "industries": [
+        "Sales/BD",
+        "Fashion/Apparel",
+        "Supermarkets",
+        "Hospitality"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "official help-center page + product page read",
+      "urls": [
+        "https://help.shopify.com/en/manual/b2b/getting-started/features",
+        "https://www.shopify.com/pos"
+      ],
+      "captures": [
+        "page-shopify-b2bfeat.json",
+        "page-shopify-pos.json"
+      ],
+      "best_class": "C"
+    },
+    {
+      "id": "square",
+      "vendor": "Block, Inc.",
+      "product": "Square for Retail POS",
+      "edition": "not identifiable from public page",
+      "category": "POS/inventory",
+      "industries": [
+        "Supermarkets",
+        "Fashion/Apparel",
+        "Hospitality"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "official product page read",
+      "urls": [
+        "https://squareup.com/us/en/point-of-sale/retail"
+      ],
+      "captures": [
+        "page-square-retail.json"
+      ],
+      "best_class": "C"
+    },
+    {
+      "id": "lightspeed",
+      "vendor": "Lightspeed Commerce",
+      "product": "Lightspeed Retail POS inventory management",
+      "edition": "not identifiable",
+      "category": "POS/inventory",
+      "industries": [
+        "Supermarkets",
+        "Fashion/Apparel"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "official product page read",
+      "urls": [
+        "https://www.lightspeedhq.com/pos/retail/inventory-management-software"
+      ],
+      "captures": [
+        "page-lightspeed-inv.json"
+      ],
+      "best_class": "C"
+    },
+    {
+      "id": "toast",
+      "vendor": "Toast, Inc.",
+      "product": "Toast POS Inventory Management",
+      "edition": "not identifiable",
+      "category": "restaurant POS/inventory",
+      "industries": [
+        "Hospitality"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "official product page read",
+      "urls": [
+        "https://pos.toasttab.com/products/inventory-management"
+      ],
+      "captures": [
+        "page-toast-inv.json"
+      ],
+      "best_class": "C"
+    },
+    {
+      "id": "marketman",
+      "vendor": "MarketMan",
+      "product": "MarketMan purchasing & order management",
+      "edition": "not identifiable",
+      "category": "restaurant purchasing/inventory",
+      "industries": [
+        "Hospitality"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "official product page read",
+      "urls": [
+        "https://www.marketman.com/platform/restaurant-purchasing-software-and-order-management"
+      ],
+      "captures": [
+        "page-marketman-purch.json"
+      ],
+      "best_class": "C"
+    },
+    {
+      "id": "ebay",
+      "vendor": "eBay Inc.",
+      "product": "eBay marketplace + Money Back Guarantee",
+      "edition": "public site",
+      "category": "consumer resale marketplace",
+      "industries": [
+        "Fashion/Apparel",
+        "Construction (used tools)",
+        "Entertainment (used gear)",
+        "Transportation (used parts)"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "official policy/help page read",
+      "urls": [
+        "https://pages.ebay.com/ebay-money-back-guarantee"
+      ],
+      "captures": [
+        "page-ebay-mbg.json"
+      ],
+      "best_class": "C"
+    },
+    {
+      "id": "poshmark",
+      "vendor": "Poshmark",
+      "product": "Poshmark marketplace (seller shipping guide)",
+      "edition": "public site",
+      "category": "consumer resale marketplace",
+      "industries": [
+        "Fashion/Apparel"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "official guide page read",
+      "urls": [
+        "https://poshmark.com/posh_guide/how_to_ship"
+      ],
+      "captures": [
+        "page-poshmark-guide.json"
+      ],
+      "best_class": "C"
+    },
+    {
+      "id": "depop",
+      "vendor": "Depop",
+      "product": "Depop marketplace",
+      "edition": "public site",
+      "category": "consumer resale marketplace",
+      "industries": [
+        "Fashion/Apparel"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "public homepage observed via content extraction",
+      "urls": [
+        "https://www.depop.com"
+      ],
+      "captures": [
+        "page-depop-home.json"
+      ],
+      "best_class": "B"
+    },
+    {
+      "id": "sharegrid",
+      "vendor": "ShareGrid",
+      "product": "ShareGrid gear rental marketplace",
+      "edition": "public site",
+      "category": "rental marketplace",
+      "industries": [
+        "Entertainment/Media",
+        "Construction (equipment)"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "public marketplace UI observed via content extraction",
+      "urls": [
+        "https://www.sharegrid.com"
+      ],
+      "captures": [
+        "page-sharegrid-home.json"
+      ],
+      "best_class": "B"
+    },
+    {
+      "id": "kitsplit",
+      "vendor": "KitSplit",
+      "product": "KitSplit equipment rental marketplace",
+      "edition": "unknown",
+      "category": "rental marketplace",
+      "industries": [
+        "Entertainment/Media"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "site returned maintenance stub at observation time",
+      "urls": [
+        "https://kitsplit.com"
+      ],
+      "captures": [
+        "page-kitsplit-home.json"
+      ],
+      "best_class": "D"
+    },
+    {
+      "id": "unitedrentals",
+      "vendor": "United Rentals",
+      "product": "United Rentals My Equipment / Total Control",
+      "edition": "public site",
+      "category": "equipment rental (enterprise)",
+      "industries": [
+        "Construction",
+        "Entertainment/Media",
+        "Transportation"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "official feature page read (nav-heavy)",
+      "urls": [
+        "https://www.unitedrentals.com/features/my-equipment"
+      ],
+      "captures": [
+        "page-united-my equip.json"
+      ],
+      "best_class": "C"
+    },
+    {
+      "id": "grainger",
+      "vendor": "W.W. Grainger",
+      "product": "Grainger MRO industrial supply (online ordering)",
+      "edition": "unknown",
+      "category": "industrial supplier catalog",
+      "industries": [
+        "Construction",
+        "Manufacturing",
+        "Transportation",
+        "Healthcare (facilities)"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "read attempts JS-walled; search-only",
+      "urls": [
+        "https://www.grainger.com",
+        "https://www.grainger.com/content/online-purchasing-solutions"
+      ],
+      "captures": [
+        "search-grainger.json",
+        "page-grainger-purch.json"
+      ],
+      "best_class": "D"
+    },
+    {
+      "id": "mcmaster",
+      "vendor": "McMaster-Carr",
+      "product": "McMaster-Carr catalog and ordering site",
+      "edition": "public site",
+      "category": "industrial supplier catalog",
+      "industries": [
+        "Manufacturing",
+        "Construction",
+        "Transportation"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "live public catalog UI observed via content extraction",
+      "urls": [
+        "https://www.mcmaster.com"
+      ],
+      "captures": [
+        "page-mcmaster-home.json"
+      ],
+      "best_class": "B"
+    },
+    {
+      "id": "cdw",
+      "vendor": "CDW Corporation",
+      "product": "CDW business IT purchasing site",
+      "edition": "not identifiable; no account",
+      "category": "IT reseller",
+      "industries": [
+        "Technology/IT",
+        "Legal/Prof Services",
+        "Finance/Banking"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "official homepage read",
+      "urls": [
+        "https://www.cdw.com"
+      ],
+      "captures": [
+        "page-cdw-home.json"
+      ],
+      "best_class": "C"
+    },
+    {
+      "id": "ghx",
+      "vendor": "Global Healthcare Exchange (GHX)",
+      "product": "GHX Marketplace (order automation)",
+      "edition": "not identifiable; no provider account",
+      "category": "healthcare supply chain / procurement",
+      "industries": [
+        "Healthcare"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "official product page read",
+      "urls": [
+        "https://www.ghx.com/order-automation-providers/marketplace"
+      ],
+      "captures": [
+        "page-ghx-market.json"
+      ],
+      "best_class": "C"
+    },
+    {
+      "id": "medline",
+      "vendor": "Medline Industries",
+      "product": "Medline medical supplies ordering (incl. order tutorial)",
+      "edition": "unknown",
+      "category": "healthcare supplier portal",
+      "industries": [
+        "Healthcare"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "read attempts JS-walled; search-only",
+      "urls": [
+        "https://www.medline.com",
+        "https://www.medline.com/help/tutorials/placing-an-order-2"
+      ],
+      "captures": [
+        "search-medline.json"
+      ],
+      "best_class": "D"
+    },
+    {
+      "id": "sysco",
+      "vendor": "Sysco",
+      "product": "Sysco Shop online ordering",
+      "edition": "unknown; login-walled",
+      "category": "foodservice supplier portal",
+      "industries": [
+        "Hospitality"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "read returned JS-disabled stub; search-only",
+      "urls": [
+        "https://shop.sysco.com"
+      ],
+      "captures": [
+        "search-sysco.json",
+        "page-sysco-shop.json"
+      ],
+      "best_class": "D"
+    },
+    {
+      "id": "thomasnet",
+      "vendor": "Thomas",
+      "product": "Thomasnet B2B sourcing platform",
+      "edition": "unknown",
+      "category": "B2B sourcing/discovery platform",
+      "industries": [
+        "Manufacturing",
+        "Construction"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "three read attempts failed/JS-walled; search-only",
+      "urls": [
+        "https://www.thomasnet.com",
+        "https://www.thomasnet.com/procurement"
+      ],
+      "captures": [
+        "search-thomasnet.json"
+      ],
+      "best_class": "D"
+    },
+    {
+      "id": "xometry",
+      "vendor": "Xometry",
+      "product": "Xometry on-demand manufacturing marketplace",
+      "edition": "public site",
+      "category": "manufacturing marketplace (custom parts)",
+      "industries": [
+        "Manufacturing"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "official homepage read",
+      "urls": [
+        "https://www.xometry.com"
+      ],
+      "captures": [
+        "page-xometry-home.json"
+      ],
+      "best_class": "C"
+    },
+    {
+      "id": "instacart",
+      "vendor": "Instacart",
+      "product": "Instacart Platform (grocery e-commerce)",
+      "edition": "unknown",
+      "category": "grocery commerce platform",
+      "industries": [
+        "Supermarkets"
+      ],
+      "observation_date": "2026-10-09",
+      "access_mode": "read attempts failed; search-only",
+      "urls": [
+        "https://company.instacart.com/updates/the-instacart-platform-powering-the-future-of-grocery"
+      ],
+      "captures": [
+        "search-instacart.json"
+      ],
+      "best_class": "D"
+    }
+  ],
+  "observations": [
+    {
+      "incumbent": "coupa",
+      "task": "TP-01",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-coupa-proc.txt",
+      "observed_evidence": "\u2026Supplier Information & Risk Management Manage risk across suppliers\u2026; sourcing product page: \u2026collect supplier bids\u2026",
+      "limitations": "module-level documentation; no UI interaction; supplier-discovery depth (search/marketplace) not exercised"
+    },
+    {
+      "incumbent": "coupa",
+      "task": "TP-02",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-coupa-sourcing.txt",
+      "observed_evidence": "\u2026RFx events , such as Request for Information (RFI) , Request for Quote (RFQ)\u2026; \u2026evaluating multiple variables simultaneously\u2026",
+      "limitations": "quote-comparison workflow documented at product level; line-level comparison UI not observed"
+    },
+    {
+      "incumbent": "coupa",
+      "task": "TP-03",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-coupa-proc.txt",
+      "observed_evidence": "\u2026Simplify your purchase requisition and order processes, and track them in real time\u2026; nav: \u2026Budget management SpendGuard\u2122\u2026",
+      "limitations": "requisition/budget constraint documented; natural-language intent canvas not claimed"
+    },
+    {
+      "incumbent": "coupa",
+      "task": "TP-04",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-coupa-sourcing.txt",
+      "observed_evidence": "\u2026of your full spending power in supplier negotiations\u2026",
+      "limitations": "negotiation dimension only; buy-vs-wait price timing and substitution not evidenced",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "coupa",
+      "task": "TP-10",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-coupa-proc.txt",
+      "observed_evidence": "\u2026Accelerate approval processes Speed up your approval processes with email and mobile approvals\u2026; \u2026greater visibility into purchase orders\u2026; \u2026Invoice-to-Pay AP Automation\u2026",
+      "limitations": "product-page level; partial receiving and 3-way match detail not read"
+    },
+    {
+      "incumbent": "coupa",
+      "task": "TP-11",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-coupa-proc.txt",
+      "observed_evidence": "\u2026track them in real time to reduce cycle times\u2026",
+      "limitations": "procurement order tracking; consumer-style returns/refunds not in scope of read pages",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "coupa",
+      "task": "TP-16",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-coupa-proc.txt",
+      "observed_evidence": "\u2026Fraud Protection Detect and prevent\u2026",
+      "limitations": "nav-level label only; fraud workflow detail not read",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "ariba",
+      "task": "TP-01",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-ariba-p2p.txt",
+      "observed_evidence": "\u2026improved supplier collaboration, and greater spend coverage\u2026",
+      "limitations": "procure-to-pay page only; supplier discovery/search not exercised"
+    },
+    {
+      "incumbent": "ariba",
+      "task": "TP-03",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-ariba-p2p.txt",
+      "observed_evidence": "\u2026Requisition monitoring and approval on the go\u2026",
+      "limitations": "requisition + approval documented"
+    },
+    {
+      "incumbent": "ariba",
+      "task": "TP-10",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-ariba-p2p.txt",
+      "observed_evidence": "\u2026order fulfillments and status updates, invoice processing, discounts optimization, and payment visibility\u2026; \u2026Touchless invoice reconciliation\u2026; \u2026Real-time tax, budget, and inventory checks\u2026",
+      "limitations": "product-page level"
+    },
+    {
+      "incumbent": "ariba",
+      "task": "TP-11",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-ariba-p2p.txt",
+      "observed_evidence": "\u2026order fulfillments and status updates\u2026",
+      "limitations": "order lifecycle on procurement side",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "ariba",
+      "task": "TP-02",
+      "status": "not_verified",
+      "evidence_class": "D",
+      "evidence_pointer": "captures/search-ariba.json",
+      "observed_evidence": "official sourcing page URL identified (sap.com/products/spend-management/ariba-sourcing.html); RFx content not read",
+      "limitations": "page not read; official-domain snippet only"
+    },
+    {
+      "incumbent": "ambiz",
+      "task": "TP-03",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-ambiz-guided.txt",
+      "observed_evidence": "\u2026Guided Buying - Buying Policies and Approvals\u2026; \u2026Build approval workflows Create approval workflows with Approvals to establish checkpoints around orders\u2026",
+      "limitations": "guided-buying page read; constraint dimensions beyond policy/approval not evidenced"
+    },
+    {
+      "incumbent": "ambiz",
+      "task": "TP-15",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-ambiz-guided.txt",
+      "observed_evidence": "\u2026Spend insights Use pre-built or custom reports to help improve purchase planning\u2026",
+      "limitations": "reporting-driven insights; proactive opportunity surfacing (price timing, resale, shared logistics) not evidenced",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "ambiz",
+      "task": "TP-17",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-ambiz-guided.txt",
+      "observed_evidence": "\u2026These messages show up on any individual product detail pages\u2026 (buying-policy messages shown at point of purchase)",
+      "limitations": "policy surfacing at product pages; stale/UNKNOWN/idempotency behavior not evidenced",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "alibaba",
+      "task": "TP-01",
+      "status": "offered",
+      "evidence_class": "B",
+      "evidence_pointer": "captures/text-alibaba-rfq.txt",
+      "observed_evidence": "\u2026M+ buyers already source from verified suppliers here, on a B2B marketplace powered by AI sourcing assistants\u2026",
+      "limitations": "public RFQ surface observed via content extraction; no interaction/transaction; login surfaces not entered"
+    },
+    {
+      "incumbent": "alibaba",
+      "task": "TP-02",
+      "status": "offered",
+      "evidence_class": "B",
+      "evidence_pointer": "captures/text-alibaba-rfq.txt",
+      "observed_evidence": "\u2026Accurate supplier matching, fast price comparison Learn about RFQ\u2026",
+      "limitations": "comparison mechanics observed as described capability on public UI; side-by-side UI not exercised"
+    },
+    {
+      "incumbent": "alibaba",
+      "task": "TP-04",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-alibaba-how.txt",
+      "observed_evidence": "\u2026egotiating terms (price, MOQ, shipping, payment method), and placing an order\u2026",
+      "limitations": "negotiation documented in official buying guide; price-wait timing not evidenced",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "alibaba",
+      "task": "TP-11",
+      "status": "offered",
+      "evidence_class": "B",
+      "evidence_pointer": "captures/text-alibaba-rfq.txt",
+      "observed_evidence": "\u2026Order protection Backed by secure payments, guaranteed delivery, money-back\u2026",
+      "limitations": "order-protection claims observed on public UI; claims flow not exercised"
+    },
+    {
+      "incumbent": "alibaba",
+      "task": "TP-13",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-alibaba-how.txt",
+      "observed_evidence": "\u2026Each listing includes specifications, minimum order quantities (MOQs), pricing tiers, and photos\u2026",
+      "limitations": "B2B listing mechanics documented"
+    },
+    {
+      "incumbent": "alibaba",
+      "task": "TP-16",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-alibaba-how.txt",
+      "observed_evidence": "\u2026secure transaction systems like Trade Assurance\u2026",
+      "limitations": "Trade Assurance documented; dispute resolution detail not read"
+    },
+    {
+      "incumbent": "alibaba",
+      "task": "TP-18",
+      "status": "offered",
+      "evidence_class": "B",
+      "evidence_pointer": "captures/text-alibaba-rfq.txt",
+      "observed_evidence": "\u2026a B2B marketplace powered by AI sourcing assistants\u2026",
+      "limitations": "AI sourcing assistant advertised on public UI; bounded autonomy/limits not evidenced",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "gsa",
+      "task": "TP-01",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-gsa-buynow.txt",
+      "observed_evidence": "\u2026GSA Advantage! GSA eBuy GSA eBuy Open GSA eLibrary GSA Global Supply\u2026",
+      "limitations": "nav-level listing of acquisition systems on official buy.gsa.gov; eBuy/eLibrary detail not read",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "gsa",
+      "task": "TP-11",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-gsa-buynow.txt",
+      "observed_evidence": "\u2026GSA Advantage!\u00ae, the online shopping and ordering system that provides access to contractors and products and services\u2026",
+      "limitations": "official description of GSA Advantage! ordering"
+    },
+    {
+      "incumbent": "gsa",
+      "task": "TP-10",
+      "status": "not_verified",
+      "evidence_class": "D",
+      "evidence_pointer": "captures/search-gsa.json",
+      "observed_evidence": "official GSA Global Supply requisition program URL identified; content not read",
+      "limitations": "page not read"
+    },
+    {
+      "incumbent": "faire",
+      "task": "TP-13",
+      "status": "not_accessible",
+      "evidence_class": "D",
+      "evidence_pointer": "captures/search-faire.json",
+      "observed_evidence": "official URLs identified: faire.com (Wholesale Marketplace), faire.com/discover/apply-for-net-60, faire.com/support/articles/360016658851; page reads returned tracker stub, no content",
+      "limitations": "evaluator could not access page content (ad-tracker stub returned twice); no capability claim made; not proof of absence"
+    },
+    {
+      "incumbent": "joor",
+      "task": "TP-13",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-joor-retail.txt",
+      "observed_evidence": "\u2026Retailers frequently use JOOR to browse catalogs and place orders with our vast network of leading global brands\u2026",
+      "limitations": "buyer-side page read; ordering workflow detail not exercised"
+    },
+    {
+      "incumbent": "joor",
+      "task": "TP-01",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-joor-retail.txt",
+      "observed_evidence": "\u2026Use JOOR Discover to expand your reach and find new retail partne[r]s\u2026",
+      "limitations": "discovery framed for brands finding retailers (reverse direction); buyer discovery of brands not directly evidenced",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "joor",
+      "task": "TP-12",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-joor-retail.txt",
+      "observed_evidence": "\u2026the all-in-one platform for fashion brands\u2026",
+      "limitations": "brand-side platform claim; catalog management detail not read",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "shopify",
+      "task": "TP-13",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-shopify-b2bfeat.txt",
+      "observed_evidence": "\u2026Shopify B2B is a suite of features that allows you to sell business-to-business (B2B) through the Shopify admin and online store\u2026; \u2026curated product catalogs and price lists\u2026",
+      "limitations": "official help-center capability checklist read"
+    },
+    {
+      "incumbent": "shopify",
+      "task": "TP-03",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-shopify-b2bfeat.txt",
+      "observed_evidence": "\u2026quantity rules to minimum, maximum, or increments that a variant can be ordered in\u2026",
+      "limitations": "quantity constraints only; budget/deadline/substitute intent not evidenced",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "shopify",
+      "task": "TP-10",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-shopify-b2bfeat.txt",
+      "observed_evidence": "\u2026Purchase order numbers Allow B2B customers to add purchase order (PO) numbers to an order\u2026",
+      "limitations": "PO numbering at checkout only; approval/receiving/invoice-match workflow not evidenced",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "shopify",
+      "task": "TP-14",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-shopify-pos.txt",
+      "observed_evidence": "\u2026Orders & Inventory\u2026; \u2026POS inventory system\u2026",
+      "limitations": "nav-level POS inventory claim; barcode/count/reconciliation detail not read",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "shopify",
+      "task": "TP-12",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-shopify-pos.txt",
+      "observed_evidence": "\u2026You could be selling by tomorrow. Switch to Shopify\u2026; \u2026Omnichannel selling\u2026",
+      "limitations": "marketing-level storefront claim; admin capability detail not read",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "square",
+      "task": "TP-14",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-square-retail.txt",
+      "observed_evidence": "\u2026Create purchase orders and vendor profiles to easily order, track, and receive inventory\u2026; \u2026Print barcode labels\u2026; \u2026track\u2026in real time across locations and channels, so you never oversell\u2026",
+      "limitations": "product-page level; offline mode and weighted goods not evidenced"
+    },
+    {
+      "incumbent": "square",
+      "task": "TP-10",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-square-retail.txt",
+      "observed_evidence": "\u2026Create purchase orders and vendor profiles to easily order, track, and receive inventory\u2026",
+      "limitations": "retail-scale procurement subset; approvals not evidenced",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "square",
+      "task": "TP-15",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-square-retail.txt",
+      "observed_evidence": "\u2026Explore Square Loyalty Keep customers eng[aged]\u2026",
+      "limitations": "loyalty dimension only; price timing/resale/shared logistics not evidenced",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "lightspeed",
+      "task": "TP-14",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-lightspeed-inv.txt",
+      "observed_evidence": "\u2026Create and manage purchase orders right from your POS inventory system\u2026; \u2026designed for growing, multi-location retailers\u2026; \u2026set reorder points or ideal minimum/maximum stock levels\u2026; \u2026Order, receive and transfer inventory in a few taps\u2026",
+      "limitations": "inventory/purchase-order features documented; no-RFID reconciliation detail not evidenced"
+    },
+    {
+      "incumbent": "lightspeed",
+      "task": "TP-10",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-lightspeed-inv.txt",
+      "observed_evidence": "\u2026Create and manage purchase orders right from your POS inventory system\u2026",
+      "limitations": "PO + receiving subset; approvals/invoice matching not evidenced",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "toast",
+      "task": "TP-14",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-toast-inv.txt",
+      "observed_evidence": "\u2026turns sales and purchasing data into inventory and cost insights\u2026",
+      "limitations": "product-page level"
+    },
+    {
+      "incumbent": "toast",
+      "task": "TP-10",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-toast-inv.txt",
+      "observed_evidence": "\u2026combines invoice automation, recipe costing, vendor management, ordering, product catalogs, and Toast POS sales data\u2026",
+      "limitations": "purchasing/invoicing subset; approvals not evidenced",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "toast",
+      "task": "TP-01",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-toast-inv.txt",
+      "observed_evidence": "\u2026vendor management, ordering, product catalogs\u2026",
+      "limitations": "vendor catalog management; supplier discovery/marketplace not claimed",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "marketman",
+      "task": "TP-10",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-marketman-purch.txt",
+      "observed_evidence": "\u2026Chefs and managers can submit purchase orders, check statuses, and manage vendors from one unified platform\u2026; \u2026Purchasing and Receiving Multi-Unit & Commissary\u2026",
+      "limitations": "multi-unit purchasing/receiving documented; approval workflow not evidenced"
+    },
+    {
+      "incumbent": "marketman",
+      "task": "TP-14",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-marketman-purch.txt",
+      "observed_evidence": "\u2026Restaurant Inventory Management\u2026; \u202610M+ Invoices Processed\u2026",
+      "limitations": "inventory module documented on purchasing page"
+    },
+    {
+      "incumbent": "ebay",
+      "task": "TP-08",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-ebay-mbg.txt",
+      "observed_evidence": "\u2026Turn your pre-loved items into extra cash. Listing is easy, and faster than ever in the app\u2026",
+      "limitations": "resale listing advertised on official policy page; listing flow not exercised"
+    },
+    {
+      "incumbent": "ebay",
+      "task": "TP-11",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-ebay-mbg.txt",
+      "observed_evidence": "\u2026Need to Return an Item? It\u2019s easy to do on eBay\u2026; \u2026Follow these steps to get your refund\u2026",
+      "limitations": "returns/refund steps documented on Money Back Guarantee page"
+    },
+    {
+      "incumbent": "ebay",
+      "task": "TP-16",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-ebay-mbg.txt",
+      "observed_evidence": "\u2026eBay Money Back Guarantee\u2026; \u2026Seller protections and secure payments\u2026",
+      "limitations": "buyer/seller protection documented; dispute adjudication detail not read"
+    },
+    {
+      "incumbent": "poshmark",
+      "task": "TP-08",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-poshmark-guide.txt",
+      "observed_evidence": "\u2026your pre-paid, pre-addressed shipping label. Remember, the postage has already been paid for!\u2026",
+      "limitations": "official seller shipping guide read; full listing flow not read"
+    },
+    {
+      "incumbent": "depop",
+      "task": "TP-08",
+      "status": "offered",
+      "evidence_class": "B",
+      "evidence_pointer": "captures/text-depop-home.txt",
+      "observed_evidence": "\u2026Depop - buy, sell, discover unique fashion\u2026",
+      "limitations": "public marketplace homepage observed; thin content captured; no interaction"
+    },
+    {
+      "incumbent": "sharegrid",
+      "task": "TP-07",
+      "status": "offered",
+      "evidence_class": "B",
+      "evidence_pointer": "captures/text-sharegrid-home.txt",
+      "observed_evidence": "\u2026Affordable Rentals for Cameras, Lenses, and Production Gear\u2026; \u2026$149 /day Instant Book\u2026",
+      "limitations": "public rental marketplace UI observed; booking flow not exercised"
+    },
+    {
+      "incumbent": "sharegrid",
+      "task": "TP-08",
+      "status": "offered",
+      "evidence_class": "B",
+      "evidence_pointer": "captures/text-sharegrid-home.txt",
+      "observed_evidence": "\u2026Newly Listed for Sale Shop latest arrivals from ShareGrid members\u2026; nav: \u2026Selling Gear \u203a Buying Gear \u203a\u2026",
+      "limitations": "member resale listings observed on public UI"
+    },
+    {
+      "incumbent": "sharegrid",
+      "task": "TP-16",
+      "status": "offered",
+      "evidence_class": "B",
+      "evidence_pointer": "captures/text-sharegrid-home.txt",
+      "observed_evidence": "nav: \u2026Insurance \u203a Support Center \u203a\u2026",
+      "limitations": "insurance offering present; recourse workflow detail not read",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "kitsplit",
+      "task": "TP-07",
+      "status": "not_accessible",
+      "evidence_class": "D",
+      "evidence_pointer": "captures/text-kitsplit-home.txt",
+      "observed_evidence": "\u2026Stay tuned! We will be back shortly\u2026",
+      "limitations": "official site returned a maintenance stub at observation time; no capability claim; not proof of absence"
+    },
+    {
+      "incumbent": "unitedrentals",
+      "task": "TP-07",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-united-my equip.txt",
+      "observed_evidence": "\u2026Introducing: My Equipment | United Rentals\u2026; nav: \u2026Total Control \u00ae Pay Invoices\u2026",
+      "limitations": "page largely navigation; My Equipment portal described; booking flow not exercised"
+    },
+    {
+      "incumbent": "unitedrentals",
+      "task": "TP-10",
+      "status": "not_verified",
+      "evidence_class": "D",
+      "evidence_pointer": "captures/text-united-my equip.txt",
+      "observed_evidence": "nav shows Total Control\u00ae and Pay Invoices; Total Control page read returned tracker stub (captures/page-ur-totalcontrol.json)",
+      "limitations": "fleet-management/requisition detail not accessible; not proof of absence"
+    },
+    {
+      "incumbent": "mcmaster",
+      "task": "TP-01",
+      "status": "offered",
+      "evidence_class": "B",
+      "evidence_pointer": "captures/text-mcmaster-home.txt",
+      "observed_evidence": "\u2026Order Order History Choose a Category Abrading & Polishing Building & Grounds Electrical & Lighting\u2026",
+      "limitations": "live public catalog UI observed; search/checkout not exercised"
+    },
+    {
+      "incumbent": "mcmaster",
+      "task": "TP-10",
+      "status": "offered",
+      "evidence_class": "B",
+      "evidence_pointer": "captures/text-mcmaster-home.txt",
+      "observed_evidence": "\u2026Punchout Log in Create login\u2026",
+      "limitations": "punchout (e-procurement integration) present on public UI; integration depth not verified",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "mcmaster",
+      "task": "TP-17",
+      "status": "offered",
+      "evidence_class": "B",
+      "evidence_pointer": "captures/text-mcmaster-home.txt",
+      "observed_evidence": "\u2026we\u2019ll respond to your message within an hour\u2026 (support responsiveness on public page)",
+      "limitations": "support SLA statement only; failure/idempotency behavior not evidenced",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "cdw",
+      "task": "TP-01",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-cdw-home.txt",
+      "observed_evidence": "\u2026Your account team is here to help\u2026; \u2026Track orders, manage IT assets and get personalized pricing all in one place\u2026",
+      "limitations": "account-team-assisted sourcing; self-serve supplier discovery not evidenced",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "cdw",
+      "task": "TP-11",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-cdw-home.txt",
+      "observed_evidence": "\u2026Track orders, manage IT assets and get personalized pricing all in one place\u2026",
+      "limitations": "order tracking + asset management claims",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "ghx",
+      "task": "TP-01",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-ghx-market.txt",
+      "observed_evidence": "\u2026GHX connects providers and suppliers across millions of transactions\u2026",
+      "limitations": "provider-supplier network described"
+    },
+    {
+      "incumbent": "ghx",
+      "task": "TP-10",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-ghx-market.txt",
+      "observed_evidence": "\u2026Order Automation Automate and standardize order processes to drive more perfect orders\u2026; \u2026Drives purchase activity to contracted items and preferred vendors\u2026; \u2026Drive item and price compliance across the procure-to-pay lifecycle\u2026",
+      "limitations": "contract-compliance procurement documented; approval detail not read"
+    },
+    {
+      "incumbent": "ghx",
+      "task": "TP-14",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-ghx-market.txt",
+      "observed_evidence": "\u2026Inventory Ma[nagement]\u2026 (Inventory Services section)",
+      "limitations": "inventory services named; detail not read",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "ghx",
+      "task": "TP-17",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-ghx-market.txt",
+      "observed_evidence": "\u2026using AI to help teams catch problems early\u2026",
+      "limitations": "AI problem detection described; user-visible recovery flow not evidenced",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "xometry",
+      "task": "TP-02",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-xometry-home.txt",
+      "observed_evidence": "\u2026Upload your files, get an instant quote, and order online\u2026",
+      "limitations": "single-marketplace instant quote; multi-vendor comparison not evidenced",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "xometry",
+      "task": "TP-11",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-xometry-home.txt",
+      "observed_evidence": "\u2026get an instant quote, and order online\u2026",
+      "limitations": "online ordering documented"
+    },
+    {
+      "incumbent": "xometry",
+      "task": "TP-01",
+      "status": "offered",
+      "evidence_class": "C",
+      "evidence_pointer": "captures/text-xometry-home.txt",
+      "observed_evidence": "\u2026Custom Manufacturing on Demand | Production Parts and Prototypes | Xometry\u2026; instant-quote manufacturing marketplace",
+      "limitations": "manufacturing capability discovery; supplier search not evidenced",
+      "coverage": "partial"
+    },
+    {
+      "incumbent": "grainger",
+      "task": "TP-01",
+      "status": "not_accessible",
+      "evidence_class": "D",
+      "evidence_pointer": "captures/search-grainger.json",
+      "observed_evidence": "official URLs identified: grainger.com, grainger.com/content/online-purchasing-solutions",
+      "limitations": "both page reads returned JS-walled stub (12 chars); official URLs identified from official-domain search results; no capability claim made; not proof of absence"
+    },
+    {
+      "incumbent": "medline",
+      "task": "TP-01",
+      "status": "not_accessible",
+      "evidence_class": "D",
+      "evidence_pointer": "captures/search-medline.json",
+      "observed_evidence": "official URLs identified: medline.com, medline.com/help/tutorials/placing-an-order-2",
+      "limitations": "both reads returned stub (11 chars); JS-walled; no capability claim made; not proof of absence"
+    },
+    {
+      "incumbent": "sysco",
+      "task": "TP-01",
+      "status": "not_accessible",
+      "evidence_class": "D",
+      "evidence_pointer": "captures/search-sysco.json",
+      "observed_evidence": "official URLs identified: shop.sysco.com",
+      "limitations": "read returned JS-disabled stub: \u2026please enable JS to make this app work\u2026; login-walled ordering app; no capability claim made; not proof of absence"
+    },
+    {
+      "incumbent": "thomasnet",
+      "task": "TP-01",
+      "status": "not_accessible",
+      "evidence_class": "D",
+      "evidence_pointer": "captures/search-thomasnet.json",
+      "observed_evidence": "official URLs identified: thomasnet.com, thomasnet.com/procurement, blog.thomasnet.com/connects-us-buyers-suppliers",
+      "limitations": "three reads failed/JS-walled; no capability claim made; not proof of absence"
+    },
+    {
+      "incumbent": "instacart",
+      "task": "TP-01",
+      "status": "not_accessible",
+      "evidence_class": "D",
+      "evidence_pointer": "captures/search-instacart.json",
+      "observed_evidence": "official URLs identified: company.instacart.com/updates/the-instacart-platform-powering-the-future-of-grocery",
+      "limitations": "two read attempts failed (timeout); no capability claim made; not proof of absence"
+    },
+    {
+      "incumbent": "nuorder",
+      "task": "TP-01",
+      "status": "not_accessible",
+      "evidence_class": "D",
+      "evidence_pointer": "captures/search-nuorder.json",
+      "observed_evidence": "official URLs identified: nuorder.com, nuorder.com/wholesale",
+      "limitations": "read attempt failed; no capability claim made; not proof of absence"
+    }
+  ],
+  "not_applicable_entries": {
+    "coupa": {
+      "tasks": [
+        "TP-05",
+        "TP-06",
+        "TP-07",
+        "TP-08",
+        "TP-09",
+        "TP-12",
+        "TP-14",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "ariba": {
+      "tasks": [
+        "TP-05",
+        "TP-06",
+        "TP-07",
+        "TP-08",
+        "TP-09",
+        "TP-12",
+        "TP-14",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "ambiz": {
+      "tasks": [
+        "TP-06",
+        "TP-09",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "alibaba": {
+      "tasks": [
+        "TP-09",
+        "TP-10",
+        "TP-12",
+        "TP-14",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "gsa": {
+      "tasks": [
+        "TP-05",
+        "TP-06",
+        "TP-07",
+        "TP-08",
+        "TP-09",
+        "TP-12",
+        "TP-13",
+        "TP-14",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "faire": {
+      "tasks": [
+        "TP-05",
+        "TP-06",
+        "TP-07",
+        "TP-09",
+        "TP-10",
+        "TP-14",
+        "TP-17",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "joor": {
+      "tasks": [
+        "TP-05",
+        "TP-06",
+        "TP-07",
+        "TP-08",
+        "TP-09",
+        "TP-14",
+        "TP-17",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "nuorder": {
+      "tasks": [
+        "TP-05",
+        "TP-06",
+        "TP-07",
+        "TP-08",
+        "TP-09",
+        "TP-14",
+        "TP-17",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "shopify": {
+      "tasks": [
+        "TP-06",
+        "TP-09",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "square": {
+      "tasks": [
+        "TP-05",
+        "TP-06",
+        "TP-09",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "lightspeed": {
+      "tasks": [
+        "TP-05",
+        "TP-06",
+        "TP-09",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "toast": {
+      "tasks": [
+        "TP-05",
+        "TP-06",
+        "TP-09",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "marketman": {
+      "tasks": [
+        "TP-05",
+        "TP-06",
+        "TP-07",
+        "TP-09",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "ebay": {
+      "tasks": [
+        "TP-06",
+        "TP-09",
+        "TP-10",
+        "TP-12",
+        "TP-13",
+        "TP-14",
+        "TP-18",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "poshmark": {
+      "tasks": [
+        "TP-05",
+        "TP-06",
+        "TP-09",
+        "TP-10",
+        "TP-12",
+        "TP-13",
+        "TP-14",
+        "TP-18",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "depop": {
+      "tasks": [
+        "TP-05",
+        "TP-06",
+        "TP-09",
+        "TP-10",
+        "TP-12",
+        "TP-13",
+        "TP-14",
+        "TP-18",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "sharegrid": {
+      "tasks": [
+        "TP-06",
+        "TP-09",
+        "TP-10",
+        "TP-13",
+        "TP-14",
+        "TP-18",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "kitsplit": {
+      "tasks": [
+        "TP-06",
+        "TP-09",
+        "TP-10",
+        "TP-13",
+        "TP-14",
+        "TP-18",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "unitedrentals": {
+      "tasks": [
+        "TP-06",
+        "TP-09",
+        "TP-12",
+        "TP-13",
+        "TP-14",
+        "TP-18",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "grainger": {
+      "tasks": [
+        "TP-05",
+        "TP-06",
+        "TP-09"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "mcmaster": {
+      "tasks": [
+        "TP-05",
+        "TP-06",
+        "TP-09"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "cdw": {
+      "tasks": [
+        "TP-05",
+        "TP-06",
+        "TP-09"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "ghx": {
+      "tasks": [
+        "TP-05",
+        "TP-06",
+        "TP-07",
+        "TP-08",
+        "TP-09",
+        "TP-12",
+        "TP-13",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "medline": {
+      "tasks": [
+        "TP-05",
+        "TP-06",
+        "TP-07",
+        "TP-08",
+        "TP-09",
+        "TP-12",
+        "TP-13",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "sysco": {
+      "tasks": [
+        "TP-05",
+        "TP-06",
+        "TP-07",
+        "TP-08",
+        "TP-09",
+        "TP-12",
+        "TP-13",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "thomasnet": {
+      "tasks": [
+        "TP-05",
+        "TP-06",
+        "TP-09"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "xometry": {
+      "tasks": [
+        "TP-05",
+        "TP-06",
+        "TP-09",
+        "TP-12",
+        "TP-14",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    },
+    "instacart": {
+      "tasks": [
+        "TP-06",
+        "TP-09",
+        "TP-10",
+        "TP-12",
+        "TP-13",
+        "TP-19"
+      ],
+      "basis": "outside incumbent product category per task-pack applicability guidance; category-level judgment, not an evidence-backed absence claim"
+    }
+  }
+}

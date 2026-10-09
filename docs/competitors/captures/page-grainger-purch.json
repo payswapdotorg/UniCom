@@ -1,0 +1,31 @@
+{
+  "code": 200,
+  "data": {
+    "description": "",
+    "external": {},
+    "html": "<html lang=\"en\"><head><title>grainger.com</title><style>#cmsg{animation: A 1.5s;}@keyframes A{0%{opacity:0;}99%{opacity:0;}100%{opacity:1;}}</style><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"></head><body style=\"margin:0\"><script data-cfasync=\"false\">var dd={'rt':'i','cid':'AHrlqAAAAAMAe_o5_aeK8lwAIiL9WQ==','hsh':'97DAF2A1CB25B39E9CA4389666E245','b':2011039,'s':53596,'e':'d52b553bf85129c226cbfa90522b34582801c3b8ddb518cdbb41c224de52fe2c11765afe469ffdbb154ccb9546a1cd3a','qp':'','host':'geo.captcha-delivery.com','cookie':'TI3qm6xpH7GnmJvNSIhC4jusbI7Xtd4uK_BrjpEksFuU9cK6Kk7P1bRIPZNCaH7cA3Cma5hVBmp9I~G_mGH1TAtSiib8swrjcKukAigtu2v~DCq2PIy1J8S9kI_NG42I'}</script><script data-cfasync=\"false\" src=\"https://ct.captcha-delivery.com/i.js\"></script><iframe src=\"https://geo.captcha-delivery.com/interstitial/?initialCid=AHrlqAAAAAMAe_o5_aeK8lwAIiL9WQ%3D%3D&amp;hash=97DAF2A1CB25B39E9CA4389666E245&amp;cid=TI3qm6xpH7GnmJvNSIhC4jusbI7Xtd4uK_BrjpEksFuU9cK6Kk7P1bRIPZNCaH7cA3Cma5hVBmp9I~G_mGH1TAtSiib8swrjcKukAigtu2v~DCq2PIy1J8S9kI_NG42I&amp;referer=https%3A%2F%2Fwww.grainger.com%2Fcontent%2Fonline-purchasing-solutions&amp;s=53596&amp;e=d52b553bf85129c226cbfa90522b34582801c3b8ddb518cdbb41c224de52fe2c11765afe469ffdbb154ccb9546a1cd3a&amp;b=2011039&amp;dm=cd\" sandbox=\"allow-scripts allow-same-origin allow-forms\" allow=\"accelerometer; gyroscope; magnetometer\" title=\"DataDome Device Check\" width=\"100%\" height=\"100%\" style=\"height:100vh;\" frameborder=\"0\" border=\"0\" scrolling=\"yes\"></iframe></body></html>",
+    "httpStatus": 200,
+    "httpStatusText": "OK",
+    "metadata": {
+      "lang": "en",
+      "viewport": "width=device-width, initial-scale=1.0"
+    },
+    "title": "grainger.com",
+    "url": "https://www.grainger.com/content/online-purchasing-solutions",
+    "usage": {
+      "measuredTokens": 0,
+      "outputTokens": 0,
+      "scaledTokens": 678,
+      "tokens": 678
+    }
+  },
+  "meta": {
+    "usage": {
+      "measuredTokens": 0,
+      "outputTokens": 0,
+      "scaledTokens": 678,
+      "tokens": 678
+    }
+  },
+  "status": 20000
+}

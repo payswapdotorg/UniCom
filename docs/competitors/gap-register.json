@@ -1,0 +1,680 @@
+{
+  "gap_register_id": "W3-014-EVIDENCE-GAPS",
+  "generated": "2026-10-09",
+  "by_industry": {
+    "Construction/Engineering": {
+      "covered_incumbents": [
+        [
+          "ambiz",
+          "C"
+        ],
+        [
+          "alibaba",
+          "B"
+        ],
+        [
+          "unitedrentals",
+          "C"
+        ],
+        [
+          "grainger",
+          "D"
+        ],
+        [
+          "mcmaster",
+          "B"
+        ],
+        [
+          "thomasnet",
+          "D"
+        ]
+      ],
+      "coverage_gaps": [
+        "Fastenal",
+        "Ferguson",
+        "HD Supply",
+        "Sunbelt Rentals",
+        "used-equipment marketplaces (e.g., Machinery Trader)"
+      ],
+      "access_gaps": [
+        "grainger",
+        "thomasnet"
+      ],
+      "note": "coverage_gaps = matrix-named comparators with NO evidence captured this pass; access_gaps = incumbents whose official pages could not be read (class D)"
+    },
+    "Finance/Banking/Accounting": {
+      "covered_incumbents": [
+        [
+          "coupa",
+          "C"
+        ],
+        [
+          "ariba",
+          "C"
+        ],
+        [
+          "ambiz",
+          "C"
+        ],
+        [
+          "cdw",
+          "C"
+        ]
+      ],
+      "coverage_gaps": [
+        "Oracle procurement tools",
+        "Ramp",
+        "Brex (only where exact tested procurement/approval capability)"
+      ],
+      "access_gaps": [],
+      "note": "coverage_gaps = matrix-named comparators with NO evidence captured this pass; access_gaps = incumbents whose official pages could not be read (class D)"
+    },
+    "Sales/BusinessDevelopment": {
+      "covered_incumbents": [
+        [
+          "ambiz",
+          "C"
+        ],
+        [
+          "alibaba",
+          "B"
+        ],
+        [
+          "faire",
+          "D"
+        ],
+        [
+          "joor",
+          "C"
+        ],
+        [
+          "nuorder",
+          "D"
+        ],
+        [
+          "shopify",
+          "C"
+        ]
+      ],
+      "coverage_gaps": [
+        "WooCommerce",
+        "BigCommerce"
+      ],
+      "access_gaps": [
+        "faire",
+        "nuorder"
+      ],
+      "note": "coverage_gaps = matrix-named comparators with NO evidence captured this pass; access_gaps = incumbents whose official pages could not be read (class D)"
+    },
+    "Technology/Software/IT": {
+      "covered_incumbents": [
+        [
+          "coupa",
+          "C"
+        ],
+        [
+          "ariba",
+          "C"
+        ],
+        [
+          "ambiz",
+          "C"
+        ],
+        [
+          "alibaba",
+          "B"
+        ],
+        [
+          "cdw",
+          "C"
+        ]
+      ],
+      "coverage_gaps": [
+        "SHI",
+        "vendor storefronts (e.g., Dell/HP portals)"
+      ],
+      "access_gaps": [],
+      "note": "coverage_gaps = matrix-named comparators with NO evidence captured this pass; access_gaps = incumbents whose official pages could not be read (class D)"
+    },
+    "Healthcare": {
+      "covered_incumbents": [
+        [
+          "ambiz",
+          "C"
+        ],
+        [
+          "ghx",
+          "C"
+        ],
+        [
+          "medline",
+          "D"
+        ]
+      ],
+      "coverage_gaps": [
+        "McKesson",
+        "Cardinal Health",
+        "organization ERP procurement modules"
+      ],
+      "access_gaps": [
+        "medline"
+      ],
+      "note": "coverage_gaps = matrix-named comparators with NO evidence captured this pass; access_gaps = incumbents whose official pages could not be read (class D)"
+    },
+    "Transportation/Delivery": {
+      "covered_incumbents": [
+        [
+          "ambiz",
+          "C"
+        ],
+        [
+          "unitedrentals",
+          "C"
+        ],
+        [
+          "grainger",
+          "D"
+        ],
+        [
+          "mcmaster",
+          "B"
+        ]
+      ],
+      "coverage_gaps": [
+        "FleetPride",
+        "NAPA Auto Parts",
+        "manufacturer/dealer parts portals"
+      ],
+      "access_gaps": [
+        "grainger"
+      ],
+      "note": "coverage_gaps = matrix-named comparators with NO evidence captured this pass; access_gaps = incumbents whose official pages could not be read (class D)"
+    },
+    "Hospitality/Restaurants/Hotels": {
+      "covered_incumbents": [
+        [
+          "shopify",
+          "C"
+        ],
+        [
+          "square",
+          "C"
+        ],
+        [
+          "toast",
+          "C"
+        ],
+        [
+          "marketman",
+          "C"
+        ],
+        [
+          "sysco",
+          "D"
+        ]
+      ],
+      "coverage_gaps": [
+        "US Foods ordering",
+        "Restaurant Depot",
+        "local wholesaler portals"
+      ],
+      "access_gaps": [
+        "sysco"
+      ],
+      "note": "coverage_gaps = matrix-named comparators with NO evidence captured this pass; access_gaps = incumbents whose official pages could not be read (class D)"
+    },
+    "Fashion/Apparel/Retail": {
+      "covered_incumbents": [
+        [
+          "alibaba",
+          "B"
+        ],
+        [
+          "faire",
+          "D"
+        ],
+        [
+          "joor",
+          "C"
+        ],
+        [
+          "nuorder",
+          "D"
+        ],
+        [
+          "shopify",
+          "C"
+        ],
+        [
+          "square",
+          "C"
+        ],
+        [
+          "lightspeed",
+          "C"
+        ],
+        [
+          "ebay",
+          "C"
+        ],
+        [
+          "poshmark",
+          "C"
+        ],
+        [
+          "depop",
+          "B"
+        ]
+      ],
+      "coverage_gaps": [
+        "additional rental/consignment marketplaces (e.g., Rent the Runway B2B, The RealReal)"
+      ],
+      "access_gaps": [
+        "faire",
+        "nuorder"
+      ],
+      "note": "coverage_gaps = matrix-named comparators with NO evidence captured this pass; access_gaps = incumbents whose official pages could not be read (class D)"
+    },
+    "Entertainment/Media/Production": {
+      "covered_incumbents": [
+        [
+          "sharegrid",
+          "B"
+        ],
+        [
+          "kitsplit",
+          "D"
+        ],
+        [
+          "unitedrentals",
+          "C"
+        ]
+      ],
+      "coverage_gaps": [
+        "specialist gear suppliers",
+        "other used-equipment marketplaces"
+      ],
+      "access_gaps": [
+        "kitsplit"
+      ],
+      "note": "coverage_gaps = matrix-named comparators with NO evidence captured this pass; access_gaps = incumbents whose official pages could not be read (class D)"
+    },
+    "Legal/ProfessionalServices": {
+      "covered_incumbents": [
+        [
+          "coupa",
+          "C"
+        ],
+        [
+          "ambiz",
+          "C"
+        ],
+        [
+          "cdw",
+          "C"
+        ]
+      ],
+      "coverage_gaps": [
+        "Staples Business Advantage"
+      ],
+      "access_gaps": [],
+      "note": "coverage_gaps = matrix-named comparators with NO evidence captured this pass; access_gaps = incumbents whose official pages could not be read (class D)"
+    },
+    "Defense/Security/GovContracting": {
+      "covered_incumbents": [
+        [
+          "coupa",
+          "C"
+        ],
+        [
+          "ariba",
+          "C"
+        ],
+        [
+          "ambiz",
+          "C"
+        ],
+        [
+          "gsa",
+          "C"
+        ]
+      ],
+      "coverage_gaps": [
+        "authorized unclassified supplier portals (beyond GSA)"
+      ],
+      "access_gaps": [],
+      "note": "coverage_gaps = matrix-named comparators with NO evidence captured this pass; access_gaps = incumbents whose official pages could not be read (class D)"
+    },
+    "Manufacturing/SupplyChain": {
+      "covered_incumbents": [
+        [
+          "coupa",
+          "C"
+        ],
+        [
+          "ariba",
+          "C"
+        ],
+        [
+          "ambiz",
+          "C"
+        ],
+        [
+          "alibaba",
+          "B"
+        ],
+        [
+          "grainger",
+          "D"
+        ],
+        [
+          "mcmaster",
+          "B"
+        ],
+        [
+          "thomasnet",
+          "D"
+        ],
+        [
+          "xometry",
+          "C"
+        ]
+      ],
+      "coverage_gaps": [
+        "ERP purchasing/inventory modules (SAP MM, Oracle)"
+      ],
+      "access_gaps": [
+        "grainger",
+        "thomasnet"
+      ],
+      "note": "coverage_gaps = matrix-named comparators with NO evidence captured this pass; access_gaps = incumbents whose official pages could not be read (class D)"
+    },
+    "Supermarkets/LocalRetail": {
+      "covered_incumbents": [
+        [
+          "ambiz",
+          "C"
+        ],
+        [
+          "shopify",
+          "C"
+        ],
+        [
+          "square",
+          "C"
+        ],
+        [
+          "lightspeed",
+          "C"
+        ],
+        [
+          "instacart",
+          "D"
+        ]
+      ],
+      "coverage_gaps": [
+        "local grocery POS vendors",
+        "local cash-and-carry portals"
+      ],
+      "access_gaps": [
+        "instacart"
+      ],
+      "note": "coverage_gaps = matrix-named comparators with NO evidence captured this pass; access_gaps = incumbents whose official pages could not be read (class D)"
+    }
+  },
+  "by_capability": {
+    "TP-01": {
+      "name": "Supplier/vendor discovery & sourcing",
+      "offered_B": [
+        "alibaba",
+        "mcmaster"
+      ],
+      "offered_C": [
+        "coupa",
+        "ariba",
+        "gsa",
+        "joor",
+        "toast",
+        "cdw",
+        "ghx",
+        "xometry"
+      ],
+      "not_verified_or_inaccessible": [
+        "grainger",
+        "medline",
+        "sysco",
+        "thomasnet",
+        "instacart",
+        "nuorder"
+      ],
+      "unicom": "contract-level surface exists; no rendered UI; not observable as UI this phase (W1-010 lane)"
+    },
+    "TP-02": {
+      "name": "Offer/quote comparison across sellers",
+      "offered_B": [
+        "alibaba"
+      ],
+      "offered_C": [
+        "coupa",
+        "xometry"
+      ],
+      "not_verified_or_inaccessible": [
+        "ariba"
+      ],
+      "unicom": "contract-level surface exists; no rendered UI; not observable as UI this phase (W1-010 lane)"
+    },
+    "TP-03": {
+      "name": "Buyer intent capture with constraints",
+      "offered_B": [],
+      "offered_C": [
+        "coupa",
+        "ariba",
+        "ambiz",
+        "shopify"
+      ],
+      "not_verified_or_inaccessible": [],
+      "unicom": "contract-level surface exists; no rendered UI; not observable as UI this phase (W1-010 lane)"
+    },
+    "TP-04": {
+      "name": "Buy-now-vs-wait, price timing, substitution, negotiation",
+      "offered_B": [],
+      "offered_C": [
+        "coupa",
+        "alibaba"
+      ],
+      "not_verified_or_inaccessible": [],
+      "unicom": "contract-level surface exists; no rendered UI; not observable as UI this phase (W1-010 lane)"
+    },
+    "TP-05": {
+      "name": "Discover & join existing group buy with visible commitment rules",
+      "offered_B": [],
+      "offered_C": [],
+      "not_verified_or_inaccessible": [],
+      "unicom": "contract-level surface exists; no rendered UI; not observable as UI this phase (W1-010 lane)"
+    },
+    "TP-06": {
+      "name": "Latent-demand group buy: recruit + merchant proposal",
+      "offered_B": [],
+      "offered_C": [],
+      "not_verified_or_inaccessible": [],
+      "unicom": "contract-level surface exists; no rendered UI; not observable as UI this phase (W1-010 lane)"
+    },
+    "TP-07": {
+      "name": "Rent/borrow vs buy",
+      "offered_B": [
+        "sharegrid"
+      ],
+      "offered_C": [
+        "unitedrentals"
+      ],
+      "not_verified_or_inaccessible": [
+        "kitsplit"
+      ],
+      "unicom": "contract-level surface exists; no rendered UI; not observable as UI this phase (W1-010 lane)"
+    },
+    "TP-08": {
+      "name": "Resale/consignment of under-used assets",
+      "offered_B": [
+        "depop",
+        "sharegrid"
+      ],
+      "offered_C": [
+        "ebay",
+        "poshmark"
+      ],
+      "not_verified_or_inaccessible": [],
+      "unicom": "contract-level surface exists; no rendered UI; not observable as UI this phase (W1-010 lane)"
+    },
+    "TP-09": {
+      "name": "Bounded multi-hop trade cycle >=3 participants, per-leg consent",
+      "offered_B": [],
+      "offered_C": [],
+      "not_verified_or_inaccessible": [],
+      "unicom": "contract-level surface exists; no rendered UI; not observable as UI this phase (W1-010 lane)"
+    },
+    "TP-10": {
+      "name": "Procurement: approvals, PO, receiving, invoice matching",
+      "offered_B": [
+        "mcmaster"
+      ],
+      "offered_C": [
+        "coupa",
+        "ariba",
+        "shopify",
+        "square",
+        "lightspeed",
+        "toast",
+        "marketman",
+        "ghx"
+      ],
+      "not_verified_or_inaccessible": [
+        "gsa",
+        "unitedrentals"
+      ],
+      "unicom": "contract-level surface exists; no rendered UI; not observable as UI this phase (W1-010 lane)"
+    },
+    "TP-11": {
+      "name": "Orders, fulfilment, delivery/pickup, returns, refunds, recourse",
+      "offered_B": [
+        "alibaba"
+      ],
+      "offered_C": [
+        "coupa",
+        "ariba",
+        "gsa",
+        "ebay",
+        "cdw",
+        "xometry"
+      ],
+      "not_verified_or_inaccessible": [],
+      "unicom": "contract-level surface exists; no rendered UI; not observable as UI this phase (W1-010 lane)"
+    },
+    "TP-12": {
+      "name": "Storefront/catalog/price/promotion (merchant side)",
+      "offered_B": [],
+      "offered_C": [
+        "joor",
+        "shopify"
+      ],
+      "not_verified_or_inaccessible": [],
+      "unicom": "contract-level surface exists; no rendered UI; not observable as UI this phase (W1-010 lane)"
+    },
+    "TP-13": {
+      "name": "B2B/wholesale channel: catalogs, quotes, bulk orders",
+      "offered_B": [],
+      "offered_C": [
+        "alibaba",
+        "joor",
+        "shopify"
+      ],
+      "not_verified_or_inaccessible": [
+        "faire"
+      ],
+      "unicom": "contract-level surface exists; no rendered UI; not observable as UI this phase (W1-010 lane)"
+    },
+    "TP-14": {
+      "name": "Inventory, POS, replenishment, multi-location, reconciliation (no-RFID incl.)",
+      "offered_B": [],
+      "offered_C": [
+        "shopify",
+        "square",
+        "lightspeed",
+        "toast",
+        "marketman",
+        "ghx"
+      ],
+      "not_verified_or_inaccessible": [],
+      "unicom": "contract-level surface exists; no rendered UI; not observable as UI this phase (W1-010 lane)"
+    },
+    "TP-15": {
+      "name": "Proactive opportunity discovery",
+      "offered_B": [],
+      "offered_C": [
+        "ambiz",
+        "square"
+      ],
+      "not_verified_or_inaccessible": [],
+      "unicom": "contract-level surface exists; no rendered UI; not observable as UI this phase (W1-010 lane)"
+    },
+    "TP-16": {
+      "name": "Trust/safety: fraud handling, evidence, recourse",
+      "offered_B": [
+        "sharegrid"
+      ],
+      "offered_C": [
+        "coupa",
+        "alibaba",
+        "ebay"
+      ],
+      "not_verified_or_inaccessible": [],
+      "unicom": "contract-level surface exists; no rendered UI; not observable as UI this phase (W1-010 lane)"
+    },
+    "TP-17": {
+      "name": "User-visible failure/recovery: stale/UNKNOWN, duplicates, idempotency, missing approval",
+      "offered_B": [
+        "mcmaster"
+      ],
+      "offered_C": [
+        "ambiz",
+        "ghx"
+      ],
+      "not_verified_or_inaccessible": [],
+      "unicom": "contract-level surface exists; no rendered UI; not observable as UI this phase (W1-010 lane)"
+    },
+    "TP-18": {
+      "name": "Bounded autonomous/assisted store actions under limits",
+      "offered_B": [
+        "alibaba"
+      ],
+      "offered_C": [],
+      "not_verified_or_inaccessible": [],
+      "unicom": "contract-level surface exists; no rendered UI; not observable as UI this phase (W1-010 lane)"
+    },
+    "TP-19": {
+      "name": "What-if/counterfactual commerce planning, non-mutating",
+      "offered_B": [],
+      "offered_C": [],
+      "not_verified_or_inaccessible": [],
+      "unicom": "contract-level surface exists; no rendered UI; not observable as UI this phase (W1-010 lane)"
+    }
+  },
+  "by_class": {
+    "A": {
+      "count": 0,
+      "what": "authorized account/sandbox sessions \u2014 NONE exist this phase; requires operator-provided accounts or vendor sandboxes",
+      "blocked_tasks": "see BLOCKED-TASKS.md"
+    },
+    "B": {
+      "count": 11,
+      "what": "public UI observations limited to content extraction; no interaction, no transaction flows, no authenticated surfaces"
+    },
+    "C": {
+      "count": 51,
+      "what": "official pages read; many at product/nav/marketing level (limitations recorded per observation in ledger.json)"
+    },
+    "D": {
+      "count": 11,
+      "what": "JS-walled/login-walled/down/timeout: Grainger, Medline, Sysco, Thomasnet, Instacart, NuORDER, Faire, KitSplit, United Rentals Total Control sub-page, Coupa invoice-detail, GSA eBuy detail"
+    }
+  }
+}
