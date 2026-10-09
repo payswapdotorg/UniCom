@@ -734,15 +734,34 @@
       "records": 1800,
       "evidenceSha256": "b713283bf3446e3969d26d61d9d36b55fcdc3e1b59e05d3f6d80213cb6786c9f",
       "noRfidPathRuns": 600
+    },
+    {
+      "batch": {
+        "index": 38,
+        "firmId": "supermarkets-local-retail-large",
+        "w1IndustryId": "supermarkets-local-retail",
+        "w2IndustryId": "supermarket",
+        "firmSize": "large",
+        "cohortId": "baseline-supermarkets-local-retail-large"
+      },
+      "scheduleDigest": "ac2a0ed34747e15361c98834c81925ba400cb335695af27ea1eca5c89ee1b25a",
+      "planned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0,
+      "records": 1800,
+      "evidenceSha256": "00f45d508af72c5cb2b69e6c8ada9b76c12be6901f1f12e0f98319575992238a",
+      "noRfidPathRuns": 600
     }
   ],
   "totals": {
-    "firmsCompleted": 38,
-    "projectsPlanned": 3800,
-    "projectsExecuted": 3800,
+    "firmsCompleted": 39,
+    "projectsPlanned": 3900,
+    "projectsExecuted": 3900,
     "projectsBlocked": 0,
     "projectsSkipped": 0,
-    "evidenceRecords": 47700,
+    "evidenceRecords": 49500,
     "drift": 0
   }
 }
