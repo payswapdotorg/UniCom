@@ -1,0 +1,864 @@
+{
+ "schemaVersion": "w2-010-incumbent-verification-evidence/1",
+ "workOrder": "W2-010",
+ "description": "Official-domain web-search verification evidence for incumbent products named in the frozen W2-009 stacks. Search-result snapshots (url, host, page title) only \u2014 NO pricing, speed, market-share or any performance data captured or inferred. Class-A live trials were NOT performed (no incumbent accounts, no authorized trials this wave).",
+ "verificationMethod": "web_search via z-ai CLI against each product's official domain; results recorded verbatim (top 3).",
+ "verifiedAt": "2026-10-09",
+ "products": {
+  "grainger": {
+   "query": "Grainger industrial supply MRO ordering official site",
+   "results": [
+    {
+     "url": "https://www.grainger.com",
+     "hostName": "www.grainger.com",
+     "name": "Grainger Industrial Supply - MRO Products, Equipment and Tools"
+    },
+    {
+     "url": "https://www.grainger.com/category",
+     "hostName": "www.grainger.com",
+     "name": "Grainger Products - Grainger Industrial Supply"
+    },
+    {
+     "url": "https://www.grainger.com/content/grainger-procurement-solutions",
+     "hostName": "www.grainger.com",
+     "name": "Grainger Procurement Solutions - Grainger Industrial Supply"
+    }
+   ]
+  },
+  "fastenal": {
+   "query": "Fastenal industrial supplies ordering portal official site",
+   "results": [
+    {
+     "url": "https://www.fastenal.com",
+     "hostName": "www.fastenal.com",
+     "name": "Fastenal Industrial Supplies, OEM Fasteners, Safety Products"
+    },
+    {
+     "url": "https://www.fastenal.com/fast/help/orders-requests",
+     "hostName": "www.fastenal.com",
+     "name": "Orders & Requests - Fastenal"
+    },
+    {
+     "url": "https://www.fastenal.com/logon/sign-in",
+     "hostName": "www.fastenal.com",
+     "name": "Fastenal: SignIn/Register"
+    }
+   ]
+  },
+  "united-rentals": {
+   "query": "United Rentals equipment rental official site",
+   "results": [
+    {
+     "url": "https://www.unitedrentals.com",
+     "hostName": "www.unitedrentals.com",
+     "name": "United Rentals \u2013 Trusted Equipment Fleet & Worksite Solutions"
+    },
+    {
+     "url": "https://www.unitedrentals.com/marketplace/equipment",
+     "hostName": "www.unitedrentals.com",
+     "name": "Browse Our Fleet of Equipment & Tools for Rent - United Rentals"
+    },
+    {
+     "url": "https://www.unitedrentals.com/locations",
+     "hostName": "www.unitedrentals.com",
+     "name": "United Rentals Locations - Equipment Rental Branches Near You"
+    }
+   ]
+  },
+  "coupa": {
+   "query": "Coupa procurement software official product site",
+   "results": [
+    {
+     "url": "https://www.coupa.com/products/procure-to-pay/procurement",
+     "hostName": "www.coupa.com",
+     "name": "Procurement Software Built for Intelligent Spend Decisions"
+    },
+    {
+     "url": "https://www.coupa.com/solutions/procurement-leader",
+     "hostName": "www.coupa.com",
+     "name": "Procurement Software Built for Intelligent Spend Decisions"
+    },
+    {
+     "url": "https://www.coupa.com",
+     "hostName": "www.coupa.com",
+     "name": "Coupa: The #1 Agentic Spend Management Platform"
+    }
+   ]
+  },
+  "sap-ariba": {
+   "query": "SAP Ariba procurement network official product site",
+   "results": [
+    {
+     "url": "https://www.sap.com/products/spend-management/ariba-network.html",
+     "hostName": "www.sap.com",
+     "name": "Ariba Network\u2014Business Network for Suppliers and Buyers"
+    },
+    {
+     "url": "https://supplier.ariba.com",
+     "hostName": "supplier.ariba.com",
+     "name": "SAP Business Network Supplier"
+    },
+    {
+     "url": "https://www.sap.com/products/spend-management/ariba-login.html",
+     "hostName": "www.sap.com",
+     "name": "SAP Ariba Login for Buyers and Suppliers"
+    }
+   ]
+  },
+  "ramp": {
+   "query": "Ramp corporate cards spend management official site",
+   "results": [
+    {
+     "url": "https://ramp.com",
+     "hostName": "ramp.com",
+     "name": "Ramp: Spend Management, Corporate Cards & Accounts"
+    },
+    {
+     "url": "https://ramp.com/corporate-cards",
+     "hostName": "ramp.com",
+     "name": "The Best Corporate Credit Card - Ramp"
+    },
+    {
+     "url": "https://support.ramp.com/ramps-spend-management-platform-enhancing-your-companys-expense-control",
+     "hostName": "support.ramp.com",
+     "name": "Ramp spend management overview - Ramp Help Center"
+    }
+   ]
+  },
+  "brex": {
+   "query": "Brex corporate card spend management official site",
+   "results": [
+    {
+     "url": "https://www.brex.com/product/spend-management",
+     "hostName": "www.brex.com",
+     "name": "The spend management software solution for smarter spending"
+    },
+    {
+     "url": "https://www.brex.com",
+     "hostName": "www.brex.com",
+     "name": "Brex: The Modern Finance Software Platform | Spend Smarter"
+    },
+    {
+     "url": "https://www.brex.com/spend-trends/corporate-credit-cards",
+     "hostName": "www.brex.com",
+     "name": "Corporate Credit Cards - Spend Trends - Brex"
+    }
+   ]
+  },
+  "shopify-b2b": {
+   "query": "Shopify B2B wholesale channel official site",
+   "results": [
+    {
+     "url": "https://www.shopify.com/plus/solutions/b2b-ecommerce",
+     "hostName": "www.shopify.com",
+     "name": "B2B Commerce Platform - Shopify"
+    },
+    {
+     "url": "https://help.shopify.com/en/manual/b2b",
+     "hostName": "help.shopify.com",
+     "name": "Shopify B2B"
+    },
+    {
+     "url": "https://www.shopify.com/solutions/b2b",
+     "hostName": "www.shopify.com",
+     "name": "B2B on Shopify"
+    }
+   ]
+  },
+  "faire": {
+   "query": "Faire wholesale marketplace official site",
+   "results": [
+    {
+     "url": "https://www.faire.com",
+     "hostName": "www.faire.com",
+     "name": "Faire - Online Wholesale Marketplace for Retailers & Brands"
+    },
+    {
+     "url": "https://www.faire.com/suppliers/All%20Brands",
+     "hostName": "www.faire.com",
+     "name": "Discover thousands of vendors selling wholesale on Faire.com"
+    },
+    {
+     "url": "https://www.faire.com/how-faire-works",
+     "hostName": "www.faire.com",
+     "name": "What Is Faire & How It Works for Retailers and Brands"
+    }
+   ]
+  },
+  "salesforce-cpq": {
+   "query": "Salesforce CPQ quote pricing official product site",
+   "results": [
+    {
+     "url": "https://www.salesforce.com/sales/cpq/what-is-cpq",
+     "hostName": "www.salesforce.com",
+     "name": "What Is CPQ, or Configure, Price, Quote? - Salesforce"
+    },
+    {
+     "url": "https://www.salesforce.com/sales/cpq",
+     "hostName": "www.salesforce.com",
+     "name": "Best CPQ Solution & Revenue Management Software"
+    },
+    {
+     "url": "https://trailhead.salesforce.com/content/learn/modules/pricing-methods-for-salesforce-cpq/get-started-with-salesforce-cpq-for-pricing",
+     "hostName": "trailhead.salesforce.com",
+     "name": "Salesforce CPQ: Pricing Tools Overview and Setup - Trailhead"
+    }
+   ]
+  },
+  "alibaba": {
+   "query": "Alibaba.com B2B wholesale marketplace official site",
+   "results": [
+    {
+     "url": "https://www.alibaba.com",
+     "hostName": "www.alibaba.com",
+     "name": "Alibaba.com: Manufacturers, Suppliers, Exporters & Importers"
+    },
+    {
+     "url": "https://www.alibaba.com/wholesale/b2b-wholesale-marketplace.html",
+     "hostName": "www.alibaba.com",
+     "name": "B2b Wholesale Marketplace(999+) - Alibaba"
+    },
+    {
+     "url": "https://play.google.com/store/apps/details?id=com.alibaba.intl.android.apps.poseidon&hl=en_US",
+     "hostName": "play.google.com",
+     "name": "Alibaba.com - B2B marketplace - Apps on Google Play"
+    }
+   ]
+  },
+  "cdw": {
+   "query": "CDW IT products business purchasing official site",
+   "results": [
+    {
+     "url": "https://www.cdw.com",
+     "hostName": "www.cdw.com",
+     "name": "Welcome to CDW"
+    },
+    {
+     "url": "https://www.cdw.com/content/cdw/en/home/default.html",
+     "hostName": "www.cdw.com",
+     "name": "Computers, Hardware, Software and IT Solutions for Business"
+    },
+    {
+     "url": "https://www.cdw.com/content/cdw/en/industries/small-business-technology.html",
+     "hostName": "www.cdw.com",
+     "name": "Small Business Technology Solutions | CDW"
+    }
+   ]
+  },
+  "shi": {
+   "query": "SHI International IT solutions business purchasing official site",
+   "results": [
+    {
+     "url": "https://www.shi.com",
+     "hostName": "www.shi.com",
+     "name": "SHI | Infrastructure IT solutions and systems integrator | IT"
+    },
+    {
+     "url": "https://portal.shi.com/solutions",
+     "hostName": "portal.shi.com",
+     "name": "IT Solutions & Services: IT Solutions for Businesses - SHI"
+    },
+    {
+     "url": "https://www.shi.com/shop/search",
+     "hostName": "www.shi.com",
+     "name": "Products | SHI"
+    }
+   ]
+  },
+  "ghx": {
+   "query": "GHX healthcare supply chain exchange official site",
+   "results": [
+    {
+     "url": "https://www.ghx.com",
+     "hostName": "www.ghx.com",
+     "name": "GHX: AI-Powered Healthcare Supply Chain Orchestration"
+    },
+    {
+     "url": "https://www.ghx.com/order-automation-suppliers/ghx-exchange",
+     "hostName": "www.ghx.com",
+     "name": "GHX Exchange"
+    },
+    {
+     "url": "https://www.ghx.com/platform",
+     "hostName": "www.ghx.com",
+     "name": "The GHX Platform"
+    }
+   ]
+  },
+  "mckesson": {
+   "query": "McKesson medical supplies distribution official site",
+   "results": [
+    {
+     "url": "https://www.mckesson.com",
+     "hostName": "www.mckesson.com",
+     "name": "McKesson | Medical Supplies, Pharmaceuticals Healthcare"
+    },
+    {
+     "url": "https://www.mckesson.com/business-solutions/pharmaceutical-medical-products-distribution",
+     "hostName": "www.mckesson.com",
+     "name": "Pharmaceutical & Medical Supplies Distribution Services"
+    },
+    {
+     "url": "https://mms.mckesson.com/content/distribution",
+     "hostName": "mms.mckesson.com",
+     "name": "Medical Distribution Services - McKesson Medical-Surgical"
+    }
+   ]
+  },
+  "medline": {
+   "query": "Medline medical supplies manufacturer official site",
+   "results": [
+    {
+     "url": "https://www.medline.com",
+     "hostName": "www.medline.com",
+     "name": "We make healthcare run better"
+    },
+    {
+     "url": "https://www.medline.com/catalog/catalog.jsp",
+     "hostName": "www.medline.com",
+     "name": "Products - Hospital, Nursing, Medical, Healthcare - Medline"
+    },
+    {
+     "url": "https://www.medline.com/about-us",
+     "hostName": "www.medline.com",
+     "name": "than a medical supplier, we make healthcare run better - Medline"
+    }
+   ]
+  },
+  "cardinal-health": {
+   "query": "Cardinal Health medical products distribution official site",
+   "results": [
+    {
+     "url": "https://www.cardinalhealth.com/en/solutions/medical-distribution.html",
+     "hostName": "www.cardinalhealth.com",
+     "name": "Medical Supply Distribution Solutions | Cardinal Health"
+    },
+    {
+     "url": "https://www.cardinalhealth.com/en.html",
+     "hostName": "www.cardinalhealth.com",
+     "name": "Cardinal Health: Healthcare Solutions, Logistics & Supplies"
+    },
+    {
+     "url": "https://www.cardinalhealth.com/en/services/retail-pharmacy/products-and-distribution.html",
+     "hostName": "www.cardinalhealth.com",
+     "name": "Pharmaceutical Products & Distribution | Cardinal Health"
+    }
+   ]
+  },
+  "fleetpride": {
+   "query": "FleetPride heavy duty truck parts official site",
+   "results": [
+    {
+     "url": "https://www.fleetpride.com/?srsltid=AU7gw4XqZYCxwl2Rx-TK1-qmrwAlhhRUhREFJwiT1NdCP8WCyqOmAKkp",
+     "hostName": "www.fleetpride.com",
+     "name": "FleetPride.com has top-quality truck parts and service for heavy"
+    },
+    {
+     "url": "https://branches.fleetpride.com",
+     "hostName": "branches.fleetpride.com",
+     "name": "FleetPride: Heavy Duty Truck and Trailer Parts"
+    },
+    {
+     "url": "https://www.fleetpride.com/shop-all-categories?srsltid=AU7gw4VzTZ4zg6Jg2LG2fiwkCfBWqyiSavKBgWNVHzZP8PJ7HbR6Cl-L",
+     "hostName": "www.fleetpride.com",
+     "name": "Shop All Categories - FleetPride"
+    }
+   ]
+  },
+  "napa": {
+   "query": "NAPA Auto Parts official site",
+   "results": [
+    {
+     "url": "https://www.napaonline.com/?srsltid=AU7gw4XXLELP9zq8HBYfWie9OCSYBWa4OYHjYE1FFmmSXVRvnuwl4aOc",
+     "hostName": "www.napaonline.com",
+     "name": "NAPA Auto Parts - Buy Car & Truck Parts Online | Auto Supply"
+    },
+    {
+     "url": "https://www.napaonline.com/en/c/replacement-parts/201056700?srsltid=AU7gw4V8i76JoJt0zK88RWaIIQCk3kyGUOD6wOsAu6eHIY8psx0hEzW9",
+     "hostName": "www.napaonline.com",
+     "name": "Replacement Parts - NAPA Auto Parts"
+    },
+    {
+     "url": "https://www.napaonline.com/en/auto-parts?srsltid=AU7gw4X6Ti1DCfS57PLjVPsZhWvWnob1r37KwYs8lpmyJrbS21TQXrZ8",
+     "hostName": "www.napaonline.com",
+     "name": "Shop By Make - NAPA Auto Parts"
+    }
+   ]
+  },
+  "penske": {
+   "query": "Penske truck rental fleet official site",
+   "results": [
+    {
+     "url": "https://www.pensketruckrental.com/commercial-truck-rental/services/fleet-insight",
+     "hostName": "www.pensketruckrental.com",
+     "name": "Fleet Insight - Penske Truck Rental"
+    },
+    {
+     "url": "https://www.gopenske.com",
+     "hostName": "www.gopenske.com",
+     "name": "Penske Truck Leasing, Logistics, Truck Rental, Used Trucks"
+    },
+    {
+     "url": "https://www.pensketruckrental.com/trucks-and-vans",
+     "hostName": "www.pensketruckrental.com",
+     "name": "Moving Truck Sizes and Features - Penske Truck Rental"
+    }
+   ]
+  },
+  "ryder": {
+   "query": "Ryder truck rental fleet leasing official site",
+   "results": [
+    {
+     "url": "https://www.ryder.com/en-us/fleet-leasing",
+     "hostName": "www.ryder.com",
+     "name": "Ryder Commercial Truck Leasing"
+    },
+    {
+     "url": "https://www.ryder.com/en-us/fleet-leasing/trucks",
+     "hostName": "www.ryder.com",
+     "name": "Lease Commercial Trucks - Ryder"
+    },
+    {
+     "url": "https://www.ryder.com/en-us",
+     "hostName": "www.ryder.com",
+     "name": "Ryder | Logistics, Truck Leasing, Truck Rental, Used Truck Sales"
+    }
+   ]
+  },
+  "sysco": {
+   "query": "Sysco food distribution foodservice ordering official site",
+   "results": [
+    {
+     "url": "https://www.sysco.com",
+     "hostName": "www.sysco.com",
+     "name": "Sysco | Wholesale Restaurant Food Distributor"
+    },
+    {
+     "url": "https://sysco.com/en-us/shopmobile",
+     "hostName": "sysco.com",
+     "name": "Sysco Shop App"
+    },
+    {
+     "url": "https://portal.sysco.com",
+     "hostName": "portal.sysco.com",
+     "name": "Sysco Portal | Login"
+    }
+   ]
+  },
+  "us-foods": {
+   "query": "US Foods foodservice distributor ordering official site",
+   "results": [
+    {
+     "url": "https://www.usfoods.com",
+     "hostName": "www.usfoods.com",
+     "name": "US Foods\u00ae Food Supplier & Distributor | Restaurant Supply"
+    },
+    {
+     "url": "https://www.usfoods.com/how-we-help-you/easy-ordering",
+     "hostName": "www.usfoods.com",
+     "name": "MOX\u0113 | Easy Food Service Ordering - US Foods"
+    },
+    {
+     "url": "https://www.usfoods.com/support/contact-us",
+     "hostName": "www.usfoods.com",
+     "name": "Contact Us - US Foods"
+    }
+   ]
+  },
+  "restaurant-depot": {
+   "query": "Restaurant Depot wholesale cash and carry official site",
+   "results": [
+    {
+     "url": "https://www.restaurantdepot.com",
+     "hostName": "www.restaurantdepot.com",
+     "name": "Restaurant Depot | A Wholesale Cash & Carry Foodservice"
+    },
+    {
+     "url": "https://www.restaurantdepot.com/about/company-information",
+     "hostName": "www.restaurantdepot.com",
+     "name": "Company Information - Restaurant Depot"
+    },
+    {
+     "url": "https://www.restaurantdepot.com/jetro/company-information",
+     "hostName": "www.restaurantdepot.com",
+     "name": "Company Information - Restaurant Depot"
+    }
+   ]
+  },
+  "marketman": {
+   "query": "MarketMan restaurant purchasing inventory software official site",
+   "results": [
+    {
+     "url": "https://www.marketman.com",
+     "hostName": "www.marketman.com",
+     "name": "MarketMan: Restaurant Inventory Management Software"
+    },
+    {
+     "url": "https://www.marketman.com/platform/restaurant-inventory-management-software",
+     "hostName": "www.marketman.com",
+     "name": "AI-Powered Inventory Management Software for Restaurants"
+    },
+    {
+     "url": "https://www.marketman.com/platform/restaurant-purchasing-software-and-order-management",
+     "hostName": "www.marketman.com",
+     "name": "Restaurant Purchasing & Order Management - MarketMan"
+    }
+   ]
+  },
+  "toast": {
+   "query": "Toast restaurant POS point of sale official site",
+   "results": [
+    {
+     "url": "https://pos.toasttab.com/?srsltid=AU7gw4VHlUEJPrm21XcihQmNVnDXLeuE5mmbA-nFlYQM3lq5IgZYTZDx",
+     "hostName": "pos.toasttab.com",
+     "name": "Toast POS"
+    },
+    {
+     "url": "https://pos.toasttab.com/restaurant-pos?srsltid=AU7gw4ViM_Va7vR7fuJ6lp746xN14dTbVCXiCgU_hlYald9dyORcjvZ-",
+     "hostName": "pos.toasttab.com",
+     "name": "Restaurant POS System"
+    },
+    {
+     "url": "https://pos.toasttab.com/products/point-of-sale?srsltid=AU7gw4XzoOIhPIa_HIRBuEwTE90PcatT6WPFIru0_y_Y_i34110I5WUm",
+     "hostName": "pos.toasttab.com",
+     "name": "Point of Sale Software - Toast POS"
+    }
+   ]
+  },
+  "square": {
+   "query": "Square POS point of sale official site",
+   "results": [
+    {
+     "url": "https://squareup.com/us/en/point-of-sale",
+     "hostName": "squareup.com",
+     "name": "POS Systems | Point of Sale Systems for all Businesses - Square"
+    },
+    {
+     "url": "https://squareup.com/us/en/point-of-sale/software/pricing",
+     "hostName": "squareup.com",
+     "name": "Point of Sale Pricing & Plans - Square"
+    },
+    {
+     "url": "https://squareup.com/us/en/point-of-sale/retail",
+     "hostName": "squareup.com",
+     "name": "Retail POS System and Software - Square"
+    }
+   ]
+  },
+  "shopify": {
+   "query": "Shopify ecommerce platform official site",
+   "results": [
+    {
+     "url": "https://www.shopify.com",
+     "hostName": "www.shopify.com",
+     "name": "Shopify: The All-in-One Commerce Platform for Businesses"
+    },
+    {
+     "url": "https://www.shopify.com/store-login",
+     "hostName": "www.shopify.com",
+     "name": "Shopify Log in | Access Your Store Admin"
+    },
+    {
+     "url": "https://www.shopify.com/news/about-us",
+     "hostName": "www.shopify.com",
+     "name": "About us - Shopify"
+    }
+   ]
+  },
+  "joor": {
+   "query": "JOOR fashion wholesale marketplace official site",
+   "results": [
+    {
+     "url": "https://www.joor.com",
+     "hostName": "www.joor.com",
+     "name": "JOOR | B2B Wholesale Fashion Platform for Brands & Retailers"
+    },
+    {
+     "url": "https://www.joor.com/marketplace",
+     "hostName": "www.joor.com",
+     "name": "JOOR Discover: Fashion Buyer Directory & Prospecting Tool for"
+    },
+    {
+     "url": "https://www.joor.com/brands",
+     "hostName": "www.joor.com",
+     "name": "B2B Ecommerce Fashion Platform for Brands - JOOR"
+    }
+   ]
+  },
+  "nuorder": {
+   "query": "NuORDER wholesale B2B commerce platform official site",
+   "results": [
+    {
+     "url": "https://www.nuorder.com",
+     "hostName": "www.nuorder.com",
+     "name": "NuORDER by Lightspeed | The Global B2B Commerce Platform"
+    },
+    {
+     "url": "https://www.nuorder.com/wholesale",
+     "hostName": "www.nuorder.com",
+     "name": "The All-In-One Wholesale Commerce Platform for Brands"
+    },
+    {
+     "url": "https://www.nuorder.com/wholesale/online-wholesale",
+     "hostName": "www.nuorder.com",
+     "name": "Online Wholesale Platform | Trusted by 7K+ Brands - NuORDER"
+    }
+   ]
+  },
+  "ebay": {
+   "query": "eBay marketplace official site",
+   "results": [
+    {
+     "url": "https://www.ebay.com",
+     "hostName": "www.ebay.com",
+     "name": "eBay: Electronics, Cars, Fashion, Collectibles & More"
+    },
+    {
+     "url": "https://pages.ebay.com/welcome",
+     "hostName": "pages.ebay.com",
+     "name": "Welcome to the world's online marketplace - eBay"
+    },
+    {
+     "url": "https://www.ebay.com/n/all-categories",
+     "hostName": "www.ebay.com",
+     "name": "Shop by Category - eBay"
+    }
+   ]
+  },
+  "depop": {
+   "query": "Depop fashion resale marketplace app official site",
+   "results": [
+    {
+     "url": "https://www.depop.com",
+     "hostName": "www.depop.com",
+     "name": "Depop - buy, sell, discover unique fashion"
+    },
+    {
+     "url": "https://www.depop.com/sell",
+     "hostName": "www.depop.com",
+     "name": "Sell Clothes Online for Free - 0% Selling Fees | Depop"
+    },
+    {
+     "url": "https://news.depop.com/who-we-are/about",
+     "hostName": "news.depop.com",
+     "name": "About Depop"
+    }
+   ]
+  },
+  "poshmark": {
+   "query": "Poshmark social marketplace resale official site",
+   "results": [
+    {
+     "url": "https://poshmark.com/?srsltid=AU7gw4XTBfTPZBc8RkAjyqAev8l4PzpIPvfgR5CVLXVkbaqnwnzU8Giy",
+     "hostName": "poshmark.com",
+     "name": "Poshmark: Buy and sell fashion, home decor, beauty & more"
+    },
+    {
+     "url": "https://poshmark.com/brand/Marketplace?srsltid=AU7gw4U2jxw3nuM8Rc96UCgp3HWGAfSZadN6UraLLaPKI4fLYOwWCzbL",
+     "hostName": "poshmark.com",
+     "name": "Marketplace Products for Sale up to 90% Off Retail - Poshmark"
+    },
+    {
+     "url": "https://poshmark.com/brand/POSHMARK?srsltid=AU7gw4WOv3fR8Iom8q3VOK8UA7KQff-cC_QKz5WJXUS07ZnH7xcyQG9e",
+     "hostName": "poshmark.com",
+     "name": "POSHMARK Products for Sale up to 90% Off Retail"
+    }
+   ]
+  },
+  "sharegrid": {
+   "query": "ShareGrid camera equipment rental marketplace official site",
+   "results": [
+    {
+     "url": "https://www.sharegrid.com",
+     "hostName": "www.sharegrid.com",
+     "name": "ShareGrid: Affordable Rentals for Cameras, Lenses, and"
+    },
+    {
+     "url": "https://www.sharegrid.com/sandiego/buy",
+     "hostName": "www.sharegrid.com",
+     "name": "Photography and Film Gear Buy & Sell Marketplace - ShareGrid"
+    },
+    {
+     "url": "https://www.sharegrid.com/?shipping_format=shipping",
+     "hostName": "www.sharegrid.com",
+     "name": "Affordable Rentals for Cameras, Lenses, and Production Gear"
+    }
+   ]
+  },
+  "kitsplit": {
+   "query": "KitSplit camera equipment rental marketplace official site",
+   "results": [
+    {
+     "url": "https://kitsplit.com",
+     "hostName": "kitsplit.com",
+     "name": "KitSplit"
+    },
+    {
+     "url": "https://webcatalog.io/en/apps/kitsplit",
+     "hostName": "webcatalog.io",
+     "name": "kitsplit for Mac, Windows, Linux - WebCatalog"
+    },
+    {
+     "url": "https://www.instagram.com/kitsplit/?hl=en",
+     "hostName": "www.instagram.com",
+     "name": "KitSplit (@kitsplit) \u00b7 New York, NY - Instagram"
+    }
+   ]
+  },
+  "staples-advantage": {
+   "query": "Staples Business Advantage office supplies B2B program official site",
+   "results": [
+    {
+     "url": "https://www.staplesadvantage.com",
+     "hostName": "www.staplesadvantage.com",
+     "name": "Staples Business | Solutions for Business"
+    },
+    {
+     "url": "https://www.staplesadvantage.com/office-supplies/cat_SC273214",
+     "hostName": "www.staplesadvantage.com",
+     "name": "Office Supplies for Business - Staples Advantage"
+    },
+    {
+     "url": "https://www.staplesadvantage.com/learn/expert-services/office-supplies/office-supplies",
+     "hostName": "www.staplesadvantage.com",
+     "name": "Office Supply Solutions for Business - Staples Advantage"
+    }
+   ]
+  },
+  "gsa-advantage": {
+   "query": "GSA Advantage government procurement ordering system official site",
+   "results": [
+    {
+     "url": "https://www.gsaglobalsupply.gsa.gov",
+     "hostName": "www.gsaglobalsupply.gsa.gov",
+     "name": "GSA Advantage"
+    },
+    {
+     "url": "https://vsc.gsa.gov/drupal/node/119",
+     "hostName": "vsc.gsa.gov",
+     "name": "GSA Advantage Purchase Order Portal - Vendor Support Center"
+    },
+    {
+     "url": "https://buy.gsa.gov/buy-now",
+     "hostName": "buy.gsa.gov",
+     "name": "Buy Now | BUY.GSA.GOV"
+    }
+   ]
+  },
+  "thomasnet": {
+   "query": "Thomasnet industrial supplier discovery sourcing platform official site",
+   "results": [
+    {
+     "url": "https://www.thomasnet.com",
+     "hostName": "www.thomasnet.com",
+     "name": "Thomasnet\u00ae - Product Sourcing and Supplier Discovery"
+    },
+    {
+     "url": "https://www.thomasnet.com/suppliers",
+     "hostName": "www.thomasnet.com",
+     "name": "Thomasnet.com Supplier Search"
+    },
+    {
+     "url": "https://business.thomasnet.com",
+     "hostName": "business.thomasnet.com",
+     "name": "Grow your business with Thomas - Thomasnet"
+    }
+   ]
+  },
+  "xometry": {
+   "query": "Xometry custom manufacturing on-demand parts official site",
+   "results": [
+    {
+     "url": "https://www.xometry.com",
+     "hostName": "www.xometry.com",
+     "name": "Xometry: Custom Manufacturing on Demand | Production Parts"
+    },
+    {
+     "url": "https://www.xometry.com/manufacturing",
+     "hostName": "www.xometry.com",
+     "name": "Custom Manufacturing on Demand | Production Parts  - Xometry"
+    },
+    {
+     "url": "https://www.xometry.com/industrial-manufacturing",
+     "hostName": "www.xometry.com",
+     "name": "Custom Manufacturing on Demand - Xometry"
+    }
+   ]
+  },
+  "mcmaster": {
+   "query": "McMaster-Carr industrial hardware components catalog official site",
+   "results": [
+    {
+     "url": "https://www.mcmaster.com",
+     "hostName": "www.mcmaster.com",
+     "name": "McMaster-Carr"
+    },
+    {
+     "url": "https://www.mcmaster.com/products/hardware",
+     "hostName": "www.mcmaster.com",
+     "name": "Hardware - McMaster-Carr"
+    },
+    {
+     "url": "https://www.mcmaster.com/products/tools",
+     "hostName": "www.mcmaster.com",
+     "name": "Tools - McMaster-Carr"
+    }
+   ]
+  },
+  "lightspeed": {
+   "query": "Lightspeed retail POS restaurant official site",
+   "results": [
+    {
+     "url": "https://www.lightspeedhq.com/pos/restaurant",
+     "hostName": "www.lightspeedhq.com",
+     "name": "Restaurant POS System - Lightspeed"
+    },
+    {
+     "url": "https://www.lightspeedhq.com/pos",
+     "hostName": "www.lightspeedhq.com",
+     "name": "Point of Sale (POS) System & Software - Lightspeed"
+    },
+    {
+     "url": "https://www.lightspeedhq.com",
+     "hostName": "www.lightspeedhq.com",
+     "name": "Lightspeed: Leading Point of Sale (POS) & Commerce Platform"
+    }
+   ]
+  },
+  "instacart": {
+   "query": "Instacart grocery delivery shopper platform official site",
+   "results": [
+    {
+     "url": "https://shoppers.instacart.com",
+     "hostName": "shoppers.instacart.com",
+     "name": "Instacart Shoppers - Get Paid to Shop"
+    },
+    {
+     "url": "https://www.instacart.com",
+     "hostName": "www.instacart.com",
+     "name": "Instacart | Grocery Delivery or Pickup from Local Stores Near You"
+    },
+    {
+     "url": "https://www.instacart.com/user_privacy/authenticate",
+     "hostName": "www.instacart.com",
+     "name": "Instacart Login | Online Account Access"
+    }
+   ]
+  },
+  "amazon-business": {
+   "query": "Amazon Business business account portal official site",
+   "results": [
+    {
+     "url": "https://business.amazon.com/en/login",
+     "hostName": "business.amazon.com",
+     "name": "Amazon Business Login"
+    },
+    {
+     "url": "https://business.amazon.com",
+     "hostName": "business.amazon.com",
+     "name": "Amazon Business: Procurement & Wholesale Buying Solutions"
+    }
+   ]
+  }
+ }
+}
