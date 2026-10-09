@@ -1,0 +1,2129 @@
+{
+  "schemaVersion": "w2-009:v1",
+  "generatedAt": "2026-10-09T00:00:00.000Z",
+  "description": "W2-009 cohort manifest: 39 firms with commerce-only incumbent stacks, population assumptions, and reconciliation to 15,275 personas.",
+  "totals": {
+    "industries": 13,
+    "firmSizes": 3,
+    "firms": 39,
+    "projectsPerFirm": 200,
+    "projectRuns": 7800,
+    "personasPerSmallFirm": 25,
+    "personasPerMediumFirm": 150,
+    "personasPerLargeFirm": 1000,
+    "totalPersonas": 15275,
+    "expectedTotalPersonas": 15275,
+    "reconciled": true
+  },
+  "firms": [
+    {
+      "firmId": "firm:construction:small",
+      "industry": "construction",
+      "firmSize": "small",
+      "cohortSize": 25,
+      "seed": "w2-009:firm:construction:small",
+      "incumbentStack": [
+        {
+          "capability": "materials-parts-sourcing",
+          "incumbent": "Amazon Business",
+          "editionOrAccess": "Business account",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "trade-supplier-portal",
+          "incumbent": "Grainger / Fastenal",
+          "editionOrAccess": "Supplier portal",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "equipment-rental",
+          "incumbent": "United Rentals",
+          "editionOrAccess": "Rental portal",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "spreadsheet-procurement",
+          "incumbent": "Spreadsheet/Email",
+          "editionOrAccess": "Manual workflow",
+          "evidenceClass": "D"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15384615384615385,
+        "project-program-mgmt": 0.11538461538461538,
+        "field-ops": 0.10961538461538464,
+        "finance-accounting": 0.09615384615384616,
+        "sales": 0.09038461538461537,
+        "it": 0.07692307692307693,
+        "compliance-audit": 0.05769230769230769,
+        "approver-executive": 0.1076923076923077,
+        "industry-specialist": 0.19230769230769232
+      },
+      "roleAllocation": {
+        "procurement": 4,
+        "project-program-mgmt": 3,
+        "field-ops": 3,
+        "finance-accounting": 2,
+        "sales": 2,
+        "it": 2,
+        "compliance-audit": 1,
+        "approver-executive": 3,
+        "industry-specialist": 5
+      }
+    },
+    {
+      "firmId": "firm:construction:medium",
+      "industry": "construction",
+      "firmSize": "medium",
+      "cohortSize": 150,
+      "seed": "w2-009:firm:construction:medium",
+      "incumbentStack": [
+        {
+          "capability": "materials-parts-sourcing",
+          "incumbent": "Amazon Business",
+          "editionOrAccess": "Business account",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "trade-supplier-portal",
+          "incumbent": "Grainger / Fastenal",
+          "editionOrAccess": "Supplier portal",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "equipment-rental",
+          "incumbent": "United Rentals",
+          "editionOrAccess": "Rental portal",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "spreadsheet-procurement",
+          "incumbent": "Spreadsheet/Email",
+          "editionOrAccess": "Manual workflow",
+          "evidenceClass": "D"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15384615384615385,
+        "project-program-mgmt": 0.11538461538461538,
+        "field-ops": 0.13461538461538464,
+        "finance-accounting": 0.09615384615384616,
+        "sales": 0.11538461538461538,
+        "it": 0.07692307692307693,
+        "compliance-audit": 0.05769230769230769,
+        "approver-executive": 0.05769230769230769,
+        "industry-specialist": 0.19230769230769232
+      },
+      "roleAllocation": {
+        "procurement": 23,
+        "project-program-mgmt": 17,
+        "field-ops": 20,
+        "finance-accounting": 14,
+        "sales": 17,
+        "it": 12,
+        "compliance-audit": 9,
+        "approver-executive": 9,
+        "industry-specialist": 29
+      }
+    },
+    {
+      "firmId": "firm:construction:large",
+      "industry": "construction",
+      "firmSize": "large",
+      "cohortSize": 1000,
+      "seed": "w2-009:firm:construction:large",
+      "incumbentStack": [
+        {
+          "capability": "materials-parts-sourcing",
+          "incumbent": "Amazon Business",
+          "editionOrAccess": "Business account",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "trade-supplier-portal",
+          "incumbent": "Grainger / Fastenal",
+          "editionOrAccess": "Supplier portal",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "equipment-rental",
+          "incumbent": "United Rentals",
+          "editionOrAccess": "Rental portal",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "spreadsheet-procurement",
+          "incumbent": "Spreadsheet/Email",
+          "editionOrAccess": "Manual workflow",
+          "evidenceClass": "D"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15384615384615385,
+        "project-program-mgmt": 0.11538461538461538,
+        "field-ops": 0.15461538461538463,
+        "finance-accounting": 0.09615384615384616,
+        "sales": 0.12538461538461537,
+        "it": 0.07692307692307693,
+        "compliance-audit": 0.05769230769230769,
+        "approver-executive": 0.02769230769230769,
+        "industry-specialist": 0.19230769230769232
+      },
+      "roleAllocation": {
+        "procurement": 154,
+        "project-program-mgmt": 115,
+        "field-ops": 155,
+        "finance-accounting": 96,
+        "sales": 125,
+        "it": 77,
+        "compliance-audit": 58,
+        "approver-executive": 28,
+        "industry-specialist": 192
+      }
+    },
+    {
+      "firmId": "firm:finance:small",
+      "industry": "finance",
+      "firmSize": "small",
+      "cohortSize": 25,
+      "seed": "w2-009:firm:finance:small",
+      "incumbentStack": [
+        {
+          "capability": "procurement-suite",
+          "incumbent": "Coupa",
+          "editionOrAccess": "SMB",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "supplier-sourcing",
+          "incumbent": "SAP Ariba",
+          "editionOrAccess": "Discovery",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "expense-procurement",
+          "incumbent": "Ramp / Brex",
+          "editionOrAccess": "Procurement module",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "marketplace-procurement",
+          "incumbent": "Amazon Business",
+          "editionOrAccess": "Business account",
+          "evidenceClass": "B"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.16,
+        "project-program-mgmt": 0.12,
+        "field-ops": 0.11500000000000002,
+        "finance-accounting": 0.1,
+        "sales": 0.095,
+        "it": 0.08,
+        "compliance-audit": 0.06,
+        "approver-executive": 0.11,
+        "industry-specialist": 0.16
+      },
+      "roleAllocation": {
+        "procurement": 4,
+        "project-program-mgmt": 3,
+        "field-ops": 3,
+        "finance-accounting": 3,
+        "sales": 2,
+        "it": 2,
+        "compliance-audit": 1,
+        "approver-executive": 3,
+        "industry-specialist": 4
+      }
+    },
+    {
+      "firmId": "firm:finance:medium",
+      "industry": "finance",
+      "firmSize": "medium",
+      "cohortSize": 150,
+      "seed": "w2-009:firm:finance:medium",
+      "incumbentStack": [
+        {
+          "capability": "procurement-suite",
+          "incumbent": "Coupa",
+          "editionOrAccess": "SMB",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "supplier-sourcing",
+          "incumbent": "SAP Ariba",
+          "editionOrAccess": "Discovery",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "expense-procurement",
+          "incumbent": "Ramp / Brex",
+          "editionOrAccess": "Procurement module",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "marketplace-procurement",
+          "incumbent": "Amazon Business",
+          "editionOrAccess": "Business account",
+          "evidenceClass": "B"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.16,
+        "project-program-mgmt": 0.12,
+        "field-ops": 0.14,
+        "finance-accounting": 0.1,
+        "sales": 0.12,
+        "it": 0.08,
+        "compliance-audit": 0.06,
+        "approver-executive": 0.06,
+        "industry-specialist": 0.16
+      },
+      "roleAllocation": {
+        "procurement": 24,
+        "project-program-mgmt": 18,
+        "field-ops": 21,
+        "finance-accounting": 15,
+        "sales": 18,
+        "it": 12,
+        "compliance-audit": 9,
+        "approver-executive": 9,
+        "industry-specialist": 24
+      }
+    },
+    {
+      "firmId": "firm:finance:large",
+      "industry": "finance",
+      "firmSize": "large",
+      "cohortSize": 1000,
+      "seed": "w2-009:firm:finance:large",
+      "incumbentStack": [
+        {
+          "capability": "procurement-suite",
+          "incumbent": "Coupa",
+          "editionOrAccess": "Enterprise",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "supplier-sourcing",
+          "incumbent": "SAP Ariba",
+          "editionOrAccess": "Enterprise",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "expense-procurement",
+          "incumbent": "Ramp / Brex",
+          "editionOrAccess": "Procurement module",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "marketplace-procurement",
+          "incumbent": "Amazon Business",
+          "editionOrAccess": "Business account",
+          "evidenceClass": "B"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.16,
+        "project-program-mgmt": 0.12,
+        "field-ops": 0.16,
+        "finance-accounting": 0.1,
+        "sales": 0.13,
+        "it": 0.08,
+        "compliance-audit": 0.06,
+        "approver-executive": 0.03,
+        "industry-specialist": 0.16
+      },
+      "roleAllocation": {
+        "procurement": 160,
+        "project-program-mgmt": 120,
+        "field-ops": 160,
+        "finance-accounting": 100,
+        "sales": 130,
+        "it": 80,
+        "compliance-audit": 60,
+        "approver-executive": 30,
+        "industry-specialist": 160
+      }
+    },
+    {
+      "firmId": "firm:sales:small",
+      "industry": "sales",
+      "firmSize": "small",
+      "cohortSize": 25,
+      "seed": "w2-009:firm:sales:small",
+      "incumbentStack": [
+        {
+          "capability": "b2b-catalog",
+          "incumbent": "Shopify B2B",
+          "editionOrAccess": "Standard",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "wholesale-marketplace",
+          "incumbent": "Faire",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "order-quote",
+          "incumbent": "Salesforce CPQ",
+          "editionOrAccess": "Starter",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "supplier-portal",
+          "incumbent": "Alibaba.com",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.16,
+        "project-program-mgmt": 0.12,
+        "field-ops": 0.11500000000000002,
+        "finance-accounting": 0.1,
+        "sales": 0.095,
+        "it": 0.08,
+        "compliance-audit": 0.06,
+        "approver-executive": 0.11,
+        "industry-specialist": 0.16
+      },
+      "roleAllocation": {
+        "procurement": 4,
+        "project-program-mgmt": 3,
+        "field-ops": 3,
+        "finance-accounting": 3,
+        "sales": 2,
+        "it": 2,
+        "compliance-audit": 1,
+        "approver-executive": 3,
+        "industry-specialist": 4
+      }
+    },
+    {
+      "firmId": "firm:sales:medium",
+      "industry": "sales",
+      "firmSize": "medium",
+      "cohortSize": 150,
+      "seed": "w2-009:firm:sales:medium",
+      "incumbentStack": [
+        {
+          "capability": "b2b-catalog",
+          "incumbent": "Shopify B2B",
+          "editionOrAccess": "Standard",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "wholesale-marketplace",
+          "incumbent": "Faire",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "order-quote",
+          "incumbent": "Salesforce CPQ",
+          "editionOrAccess": "Starter",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "supplier-portal",
+          "incumbent": "Alibaba.com",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.16,
+        "project-program-mgmt": 0.12,
+        "field-ops": 0.14,
+        "finance-accounting": 0.1,
+        "sales": 0.12,
+        "it": 0.08,
+        "compliance-audit": 0.06,
+        "approver-executive": 0.06,
+        "industry-specialist": 0.16
+      },
+      "roleAllocation": {
+        "procurement": 24,
+        "project-program-mgmt": 18,
+        "field-ops": 21,
+        "finance-accounting": 15,
+        "sales": 18,
+        "it": 12,
+        "compliance-audit": 9,
+        "approver-executive": 9,
+        "industry-specialist": 24
+      }
+    },
+    {
+      "firmId": "firm:sales:large",
+      "industry": "sales",
+      "firmSize": "large",
+      "cohortSize": 1000,
+      "seed": "w2-009:firm:sales:large",
+      "incumbentStack": [
+        {
+          "capability": "b2b-catalog",
+          "incumbent": "Shopify B2B",
+          "editionOrAccess": "Plus",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "wholesale-marketplace",
+          "incumbent": "Faire",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "order-quote",
+          "incumbent": "Salesforce CPQ",
+          "editionOrAccess": "Enterprise",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "supplier-portal",
+          "incumbent": "Alibaba.com",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.16,
+        "project-program-mgmt": 0.12,
+        "field-ops": 0.16,
+        "finance-accounting": 0.1,
+        "sales": 0.13,
+        "it": 0.08,
+        "compliance-audit": 0.06,
+        "approver-executive": 0.03,
+        "industry-specialist": 0.16
+      },
+      "roleAllocation": {
+        "procurement": 160,
+        "project-program-mgmt": 120,
+        "field-ops": 160,
+        "finance-accounting": 100,
+        "sales": 130,
+        "it": 80,
+        "compliance-audit": 60,
+        "approver-executive": 30,
+        "industry-specialist": 160
+      }
+    },
+    {
+      "firmId": "firm:technology:small",
+      "industry": "technology",
+      "firmSize": "small",
+      "cohortSize": 25,
+      "seed": "w2-009:firm:technology:small",
+      "incumbentStack": [
+        {
+          "capability": "it-hardware-procurement",
+          "incumbent": "CDW / SHI",
+          "editionOrAccess": "Business portal",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "saas-renewal",
+          "incumbent": "Vendor storefronts",
+          "editionOrAccess": "Vendor portal",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "marketplace-procurement",
+          "incumbent": "Amazon Business",
+          "editionOrAccess": "Business account",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "procurement-suite",
+          "incumbent": "Coupa",
+          "editionOrAccess": "SMB",
+          "evidenceClass": "C"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.16,
+        "project-program-mgmt": 0.12,
+        "field-ops": 0.11500000000000002,
+        "finance-accounting": 0.1,
+        "sales": 0.095,
+        "it": 0.08,
+        "compliance-audit": 0.06,
+        "approver-executive": 0.11,
+        "industry-specialist": 0.16
+      },
+      "roleAllocation": {
+        "procurement": 4,
+        "project-program-mgmt": 3,
+        "field-ops": 3,
+        "finance-accounting": 3,
+        "sales": 2,
+        "it": 2,
+        "compliance-audit": 1,
+        "approver-executive": 3,
+        "industry-specialist": 4
+      }
+    },
+    {
+      "firmId": "firm:technology:medium",
+      "industry": "technology",
+      "firmSize": "medium",
+      "cohortSize": 150,
+      "seed": "w2-009:firm:technology:medium",
+      "incumbentStack": [
+        {
+          "capability": "it-hardware-procurement",
+          "incumbent": "CDW / SHI",
+          "editionOrAccess": "Business portal",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "saas-renewal",
+          "incumbent": "Vendor storefronts",
+          "editionOrAccess": "Vendor portal",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "marketplace-procurement",
+          "incumbent": "Amazon Business",
+          "editionOrAccess": "Business account",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "procurement-suite",
+          "incumbent": "Coupa",
+          "editionOrAccess": "SMB",
+          "evidenceClass": "C"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.16,
+        "project-program-mgmt": 0.12,
+        "field-ops": 0.14,
+        "finance-accounting": 0.1,
+        "sales": 0.12,
+        "it": 0.08,
+        "compliance-audit": 0.06,
+        "approver-executive": 0.06,
+        "industry-specialist": 0.16
+      },
+      "roleAllocation": {
+        "procurement": 24,
+        "project-program-mgmt": 18,
+        "field-ops": 21,
+        "finance-accounting": 15,
+        "sales": 18,
+        "it": 12,
+        "compliance-audit": 9,
+        "approver-executive": 9,
+        "industry-specialist": 24
+      }
+    },
+    {
+      "firmId": "firm:technology:large",
+      "industry": "technology",
+      "firmSize": "large",
+      "cohortSize": 1000,
+      "seed": "w2-009:firm:technology:large",
+      "incumbentStack": [
+        {
+          "capability": "it-hardware-procurement",
+          "incumbent": "CDW / SHI",
+          "editionOrAccess": "Business portal",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "saas-renewal",
+          "incumbent": "Vendor storefronts",
+          "editionOrAccess": "Vendor portal",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "marketplace-procurement",
+          "incumbent": "Amazon Business",
+          "editionOrAccess": "Business account",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "procurement-suite",
+          "incumbent": "Coupa",
+          "editionOrAccess": "Enterprise",
+          "evidenceClass": "C"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.16,
+        "project-program-mgmt": 0.12,
+        "field-ops": 0.16,
+        "finance-accounting": 0.1,
+        "sales": 0.13,
+        "it": 0.08,
+        "compliance-audit": 0.06,
+        "approver-executive": 0.03,
+        "industry-specialist": 0.16
+      },
+      "roleAllocation": {
+        "procurement": 160,
+        "project-program-mgmt": 120,
+        "field-ops": 160,
+        "finance-accounting": 100,
+        "sales": 130,
+        "it": 80,
+        "compliance-audit": 60,
+        "approver-executive": 30,
+        "industry-specialist": 160
+      }
+    },
+    {
+      "firmId": "firm:healthcare:small",
+      "industry": "healthcare",
+      "firmSize": "small",
+      "cohortSize": 25,
+      "seed": "w2-009:firm:healthcare:small",
+      "incumbentStack": [
+        {
+          "capability": "medical-supplies-procurement",
+          "incumbent": "GHX",
+          "editionOrAccess": "Essentials",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "supplier-portal",
+          "incumbent": "McKesson / Medline",
+          "editionOrAccess": "Supplier portal",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "equipment-procurement",
+          "incumbent": "Cardinal Health",
+          "editionOrAccess": "Catalog",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "spreadsheet-procurement",
+          "incumbent": "Spreadsheet/Email",
+          "editionOrAccess": "Manual workflow",
+          "evidenceClass": "D"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15094339622641512,
+        "project-program-mgmt": 0.11320754716981132,
+        "field-ops": 0.10707547169811323,
+        "finance-accounting": 0.09433962264150945,
+        "sales": 0.08820754716981132,
+        "it": 0.07547169811320756,
+        "compliance-audit": 0.05660377358490566,
+        "approver-executive": 0.10660377358490568,
+        "industry-specialist": 0.20754716981132076
+      },
+      "roleAllocation": {
+        "procurement": 4,
+        "project-program-mgmt": 3,
+        "field-ops": 3,
+        "finance-accounting": 2,
+        "sales": 2,
+        "it": 2,
+        "compliance-audit": 1,
+        "approver-executive": 3,
+        "industry-specialist": 5
+      }
+    },
+    {
+      "firmId": "firm:healthcare:medium",
+      "industry": "healthcare",
+      "firmSize": "medium",
+      "cohortSize": 150,
+      "seed": "w2-009:firm:healthcare:medium",
+      "incumbentStack": [
+        {
+          "capability": "medical-supplies-procurement",
+          "incumbent": "GHX",
+          "editionOrAccess": "Essentials",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "supplier-portal",
+          "incumbent": "McKesson / Medline",
+          "editionOrAccess": "Supplier portal",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "equipment-procurement",
+          "incumbent": "Cardinal Health",
+          "editionOrAccess": "Catalog",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "spreadsheet-procurement",
+          "incumbent": "Spreadsheet/Email",
+          "editionOrAccess": "Manual workflow",
+          "evidenceClass": "D"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15094339622641512,
+        "project-program-mgmt": 0.11320754716981132,
+        "field-ops": 0.13207547169811323,
+        "finance-accounting": 0.09433962264150945,
+        "sales": 0.11320754716981132,
+        "it": 0.07547169811320756,
+        "compliance-audit": 0.05660377358490566,
+        "approver-executive": 0.05660377358490566,
+        "industry-specialist": 0.20754716981132076
+      },
+      "roleAllocation": {
+        "procurement": 23,
+        "project-program-mgmt": 17,
+        "field-ops": 20,
+        "finance-accounting": 14,
+        "sales": 17,
+        "it": 11,
+        "compliance-audit": 9,
+        "approver-executive": 8,
+        "industry-specialist": 31
+      }
+    },
+    {
+      "firmId": "firm:healthcare:large",
+      "industry": "healthcare",
+      "firmSize": "large",
+      "cohortSize": 1000,
+      "seed": "w2-009:firm:healthcare:large",
+      "incumbentStack": [
+        {
+          "capability": "medical-supplies-procurement",
+          "incumbent": "GHX",
+          "editionOrAccess": "Exchange",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "supplier-portal",
+          "incumbent": "McKesson / Medline",
+          "editionOrAccess": "Supplier portal",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "equipment-procurement",
+          "incumbent": "Cardinal Health",
+          "editionOrAccess": "Catalog",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "spreadsheet-procurement",
+          "incumbent": "Spreadsheet/Email",
+          "editionOrAccess": "Manual workflow",
+          "evidenceClass": "D"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15094339622641512,
+        "project-program-mgmt": 0.11320754716981132,
+        "field-ops": 0.15207547169811322,
+        "finance-accounting": 0.09433962264150945,
+        "sales": 0.12320754716981132,
+        "it": 0.07547169811320756,
+        "compliance-audit": 0.05660377358490566,
+        "approver-executive": 0.02660377358490566,
+        "industry-specialist": 0.20754716981132076
+      },
+      "roleAllocation": {
+        "procurement": 151,
+        "project-program-mgmt": 113,
+        "field-ops": 152,
+        "finance-accounting": 94,
+        "sales": 123,
+        "it": 75,
+        "compliance-audit": 57,
+        "approver-executive": 27,
+        "industry-specialist": 208
+      }
+    },
+    {
+      "firmId": "firm:transportation:small",
+      "industry": "transportation",
+      "firmSize": "small",
+      "cohortSize": 25,
+      "seed": "w2-009:firm:transportation:small",
+      "incumbentStack": [
+        {
+          "capability": "vehicle-parts-procurement",
+          "incumbent": "FleetPride / NAPA",
+          "editionOrAccess": "Parts portal",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "marketplace-procurement",
+          "incumbent": "Amazon Business",
+          "editionOrAccess": "Business account",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "equipment-rental",
+          "incumbent": "Penske / Ryder",
+          "editionOrAccess": "Rental portal",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "spreadsheet-procurement",
+          "incumbent": "Spreadsheet/Email",
+          "editionOrAccess": "Manual workflow",
+          "evidenceClass": "D"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15686274509803919,
+        "project-program-mgmt": 0.11764705882352938,
+        "field-ops": 0.1122549019607843,
+        "finance-accounting": 0.09803921568627448,
+        "sales": 0.0926470588235294,
+        "it": 0.07843137254901959,
+        "compliance-audit": 0.05882352941176469,
+        "approver-executive": 0.10882352941176468,
+        "industry-specialist": 0.17647058823529407
+      },
+      "roleAllocation": {
+        "procurement": 4,
+        "project-program-mgmt": 3,
+        "field-ops": 3,
+        "finance-accounting": 2,
+        "sales": 2,
+        "it": 2,
+        "compliance-audit": 2,
+        "approver-executive": 3,
+        "industry-specialist": 4
+      }
+    },
+    {
+      "firmId": "firm:transportation:medium",
+      "industry": "transportation",
+      "firmSize": "medium",
+      "cohortSize": 150,
+      "seed": "w2-009:firm:transportation:medium",
+      "incumbentStack": [
+        {
+          "capability": "vehicle-parts-procurement",
+          "incumbent": "FleetPride / NAPA",
+          "editionOrAccess": "Parts portal",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "marketplace-procurement",
+          "incumbent": "Amazon Business",
+          "editionOrAccess": "Business account",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "equipment-rental",
+          "incumbent": "Penske / Ryder",
+          "editionOrAccess": "Rental portal",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "spreadsheet-procurement",
+          "incumbent": "Spreadsheet/Email",
+          "editionOrAccess": "Manual workflow",
+          "evidenceClass": "D"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15686274509803919,
+        "project-program-mgmt": 0.11764705882352938,
+        "field-ops": 0.1372549019607843,
+        "finance-accounting": 0.09803921568627448,
+        "sales": 0.11764705882352938,
+        "it": 0.07843137254901959,
+        "compliance-audit": 0.05882352941176469,
+        "approver-executive": 0.05882352941176469,
+        "industry-specialist": 0.17647058823529407
+      },
+      "roleAllocation": {
+        "procurement": 23,
+        "project-program-mgmt": 18,
+        "field-ops": 20,
+        "finance-accounting": 15,
+        "sales": 18,
+        "it": 12,
+        "compliance-audit": 9,
+        "approver-executive": 9,
+        "industry-specialist": 26
+      }
+    },
+    {
+      "firmId": "firm:transportation:large",
+      "industry": "transportation",
+      "firmSize": "large",
+      "cohortSize": 1000,
+      "seed": "w2-009:firm:transportation:large",
+      "incumbentStack": [
+        {
+          "capability": "vehicle-parts-procurement",
+          "incumbent": "FleetPride / NAPA",
+          "editionOrAccess": "Parts portal",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "marketplace-procurement",
+          "incumbent": "Amazon Business",
+          "editionOrAccess": "Business account",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "equipment-rental",
+          "incumbent": "Penske / Ryder",
+          "editionOrAccess": "Rental portal",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "spreadsheet-procurement",
+          "incumbent": "Spreadsheet/Email",
+          "editionOrAccess": "Manual workflow",
+          "evidenceClass": "D"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.1568627450980392,
+        "project-program-mgmt": 0.11764705882352941,
+        "field-ops": 0.15725490196078432,
+        "finance-accounting": 0.09803921568627451,
+        "sales": 0.12764705882352942,
+        "it": 0.0784313725490196,
+        "compliance-audit": 0.058823529411764705,
+        "approver-executive": 0.028823529411764706,
+        "industry-specialist": 0.1764705882352941
+      },
+      "roleAllocation": {
+        "procurement": 157,
+        "project-program-mgmt": 118,
+        "field-ops": 157,
+        "finance-accounting": 98,
+        "sales": 128,
+        "it": 78,
+        "compliance-audit": 59,
+        "approver-executive": 29,
+        "industry-specialist": 176
+      }
+    },
+    {
+      "firmId": "firm:hospitality:small",
+      "industry": "hospitality",
+      "firmSize": "small",
+      "cohortSize": 25,
+      "seed": "w2-009:firm:hospitality:small",
+      "incumbentStack": [
+        {
+          "capability": "food-beverage-supplier",
+          "incumbent": "Sysco Shop / US Foods",
+          "editionOrAccess": "Ordering portal",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "wholesale-portal",
+          "incumbent": "Restaurant Depot",
+          "editionOrAccess": "Cash-and-carry portal",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "purchasing-inventory",
+          "incumbent": "MarketMan",
+          "editionOrAccess": "SaaS",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "pos",
+          "incumbent": "Toast / Square",
+          "editionOrAccess": "Standard",
+          "evidenceClass": "B"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15384615384615385,
+        "project-program-mgmt": 0.11538461538461538,
+        "field-ops": 0.10961538461538464,
+        "finance-accounting": 0.09615384615384616,
+        "sales": 0.09038461538461537,
+        "it": 0.07692307692307693,
+        "compliance-audit": 0.05769230769230769,
+        "approver-executive": 0.1076923076923077,
+        "industry-specialist": 0.19230769230769232
+      },
+      "roleAllocation": {
+        "procurement": 4,
+        "project-program-mgmt": 3,
+        "field-ops": 3,
+        "finance-accounting": 2,
+        "sales": 2,
+        "it": 2,
+        "compliance-audit": 1,
+        "approver-executive": 3,
+        "industry-specialist": 5
+      }
+    },
+    {
+      "firmId": "firm:hospitality:medium",
+      "industry": "hospitality",
+      "firmSize": "medium",
+      "cohortSize": 150,
+      "seed": "w2-009:firm:hospitality:medium",
+      "incumbentStack": [
+        {
+          "capability": "food-beverage-supplier",
+          "incumbent": "Sysco Shop / US Foods",
+          "editionOrAccess": "Ordering portal",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "wholesale-portal",
+          "incumbent": "Restaurant Depot",
+          "editionOrAccess": "Cash-and-carry portal",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "purchasing-inventory",
+          "incumbent": "MarketMan",
+          "editionOrAccess": "SaaS",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "pos",
+          "incumbent": "Toast / Square",
+          "editionOrAccess": "Standard",
+          "evidenceClass": "B"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15384615384615385,
+        "project-program-mgmt": 0.11538461538461538,
+        "field-ops": 0.13461538461538464,
+        "finance-accounting": 0.09615384615384616,
+        "sales": 0.11538461538461538,
+        "it": 0.07692307692307693,
+        "compliance-audit": 0.05769230769230769,
+        "approver-executive": 0.05769230769230769,
+        "industry-specialist": 0.19230769230769232
+      },
+      "roleAllocation": {
+        "procurement": 23,
+        "project-program-mgmt": 17,
+        "field-ops": 20,
+        "finance-accounting": 14,
+        "sales": 17,
+        "it": 12,
+        "compliance-audit": 9,
+        "approver-executive": 9,
+        "industry-specialist": 29
+      }
+    },
+    {
+      "firmId": "firm:hospitality:large",
+      "industry": "hospitality",
+      "firmSize": "large",
+      "cohortSize": 1000,
+      "seed": "w2-009:firm:hospitality:large",
+      "incumbentStack": [
+        {
+          "capability": "food-beverage-supplier",
+          "incumbent": "Sysco Shop / US Foods",
+          "editionOrAccess": "Ordering portal",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "wholesale-portal",
+          "incumbent": "Restaurant Depot",
+          "editionOrAccess": "Cash-and-carry portal",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "purchasing-inventory",
+          "incumbent": "MarketMan",
+          "editionOrAccess": "SaaS",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "pos",
+          "incumbent": "Toast / Square",
+          "editionOrAccess": "Multi-location",
+          "evidenceClass": "B"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15384615384615385,
+        "project-program-mgmt": 0.11538461538461538,
+        "field-ops": 0.15461538461538463,
+        "finance-accounting": 0.09615384615384616,
+        "sales": 0.12538461538461537,
+        "it": 0.07692307692307693,
+        "compliance-audit": 0.05769230769230769,
+        "approver-executive": 0.02769230769230769,
+        "industry-specialist": 0.19230769230769232
+      },
+      "roleAllocation": {
+        "procurement": 154,
+        "project-program-mgmt": 115,
+        "field-ops": 155,
+        "finance-accounting": 96,
+        "sales": 125,
+        "it": 77,
+        "compliance-audit": 58,
+        "approver-executive": 28,
+        "industry-specialist": 192
+      }
+    },
+    {
+      "firmId": "firm:fashion:small",
+      "industry": "fashion",
+      "firmSize": "small",
+      "cohortSize": 25,
+      "seed": "w2-009:firm:fashion:small",
+      "incumbentStack": [
+        {
+          "capability": "storefront-catalog",
+          "incumbent": "Shopify",
+          "editionOrAccess": "Standard",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "wholesale-marketplace",
+          "incumbent": "Faire / JOOR / NuORDER",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "resale-marketplace",
+          "incumbent": "eBay / Depop / Poshmark",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "supplier-portal",
+          "incumbent": "Alibaba.com",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15094339622641512,
+        "project-program-mgmt": 0.11320754716981132,
+        "field-ops": 0.10707547169811323,
+        "finance-accounting": 0.09433962264150945,
+        "sales": 0.08820754716981132,
+        "it": 0.07547169811320756,
+        "compliance-audit": 0.05660377358490566,
+        "approver-executive": 0.10660377358490568,
+        "industry-specialist": 0.20754716981132076
+      },
+      "roleAllocation": {
+        "procurement": 4,
+        "project-program-mgmt": 3,
+        "field-ops": 3,
+        "finance-accounting": 2,
+        "sales": 2,
+        "it": 2,
+        "compliance-audit": 1,
+        "approver-executive": 3,
+        "industry-specialist": 5
+      }
+    },
+    {
+      "firmId": "firm:fashion:medium",
+      "industry": "fashion",
+      "firmSize": "medium",
+      "cohortSize": 150,
+      "seed": "w2-009:firm:fashion:medium",
+      "incumbentStack": [
+        {
+          "capability": "storefront-catalog",
+          "incumbent": "Shopify",
+          "editionOrAccess": "Standard",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "wholesale-marketplace",
+          "incumbent": "Faire / JOOR / NuORDER",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "resale-marketplace",
+          "incumbent": "eBay / Depop / Poshmark",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "supplier-portal",
+          "incumbent": "Alibaba.com",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15094339622641512,
+        "project-program-mgmt": 0.11320754716981132,
+        "field-ops": 0.13207547169811323,
+        "finance-accounting": 0.09433962264150945,
+        "sales": 0.11320754716981132,
+        "it": 0.07547169811320756,
+        "compliance-audit": 0.05660377358490566,
+        "approver-executive": 0.05660377358490566,
+        "industry-specialist": 0.20754716981132076
+      },
+      "roleAllocation": {
+        "procurement": 23,
+        "project-program-mgmt": 17,
+        "field-ops": 20,
+        "finance-accounting": 14,
+        "sales": 17,
+        "it": 11,
+        "compliance-audit": 9,
+        "approver-executive": 8,
+        "industry-specialist": 31
+      }
+    },
+    {
+      "firmId": "firm:fashion:large",
+      "industry": "fashion",
+      "firmSize": "large",
+      "cohortSize": 1000,
+      "seed": "w2-009:firm:fashion:large",
+      "incumbentStack": [
+        {
+          "capability": "storefront-catalog",
+          "incumbent": "Shopify",
+          "editionOrAccess": "Plus",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "wholesale-marketplace",
+          "incumbent": "Faire / JOOR / NuORDER",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "resale-marketplace",
+          "incumbent": "eBay / Depop / Poshmark",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "supplier-portal",
+          "incumbent": "Alibaba.com",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15094339622641512,
+        "project-program-mgmt": 0.11320754716981132,
+        "field-ops": 0.15207547169811322,
+        "finance-accounting": 0.09433962264150945,
+        "sales": 0.12320754716981132,
+        "it": 0.07547169811320756,
+        "compliance-audit": 0.05660377358490566,
+        "approver-executive": 0.02660377358490566,
+        "industry-specialist": 0.20754716981132076
+      },
+      "roleAllocation": {
+        "procurement": 151,
+        "project-program-mgmt": 113,
+        "field-ops": 152,
+        "finance-accounting": 94,
+        "sales": 123,
+        "it": 75,
+        "compliance-audit": 57,
+        "approver-executive": 27,
+        "industry-specialist": 208
+      }
+    },
+    {
+      "firmId": "firm:entertainment:small",
+      "industry": "entertainment",
+      "firmSize": "small",
+      "cohortSize": 25,
+      "seed": "w2-009:firm:entertainment:small",
+      "incumbentStack": [
+        {
+          "capability": "equipment-rental",
+          "incumbent": "ShareGrid / KitSplit",
+          "editionOrAccess": "Rental marketplace",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "used-equipment-resale",
+          "incumbent": "eBay / Used-marketplaces",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "merchandise-storefront",
+          "incumbent": "Shopify",
+          "editionOrAccess": "Standard",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "marketplace-procurement",
+          "incumbent": "Amazon Business",
+          "editionOrAccess": "Business account",
+          "evidenceClass": "B"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15384615384615385,
+        "project-program-mgmt": 0.11538461538461538,
+        "field-ops": 0.10961538461538464,
+        "finance-accounting": 0.09615384615384616,
+        "sales": 0.09038461538461537,
+        "it": 0.07692307692307693,
+        "compliance-audit": 0.05769230769230769,
+        "approver-executive": 0.1076923076923077,
+        "industry-specialist": 0.19230769230769232
+      },
+      "roleAllocation": {
+        "procurement": 4,
+        "project-program-mgmt": 3,
+        "field-ops": 3,
+        "finance-accounting": 2,
+        "sales": 2,
+        "it": 2,
+        "compliance-audit": 1,
+        "approver-executive": 3,
+        "industry-specialist": 5
+      }
+    },
+    {
+      "firmId": "firm:entertainment:medium",
+      "industry": "entertainment",
+      "firmSize": "medium",
+      "cohortSize": 150,
+      "seed": "w2-009:firm:entertainment:medium",
+      "incumbentStack": [
+        {
+          "capability": "equipment-rental",
+          "incumbent": "ShareGrid / KitSplit",
+          "editionOrAccess": "Rental marketplace",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "used-equipment-resale",
+          "incumbent": "eBay / Used-marketplaces",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "merchandise-storefront",
+          "incumbent": "Shopify",
+          "editionOrAccess": "Standard",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "marketplace-procurement",
+          "incumbent": "Amazon Business",
+          "editionOrAccess": "Business account",
+          "evidenceClass": "B"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15384615384615385,
+        "project-program-mgmt": 0.11538461538461538,
+        "field-ops": 0.13461538461538464,
+        "finance-accounting": 0.09615384615384616,
+        "sales": 0.11538461538461538,
+        "it": 0.07692307692307693,
+        "compliance-audit": 0.05769230769230769,
+        "approver-executive": 0.05769230769230769,
+        "industry-specialist": 0.19230769230769232
+      },
+      "roleAllocation": {
+        "procurement": 23,
+        "project-program-mgmt": 17,
+        "field-ops": 20,
+        "finance-accounting": 14,
+        "sales": 17,
+        "it": 12,
+        "compliance-audit": 9,
+        "approver-executive": 9,
+        "industry-specialist": 29
+      }
+    },
+    {
+      "firmId": "firm:entertainment:large",
+      "industry": "entertainment",
+      "firmSize": "large",
+      "cohortSize": 1000,
+      "seed": "w2-009:firm:entertainment:large",
+      "incumbentStack": [
+        {
+          "capability": "equipment-rental",
+          "incumbent": "ShareGrid / KitSplit",
+          "editionOrAccess": "Rental marketplace",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "used-equipment-resale",
+          "incumbent": "eBay / Used-marketplaces",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "merchandise-storefront",
+          "incumbent": "Shopify",
+          "editionOrAccess": "Standard",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "marketplace-procurement",
+          "incumbent": "Amazon Business",
+          "editionOrAccess": "Business account",
+          "evidenceClass": "B"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15384615384615385,
+        "project-program-mgmt": 0.11538461538461538,
+        "field-ops": 0.15461538461538463,
+        "finance-accounting": 0.09615384615384616,
+        "sales": 0.12538461538461537,
+        "it": 0.07692307692307693,
+        "compliance-audit": 0.05769230769230769,
+        "approver-executive": 0.02769230769230769,
+        "industry-specialist": 0.19230769230769232
+      },
+      "roleAllocation": {
+        "procurement": 154,
+        "project-program-mgmt": 115,
+        "field-ops": 155,
+        "finance-accounting": 96,
+        "sales": 125,
+        "it": 77,
+        "compliance-audit": 58,
+        "approver-executive": 28,
+        "industry-specialist": 192
+      }
+    },
+    {
+      "firmId": "firm:legal:small",
+      "industry": "legal",
+      "firmSize": "small",
+      "cohortSize": 25,
+      "seed": "w2-009:firm:legal:small",
+      "incumbentStack": [
+        {
+          "capability": "office-supplies-procurement",
+          "incumbent": "Staples Business Advantage",
+          "editionOrAccess": "Business portal",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "marketplace-procurement",
+          "incumbent": "Amazon Business",
+          "editionOrAccess": "Business account",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "spreadsheet-procurement",
+          "incumbent": "Spreadsheet/Email",
+          "editionOrAccess": "Manual workflow",
+          "evidenceClass": "D"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.16,
+        "project-program-mgmt": 0.12,
+        "field-ops": 0.11500000000000002,
+        "finance-accounting": 0.1,
+        "sales": 0.095,
+        "it": 0.08,
+        "compliance-audit": 0.06,
+        "approver-executive": 0.11,
+        "industry-specialist": 0.16
+      },
+      "roleAllocation": {
+        "procurement": 4,
+        "project-program-mgmt": 3,
+        "field-ops": 3,
+        "finance-accounting": 3,
+        "sales": 2,
+        "it": 2,
+        "compliance-audit": 1,
+        "approver-executive": 3,
+        "industry-specialist": 4
+      }
+    },
+    {
+      "firmId": "firm:legal:medium",
+      "industry": "legal",
+      "firmSize": "medium",
+      "cohortSize": 150,
+      "seed": "w2-009:firm:legal:medium",
+      "incumbentStack": [
+        {
+          "capability": "office-supplies-procurement",
+          "incumbent": "Staples Business Advantage",
+          "editionOrAccess": "Business portal",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "marketplace-procurement",
+          "incumbent": "Amazon Business",
+          "editionOrAccess": "Business account",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "spreadsheet-procurement",
+          "incumbent": "Spreadsheet/Email",
+          "editionOrAccess": "Manual workflow",
+          "evidenceClass": "D"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.16,
+        "project-program-mgmt": 0.12,
+        "field-ops": 0.14,
+        "finance-accounting": 0.1,
+        "sales": 0.12,
+        "it": 0.08,
+        "compliance-audit": 0.06,
+        "approver-executive": 0.06,
+        "industry-specialist": 0.16
+      },
+      "roleAllocation": {
+        "procurement": 24,
+        "project-program-mgmt": 18,
+        "field-ops": 21,
+        "finance-accounting": 15,
+        "sales": 18,
+        "it": 12,
+        "compliance-audit": 9,
+        "approver-executive": 9,
+        "industry-specialist": 24
+      }
+    },
+    {
+      "firmId": "firm:legal:large",
+      "industry": "legal",
+      "firmSize": "large",
+      "cohortSize": 1000,
+      "seed": "w2-009:firm:legal:large",
+      "incumbentStack": [
+        {
+          "capability": "office-supplies-procurement",
+          "incumbent": "Staples Business Advantage",
+          "editionOrAccess": "Business portal",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "marketplace-procurement",
+          "incumbent": "Amazon Business",
+          "editionOrAccess": "Business account",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "spreadsheet-procurement",
+          "incumbent": "Spreadsheet/Email",
+          "editionOrAccess": "Manual workflow",
+          "evidenceClass": "D"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.16,
+        "project-program-mgmt": 0.12,
+        "field-ops": 0.16,
+        "finance-accounting": 0.1,
+        "sales": 0.13,
+        "it": 0.08,
+        "compliance-audit": 0.06,
+        "approver-executive": 0.03,
+        "industry-specialist": 0.16
+      },
+      "roleAllocation": {
+        "procurement": 160,
+        "project-program-mgmt": 120,
+        "field-ops": 160,
+        "finance-accounting": 100,
+        "sales": 130,
+        "it": 80,
+        "compliance-audit": 60,
+        "approver-executive": 30,
+        "industry-specialist": 160
+      }
+    },
+    {
+      "firmId": "firm:defense:small",
+      "industry": "defense",
+      "firmSize": "small",
+      "cohortSize": 25,
+      "seed": "w2-009:firm:defense:small",
+      "incumbentStack": [
+        {
+          "capability": "gsa-advantage",
+          "incumbent": "GSA Advantage",
+          "editionOrAccess": "Authorized unclassified",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "authorized-supplier-portal",
+          "incumbent": "Authorized supplier portals",
+          "editionOrAccess": "Unclassified only",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "procurement-suite",
+          "incumbent": "SAP Ariba / Coupa",
+          "editionOrAccess": "Where permitted",
+          "evidenceClass": "C"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15094339622641512,
+        "project-program-mgmt": 0.11320754716981132,
+        "field-ops": 0.10707547169811323,
+        "finance-accounting": 0.09433962264150945,
+        "sales": 0.08820754716981132,
+        "it": 0.07547169811320756,
+        "compliance-audit": 0.05660377358490566,
+        "approver-executive": 0.10660377358490568,
+        "industry-specialist": 0.20754716981132076
+      },
+      "roleAllocation": {
+        "procurement": 4,
+        "project-program-mgmt": 3,
+        "field-ops": 3,
+        "finance-accounting": 2,
+        "sales": 2,
+        "it": 2,
+        "compliance-audit": 1,
+        "approver-executive": 3,
+        "industry-specialist": 5
+      }
+    },
+    {
+      "firmId": "firm:defense:medium",
+      "industry": "defense",
+      "firmSize": "medium",
+      "cohortSize": 150,
+      "seed": "w2-009:firm:defense:medium",
+      "incumbentStack": [
+        {
+          "capability": "gsa-advantage",
+          "incumbent": "GSA Advantage",
+          "editionOrAccess": "Authorized unclassified",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "authorized-supplier-portal",
+          "incumbent": "Authorized supplier portals",
+          "editionOrAccess": "Unclassified only",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "procurement-suite",
+          "incumbent": "SAP Ariba / Coupa",
+          "editionOrAccess": "Where permitted",
+          "evidenceClass": "C"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15094339622641512,
+        "project-program-mgmt": 0.11320754716981132,
+        "field-ops": 0.13207547169811323,
+        "finance-accounting": 0.09433962264150945,
+        "sales": 0.11320754716981132,
+        "it": 0.07547169811320756,
+        "compliance-audit": 0.05660377358490566,
+        "approver-executive": 0.05660377358490566,
+        "industry-specialist": 0.20754716981132076
+      },
+      "roleAllocation": {
+        "procurement": 23,
+        "project-program-mgmt": 17,
+        "field-ops": 20,
+        "finance-accounting": 14,
+        "sales": 17,
+        "it": 11,
+        "compliance-audit": 9,
+        "approver-executive": 8,
+        "industry-specialist": 31
+      }
+    },
+    {
+      "firmId": "firm:defense:large",
+      "industry": "defense",
+      "firmSize": "large",
+      "cohortSize": 1000,
+      "seed": "w2-009:firm:defense:large",
+      "incumbentStack": [
+        {
+          "capability": "gsa-advantage",
+          "incumbent": "GSA Advantage",
+          "editionOrAccess": "Authorized unclassified",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "authorized-supplier-portal",
+          "incumbent": "Authorized supplier portals",
+          "editionOrAccess": "Unclassified only",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "procurement-suite",
+          "incumbent": "SAP Ariba / Coupa",
+          "editionOrAccess": "Where permitted",
+          "evidenceClass": "C"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15094339622641512,
+        "project-program-mgmt": 0.11320754716981132,
+        "field-ops": 0.15207547169811322,
+        "finance-accounting": 0.09433962264150945,
+        "sales": 0.12320754716981132,
+        "it": 0.07547169811320756,
+        "compliance-audit": 0.05660377358490566,
+        "approver-executive": 0.02660377358490566,
+        "industry-specialist": 0.20754716981132076
+      },
+      "roleAllocation": {
+        "procurement": 151,
+        "project-program-mgmt": 113,
+        "field-ops": 152,
+        "finance-accounting": 94,
+        "sales": 123,
+        "it": 75,
+        "compliance-audit": 57,
+        "approver-executive": 27,
+        "industry-specialist": 208
+      }
+    },
+    {
+      "firmId": "firm:manufacturing:small",
+      "industry": "manufacturing",
+      "firmSize": "small",
+      "cohortSize": 25,
+      "seed": "w2-009:firm:manufacturing:small",
+      "incumbentStack": [
+        {
+          "capability": "procurement-suite",
+          "incumbent": "SAP Ariba / Coupa",
+          "editionOrAccess": "SMB",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "supplier-discovery",
+          "incumbent": "Thomasnet / Xometry",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "components-sourcing",
+          "incumbent": "Grainger / McMaster-Carr",
+          "editionOrAccess": "Catalog portal",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "supplier-portal",
+          "incumbent": "Alibaba.com",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15384615384615385,
+        "project-program-mgmt": 0.11538461538461538,
+        "field-ops": 0.10961538461538464,
+        "finance-accounting": 0.09615384615384616,
+        "sales": 0.09038461538461537,
+        "it": 0.07692307692307693,
+        "compliance-audit": 0.05769230769230769,
+        "approver-executive": 0.1076923076923077,
+        "industry-specialist": 0.19230769230769232
+      },
+      "roleAllocation": {
+        "procurement": 4,
+        "project-program-mgmt": 3,
+        "field-ops": 3,
+        "finance-accounting": 2,
+        "sales": 2,
+        "it": 2,
+        "compliance-audit": 1,
+        "approver-executive": 3,
+        "industry-specialist": 5
+      }
+    },
+    {
+      "firmId": "firm:manufacturing:medium",
+      "industry": "manufacturing",
+      "firmSize": "medium",
+      "cohortSize": 150,
+      "seed": "w2-009:firm:manufacturing:medium",
+      "incumbentStack": [
+        {
+          "capability": "procurement-suite",
+          "incumbent": "SAP Ariba / Coupa",
+          "editionOrAccess": "SMB",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "supplier-discovery",
+          "incumbent": "Thomasnet / Xometry",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "components-sourcing",
+          "incumbent": "Grainger / McMaster-Carr",
+          "editionOrAccess": "Catalog portal",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "supplier-portal",
+          "incumbent": "Alibaba.com",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15384615384615385,
+        "project-program-mgmt": 0.11538461538461538,
+        "field-ops": 0.13461538461538464,
+        "finance-accounting": 0.09615384615384616,
+        "sales": 0.11538461538461538,
+        "it": 0.07692307692307693,
+        "compliance-audit": 0.05769230769230769,
+        "approver-executive": 0.05769230769230769,
+        "industry-specialist": 0.19230769230769232
+      },
+      "roleAllocation": {
+        "procurement": 23,
+        "project-program-mgmt": 17,
+        "field-ops": 20,
+        "finance-accounting": 14,
+        "sales": 17,
+        "it": 12,
+        "compliance-audit": 9,
+        "approver-executive": 9,
+        "industry-specialist": 29
+      }
+    },
+    {
+      "firmId": "firm:manufacturing:large",
+      "industry": "manufacturing",
+      "firmSize": "large",
+      "cohortSize": 1000,
+      "seed": "w2-009:firm:manufacturing:large",
+      "incumbentStack": [
+        {
+          "capability": "procurement-suite",
+          "incumbent": "SAP Ariba / Coupa",
+          "editionOrAccess": "Enterprise",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "supplier-discovery",
+          "incumbent": "Thomasnet / Xometry",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "components-sourcing",
+          "incumbent": "Grainger / McMaster-Carr",
+          "editionOrAccess": "Catalog portal",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "supplier-portal",
+          "incumbent": "Alibaba.com",
+          "editionOrAccess": "Marketplace",
+          "evidenceClass": "B"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15384615384615385,
+        "project-program-mgmt": 0.11538461538461538,
+        "field-ops": 0.15461538461538463,
+        "finance-accounting": 0.09615384615384616,
+        "sales": 0.12538461538461537,
+        "it": 0.07692307692307693,
+        "compliance-audit": 0.05769230769230769,
+        "approver-executive": 0.02769230769230769,
+        "industry-specialist": 0.19230769230769232
+      },
+      "roleAllocation": {
+        "procurement": 154,
+        "project-program-mgmt": 115,
+        "field-ops": 155,
+        "finance-accounting": 96,
+        "sales": 125,
+        "it": 77,
+        "compliance-audit": 58,
+        "approver-executive": 28,
+        "industry-specialist": 192
+      }
+    },
+    {
+      "firmId": "firm:supermarket:small",
+      "industry": "supermarket",
+      "firmSize": "small",
+      "cohortSize": 25,
+      "seed": "w2-009:firm:supermarket:small",
+      "incumbentStack": [
+        {
+          "capability": "pos",
+          "incumbent": "Square POS / Shopify POS / Lightspeed",
+          "editionOrAccess": "Standard",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "wholesale-portal",
+          "incumbent": "Local cash-and-carry / supplier portal",
+          "editionOrAccess": "Wholesale portal",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "shopper-ordering",
+          "incumbent": "Instacart",
+          "editionOrAccess": "Where applicable",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "no-rfid-reconciliation",
+          "incumbent": "POS/file/CSV/receipt workflow",
+          "editionOrAccess": "Manual no-RFID",
+          "evidenceClass": "D"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15094339622641512,
+        "project-program-mgmt": 0.11320754716981132,
+        "field-ops": 0.10707547169811323,
+        "finance-accounting": 0.09433962264150945,
+        "sales": 0.08820754716981132,
+        "it": 0.07547169811320756,
+        "compliance-audit": 0.05660377358490566,
+        "approver-executive": 0.10660377358490568,
+        "industry-specialist": 0.20754716981132076
+      },
+      "roleAllocation": {
+        "procurement": 4,
+        "project-program-mgmt": 3,
+        "field-ops": 3,
+        "finance-accounting": 2,
+        "sales": 2,
+        "it": 2,
+        "compliance-audit": 1,
+        "approver-executive": 3,
+        "industry-specialist": 5
+      }
+    },
+    {
+      "firmId": "firm:supermarket:medium",
+      "industry": "supermarket",
+      "firmSize": "medium",
+      "cohortSize": 150,
+      "seed": "w2-009:firm:supermarket:medium",
+      "incumbentStack": [
+        {
+          "capability": "pos",
+          "incumbent": "Square POS / Shopify POS / Lightspeed",
+          "editionOrAccess": "Standard",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "wholesale-portal",
+          "incumbent": "Local cash-and-carry / supplier portal",
+          "editionOrAccess": "Wholesale portal",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "shopper-ordering",
+          "incumbent": "Instacart",
+          "editionOrAccess": "Where applicable",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "no-rfid-reconciliation",
+          "incumbent": "POS/file/CSV/receipt workflow",
+          "editionOrAccess": "Manual no-RFID",
+          "evidenceClass": "D"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15094339622641512,
+        "project-program-mgmt": 0.11320754716981132,
+        "field-ops": 0.13207547169811323,
+        "finance-accounting": 0.09433962264150945,
+        "sales": 0.11320754716981132,
+        "it": 0.07547169811320756,
+        "compliance-audit": 0.05660377358490566,
+        "approver-executive": 0.05660377358490566,
+        "industry-specialist": 0.20754716981132076
+      },
+      "roleAllocation": {
+        "procurement": 23,
+        "project-program-mgmt": 17,
+        "field-ops": 20,
+        "finance-accounting": 14,
+        "sales": 17,
+        "it": 11,
+        "compliance-audit": 9,
+        "approver-executive": 8,
+        "industry-specialist": 31
+      }
+    },
+    {
+      "firmId": "firm:supermarket:large",
+      "industry": "supermarket",
+      "firmSize": "large",
+      "cohortSize": 1000,
+      "seed": "w2-009:firm:supermarket:large",
+      "incumbentStack": [
+        {
+          "capability": "pos",
+          "incumbent": "Square POS / Shopify POS / Lightspeed",
+          "editionOrAccess": "Multi-location",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "wholesale-portal",
+          "incumbent": "Local cash-and-carry / supplier portal",
+          "editionOrAccess": "Wholesale portal",
+          "evidenceClass": "C"
+        },
+        {
+          "capability": "shopper-ordering",
+          "incumbent": "Instacart",
+          "editionOrAccess": "Where applicable",
+          "evidenceClass": "B"
+        },
+        {
+          "capability": "no-rfid-reconciliation",
+          "incumbent": "POS/file/CSV/receipt workflow",
+          "editionOrAccess": "Manual no-RFID",
+          "evidenceClass": "D"
+        }
+      ],
+      "populationAssumptions": {
+        "procurement": 0.15094339622641512,
+        "project-program-mgmt": 0.11320754716981132,
+        "field-ops": 0.15207547169811322,
+        "finance-accounting": 0.09433962264150945,
+        "sales": 0.12320754716981132,
+        "it": 0.07547169811320756,
+        "compliance-audit": 0.05660377358490566,
+        "approver-executive": 0.02660377358490566,
+        "industry-specialist": 0.20754716981132076
+      },
+      "roleAllocation": {
+        "procurement": 151,
+        "project-program-mgmt": 113,
+        "field-ops": 152,
+        "finance-accounting": 94,
+        "sales": 123,
+        "it": 75,
+        "compliance-audit": 57,
+        "approver-executive": 27,
+        "industry-specialist": 208
+      }
+    }
+  ]
+}

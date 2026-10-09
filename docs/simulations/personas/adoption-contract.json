@@ -1,0 +1,116 @@
+{
+  "scoringContractVersion": "w2-009:v1",
+  "frozenScoreWeights": {
+    "journeyCompletion": 0.3,
+    "usabilityFriction": 0.15,
+    "outcomeVsBenchmark": 0.2,
+    "trustProof": 0.15,
+    "integrationQuality": 0.1,
+    "switchingCostFit": 0.05,
+    "preferenceFit": 0.05
+  },
+  "scoreComponents": [
+    "journeyCompletion",
+    "usabilityFriction",
+    "outcomeVsBenchmark",
+    "trustProof",
+    "integrationQuality",
+    "switchingCostFit",
+    "preferenceFit"
+  ],
+  "thresholds": {
+    "fullSwitchThreshold": 65,
+    "mainInterfaceThreshold": 55,
+    "fullSwitchJourneyCompletionFloor": 1,
+    "mainInterfaceJourneySupervisionFloor": 0.8
+  },
+  "criticalFailureCategories": [
+    "security",
+    "authority",
+    "financial-truth",
+    "privacy",
+    "data-integrity"
+  ],
+  "reasonCodes": [
+    "capability-gap",
+    "ui-friction",
+    "trust-compliance",
+    "price-cost",
+    "integration-readiness",
+    "training-switch-cost",
+    "preference"
+  ],
+  "evidenceClasses": [
+    {
+      "code": "A",
+      "label": "Authorized direct UI trial",
+      "supportsPerformanceClaims": true
+    },
+    {
+      "code": "B",
+      "label": "Official interactive demo/UI observed",
+      "supportsPerformanceClaims": true
+    },
+    {
+      "code": "C",
+      "label": "Official documentation capability checklist only",
+      "supportsPerformanceClaims": false
+    },
+    {
+      "code": "D",
+      "label": "Unverified/inaccessible/hearsay",
+      "supportsPerformanceClaims": false
+    }
+  ],
+  "fourAdoptionOutputs": [
+    {
+      "id": "a",
+      "label": "Technical full-switch eligibility",
+      "kind": "boolean",
+      "rule": "no critical-failure veto AND all applicable journeys discoverable+completable AND no missing-capability reason codes AND no blocker reason codes"
+    },
+    {
+      "id": "b",
+      "label": "Simulated stated willingness to switch completely",
+      "kind": "boolean + score (0..100)",
+      "rule": "no veto AND technical-full-switch-eligible AND weighted score >= FULL_SWITCH_THRESHOLD (65)"
+    },
+    {
+      "id": "c",
+      "label": "Main-interface eligibility",
+      "kind": "boolean",
+      "rule": "no veto AND >= 80% of applicable journeys can start/be supervised from UNiCOM AND no main-interface-blocking reason codes"
+    },
+    {
+      "id": "d",
+      "label": "Simulated stated willingness to use as main interface",
+      "kind": "boolean + score (0..100)",
+      "rule": "no veto AND main-interface-eligible AND weighted score >= MAIN_INTERFACE_THRESHOLD (55)"
+    }
+  ],
+  "sensitivity": {
+    "seedCount": 5,
+    "perturbationMagnitude": 0.05,
+    "note": "Critical-failure vetoes are preserved (not perturbed). Components stay in [0,1]."
+  },
+  "realityLabSeparation": {
+    "law": "The seven Reality/Learning Lab organization/model configurations are evaluated for DECISION QUALITY ONLY. They NEVER confound the GUI adoption score. A persona's adoption decision is computed from GUI outcomes only; decision-quality outcomes are reported alongside but do NOT enter the willingness formula.",
+    "archetypes": [
+      "MAIN_AGENT_SKILLS",
+      "MAIN_AGENT_EPHEMERAL_DELEGATES",
+      "PROVIDER_NATIVE_OPTIMIZATION",
+      "SEARCHED_ORGANIZATIONS",
+      "SYSTEM_1_ONLY",
+      "SYSTEM_1_JEPA",
+      "SYSTEM_1_JEPA_SYSTEM_2"
+    ]
+  },
+  "caveats": [
+    "Simulated willingness is NOT human survey intent.",
+    "Every report must carry this caveat prominently.",
+    "Later validation with consenting real professionals is required.",
+    "No chain-of-thought capture — reason codes are concise enumerable categories only.",
+    "No real personal/patient/financial/privileged/classified data.",
+    "V1/V2 registries are immutable; v3-simulation-state.json is TL-only."
+  ]
+}
