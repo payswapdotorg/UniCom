@@ -639,15 +639,34 @@
       "records": 900,
       "evidenceSha256": "ad7dc9b428966cbd3400bd2cdd221705ac27d16e3c04d3128505d7ee335b30d9",
       "noRfidPathRuns": 0
+    },
+    {
+      "batch": {
+        "index": 33,
+        "firmId": "manufacturing-supply-chain-small",
+        "w1IndustryId": "manufacturing-supply-chain",
+        "w2IndustryId": "manufacturing",
+        "firmSize": "small",
+        "cohortId": "baseline-manufacturing-supply-chain-small"
+      },
+      "scheduleDigest": "28c28ea65c2d2f1443e711120ed94974f7150da2bdbec19a3cd740d60b3a9214",
+      "planned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0,
+      "records": 1400,
+      "evidenceSha256": "50c48f9e21d2eea84aeceb6e11cc83b1ee825a784d4b81776cdca7438467d70a",
+      "noRfidPathRuns": 0
     }
   ],
   "totals": {
-    "firmsCompleted": 33,
-    "projectsPlanned": 3300,
-    "projectsExecuted": 3300,
+    "firmsCompleted": 34,
+    "projectsPlanned": 3400,
+    "projectsExecuted": 3400,
     "projectsBlocked": 0,
     "projectsSkipped": 0,
-    "evidenceRecords": 39900,
+    "evidenceRecords": 41300,
     "drift": 0
   }
 }
