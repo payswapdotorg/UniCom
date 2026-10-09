@@ -70,7 +70,7 @@ async function main(): Promise<void> {
   // 3. Run the baseline campaign.
   const generatedAt = "2026-10-09T08:55:00Z";
   console.log(`[W3-010] running baseline campaign...`);
-  const { full, slim, schedule, evidenceRecords } = await runBaselineCampaign({
+  const { full, slim, schedule: _schedule, evidenceRecords } = await runBaselineCampaign({
     experimentId: "v3-w3-010-baseline",
     buildCommit,
     buildBranch,

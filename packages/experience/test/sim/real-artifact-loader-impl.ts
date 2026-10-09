@@ -29,20 +29,16 @@ import {
   type ProjectManifest as W1ProjectManifestGen,
 } from "../../../commerce/src/test/w1-009/portfolio/index";
 import type {
-  FirmCohort,
   Persona,
   IncumbentStackEntry,
 } from "@unicom/agent";
 import {
   buildFirmCohortManifest,
   generatePersonaCohort,
-  INDUSTRIES as W2_INDUSTRIES,
   SCORING_CONTRACT_VERSION,
   FROZEN_SCORE_WEIGHTS,
   FULL_SWITCH_THRESHOLD,
   MAIN_INTERFACE_THRESHOLD,
-  FULL_SWITCH_JOURNEY_COMPLETION_FLOOR,
-  MAIN_INTERFACE_JOURNEY_SUPERVISION_FLOOR,
   REASON_CODES,
   CRITICAL_FAILURE_CATEGORIES,
 } from "@unicom/agent";

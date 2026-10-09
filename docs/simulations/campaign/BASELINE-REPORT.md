@@ -5,7 +5,7 @@
 ## §0 Build + commit + timestamps
 
 - **Work order**: W3-010 (cycles.baseline)
-- **Build commit**: `d1ae5909e27e3f6cd666a88332ca3134a0cc3591`
+- **Build commit**: `80fd2f9630ecd71897b4b1a35045ad91ef7ca4e5`
 - **Build branch**: `work/w3-010`
 - **Generated at (UTC)**: 2026-10-09T08:55:00Z
 - **Deployment target**: `local-dev-fixture` (local-dev fixture — isolated from production)
@@ -21,13 +21,13 @@ Reconciliation law: `planned = executed + blocked + skipped` for projects AND jo
 
 | planned | executed | blocked | skipped | drift | reconciled |
 |---|---|---|---|---|---|
-| 39 | 39 | 0 | 0 | 0 | YES |
+| 3900 | 3900 | 0 | 0 | 0 | YES |
 
 ### Journey reconciliation
 
 | planned | executed | blocked | skipped | drift | reconciled |
 |---|---|---|---|---|---|
-| 507 | 468 | 39 | 0 | 0 | YES |
+| 48300 | 44400 | 3900 | 0 | 0 | YES |
 
 ## §2 Cohort definitions (firm + persona counts)
 
@@ -43,7 +43,7 @@ Reconciliation law: `planned = executed + blocked + skipped` for projects AND jo
 
 | pass | fail | blocked | absent | unknown |
 |---|---|---|---|---|
-| 468 | 0 | 39 | 0 | 0 |
+| 44400 | 0 | 3900 | 0 | 0 |
 
 ## §4 Industry × size × role results
 
@@ -57,7 +57,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | construction | large | finance-accounting | 96 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | construction | large | industry-specialist | 192 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | construction | large | it | 77 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
-| construction | large | procurement | 154 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| construction | large | procurement | 154 | 0 (0.0%) | 0 (0.0%) score=4.0 | 1 (0.6%) | 1 (0.6%) score=4.0 |
 | construction | large | project-program-mgmt | 115 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | construction | large | sales | 125 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | construction | medium | approver-executive | 9 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -66,7 +66,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | construction | medium | finance-accounting | 14 | 0 (0.0%) | 0 (0.0%) score=3.0 | 0 (0.0%) | 0 (0.0%) score=3.0 |
 | construction | medium | industry-specialist | 29 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | construction | medium | it | 12 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
-| construction | medium | procurement | 23 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| construction | medium | procurement | 23 | 0 (0.0%) | 0 (0.0%) score=7.0 | 1 (4.3%) | 1 (4.3%) score=7.0 |
 | construction | medium | project-program-mgmt | 17 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | construction | medium | sales | 17 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | construction | small | approver-executive | 3 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -84,7 +84,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | defense | large | finance-accounting | 94 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | defense | large | industry-specialist | 208 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | defense | large | it | 75 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
-| defense | large | procurement | 151 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| defense | large | procurement | 151 | 0 (0.0%) | 0 (0.0%) score=5.0 | 1 (0.7%) | 1 (0.7%) score=5.0 |
 | defense | large | project-program-mgmt | 113 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | defense | large | sales | 123 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | defense | medium | approver-executive | 8 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -93,7 +93,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | defense | medium | finance-accounting | 14 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | defense | medium | industry-specialist | 31 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | defense | medium | it | 11 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
-| defense | medium | procurement | 23 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
+| defense | medium | procurement | 23 | 0 (0.0%) | 0 (0.0%) score=9.0 | 1 (4.3%) | 1 (4.3%) score=9.0 |
 | defense | medium | project-program-mgmt | 17 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | defense | medium | sales | 17 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | defense | small | approver-executive | 3 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
@@ -102,7 +102,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | defense | small | finance-accounting | 2 | 0 (0.0%) | 0 (0.0%) score=3.0 | 0 (0.0%) | 0 (0.0%) score=3.0 |
 | defense | small | industry-specialist | 5 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
 | defense | small | it | 2 | 0 (0.0%) | 0 (0.0%) score=7.0 | 0 (0.0%) | 0 (0.0%) score=7.0 |
-| defense | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| defense | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=23.0 | 1 (25.0%) | 1 (25.0%) score=23.0 |
 | defense | small | project-program-mgmt | 3 | 0 (0.0%) | 0 (0.0%) score=3.0 | 0 (0.0%) | 0 (0.0%) score=3.0 |
 | defense | small | sales | 2 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
 | entertainment | large | approver-executive | 28 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -111,7 +111,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | entertainment | large | finance-accounting | 96 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | entertainment | large | industry-specialist | 192 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | entertainment | large | it | 77 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
-| entertainment | large | procurement | 154 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| entertainment | large | procurement | 154 | 0 (0.0%) | 0 (0.0%) score=5.0 | 1 (0.6%) | 1 (0.6%) score=5.0 |
 | entertainment | large | project-program-mgmt | 115 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | entertainment | large | sales | 125 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | entertainment | medium | approver-executive | 9 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -120,7 +120,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | entertainment | medium | finance-accounting | 14 | 0 (0.0%) | 0 (0.0%) score=3.0 | 0 (0.0%) | 0 (0.0%) score=3.0 |
 | entertainment | medium | industry-specialist | 29 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | entertainment | medium | it | 12 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
-| entertainment | medium | procurement | 23 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
+| entertainment | medium | procurement | 23 | 0 (0.0%) | 0 (0.0%) score=8.0 | 1 (4.3%) | 1 (4.3%) score=8.0 |
 | entertainment | medium | project-program-mgmt | 17 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | entertainment | medium | sales | 17 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | entertainment | small | approver-executive | 3 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -129,7 +129,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | entertainment | small | finance-accounting | 2 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | entertainment | small | industry-specialist | 5 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
 | entertainment | small | it | 2 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
-| entertainment | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| entertainment | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=24.0 | 1 (25.0%) | 1 (25.0%) score=24.0 |
 | entertainment | small | project-program-mgmt | 3 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | entertainment | small | sales | 2 | 0 (0.0%) | 0 (0.0%) score=3.0 | 0 (0.0%) | 0 (0.0%) score=3.0 |
 | fashion | large | approver-executive | 27 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -138,7 +138,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | fashion | large | finance-accounting | 94 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | fashion | large | industry-specialist | 208 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | fashion | large | it | 75 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
-| fashion | large | procurement | 151 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| fashion | large | procurement | 151 | 0 (0.0%) | 0 (0.0%) score=5.0 | 1 (0.7%) | 1 (0.7%) score=5.0 |
 | fashion | large | project-program-mgmt | 113 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | fashion | large | sales | 123 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | fashion | medium | approver-executive | 8 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -147,7 +147,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | fashion | medium | finance-accounting | 14 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | fashion | medium | industry-specialist | 31 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | fashion | medium | it | 11 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
-| fashion | medium | procurement | 23 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| fashion | medium | procurement | 23 | 0 (0.0%) | 0 (0.0%) score=8.0 | 1 (4.3%) | 1 (4.3%) score=8.0 |
 | fashion | medium | project-program-mgmt | 17 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | fashion | medium | sales | 17 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | fashion | small | approver-executive | 3 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -156,7 +156,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | fashion | small | finance-accounting | 2 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | fashion | small | industry-specialist | 5 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | fashion | small | it | 2 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
-| fashion | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
+| fashion | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=24.0 | 1 (25.0%) | 1 (25.0%) score=24.0 |
 | fashion | small | project-program-mgmt | 3 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | fashion | small | sales | 2 | 0 (0.0%) | 0 (0.0%) score=3.0 | 0 (0.0%) | 0 (0.0%) score=3.0 |
 | finance | large | approver-executive | 30 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -165,7 +165,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | finance | large | finance-accounting | 100 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | finance | large | industry-specialist | 160 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | finance | large | it | 80 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
-| finance | large | procurement | 160 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| finance | large | procurement | 160 | 0 (0.0%) | 0 (0.0%) score=4.0 | 1 (0.6%) | 1 (0.6%) score=4.0 |
 | finance | large | project-program-mgmt | 120 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | finance | large | sales | 130 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | finance | medium | approver-executive | 9 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -174,7 +174,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | finance | medium | finance-accounting | 15 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | finance | medium | industry-specialist | 24 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | finance | medium | it | 12 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
-| finance | medium | procurement | 24 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| finance | medium | procurement | 24 | 0 (0.0%) | 0 (0.0%) score=7.0 | 1 (4.2%) | 1 (4.2%) score=7.0 |
 | finance | medium | project-program-mgmt | 18 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | finance | medium | sales | 18 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | finance | small | approver-executive | 3 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -183,7 +183,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | finance | small | finance-accounting | 3 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | finance | small | industry-specialist | 4 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | finance | small | it | 2 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
-| finance | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| finance | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=22.0 | 1 (25.0%) | 1 (25.0%) score=22.0 |
 | finance | small | project-program-mgmt | 3 | 0 (0.0%) | 0 (0.0%) score=3.0 | 0 (0.0%) | 0 (0.0%) score=3.0 |
 | finance | small | sales | 2 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | healthcare | large | approver-executive | 27 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -192,7 +192,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | healthcare | large | finance-accounting | 94 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | healthcare | large | industry-specialist | 208 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | healthcare | large | it | 75 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
-| healthcare | large | procurement | 151 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| healthcare | large | procurement | 151 | 0 (0.0%) | 0 (0.0%) score=5.0 | 1 (0.7%) | 1 (0.7%) score=5.0 |
 | healthcare | large | project-program-mgmt | 113 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | healthcare | large | sales | 123 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | healthcare | medium | approver-executive | 8 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
@@ -201,7 +201,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | healthcare | medium | finance-accounting | 14 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | healthcare | medium | industry-specialist | 31 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | healthcare | medium | it | 11 | 0 (0.0%) | 0 (0.0%) score=7.0 | 0 (0.0%) | 0 (0.0%) score=7.0 |
-| healthcare | medium | procurement | 23 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
+| healthcare | medium | procurement | 23 | 0 (0.0%) | 0 (0.0%) score=8.0 | 1 (4.3%) | 1 (4.3%) score=8.0 |
 | healthcare | medium | project-program-mgmt | 17 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | healthcare | medium | sales | 17 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | healthcare | small | approver-executive | 3 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
@@ -210,7 +210,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | healthcare | small | finance-accounting | 2 | 0 (0.0%) | 0 (0.0%) score=3.0 | 0 (0.0%) | 0 (0.0%) score=3.0 |
 | healthcare | small | industry-specialist | 5 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | healthcare | small | it | 2 | 0 (0.0%) | 0 (0.0%) score=7.0 | 0 (0.0%) | 0 (0.0%) score=7.0 |
-| healthcare | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
+| healthcare | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=23.0 | 1 (25.0%) | 1 (25.0%) score=23.0 |
 | healthcare | small | project-program-mgmt | 3 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | healthcare | small | sales | 2 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | hospitality | large | approver-executive | 28 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -219,7 +219,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | hospitality | large | finance-accounting | 96 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | hospitality | large | industry-specialist | 192 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | hospitality | large | it | 77 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
-| hospitality | large | procurement | 154 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| hospitality | large | procurement | 154 | 0 (0.0%) | 0 (0.0%) score=5.0 | 1 (0.6%) | 1 (0.6%) score=5.0 |
 | hospitality | large | project-program-mgmt | 115 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | hospitality | large | sales | 125 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | hospitality | medium | approver-executive | 9 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
@@ -228,7 +228,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | hospitality | medium | finance-accounting | 14 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | hospitality | medium | industry-specialist | 29 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | hospitality | medium | it | 12 | 0 (0.0%) | 0 (0.0%) score=7.0 | 0 (0.0%) | 0 (0.0%) score=7.0 |
-| hospitality | medium | procurement | 23 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
+| hospitality | medium | procurement | 23 | 0 (0.0%) | 0 (0.0%) score=8.0 | 1 (4.3%) | 1 (4.3%) score=8.0 |
 | hospitality | medium | project-program-mgmt | 17 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | hospitality | medium | sales | 17 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | hospitality | small | approver-executive | 3 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -237,7 +237,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | hospitality | small | finance-accounting | 2 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | hospitality | small | industry-specialist | 5 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | hospitality | small | it | 2 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
-| hospitality | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| hospitality | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=23.0 | 1 (25.0%) | 1 (25.0%) score=23.0 |
 | hospitality | small | project-program-mgmt | 3 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | hospitality | small | sales | 2 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | legal | large | approver-executive | 30 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -246,7 +246,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | legal | large | finance-accounting | 100 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | legal | large | industry-specialist | 160 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | legal | large | it | 80 | 0 (0.0%) | 0 (0.0%) score=7.0 | 0 (0.0%) | 0 (0.0%) score=7.0 |
-| legal | large | procurement | 160 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| legal | large | procurement | 160 | 0 (0.0%) | 0 (0.0%) score=5.0 | 1 (0.6%) | 1 (0.6%) score=5.0 |
 | legal | large | project-program-mgmt | 120 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | legal | large | sales | 130 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | legal | medium | approver-executive | 9 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
@@ -255,7 +255,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | legal | medium | finance-accounting | 15 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | legal | medium | industry-specialist | 24 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
 | legal | medium | it | 12 | 0 (0.0%) | 0 (0.0%) score=7.0 | 0 (0.0%) | 0 (0.0%) score=7.0 |
-| legal | medium | procurement | 24 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| legal | medium | procurement | 24 | 0 (0.0%) | 0 (0.0%) score=7.0 | 1 (4.2%) | 1 (4.2%) score=7.0 |
 | legal | medium | project-program-mgmt | 18 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | legal | medium | sales | 18 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | legal | small | approver-executive | 3 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
@@ -264,7 +264,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | legal | small | finance-accounting | 3 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | legal | small | industry-specialist | 4 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | legal | small | it | 2 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
-| legal | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
+| legal | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=24.0 | 1 (25.0%) | 1 (25.0%) score=24.0 |
 | legal | small | project-program-mgmt | 3 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | legal | small | sales | 2 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
 | manufacturing | large | approver-executive | 28 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -273,7 +273,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | manufacturing | large | finance-accounting | 96 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | manufacturing | large | industry-specialist | 192 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | manufacturing | large | it | 77 | 0 (0.0%) | 0 (0.0%) score=7.0 | 0 (0.0%) | 0 (0.0%) score=7.0 |
-| manufacturing | large | procurement | 154 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| manufacturing | large | procurement | 154 | 0 (0.0%) | 0 (0.0%) score=5.0 | 1 (0.6%) | 1 (0.6%) score=5.0 |
 | manufacturing | large | project-program-mgmt | 115 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | manufacturing | large | sales | 125 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | manufacturing | medium | approver-executive | 9 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -282,7 +282,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | manufacturing | medium | finance-accounting | 14 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | manufacturing | medium | industry-specialist | 29 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | manufacturing | medium | it | 12 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
-| manufacturing | medium | procurement | 23 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
+| manufacturing | medium | procurement | 23 | 0 (0.0%) | 0 (0.0%) score=8.0 | 1 (4.3%) | 1 (4.3%) score=8.0 |
 | manufacturing | medium | project-program-mgmt | 17 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | manufacturing | medium | sales | 17 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | manufacturing | small | approver-executive | 3 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -291,7 +291,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | manufacturing | small | finance-accounting | 2 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | manufacturing | small | industry-specialist | 5 | 0 (0.0%) | 0 (0.0%) score=3.0 | 0 (0.0%) | 0 (0.0%) score=3.0 |
 | manufacturing | small | it | 2 | 0 (0.0%) | 0 (0.0%) score=7.0 | 0 (0.0%) | 0 (0.0%) score=7.0 |
-| manufacturing | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
+| manufacturing | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=23.0 | 1 (25.0%) | 1 (25.0%) score=23.0 |
 | manufacturing | small | project-program-mgmt | 3 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | manufacturing | small | sales | 2 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | sales | large | approver-executive | 30 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -300,7 +300,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | sales | large | finance-accounting | 100 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | sales | large | industry-specialist | 160 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | sales | large | it | 80 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
-| sales | large | procurement | 160 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| sales | large | procurement | 160 | 0 (0.0%) | 0 (0.0%) score=5.0 | 1 (0.6%) | 1 (0.6%) score=5.0 |
 | sales | large | project-program-mgmt | 120 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | sales | large | sales | 130 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | sales | medium | approver-executive | 9 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -309,7 +309,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | sales | medium | finance-accounting | 15 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | sales | medium | industry-specialist | 24 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | sales | medium | it | 12 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
-| sales | medium | procurement | 24 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| sales | medium | procurement | 24 | 0 (0.0%) | 0 (0.0%) score=8.0 | 1 (4.2%) | 1 (4.2%) score=8.0 |
 | sales | medium | project-program-mgmt | 18 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | sales | medium | sales | 18 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | sales | small | approver-executive | 3 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
@@ -318,7 +318,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | sales | small | finance-accounting | 3 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | sales | small | industry-specialist | 4 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | sales | small | it | 2 | 0 (0.0%) | 0 (0.0%) score=7.0 | 0 (0.0%) | 0 (0.0%) score=7.0 |
-| sales | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
+| sales | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=23.0 | 1 (25.0%) | 1 (25.0%) score=23.0 |
 | sales | small | project-program-mgmt | 3 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | sales | small | sales | 2 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | supermarket | large | approver-executive | 27 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -327,7 +327,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | supermarket | large | finance-accounting | 94 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | supermarket | large | industry-specialist | 208 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | supermarket | large | it | 75 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
-| supermarket | large | procurement | 151 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| supermarket | large | procurement | 151 | 0 (0.0%) | 0 (0.0%) score=5.0 | 1 (0.7%) | 1 (0.7%) score=5.0 |
 | supermarket | large | project-program-mgmt | 113 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | supermarket | large | sales | 123 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | supermarket | medium | approver-executive | 8 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -336,7 +336,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | supermarket | medium | finance-accounting | 14 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | supermarket | medium | industry-specialist | 31 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | supermarket | medium | it | 11 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
-| supermarket | medium | procurement | 23 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
+| supermarket | medium | procurement | 23 | 0 (0.0%) | 0 (0.0%) score=8.0 | 1 (4.3%) | 1 (4.3%) score=8.0 |
 | supermarket | medium | project-program-mgmt | 17 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | supermarket | medium | sales | 17 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | supermarket | small | approver-executive | 3 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -345,7 +345,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | supermarket | small | finance-accounting | 2 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
 | supermarket | small | industry-specialist | 5 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | supermarket | small | it | 2 | 0 (0.0%) | 0 (0.0%) score=7.0 | 0 (0.0%) | 0 (0.0%) score=7.0 |
-| supermarket | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
+| supermarket | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=23.0 | 1 (25.0%) | 1 (25.0%) score=23.0 |
 | supermarket | small | project-program-mgmt | 3 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
 | supermarket | small | sales | 2 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | technology | large | approver-executive | 30 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -354,7 +354,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | technology | large | finance-accounting | 100 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | technology | large | industry-specialist | 160 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | technology | large | it | 80 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
-| technology | large | procurement | 160 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| technology | large | procurement | 160 | 0 (0.0%) | 0 (0.0%) score=5.0 | 1 (0.6%) | 1 (0.6%) score=5.0 |
 | technology | large | project-program-mgmt | 120 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | technology | large | sales | 130 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | technology | medium | approver-executive | 9 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -363,7 +363,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | technology | medium | finance-accounting | 15 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | technology | medium | industry-specialist | 24 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | technology | medium | it | 12 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
-| technology | medium | procurement | 24 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
+| technology | medium | procurement | 24 | 0 (0.0%) | 0 (0.0%) score=8.0 | 1 (4.2%) | 1 (4.2%) score=8.0 |
 | technology | medium | project-program-mgmt | 18 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | technology | medium | sales | 18 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | technology | small | approver-executive | 3 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -372,7 +372,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | technology | small | finance-accounting | 3 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
 | technology | small | industry-specialist | 4 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | technology | small | it | 2 | 0 (0.0%) | 0 (0.0%) score=7.0 | 0 (0.0%) | 0 (0.0%) score=7.0 |
-| technology | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
+| technology | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=23.0 | 1 (25.0%) | 1 (25.0%) score=23.0 |
 | technology | small | project-program-mgmt | 3 | 0 (0.0%) | 0 (0.0%) score=6.0 | 0 (0.0%) | 0 (0.0%) score=6.0 |
 | technology | small | sales | 2 | 0 (0.0%) | 0 (0.0%) score=3.0 | 0 (0.0%) | 0 (0.0%) score=3.0 |
 | transportation | large | approver-executive | 29 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -381,7 +381,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | transportation | large | finance-accounting | 98 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | transportation | large | industry-specialist | 176 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | transportation | large | it | 78 | 0 (0.0%) | 0 (0.0%) score=7.0 | 0 (0.0%) | 0 (0.0%) score=7.0 |
-| transportation | large | procurement | 157 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| transportation | large | procurement | 157 | 0 (0.0%) | 0 (0.0%) score=5.0 | 1 (0.6%) | 1 (0.6%) score=5.0 |
 | transportation | large | project-program-mgmt | 118 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | transportation | large | sales | 128 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | transportation | medium | approver-executive | 9 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -390,7 +390,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | transportation | medium | finance-accounting | 15 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | transportation | medium | industry-specialist | 26 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | transportation | medium | it | 12 | 0 (0.0%) | 0 (0.0%) score=7.0 | 0 (0.0%) | 0 (0.0%) score=7.0 |
-| transportation | medium | procurement | 23 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
+| transportation | medium | procurement | 23 | 0 (0.0%) | 0 (0.0%) score=8.0 | 1 (4.3%) | 1 (4.3%) score=8.0 |
 | transportation | medium | project-program-mgmt | 18 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | transportation | medium | sales | 18 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | transportation | small | approver-executive | 3 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
@@ -399,7 +399,7 @@ Per-industry×size×role aggregate rows (each row shows the four adoption output
 | transportation | small | finance-accounting | 2 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | transportation | small | industry-specialist | 4 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 | transportation | small | it | 2 | 0 (0.0%) | 0 (0.0%) score=7.0 | 0 (0.0%) | 0 (0.0%) score=7.0 |
-| transportation | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
+| transportation | small | procurement | 4 | 0 (0.0%) | 0 (0.0%) score=23.0 | 1 (25.0%) | 1 (25.0%) score=23.0 |
 | transportation | small | project-program-mgmt | 3 | 0 (0.0%) | 0 (0.0%) score=4.0 | 0 (0.0%) | 0 (0.0%) score=4.0 |
 | transportation | small | sales | 2 | 0 (0.0%) | 0 (0.0%) score=5.0 | 0 (0.0%) | 0 (0.0%) score=5.0 |
 
@@ -443,9 +443,9 @@ The four adoption outputs (a/b/c/d) are computed under the FROZEN `w2-009:v1` co
 | output | label | denominator | eligible | eligible% | mean score | threshold | rule |
 |---|---|---|---|---|---|---|---|
 | (a) | Technical full-switch eligibility | 15275 | 0 | 0.0% | n/a | n/a | no veto AND all applicable journeys discoverable+completable AND no missing-capability reason codes AND no blocker reason codes |
-| (b) | Simulated stated willingness to switch completely | 15275 | 0 | 0.0% | 4.0 | 65 | no veto AND technical-full-switch-eligible AND weighted score >= FULL_SWITCH_THRESHOLD (65) |
-| (c) | Main-interface eligibility | 15275 | 1 | 0.0% | n/a | n/a | no veto AND >= 80% of applicable journeys can start/be supervised from UNiCOM AND no main-interface-blocking reason codes |
-| (d) | Simulated stated willingness to use as main interface | 15275 | 1 | 0.0% | 4.0 | 55 | no veto AND main-interface-eligible AND weighted score >= MAIN_INTERFACE_THRESHOLD (55) |
+| (b) | Simulated stated willingness to switch completely | 15275 | 0 | 0.0% | 5.0 | 65 | no veto AND technical-full-switch-eligible AND weighted score >= FULL_SWITCH_THRESHOLD (65) |
+| (c) | Main-interface eligibility | 15275 | 39 | 0.3% | n/a | n/a | no veto AND >= 80% of applicable journeys can start/be supervised from UNiCOM AND no main-interface-blocking reason codes |
+| (d) | Simulated stated willingness to use as main interface | 15275 | 39 | 0.3% | 5.0 | 55 | no veto AND main-interface-eligible AND weighted score >= MAIN_INTERFACE_THRESHOLD (55) |
 
 > **SYNTHETIC SIMULATION ESTIMATE** — All willingness numbers above are synthetic simulation estimates, not human survey results.
 
@@ -466,25 +466,31 @@ The four adoption outputs (a/b/c/d) are computed under the FROZEN `w2-009:v1` co
 
 | family | total runs | pass | fail | blocked | absent | unknown | reconciled |
 |---|---|---|---|---|---|---|---|
-| buy-now-vs-wait-price-timing | 39 | 39 | 0 | 0 | 0 | 0 | YES |
-| buyer-intent-constraints | 39 | 39 | 0 | 0 | 0 | 0 | YES |
-| connected-commerce-channels-and-live-commerce | 39 | 39 | 0 | 0 | 0 | 0 | YES |
-| failure-unknown-idempotency-recovery | 39 | 39 | 0 | 0 | 0 | 0 | YES |
-| gui-feature-discoverability | 39 | 39 | 0 | 0 | 0 | 0 | YES |
-| merchant-commerce-lifecycle | 39 | 39 | 0 | 0 | 0 | 0 | YES |
-| negotiation-substitution | 39 | 0 | 0 | 39 | 0 | 0 | YES |
-| offer-sourcing-comparison | 39 | 39 | 0 | 0 | 0 | 0 | YES |
-| proactive-economic-opportunities | 39 | 39 | 0 | 0 | 0 | 0 | YES |
-| rent-borrow-vs-buy | 39 | 39 | 0 | 0 | 0 | 0 | YES |
-| resale-rental-consignment | 39 | 39 | 0 | 0 | 0 | 0 | YES |
-| supplier-procurement-receiving | 39 | 39 | 0 | 0 | 0 | 0 | YES |
-| trust-security-fraud-and-recourse | 39 | 39 | 0 | 0 | 0 | 0 | YES |
+| autonomous-store-policy | 300 | 300 | 0 | 0 | 0 | 0 | YES |
+| bounded-multi-hop-trade-cycle | 600 | 600 | 0 | 0 | 0 | 0 | YES |
+| buy-now-vs-wait-price-timing | 2700 | 2700 | 0 | 0 | 0 | 0 | YES |
+| buyer-intent-constraints | 3900 | 3900 | 0 | 0 | 0 | 0 | YES |
+| commerce-twin-what-if | 1500 | 1500 | 0 | 0 | 0 | 0 | YES |
+| connected-commerce-channels-and-live-commerce | 2100 | 2100 | 0 | 0 | 0 | 0 | YES |
+| existing-group-buy | 1200 | 1200 | 0 | 0 | 0 | 0 | YES |
+| failure-unknown-idempotency-recovery | 3900 | 3900 | 0 | 0 | 0 | 0 | YES |
+| gui-feature-discoverability | 3900 | 3900 | 0 | 0 | 0 | 0 | YES |
+| latent-demand-merchant-group-buy-proposal | 1200 | 1200 | 0 | 0 | 0 | 0 | YES |
+| merchant-commerce-lifecycle | 2400 | 2400 | 0 | 0 | 0 | 0 | YES |
+| negotiation-substitution | 3900 | 0 | 0 | 3900 | 0 | 0 | YES |
+| offer-sourcing-comparison | 3900 | 3900 | 0 | 0 | 0 | 0 | YES |
+| physical-no-rfid-supermarket | 600 | 600 | 0 | 0 | 0 | 0 | YES |
+| proactive-economic-opportunities | 3600 | 3600 | 0 | 0 | 0 | 0 | YES |
+| rent-borrow-vs-buy | 3000 | 3000 | 0 | 0 | 0 | 0 | YES |
+| resale-rental-consignment | 2100 | 2100 | 0 | 0 | 0 | 0 | YES |
+| supplier-procurement-receiving | 3900 | 3900 | 0 | 0 | 0 | 0 | YES |
+| trust-security-fraud-and-recourse | 3600 | 3600 | 0 | 0 | 0 | 0 | YES |
 
 ## §7-cycle-1 readiness (documentation only — fixes NOT started)
 
 > This section MUST NOT start cycle-1 fixes. It documents the baseline failure list, root-cause clusters, and the untouched-holdout confirmation only.
 
-- **Baseline failure count**: 39
+- **Baseline failure count**: 3900
 - **Root-cause clusters**: 1
 - **Untouched holdout confirmation**: namespaceGuardPassed = true
 - **Cycle 1 started**: false (must be `false`)
@@ -493,7 +499,7 @@ The four adoption outputs (a/b/c/d) are computed under the FROZEN `w2-009:v1` co
 
 | cluster | count | representative projects |
 |---|---|---|
-| blocked-misc | 39 | W1-009-B-construction-small-0001, W1-009-B-construction-small-0002, W1-009-B-construction-small-0003, … |
+| blocked-misc | 3900 | W1-009-B-construction-small-0001, W1-009-B-construction-small-0002, W1-009-B-construction-small-0003, … |
 
 ## §8 Limitations + confidence warnings
 
@@ -507,13 +513,13 @@ The four adoption outputs (a/b/c/d) are computed under the FROZEN `w2-009:v1` co
 
 ## §9 Determinism
 
-- **Determinism fingerprint** (sha256 of canonical JSON modulo the isolated throughput block): `d6d52efed26d648e`
+- **Determinism fingerprint** (sha256 of canonical JSON modulo the isolated throughput block): `6d41dc822423e598`
 - **Throughput block** (ISOLATED from the fingerprint — wall-clock timing is non-deterministic):
-  - totalDurationMs: 17
-  - totalProjects: 39
-  - totalJourneyRuns: 507
-  - wallClockStartedAt: 2026-10-09T08:45:30.980Z
-  - wallClockEndedAt: 2026-10-09T08:45:30.997Z
+  - totalDurationMs: 1238
+  - totalProjects: 3900
+  - totalJourneyRuns: 48300
+  - wallClockStartedAt: 2026-10-09T08:47:17.836Z
+  - wallClockEndedAt: 2026-10-09T08:47:19.074Z
 
 ## §10 Artifact fingerprints
 
