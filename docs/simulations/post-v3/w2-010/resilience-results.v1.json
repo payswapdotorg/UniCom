@@ -1,0 +1,669 @@
+{
+  "resultsId": "w2-010-resilience-results",
+  "version": "1.0.0",
+  "generatedAt": "2026-10-09",
+  "workOrder": "W2-010",
+  "matrixRef": "docs/simulations/post-v3/w2-010/resilience-matrix.v1.json",
+  "evidenceLevelDefault": "fixture-contract",
+  "evidenceLevelCaveat": "Every result in this file is a fixture-contract run: real product runtimes driven through typed view contracts in an isolated test surface. None of it is real-browser evidence; browser-labelled runs require a rendered commerce UI which does not yet exist (W1-010 pilot finding) and reuse of the W1-010 runner format.",
+  "denominator": {
+    "planned": 63,
+    "executed": 63,
+    "blocked": 0,
+    "skipped": 0,
+    "recomputed": 63,
+    "outcomeSum": 63,
+    "zeroDrift": true,
+    "reconciliation": "planned = executed + blocked + skipped = \u03a3byOutcome \u2192 63 = 63 + 0 + 0 = 63 (zero drift)",
+    "byOutcome": {
+      "pass": 63,
+      "fail": 0,
+      "blocked": 0,
+      "absent": 0,
+      "unknown": 0,
+      "aborted": 0,
+      "skipped": 0
+    }
+  },
+  "invariantVerdicts": {
+    "UNKNOWN_NEVER_FAILURE": "pass (F01 stale/contradictory + F10-S03 NOT_PROMOTED_UNKNOWN + F02-S05 settlement UNKNOWN hold)",
+    "UNKNOWN_NEVER_SUCCESS": "pass (F01 contradictory-response refusal; never settled as success)",
+    "NO_PENDING_AS_SETTLED": "pass (F02-S05: UNKNOWN settlement observation holds; window close \u2192 NOT_PAID, never money-in)",
+    "NO_SIDE_EFFECT_WITHOUT_AUTHORITY": "pass (F04 approvals; F05-S07 MISSING_MERCHANT_AUTHORIZATION; F09-S06 scope gate; F11-S02 refund band)",
+    "TRADECYCLE_LEG_REQUIRES_OWN_CONSENT": "pass (F06 per-leg scope/consent across three distinct participants)",
+    "PREDICTIONS_NEVER_MUTATE_CANONICAL_TRUTH": "pass (F11-S05 what-if + F07-S01 partial-receipt canonical level)",
+    "REPEATED_SUBMISSION_NO_DUPLICATE_EFFECT": "pass (F03 duplicate DUPLICATE receipt; F09-S05 refund cap; F10-S01 queue supersede)"
+  },
+  "results": [
+    {
+      "scenarioId": "W2-010-F01-S01",
+      "familyId": "F01",
+      "title": "Health probe crashes mid-probe (incomplete probe)",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f01-connector-responses.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F01-S02",
+      "familyId": "F01",
+      "title": "Stale observation blocks execution as UNKNOWN (not failure)",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f01-connector-responses.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F01-S03",
+      "familyId": "F01",
+      "title": "Contradictory provider responses across probes",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f01-connector-responses.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F01-S04",
+      "familyId": "F01",
+      "title": "Provider unavailable at execution \u2192 deterministic recoverable failure, then recovery",
+      "expectedResultClass": "expected-success",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f01-connector-responses.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F01-S05",
+      "familyId": "F01",
+      "title": "Ambiguous execute outcome stays UNKNOWN end-to-end",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f01-connector-responses.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F01-S06",
+      "familyId": "F01",
+      "title": "connect() returns UNKNOWN \u2192 connector lifecycle 'unknown', execute refused",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f01-connector-responses.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F02-S01",
+      "familyId": "F02",
+      "title": "Live session interrupted after end \u2014 event ingestion refused explicitly",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f02-session-interruption.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F02-S02",
+      "familyId": "F02",
+      "title": "Late joiner resumes from start with replay, then live continues",
+      "expectedResultClass": "expected-success",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f02-session-interruption.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F02-S03",
+      "familyId": "F02",
+      "title": "Backpressured slow consumer loses nothing; pressure surfaced and recovered",
+      "expectedResultClass": "expected-success",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f02-session-interruption.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F02-S04",
+      "familyId": "F02",
+      "title": "Edge network loss \u2192 offline queue holds observations \u2192 resumption hands off exactly once",
+      "expectedResultClass": "expected-success",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f02-session-interruption.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F02-S05",
+      "familyId": "F02",
+      "title": "Session interruption mid-checkout \u2014 state never presented as settled",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f02-session-interruption.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F03-S01",
+      "familyId": "F03",
+      "title": "Double-click duplicate submit \u2014 exact envelope replay is a DUPLICATE with zero new effects",
+      "expectedResultClass": "expected-success",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f03-idempotency.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F03-S02",
+      "familyId": "F03",
+      "title": "Same idempotency key, different command \u2014 hard conflict, never a silent overwrite",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f03-idempotency.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F03-S03",
+      "familyId": "F03",
+      "title": "Retry-after-timeout: provider unavailable then recovers \u2014 exactly-once",
+      "expectedResultClass": "expected-success",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f03-idempotency.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F03-S04",
+      "familyId": "F03",
+      "title": "New checkout command against a COMPLETED session \u2014 deterministic rejection",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f03-idempotency.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F03-S05",
+      "familyId": "F03",
+      "title": "Reconciliation idempotency \u2014 the same physical observation folds once",
+      "expectedResultClass": "expected-success",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f03-idempotency.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F04-S01",
+      "familyId": "F04",
+      "title": "Missing approval \u2014 action unavailable with reason, zero side effects",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f04-approvals-authority.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F04-S02",
+      "familyId": "F04",
+      "title": "Approval granted \u2192 action becomes available and executes",
+      "expectedResultClass": "expected-success",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f04-approvals-authority.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F04-S03",
+      "familyId": "F04",
+      "title": "Insufficient credential scope \u2014 deterministic NOT_EXECUTABLE",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f04-approvals-authority.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F04-S04",
+      "familyId": "F04",
+      "title": "Revoked connection \u2014 DISCONNECTED, deterministic, before any provider call",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f04-approvals-authority.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F04-S05",
+      "familyId": "F04",
+      "title": "connect() \u2192 customer-action-required (OTP/redirect) \u2014 first-class, not failure",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f04-approvals-authority.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F04-S06",
+      "familyId": "F04",
+      "title": "Commercial terms not accepted \u2014 capability not executable",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f04-approvals-authority.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F04-S07",
+      "familyId": "F04",
+      "title": "Autonomous-store control by a non-owner \u2014 POLICY_DENIED, fails closed",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f04-approvals-authority.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F05-S01",
+      "familyId": "F05",
+      "title": "Join attempt after window closed \u2014 typed refusal, roster unchanged",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f05-groupbuy.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F05-S02",
+      "familyId": "F05",
+      "title": "Duplicate join by the same participant \u2014 idempotent, roster never grows",
+      "expectedResultClass": "expected-success",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f05-groupbuy.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F05-S03",
+      "familyId": "F05",
+      "title": "Threshold met \u2014 GROUP_FORMED exactly once",
+      "expectedResultClass": "expected-success",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f05-groupbuy.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F05-S04",
+      "familyId": "F05",
+      "title": "Participant dropout \u2014 window closes below threshold \u2192 dissolution with commitments released",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f05-groupbuy.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F05-S05",
+      "familyId": "F05",
+      "title": "Merchant counter-offer \u2014 revised terms, not executable until accepted+authorized",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f05-groupbuy.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F05-S06",
+      "familyId": "F05",
+      "title": "Authorized merchant cancellation \u2014 commitments released exactly once",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f05-groupbuy.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F05-S07",
+      "familyId": "F05",
+      "title": "Group-buy executable check \u2014 missing merchant authorization blocks execution",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f05-groupbuy.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F06-S01",
+      "familyId": "F06",
+      "title": "Three-leg trade cycle, every leg independently authorized \u2014 journey succeeds",
+      "expectedResultClass": "expected-success",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f06-trade-cycle.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F06-S02",
+      "familyId": "F06",
+      "title": "Leg 2 lacks its own consent \u2014 that leg only is blocked; no partial silent success",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f06-trade-cycle.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F06-S03",
+      "familyId": "F06",
+      "title": "Participant refuses a leg (explicit terminal refusal) \u2014 cycle fails terminally",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f06-trade-cycle.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F06-S04",
+      "familyId": "F06",
+      "title": "Participant withdraws mid-cycle \u2014 later legs DISCONNECTED, deterministically",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f06-trade-cycle.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F06-S05",
+      "familyId": "F06",
+      "title": "Incomplete proof on the final leg \u2014 UNKNOWN, never silent success",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f06-trade-cycle.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F06-S06",
+      "familyId": "F06",
+      "title": "Recourse after a failed leg \u2014 dispute opens with the leg's execution evidence",
+      "expectedResultClass": "expected-success",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f06-trade-cycle.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F07-S01",
+      "familyId": "F07",
+      "title": "Partial receiving against a purchase order",
+      "expectedResultClass": "expected-success",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f07-receiving-inventory.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F07-S02",
+      "familyId": "F07",
+      "title": "Wrong item delivered \u2014 delivery observation does not silently correct the record",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f07-receiving-inventory.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F07-S03",
+      "familyId": "F07",
+      "title": "Delayed delivery \u2014 observation recorded with lateness, order not silently completed",
+      "expectedResultClass": "expected-success",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f07-receiving-inventory.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F07-S04",
+      "familyId": "F07",
+      "title": "Reconciliation conflict \u2014 count disagrees with system; no silent overwrite",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f07-receiving-inventory.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F07-S05",
+      "familyId": "F07",
+      "title": "UNKNOWN count observation never promotes",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f07-receiving-inventory.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F07-S06",
+      "familyId": "F07",
+      "title": "Inventory change mid-purchase \u2014 sold-out blocks the order deterministically",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f07-receiving-inventory.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F08-S01",
+      "familyId": "F08",
+      "title": "Rental happy path with deposit and condition evidence",
+      "expectedResultClass": "expected-success",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f08-rental-recourse.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F08-S02",
+      "familyId": "F08",
+      "title": "Late return \u2014 OVERDUE is a preserved state, not a failure",
+      "expectedResultClass": "expected-success",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f08-rental-recourse.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F08-S03",
+      "familyId": "F08",
+      "title": "Invalid rental transition \u2014 deterministic rejection",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f08-rental-recourse.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F08-S04",
+      "familyId": "F08",
+      "title": "Deposit return with wear deduction \u2014 exact money, journaled",
+      "expectedResultClass": "expected-success",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f08-rental-recourse.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F08-S05",
+      "familyId": "F08",
+      "title": "Damage dispute \u2014 renter disputes the wear deduction",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f08-rental-recourse.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F08-S06",
+      "familyId": "F08",
+      "title": "Cancelled rental \u2014 terminal, later advancement refused",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f08-rental-recourse.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F09-S01",
+      "familyId": "F09",
+      "title": "Fake review ring detected \u2014 incident visible with effect + mitigation, rating excluded",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f09-fraud-trust.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F09-S02",
+      "familyId": "F09",
+      "title": "Injected third-party content is rendered inert (data, never instructions)",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f09-fraud-trust.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F09-S03",
+      "familyId": "F09",
+      "title": "Counterfeit / item-mismatch recourse \u2014 dispute accepted, refund exactly through the explicit path",
+      "expectedResultClass": "expected-success",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f09-fraud-trust.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F09-S04",
+      "familyId": "F09",
+      "title": "False non-delivery claim \u2014 delivery evidence rejects the claim",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f09-fraud-trust.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F09-S05",
+      "familyId": "F09",
+      "title": "Return/refund abuse \u2014 second refund beyond captured total is capped",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f09-fraud-trust.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F09-S06",
+      "familyId": "F09",
+      "title": "Connector scope compromise \u2014 a compromised adapter cannot act beyond its grant",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f09-fraud-trust.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F10-S01",
+      "familyId": "F10",
+      "title": "Offline capture \u2192 outage \u2192 replay resumption with duplicate re-sync",
+      "expectedResultClass": "expected-success",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f10-supermarket-edge.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F10-S02",
+      "familyId": "F10",
+      "title": "Barcode / camera / weighted goods \u2014 weighted quantities stay observations",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f10-supermarket-edge.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F10-S03",
+      "familyId": "F10",
+      "title": "Reconciliation UNKNOWN \u2014 availability never silently zero",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f10-supermarket-edge.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F10-S04",
+      "familyId": "F10",
+      "title": "Contradictory counts from two devices \u2014 both journaled, policy decides",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f10-supermarket-edge.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F11-S01",
+      "familyId": "F11",
+      "title": "Stop-condition trip halts ALL autonomous action deterministically",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f11-autonomous-twin.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F11-S02",
+      "familyId": "F11",
+      "title": "Refund outside the policy band is denied at the boundary",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f11-autonomous-twin.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F11-S03",
+      "familyId": "F11",
+      "title": "Owner override is journaled with actor + justification",
+      "expectedResultClass": "expected-success",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f11-autonomous-twin.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F11-S04",
+      "familyId": "F11",
+      "title": "Unregistered store control attempt fails closed",
+      "expectedResultClass": "expected-block",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f11-autonomous-twin.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    },
+    {
+      "scenarioId": "W2-010-F11-S05",
+      "familyId": "F11",
+      "title": "Commerce Twin what-if forecast never mutates canonical truth",
+      "expectedResultClass": "expected-success",
+      "result": "pass",
+      "evidenceLevel": "fixture-contract",
+      "testRef": "test/resilience/f11-autonomous-twin.test.ts",
+      "note": "executed against the real product runtimes through the typed surface/view contracts (the fixture-labelled run); NOT real-browser evidence \u2014 browser-labelled runs await a rendered commerce UI (W1-010 finding) and W1-010 runner reuse"
+    }
+  ]
+}
