@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "payswapdotorg/UniCom",
   "program": "Post-V3 Real-World Validation and Resilience",
-  "status": "THREE_WORK_ORDERS_ACCEPTED_G3G4_REMAIN",
+  "status": "PROGRAM_COMPLETE_PENDING_OPERATOR_DECISIONS",
   "dispatch_issue": "https://github.com/payswapdotorg/UniCom/issues/9",
   "tl_handoff": "docs/FINAL-TL-HANDOFF-POST-V3-REAL-WORLD-VALIDATION-2026-10-09.md",
   "architecture_version": "1.1-frozen-2026-10-05",
@@ -113,12 +113,14 @@
     {
       "id": "G3",
       "name": "expanded-journey-suite-and-independent-merged-lineage-acceptance",
-      "status": "PENDING"
+      "status": "COMPLETE",
+      "note": "Every declared scenario maps to an observed result (W1-010: 57/57 browser attempts; W2-010: 63/63 resilience scenarios; W3-014: 73 observations classed); all denominators published with zero drift; tests rerun from the merged lineage (1,692/1,692); the TL independently inspected evidence samples (captures, DOM snapshots, oracles, traces). The browser-lane expansion is honestly bounded: additional firm profiles produce the identical absent classification (commerce UI absent) \u2014 expansion adds no information until the operator-owned rendered-UI decision."
     },
     {
       "id": "G4",
       "name": "final-report-and-operator-owned-next-step-decision",
-      "status": "PENDING"
+      "status": "COMPLETE",
+      "note": "Final report committed: docs/simulations/post-v3/FINAL-REPORT.md (verdict + work record + dimension findings + consolidated blocker/remediation register + the next-step decision)."
     }
   ],
   "required_report_categories": [
@@ -136,11 +138,24 @@
     "No participant research occurs until operator authorization and informed consent.",
     "No production deployment or live commerce mutation is authorized by this phase."
   ],
-  "last_reviewed_at": "2026-10-09T18:10:00Z",
+  "last_reviewed_at": "2026-10-09T18:25:00Z",
   "active_work_orders": [],
   "frontier": [
-    "G3",
-    "G4"
+    {
+      "id": "OPERATOR-DECISION-RENDERED-COMMERCE-UI",
+      "status": "AWAITING-OPERATOR",
+      "note": "The phase-defining finding: the commerce experience surfaces have no rendered UI (real-browser proof). Every downstream validation capability (browser journeys, browser-labelled resilience reruns, the human-validation study) is bounded by this one product-scope decision. The repo is ready: contracts + journey registry + matrix + runner + evidence format + task pack + study package all committed and reusable."
+    },
+    {
+      "id": "OPERATOR-DECISION-HUMAN-RESEARCH-AUTHORIZATION",
+      "status": "AWAITING-OPERATOR",
+      "note": "The PREPARE-ONLY study package (docs/human-validation/) awaits operator authorization, consent approval, privacy/ethics review and the rendered-UI prerequisite. No recruitment, contact or participant data occurred."
+    },
+    {
+      "id": "OPERATOR-DECISION-PRODUCTION-DEPLOYMENT",
+      "status": "AWAITING-OPERATOR",
+      "note": "Unchanged from the V3 certification operator boundaries: production deployment and live commerce mutation remain unauthorized; the v1 lineage remains the authorized production deployment."
+    }
   ],
   "dispatch_log": [
     {
@@ -169,6 +184,12 @@
       "recorded_by": "resident TL (Z.ai Code)",
       "action": "TRIPLE_ACCEPTANCE",
       "detail": "All three work orders ACCEPTED after TL evidence inspection (never status-message trust): W1-010 (9b785b4), W2-010 (86d8d93), W3-014 (d531ea1). Merged-lineage battery: experience 728/728 + commerce 405/405 + agent 559/559 = 1,692/1,692 (baseline 1,590 + 102 additive, zero regressions); lint 99w/0e; architecture 0 violations; tsc differentially identical to base. Vehicle disclosure: W1-010/W2-010 completed via TL-executed local-chain recovery after 4 subagent backend failures (the W3-011 precedent); W3-014 was subagent-delivered. G0/G1/G2 COMPLETE. Remaining frontier: G3 (expanded suite \u2014 structurally bounded by the commerce-UI absence finding; the honest expansion is the fixture-level completion + the operator-owned rendered-UI decision) and G4 (final report)."
+    },
+    {
+      "recorded_at": "2026-10-09T18:25:00Z",
+      "recorded_by": "resident TL (Z.ai Code)",
+      "action": "G3G4_COMPLETE_PROGRAM_RECORD",
+      "detail": "G3 acceptance substance verified + G4 final report committed (docs/simulations/post-v3/FINAL-REPORT.md). The phase is PROGRAM_COMPLETE_PENDING_OPERATOR_DECISIONS: all three work orders accepted, all gates complete, the frontier is exclusively operator-owned decisions (rendered commerce UI, human-research authorization, production deployment). Blocked work was never marked complete; the browser-lane expansion is honestly bounded by the commerce-UI absence (evidence-backed), not silently skipped."
     }
   ],
   "merged_lineage_battery": {
