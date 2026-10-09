@@ -209,6 +209,13 @@
         "precedent": "matches the prior residual-branch rulings (post-merge completion reports, TL fix-forwards, battery merges on work/* branches; feat/ui-plugin classified non-roadmap exploratory)"
       },
       "issue_tracker_close_out": "Issue #8 (the V3 dispatch issue, open since 2026-10-09T05:01Z) closed with the full V3 program record — the program it tracked is PROGRAM_COMPLETE_CERTIFIED with an empty frontier; matches the #9 close-out precedent. After this, zero open issues/PRs remain; the actionable frontier is exclusively the three operator-owned decisions."
+    },
+        {
+      "event": "EXTERNAL BLOCKER RECORDED \u2014 platform turn-generation gate closed since ~16:45Z 2026-10-09",
+      "recorded_at": "2026-10-09T23:40:12Z",
+      "recorded_by": "resident TL (Z.ai Code session web-a95c8999)",
+      "type": "BLOCKER_RECORD",
+      "detail": "The Z.ai platform's turn-generation gate has been closed platform-wide since ~16:45Z (peak-capacity dialog on every generation attempt; one 'usage exceeds the personal limit' banner observed 18:30Z; zero account-quota surfaces exist in the client). Chat CREATES and message SENDS succeed (all three lane trees grow server-side; the 20:00:57Z create broke through) but no assistant content materializes on any lane despite continuous 3-minute kick daemons with server-verified send paths. No lane fabricated progress \u2014 all work orders remain honestly dispatched-in-flight with zero executed turns. Idle-workspace sandbox TTLs (~22:42-22:49Z) released the workspaces; per the local-chain doctrine a turn-spawn re-provisions them. The resident watch continues past the midnight deadline with self-renewing automation (peak_retry daemons with 80-cycle budgets, tab cures, supervisor-guarded recovery). Lanes: W1-010 chat e222f18a (packet committed + prior partial turn with G1 pilot launch before the gate closed), W2-010 chat 0a7bbbce (packet committed), W3-014 chat 0631123a (packet committed 20:00:57Z)."
     }
   ],
   "merged_lineage_battery": {
