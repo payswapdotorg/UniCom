@@ -19,8 +19,9 @@ Per frozen task pack `task-pack.json` (TP-01…TP-19). One table per workflow. *
 
 *Journey registry: J2, J11. Task: buyer discovers candidate sellers with trust/availability signals.*
 
-| UNiCOM | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
+| Comparator | Status | Class | Observed limits |
 |---|---|---|---|
+| **UNiCOM** | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
 | coupa — Coupa Procurement (Procure-to-Order) + C | `offered` | C | module-level documentation; no UI interaction; supplier-discovery depth (search/marketplace) not exercised |
 | ariba — SAP Ariba Buying and Invoicing (Procure- | `offered` | C | procure-to-pay page only; supplier discovery/search not exercised |
 | alibaba — Alibaba.com B2B marketplace (RFQ, Trade  | `offered` | B | public RFQ surface observed via content extraction; no interaction/transaction; login surfaces not entered |
@@ -42,8 +43,9 @@ Per frozen task pack `task-pack.json` (TP-01…TP-19). One table per workflow. *
 
 *Journey registry: J2, J11. Task: compare >=2 offers on total cost, lead time, quality, recourse.*
 
-| UNiCOM | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
+| Comparator | Status | Class | Observed limits |
 |---|---|---|---|
+| **UNiCOM** | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
 | coupa — Coupa Procurement (Procure-to-Order) + C | `offered` | C | quote-comparison workflow documented at product level; line-level comparison UI not observed |
 | ariba — SAP Ariba Buying and Invoicing (Procure- | `not_verified` | D | page not read; official-domain snippet only |
 | alibaba — Alibaba.com B2B marketplace (RFQ, Trade  | `offered` | B | comparison mechanics observed as described capability on public UI; side-by-side UI not exercised |
@@ -55,8 +57,9 @@ Per frozen task pack `task-pack.json` (TP-01…TP-19). One table per workflow. *
 
 *Journey registry: J1. Task: record budget/deadline/quality/delivery/substitute constraints; later shopping respects them.*
 
-| UNiCOM | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
+| Comparator | Status | Class | Observed limits |
 |---|---|---|---|
+| **UNiCOM** | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
 | coupa — Coupa Procurement (Procure-to-Order) + C | `offered` | C | requisition/budget constraint documented; natural-language intent canvas not claimed |
 | ariba — SAP Ariba Buying and Invoicing (Procure- | `offered` | C | requisition + approval documented |
 | ambiz — Amazon Business (Guided Buying, Approval | `offered` | C | guided-buying page read; constraint dimensions beyond policy/approval not evidenced |
@@ -66,8 +69,9 @@ Per frozen task pack `task-pack.json` (TP-01…TP-19). One table per workflow. *
 
 *Journey registry: J3, J8. Task: act on price/inventory timing or negotiate/substitute within constraints.*
 
-| UNiCOM | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
+| Comparator | Status | Class | Observed limits |
 |---|---|---|---|
+| **UNiCOM** | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
 | coupa — Coupa Procurement (Procure-to-Order) + C | `offered (partial)` | C | negotiation dimension only; buy-vs-wait price timing and substitution not evidenced |
 | alibaba — Alibaba.com B2B marketplace (RFQ, Trade  | `offered (partial)` | C | negotiation documented in official buying guide; price-wait timing not evidenced |
 
@@ -75,8 +79,9 @@ Per frozen task pack `task-pack.json` (TP-01…TP-19). One table per workflow. *
 
 *Journey registry: J4. Task: find existing group deal and join/leave with explicit rules.*
 
-| UNiCOM | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
+| Comparator | Status | Class | Observed limits |
 |---|---|---|---|
+| **UNiCOM** | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
 
 *Not applicable (category scope):* coupa, ariba, gsa, faire, joor, nuorder, square, lightspeed, toast, marketman, poshmark, depop, grainger, mcmaster, cdw, ghx, medline, sysco, thomasnet, xometry.
 
@@ -84,8 +89,9 @@ Per frozen task pack `task-pack.json` (TP-01…TP-19). One table per workflow. *
 
 *Journey registry: J5. Task: detect demand, recruit participants, propose group deal to merchant; merchant accepts/rejects/counters.*
 
-| UNiCOM | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
+| Comparator | Status | Class | Observed limits |
 |---|---|---|---|
+| **UNiCOM** | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
 
 *Not applicable (category scope):* coupa, ariba, ambiz, gsa, faire, joor, nuorder, shopify, square, lightspeed, toast, marketman, ebay, poshmark, depop, sharegrid, kitsplit, unitedrentals, grainger, mcmaster, cdw, ghx, medline, sysco, thomasnet, xometry, instacart.
 
@@ -93,8 +99,9 @@ Per frozen task pack `task-pack.json` (TP-01…TP-19). One table per workflow. *
 
 *Journey registry: J6. Task: compare rental vs purchase: availability, period, deposit, condition, recourse.*
 
-| UNiCOM | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
+| Comparator | Status | Class | Observed limits |
 |---|---|---|---|
+| **UNiCOM** | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
 | sharegrid — ShareGrid gear rental marketplace | `offered` | B | public rental marketplace UI observed; booking flow not exercised |
 | kitsplit — KitSplit equipment rental marketplace | `not_accessible` | D | official site returned a maintenance stub at observation time; no capability claim; not proof of absence |
 | unitedrentals — United Rentals My Equipment / Total Cont | `offered` | C | page largely navigation; My Equipment portal described; booking flow not exercised |
@@ -105,8 +112,9 @@ Per frozen task pack `task-pack.json` (TP-01…TP-19). One table per workflow. *
 
 *Journey registry: J7. Task: list/resell/consign asset with user-controlled pricing; or buy used with condition evidence.*
 
-| UNiCOM | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
+| Comparator | Status | Class | Observed limits |
 |---|---|---|---|
+| **UNiCOM** | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
 | ebay — eBay marketplace + Money Back Guarantee | `offered` | C | resale listing advertised on official policy page; listing flow not exercised |
 | poshmark — Poshmark marketplace (seller shipping gu | `offered` | C | official seller shipping guide read; full listing flow not read |
 | depop — Depop marketplace | `offered` | B | public marketplace homepage observed; thin content captured; no interaction |
@@ -118,8 +126,9 @@ Per frozen task pack `task-pack.json` (TP-01…TP-19). One table per workflow. *
 
 *Journey registry: J9. Task: execute trade cycle across >=3 participants with per-leg authorization and proof.*
 
-| UNiCOM | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
+| Comparator | Status | Class | Observed limits |
 |---|---|---|---|
+| **UNiCOM** | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
 
 *Not applicable (category scope):* coupa, ariba, ambiz, alibaba, gsa, faire, joor, nuorder, shopify, square, lightspeed, toast, marketman, ebay, poshmark, depop, sharegrid, kitsplit, unitedrentals, grainger, mcmaster, cdw, ghx, medline, sysco, thomasnet, xometry, instacart.
 
@@ -127,8 +136,9 @@ Per frozen task pack `task-pack.json` (TP-01…TP-19). One table per workflow. *
 
 *Journey registry: J11. Task: requisition to approval to PO to partial receiving to invoice matching to credit.*
 
-| UNiCOM | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
+| Comparator | Status | Class | Observed limits |
 |---|---|---|---|
+| **UNiCOM** | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
 | coupa — Coupa Procurement (Procure-to-Order) + C | `offered` | C | product-page level; partial receiving and 3-way match detail not read |
 | ariba — SAP Ariba Buying and Invoicing (Procure- | `offered` | C | product-page level |
 | gsa — GSA Advantage! / GSA eBuy / GSA Global S | `not_verified` | D | page not read |
@@ -149,8 +159,9 @@ Per frozen task pack `task-pack.json` (TP-01…TP-19). One table per workflow. *
 
 *Journey registry: J10. Task: order lifecycle incl. returns/refunds and dispute recourse.*
 
-| UNiCOM | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
+| Comparator | Status | Class | Observed limits |
 |---|---|---|---|
+| **UNiCOM** | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
 | coupa — Coupa Procurement (Procure-to-Order) + C | `offered (partial)` | C | procurement order tracking; consumer-style returns/refunds not in scope of read pages |
 | ariba — SAP Ariba Buying and Invoicing (Procure- | `offered (partial)` | C | order lifecycle on procurement side |
 | alibaba — Alibaba.com B2B marketplace (RFQ, Trade  | `offered` | B | order-protection claims observed on public UI; claims flow not exercised |
@@ -163,8 +174,9 @@ Per frozen task pack `task-pack.json` (TP-01…TP-19). One table per workflow. *
 
 *Journey registry: J10. Task: merchant lists products/variants, sets price/promotions, manages storefront.*
 
-| UNiCOM | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
+| Comparator | Status | Class | Observed limits |
 |---|---|---|---|
+| **UNiCOM** | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
 | joor — JOOR digital wholesale platform (buyer s | `offered (partial)` | C | brand-side platform claim; catalog management detail not read |
 | shopify — Shopify B2B (help-center capability list | `offered (partial)` | C | marketing-level storefront claim; admin capability detail not read |
 
@@ -174,8 +186,9 @@ Per frozen task pack `task-pack.json` (TP-01…TP-19). One table per workflow. *
 
 *Journey registry: J12. Task: B2B price lists, quotes, bulk ordering, buyer-vendor connections.*
 
-| UNiCOM | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
+| Comparator | Status | Class | Observed limits |
 |---|---|---|---|
+| **UNiCOM** | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
 | alibaba — Alibaba.com B2B marketplace (RFQ, Trade  | `offered` | C | B2B listing mechanics documented |
 | faire — Faire wholesale marketplace | `not_accessible` | D | evaluator could not access page content (ad-tracker stub returned twice); no capability claim made; not proof  |
 | joor — JOOR digital wholesale platform (buyer s | `offered` | C | buyer-side page read; ordering workflow detail not exercised |
@@ -187,8 +200,9 @@ Per frozen task pack `task-pack.json` (TP-01…TP-19). One table per workflow. *
 
 *Journey registry: J16. Task: count/receive/replenish stock, POS checkout, multi-location, reconcile incl. barcode/camera/weighted/file modes.*
 
-| UNiCOM | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
+| Comparator | Status | Class | Observed limits |
 |---|---|---|---|
+| **UNiCOM** | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
 | shopify — Shopify B2B (help-center capability list | `offered (partial)` | C | nav-level POS inventory claim; barcode/count/reconciliation detail not read |
 | square — Square for Retail POS | `offered` | C | product-page level; offline mode and weighted goods not evidenced |
 | lightspeed — Lightspeed Retail POS inventory manageme | `offered` | C | inventory/purchase-order features documented; no-RFID reconciliation detail not evidenced |
@@ -202,8 +216,9 @@ Per frozen task pack `task-pack.json` (TP-01…TP-19). One table per workflow. *
 
 *Journey registry: J8. Task: surfaced opportunities: price drop, warranty, subscription savings, loyalty, shared logistics.*
 
-| UNiCOM | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
+| Comparator | Status | Class | Observed limits |
 |---|---|---|---|
+| **UNiCOM** | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
 | ambiz — Amazon Business (Guided Buying, Approval | `offered (partial)` | C | reporting-driven insights; proactive opportunity surfacing (price timing, resale, shared logistics) not eviden |
 | square — Square for Retail POS | `offered (partial)` | C | loyalty dimension only; price timing/resale/shared logistics not evidenced |
 
@@ -211,8 +226,9 @@ Per frozen task pack `task-pack.json` (TP-01…TP-19). One table per workflow. *
 
 *Journey registry: J17. Task: review fraud, counterfeit/wrong-item, refund abuse, evidence trails, dispute resolution.*
 
-| UNiCOM | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
+| Comparator | Status | Class | Observed limits |
 |---|---|---|---|
+| **UNiCOM** | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
 | coupa — Coupa Procurement (Procure-to-Order) + C | `offered (partial)` | C | nav-level label only; fraud workflow detail not read |
 | alibaba — Alibaba.com B2B marketplace (RFQ, Trade  | `offered` | C | Trade Assurance documented; dispute resolution detail not read |
 | ebay — eBay marketplace + Money Back Guarantee | `offered` | C | buyer/seller protection documented; dispute adjudication detail not read |
@@ -222,8 +238,9 @@ Per frozen task pack `task-pack.json` (TP-01…TP-19). One table per workflow. *
 
 *Journey registry: J18. Task: stale indicators, UNKNOWN states, duplicate submission handling, approval errors visible to user.*
 
-| UNiCOM | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
+| Comparator | Status | Class | Observed limits |
 |---|---|---|---|
+| **UNiCOM** | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
 | ambiz — Amazon Business (Guided Buying, Approval | `offered (partial)` | C | policy surfacing at product pages; stale/UNKNOWN/idempotency behavior not evidenced |
 | mcmaster — McMaster-Carr catalog and ordering site | `offered (partial)` | B | support SLA statement only; failure/idempotency behavior not evidenced |
 | ghx — GHX Marketplace (order automation) | `offered (partial)` | C | AI problem detection described; user-visible recovery flow not evidenced |
@@ -234,8 +251,9 @@ Per frozen task pack `task-pack.json` (TP-01…TP-19). One table per workflow. *
 
 *Journey registry: J13. Task: assisted purchasing or store operations under budget/margin/approval limits with stop conditions.*
 
-| UNiCOM | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
+| Comparator | Status | Class | Observed limits |
 |---|---|---|---|
+| **UNiCOM** | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
 | alibaba — Alibaba.com B2B marketplace (RFQ, Trade  | `offered (partial)` | B | AI sourcing assistant advertised on public UI; bounded autonomy/limits not evidenced |
 
 *Not applicable (category scope):* ebay, poshmark, depop, sharegrid, kitsplit, unitedrentals.
@@ -244,8 +262,9 @@ Per frozen task pack `task-pack.json` (TP-01…TP-19). One table per workflow. *
 
 *Journey registry: J14. Task: scenario planning (demand, pricing, inventory) with no canonical state mutation.*
 
-| UNiCOM | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
+| Comparator | Status | Class | Observed limits |
 |---|---|---|---|
+| **UNiCOM** | contract-level surface exists; **no rendered UI** → not observable as UI this phase; rendered-browser evidence = W1-010 lane; V3 scores synthetic | — | fixture/contract-level only; no timing |
 
 *Not applicable (category scope):* coupa, ariba, ambiz, alibaba, gsa, faire, joor, nuorder, shopify, square, lightspeed, toast, marketman, ebay, poshmark, depop, sharegrid, kitsplit, unitedrentals, ghx, medline, sysco, xometry, instacart.
 
