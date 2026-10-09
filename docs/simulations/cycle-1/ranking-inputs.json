@@ -1,0 +1,238 @@
+{
+  "schema": "unicom-cycle1-rankprep/1",
+  "artifact": "ranking-inputs",
+  "workOrder": "W2-011",
+  "scoringContractVersion": "w2-009:v1",
+  "baseSha": "45d8f274ba6c8ae3b8be0a08a6f7777a5ba0f219",
+  "purpose": "The consolidated input the TL's cycle-1 product ranking consumes: levers × components moved × expected movement × measurement cost, derived from the veto/threshold map, the component→surface map and the ceiling arithmetic.",
+
+  "measurementBaseline": {
+    "namespace": "baseline",
+    "baselineProjects": 3900,
+    "holdoutProjects": 0,
+    "holdoutLaw": "holdout W1-009-H-* untouched until the held-out final (protocol §7); namespaceGuardPassed=true in amended-1",
+    "campaignHarness": "W3-012 amended baseline 2 (in flight on the parallel chain) is the measurement baseline; the frozen contract w2-009:v1 is byte-identical across all measurements",
+    "amended1Reference": {
+      "report": "docs/simulations/campaign/baseline-report.amended-1.json",
+      "journeysPass": 48300,
+      "journeysBlocked": 0,
+      "eligibleABCD": [39, 39, 39, 39],
+      "denominator": 15275,
+      "meanScoreB": 5,
+      "determinismFingerprint": "ded4f86d7ad26be3"
+    }
+  },
+
+  "ceilingArithmetic": {
+    "source": "docs/simulations/cycle-1/analysis/ceiling-arithmetic.output.json",
+    "command": "node_modules/.bin/tsx docs/simulations/cycle-1/analysis/derive-ceiling.ts",
+    "emptyBundleMean": 4.4,
+    "fullyEvidencedGenericMean": 83.9,
+    "ceilingP5HealthyMean": 93.4,
+    "absoluteUpperBoundMean": 96.8,
+    "tlEstimates": { "fullyEvidenced": 82, "emptyBundle": 4, "ceiling": 95 },
+    "deviationVerdicts": {
+      "fullyEvidenced": "match (+1.9)",
+      "emptyBundle": "match (+0.4 vs TL 4; amended-1 observed global mean 5 reconciles: 15,236 empty at ~4.4 + 39 evidenced at ~84)",
+      "ceiling": "match (-1.6; the honest ceiling sits below the TL's 95 because non-connector journeys record no connector states and score the neutral 0.5 — a structural cap, see veto-threshold-map.json operationalEvidenceSemantics.integrationQualityMapping)"
+    },
+    "componentMeans": {
+      "emptyBundle": { "journeyCompletion": 0.0, "usabilityFriction": 0.0, "outcomeVsBenchmark": 0.0, "trustProof": 0.0, "integrationQuality": 0.0, "switchingCostFit": 0.585, "preferenceFit": 0.296 },
+      "fullyEvidencedGeneric": { "journeyCompletion": 1.0, "usabilityFriction": 1.0, "outcomeVsBenchmark": 1.0, "trustProof": 0.626, "integrationQuality": 0.411, "switchingCostFit": 0.585, "preferenceFit": 0.500 },
+      "ceilingP5Healthy": { "journeyCompletion": 1.0, "usabilityFriction": 1.0, "outcomeVsBenchmark": 1.0, "trustProof": 1.0, "integrationQuality": 0.722, "switchingCostFit": 0.585, "preferenceFit": 0.646 }
+    },
+    "structuralGapDecomposition": [
+      { "gap": "generic → ceiling", "points": 9.5, "components": [ { "component": "trustProof", "points": 5.6 }, { "component": "integrationQuality", "points": 3.1 }, { "component": "preferenceFit", "points": 0.7 } ] },
+      { "gap": "ceiling → absolute bound", "points": 3.4, "components": [ { "component": "integrationQuality (non-connector neutral 0.5 → 1.0)", "points": 2.8 }, { "component": "preferenceFit (follows)", "points": 0.7 } ], "note": "NON-STRUCTURAL: not achievable honestly — a journey that touches no connector cannot observe connector health" }
+    ]
+  },
+
+  "componentSensitivityBudget": {
+    "note": "Maximum cohort-mean points a lever family can move (weight × component headroom from the generic-driver baseline), plus veto cliffs (binary).",
+    "evidenceControllable": [
+      { "component": "journeyCompletion", "weightPoints": 30, "headroomFromGeneric": 0, "note": "already 1.0 under all-pass; headroom exists only against fail/blocked/absent regressions" },
+      { "component": "usabilityFriction", "weightPoints": 15, "headroomFromGeneric": 0, "note": "already 1.0 under all-pass; headroom opens under failure variants and deep drivers" },
+      { "component": "outcomeVsBenchmark", "weightPoints": 20, "headroomFromGeneric": 0, "note": "already 1.0 (no D-class firms); the D-gate is a latent −20 cliff (L06 prevents)" },
+      { "component": "trustProof", "weightPoints": 15, "headroomFromGeneric": 5.6, "note": "P2/P3 → P5 + bonus saturation (L02, L03, L04)" },
+      { "component": "integrationQuality", "weightPoints": 10, "headroomFromGeneric": 3.1, "note": "unknown (0.3) → healthy (1.0) on connector families; neutral-0.5 cap on non-connector families (L01)" }
+    ],
+    "personaBound": [
+      { "component": "switchingCostFit", "weightPoints": 5, "headroom": 0, "note": "frozen persona attributes — no product lever" },
+      { "component": "preferenceFit", "weightPoints": 5, "headroomFromGeneric": 0.7, "note": "second-order via integration (single-tool/specialist) and usability (spreadsheet)" }
+    ],
+    "vetoCliffs": [
+      { "category": "security", "trigger": "compromised | unsupported-competitor error kinds", "effect": "score forced 0; eligibility false" },
+      { "category": "authority", "trigger": "denied-permission | missing-approval | disabled-permission", "effect": "score forced 0; eligibility false" },
+      { "category": "financial-truth", "trigger": "settlement-unknown", "effect": "score forced 0; eligibility false" },
+      { "category": "privacy", "trigger": "session-interruption", "effect": "score forced 0; eligibility false" },
+      { "category": "data-integrity", "trigger": "supplier-disappearance", "effect": "score forced 0; eligibility false" }
+    ]
+  },
+
+  "levers": [
+    {
+      "id": "L01-connector-health-probe",
+      "effortClass": "M",
+      "componentsMoved": ["integrationQuality", "preferenceFit"],
+      "expectedMovementPoints": 3.8,
+      "expectedMovementBasis": "integration 0.411 → 0.722 (+3.1 at weight 0.1) + preferenceFit second-order (+0.7)",
+      "measurementCost": "1 campaign re-run (48,300 journeys)",
+      "lawRiskProfile": { "guiOnly": "low", "evidence": "low", "noFabrication": "HIGH", "antiOverfitting": "low" },
+      "primaryRisks": ["fabricated-healthy without a real probe"]
+    },
+    {
+      "id": "L02-proof-level-upgrade",
+      "effortClass": "M",
+      "componentsMoved": ["trustProof"],
+      "expectedMovementPoints": 5.6,
+      "expectedMovementBasis": "trust 0.626 → 1.0 at weight 0.15 (P2/P3 → P5 with bonus saturation)",
+      "measurementCost": "1 campaign re-run + per-family proof-level audit",
+      "lawRiskProfile": { "guiOnly": "low", "evidence": "MEDIUM", "noFabrication": "HIGH", "antiOverfitting": "low" },
+      "primaryRisks": ["P5 labels without journaled proof chains"]
+    },
+    {
+      "id": "L03-reconnect-preservation",
+      "effortClass": "M",
+      "componentsMoved": ["trustProof"],
+      "expectedMovementPoints": 1.5,
+      "expectedMovementBasis": "+0.1/record reconnect bonus under interruption exposure; primarily robustness",
+      "measurementCost": "1 interruption-variant re-run",
+      "lawRiskProfile": { "guiOnly": "low", "evidence": "low", "noFabrication": "MEDIUM", "antiOverfitting": "low" },
+      "primaryRisks": ["flag without actual queue survival"]
+    },
+    {
+      "id": "L04-evidence-artifact-density",
+      "effortClass": "S",
+      "componentsMoved": ["trustProof"],
+      "expectedMovementPoints": 0.75,
+      "expectedMovementBasis": "+0.05/record artifact bonus at full coverage (saturates with L02)",
+      "measurementCost": "1 campaign re-run",
+      "lawRiskProfile": { "guiOnly": "low", "evidence": "low", "noFabrication": "MEDIUM", "antiOverfitting": "low" },
+      "primaryRisks": ["placeholder artifacts"]
+    },
+    {
+      "id": "L05-assertion-coverage",
+      "effortClass": "S",
+      "componentsMoved": ["outcomeVsBenchmark"],
+      "expectedMovementPoints": 0,
+      "expectedMovementBasis": "loss avoidance: parity tracks completion once every family asserts; pairs with L12",
+      "measurementCost": "1 campaign re-run",
+      "lawRiskProfile": { "guiOnly": "low", "evidence": "MEDIUM", "noFabrication": "MEDIUM", "antiOverfitting": "low" },
+      "primaryRisks": ["assertions that do not check real post-journey state"]
+    },
+    {
+      "id": "L06-incumbent-evidence-trials",
+      "effortClass": "M",
+      "componentsMoved": ["outcomeVsBenchmark"],
+      "expectedMovementPoints": 0,
+      "expectedMovementBasis": "loss prevention against the latent D-gate (−20/persona cliff); measurement integrity",
+      "measurementCost": "audited per trial (not campaign-scored)",
+      "lawRiskProfile": { "guiOnly": "low", "evidence": "HIGH", "noFabrication": "HIGH", "antiOverfitting": "low" },
+      "primaryRisks": ["A-class upgrade without an authorized trial"]
+    },
+    {
+      "id": "L07-wayfinding-dead-end-elimination",
+      "effortClass": "M",
+      "componentsMoved": ["usabilityFriction"],
+      "expectedMovementPoints": 1.5,
+      "expectedMovementBasis": "each avoided backtrack = 0.1/record ≈ 1.5 points at weight 0.15; opens with L12",
+      "measurementCost": "1 campaign re-run + backtrack distribution",
+      "lawRiskProfile": { "guiOnly": "MEDIUM", "evidence": "low", "noFabrication": "MEDIUM", "antiOverfitting": "low" },
+      "primaryRisks": ["driver shortcuts instead of visible-navigation fixes"]
+    },
+    {
+      "id": "L08-form-validation-friction",
+      "effortClass": "S",
+      "componentsMoved": ["usabilityFriction"],
+      "expectedMovementPoints": 2.5,
+      "expectedMovementBasis": "failed (0.15) / blocked (0.2) step prevention under failure-variant exposure at weight 0.15",
+      "measurementCost": "1 failure-variant re-run",
+      "lawRiskProfile": { "guiOnly": "low", "evidence": "low", "noFabrication": "low", "antiOverfitting": "low" },
+      "primaryRisks": []
+    },
+    {
+      "id": "L09-in-journey-recovery",
+      "effortClass": "M",
+      "componentsMoved": ["usabilityFriction"],
+      "expectedMovementPoints": 1.5,
+      "expectedMovementBasis": "fewer errorRecovery entries (0.1 each) per journey under failure exposure",
+      "measurementCost": "1 failure-variant re-run",
+      "lawRiskProfile": { "guiOnly": "low", "evidence": "MEDIUM", "noFabrication": "MEDIUM", "antiOverfitting": "low" },
+      "primaryRisks": ["trace suppression to game friction — VOID under veto-first"]
+    },
+    {
+      "id": "L10-authority-veto-elimination",
+      "effortClass": "L",
+      "componentsMoved": ["journeyCompletion", "vetoAvoidance"],
+      "expectedMovementPoints": 0,
+      "expectedMovementBasis": "binary veto cliff (authority category); 0 on current all-pass baseline, decisive under approval variants",
+      "measurementCost": "1 approval-variant re-run",
+      "lawRiskProfile": { "guiOnly": "MEDIUM", "evidence": "low", "noFabrication": "MEDIUM", "antiOverfitting": "low" },
+      "primaryRisks": ["auto-approval without a real approval principal"]
+    },
+    {
+      "id": "L11-role-access-coverage",
+      "effortClass": "M",
+      "componentsMoved": ["journeyCompletion", "vetoAvoidance"],
+      "expectedMovementPoints": 0,
+      "expectedMovementBasis": "unblocks per-role coverage; opens with L12; denied-permission is an authority veto trigger",
+      "measurementCost": "1 per-role-family re-run",
+      "lawRiskProfile": { "guiOnly": "low", "evidence": "low", "noFabrication": "low", "antiOverfitting": "MEDIUM" },
+      "primaryRisks": ["RBAC changes made for test convenience rather than product decisions"]
+    },
+    {
+      "id": "L12-family-specific-drivers",
+      "effortClass": "L",
+      "componentsMoved": ["journeyCompletion", "usabilityFriction", "outcomeVsBenchmark"],
+      "expectedMovementPoints": 0,
+      "expectedMovementBasis": "measurement-depth lever: converts the generic 83.9 into real per-family measurement; honest scores may initially drop (that is the measurement working); enables L05/L07/L13",
+      "measurementCost": "1 campaign re-run per family batch",
+      "lawRiskProfile": { "guiOnly": "HIGH", "evidence": "low", "noFabrication": "HIGH", "antiOverfitting": "MEDIUM" },
+      "primaryRisks": ["manufactured deep-completion outcomes — the cardinal fabrication"]
+    },
+    {
+      "id": "L13-discovery-path-coverage",
+      "effortClass": "M",
+      "componentsMoved": ["journeyCompletion", "usabilityFriction"],
+      "expectedMovementPoints": 0,
+      "expectedMovementBasis": "becomes the real measurement of feature findability once discovery paths vary (pairs with L12); prevents wrong-surface backtracks",
+      "measurementCost": "1 campaign re-run",
+      "lawRiskProfile": { "guiOnly": "HIGH", "evidence": "low", "noFabrication": "low", "antiOverfitting": "low" },
+      "primaryRisks": ["deep-linked discovery — forbidden (first-discovery law)"]
+    },
+    {
+      "id": "L14-session-resilience",
+      "effortClass": "M",
+      "componentsMoved": ["vetoAvoidance", "trustProof"],
+      "expectedMovementPoints": 0,
+      "expectedMovementBasis": "binary veto cliff (privacy category via session-interruption); pairs with L03",
+      "measurementCost": "1 interruption-variant re-run",
+      "lawRiskProfile": { "guiOnly": "low", "evidence": "MEDIUM", "noFabrication": "MEDIUM", "antiOverfitting": "low" },
+      "primaryRisks": ["swallowing interruption records — VOID"]
+    },
+    {
+      "id": "L15-no-rfid-capture-reliability",
+      "effortClass": "L",
+      "componentsMoved": ["journeyCompletion", "usabilityFriction"],
+      "expectedMovementPoints": 0.2,
+      "expectedMovementBasis": "supermarket cohort only (industry=supermarket: 3 firms, 1,175 personas, 600 family runs); ~0.1-0.3 global mean",
+      "measurementCost": "1 supermarket-cohort re-run",
+      "lawRiskProfile": { "guiOnly": "low", "evidence": "MEDIUM", "noFabrication": "MEDIUM", "antiOverfitting": "low" },
+      "primaryRisks": ["fabricated counts; stock updates before reconciliation"]
+    }
+  ],
+
+  "rankingHints": {
+    "note": "Factual inputs only — the TL ranks. Derived ordering considerations, not decisions:",
+    "expectedValueAxis": "L02 (5.6) > L01 (3.8) > L08 (2.5) > L03 (1.5) ≈ L07 (1.5) ≈ L09 (1.5) > L04 (0.75) > L15 (0.2) > {L05, L06, L10-L14 (0 direct, enablement/veto-cliff levers)}",
+    "enablementStructure": "L12 (family-specific drivers) is the measurement enabler for L05/L07/L13 and exposes the real friction/veto distribution the amended-2 baseline will show; the TL may want to sequence L12 early regardless of its 0 direct points",
+    "vetoCliffAxis": "L10 (authority) and L14 (privacy) dominate any weighted-points view the moment the amended-2 baseline shows vetoes — a single vetoed persona scores 0",
+    "lawRiskAxis": "L02, L01, L12, L13, L06 carry HIGH no-fabrication/gui-only risk — their measurement protocols must include evidence-integrity audits (see RANKING-EXPERIMENT-DESIGN.md anti-gaming)",
+    "excludedFromRanking": ["persona-journey attribution repair (W3-012, measurement not product)", "contract weight/threshold changes (frozen)", "switchingCostFit (persona-bound)"]
+  },
+
+  "completenessCrossCheck": {
+    "method": "docs/simulations/cycle-1/analysis/verify-deliverables.ts validates this file's schema version, lever count, component references against the frozen SCORE_COMPONENTS, and cross-references every lever id against candidate-levers.json.",
+    "command": "node_modules/.bin/tsx docs/simulations/cycle-1/analysis/verify-deliverables.ts"
+  }
+}

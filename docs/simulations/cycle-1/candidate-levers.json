@@ -1,0 +1,281 @@
+{
+  "schema": "unicom-cycle1-rankprep/1",
+  "artifact": "candidate-levers",
+  "workOrder": "W2-011",
+  "scoringContractVersion": "w2-009:v1",
+  "baseSha": "45d8f274ba6c8ae3b8be0a08a6f7777a5ba0f219",
+  "derivedScoreContext": {
+    "emptyBundleMean": 4.4,
+    "fullyEvidencedGenericMean": 83.9,
+    "ceilingP5HealthyMean": 93.4,
+    "absoluteUpperBoundMean": 96.8,
+    "genericToCeilingGap": 9.5,
+    "source": "docs/simulations/cycle-1/analysis/ceiling-arithmetic.output.json (derive-ceiling.ts over all 15,275 frozen personas)"
+  },
+  "laws": {
+    "guiOnly": "Journeys start at homepage/role-landing and complete through visible controls only; no deep links, no direct API/service/DB during the journey (journey-evidence.ts GuiOnlyProof, lines 268-284).",
+    "evidence": "Every journey — including failures — produces an evidence record; assertions are checked AFTER the journey only (journey-evidence.ts laws, lines 5-16).",
+    "noFabrication": "UNKNOWN provider state is preserved, never fabricated healthy (journey-evidence.ts:189-204); proof levels must reflect real journaled evidence; competitor performance stays UNKNOWN when unsupported (law §3).",
+    "antiOverfitting": "Baseline namespace only (3,900 projects); holdout W1-009-H-* untouched until the held-out final (protocol §7); frozen contract byte-identical."
+  },
+  "levers": [
+    {
+      "id": "L01-connector-health-probe",
+      "title": "Real connector health probing recorded on connector-dependent journeys",
+      "groundedIn": [
+        { "path": "packages/experience/src/sim/journey-drivers.ts", "lines": "112-115", "whatChanges": "the generic driver hardcodes connector state 'unknown' for connectorDependent families; extend it (and the real connector runtime it composes) to perform an actual health probe through the connector-studio surface and record the observed state" },
+        { "path": "packages/experience/src/connector/observability.ts", "lines": "24-40", "whatChanges": "ConnectorHealthSnapshot (healthy|degraded|customer-action-required|unknown|down, with evidence refs) is the real health model the probe would surface" },
+        { "path": "packages/experience/src/connector/health-surface.ts", "lines": "26-86", "whatChanges": "ConnectorHealthSurfaceEntry / ConnectorJourneyHealthSummary already define the per-journey health summary the record could carry" }
+      ],
+      "componentsMoved": [
+        { "component": "integrationQuality", "direction": "up", "mechanism": "connector state 'unknown' (0.3) → 'healthy' (1.0) on connector-dependent families; cohort integration mean 0.411 → 0.722 (+3.1 points at weight 0.1)" },
+        { "component": "preferenceFit", "direction": "up", "mechanism": "second-order: single-tool 0.3·i and specialist-stack 0.85·i couplings lift with integration (+0.7 points cohort mean)" }
+      ],
+      "expectedAdoptionMovement": "mean score +3.8 (83.9 → ~87.7 on the fully-evidenced cohort); no eligibility change (already 100% under full evidence) — the movement shows in the score distribution and in real degraded-connector scenarios",
+      "risks": { "guiOnly": "low — probe must run through the visible connector-studio surface", "evidence": "low — health snapshots carry evidence refs", "noFabrication": "HIGH — a hardcoded 'healthy' without a real probe is exactly the fabrication the law forbids; the probe must actually execute", "antiOverfitting": "low" },
+      "effortClass": "M",
+      "measurementCost": "one baseline-namespace campaign re-run per increment"
+    },
+    {
+      "id": "L02-proof-level-upgrade",
+      "title": "P4/P5 proof evidence on approval and recourse paths",
+      "groundedIn": [
+        { "path": "packages/experience/src/sim/journey-drivers.ts", "lines": "121-125", "whatChanges": "generic driver records P3 (approvalRequired) / P2 (otherwise); approval and recourse journeys that journal richer proof (multi-approval chains, recourse contracts with evidence) legitimately reach P4/P5" },
+        { "path": "packages/experience/src/sim/journey-evidence.ts", "lines": "176-187", "whatChanges": "EvidenceState.proofLevel P0..P5 is the record field; the artifact kinds (journaled-command, observation, approval, proof) define what counts" },
+        { "path": "packages/experience/src/surfaces/trust-security.ts", "lines": "18-75", "whatChanges": "TrustComponentView / TrustCenterView define the trust-center surface where proof artifacts are rendered to users" }
+      ],
+      "componentsMoved": [
+        { "component": "trustProof", "direction": "up", "mechanism": "P2→P5 lifts per-record trust 0.55→1.0; P3→P5 lifts 0.75→1.0; cohort trust mean 0.626 → 1.0 (+5.6 points at weight 0.15)" }
+      ],
+      "expectedAdoptionMovement": "mean score +5.6 (largest single honest lever; 83.9 → ~89.5)",
+      "risks": { "guiOnly": "low", "evidence": "MEDIUM — proof levels must correspond to real journaled evidence chains, not labels", "noFabrication": "HIGH — stamping P5 without the underlying journaled proof is fabrication", "antiOverfitting": "low" },
+      "effortClass": "M",
+      "measurementCost": "one campaign re-run; proof-level distribution audited per family"
+    },
+    {
+      "id": "L03-reconnect-preservation",
+      "title": "Offline-queue survival of evidence through reconnect on more journeys",
+      "groundedIn": [
+        { "path": "packages/experience/src/edge/offline-queue.ts", "lines": "27-62", "whatChanges": "OfflineObservationQueueEntry / ReconciliationHandoff define the offline queue; extending reliable evidence survival across session reconnects (the INVARIANT on EvidenceState.preservedThroughReconnect)" },
+        { "path": "packages/experience/src/sim/journey-evidence.ts", "lines": "180-182", "whatChanges": "preservedThroughReconnect is the +0.1 trust bonus flag" }
+      ],
+      "componentsMoved": [
+        { "component": "trustProof", "direction": "up", "mechanism": "+0.1 per record when evidence survives reconnect; generic driver already sets true on pass paths — the lever hardens it under real interruption variants (failure-variants.ts:91)" }
+      ],
+      "expectedAdoptionMovement": "+0 to +1.5 depending on interruption-variant exposure; primarily a veto-adjacent robustness lever (session-interruption is also a privacy veto trigger)",
+      "risks": { "guiOnly": "low", "evidence": "low", "noFabrication": "MEDIUM — the flag must reflect an actual queue survival, asserted by reconciliation", "antiOverfitting": "low" },
+      "effortClass": "M",
+      "measurementCost": "interruption-variant campaign re-run"
+    },
+    {
+      "id": "L04-evidence-artifact-density",
+      "title": "Every journey preserves at least one evidence artifact",
+      "groundedIn": [
+        { "path": "packages/experience/src/sim/adoption-mapper.ts", "lines": "178-179", "whatChanges": "hasArtifacts bonus (+0.05) applies per record with ≥1 artifact; absent-driver records (discovery-runner.ts:200) carry empty artifacts" },
+        { "path": "packages/experience/src/sim/discovery-runner.ts", "lines": "153-207", "whatChanges": "buildAbsentRecord emits evidenceArtifacts: [] — the absent path forgoes the bonus by construction" }
+      ],
+      "componentsMoved": [
+        { "component": "trustProof", "direction": "up", "mechanism": "+0.05 per record once ≥1 artifact is journaled; small but uniform" }
+      ],
+      "expectedAdoptionMovement": "+0.75 cohort mean at full coverage (0.15 × 0.05); +more in combination with L02 (bonus saturates at min(1,·))",
+      "risks": { "guiOnly": "low", "evidence": "low", "noFabrication": "MEDIUM — artifacts must be real journal entries", "antiOverfitting": "low" },
+      "effortClass": "S",
+      "measurementCost": "one campaign re-run"
+    },
+    {
+      "id": "L05-assertion-coverage",
+      "title": "Post-journey commerce assertions on every journey family",
+      "groundedIn": [
+        { "path": "packages/experience/src/sim/adoption-mapper.ts", "lines": "143-158", "whatChanges": "records with ZERO assertions count as parity 0 — a journey that runs but asserts nothing scores outcomeVsBenchmark 0 for that record" },
+        { "path": "packages/experience/src/sim/journey-drivers.ts", "lines": "127-134", "whatChanges": "the generic driver emits exactly one 'assert-budget' assertion; family-specific assertion sets (order state, inventory reconciliation, refund evidence) deepen parity coverage" },
+        { "path": "packages/commerce/src/test/w1-009/portfolio/generator.ts", "lines": "baseline portfolio oracle", "whatChanges": "the W1 oracle fields (purchasingList, budget, recourseContract) define what can be asserted post-journey" }
+      ],
+      "componentsMoved": [
+        { "component": "outcomeVsBenchmark", "direction": "up (loss avoidance)", "mechanism": "guarantees ≥1 passing assertion per record so parity tracks real completion rather than assertion absence" }
+      ],
+      "expectedAdoptionMovement": "0 under the current all-pass one-assertion baseline (parity already 1.0); protects against parity loss when family-specific drivers land (pairs with L12)",
+      "risks": { "guiOnly": "low", "evidence": "MEDIUM — assertions are checked AFTER the journey only (checkedAfterJourney literal true); adding assertions cannot gate the journey itself", "noFabrication": "MEDIUM — assertions must check real post-journey state", "antiOverfitting": "low" },
+      "effortClass": "S",
+      "measurementCost": "one campaign re-run"
+    },
+    {
+      "id": "L06-incumbent-evidence-trials",
+      "title": "Authorized incumbent trials upgrading evidence classes (B/C → A)",
+      "groundedIn": [
+        { "path": "packages/agent/src/persona-incumbent-stacks.ts", "lines": "23-34", "whatChanges": "the evidence-class policy explicitly reserves A for incumbents the campaign actually trialled; the stack defaults are conservative B/C/D" },
+        { "path": "packages/experience/src/sim/adoption-mapper.ts", "lines": "224-249", "whatChanges": "bestIncumbentEvidenceClass takes the best class across the firm stack; class D zeroes parity" }
+      ],
+      "componentsMoved": [
+        { "component": "outcomeVsBenchmark", "direction": "loss prevention", "mechanism": "no firm currently has best-class D (verified: 0/39 firms), so parity is not gated today; A-class upgrades harden against D-drift when stacks change" }
+      ],
+      "expectedAdoptionMovement": "0 on the current cohort (no D-gate fires); eliminates a latent −20-point per-persona cliff",
+      "risks": { "guiOnly": "low (incumbent trials are observed, not UNiCOM journeys)", "evidence": "HIGH — class A requires an actual authorized UI trial; documentation-only claims must stay C/D", "noFabrication": "HIGH — upgrading without a trial is a superiority-claim fabrication", "antiOverfitting": "low" },
+      "effortClass": "M",
+      "measurementCost": "measurement-integrity lever; audited per trial, not campaign-scored"
+    },
+    {
+      "id": "L07-wayfinding-dead-end-elimination",
+      "title": "Navigation wayfinding: fewer dead-ends and wrong-surfaces",
+      "groundedIn": [
+        { "path": "packages/experience/src/sim/journey-evidence.ts", "lines": "78-91", "whatChanges": "BacktrackRecord reasons (dead-end, wrong-surface, …) each cost 0.1 friction" },
+        { "path": "packages/experience/src/sim/adoption-mapper.ts", "lines": "129-140", "whatChanges": "frictionPenaltyFor sums backtrack×0.1 + failed×0.15 + blocked×0.2 + errorRecovery×0.1 + outcome penalty" }
+      ],
+      "componentsMoved": [
+        { "component": "usabilityFriction", "direction": "up", "mechanism": "each avoided backtrack saves 0.1 per-record penalty; at 0.15 weight, saving one backtrack per journey ≈ +1.5 points" }
+      ],
+      "expectedAdoptionMovement": "0 on the all-pass generic baseline (no backtracks recorded); material once family-specific drivers exercise real navigation depth (pairs with L12) and in failure-variant exposure",
+      "risks": { "guiOnly": "MEDIUM — wayfinding must be improved in the visible navigation graph, not by driver shortcuts", "evidence": "low", "noFabrication": "MEDIUM — drivers must not silently drop backtracks (law §2)", "antiOverfitting": "low" },
+      "effortClass": "M",
+      "measurementCost": "one campaign re-run; backtrack-count distribution per family"
+    },
+    {
+      "id": "L08-form-validation-friction",
+      "title": "Form-validation and permission-denied friction reduction",
+      "groundedIn": [
+        { "path": "packages/experience/src/sim/journey-evidence.ts", "lines": "83-87", "whatChanges": "form-validation-error and permission-denied backtrack reasons" },
+        { "path": "packages/experience/src/surfaces/intent-canvas.ts", "lines": "16-75", "whatChanges": "INTENT_CONSTRAINT_FIELDS (constraint field descriptors, input kinds) — the intent-canvas form surface where validation friction concentrates" }
+      ],
+      "componentsMoved": [
+        { "component": "usabilityFriction", "direction": "up", "mechanism": "failed (0.15) and blocked (0.2) steps are the heaviest friction penalties; in-form validation guidance prevents failed submissions" }
+      ],
+      "expectedAdoptionMovement": "0 on the all-pass baseline; up to +2-3 points under realistic failure-variant exposure (0.15 weight × penalty deltas)",
+      "risks": { "guiOnly": "low", "evidence": "low", "noFabrication": "low", "antiOverfitting": "low" },
+      "effortClass": "S",
+      "measurementCost": "failure-variant campaign re-run"
+    },
+    {
+      "id": "L09-in-journey-recovery",
+      "title": "Recovery actions that resolve errors inside the journey",
+      "groundedIn": [
+        { "path": "packages/experience/src/sim/failure-variants.ts", "lines": "79-100, 174-180", "whatChanges": "each errorRecoveryTrace entry costs 0.1 friction EVEN WHEN RECOVERED; recovery actions (retry, reconnect, requeue-offline, request-approval) exist but still penalize" },
+        { "path": "packages/experience/src/sim/adoption-mapper.ts", "lines": "135", "whatChanges": "errorRecoveryPenalty = trace length × 0.1" }
+      ],
+      "componentsMoved": [
+        { "component": "usabilityFriction", "direction": "up", "mechanism": "fewer distinct error entries per journey (single-flow recovery instead of error→error) reduces the penalty sum" }
+      ],
+      "expectedAdoptionMovement": "0 on the all-pass baseline; +1-2 under failure-variant exposure",
+      "risks": { "guiOnly": "low", "evidence": "MEDIUM — errors must still be captured (law §2); the lever reduces error CLASSES, not error REPORTING", "noFabrication": "MEDIUM — suppressing trace entries to game friction is evidence degradation (void under veto-first)", "antiOverfitting": "low" },
+      "effortClass": "M",
+      "measurementCost": "failure-variant campaign re-run"
+    },
+    {
+      "id": "L10-authority-veto-elimination",
+      "title": "In-context approval acquisition eliminating missing-approval / denied-permission",
+      "groundedIn": [
+        { "path": "packages/experience/src/sim/adoption-mapper.ts", "lines": "265-279, 283-288", "whatChanges": "denied-permission / missing-approval / disabled-permission error kinds map to the AUTHORITY critical-failure veto — one occurrence vetoes the persona entirely" },
+        { "path": "packages/experience/src/sim/journey-evidence.ts", "lines": "159-174", "whatChanges": "ApprovalState with visibleApprovalControl and approvalKind (merchant/operator/buyer/supplier/auditor) — the visible approval toggle the journey can actuate" },
+        { "path": "packages/experience/src/sim/failure-variants.ts", "lines": "86-87", "whatChanges": "missing-approval / user-lacks-authority variants block with recoveryAction 'request-approval' / 'switch-role'" }
+      ],
+      "componentsMoved": [
+        { "component": "journeyCompletion", "direction": "up", "mechanism": "blocked journeys become passes when the approval is acquired in-context" },
+        { "component": "vetoAvoidance", "direction": "up", "mechanism": "authority is one of the 5 veto categories; eliminating the error class eliminates the veto source" }
+      ],
+      "expectedAdoptionMovement": "binary per affected persona (vetoed → eligible); 0 on the current all-pass baseline, decisive in realistic approval-required scenarios",
+      "risks": { "guiOnly": "MEDIUM — approvals must be actuated through visible controls, never auto-granted", "evidence": "low", "noFabrication": "MEDIUM — auto-approving without a real approval principal falsifies the approval state", "antiOverfitting": "low" },
+      "effortClass": "L",
+      "measurementCost": "approval-variant campaign re-run"
+    },
+    {
+      "id": "L11-role-access-coverage",
+      "title": "Broader role surface access and switch paths",
+      "groundedIn": [
+        { "path": "packages/experience/src/sim/role-access.ts", "lines": "24-73", "whatChanges": "ROLE_ACCESS_SCOPES restricts 8 W1 roles to explicit surface lists; end-user/supplier/auditor have EMPTY canSwitchFrom; auditor is view-only" },
+        { "path": "packages/experience/src/sim/journey-registry.ts", "lines": "73-287", "whatChanges": "per-family applicableRoles — families whose surfaces fall outside a role's allowedSurfaces block for that role" }
+      ],
+      "componentsMoved": [
+        { "component": "journeyCompletion", "direction": "up", "mechanism": "access-denied surfaces block journeys (blocked outcome → completion loss + 0.5 friction penalty + capability-gap reason codes)" },
+        { "component": "vetoAvoidance", "direction": "up", "mechanism": "denied-permission is an authority veto trigger" }
+      ],
+      "expectedAdoptionMovement": "0 on the current baseline (generic driver does not traverse role-gated paths); unlocks per-role coverage once family-specific drivers exercise real scopes (pairs with L12)",
+      "risks": { "guiOnly": "low", "evidence": "low", "noFabrication": "low", "antiOverfitting": "MEDIUM — access changes must reflect real product RBAC decisions, not test conveniences; the W2 persona rolePermissions are frozen" },
+      "effortClass": "M",
+      "measurementCost": "per-role-family campaign re-run"
+    },
+    {
+      "id": "L12-family-specific-drivers",
+      "title": "Family-specific completion paths replacing the single generic template",
+      "groundedIn": [
+        { "path": "packages/experience/src/sim/journey-drivers.ts", "lines": "27-175", "whatChanges": "buildDriverForFamily is ONE template for all 20 registered families (3 interaction steps, homepage → primary-nav → surface); each family's registry entry (journey-registry.ts:73-287) declares real surface sequences (e.g. merchant-commerce-lifecycle: operate-catalog → operate-inventory → operate-orders → storefront-studio → operate-marketing-analytics) the drivers could traverse" },
+        { "path": "packages/experience/src/sim/discovery-runner.ts", "lines": "125-151", "whatChanges": "the runner composes the REAL experience-plane runtimes — the drivers drive them through public typed view contracts" }
+      ],
+      "componentsMoved": [
+        { "component": "journeyCompletion", "direction": "up (robustness)", "mechanism": "deep paths surface real completion gaps the 3-step template cannot reach" },
+        { "component": "usabilityFriction", "direction": "measured honestly", "mechanism": "deep paths may ADD backtracks initially — this is the measurement doing its job (evidence law)" },
+        { "component": "outcomeVsBenchmark", "direction": "up (with L05)", "mechanism": "family-specific assertion sets become meaningful" }
+      ],
+      "expectedAdoptionMovement": "measurement-depth lever first: it converts the 84-point generic measurement into a real per-family one; expected direction on true product quality is up, but honest scores may initially DROP where real friction exists",
+      "risks": { "guiOnly": "HIGH — drivers must drive real runtimes through typed view contracts, never manufacture outcomes (the runner's law)", "evidence": "low", "noFabrication": "HIGH — a driver that fakes deep completion is the cardinal fabrication", "antiOverfitting": "MEDIUM — driver depth must generalize across all 39 firms, not the baseline's quirks" },
+      "effortClass": "L",
+      "measurementCost": "one campaign re-run per family batch"
+    },
+    {
+      "id": "L13-discovery-path-coverage",
+      "title": "Universal-intent, contextual-opportunity and onboarding discovery paths",
+      "groundedIn": [
+        { "path": "packages/experience/src/sim/journey-evidence.ts", "lines": "55-60", "whatChanges": "four DiscoveryPathKinds exist; the generic driver uses only 'primary-navigation' (journey-drivers.ts:158)" },
+        { "path": "packages/experience/src/navigation/universal-intent.ts", "lines": "29-80", "whatChanges": "UniversalIntentVerb/Target/Command/Match — the real intent resolver the 'universal-intent' discovery path drives" },
+        { "path": "packages/experience/src/navigation/discoverability.ts", "whatChanges": "the discoverability navigation surface for the §10.19 family" }
+      ],
+      "componentsMoved": [
+        { "component": "journeyCompletion", "direction": "up", "mechanism": "gui-feature-discoverability journeys pass only when the feature is reachable from the homepage via a declared discovery path" },
+        { "component": "usabilityFriction", "direction": "up", "mechanism": "intent-resolution paths avoid wrong-surface backtracks" }
+      ],
+      "expectedAdoptionMovement": "0 while the generic driver passes discoverability trivially; becomes the primary measurement of feature findability once drivers vary discovery paths (pairs with L12)",
+      "risks": { "guiOnly": "HIGH — first-discovery NEVER deep-links (GuiOnlyProof.deepLinkUsedForDiscovery: false)", "evidence": "low", "noFabrication": "low", "antiOverfitting": "low" },
+      "effortClass": "M",
+      "measurementCost": "one campaign re-run"
+    },
+    {
+      "id": "L14-session-resilience",
+      "title": "Session-interruption elimination (privacy veto source)",
+      "groundedIn": [
+        { "path": "packages/experience/src/sim/adoption-mapper.ts", "lines": "293-294", "whatChanges": "session-interruption error kind maps to the PRIVACY critical-failure veto" },
+        { "path": "packages/experience/src/connector/browser-session.ts", "whatChanges": "the browser-session runtime whose failures produce the interruption kind" },
+        { "path": "packages/experience/src/sim/failure-variants.ts", "lines": "91, 96", "whatChanges": "interrupted-session-recovery and browser-session-failure variants" }
+      ],
+      "componentsMoved": [
+        { "component": "vetoAvoidance", "direction": "up", "mechanism": "eliminating session interruptions removes a whole veto category's most common trigger" },
+        { "component": "trustProof", "direction": "up", "mechanism": "pairs with L03 (evidence surviving interruption)" }
+      ],
+      "expectedAdoptionMovement": "binary per affected persona; 0 on current baseline, decisive under interruption variants",
+      "risks": { "guiOnly": "low", "evidence": "MEDIUM — interruptions must still be captured when they occur (law §2)", "noFabrication": "MEDIUM — swallowing interruption records to avoid vetoes is evidence degradation (void)", "antiOverfitting": "low" },
+      "effortClass": "M",
+      "measurementCost": "interruption-variant campaign re-run"
+    },
+    {
+      "id": "L15-no-rfid-capture-reliability",
+      "title": "No-RFID physical capture reliability (supermarket cohort)",
+      "groundedIn": [
+        { "path": "packages/experience/src/edge/observation.ts", "lines": "22-117", "whatChanges": "PhysicalObservationKind payloads (barcode, camera, weighted, cycle-count, POS transaction, receipt, file import) — the capture paths the no-RFID family exercises" },
+        { "path": "packages/experience/src/sim/no-rfid-journeys.ts", "whatChanges": "the no-RFID journey surface (supermarket cohort: 600 baseline runs)" },
+        { "path": "packages/experience/src/sim/journey-registry.ts", "lines": "248-256", "whatChanges": "physical-no-rfid-supermarket registry entry (connectorDependent, approvalRequired, 5 surfaces incl. physical-capture and local-edge-setup)" }
+      ],
+      "componentsMoved": [
+        { "component": "journeyCompletion", "direction": "up", "mechanism": "capture/reconciliation failures block the family for supermarket personas" },
+        { "component": "usabilityFriction", "direction": "up", "mechanism": "conflicting-observation reconciliation loops are error-recovery entries" }
+      ],
+      "expectedAdoptionMovement": "concentrated in the supermarket cohort (13 of 39 firms carry supermarket personas only via industry=supermarket: 3 firms, 1,175 personas); ~0.1-0.3 global mean impact",
+      "risks": { "guiOnly": "low", "evidence": "MEDIUM — observations must reconcile against real state, stock updates only after reconciliation", "noFabrication": "MEDIUM — never fabricate counts", "antiOverfitting": "low" },
+      "effortClass": "L",
+      "measurementCost": "supermarket-cohort campaign re-run"
+    }
+  ],
+  "notLevers": [
+    {
+      "id": "switchingCostFit",
+      "reason": "persona-bound (frozen persona attributes: switchingCost, trainingAvailability — persona-scoring.ts:112-114, persona-population.ts bias ranges). NO product change moves it; the contract is frozen. Listed to prevent the TL from ranking a phantom lever."
+    },
+    {
+      "id": "persona-journey-attribution-repair",
+      "reason": "this is W3-012's measurement repair (personaIds[0] → full coverage), NOT a product lever; it moves the measured population from 39 evidenced personas to 15,275 (score 4.4 → 83.9) without any product change. Must not be ranked as product work."
+    },
+    {
+      "id": "contract-weight-changes",
+      "reason": "FROZEN (w2-009:v1; law 5 — version bump + rescoring + TL sign-off required). Explicitly out of scope for cycle-1 product ranking."
+    }
+  ],
+  "completenessCrossCheck": {
+    "method": "docs/simulations/cycle-1/analysis/verify-deliverables.ts asserts ≥12 levers, every groundedIn path exists at the base SHA, every lever cites ≥1 component from the frozen SCORE_COMPONENTS or a veto category, and every lever carries all four law-risk classifications + an effort class.",
+    "command": "node_modules/.bin/tsx docs/simulations/cycle-1/analysis/verify-deliverables.ts"
+  }
+}
