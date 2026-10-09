@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "workOrderId": "W3-013",
+  "phase": "cycles.held_out_final",
+  "freeze": {
+    "codeCommit": "6a9d225f31ba56951f056546cd564bc769a87936",
+    "codeBranch": "work/w3-013",
+    "frozenContractVersion": "w2-009:v1",
+    "baselineMeasurement": {
+      "mergedSha": "ebd6652",
+      "boundCommit": "3fcd39b",
+      "fingerprint": "e485b624da2bf73f"
+    },
+    "deploymentScope": "local-dev fixture (isolated; no production systems, no live provider accounts, no production mutations) — recorded separately from simulation outcomes per the charter"
+  },
+  "holdoutCampaign": {
+    "namespace": "holdout",
+    "projectReconciliation": {
+      "planned": 3900,
+      "executed": 3900,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0,
+      "reconciled": true
+    },
+    "journeyReconciliation": {
+      "planned": 196800,
+      "executed": 196800,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0,
+      "reconciled": true
+    },
+    "outcomeCounts": {
+      "pass": 196800,
+      "fail": 0,
+      "blocked": 0,
+      "absent": 0,
+      "unknown": 0
+    },
+    "determinismFingerprint": "d55d92c2250bad62",
+    "totalEvidenceRecords": 196800
+  },
+  "fourAdoptionOutputs": [
+    {
+      "outputId": "a",
+      "label": "Technical full-switch eligibility",
+      "kind": "boolean",
+      "denominator": 15275,
+      "eligibleCount": 15275,
+      "eligiblePct": 100,
+      "meanScore": null,
+      "sensitivityRange": null,
+      "syntheticEstimateLabel": "synthetic simulation estimate",
+      "rule": "no veto AND all applicable journeys discoverable+completable AND no missing-capability reason codes AND no blocker reason codes",
+      "threshold": null
+    },
+    {
+      "outputId": "b",
+      "label": "Simulated stated willingness to switch completely",
+      "kind": "boolean+score",
+      "denominator": 15275,
+      "eligibleCount": 15275,
+      "eligiblePct": 100,
+      "meanScore": 83,
+      "sensitivityRange": {
+        "low": 81,
+        "high": 85
+      },
+      "syntheticEstimateLabel": "synthetic simulation estimate",
+      "rule": "no veto AND technical-full-switch-eligible AND weighted score >= FULL_SWITCH_THRESHOLD (65)",
+      "threshold": 65
+    },
+    {
+      "outputId": "c",
+      "label": "Main-interface eligibility",
+      "kind": "boolean",
+      "denominator": 15275,
+      "eligibleCount": 15275,
+      "eligiblePct": 100,
+      "meanScore": null,
+      "sensitivityRange": null,
+      "syntheticEstimateLabel": "synthetic simulation estimate",
+      "rule": "no veto AND >= 80% of applicable journeys can start/be supervised from UNiCOM AND no main-interface-blocking reason codes",
+      "threshold": null
+    },
+    {
+      "outputId": "d",
+      "label": "Simulated stated willingness to use as main interface",
+      "kind": "boolean+score",
+      "denominator": 15275,
+      "eligibleCount": 15275,
+      "eligiblePct": 100,
+      "meanScore": 83,
+      "sensitivityRange": {
+        "low": 81,
+        "high": 85
+      },
+      "syntheticEstimateLabel": "synthetic simulation estimate",
+      "rule": "no veto AND main-interface-eligible AND weighted score >= MAIN_INTERFACE_THRESHOLD (55)",
+      "threshold": 55
+    }
+  ],
+  "baselineVsHoldout": [
+    {
+      "outputId": "a",
+      "baselineEligible": 15275,
+      "holdoutEligible": 15275,
+      "baselinePct": 100,
+      "holdoutPct": 100,
+      "holds": true,
+      "meanScore": null,
+      "syntheticEstimateLabel": "synthetic simulation estimate"
+    },
+    {
+      "outputId": "b",
+      "baselineEligible": 15275,
+      "holdoutEligible": 15275,
+      "baselinePct": 100,
+      "holdoutPct": 100,
+      "holds": true,
+      "meanScore": 83,
+      "syntheticEstimateLabel": "synthetic simulation estimate"
+    },
+    {
+      "outputId": "c",
+      "baselineEligible": 15275,
+      "holdoutEligible": 15275,
+      "baselinePct": 100,
+      "holdoutPct": 100,
+      "holds": true,
+      "meanScore": null,
+      "syntheticEstimateLabel": "synthetic simulation estimate"
+    },
+    {
+      "outputId": "d",
+      "baselineEligible": 15275,
+      "holdoutEligible": 15275,
+      "baselinePct": 100,
+      "holdoutPct": 100,
+      "holds": true,
+      "meanScore": 83,
+      "syntheticEstimateLabel": "synthetic simulation estimate"
+    }
+  ],
+  "ceilingHoldsOnHoldout": true,
+  "releaseGateChecklist": [
+    {
+      "gate": "GUI-only law (no direct API/service/DB manufacture)",
+      "status": "PASS",
+      "evidence": "every journey record carries a non-empty GuiOnlyProof with violations: [] (law §1); the runner registers drivers only"
+    },
+    {
+      "gate": "100% matrix capabilities tested for GUI discoverability",
+      "status": "PASS",
+      "evidence": "zero-orphan feature map 132/132 against the real portfolio (W3-010/W3-012 tests)"
+    },
+    {
+      "gate": "Zero critical security/authority/data-integrity violations",
+      "status": "PASS",
+      "evidence": "outcomeCounts across baseline+holdout: fail=0, blocked=0; no critical-failure vetoes in any adoption decision"
+    },
+    {
+      "gate": "Zero silent action failures",
+      "status": "PASS",
+      "evidence": "every project result and failure carries a journey-evidence record pointer; reconciliation drift 0 on both runs"
+    },
+    {
+      "gate": "Zero hidden-route-only features counted as present",
+      "status": "PASS",
+      "evidence": "routeOrigin=homepage on every record; deepLinkUsedForDiscovery=false (W3-009 pilot proofs + the driver tests)"
+    },
+    {
+      "gate": "100% declared critical scenarios have evidence",
+      "status": "PASS",
+      "evidence": "196,800 baseline + 196,800 holdout evidence records; per-family evidence tables complete (19/19 families)"
+    },
+    {
+      "gate": "No severe high-frequency GUI blocker without mitigation",
+      "status": "PASS",
+      "evidence": "the amended-2 failure list is EMPTY (zero blocked/absent/fail journeys across all 15,275 personas)"
+    },
+    {
+      "gate": "Improvements maintain held-out task success",
+      "status": "PASS",
+      "evidence": "holdout outputs identical to the amended-2 baseline: a=15275, b=15275, c=15275, d=15275"
+    },
+    {
+      "gate": "Adoption-metric separation (a/b/c/d never combined)",
+      "status": "PASS",
+      "evidence": "four separate outputs with denominators, computed under the frozen w2-009:v1 contract"
+    },
+    {
+      "gate": "No human-willingness inference from simulation",
+      "status": "PASS",
+      "evidence": "every willingness number carries \"synthetic simulation estimate\""
+    }
+  ],
+  "caveats": [
+    "Fixture-level simulation: the drivers model visible-UI paths as deterministic interaction/checkpoint graphs over the real experience-plane surface contracts (no pixel rendering, no real latency).",
+    "The clean baseline and holdout do not exercise the failure/UNKNOWN/recovery dimension (the W3-009 failure-variants machinery exists for a follow-up resilience measurement).",
+    "Synthetic adoption numbers are model outputs, not human preference research; validation with consenting real professionals is required before any user-facing adoption claim."
+  ],
+  "syntheticEstimateLabel": "synthetic simulation estimate"
+}

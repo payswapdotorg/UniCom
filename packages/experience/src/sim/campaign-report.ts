@@ -139,13 +139,13 @@ export interface ThroughputBlock {
 export interface BaselineCampaignReport {
   readonly schemaVersion: 1;
   readonly experimentId: string;
-  readonly workOrderId: "W3-010";
-  readonly phase: "cycles.baseline";
+  readonly workOrderId: "W3-010" | "W3-013";
+  readonly phase: "cycles.baseline" | "cycles.held_out_final";
   readonly buildCommit: string;
   readonly buildBranch: string;
   readonly generatedAt: string;
   readonly deploymentTarget: "local-dev-fixture";
-  readonly namespace: "baseline";
+  readonly namespace: "baseline" | "holdout";
   readonly contractVersion: "w2-009:v1";
   readonly syntheticEstimateLabel: "synthetic simulation estimate";
 
@@ -205,11 +205,11 @@ export interface BaselineCampaignReport {
 export interface BaselineCampaignSlimReport {
   readonly schemaVersion: 1;
   readonly experimentId: string;
-  readonly workOrderId: "W3-010";
-  readonly phase: "cycles.baseline";
+  readonly workOrderId: "W3-010" | "W3-013";
+  readonly phase: "cycles.baseline" | "cycles.held_out_final";
   readonly buildCommit: string;
   readonly generatedAt: string;
-  readonly namespace: "baseline";
+  readonly namespace: "baseline" | "holdout";
   readonly contractVersion: "w2-009:v1";
   readonly syntheticEstimateLabel: "synthetic simulation estimate";
 

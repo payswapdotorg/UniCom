@@ -45,7 +45,7 @@ import {
 } from "@unicom/agent";
 import { createHash } from "node:crypto";
 import {
-  assertNoHoldoutInSchedule,
+  assertOnlyNamespaceInSchedule,
   buildCycle1Readiness,
   buildThroughputBlock,
   countByOutcome,
@@ -63,33 +63,29 @@ import {
   computeTopFrictionCauses,
 } from "./baseline-campaign-aggregates";
 
-/** The baseline campaign cohort (all 39 firms, baseline namespace only). */
-export interface BaselineCohort {
-  readonly cohortId: "baseline-v3-w3-010";
-  readonly projectsPerFirm: 100;
-  readonly seedNamespace: "baseline";
-}
-
-/** The full baseline cohort (39 firms × 100 baseline-namespace projects each). */
-export const BASELINE_COHORT: BaselineCohort = {
+/** The campaign cohort constants (39 firms × 100 projects per namespace). */
+export const BASELINE_COHORT = {
   cohortId: "baseline-v3-w3-010",
   projectsPerFirm: 100,
   seedNamespace: BASELINE_NAMESPACE,
-};
+} as const;
 
-/** Build a baseline schedule for the cohort (deterministic; baseline namespace only). */
+/** Build a campaign schedule for the cohort (deterministic; the requested namespace only). */
 export function buildBaselineSchedule(args: {
   experimentId: string;
   contracts: RealArtifactContracts;
   generatedAt: string;
   buildCommit: string;
+  /** W3-013: the namespace to schedule (baseline default; holdout for Wave D). */
+  namespace?: "baseline" | "holdout";
 }): CampaignSchedule {
   const { experimentId, contracts, generatedAt, buildCommit } = args;
+  const namespace = args.namespace ?? BASELINE_NAMESPACE;
   const projects: ScheduledProject[] = [];
   const familyCoverage = new Map<JourneyFamilyId, string[]>();
 
   for (const firm of contracts.scenarioManifest.firms) {
-    if (firm.seedNamespace !== BASELINE_NAMESPACE) continue;
+    if (firm.seedNamespace !== namespace) continue;
     const industry = firm.industry;
     const firmSize = firm.firmSize;
     const personaForFirm = [...contracts.personas.values()].filter(
@@ -104,8 +100,8 @@ export function buildBaselineSchedule(args: {
         );
       }
       const seed = firm.deterministicSeed;
-      const projectManifest = contracts.projectManifests.get(projectId);
-      const applicableFamilies = (projectManifest?.applicableJourneyFamilies ??
+      const manifest = contracts.projectManifests.get(projectId);
+      const applicableFamilies = (manifest?.applicableJourneyFamilies ??
         JOURNEY_FAMILY_IDS) as readonly JourneyFamilyId[];
       projects.push({
         projectId,
@@ -126,8 +122,8 @@ export function buildBaselineSchedule(args: {
 
   return {
     experimentId,
-    cohortId: BASELINE_COHORT.cohortId,
-    seedNamespace: BASELINE_NAMESPACE,
+    cohortId: namespace === BASELINE_NAMESPACE ? BASELINE_COHORT.cohortId : "holdout-v3-w3-013",
+    seedNamespace: namespace,
     generatedAt,
     buildCommit,
     projects,
@@ -145,6 +141,8 @@ export async function runBaselineCampaign(args: {
   contracts: RealArtifactContracts;
   /** "full" runs 3,900 projects; "smoke" runs 1 per firm (39 projects). */
   sampleMode?: "full" | "smoke";
+  /** W3-013 (Wave D): "baseline" (default) or "holdout" (the §7 mirror). */
+  namespace?: "baseline" | "holdout";
 }): Promise<{
   readonly full: BaselineCampaignReport;
   readonly slim: BaselineCampaignSlimReport;
@@ -153,6 +151,7 @@ export async function runBaselineCampaign(args: {
 }> {
   const { experimentId, buildCommit, buildBranch, generatedAt, contracts } = args;
   const sampleMode = args.sampleMode ?? "full";
+  const namespace = args.namespace ?? BASELINE_NAMESPACE;
 
   if (contracts.localDevFixture !== false) {
     throw new Error(
@@ -183,10 +182,12 @@ export async function runBaselineCampaign(args: {
     contracts,
     generatedAt,
     buildCommit,
+    namespace,
   });
 
-  // §7 anti-overfitting: zero holdout projects in the schedule.
-  assertNoHoldoutInSchedule(schedule);
+  // §7 anti-overfitting (and its Wave D mirror): the schedule carries ONLY
+  // the requested namespace's projects.
+  assertOnlyNamespaceInSchedule(schedule, namespace);
 
   // Smoke mode: a small subset (one project per firm).
   const projectsToRun = sampleMode === "smoke"
@@ -302,13 +303,13 @@ export async function runBaselineCampaign(args: {
   const reportMinusFingerprint: Omit<BaselineCampaignReport, "determinismFingerprint"> = {
     schemaVersion: 1,
     experimentId,
-    workOrderId: "W3-010",
-    phase: "cycles.baseline",
+    workOrderId: namespace === BASELINE_NAMESPACE ? "W3-010" : "W3-013",
+    phase: namespace === BASELINE_NAMESPACE ? "cycles.baseline" : "cycles.held_out_final",
     buildCommit,
     buildBranch,
     generatedAt,
     deploymentTarget: BASELINE_DEPLOYMENT_TARGET,
-    namespace: BASELINE_NAMESPACE,
+    namespace,
     contractVersion: FROZEN_CONTRACT_VERSION,
     syntheticEstimateLabel: SYNTHETIC_ESTIMATE_LABEL,
     fingerprints: contracts.fingerprints,
@@ -350,11 +351,11 @@ export async function runBaselineCampaign(args: {
   const slim: BaselineCampaignSlimReport = {
     schemaVersion: 1,
     experimentId,
-    workOrderId: "W3-010",
-    phase: "cycles.baseline",
+    workOrderId: namespace === BASELINE_NAMESPACE ? "W3-010" : "W3-013",
+    phase: namespace === BASELINE_NAMESPACE ? "cycles.baseline" : "cycles.held_out_final",
     buildCommit,
     generatedAt,
-    namespace: BASELINE_NAMESPACE,
+    namespace,
     contractVersion: FROZEN_CONTRACT_VERSION,
     syntheticEstimateLabel: SYNTHETIC_ESTIMATE_LABEL,
     cohort: {
