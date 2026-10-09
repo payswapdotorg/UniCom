@@ -1,0 +1,29 @@
+{
+  "package_id": "W3-014-HUMAN-VALIDATION-PACKAGE",
+  "version": "1.0.0",
+  "prepared": "2026-10-09",
+  "status": "PREPARE-ONLY / DRAFT FOR OPERATOR REVIEW — NOT AUTHORIZED FOR EXECUTION",
+  "execution_gate": "Study Protocol §0 preconditions (operator authorization, consent approval, privacy/ethics review, rendered-UI environment, compensation policy, named study director + data custodian)",
+  "contains": {
+    "study_protocol": "STUDY-PROTOCOL.md",
+    "consent_and_materials": "CONSENT-AND-RESEARCH-MATERIALS.md (screener §S, consent §C, task cards §T, interview §I, tracker §R, withdrawal §W, labels §L)"
+  },
+  "required_elements_coverage": {
+    "recruitment_criteria": "STUDY-PROTOCOL.md §3 + §S",
+    "role_industry_firm_size_sampling_plan": "STUDY-PROTOCOL.md §4",
+    "task_scripts_mapped_to_task_pack": "STUDY-PROTOCOL.md §5 + §T (cards T-01..T-18 mapped to TP-01..TP-19 / journey registry J1-J19)",
+    "consent_language": "§C",
+    "privacy_data_retention": "STUDY-PROTOCOL.md §11",
+    "interview_usability_questions": "§I + per-task questions",
+    "success_failure_measures": "STUDY-PROTOCOL.md §6 (PASS / PASS-WITH-HELP / FAIL / BLOCKED-ENV / ABSENT-UI / NOT-APPLICABLE / MISSING)",
+    "bias_limitations_register": "STUDY-PROTOCOL.md §9 (B1-B10)",
+    "withdrawal_process": "STUDY-PROTOCOL.md §10 + §W",
+    "denominators_missing_data_plan": "STUDY-PROTOCOL.md §6 + §8"
+  },
+  "prohibitions_enforced": {
+    "no_recruitment_or_contact_performed": true,
+    "no_participant_data_in_repo": true,
+    "synthetic_vs_human_separation": "mandatory labels §L; separate stores per protocol §4/§12",
+    "no_real_commerce_actions": true
+  }
+}

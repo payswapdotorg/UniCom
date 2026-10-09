@@ -1,0 +1,250 @@
+{
+  "pack_id": "W3-014-FROZEN-TASK-PACK",
+  "frozen_at": "2026-10-09",
+  "frozen_before": "incumbent evidence capture (see git order: task pack committed before ledger)",
+  "authority": [
+    "docs/work-orders/W3-014.md",
+    "docs/simulations/V3-INDUSTRY-AND-COMPETITOR-MATRIX.md",
+    "docs/simulations/V3-EXPERIMENT-PROTOCOL.md#10"
+  ],
+  "scope_rules": {
+    "commerce_only": true,
+    "broad_noncommerce_platforms_excluded_as_overall_competitors": [
+      "Autodesk",
+      "Procore",
+      "EHR/clinical",
+      "fleet telematics/dispatch",
+      "creative suites",
+      "legal matter management",
+      "generic project management"
+    ],
+    "status_vocabulary": [
+      "offered",
+      "not_verified",
+      "not_accessible",
+      "not_applicable"
+    ],
+    "class_d_supports_no_claim": true,
+    "timing_claims": "NONE permitted in this phase; no reproducible comparable-condition method exists (UNiCOM has no rendered UI)"
+  },
+  "unicom_honest_status": {
+    "rendered_commerce_ui": "ABSENT as of 2026-10-09 (surfaces are typed contracts + runtime constructors in packages/experience/src/surfaces/*.ts; no host renderer; TL Gate-0 scouting in docs/development-state/post-v3-validation-state.json)",
+    "v3_gui_evidence": "fixture-level (typed harness), certified as such",
+    "rendered_browser_evidence_lane": "W1-010 (packages/experience/test/browser/)",
+    "synthetic_numbers": "V3 adoption scores are synthetic simulation estimates; labelled synthetic wherever referenced; never blended with human or incumbent observations"
+  },
+  "tasks": [
+    {
+      "task_id": "TP-01",
+      "code": "SRC",
+      "name": "Supplier/vendor discovery & sourcing",
+      "journey_refs": [
+        "J2",
+        "J11"
+      ],
+      "neutral_definition": "buyer discovers candidate sellers with trust/availability signals",
+      "preconditions": "item spec known; auth where incumbent requires",
+      "observable_outcome": "discovery surface or documented supplier discovery workflow"
+    },
+    {
+      "task_id": "TP-02",
+      "code": "CMP",
+      "name": "Offer/quote comparison across sellers",
+      "journey_refs": [
+        "J2",
+        "J11"
+      ],
+      "neutral_definition": "compare >=2 offers on total cost, lead time, quality, recourse",
+      "preconditions": "known item need",
+      "observable_outcome": "comparison surface or documented RFx/quote comparison"
+    },
+    {
+      "task_id": "TP-03",
+      "code": "INT",
+      "name": "Buyer intent capture with constraints",
+      "journey_refs": [
+        "J1"
+      ],
+      "neutral_definition": "record budget/deadline/quality/delivery/substitute constraints; later shopping respects them",
+      "preconditions": "buyer context",
+      "observable_outcome": "persistent intent/constraint surface or documented requisition constraints"
+    },
+    {
+      "task_id": "TP-04",
+      "code": "BNW",
+      "name": "Buy-now-vs-wait, price timing, substitution, negotiation",
+      "journey_refs": [
+        "J3",
+        "J8"
+      ],
+      "neutral_definition": "act on price/inventory timing or negotiate/substitute within constraints",
+      "preconditions": "known item need",
+      "observable_outcome": "price-tracking/wait mechanics, negotiation or best-offer flow, alternates suggestion"
+    },
+    {
+      "task_id": "TP-05",
+      "code": "GBD",
+      "name": "Discover & join existing group buy with visible commitment rules",
+      "journey_refs": [
+        "J4"
+      ],
+      "neutral_definition": "find existing group deal and join/leave with explicit rules",
+      "preconditions": "group deal exists in scope",
+      "observable_outcome": "group-buy/deal-window surface with explicit commitment rules"
+    },
+    {
+      "task_id": "TP-06",
+      "code": "GBG",
+      "name": "Latent-demand group buy: recruit + merchant proposal",
+      "journey_refs": [
+        "J5"
+      ],
+      "neutral_definition": "detect demand, recruit participants, propose group deal to merchant; merchant accepts/rejects/counters",
+      "preconditions": "buyer group + willing merchant",
+      "observable_outcome": "buyer-aggregation to merchant-proposal workflow"
+    },
+    {
+      "task_id": "TP-07",
+      "code": "RNT",
+      "name": "Rent/borrow vs buy",
+      "journey_refs": [
+        "J6"
+      ],
+      "neutral_definition": "compare rental vs purchase: availability, period, deposit, condition, recourse",
+      "preconditions": "item available for rent",
+      "observable_outcome": "rental catalog/booking surface with terms"
+    },
+    {
+      "task_id": "TP-08",
+      "code": "RSC",
+      "name": "Resale/consignment of under-used assets",
+      "journey_refs": [
+        "J7"
+      ],
+      "neutral_definition": "list/resell/consign asset with user-controlled pricing; or buy used with condition evidence",
+      "preconditions": "asset owned or used market exists",
+      "observable_outcome": "seller listing flow or consignment workflow or used channel"
+    },
+    {
+      "task_id": "TP-09",
+      "code": "MHT",
+      "name": "Bounded multi-hop trade cycle >=3 participants, per-leg consent",
+      "journey_refs": [
+        "J9"
+      ],
+      "neutral_definition": "execute trade cycle across >=3 participants with per-leg authorization and proof",
+      "preconditions": "willing participants",
+      "observable_outcome": "documented multi-party trade-chain mechanism"
+    },
+    {
+      "task_id": "TP-10",
+      "code": "PRC",
+      "name": "Procurement: approvals, PO, receiving, invoice matching",
+      "journey_refs": [
+        "J11"
+      ],
+      "neutral_definition": "requisition to approval to PO to partial receiving to invoice matching to credit",
+      "preconditions": "procurement account",
+      "observable_outcome": "procurement modules or supplier-portal PO workflow"
+    },
+    {
+      "task_id": "TP-11",
+      "code": "ORD",
+      "name": "Orders, fulfilment, delivery/pickup, returns, refunds, recourse",
+      "journey_refs": [
+        "J10"
+      ],
+      "neutral_definition": "order lifecycle incl. returns/refunds and dispute recourse",
+      "preconditions": "buyer + seller context",
+      "observable_outcome": "order lifecycle surfaces incl. buyer returns and dispute paths"
+    },
+    {
+      "task_id": "TP-12",
+      "code": "STF",
+      "name": "Storefront/catalog/price/promotion (merchant side)",
+      "journey_refs": [
+        "J10"
+      ],
+      "neutral_definition": "merchant lists products/variants, sets price/promotions, manages storefront",
+      "preconditions": "merchant account",
+      "observable_outcome": "merchant admin catalog/pricing/discount docs or demo"
+    },
+    {
+      "task_id": "TP-13",
+      "code": "B2B",
+      "name": "B2B/wholesale channel: catalogs, quotes, bulk orders",
+      "journey_refs": [
+        "J12"
+      ],
+      "neutral_definition": "B2B price lists, quotes, bulk ordering, buyer-vendor connections",
+      "preconditions": "wholesale context",
+      "observable_outcome": "B2B channel documentation or public wholesale marketplace"
+    },
+    {
+      "task_id": "TP-14",
+      "code": "INV",
+      "name": "Inventory, POS, replenishment, multi-location, reconciliation (no-RFID incl.)",
+      "journey_refs": [
+        "J16"
+      ],
+      "neutral_definition": "count/receive/replenish stock, POS checkout, multi-location, reconcile incl. barcode/camera/weighted/file modes",
+      "preconditions": "retail/stock context",
+      "observable_outcome": "POS/inventory product docs or demo"
+    },
+    {
+      "task_id": "TP-15",
+      "code": "OPP",
+      "name": "Proactive opportunity discovery",
+      "journey_refs": [
+        "J8"
+      ],
+      "neutral_definition": "surfaced opportunities: price drop, warranty, subscription savings, loyalty, shared logistics",
+      "preconditions": "account history",
+      "observable_outcome": "documented proactive features (alerts, feeds, savings recommendations)"
+    },
+    {
+      "task_id": "TP-16",
+      "code": "TRS",
+      "name": "Trust/safety: fraud handling, evidence, recourse",
+      "journey_refs": [
+        "J17"
+      ],
+      "neutral_definition": "review fraud, counterfeit/wrong-item, refund abuse, evidence trails, dispute resolution",
+      "preconditions": "transaction context",
+      "observable_outcome": "documented buyer/seller protection, dispute resolution, fraud controls"
+    },
+    {
+      "task_id": "TP-17",
+      "code": "REC",
+      "name": "User-visible failure/recovery: stale/UNKNOWN, duplicates, idempotency, missing approval",
+      "journey_refs": [
+        "J18"
+      ],
+      "neutral_definition": "stale indicators, UNKNOWN states, duplicate submission handling, approval errors visible to user",
+      "preconditions": "failure condition in scope",
+      "observable_outcome": "docs/demos of order state handling, retry, approval errors"
+    },
+    {
+      "task_id": "TP-18",
+      "code": "AUT",
+      "name": "Bounded autonomous/assisted store actions under limits",
+      "journey_refs": [
+        "J13"
+      ],
+      "neutral_definition": "assisted purchasing or store operations under budget/margin/approval limits with stop conditions",
+      "preconditions": "autonomy feature in scope",
+      "observable_outcome": "documented agentic/AI purchasing or autonomous replenishment/pricing with limits"
+    },
+    {
+      "task_id": "TP-19",
+      "code": "TWIN",
+      "name": "What-if/counterfactual commerce planning, non-mutating",
+      "journey_refs": [
+        "J14"
+      ],
+      "neutral_definition": "scenario planning (demand, pricing, inventory) with no canonical state mutation",
+      "preconditions": "planning feature in scope",
+      "observable_outcome": "documented scenario planning/simulation features"
+    }
+  ]
+}
