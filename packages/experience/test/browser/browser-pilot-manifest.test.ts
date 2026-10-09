@@ -214,4 +214,35 @@ describe("W1-010 committed pilot manifest (real evidence)", () => {
     expect(manifest.familyDiscoveries).toHaveLength(19);
     expect(manifest.environment.buildCommit).toMatch(/^[0-9a-f]{40,40}$|^unavailable/);
   });
+
+  it("resolves every evidence pointer the committed manifest carries (no phantom artifacts)", () => {
+    if (!existsSync(REAL_MANIFEST_PATH)) {
+      console.warn(`[w1-010] real manifest not present yet: ${REAL_MANIFEST_PATH}`);
+      return;
+    }
+    const manifestDir = dirname(REAL_MANIFEST_PATH);
+    const manifest = JSON.parse(readFileSync(REAL_MANIFEST_PATH, "utf8"));
+    const pointers = new Set<string>();
+    const add = (ref: unknown) => {
+      if (typeof ref === "string" && ref.length > 0) pointers.add(ref);
+    };
+    add(manifest.landingSurface?.screenshot);
+    add(manifest.landingSurface?.consoleEvidenceFile);
+    add(manifest.discoveryWalk?.oauthRedirectEvidenceFile);
+    for (const step of manifest.discoveryWalk?.steps ?? []) add(step.screenshot);
+    for (const surface of manifest.secondarySurfaces ?? []) {
+      add(surface.screenshot);
+      add(surface.consoleEvidenceFile);
+    }
+    for (const family of manifest.familyDiscoveries ?? []) {
+      for (const shot of family.browser?.evidenceScreenshots ?? []) add(shot);
+      for (const file of family.browser?.consoleEvidenceFiles ?? []) add(file);
+    }
+    for (const profile of manifest.firmProfiles ?? []) add(profile.evidenceScreenshot);
+    expect(pointers.size).toBeGreaterThan(0);
+    const missing = [...pointers].filter((ref) => !existsSync(join(manifestDir, ref)));
+    expect(missing).toEqual([]);
+    // the runner's own integrity self-check must agree
+    expect(manifest.evidenceIntegrity?.allPointersResolve).toBe(true);
+  });
 });

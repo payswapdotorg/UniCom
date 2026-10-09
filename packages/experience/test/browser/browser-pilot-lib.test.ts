@@ -124,16 +124,18 @@ describe("W1-010 console scrubbing", () => {
 });
 
 describe("W1-010 denominator reconciliation", () => {
-  it("accepts a zero-drift denominator", () => {
+  it("accepts a zero-drift denominator (planned = recomputed = ΣbyOutcome, blocked attempts stay visible)", () => {
+    // neutral example data: some attempts blocked (environment), the rest
+    // executed and absent — every planned attempt accounted for exactly once
     const result = reconcileDenominator({
-      planned: 57,
-      executed: 57,
-      blocked: 0,
+      planned: 30,
+      executed: 10,
+      blocked: 20,
       skipped: 0,
-      byOutcome: { pass: 0, fail: 0, blocked: 0, absent: 57, unknown: 0 },
+      byOutcome: { pass: 0, fail: 0, blocked: 20, absent: 10, unknown: 0 },
     });
     expect(result.zeroDrift).toBe(true);
-    expect(result.reconciliation).toContain("57 = 57 + 0 + 0");
+    expect(result.reconciliation).toContain("30 = 10 + 20 + 0 = 30");
   });
 
   it("rejects drift between planned and executed+blocked+skipped", () => {
@@ -142,7 +144,7 @@ describe("W1-010 denominator reconciliation", () => {
     expect(result.reconciliation).toContain("DRIFT");
   });
 
-  it("rejects drift between executed and the outcome sum", () => {
+  it("rejects drift when the outcome sum does not cover every planned attempt", () => {
     const result = reconcileDenominator({
       planned: 10,
       executed: 10,

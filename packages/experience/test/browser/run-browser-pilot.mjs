@@ -18,12 +18,14 @@
 //   browser-pilot-capture.mjs  chromium capture layer
 
 import { mkdirSync, writeFileSync } from "node:fs";
+import { existsSync } from "node:fs";
 import path from "node:path";
 import {
   SERVER_PORT,
   WEB_PORT,
   VITE_HEAP_CAP_MB,
   checkDesktopElectronBlock,
+  ensureEnvHealthy,
   freeMemoryMb,
   resolvePlaywright,
   sh,
@@ -36,22 +38,10 @@ import {
   captureOauthTargets,
   captureOnboardingPath,
   captureShareSurface,
+  newCaptureContext,
 } from "./browser-pilot-capture.mjs";
-import {
-  BROWSER_EXTENSION_VERSION,
-  FIRM_PROFILES,
-  FAMILY_VISIBLE_SIGNS,
-  JOURNEY_FAMILY_IDS,
-  MANIFEST_SCHEMA_VERSION,
-  PILOT_KIND,
-  PROTOCOL_REFS,
-  classifyFamilyDiscovery,
-  emptyGuiOnlyProof,
-  parseArgs,
-  reconcileDenominator,
-  scanTerms,
-  validateManifest,
-} from "./browser-pilot-lib.mjs";
+import { FIRM_PROFILES, JOURNEY_FAMILY_IDS, emptyGuiOnlyProof, parseArgs, reconcileDenominator, validateManifest } from "./browser-pilot-lib.mjs";
+import { buildFamilyRecords, manifestHeader } from "./browser-pilot-manifest.mjs";
 
 const USAGE = `W1-010 browser pilot runner
   --start-env           boot the local env (Hono :3030 from packages/server/dist, Vite :5173) and tear it down after
@@ -62,8 +52,16 @@ const USAGE = `W1-010 browser pilot runner
   --help                this help`;
 
 const state = {
+  playwright: null,
   browser: null,
+  ownsEnv: false,
   runLog: [],
+  envRestarts: [],
+};
+
+const CHROMIUM_LAUNCH = {
+  headless: true,
+  args: ["--disable-dev-shm-usage", "--disable-gpu", "--no-sandbox"],
 };
 
 function log(line) {
@@ -72,97 +70,90 @@ function log(line) {
   state.runLog.push(stamped);
 }
 
-function buildFamilyRecords(landingCaptures, onboarding, shareSurfaces, evidencePrefix) {
-  const surfacesRendered = landingCaptures.some((c) => c.rendered);
-  const examined = [];
-  for (const capture of landingCaptures) {
-    if (capture.rendered) {
-      examined.push(
-        `landing:/ (${capture.profile} profile): ${capture.bodyText}\n[controls] ${capture.visibleButtons.map((b) => b.label).join(" | ")}`,
-      );
-    }
+async function envHealthy(baseUrl) {
+  try {
+    const res = await fetch(`${baseUrl}/`, { cache: "no-store" });
+    return res.ok;
+  } catch {
+    return false;
   }
-  if (onboarding.rendered) {
-    examined.push(
-      `onboarding:use-api-key: ${onboarding.bodyText}\n[controls] ${onboarding.visibleButtons.map((b) => b.label).join(" | ")}`,
-    );
-  }
-  for (const share of shareSurfaces) {
-    if (share.rendered) examined.push(`share:${share.path}: ${share.bodyText}`);
-  }
-  const combinedHaystack = examined.join("\n");
-  const walkScreenshots = [
-    ...landingCaptures.map((c) => c.screenshot),
-    onboarding.screenshot,
-    ...shareSurfaces.map((s) => s.screenshot),
-  ].filter(Boolean);
-  const consoleFiles = [
-    ...landingCaptures.map((c) => c.consoleFile),
-    onboarding.consoleFile,
-    ...shareSurfaces.map((s) => s.consoleFile),
-  ].filter(Boolean);
+}
 
-  return JOURNEY_FAMILY_IDS.map((familyId) => {
-    const signs = FAMILY_VISIBLE_SIGNS[familyId];
-    const signScan = scanTerms(combinedHaystack, signs);
-    const outcome = classifyFamilyDiscovery({ signScan, surfacesRendered });
-    const profileOutcomes = {};
-    for (const profile of FIRM_PROFILES) {
-      const capture = landingCaptures.find((c) => c.profile === profile);
-      const profileScan = scanTerms(
-        `${capture?.bodyText ?? ""}\n[controls] ${(capture?.visibleButtons ?? []).map((b) => b.label).join(" | ")}`,
-        signs,
-      );
-      profileOutcomes[profile] = !capture
-        ? "blocked"
-        : !capture.rendered
-          ? "blocked"
-          : Object.values(profileScan).some((s) => s.present)
-            ? "fail"
-            : "absent";
+/** Cold-boot warm-up: absorb the Vite on-demand transform storm (the peak-RAM
+ *  window where this constrained sandbox OOM-kills processes) BEFORE the
+ *  evidence captures, so per-profile loads run against a warm dev server. */
+async function warmUpColdBoot(browser, baseUrl, outDir) {
+  const cap = await newCaptureContext(browser);
+  const startedAt = Date.now();
+  try {
+    await cap.page.goto(`${baseUrl}/`, { waitUntil: "domcontentloaded", timeout: 90000 });
+    const paintDeadline = Date.now() + 90000;
+    let painted = false;
+    let bodyLen = 0;
+    for (;;) {
+      bodyLen = await cap.page.evaluate(() => document.body?.innerText?.length ?? 0);
+      if (bodyLen > 0) {
+        painted = true;
+        break;
+      }
+      if (Date.now() > paintDeadline) break;
+      await cap.page.waitForTimeout(1500);
     }
-    return {
-      journeyFamilyId: familyId,
-      protocolRef: PROTOCOL_REFS[familyId],
-      routeOrigin: "homepage",
-      discoveryPathKind: "primary-navigation",
-      discoveryPathRef: "landing:/ → visible controls → onboarding:use-api-key (no deep links)",
-      navigationGraph: [
-        {
-          kind: "surface-action",
-          fromSurfaceId: "landing:/",
-          toSurfaceId: "onboarding:use-api-key",
-          viaLabel: "Use API key",
-          atInteractionIndex: 0,
-        },
-      ],
-      interactionCount: landingCaptures.length + (onboarding.rendered ? 1 : 0),
-      outcome,
-      outcomeRationale:
-        outcome === "absent"
-          ? "no visible sign of this family on any examined rendered surface; the commerce experience surfaces exist only as typed view contracts below the GUI (packages/experience/src/surfaces/*.ts have no renderer/host)"
-          : outcome === "fail"
-            ? "a visible sign was found — journey discoverable; completion driving is expanded-suite (G3) scope"
-            : "no landing surface could be rendered — environment block",
-      attemptedSigns: signs,
-      signScan,
-      profileOutcomes,
-      successfulSteps: surfacesRendered ? ["landing-rendered", "visible-controls-inventoried", "sign-scan-executed"] : [],
-      failedOrBlockedSteps: surfacesRendered ? [] : [{ step: "landing-render", reason: "environment" }],
-      guiOnlyProof: emptyGuiOnlyProof(),
-      sensitiveValueScrubbed: true,
-      browser: {
-        surfacesExamined: examined.map((entry) => entry.split(":")[0] + ":" + entry.split(":")[1]),
-        evidenceScreenshots: walkScreenshots.map((shot) => `${evidencePrefix}${shot}`),
-        consoleEvidenceFiles: consoleFiles.map((file) => `${evidencePrefix}${file}`),
-        visibleControlsInventory: {
-          landingButtons: landingCaptures.find((c) => c.rendered)?.visibleButtons ?? [],
-          landingLinks: landingCaptures.find((c) => c.rendered)?.visibleLinks ?? [],
-          onboardingButtons: onboarding.rendered ? onboarding.visibleButtons : [],
-        },
-      },
-    };
-  });
+    writeFileSync(path.join(outDir, "00-warmup-coldboot-console.txt"), cap.dump());
+    log(`[env] warm-up cold boot: painted=${painted} bodyLen=${bodyLen} in ${Date.now() - startedAt}ms (freeMem=${freeMemoryMb()}MB)`);
+    return { painted, bodyLen };
+  } catch (err) {
+    log(`[env] warm-up cold boot FAILED: ${String(err).split("\n")[0].slice(0, 200)}`);
+    return { painted: false, error: String(err).split("\n")[0].slice(0, 200) };
+  } finally {
+    await cap.context.close().catch(() => {});
+  }
+}
+
+async function waitForMemoryFloor(minFreeMb, timeoutMs) {
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    const free = freeMemoryMb();
+    if (free === null || free >= minFreeMb) return free;
+    await new Promise((r) => setTimeout(r, 1500));
+  }
+  return freeMemoryMb();
+}
+
+/** Run one capture, retrying once on crash/connection-shaped failures: the
+ *  env is healed first (this sandbox's OOM killer can take down the Vite dev
+ *  server under load — a restart reuses the warm on-disk transform cache),
+ *  memory is given a moment to recover, a dead browser is relaunched, and the
+ *  retry is recorded. A renderer crash must not cascade into a pile of
+ *  misleading fast-failures. */
+async function captureWithRetry(label, baseUrl, fn) {
+  let result = await fn();
+  const errorText = String(result.error ?? "");
+  const transient =
+    /Target crashed|Target closed|has been closed|ERR_CONNECTION_REFUSED|net::ERR_|Navigation failed|TimeoutError|no visible content painted/.test(
+      errorText,
+    );
+  if (result.rendered !== true && transient) {
+    if (state.ownsEnv) {
+      const health = await ensureEnvHealthy(log);
+      state.envRestarts.push({ at: new Date().toISOString(), label, restarted: health.restarted });
+    }
+    if (await envHealthy(baseUrl)) {
+      log(`[walk] ${label} failed ("${errorText.slice(0, 140)}") — one fresh-context retry`);
+      if (!state.browser?.isConnected()) {
+        state.browser = await state.playwright.chromium.launch(CHROMIUM_LAUNCH);
+        log(`[browser] relaunched headless chromium ${state.browser.version()}`);
+      }
+      const freeMb = await waitForMemoryFloor(350, 30000);
+      log(`[walk] retrying ${label} (freeMem=${freeMb}MB)`);
+      result = await fn();
+      result.retriedAfter = errorText.slice(0, 140);
+    } else {
+      log(`[walk] ${label} failed and env is down ("${errorText.slice(0, 140)}") — recording blocked, no retry`);
+      result.envDown = true;
+    }
+  }
+  return result;
 }
 
 async function main() {
@@ -206,8 +197,12 @@ async function main() {
     dirty: sh("git", ["status", "--porcelain"]),
   };
   const { mod: playwright, from: playwrightFrom, version: playwrightVersion } = await resolvePlaywright();
+  state.playwright = playwright;
 
-  if (args.startEnv) startEnv(log);
+  if (args.startEnv) {
+    startEnv(log);
+    state.ownsEnv = true;
+  }
   let walkError = null;
   let landingCaptures = [];
   let onboarding = { rendered: false, steps: [], error: null, consoleFile: null };
@@ -222,27 +217,37 @@ async function main() {
     } else if (!(await waitForUrl(`${baseUrl}/`, 15000))) {
       throw new Error(`base URL not reachable: ${baseUrl}`);
     }
-    state.browser = await playwright.chromium.launch({
-      headless: true,
-      args: ["--disable-dev-shm-usage", "--disable-gpu", "--no-sandbox"],
-    });
+    state.browser = await playwright.chromium.launch(CHROMIUM_LAUNCH);
     const chromiumVersion = state.browser.version();
     log(`[browser] chromium ${chromiumVersion} (playwright from ${playwrightFrom})`);
+    const warmup = await warmUpColdBoot(state.browser, baseUrl, outDir);
     let ordinal = 1;
     for (const profile of FIRM_PROFILES) {
-      const capture = await captureLanding(state.browser, baseUrl, outDir, profile, String(ordinal).padStart(2, "0"));
-      log(`[walk] landing ${profile}: rendered=${capture.rendered} (${capture.timingsMs}ms)`);
+      const capture = await captureWithRetry(`landing ${profile}`, baseUrl, () =>
+        captureLanding(state.browser, baseUrl, outDir, profile, String(ordinal).padStart(2, "0")),
+      );
+      log(`[walk] landing ${profile}: rendered=${capture.rendered} (${capture.timingsMs}ms${capture.retriedAfter ? `, retried after: ${capture.retriedAfter.slice(0, 80)}` : ""})`);
       landingCaptures.push(capture);
       ordinal += 1;
     }
-    onboarding = await captureOnboardingPath(state.browser, baseUrl, outDir);
+    onboarding = await captureWithRetry("onboarding api-key panel", baseUrl, () =>
+      captureOnboardingPath(state.browser, baseUrl, outDir),
+    );
     log(`[walk] onboarding api-key panel: rendered=${onboarding.rendered}`);
     oauth = await captureOauthTargets(state.browser, baseUrl, outDir);
     log(`[walk] oauth redirect targets: ${oauth.targets.length}`);
     shareSurfaces = [
-      await captureShareSurface(state.browser, baseUrl, outDir, "/share", "06", "en"),
-      await captureShareSurface(state.browser, baseUrl, outDir, "/cn/share", "07", "zh"),
+      await captureWithRetry("share /share", baseUrl, () =>
+        captureShareSurface(state.browser, baseUrl, outDir, "/share", "06", "en"),
+      ),
+      await captureWithRetry("share /cn/share", baseUrl, () =>
+        captureShareSurface(state.browser, baseUrl, outDir, "/cn/share", "07", "zh"),
+      ),
     ];
+    for (const share of shareSurfaces) {
+      log(`[walk] share ${share.path}: rendered=${share.rendered}${share.error ? ` (${share.error.slice(0, 80)})` : ""}`);
+    }
+    state.warmup = warmup;
   } catch (err) {
     walkError = String(err).split("\n")[0].slice(0, 300);
     log(`[walk] ERROR: ${walkError}`);
@@ -269,11 +274,7 @@ async function main() {
   });
   const renderedLanding = landingCaptures.find((c) => c.rendered);
   const manifest = {
-    manifestKind: PILOT_KIND,
-    schemaVersion: MANIFEST_SCHEMA_VERSION,
-    browserExtension: { version: BROWSER_EXTENSION_VERSION, addFieldPolicy: "additive-only over JOURNEY-EVIDENCE-SCHEMA v1" },
-    runId: `w1-010-browser-pilot-${startedAtUtc.replace(/[:.]/g, "")}`,
-    generatedBy: "packages/experience/test/browser/run-browser-pilot.mjs",
+    ...manifestHeader({ startedAtUtc }),
     environment: {
       buildCommit: git.commit.ok ? git.commit.out : `unavailable: ${git.commit.out.slice(0, 80)}`,
       gitBranch: git.branch.ok ? git.branch.out : "unknown",
@@ -295,12 +296,14 @@ async function main() {
       ],
       operatingSystem: `${process.platform} ${process.arch}`,
       freeMemoryMb: { atStart: memAtStart, atEnd: freeMemoryMb() },
+      envSelfHealingRestarts: state.envRestarts,
       walkError,
     },
     landingSurface: renderedLanding
       ? {
           url: `${baseUrl}/`,
           routeOrigin: "homepage",
+          rendered: true,
           documentTitle: renderedLanding.documentTitle,
           unauthenticatedRenderSummary: renderedLanding.bodyText.split("\n").slice(0, 8).join(" / "),
           visibleButtons: renderedLanding.visibleButtons,
@@ -310,11 +313,15 @@ async function main() {
           consoleEvidenceFile: `${evidencePrefix}${renderedLanding.consoleFile}`,
         }
       : { url: `${baseUrl}/`, routeOrigin: "homepage", rendered: false, walkError },
+    warmup: state.warmup ?? null,
     discoveryWalk: {
       routeOrigin: "homepage",
+      // step screenshots are normalized to manifest-relative evidence pointers
       steps: [
-        ...landingCaptures.flatMap((c) => c.steps),
-        ...onboarding.steps,
+        ...[...landingCaptures.flatMap((c) => c.steps), ...onboarding.steps].map((step) => ({
+          ...step,
+          screenshot: step.screenshot ? `${evidencePrefix}${step.screenshot}` : null,
+        })),
         ...(oauth.targets ?? []).map((target, i) => ({
           action: "click",
           control: { kind: "button", visibleLabel: i === 0 ? "Connect to Z.ai" : "Connect to BigModel" },
@@ -324,6 +331,8 @@ async function main() {
         })),
       ],
       externalRedirectTargets: oauth.targets,
+      oauthRedirectEvidenceFile: oauth.evidenceFile ? `${evidencePrefix}${oauth.evidenceFile}` : null,
+      oauthCaptureError: oauth.error ?? null,
       surfacesExamined: [
         ...landingCaptures.map((c) => ({ surfaceId: `landing:/ (${c.profile})`, rendered: c.rendered })),
         { surfaceId: "onboarding:use-api-key", rendered: onboarding.rendered },
@@ -349,15 +358,19 @@ async function main() {
         landingUrl: `${baseUrl}/`,
         rendered: capture?.rendered ?? false,
         renderDigest: capture?.renderDigest ?? null,
+        error: capture?.error ?? null,
+        retriedAfter: capture?.retriedAfter ?? null,
         profileAgnostic:
           landingCaptures.every((c) => c.rendered) &&
           new Set(landingCaptures.map((c) => c.renderDigest)).size === 1,
-        evidenceScreenshot: capture?.screenshot ? `${evidencePrefix}${capture.screenshot}` : null,
+        evidenceScreenshot: capture?.rendered && capture?.screenshot ? `${evidencePrefix}${capture.screenshot}` : null,
         timingsMs: capture?.timingsMs ?? null,
+        paintWaitMs: capture?.paintWaitMs ?? null,
       };
     }),
     denominator: {
       ...denom,
+      byOutcome,
       attemptLevel: "19 journey families × 3 firm profiles (small/medium/large)",
       familyLevel: { planned: JOURNEY_FAMILY_IDS.length, executed: familyRecords.filter((f) => f.outcome !== "blocked").length, blocked: familyRecords.filter((f) => f.outcome === "blocked").length, skipped: 0 },
     },
@@ -366,13 +379,44 @@ async function main() {
   };
   const validation = validateManifest(manifest);
   manifest.manifestValidation = { valid: validation.valid, errors: validation.errors };
+  // HONESTY LAW (self-check): every evidence pointer the manifest carries must
+  // resolve to a file that exists on disk. A pointer naming a missing artifact
+  // is a fabrication vector — the run records it and exits non-zero.
+  const manifestDir = path.dirname(manifestPath);
+  const pointers = new Set();
+  const add = (ref) => {
+    if (typeof ref === "string" && ref.length > 0) pointers.add(ref);
+  };
+  add(manifest.landingSurface?.screenshot);
+  add(manifest.landingSurface?.consoleEvidenceFile);
+  add(manifest.discoveryWalk?.oauthRedirectEvidenceFile);
+  for (const step of manifest.discoveryWalk?.steps ?? []) add(step.screenshot);
+  for (const surface of manifest.secondarySurfaces ?? []) {
+    add(surface.screenshot);
+    add(surface.consoleEvidenceFile);
+  }
+  for (const family of manifest.familyDiscoveries ?? []) {
+    for (const shot of family.browser?.evidenceScreenshots ?? []) add(shot);
+    for (const file of family.browser?.consoleEvidenceFiles ?? []) add(file);
+  }
+  for (const profile of manifest.firmProfiles ?? []) add(profile.evidenceScreenshot);
+  const missing = [...pointers].filter((ref) => !existsSync(path.resolve(manifestDir, ref)));
+  manifest.evidenceIntegrity = {
+    pointersChecked: pointers.size,
+    missing: missing.map((ref) => ref.slice(0, 200)),
+    allPointersResolve: missing.length === 0,
+    note: "every evidence pointer resolves to a file on disk relative to the manifest",
+  };
   writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 1)}\n`);
   writeFileSync(path.join(outDir, "run-log.txt"), `${state.runLog.join("\n")}\n`);
   log(`[manifest] ${manifestPath} (valid=${validation.valid}${validation.valid ? "" : ` errors=${validation.errors.length}`})`);
   log(
+    `[evidence] ${pointers.size} pointers checked, missing=${missing.length}${missing.length > 0 ? `: ${missing.slice(0, 5).join(", ")}` : ""}`,
+  );
+  log(
     `[denominator] ${denom.reconciliation}; outcomes pass=${byOutcome.pass} fail=${byOutcome.fail} blocked=${byOutcome.blocked} absent=${byOutcome.absent} unknown=${byOutcome.unknown}`,
   );
-  return validation.valid && !walkError ? 0 : 1;
+  return validation.valid && !walkError && missing.length === 0 ? 0 : 1;
 }
 
 try {

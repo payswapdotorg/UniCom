@@ -156,12 +156,16 @@ export function scrubConsoleLines(lines) {
 
 /**
  * Denominator law: planned = executed + blocked + skipped, zero unexplained
- * drift. Attempt-level counts; every outcome stays visible in byOutcome.
+ * drift. Attempt-level counts; every outcome stays visible in byOutcome —
+ * including blocked and unknown buckets, so the invariant is
+ * planned = recomputed = ΣbyOutcome (every planned attempt accounted for,
+ * every attempt carrying exactly one outcome).
  */
 export function reconcileDenominator({ planned, executed, blocked, skipped, byOutcome }) {
   const sum = (obj) => Object.values(obj ?? {}).reduce((a, b) => a + b, 0);
   const recomputed = (executed ?? 0) + (blocked ?? 0) + (skipped ?? 0);
   const outcomeSum = sum(byOutcome);
+  const zeroDrift = planned === recomputed && planned === outcomeSum;
   return {
     planned,
     executed,
@@ -169,12 +173,11 @@ export function reconcileDenominator({ planned, executed, blocked, skipped, byOu
     skipped,
     recomputed,
     outcomeSum,
-    zeroDrift: planned === recomputed && executed === outcomeSum,
-    reconciliation:
-      planned === recomputed && executed === outcomeSum
-        ? `planned = executed + blocked + skipped → ${planned} = ${executed} + ${blocked} + ${skipped} (zero drift)`
-        : `DRIFT: planned ${planned} ≠ executed ${executed} + blocked ${blocked} + skipped ${skipped}` +
-          (executed !== outcomeSum ? `; executed ${executed} ≠ ΣbyOutcome ${outcomeSum}` : ""),
+    zeroDrift,
+    reconciliation: zeroDrift
+      ? `planned = executed + blocked + skipped = ΣbyOutcome → ${planned} = ${executed} + ${blocked} + ${skipped} = ${outcomeSum} (zero drift)`
+      : `DRIFT: planned ${planned} ≠ executed ${executed} + blocked ${blocked} + skipped ${skipped}` +
+          (planned !== outcomeSum ? `; ΣbyOutcome ${outcomeSum} ≠ planned ${planned}` : ""),
   };
 }
 

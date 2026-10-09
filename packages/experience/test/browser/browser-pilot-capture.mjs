@@ -70,11 +70,39 @@ export async function captureLanding(browser, baseUrl, outDir, profile, ordinal)
   try {
     await cap.page.goto(`${baseUrl}/`, { waitUntil: "domcontentloaded", timeout: 60000 });
     record("navigate", { kind: "url", visibleLabel: `${baseUrl}/` }, "ordinary landing surface");
-    await cap.page.waitForTimeout(6000);
+    // Wait for actual paint, not just DOMContentLoaded: the React shell boots
+    // after module transform, and a blank body evidences nothing.
+    let painted = false;
+    let paintWaitMs = 0;
+    const paintDeadline = Date.now() + 25000;
+    while (Date.now() < paintDeadline) {
+      const len = await cap.page.evaluate(() => document.body?.innerText?.length ?? 0);
+      if (len > 0) {
+        painted = true;
+        break;
+      }
+      await cap.page.waitForTimeout(750);
+    }
+    paintWaitMs = Date.now() - startedAt;
+    await cap.page.waitForTimeout(1500); // settle after paint
     const inv = await visibleInventory(cap.page);
     await cap.page.screenshot({ path: path.join(outDir, shot) });
     writeFileSync(path.join(outDir, `${ordinal}-landing-${profile}-body.txt`), inv.bodyText);
     writeFileSync(path.join(outDir, `${ordinal}-landing-${profile}-console.txt`), cap.dump());
+    if (!painted && inv.bodyText.length === 0) {
+      return {
+        profile,
+        rendered: false,
+        error: `no visible content painted within settle window (${paintWaitMs}ms) — blank page evidences nothing`,
+        documentTitle: inv.documentTitle,
+        // the blank-page screenshot + console WERE written above — they are real
+        // evidence of the blank render, so the pointers stay
+        screenshot: shot,
+        consoleFile: `${ordinal}-landing-${profile}-console.txt`,
+        timingsMs: Date.now() - startedAt,
+        steps,
+      };
+    }
     let tabOrder = null;
     if (profile === "small") {
       tabOrder = [];
@@ -107,17 +135,21 @@ export async function captureLanding(browser, baseUrl, outDir, profile, ordinal)
       consoleFile: `${ordinal}-landing-${profile}-console.txt`,
       renderDigest: digest(inv.bodyText + JSON.stringify(inv.buttons)),
       timingsMs: Date.now() - startedAt,
+      paintWaitMs,
       steps,
     };
   } catch (err) {
+    // HONESTY LAW: no evidence file is written on this path — the capture
+    // result must therefore carry NO screenshot/console pointers. A manifest
+    // may only reference artifacts that exist on disk.
     return {
       profile,
       rendered: false,
       error: String(err).split("\n")[0].slice(0, 250),
-      screenshot: shot,
+      screenshot: null,
       timingsMs: Date.now() - startedAt,
       steps,
-      consoleFile: `${ordinal}-landing-${profile}-console.txt`,
+      consoleFile: null,
     };
   } finally {
     await cap.context.close().catch(() => {});
@@ -130,7 +162,13 @@ export async function captureOnboardingPath(browser, baseUrl, outDir) {
   const steps = [];
   try {
     await cap.page.goto(`${baseUrl}/`, { waitUntil: "domcontentloaded", timeout: 60000 });
-    await cap.page.waitForTimeout(6000);
+    // wait for paint — the connect wall buttons only exist after the shell boots
+    const paintDeadline = Date.now() + 25000;
+    for (;;) {
+      const len = await cap.page.evaluate(() => document.body?.innerText?.length ?? 0);
+      if (len > 0 || Date.now() > paintDeadline) break;
+      await cap.page.waitForTimeout(750);
+    }
     const shot = "04-onboarding-apikey-panel.png";
     const button = cap.page.getByRole("button", { name: /use api key/i });
     await button.click({ timeout: 10000 });
@@ -179,12 +217,14 @@ export async function captureOnboardingPath(browser, baseUrl, outDir) {
       error: null,
     };
   } catch (err) {
+    // nothing written on this path — no evidence pointers (see HONESTY LAW above)
     return {
       rendered: false,
       error: String(err).split("\n")[0].slice(0, 250),
       timingsMs: Date.now() - startedAt,
       steps,
-      consoleFile: "04-onboarding-apikey-panel-console.txt",
+      screenshot: null,
+      consoleFile: null,
     };
   } finally {
     await cap.context.close().catch(() => {});
@@ -194,6 +234,8 @@ export async function captureOnboardingPath(browser, baseUrl, outDir) {
 export async function captureOauthTargets(browser, baseUrl, outDir) {
   const cap = await newCaptureContext(browser);
   const targets = [];
+  const evidenceFile = "05-oauth-redirect-targets.txt";
+  let error = null;
   try {
     await cap.context.route("**/*", (route) => {
       const url = new URL(route.request().url());
@@ -214,13 +256,15 @@ export async function captureOauthTargets(browser, baseUrl, outDir) {
       await cap.page.goto(`${baseUrl}/`, { waitUntil: "domcontentloaded", timeout: 60000 });
       await cap.page.waitForTimeout(4000);
     }
-    writeFileSync(path.join(outDir, "05-oauth-redirect-targets.txt"), targets.join("\n") + "\n");
-    return { captured: true, targets, error: null };
   } catch (err) {
-    return { captured: false, targets, error: String(err).split("\n")[0].slice(0, 250) };
+    error = String(err).split("\n")[0].slice(0, 250);
   } finally {
+    // whatever was intercepted before any failure is still real evidence —
+    // the (redacted) target list is always written, with the error if any.
+    writeFileSync(path.join(outDir, evidenceFile), `${targets.join("\n")}${error ? `\n[error] ${error}` : ""}\n`);
     await cap.context.close().catch(() => {});
   }
+  return { captured: error === null, targets, error, evidenceFile };
 }
 
 export async function captureShareSurface(browser, baseUrl, outDir, routePath, ordinal, label) {
