@@ -88,15 +88,34 @@
       "records": 900,
       "evidenceSha256": "783917c8f26155b12f1fd6f3c4401e02565a56bb6a054a5190bb4ccc3cbd8cf9",
       "noRfidPathRuns": 0
+    },
+    {
+      "batch": {
+        "index": 4,
+        "firmId": "finance-banking-accounting-medium",
+        "w1IndustryId": "finance-banking-accounting",
+        "w2IndustryId": "finance",
+        "firmSize": "medium",
+        "cohortId": "baseline-finance-banking-accounting-medium"
+      },
+      "scheduleDigest": "36118a25e008f578f11eb8c78c96a8743130ea84c17791ee61efa21b883f5e51",
+      "planned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0,
+      "records": 900,
+      "evidenceSha256": "8f975cb0d7e59a01f87c2aa4785ecc2a1444a14ac2b37813d04e4a3bafdb4966",
+      "noRfidPathRuns": 0
     }
   ],
   "totals": {
-    "firmsCompleted": 4,
-    "projectsPlanned": 400,
-    "projectsExecuted": 400,
+    "firmsCompleted": 5,
+    "projectsPlanned": 500,
+    "projectsExecuted": 500,
     "projectsBlocked": 0,
     "projectsSkipped": 0,
-    "evidenceRecords": 4800,
+    "evidenceRecords": 5700,
     "drift": 0
   }
 }
