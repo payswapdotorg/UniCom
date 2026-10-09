@@ -38,34 +38,24 @@
     "baseline_required": true,
     "held_out_final_run_required": true
   },
-  "active_work_orders": [],
-  "frontier": [
-    {
-      "id": "W1-012",
-      "status": "PENDING_RANKING",
-      "owner": "worker-1",
-      "depends_on": [
-        "W3-011"
-      ],
-      "note": "cycle-1 product remediation \u2014 pending TL root-cause ranking of the adoption-ceiling finding"
-    },
-    {
-      "id": "W2-011",
-      "status": "PENDING_RANKING",
-      "owner": "worker-2",
-      "depends_on": [
-        "W3-011"
-      ],
-      "note": "cycle-1 product remediation \u2014 pending TL root-cause ranking"
-    },
+  "active_work_orders": [
     {
       "id": "W3-012",
-      "status": "PENDING_RANKING",
+      "lane": "worker-3",
+      "dispatched_at": "2026-10-09T11:20:00Z",
+      "phase": "cycles.improvement_1"
+    }
+  ],
+  "frontier": [
+    {
+      "id": "W3-012",
+      "status": "DISPATCHED",
       "owner": "worker-3",
       "depends_on": [
         "W3-011"
       ],
-      "note": "cycle-1 product remediation \u2014 pending TL root-cause ranking"
+      "dispatched_at": "2026-10-09T11:20:00Z",
+      "note": "cycle-1 remediation order 2 (measurement repair): persona journey coverage + W2\u2192W1 vocabulary mapping + amended baseline 2"
     }
   ],
   "completed_work_orders": [
@@ -273,7 +263,12 @@
       "status": "REMEDIATION_ORDER_1_COMPLETE",
       "started_at": "2026-10-09T09:50:00Z",
       "harness_repair": "W3-011 accepted (measurement repair, not product improvement)",
-      "product_ranking_pending": "the TL ranks the product remediation orders from the amended finding: the adoption ceiling lives in the veto/threshold structure over per-persona journey evidence (no GUI friction remains measured)"
+      "product_ranking_pending": "the TL ranks the product remediation orders from the amended finding: the adoption ceiling lives in the veto/threshold structure over per-persona journey evidence (no GUI friction remains measured)",
+      "remediation_order_2": {
+        "dispatched_at": "2026-10-09T11:20:00Z",
+        "id": "W3-012",
+        "tl_analysis": "persona journey coverage gap: personaIds[0] single-attribution leaves 15,236/15,275 personas with empty bundles (score ~4 vs threshold 65); fully-evidenced persona scores ~82; product ceiling ~95; W2 applicableJourneys vocabulary never reconciled with W1 families (third seam)"
+      }
     },
     "improvement_2": {
       "status": "NOT_STARTED"
@@ -297,8 +292,8 @@
     "cycle_reports": "docs/simulations/results/cycles/",
     "final_report": "docs/simulations/results/final/"
   },
-  "overall_status": "CYCLE_1_PRODUCT_RANKING",
-  "last_reviewed_at": "2026-10-09T10:55:00Z",
+  "overall_status": "CYCLE_1_REMEDIATION_ORDER_2_DISPATCHED",
+  "last_reviewed_at": "2026-10-09T11:20:00Z",
   "benchmark_scope": {
     "mandate": "Commerce capabilities only; do not score broad vertical industry software as overall competitors.",
     "authoritative_matrix": "docs/simulations/V3-INDUSTRY-AND-COMPETITOR-MATRIX.md",
@@ -388,6 +383,10 @@
     {
       "ts": "2026-10-09T10:55:00Z",
       "event": "W3-011 ACCEPTED \u2014 TL-executed locally (local-chain doctrine: the dispatched vehicle never pushed; disclosure in the completion report); no-ff merge c21253a; merged battery 1576/1576, typecheck 12/12, lint 99w/0e, arch 0. cycles.baseline COMPLETE_AMENDED (amendment 1 bound to 28783aa, fingerprint ded4f86d; full-switch eligible 0\u219239). CYCLE-1 PRODUCT RANKING now open: the adoption ceiling is entirely the frozen contract's veto/threshold structure over per-persona journey evidence \u2014 the TL ranks the product remediation orders next."
+    },
+    {
+      "ts": "2026-10-09T11:20:00Z",
+      "event": "TL ROOT-CAUSE (cycle-1 ranking analysis): the amended outputs' 39/15,275 eligibles = personaIds[0] single-attribution artifact (15,236 empty-bundle personas score ~4; fully-evidenced ~82; ceiling ~95). Classified HARNESS (measurement coverage), not product. W3-012 dispatched (remediation order 2): W2\u2192W1 vocabulary mapping + per-persona coverage + amended baseline 2."
     }
   ]
 }
