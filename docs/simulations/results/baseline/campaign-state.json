@@ -449,15 +449,34 @@
       "records": 1700,
       "evidenceSha256": "9d62e376f9bc0d2bfb03aacf812835bdc011c22c752ba7a51559fbc578247177",
       "noRfidPathRuns": 0
+    },
+    {
+      "batch": {
+        "index": 23,
+        "firmId": "fashion-apparel-retail-brands-large",
+        "w1IndustryId": "fashion-apparel-retail-brands",
+        "w2IndustryId": "fashion",
+        "firmSize": "large",
+        "cohortId": "baseline-fashion-apparel-retail-brands-large"
+      },
+      "scheduleDigest": "feee655fe43ca0de818230859a08295945fa9fec54296f3cb0f0d08a90004e8c",
+      "planned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0,
+      "records": 1700,
+      "evidenceSha256": "9fd7f3c6b1e4b31bc2e1fa9e9005378e921a8b92a88f9f1c583dd78f3bb537f0",
+      "noRfidPathRuns": 0
     }
   ],
   "totals": {
-    "firmsCompleted": 23,
-    "projectsPlanned": 2300,
-    "projectsExecuted": 2300,
+    "firmsCompleted": 24,
+    "projectsPlanned": 2400,
+    "projectsExecuted": 2400,
     "projectsBlocked": 0,
     "projectsSkipped": 0,
-    "evidenceRecords": 29200,
+    "evidenceRecords": 30900,
     "drift": 0
   }
 }
