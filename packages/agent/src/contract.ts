@@ -295,3 +295,5 @@ export * from "./contract.w2-004.js";
 export * from "./contract.w2-005.js";
 export * from "./contract.w2-006.js";
 export * from "./contract.w2-007.js";
+// W2-009 — synthetic personas, incumbent baselines, adoption measurement.
+export * from "./contract.w2-009.js";
