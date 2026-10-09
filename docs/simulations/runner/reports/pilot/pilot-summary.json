@@ -1,0 +1,1577 @@
+{
+  "experimentId": "v3-baseline",
+  "buildCommit": "w3-009-pilot",
+  "deploymentTarget": "local-dev-fixture",
+  "generatedAt": "2026-10-10T07:00:00Z",
+  "localDevFixture": true,
+  "pilotLawSatisfied": true,
+  "totalEvidenceRecords": 1092,
+  "totalJourneyFamiliesCovered": 19,
+  "throughput": {
+    "totalProjects": 84,
+    "totalJourneyRuns": 1092,
+    "totalDurationMs": 46,
+    "avgJourneyDurationMs": 0
+  },
+  "campaignReconciliation": {
+    "totalPlanned": 84,
+    "totalExecuted": 84,
+    "totalBlocked": 0,
+    "totalSkipped": 0,
+    "reconciled": true,
+    "drift": 0,
+    "cohortReports": [
+      {
+        "experimentId": "v3-baseline",
+        "cohortId": "pilot-S",
+        "totalPlanned": 12,
+        "executed": 12,
+        "blocked": 0,
+        "skipped": 0,
+        "reconciled": true,
+        "drift": 0,
+        "byJourneyFamily": [
+          {
+            "journeyFamilyId": "offer-sourcing-comparison",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "buy-now-vs-wait-price-timing",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "latent-demand-merchant-group-buy-proposal",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "rent-borrow-vs-buy",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "proactive-economic-opportunities",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "bounded-multi-hop-trade-cycle",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "supplier-procurement-receiving",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "b2b-multi-location-supplier-coordination",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "commerce-twin-what-if",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "connected-commerce-channels-and-live-commerce",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "trust-security-fraud-and-recourse",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "failure-unknown-idempotency-recovery",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "gui-feature-discoverability",
+            "planned": 12,
+            "executed": 12,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "buyer-intent-constraints",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "existing-group-buy",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "resale-rental-consignment",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "merchant-commerce-lifecycle",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "autonomous-store-policy",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "physical-no-rfid-supermarket",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          }
+        ],
+        "byOutcome": {
+          "pass": 156,
+          "fail": 0,
+          "blocked": 0,
+          "absent": 0,
+          "unknown": 0
+        }
+      },
+      {
+        "experimentId": "v3-baseline",
+        "cohortId": "pilot-M",
+        "totalPlanned": 24,
+        "executed": 24,
+        "blocked": 0,
+        "skipped": 0,
+        "reconciled": true,
+        "drift": 0,
+        "byJourneyFamily": [
+          {
+            "journeyFamilyId": "offer-sourcing-comparison",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "buy-now-vs-wait-price-timing",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "latent-demand-merchant-group-buy-proposal",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "rent-borrow-vs-buy",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "proactive-economic-opportunities",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "bounded-multi-hop-trade-cycle",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "supplier-procurement-receiving",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "b2b-multi-location-supplier-coordination",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "commerce-twin-what-if",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "connected-commerce-channels-and-live-commerce",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "trust-security-fraud-and-recourse",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "failure-unknown-idempotency-recovery",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "gui-feature-discoverability",
+            "planned": 24,
+            "executed": 24,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "buyer-intent-constraints",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "existing-group-buy",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "resale-rental-consignment",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "merchant-commerce-lifecycle",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "autonomous-store-policy",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "physical-no-rfid-supermarket",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          }
+        ],
+        "byOutcome": {
+          "pass": 312,
+          "fail": 0,
+          "blocked": 0,
+          "absent": 0,
+          "unknown": 0
+        }
+      },
+      {
+        "experimentId": "v3-baseline",
+        "cohortId": "pilot-L",
+        "totalPlanned": 48,
+        "executed": 48,
+        "blocked": 0,
+        "skipped": 0,
+        "reconciled": true,
+        "drift": 0,
+        "byJourneyFamily": [
+          {
+            "journeyFamilyId": "offer-sourcing-comparison",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "buy-now-vs-wait-price-timing",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "latent-demand-merchant-group-buy-proposal",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "rent-borrow-vs-buy",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "proactive-economic-opportunities",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "bounded-multi-hop-trade-cycle",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "supplier-procurement-receiving",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "b2b-multi-location-supplier-coordination",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "commerce-twin-what-if",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "connected-commerce-channels-and-live-commerce",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "trust-security-fraud-and-recourse",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "failure-unknown-idempotency-recovery",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "gui-feature-discoverability",
+            "planned": 48,
+            "executed": 48,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "buyer-intent-constraints",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "existing-group-buy",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "resale-rental-consignment",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "merchant-commerce-lifecycle",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "autonomous-store-policy",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "physical-no-rfid-supermarket",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          }
+        ],
+        "byOutcome": {
+          "pass": 624,
+          "fail": 0,
+          "blocked": 0,
+          "absent": 0,
+          "unknown": 0
+        }
+      }
+    ]
+  },
+  "zeroOrphanMap": {
+    "totalRows": 132,
+    "passed": 132,
+    "failed": 0,
+    "absent": 0,
+    "reconciled": true
+  },
+  "cohorts": [
+    {
+      "cohortId": "pilot-S",
+      "sizeClass": "small",
+      "totalPlanned": 12,
+      "totalEvidenceRecords": 156,
+      "reconciliation": {
+        "experimentId": "v3-baseline",
+        "cohortId": "pilot-S",
+        "totalPlanned": 12,
+        "executed": 12,
+        "blocked": 0,
+        "skipped": 0,
+        "reconciled": true,
+        "drift": 0,
+        "byJourneyFamily": [
+          {
+            "journeyFamilyId": "offer-sourcing-comparison",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "buy-now-vs-wait-price-timing",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "latent-demand-merchant-group-buy-proposal",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "rent-borrow-vs-buy",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "proactive-economic-opportunities",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "bounded-multi-hop-trade-cycle",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "supplier-procurement-receiving",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "b2b-multi-location-supplier-coordination",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "commerce-twin-what-if",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "connected-commerce-channels-and-live-commerce",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "trust-security-fraud-and-recourse",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "failure-unknown-idempotency-recovery",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "gui-feature-discoverability",
+            "planned": 12,
+            "executed": 12,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "buyer-intent-constraints",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "existing-group-buy",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "resale-rental-consignment",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "merchant-commerce-lifecycle",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "autonomous-store-policy",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "physical-no-rfid-supermarket",
+            "planned": 8,
+            "executed": 8,
+            "blocked": 0,
+            "skipped": 0
+          }
+        ],
+        "byOutcome": {
+          "pass": 156,
+          "fail": 0,
+          "blocked": 0,
+          "absent": 0,
+          "unknown": 0
+        }
+      },
+      "noRfidPathResults": 0,
+      "failureVariantResults": [
+        {
+          "projectId": "firm-retail-S-1-proj-001",
+          "kind": "stale-observation",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-retail-S-1-proj-002",
+          "kind": "partial-action-success",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-retail-S-1-proj-003",
+          "kind": "duplicate-replayed-operation",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-retail-S-1-proj-004",
+          "kind": "payment-settlement-unknown",
+          "outcome": "unknown"
+        },
+        {
+          "projectId": "firm-retail-S-1-proj-005",
+          "kind": "supplier-malicious-injected-description",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-retail-S-1-proj-006",
+          "kind": "missing-approval",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-retail-S-1-proj-007",
+          "kind": "user-lacks-authority",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-retail-S-1-proj-008",
+          "kind": "security-block",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-retail-S-1-proj-009",
+          "kind": "budget-quality-deadline-conflict",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-retail-S-1-proj-010",
+          "kind": "hidden-missing-ui-feature",
+          "outcome": "absent"
+        },
+        {
+          "projectId": "firm-retail-S-1-proj-011",
+          "kind": "interrupted-session-recovery",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-retail-S-1-proj-012",
+          "kind": "disconnected-specialist-incumbent",
+          "outcome": "blocked"
+        }
+      ],
+      "roleAccessResults": [
+        {
+          "fromRole": "project-owner",
+          "toRole": "procurement",
+          "blocked": false
+        },
+        {
+          "fromRole": "procurement",
+          "toRole": "finance",
+          "blocked": false
+        },
+        {
+          "fromRole": "finance",
+          "toRole": "ops",
+          "blocked": true
+        },
+        {
+          "fromRole": "ops",
+          "toRole": "end-user",
+          "blocked": true
+        },
+        {
+          "fromRole": "end-user",
+          "toRole": "approver",
+          "blocked": true
+        },
+        {
+          "fromRole": "approver",
+          "toRole": "supplier",
+          "blocked": true
+        },
+        {
+          "fromRole": "supplier",
+          "toRole": "auditor",
+          "blocked": true
+        }
+      ],
+      "outcomeCounts": {
+        "pass": 156
+      },
+      "journeyFamilyCoverage": [
+        "autonomous-store-policy",
+        "b2b-multi-location-supplier-coordination",
+        "bounded-multi-hop-trade-cycle",
+        "buy-now-vs-wait-price-timing",
+        "buyer-intent-constraints",
+        "commerce-twin-what-if",
+        "connected-commerce-channels-and-live-commerce",
+        "existing-group-buy",
+        "failure-unknown-idempotency-recovery",
+        "gui-feature-discoverability",
+        "latent-demand-merchant-group-buy-proposal",
+        "merchant-commerce-lifecycle",
+        "offer-sourcing-comparison",
+        "physical-no-rfid-supermarket",
+        "proactive-economic-opportunities",
+        "rent-borrow-vs-buy",
+        "resale-rental-consignment",
+        "supplier-procurement-receiving",
+        "trust-security-fraud-and-recourse"
+      ]
+    },
+    {
+      "cohortId": "pilot-M",
+      "sizeClass": "medium",
+      "totalPlanned": 24,
+      "totalEvidenceRecords": 312,
+      "reconciliation": {
+        "experimentId": "v3-baseline",
+        "cohortId": "pilot-M",
+        "totalPlanned": 24,
+        "executed": 24,
+        "blocked": 0,
+        "skipped": 0,
+        "reconciled": true,
+        "drift": 0,
+        "byJourneyFamily": [
+          {
+            "journeyFamilyId": "offer-sourcing-comparison",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "buy-now-vs-wait-price-timing",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "latent-demand-merchant-group-buy-proposal",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "rent-borrow-vs-buy",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "proactive-economic-opportunities",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "bounded-multi-hop-trade-cycle",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "supplier-procurement-receiving",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "b2b-multi-location-supplier-coordination",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "commerce-twin-what-if",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "connected-commerce-channels-and-live-commerce",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "trust-security-fraud-and-recourse",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "failure-unknown-idempotency-recovery",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "gui-feature-discoverability",
+            "planned": 24,
+            "executed": 24,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "buyer-intent-constraints",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "existing-group-buy",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "resale-rental-consignment",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "merchant-commerce-lifecycle",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "autonomous-store-policy",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "physical-no-rfid-supermarket",
+            "planned": 16,
+            "executed": 16,
+            "blocked": 0,
+            "skipped": 0
+          }
+        ],
+        "byOutcome": {
+          "pass": 312,
+          "fail": 0,
+          "blocked": 0,
+          "absent": 0,
+          "unknown": 0
+        }
+      },
+      "noRfidPathResults": 0,
+      "failureVariantResults": [
+        {
+          "projectId": "firm-manuf-M-1-proj-001",
+          "kind": "stale-observation",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-002",
+          "kind": "partial-action-success",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-003",
+          "kind": "duplicate-replayed-operation",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-004",
+          "kind": "payment-settlement-unknown",
+          "outcome": "unknown"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-005",
+          "kind": "supplier-malicious-injected-description",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-006",
+          "kind": "missing-approval",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-007",
+          "kind": "user-lacks-authority",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-008",
+          "kind": "security-block",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-009",
+          "kind": "budget-quality-deadline-conflict",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-010",
+          "kind": "hidden-missing-ui-feature",
+          "outcome": "absent"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-011",
+          "kind": "interrupted-session-recovery",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-012",
+          "kind": "disconnected-specialist-incumbent",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-013",
+          "kind": "very-large-project-portfolio",
+          "outcome": "pass"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-014",
+          "kind": "stale-expired-connection",
+          "outcome": "unknown"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-015",
+          "kind": "supplier-disappearance",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-016",
+          "kind": "browser-session-failure",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-017",
+          "kind": "missing-connection",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-018",
+          "kind": "disabled-permission",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-019",
+          "kind": "unsupported-competitor",
+          "outcome": "unknown"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-020",
+          "kind": "unavailable-provider-auth-scope",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-021",
+          "kind": "stale-observation",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-022",
+          "kind": "partial-action-success",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-023",
+          "kind": "duplicate-replayed-operation",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-manuf-M-1-proj-024",
+          "kind": "payment-settlement-unknown",
+          "outcome": "unknown"
+        }
+      ],
+      "roleAccessResults": [
+        {
+          "fromRole": "project-owner",
+          "toRole": "procurement",
+          "blocked": false
+        },
+        {
+          "fromRole": "procurement",
+          "toRole": "finance",
+          "blocked": false
+        },
+        {
+          "fromRole": "finance",
+          "toRole": "ops",
+          "blocked": true
+        },
+        {
+          "fromRole": "ops",
+          "toRole": "end-user",
+          "blocked": true
+        },
+        {
+          "fromRole": "end-user",
+          "toRole": "approver",
+          "blocked": true
+        },
+        {
+          "fromRole": "approver",
+          "toRole": "supplier",
+          "blocked": true
+        },
+        {
+          "fromRole": "supplier",
+          "toRole": "auditor",
+          "blocked": true
+        }
+      ],
+      "outcomeCounts": {
+        "pass": 312
+      },
+      "journeyFamilyCoverage": [
+        "autonomous-store-policy",
+        "b2b-multi-location-supplier-coordination",
+        "bounded-multi-hop-trade-cycle",
+        "buy-now-vs-wait-price-timing",
+        "buyer-intent-constraints",
+        "commerce-twin-what-if",
+        "connected-commerce-channels-and-live-commerce",
+        "existing-group-buy",
+        "failure-unknown-idempotency-recovery",
+        "gui-feature-discoverability",
+        "latent-demand-merchant-group-buy-proposal",
+        "merchant-commerce-lifecycle",
+        "offer-sourcing-comparison",
+        "physical-no-rfid-supermarket",
+        "proactive-economic-opportunities",
+        "rent-borrow-vs-buy",
+        "resale-rental-consignment",
+        "supplier-procurement-receiving",
+        "trust-security-fraud-and-recourse"
+      ]
+    },
+    {
+      "cohortId": "pilot-L",
+      "sizeClass": "large",
+      "totalPlanned": 48,
+      "totalEvidenceRecords": 624,
+      "reconciliation": {
+        "experimentId": "v3-baseline",
+        "cohortId": "pilot-L",
+        "totalPlanned": 48,
+        "executed": 48,
+        "blocked": 0,
+        "skipped": 0,
+        "reconciled": true,
+        "drift": 0,
+        "byJourneyFamily": [
+          {
+            "journeyFamilyId": "offer-sourcing-comparison",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "buy-now-vs-wait-price-timing",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "latent-demand-merchant-group-buy-proposal",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "rent-borrow-vs-buy",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "proactive-economic-opportunities",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "bounded-multi-hop-trade-cycle",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "supplier-procurement-receiving",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "b2b-multi-location-supplier-coordination",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "commerce-twin-what-if",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "connected-commerce-channels-and-live-commerce",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "trust-security-fraud-and-recourse",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "failure-unknown-idempotency-recovery",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "gui-feature-discoverability",
+            "planned": 48,
+            "executed": 48,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "buyer-intent-constraints",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "existing-group-buy",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "resale-rental-consignment",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "merchant-commerce-lifecycle",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "autonomous-store-policy",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          },
+          {
+            "journeyFamilyId": "physical-no-rfid-supermarket",
+            "planned": 32,
+            "executed": 32,
+            "blocked": 0,
+            "skipped": 0
+          }
+        ],
+        "byOutcome": {
+          "pass": 624,
+          "fail": 0,
+          "blocked": 0,
+          "absent": 0,
+          "unknown": 0
+        }
+      },
+      "noRfidPathResults": 288,
+      "failureVariantResults": [
+        {
+          "projectId": "firm-grocery-L-1-proj-001",
+          "kind": "stale-observation",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-002",
+          "kind": "partial-action-success",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-003",
+          "kind": "duplicate-replayed-operation",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-004",
+          "kind": "payment-settlement-unknown",
+          "outcome": "unknown"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-005",
+          "kind": "supplier-malicious-injected-description",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-006",
+          "kind": "missing-approval",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-007",
+          "kind": "user-lacks-authority",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-008",
+          "kind": "security-block",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-009",
+          "kind": "budget-quality-deadline-conflict",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-010",
+          "kind": "hidden-missing-ui-feature",
+          "outcome": "absent"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-011",
+          "kind": "interrupted-session-recovery",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-012",
+          "kind": "disconnected-specialist-incumbent",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-013",
+          "kind": "very-large-project-portfolio",
+          "outcome": "pass"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-014",
+          "kind": "stale-expired-connection",
+          "outcome": "unknown"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-015",
+          "kind": "supplier-disappearance",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-016",
+          "kind": "browser-session-failure",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-017",
+          "kind": "missing-connection",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-018",
+          "kind": "disabled-permission",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-019",
+          "kind": "unsupported-competitor",
+          "outcome": "unknown"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-020",
+          "kind": "unavailable-provider-auth-scope",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-021",
+          "kind": "stale-observation",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-022",
+          "kind": "partial-action-success",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-023",
+          "kind": "duplicate-replayed-operation",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-024",
+          "kind": "payment-settlement-unknown",
+          "outcome": "unknown"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-025",
+          "kind": "supplier-malicious-injected-description",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-026",
+          "kind": "missing-approval",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-027",
+          "kind": "user-lacks-authority",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-028",
+          "kind": "security-block",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-029",
+          "kind": "budget-quality-deadline-conflict",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-030",
+          "kind": "hidden-missing-ui-feature",
+          "outcome": "absent"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-031",
+          "kind": "interrupted-session-recovery",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-032",
+          "kind": "disconnected-specialist-incumbent",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-033",
+          "kind": "very-large-project-portfolio",
+          "outcome": "pass"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-034",
+          "kind": "stale-expired-connection",
+          "outcome": "unknown"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-035",
+          "kind": "supplier-disappearance",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-036",
+          "kind": "browser-session-failure",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-037",
+          "kind": "missing-connection",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-038",
+          "kind": "disabled-permission",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-039",
+          "kind": "unsupported-competitor",
+          "outcome": "unknown"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-040",
+          "kind": "unavailable-provider-auth-scope",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-041",
+          "kind": "stale-observation",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-042",
+          "kind": "partial-action-success",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-043",
+          "kind": "duplicate-replayed-operation",
+          "outcome": "fail"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-044",
+          "kind": "payment-settlement-unknown",
+          "outcome": "unknown"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-045",
+          "kind": "supplier-malicious-injected-description",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-046",
+          "kind": "missing-approval",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-047",
+          "kind": "user-lacks-authority",
+          "outcome": "blocked"
+        },
+        {
+          "projectId": "firm-grocery-L-1-proj-048",
+          "kind": "security-block",
+          "outcome": "blocked"
+        }
+      ],
+      "roleAccessResults": [
+        {
+          "fromRole": "project-owner",
+          "toRole": "procurement",
+          "blocked": false
+        },
+        {
+          "fromRole": "procurement",
+          "toRole": "finance",
+          "blocked": false
+        },
+        {
+          "fromRole": "finance",
+          "toRole": "ops",
+          "blocked": true
+        },
+        {
+          "fromRole": "ops",
+          "toRole": "end-user",
+          "blocked": true
+        },
+        {
+          "fromRole": "end-user",
+          "toRole": "approver",
+          "blocked": true
+        },
+        {
+          "fromRole": "approver",
+          "toRole": "supplier",
+          "blocked": true
+        },
+        {
+          "fromRole": "supplier",
+          "toRole": "auditor",
+          "blocked": true
+        }
+      ],
+      "outcomeCounts": {
+        "pass": 624
+      },
+      "journeyFamilyCoverage": [
+        "autonomous-store-policy",
+        "b2b-multi-location-supplier-coordination",
+        "bounded-multi-hop-trade-cycle",
+        "buy-now-vs-wait-price-timing",
+        "buyer-intent-constraints",
+        "commerce-twin-what-if",
+        "connected-commerce-channels-and-live-commerce",
+        "existing-group-buy",
+        "failure-unknown-idempotency-recovery",
+        "gui-feature-discoverability",
+        "latent-demand-merchant-group-buy-proposal",
+        "merchant-commerce-lifecycle",
+        "offer-sourcing-comparison",
+        "physical-no-rfid-supermarket",
+        "proactive-economic-opportunities",
+        "rent-borrow-vs-buy",
+        "resale-rental-consignment",
+        "supplier-procurement-receiving",
+        "trust-security-fraud-and-recourse"
+      ]
+    }
+  ]
+}

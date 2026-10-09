@@ -6,7 +6,8 @@
   "description": "UNiCOM public experience, connector, physical-edge and deployment boundary contracts (W3-001) plus the connector runtime framework and browser-session isolation runtime (W3-002), canonical connector execution (W3-003), the physical-commerce edge + live-commerce UX journeys (W3-004), the merchant/buyer/connector/autonomous UX hardening (W3-005), and public deployment readiness: deployment target adapters, browser E2E journey suites, journal-derived observability, the DR runbook as code and RC evidence reports (W3-006).",
   "exports": {
     ".": "./src/contract.ts",
-    "./runtime": "./src/runtime/index.ts"
+    "./runtime": "./src/runtime/index.ts",
+    "./sim": "./src/sim/index.ts"
   },
   "scripts": {
     "test": "vitest run",

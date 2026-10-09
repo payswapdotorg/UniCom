@@ -118,3 +118,10 @@ export * from "./api/server";
 export * from "./protocols";
 export * from "./ingestion";
 export * from "./edge/physical/physical-journeys";
+
+// W3-009 — V3 simulation runner is exposed as its own public surface at
+// `@unicom/experience/sim` (see package.json exports). It is intentionally
+// NOT re-exported through `runtime/index.ts` to avoid colliding with the
+// W3-003 connector-telemetry `JourneyEvidenceRecord` (the per-adapter
+// connector journey record — a different concept from the W3-009
+// GUI-only simulation journey-evidence record).
