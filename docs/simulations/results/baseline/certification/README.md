@@ -14,22 +14,22 @@ artifacts, verified in-process and cross-process).
 | --- | --- | --- | --- |
 | `pilot/` | **CERTIFIED** (W3-009 pilot evidence, experiment `v3-baseline`) | 1,092 / 1,092 | `packages/experience/reports/sim/pilot-summary.json` (base SHA `47c07ce`) |
 | `campaign-smoke/` | **CERTIFIED** (W3-010 smoke campaign evidence, experiment `v3-w3-010-baseline`, branch `work/w3-010` @ `80fd2f9`) | 507 / 507 | `campaign-smoke/evidence/campaign-smoke-cert-surface.json` + committed report copy |
-| `campaign-full/` | **PENDING** — the full 3,900-project W3-010 run has not landed on `work/w3-010` yet (branch carries the 39-project smoke run with "run full campaign" as its stated continuation). The harness is built + pilot/smoke-proven; when the full evidence is available, re-run: harvest (`campaign-smoke/harvest-script.ts`, `--sample-mode=full`) → `run-w1-010-certification.ts` with the full-evidence paths. | — | — |
+| `campaign-full/` | **CERTIFIED** (W3-010 FULL campaign evidence — the full 3,900-project run landed on main at `7f52ac4`/`efb5734` while this work order executed; harvested from the `work/w3-010` runner at the recorded buildCommit `80fd2f9` with the full-run committed report's recorded inputs) | **48,300 / 48,300** | `campaign-full/evidence/` (schedule surface committed; 48,300-record JSONL on disk, sha256-bound; committed report copy) |
 
 ## Certification results (summary)
 
-| Guard | pilot | campaign-smoke |
-| --- | --- | --- |
-| Oracle verdicts | pass 1,092 · fail 0 · unknown-preserved 0 | pass 468 · fail 0 · unknown-preserved 39 (blocked preserved) |
-| Uncertified executed records | 0 | 0 |
-| Holdout leakage (`W1-009-H-*`) | 0 | 0 |
-| Baseline/holdout seed disjointness | proven (1,176 seed re-derivations) | proven (39/39 numeric re-derivations, 0 range violations, 0 holdout-set intersections) |
-| Manifest↔execution reconciliation | 3/3 firms, drift 0 | 39/39 firms, drift 0 (3,900-project inventory; 39-project run scope disclosed) |
-| UNKNOWN preservation (S4/S9) | 0 conversions | 0 conversions (39 blocked records preserved through every aggregation layer) |
-| Money integrity (S11) | 0 float money (pilot evidence carries no money-valued fields — vacuous, disclosed) | 0 float money over 51,712 money values (W1 portfolio manifests + oracles + reports) |
-| Determinism audit | schedules re-derived byte-identical (4,305 canonical fields, clock fields excluded) | schedule re-derived byte-identical (1,643,623 canonical fields, clock fields excluded) |
-| Reproducibility | byte-identical re-run (in-process + cross-process) | byte-identical re-run (in-process + cross-process) |
-| Evidence immutability | sha256 before = after | sha256 before = after |
+| Guard | pilot | campaign-smoke | campaign-full |
+| --- | --- | --- | --- |
+| Oracle verdicts | pass 1,092 · fail 0 · unknown-preserved 0 | pass 468 · fail 0 · unknown-preserved 39 (blocked preserved) | pass 44,400 · fail 0 · unknown-preserved 3,900 (the negotiation-substitution blocked cluster, preserved) |
+| Uncertified executed records | 0 | 0 | 0 |
+| Holdout leakage (`W1-009-H-*`) | 0 | 0 | 0 |
+| Baseline/holdout seed disjointness | proven (1,176 seed re-derivations) | proven (39/39 numeric re-derivations) | proven (3,900/3,900 numeric re-derivations, 0 range violations, 0 holdout-set intersections) |
+| Manifest↔execution reconciliation | 3/3 firms, drift 0 | 39/39 firms, drift 0 (3,900-project inventory; 39-project run scope disclosed) | **39/39 firms, planned 3,900 = executed 3,900, drift 0, inventory 3,900** |
+| UNKNOWN preservation (S4/S9) | 0 conversions | 0 conversions (39 blocked preserved) | 0 conversions (3,900 blocked preserved through all 89 aggregation checks) |
+| Money integrity (S11) | 0 float money (pilot evidence carries no money-valued fields — vacuous, disclosed) | 0 float money over 51,712 money values | 0 float money over 51,712 money values (W1 portfolio manifests + oracles + full evidence set + reports) |
+| Determinism audit | schedules re-derived byte-identical (4,305 canonical fields, clock fields excluded) | schedule re-derived byte-identical (1,643,623 canonical fields, clock fields excluded) | schedule re-derived byte-identical (1,643,623 canonical fields, clock fields excluded; 39/39 persona-roster checks) |
+| Reproducibility | byte-identical re-run (in-process + cross-process) | byte-identical re-run (in-process + cross-process) | byte-identical re-run (in-process + cross-process); full verdict list digest-bound (`perRecordSha256`) |
+| Evidence immutability | sha256 before = after | sha256 before = after | sha256 before = after (records JSONL bound by sha256) |
 
 ## Artifacts (per source directory)
 
@@ -61,14 +61,25 @@ artifacts, verified in-process and cross-process).
    field (artifact sha256s, byte lengths, counts, aggregates,
    reconciliations) matches exactly. Flagged for the W3 continuation
    (loadedFromPath should be repo-relative).
-4. **Smoke scope (campaign)**: the W3-010 branch currently carries the
-   39-project smoke run (first 39 scheduled projects — 1 firm); 3,861
-   scheduled projects remain untouched pending the full run. The scope
-   prefix property is verified structurally, and the manifest inventory is
-   disclosed per firm.
-5. **Pilot money scope**: the W3-009 pilot evidence carries no money-valued
+4. **Full-campaign blocked cluster (the headline finding)**: all 3,900
+   negotiation-substitution journey records are blocked — the accepted
+   W3-010 root cause (the journey family is absent from the W3-009 runner
+   registry; a harness gap, not a product failure). The certification
+   preserves every one as an unknown-preserved (blocked) verdict with zero
+   conversions; the W3-011 remediation (registry reconciliation + driver +
+   amended re-run) is already dispatched on main.
+5. **Smoke scope (campaign-smoke)**: the smoke run covers the first 39
+   scheduled projects (1 firm); the prefix property is verified structurally
+   and the manifest inventory is disclosed per firm. The full run
+   (campaign-full) supersedes it with the complete 3,900-project scope.
+6. **Pilot money scope**: the W3-009 pilot evidence carries no money-valued
    fields (fixture money lives in project manifests, not journey records);
    money integrity is proven non-vacuously on the campaign evidence set.
+7. **Pilot evidence lineage**: the pilot certification runs over the pilot
+   summary as committed at this branch's base `47c07ce`. A later main commit
+   (`7f52ac4`, lint cleanup) adjusted the pilot summary's wall-clock
+   `throughput.totalDurationMs` (45→34) — outside the certification surface;
+   the certified bytes are bound by the recorded evidence sha256.
 
 ## Laws honored
 

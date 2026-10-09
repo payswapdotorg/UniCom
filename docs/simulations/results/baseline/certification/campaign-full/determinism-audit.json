@@ -1,0 +1,265 @@
+[
+  {
+    "scheduleId": "v3-w3-010-baseline-schedule",
+    "experimentId": "v3-w3-010-baseline",
+    "cohortIds": [
+      "baseline-v3-w3-010"
+    ],
+    "reDerived": true,
+    "byteIdenticalModuloClockFields": true,
+    "fieldsCompared": 1643623,
+    "fieldMismatches": [],
+    "clockFieldsExcluded": [
+      "schedule.generatedAt",
+      "schedule.buildCommit"
+    ],
+    "executionOutcomeFieldsExcluded": [
+      "project.status",
+      "project.evidenceRecordId",
+      "project.blockReason"
+    ],
+    "derivedScheduleSha256": "513b9c8f7bb3ec95ff2ade5cbd9b5c71e220344a95cf0635bec6494e3bb6b5cd",
+    "executedScheduleSha256": "513b9c8f7bb3ec95ff2ade5cbd9b5c71e220344a95cf0635bec6494e3bb6b5cd",
+    "personaRosterChecks": [
+      {
+        "firmId": "firm:construction:small",
+        "personaCount": 25,
+        "rosterCount": 25,
+        "matches": true
+      },
+      {
+        "firmId": "firm:construction:medium",
+        "personaCount": 150,
+        "rosterCount": 150,
+        "matches": true
+      },
+      {
+        "firmId": "firm:construction:large",
+        "personaCount": 1000,
+        "rosterCount": 1000,
+        "matches": true
+      },
+      {
+        "firmId": "firm:finance:small",
+        "personaCount": 25,
+        "rosterCount": 25,
+        "matches": true
+      },
+      {
+        "firmId": "firm:finance:medium",
+        "personaCount": 150,
+        "rosterCount": 150,
+        "matches": true
+      },
+      {
+        "firmId": "firm:finance:large",
+        "personaCount": 1000,
+        "rosterCount": 1000,
+        "matches": true
+      },
+      {
+        "firmId": "firm:sales:small",
+        "personaCount": 25,
+        "rosterCount": 25,
+        "matches": true
+      },
+      {
+        "firmId": "firm:sales:medium",
+        "personaCount": 150,
+        "rosterCount": 150,
+        "matches": true
+      },
+      {
+        "firmId": "firm:sales:large",
+        "personaCount": 1000,
+        "rosterCount": 1000,
+        "matches": true
+      },
+      {
+        "firmId": "firm:technology:small",
+        "personaCount": 25,
+        "rosterCount": 25,
+        "matches": true
+      },
+      {
+        "firmId": "firm:technology:medium",
+        "personaCount": 150,
+        "rosterCount": 150,
+        "matches": true
+      },
+      {
+        "firmId": "firm:technology:large",
+        "personaCount": 1000,
+        "rosterCount": 1000,
+        "matches": true
+      },
+      {
+        "firmId": "firm:healthcare:small",
+        "personaCount": 25,
+        "rosterCount": 25,
+        "matches": true
+      },
+      {
+        "firmId": "firm:healthcare:medium",
+        "personaCount": 150,
+        "rosterCount": 150,
+        "matches": true
+      },
+      {
+        "firmId": "firm:healthcare:large",
+        "personaCount": 1000,
+        "rosterCount": 1000,
+        "matches": true
+      },
+      {
+        "firmId": "firm:transportation:small",
+        "personaCount": 25,
+        "rosterCount": 25,
+        "matches": true
+      },
+      {
+        "firmId": "firm:transportation:medium",
+        "personaCount": 150,
+        "rosterCount": 150,
+        "matches": true
+      },
+      {
+        "firmId": "firm:transportation:large",
+        "personaCount": 1000,
+        "rosterCount": 1000,
+        "matches": true
+      },
+      {
+        "firmId": "firm:hospitality:small",
+        "personaCount": 25,
+        "rosterCount": 25,
+        "matches": true
+      },
+      {
+        "firmId": "firm:hospitality:medium",
+        "personaCount": 150,
+        "rosterCount": 150,
+        "matches": true
+      },
+      {
+        "firmId": "firm:hospitality:large",
+        "personaCount": 1000,
+        "rosterCount": 1000,
+        "matches": true
+      },
+      {
+        "firmId": "firm:fashion:small",
+        "personaCount": 25,
+        "rosterCount": 25,
+        "matches": true
+      },
+      {
+        "firmId": "firm:fashion:medium",
+        "personaCount": 150,
+        "rosterCount": 150,
+        "matches": true
+      },
+      {
+        "firmId": "firm:fashion:large",
+        "personaCount": 1000,
+        "rosterCount": 1000,
+        "matches": true
+      },
+      {
+        "firmId": "firm:entertainment:small",
+        "personaCount": 25,
+        "rosterCount": 25,
+        "matches": true
+      },
+      {
+        "firmId": "firm:entertainment:medium",
+        "personaCount": 150,
+        "rosterCount": 150,
+        "matches": true
+      },
+      {
+        "firmId": "firm:entertainment:large",
+        "personaCount": 1000,
+        "rosterCount": 1000,
+        "matches": true
+      },
+      {
+        "firmId": "firm:legal:small",
+        "personaCount": 25,
+        "rosterCount": 25,
+        "matches": true
+      },
+      {
+        "firmId": "firm:legal:medium",
+        "personaCount": 150,
+        "rosterCount": 150,
+        "matches": true
+      },
+      {
+        "firmId": "firm:legal:large",
+        "personaCount": 1000,
+        "rosterCount": 1000,
+        "matches": true
+      },
+      {
+        "firmId": "firm:defense:small",
+        "personaCount": 25,
+        "rosterCount": 25,
+        "matches": true
+      },
+      {
+        "firmId": "firm:defense:medium",
+        "personaCount": 150,
+        "rosterCount": 150,
+        "matches": true
+      },
+      {
+        "firmId": "firm:defense:large",
+        "personaCount": 1000,
+        "rosterCount": 1000,
+        "matches": true
+      },
+      {
+        "firmId": "firm:manufacturing:small",
+        "personaCount": 25,
+        "rosterCount": 25,
+        "matches": true
+      },
+      {
+        "firmId": "firm:manufacturing:medium",
+        "personaCount": 150,
+        "rosterCount": 150,
+        "matches": true
+      },
+      {
+        "firmId": "firm:manufacturing:large",
+        "personaCount": 1000,
+        "rosterCount": 1000,
+        "matches": true
+      },
+      {
+        "firmId": "firm:supermarket:small",
+        "personaCount": 25,
+        "rosterCount": 25,
+        "matches": true
+      },
+      {
+        "firmId": "firm:supermarket:medium",
+        "personaCount": 150,
+        "rosterCount": 150,
+        "matches": true
+      },
+      {
+        "firmId": "firm:supermarket:large",
+        "personaCount": 1000,
+        "rosterCount": 1000,
+        "matches": true
+      }
+    ],
+    "notes": [
+      "Re-derived from the W1-009 portfolio generator (public surface) + the recorded W2 roster (docs/simulations/personas/cohort-manifest.json roleAllocation in W2 role-family order) — no runner code imported.",
+      "Persona ordering re-derivation uses the recorded W2 role-family iteration order; per-firm roster counts verified against the cohort manifest.",
+      "Executed schedule statuses/evidence pointers are execution facts audited by the reconciliation law, excluded from the derivation surface."
+    ]
+  }
+]

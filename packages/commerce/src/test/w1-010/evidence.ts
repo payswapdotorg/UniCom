@@ -151,6 +151,60 @@ export function loadCampaignHarvest(path: string): CampaignEvidenceHarvestInput 
 }
 
 /**
+ * Load + validate the W1-010 FULL campaign harvest (split certification
+ * surface: schedule-surface JSON + records JSONL). The record volume of the
+ * full campaign (48,300 records) is too large for a single committed JSON
+ * artifact — the records file lives on disk (regenerable byte-identically
+ * via the preserved harvest script) and is bound by its sha256.
+ */
+export function loadCampaignFullHarvest(args: {
+  scheduleSurfacePath: string;
+  recordsPath: string;
+}): CampaignEvidenceHarvestInput {
+  const parsed = JSON.parse(readFileSync(args.scheduleSurfacePath, "utf8")) as {
+    schema?: string;
+    surface?: string;
+    harvest?: CampaignEvidenceHarvestInput["harvest"];
+    report?: CampaignEvidenceHarvestInput["report"];
+    schedule?: Omit<CampaignScheduleInput, "projects"> & {
+      projects: readonly Omit<CampaignScheduleInput["projects"][number], "personaIds">[];
+    };
+    personaIdsByFirm?: Readonly<Record<string, readonly string[]>>;
+    _meta?: CampaignEvidenceHarvestInput["meta"];
+  };
+  if (parsed.schema !== "unicom-w1-010-campaign-evidence-harvest/1") {
+    throw new TypeError(`full harvest: unknown schema ${String(parsed.schema)}`);
+  }
+  if (parsed.surface !== "certification-surface-schedule/1") {
+    throw new TypeError(`full harvest: unknown surface ${String(parsed.surface)}`);
+  }
+  if (parsed.harvest == null || parsed.report == null || parsed.schedule == null
+    || parsed.personaIdsByFirm == null) {
+    throw new TypeError("full harvest: missing harvest/report/schedule/personaIdsByFirm");
+  }
+  const schedule: CampaignScheduleInput = {
+    ...parsed.schedule,
+    projects: parsed.schedule.projects.map((project) => ({
+      ...project,
+      personaIds: parsed.personaIdsByFirm![project.firmId] ?? [],
+    })),
+  };
+  validateSchedule(schedule, "full campaign schedule");
+  const content = readFileSync(args.recordsPath, "utf8");
+  const lines = content.split("\n");
+  if (lines[lines.length - 1] === "") lines.pop();
+  const records = lines.map((line, i) => validateRecord(JSON.parse(line), i));
+  return {
+    schema: "unicom-w1-010-campaign-evidence-harvest/1",
+    harvest: parsed.harvest,
+    meta: parsed._meta,
+    report: parsed.report,
+    schedule,
+    evidenceRecords: records,
+  };
+}
+
+/**
  * Cross-verify the regenerated harvest against a committed report object
  * (parsed from the evidence branch's docs/simulations/campaign report).
  * Every reconciliation + outcome number must agree exactly — this proves

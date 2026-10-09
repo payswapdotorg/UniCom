@@ -2,26 +2,26 @@
  * TEST-ONLY W1-010 — campaign certification builder (W3-010 evidence).
  *
  * Builds the full CertificationReport over the W3-010 campaign-evidence
- * harvest: oracle verdicts for every record, W1-manifest reconciliation
- * per firm (39 firms × 100 baseline projects), holdout-leakage +
- * seed-disjointness guard, money integrity across the evidence set
- * (records + schedules + reports + the W1 portfolio), UNKNOWN
- * preservation across every aggregation layer, and the campaign-schedule
- * determinism audit (independent re-derivation from the W1 generator +
- * the recorded W2 roster).
+ * harvest (smoke or full): oracle verdicts for every record, W1-manifest
+ * reconciliation per firm, holdout-leakage + seed-disjointness guard,
+ * money integrity across the evidence set, UNKNOWN preservation across
+ * every aggregation layer, and the campaign-schedule determinism audit
+ * (independent re-derivation from the W1 generator + the recorded W2
+ * roster). Report assembly lives in ./certify-campaign-report.ts.
  *
  * Pure + deterministic. Evidence files are only ever READ.
  */
 import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import type {
   CampaignScheduleInput,
   CertificationReport,
-  FirmReconciliationRow,
   JourneyEvidenceRecordInput,
 } from "./types.js";
 import {
   countByOutcome,
   crossVerifyHarvestAgainstCommittedReport,
+  loadCampaignFullHarvest,
   loadCampaignHarvest,
   sha256File,
   sha256String,
@@ -31,6 +31,7 @@ import { holdoutLeakageGuard, moneyIntegrityGuard, unknownPreservationGuard } fr
 import { reconcileManifestExecution, statusTransitionLegality, type FirmInventoryEntry } from "./reconcile.js";
 import { auditResult, rederiveCampaignSchedule, W2_ROLE_FAMILIES, type CampaignFirmSpec } from "./determinism.js";
 import { CERTIFIER_VERSION } from "./certify-pilot.js";
+import { buildCampaignReportCore, type CampaignReportParts } from "./certify-campaign-report.js";
 import {
   generateByProjectId,
   generatePortfolio,
@@ -101,14 +102,28 @@ function w2RosterByFirm(cohortManifestPath: string): Map<string, string[]> {
   return roster;
 }
 
+/** Smoke-source args (single-file certification surface). */
+export interface CampaignSmokeArgs {
+  readonly evidencePath: string;
+  readonly committedReportPath: string;
+  readonly cohortManifestPath: string;
+}
+
+/** Full-source args (split surface: schedule JSON + records JSONL). */
+export interface CampaignFullArgs {
+  readonly scheduleSurfacePath: string;
+  readonly recordsPath: string;
+  readonly committedReportPath: string;
+  readonly cohortManifestPath: string;
+}
+
 /** Build the campaign certification report (pure; reads only evidence files). */
-export function buildCampaignCertification(args: {
-  evidencePath: string;
-  committedReportPath: string;
-  cohortManifestPath: string;
-}): CertificationReport {
-  const shaBefore = sha256File(args.evidencePath);
-  const harvest = loadCampaignHarvest(args.evidencePath);
+export function buildCampaignCertification(args: CampaignSmokeArgs | CampaignFullArgs): CertificationReport {
+  const isFull = "recordsPath" in args;
+  const shaBefore = isFull ? sha256File(args.recordsPath) : sha256File(args.evidencePath);
+  const harvest = isFull
+    ? loadCampaignFullHarvest({ scheduleSurfacePath: args.scheduleSurfacePath, recordsPath: args.recordsPath })
+    : loadCampaignHarvest(args.evidencePath);
   const committedReport = JSON.parse(readFileSync(args.committedReportPath, "utf8")) as typeof harvest.report;
   const crossCheck = crossVerifyHarvestAgainstCommittedReport(harvest, committedReport);
 
@@ -118,9 +133,7 @@ export function buildCampaignCertification(args: {
   // --- 0. Run-scope resolution --------------------------------------------
   // The W3-010 sample-mode convention: the run scope is the schedule PREFIX
   // of length report.projectReconciliation.planned (slice(0, N)); projects
-  // beyond the prefix remain "scheduled" (untouched). Verified structurally:
-  // every non-scheduled project must sit inside the prefix and the suffix
-  // must be uniformly "scheduled".
+  // beyond the prefix remain "scheduled" (untouched). Verified structurally.
   const scopeLength = harvest.report.projectReconciliation.planned;
   const allProjects = harvest.schedule.projects;
   if (scopeLength < 0 || scopeLength > allProjects.length) {
@@ -181,11 +194,16 @@ export function buildCampaignCertification(args: {
     },
   });
 
-  const money = moneyIntegrityGuard([
-    { scope: "campaign-evidence-harvest", root: JSON.parse(readFileSync(args.evidencePath, "utf8")) as unknown },
-    { scope: "committed-baseline-report", root: committedReport as unknown },
-    { scope: "w1-baseline-portfolio-manifests+oracles", root: baselinePortfolio.pairs.map((pair) => ({ m: pair.manifest, o: pair.oracle })) },
-  ]);
+  const moneyScopes: { scope: string; root: unknown }[] = [];
+  if (isFull) {
+    moneyScopes.push({ scope: "campaign-full-schedule-surface", root: JSON.parse(readFileSync(args.scheduleSurfacePath, "utf8")) as unknown });
+    moneyScopes.push({ scope: "campaign-full-records", root: records });
+  } else {
+    moneyScopes.push({ scope: "campaign-evidence-harvest", root: JSON.parse(readFileSync(args.evidencePath, "utf8")) as unknown });
+  }
+  moneyScopes.push({ scope: "committed-baseline-report", root: committedReport as unknown });
+  moneyScopes.push({ scope: "w1-baseline-portfolio-manifests+oracles", root: baselinePortfolio.pairs.map((pair) => ({ m: pair.manifest, o: pair.oracle })) });
+  const money = moneyIntegrityGuard(moneyScopes);
 
   const actualOutcomes = countByOutcome(records);
   const executedPartition = records.filter((r) => r.outcome !== "blocked").length;
@@ -255,16 +273,23 @@ export function buildCampaignCertification(args: {
   ];
 
   // --- 5. Assemble + reproducibility ---------------------------------------
-  const shaAfter = sha256File(args.evidencePath);
-  const core = buildCampaignReportCore(args, {
+  const shaAfter = isFull ? sha256File(args.recordsPath) : sha256File(args.evidencePath);
+  const parts: CampaignReportParts = {
     harvest,
-    records,
+    evidencePath: isFull ? args.recordsPath : args.evidencePath,
+    committedReportPath: args.committedReportPath,
+    ...(isFull ? {
+      scheduleSurfacePath: args.scheduleSurfacePath,
+      scheduleSurfaceSha256: sha256File(args.scheduleSurfacePath),
+    } : {}),
     shaBefore,
     shaAfter,
     certification,
     s12Violations,
-    crossCheck,
-    reconciliation: { perFirm: reconciliation.perFirm, overall: reconciliation.overall },
+    crossCheckMatches: crossCheck.matches,
+    crossCheckMismatches: crossCheck.mismatches,
+    perFirm: reconciliation.perFirm,
+    overall: reconciliation.overall,
     transitionViolations,
     holdout,
     money,
@@ -275,27 +300,9 @@ export function buildCampaignCertification(args: {
     scopeLength,
     outOfScopeScheduledProjects,
     scopeFirmIds: scopedSchedule.projects.map((project) => project.firmId),
-  });
-  const rerunDigest = sha256String(JSON.stringify(buildCampaignReportCore(args, {
-    harvest,
-    records,
-    shaBefore,
-    shaAfter,
-    certification,
-    s12Violations,
-    crossCheck,
-    reconciliation: { perFirm: reconciliation.perFirm, overall: reconciliation.overall },
-    transitionViolations,
-    holdout,
-    money,
-    unknown,
-    determinism,
-    baselinePortfolioSize: baselinePortfolio.pairs.length,
-    holdoutPortfolioSize: holdoutPortfolio.pairs.length,
-    scopeLength,
-    outOfScopeScheduledProjects,
-    scopeFirmIds: scopedSchedule.projects.map((project) => project.firmId),
-  })));
+  };
+  const core = buildCampaignReportCore(parts);
+  const rerunDigest = sha256String(JSON.stringify(buildCampaignReportCore(parts)));
   const firstDigest = sha256String(JSON.stringify(core));
   return {
     ...core,
@@ -305,89 +312,5 @@ export function buildCampaignCertification(args: {
       rerunDigest,
       byteIdenticalOnRerun: firstDigest === rerunDigest,
     },
-  };
-}
-
-function buildCampaignReportCore(
-  args: { evidencePath: string; committedReportPath: string },
-  parts: {
-    harvest: ReturnType<typeof loadCampaignHarvest>;
-    records: readonly JourneyEvidenceRecordInput[];
-    shaBefore: string;
-    shaAfter: string;
-    certification: ReturnType<typeof certifyRecords>;
-    s12Violations: readonly string[];
-    crossCheck: ReturnType<typeof crossVerifyHarvestAgainstCommittedReport>;
-    reconciliation: { perFirm: readonly FirmReconciliationRow[]; overall: ReturnType<typeof reconcileManifestExecution>["overall"] };
-    transitionViolations: readonly string[];
-    holdout: ReturnType<typeof holdoutLeakageGuard>;
-    money: ReturnType<typeof moneyIntegrityGuard>;
-    unknown: ReturnType<typeof unknownPreservationGuard>;
-    determinism: CertificationReport["determinism"];
-    baselinePortfolioSize: number;
-    holdoutPortfolioSize: number;
-    scopeLength: number;
-    outOfScopeScheduledProjects: number;
-    scopeFirmIds: readonly string[];
-  },
-): Omit<CertificationReport, "reproducibility"> {
-  const { harvest, certification } = parts;
-  const notes = [
-    `Campaign evidence: ${harvest.harvest.sampleMode} sample mode — run scope = the first ${parts.scopeLength} scheduled projects (${[...new Set(parts.scopeFirmIds)].length} firm(s): ${[...new Set(parts.scopeFirmIds)].join(", ")}); ${parts.outOfScopeScheduledProjects} scheduled projects remain untouched (status "scheduled", never executed — the full 3,900-project run is the W3-010 continuation). The scope prefix property is verified structurally (all non-scheduled projects inside the prefix; uniform "scheduled" suffix).`,
-    `Harvest cross-verification against the committed W3-010 report: ${parts.crossCheck.matches ? "all reconciliation + outcome numbers agree" : `MISMATCHES: ${parts.crossCheck.mismatches.join(", ")}`}.`,
-    `Harvest reproduction proof: committed report regenerated byte-identically modulo the isolated throughput block, the 8 machine-absolute loadedFromPath fields and the path-dependent composite determinismFingerprint (committed ${harvest.meta?.committedDeterminismFingerprint ?? "n/a"} vs regenerated ${harvest.meta?.regeneratedDeterminismFingerprint ?? "n/a"} — every artifact sha256Hex16, byte length, count and aggregate matches).`,
-    `Evidence surface: records are the harvest's certification-surface projection (consumed fields verbatim + per-record fullRecordSha256 binding to the full unprojected record); the full evidence is regenerable byte-identically by the preserved harvest script inside a work/w3-010 checkout.`,
-    `W1 oracle assertion inventory: the campaign runner records runner-local assertion ids ({projectId}-assert-budget); the W1-009 oracle declares semantic ids per project (cost-validity, budget-constraint, ...). Verdicts certify the recorded after-journey assertions; the vocabulary gap is flagged for the W3 runner continuation.`,
-    `W1 portfolio consumed: ${parts.baselinePortfolioSize} baseline + ${parts.holdoutPortfolioSize} holdout manifests regenerated deterministically (holdout generated for the disjointness proof ONLY — never executed).`,
-  ];
-  if (parts.s12Violations.length > 0) notes.push(`S12 violations: ${parts.s12Violations.slice(0, 5).join("; ")}`);
-  if (parts.transitionViolations.length > 0) notes.push(`Status-transition violations: ${parts.transitionViolations.slice(0, 5).join("; ")}`);
-  return {
-    schema: "unicom-w1-010-certification/1",
-    workOrder: "W1-010",
-    lane: "worker-1-commerce-truth-economic-execution",
-    certifierVersion: CERTIFIER_VERSION,
-    source: {
-      sourceKind: harvest.harvest.sampleMode === "full" ? "full-campaign" : "campaign-smoke",
-      evidencePath: args.evidencePath,
-      experimentId: harvest.report.experimentId,
-      buildCommit: harvest.report.buildCommit,
-      buildBranch: harvest.report.buildBranch ?? null,
-      deploymentTarget: "local-dev-fixture",
-      localDevFixture: false,
-      generatedAt: harvest.report.generatedAt,
-      sampleMode: harvest.harvest.sampleMode,
-      recordCount: parts.records.length,
-      evidenceSha256: parts.shaBefore,
-    },
-    verdicts: {
-      counts: certification.counts,
-      recordsCertified: certification.perRecord.length,
-      uncertifiedExecutedRecords: certification.uncertifiedExecutedRecords,
-      perRecord: certification.perRecord,
-    },
-    reconciliation: {
-      perFirm: parts.reconciliation.perFirm,
-      overall: parts.reconciliation.overall,
-      manifestSource: "w1-009-portfolio-generator",
-    },
-    guards: {
-      holdoutLeakage: parts.holdout,
-      moneyIntegrity: parts.money,
-      unknownPreservation: parts.unknown,
-    },
-    determinism: parts.determinism,
-    integrity: {
-      evidenceUnmutated: parts.shaBefore === parts.shaAfter,
-      evidenceSha256Before: parts.shaBefore,
-      evidenceSha256After: parts.shaAfter,
-    },
-    lineage: [
-      { artifact: args.evidencePath, detail: "W1-010 campaign-evidence harvest (regenerated from the work/w3-010 runner)" },
-      { artifact: args.committedReportPath, detail: "W3-010 committed baseline report (cross-verified)" },
-      { artifact: "docs/simulations/personas/cohort-manifest.json", detail: "W2-009 cohort manifest (persona roster source)" },
-      { artifact: "packages/commerce/src/test/w1-009/portfolio", detail: "W1-009 portfolio generator + oracle (public surface)" },
-    ],
-    notes,
   };
 }

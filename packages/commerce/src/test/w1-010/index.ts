@@ -28,7 +28,7 @@ export type {
 
 // Evidence loading + validation + cross-verification
 export {
-  loadPilotSummary, loadCampaignHarvest, validateRecord, validateSchedule,
+  loadPilotSummary, loadCampaignHarvest, loadCampaignFullHarvest, validateRecord, validateSchedule,
   crossVerifyHarvestAgainstCommittedReport, countByOutcome,
   sha256File, sha256String,
 } from "./evidence.js";
@@ -63,3 +63,5 @@ export type { PilotCohortSpec, CampaignFirmSpec } from "./determinism.js";
 // Certification builders
 export { buildPilotCertification, CERTIFIER_VERSION } from "./certify-pilot.js";
 export { buildCampaignCertification } from "./certify-campaign.js";
+export type { CampaignSmokeArgs, CampaignFullArgs } from "./certify-campaign.js";
+export { verdictTables, perRecordDigest, perRecordEmbedding } from "./certify-campaign-report.js";

@@ -12,6 +12,7 @@
  * by before/after hashes recorded in the report).
  */
 import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import type {
   CampaignScheduleInput,
   CertificationReport,
@@ -235,6 +236,8 @@ function buildPilotReportCore(
       recordsCertified: certification.perRecord.length,
       uncertifiedExecutedRecords: certification.uncertifiedExecutedRecords,
       perRecord: certification.perRecord,
+      perRecordComplete: true,
+      perRecordSha256: createHash("sha256").update(JSON.stringify(certification.perRecord)).digest("hex"),
     },
     reconciliation: {
       perFirm: parts.reconciliation.perFirm,

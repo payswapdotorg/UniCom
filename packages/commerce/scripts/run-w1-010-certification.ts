@@ -20,7 +20,7 @@
  *
  * Run: npx tsx packages/commerce/scripts/run-w1-010-certification.ts
  */
-import { writeFileSync, mkdirSync } from "node:fs";
+import { writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -41,6 +41,10 @@ const OUT_ROOT = resolve(REPO_ROOT, "docs/simulations/results/baseline/certifica
 const PILOT_EVIDENCE = "packages/experience/reports/sim/pilot-summary.json";
 const CAMPAIGN_EVIDENCE = "docs/simulations/results/baseline/certification/campaign-smoke/evidence/campaign-smoke-cert-surface.json";
 const CAMPAIGN_COMMITTED_REPORT = "docs/simulations/results/baseline/certification/campaign-smoke/evidence/baseline-report.json";
+const CAMPAIGN_FULL_DIR = "docs/simulations/results/baseline/certification/campaign-full";
+const CAMPAIGN_FULL_SCHEDULE_SURFACE = `${CAMPAIGN_FULL_DIR}/evidence/campaign-full-schedule-surface.json`;
+const CAMPAIGN_FULL_RECORDS = `${CAMPAIGN_FULL_DIR}/evidence/campaign-full-records.jsonl`;
+const CAMPAIGN_FULL_COMMITTED_REPORT = `${CAMPAIGN_FULL_DIR}/evidence/baseline-report.json`;
 const COHORT_MANIFEST = "docs/simulations/personas/cohort-manifest.json";
 
 function writeArtifacts(dir: string, report: CertificationReport, sourceLabel: string): void {
@@ -111,6 +115,17 @@ function renderSummary(report: CertificationReport, sourceLabel: string): string
     `| unknown-preserved (blocked/unknown/absent) | ${v.unknownPreserved} |`,
     "",
     `- Records certified: **${report.verdicts.recordsCertified}/${report.source.recordCount}** (uncertified: ${report.verdicts.uncertifiedExecutedRecords.length})`,
+    ...(report.verdicts.perRecordComplete
+      ? [`- Per-record verdicts: complete list embedded (${report.verdicts.perRecord.length} rows; sha256 \`${report.verdicts.perRecordSha256.slice(0, 16)}…\`)`]
+      : [
+        `- Per-record verdicts: complete list bound by sha256 \`${report.verdicts.perRecordSha256}\` (sample of ${report.verdicts.perRecord.length} embedded; verdict tables per firm + per journey family below)`,
+        "",
+        "## Verdicts by journey family",
+        "",
+        "| journey family | pass | fail | preserved |",
+        "| --- | --- | --- | --- |",
+        ...(report.verdicts.byFamily ?? []).map((row) => `| ${row.journeyFamilyId} | ${row.assertionPass} | ${row.assertionFail} | ${row.unknownPreserved} |`),
+      ]),
     "",
     "## Manifest↔execution reconciliation",
     "",
@@ -161,6 +176,20 @@ const campaignReport = buildCampaignCertification({
 });
 writeArtifacts(resolve(OUT_ROOT, "campaign-smoke"), campaignReport, "campaign-smoke (W3-010 evidence)");
 
+// --- Campaign full (requires the on-disk records JSONL — see evidence/README.md)
+let campaignFullReport: ReturnType<typeof buildCampaignCertification> | null = null;
+if (existsSync(CAMPAIGN_FULL_RECORDS) && existsSync(CAMPAIGN_FULL_SCHEDULE_SURFACE)) {
+  campaignFullReport = buildCampaignCertification({
+    scheduleSurfacePath: CAMPAIGN_FULL_SCHEDULE_SURFACE,
+    recordsPath: CAMPAIGN_FULL_RECORDS,
+    committedReportPath: CAMPAIGN_FULL_COMMITTED_REPORT,
+    cohortManifestPath: COHORT_MANIFEST,
+  });
+  writeArtifacts(resolve(OUT_ROOT, "campaign-full"), campaignFullReport, "campaign-full (W3-010 full campaign evidence)");
+} else {
+  console.log("[W1-010] campaign-full: records JSONL not present on disk — skipped (see campaign-full/evidence/README.md for regeneration)");
+}
+
 // --- Cross-run reproducibility proof ---------------------------------------
 const pilotRerun = buildPilotCertification({ evidencePath: PILOT_EVIDENCE });
 const campaignRerun = buildCampaignCertification({
@@ -174,7 +203,20 @@ const pilotOriginal = JSON.stringify(pilotReport, null, 2);
 const campaignOriginal = JSON.stringify(campaignReport, null, 2);
 console.log(`[W1-010] pilot: ${pilotReport.verdicts.recordsCertified}/${pilotReport.source.recordCount} certified; rerun byte-identical: ${pilotBytes === pilotOriginal}`);
 console.log(`[W1-010] campaign-smoke: ${campaignReport.verdicts.recordsCertified}/${campaignReport.source.recordCount} certified; rerun byte-identical: ${campaignBytes === campaignOriginal}`);
-if (pilotBytes !== pilotOriginal || campaignBytes !== campaignOriginal) {
+let fatal = pilotBytes !== pilotOriginal || campaignBytes !== campaignOriginal;
+if (campaignFullReport != null) {
+  const fullRerun = buildCampaignCertification({
+    scheduleSurfacePath: CAMPAIGN_FULL_SCHEDULE_SURFACE,
+    recordsPath: CAMPAIGN_FULL_RECORDS,
+    committedReportPath: CAMPAIGN_FULL_COMMITTED_REPORT,
+    cohortManifestPath: COHORT_MANIFEST,
+  });
+  const fullBytes = JSON.stringify(fullRerun, null, 2);
+  const fullOriginal = JSON.stringify(campaignFullReport, null, 2);
+  console.log(`[W1-010] campaign-full: ${campaignFullReport.verdicts.recordsCertified}/${campaignFullReport.source.recordCount} certified; rerun byte-identical: ${fullBytes === fullOriginal}`);
+  fatal = fatal || fullBytes !== fullOriginal;
+}
+if (fatal) {
   console.error("[W1-010] FATAL: certification is not byte-reproducible");
   process.exit(1);
 }

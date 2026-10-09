@@ -6,7 +6,7 @@
 
 - Source kind: `pilot` (sampleMode `pilot`)
 - Experiment: `v3-baseline` @ build `w3-009-pilot`
-- Evidence: `packages/experience/reports/sim/pilot-summary.json` (1092 records, sha256 `bbeb0e0961dc1441…`)
+- Evidence: `packages/experience/reports/sim/pilot-summary.json` (1092 records, sha256 `8f2f1f3d2eaa8469…`)
 
 ## Oracle certification verdicts
 
@@ -17,6 +17,7 @@
 | unknown-preserved (blocked/unknown/absent) | 0 |
 
 - Records certified: **1092/1092** (uncertified: 0)
+- Per-record verdicts: complete list embedded (1092 rows; sha256 `54af0cd72a35cc98…`)
 
 ## Manifest↔execution reconciliation
 

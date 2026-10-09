@@ -1,0 +1,3738 @@
+{
+  "schema": "unicom-w1-010-certification/1",
+  "workOrder": "W1-010",
+  "lane": "worker-1-commerce-truth-economic-execution",
+  "certifierVersion": "w1-010-certifier/1.0.0",
+  "source": {
+    "sourceKind": "full-campaign",
+    "evidencePath": "docs/simulations/results/baseline/certification/campaign-full/evidence/campaign-full-records.jsonl",
+    "scheduleSurfacePath": "docs/simulations/results/baseline/certification/campaign-full/evidence/campaign-full-schedule-surface.json",
+    "scheduleSurfaceSha256": "272dc89fe634c9728dc6fdec420819f8f98e56bcdb481cd3266f621afc4c1ad9",
+    "experimentId": "v3-w3-010-baseline",
+    "buildCommit": "80fd2f9630ecd71897b4b1a35045ad91ef7ca4e5",
+    "buildBranch": "work/w3-010",
+    "deploymentTarget": "local-dev-fixture",
+    "localDevFixture": false,
+    "generatedAt": "2026-10-09T08:55:00Z",
+    "sampleMode": "full",
+    "recordCount": 48300,
+    "evidenceSha256": "d46e61c5ba343008cc36506565416f2cf2a5f08cd6872a2a1543cc22359c09c7"
+  },
+  "verdicts": {
+    "counts": {
+      "assertionPass": 44400,
+      "assertionFail": 0,
+      "unknownPreserved": 3900
+    },
+    "recordsCertified": 48300,
+    "uncertifiedExecutedRecords": [],
+    "perRecord": [
+      {
+        "evidenceId": "evidence-97260a04220d0031",
+        "projectId": "W1-009-B-construction-small-0001",
+        "journeyFamilyId": "buyer-intent-constraints",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:b4089e18",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-86fdd0fb9f62bd53",
+        "projectId": "W1-009-B-construction-small-0001",
+        "journeyFamilyId": "offer-sourcing-comparison",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:b4089e18",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-e3fee80d35dc8f97",
+        "projectId": "W1-009-B-construction-small-0001",
+        "journeyFamilyId": "buy-now-vs-wait-price-timing",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:b4089e18",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-blocked-W1-009-B-construction-small-0001-negotiation-substitution",
+        "projectId": "W1-009-B-construction-small-0001",
+        "journeyFamilyId": "negotiation-substitution",
+        "firmId": "firm:construction:small",
+        "outcome": "blocked",
+        "verdict": "unknown-preserved",
+        "recordedAssertions": 0,
+        "recordedAssertionsPassed": 0,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "none-blocked",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:b4089e18",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": []
+      },
+      {
+        "evidenceId": "evidence-9f7d98e626accf47",
+        "projectId": "W1-009-B-construction-small-0001",
+        "journeyFamilyId": "rent-borrow-vs-buy",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:b4089e18",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-b236f3445a56d8da",
+        "projectId": "W1-009-B-construction-small-0001",
+        "journeyFamilyId": "resale-rental-consignment",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:b4089e18",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-65d157b16d240d24",
+        "projectId": "W1-009-B-construction-small-0001",
+        "journeyFamilyId": "proactive-economic-opportunities",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:b4089e18",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-7cca59609a175150",
+        "projectId": "W1-009-B-construction-small-0001",
+        "journeyFamilyId": "merchant-commerce-lifecycle",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:b4089e18",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-4bf354d8b7ead632",
+        "projectId": "W1-009-B-construction-small-0001",
+        "journeyFamilyId": "supplier-procurement-receiving",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:b4089e18",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-6d277252baeea227",
+        "projectId": "W1-009-B-construction-small-0001",
+        "journeyFamilyId": "connected-commerce-channels-and-live-commerce",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:b4089e18",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-50c0e2d9d24b2509",
+        "projectId": "W1-009-B-construction-small-0001",
+        "journeyFamilyId": "trust-security-fraud-and-recourse",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:b4089e18",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-814ce57873970470",
+        "projectId": "W1-009-B-construction-small-0001",
+        "journeyFamilyId": "failure-unknown-idempotency-recovery",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:b4089e18",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-8ce5a3323a4e507a",
+        "projectId": "W1-009-B-construction-small-0001",
+        "journeyFamilyId": "gui-feature-discoverability",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:b4089e18",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-1dc126fe1985b3ed",
+        "projectId": "W1-009-B-construction-small-0002",
+        "journeyFamilyId": "buyer-intent-constraints",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:bc57c6a4",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-00fab95eb31248c7",
+        "projectId": "W1-009-B-construction-small-0002",
+        "journeyFamilyId": "offer-sourcing-comparison",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:bc57c6a4",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-419f57e45b5aa8af",
+        "projectId": "W1-009-B-construction-small-0002",
+        "journeyFamilyId": "buy-now-vs-wait-price-timing",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:bc57c6a4",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-blocked-W1-009-B-construction-small-0002-negotiation-substitution",
+        "projectId": "W1-009-B-construction-small-0002",
+        "journeyFamilyId": "negotiation-substitution",
+        "firmId": "firm:construction:small",
+        "outcome": "blocked",
+        "verdict": "unknown-preserved",
+        "recordedAssertions": 0,
+        "recordedAssertionsPassed": 0,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "none-blocked",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:bc57c6a4",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": []
+      },
+      {
+        "evidenceId": "evidence-894c3cdcc2cdf147",
+        "projectId": "W1-009-B-construction-small-0002",
+        "journeyFamilyId": "rent-borrow-vs-buy",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:bc57c6a4",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-3c993c9f53e1b714",
+        "projectId": "W1-009-B-construction-small-0002",
+        "journeyFamilyId": "resale-rental-consignment",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:bc57c6a4",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-c478e4218a3db283",
+        "projectId": "W1-009-B-construction-small-0002",
+        "journeyFamilyId": "proactive-economic-opportunities",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:bc57c6a4",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-d332952958db4ca7",
+        "projectId": "W1-009-B-construction-small-0002",
+        "journeyFamilyId": "merchant-commerce-lifecycle",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:bc57c6a4",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-98eea46fd1a8b725",
+        "projectId": "W1-009-B-construction-small-0002",
+        "journeyFamilyId": "supplier-procurement-receiving",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:bc57c6a4",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-3c2892bfd54109cf",
+        "projectId": "W1-009-B-construction-small-0002",
+        "journeyFamilyId": "connected-commerce-channels-and-live-commerce",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:bc57c6a4",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-47e109064bff328d",
+        "projectId": "W1-009-B-construction-small-0002",
+        "journeyFamilyId": "trust-security-fraud-and-recourse",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:bc57c6a4",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-94653898e1c4b0cb",
+        "projectId": "W1-009-B-construction-small-0002",
+        "journeyFamilyId": "failure-unknown-idempotency-recovery",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:bc57c6a4",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-bf96026fc536dfd7",
+        "projectId": "W1-009-B-construction-small-0002",
+        "journeyFamilyId": "gui-feature-discoverability",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:bc57c6a4",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-d0b9d5af8468723f",
+        "projectId": "W1-009-B-construction-small-0003",
+        "journeyFamilyId": "buyer-intent-constraints",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:e6f9c641",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-1e58739d7498e1ce",
+        "projectId": "W1-009-B-construction-small-0003",
+        "journeyFamilyId": "offer-sourcing-comparison",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:e6f9c641",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-e517f468b7878533",
+        "projectId": "W1-009-B-construction-small-0003",
+        "journeyFamilyId": "buy-now-vs-wait-price-timing",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:e6f9c641",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-blocked-W1-009-B-construction-small-0003-negotiation-substitution",
+        "projectId": "W1-009-B-construction-small-0003",
+        "journeyFamilyId": "negotiation-substitution",
+        "firmId": "firm:construction:small",
+        "outcome": "blocked",
+        "verdict": "unknown-preserved",
+        "recordedAssertions": 0,
+        "recordedAssertionsPassed": 0,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "none-blocked",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:e6f9c641",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": []
+      },
+      {
+        "evidenceId": "evidence-b546799f33f1ba79",
+        "projectId": "W1-009-B-construction-small-0003",
+        "journeyFamilyId": "rent-borrow-vs-buy",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:e6f9c641",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-8bda30f53f5ef041",
+        "projectId": "W1-009-B-construction-small-0003",
+        "journeyFamilyId": "resale-rental-consignment",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:e6f9c641",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-822a25e726e309c8",
+        "projectId": "W1-009-B-construction-small-0003",
+        "journeyFamilyId": "proactive-economic-opportunities",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:e6f9c641",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-e405a1bde14bc044",
+        "projectId": "W1-009-B-construction-small-0003",
+        "journeyFamilyId": "merchant-commerce-lifecycle",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:e6f9c641",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-ee3ada799f41088c",
+        "projectId": "W1-009-B-construction-small-0003",
+        "journeyFamilyId": "supplier-procurement-receiving",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:e6f9c641",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-dcd170786e476fdf",
+        "projectId": "W1-009-B-construction-small-0003",
+        "journeyFamilyId": "connected-commerce-channels-and-live-commerce",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:e6f9c641",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-7e51720355892d6d",
+        "projectId": "W1-009-B-construction-small-0003",
+        "journeyFamilyId": "trust-security-fraud-and-recourse",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:e6f9c641",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-9942b45c497669c7",
+        "projectId": "W1-009-B-construction-small-0003",
+        "journeyFamilyId": "failure-unknown-idempotency-recovery",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:e6f9c641",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-77358715076527b4",
+        "projectId": "W1-009-B-construction-small-0003",
+        "journeyFamilyId": "gui-feature-discoverability",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:e6f9c641",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-fb1cd208db9d2ca6",
+        "projectId": "W1-009-B-construction-small-0004",
+        "journeyFamilyId": "buyer-intent-constraints",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:30480e5e",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-9b4706f605c5e834",
+        "projectId": "W1-009-B-construction-small-0004",
+        "journeyFamilyId": "offer-sourcing-comparison",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:30480e5e",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-ff69de68e4922336",
+        "projectId": "W1-009-B-construction-small-0004",
+        "journeyFamilyId": "buy-now-vs-wait-price-timing",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:30480e5e",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-blocked-W1-009-B-construction-small-0004-negotiation-substitution",
+        "projectId": "W1-009-B-construction-small-0004",
+        "journeyFamilyId": "negotiation-substitution",
+        "firmId": "firm:construction:small",
+        "outcome": "blocked",
+        "verdict": "unknown-preserved",
+        "recordedAssertions": 0,
+        "recordedAssertionsPassed": 0,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "none-blocked",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:30480e5e",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": []
+      },
+      {
+        "evidenceId": "evidence-9f392697bb066bbc",
+        "projectId": "W1-009-B-construction-small-0004",
+        "journeyFamilyId": "rent-borrow-vs-buy",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:30480e5e",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-da33459a9bba66ca",
+        "projectId": "W1-009-B-construction-small-0004",
+        "journeyFamilyId": "resale-rental-consignment",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:30480e5e",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-5c15ab48a7d402f4",
+        "projectId": "W1-009-B-construction-small-0004",
+        "journeyFamilyId": "proactive-economic-opportunities",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:30480e5e",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-c22df23fa02869ff",
+        "projectId": "W1-009-B-construction-small-0004",
+        "journeyFamilyId": "merchant-commerce-lifecycle",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:30480e5e",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-05835a2272c2fbc9",
+        "projectId": "W1-009-B-construction-small-0004",
+        "journeyFamilyId": "supplier-procurement-receiving",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:30480e5e",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-0483ce119716da3b",
+        "projectId": "W1-009-B-construction-small-0004",
+        "journeyFamilyId": "connected-commerce-channels-and-live-commerce",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:30480e5e",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-3349de12473f4477",
+        "projectId": "W1-009-B-construction-small-0004",
+        "journeyFamilyId": "trust-security-fraud-and-recourse",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:30480e5e",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-a4f137b488ef1aa8",
+        "projectId": "W1-009-B-construction-small-0004",
+        "journeyFamilyId": "failure-unknown-idempotency-recovery",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:30480e5e",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-de9b5f8aa2e2703b",
+        "projectId": "W1-009-B-construction-small-0004",
+        "journeyFamilyId": "gui-feature-discoverability",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:30480e5e",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-6b9a8c134fa45df0",
+        "projectId": "W1-009-B-construction-small-0005",
+        "journeyFamilyId": "buyer-intent-constraints",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:1bd0d30c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-26817253017603d8",
+        "projectId": "W1-009-B-construction-small-0005",
+        "journeyFamilyId": "offer-sourcing-comparison",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:1bd0d30c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-b90d98a8ed2e085c",
+        "projectId": "W1-009-B-construction-small-0005",
+        "journeyFamilyId": "buy-now-vs-wait-price-timing",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:1bd0d30c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-blocked-W1-009-B-construction-small-0005-negotiation-substitution",
+        "projectId": "W1-009-B-construction-small-0005",
+        "journeyFamilyId": "negotiation-substitution",
+        "firmId": "firm:construction:small",
+        "outcome": "blocked",
+        "verdict": "unknown-preserved",
+        "recordedAssertions": 0,
+        "recordedAssertionsPassed": 0,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "none-blocked",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:1bd0d30c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": []
+      },
+      {
+        "evidenceId": "evidence-2bd90124c3791cfd",
+        "projectId": "W1-009-B-construction-small-0005",
+        "journeyFamilyId": "rent-borrow-vs-buy",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:1bd0d30c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-5f1135586356a2fe",
+        "projectId": "W1-009-B-construction-small-0005",
+        "journeyFamilyId": "resale-rental-consignment",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:1bd0d30c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-48347163a1b7d3dc",
+        "projectId": "W1-009-B-construction-small-0005",
+        "journeyFamilyId": "proactive-economic-opportunities",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:1bd0d30c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-04c5fa06c6e90876",
+        "projectId": "W1-009-B-construction-small-0005",
+        "journeyFamilyId": "merchant-commerce-lifecycle",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:1bd0d30c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-26e6c990f42576e1",
+        "projectId": "W1-009-B-construction-small-0005",
+        "journeyFamilyId": "supplier-procurement-receiving",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:1bd0d30c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-5c47ead6319c529f",
+        "projectId": "W1-009-B-construction-small-0005",
+        "journeyFamilyId": "connected-commerce-channels-and-live-commerce",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:1bd0d30c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-cfed461daadaf776",
+        "projectId": "W1-009-B-construction-small-0005",
+        "journeyFamilyId": "trust-security-fraud-and-recourse",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:1bd0d30c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-e712e3ded71fc4e5",
+        "projectId": "W1-009-B-construction-small-0005",
+        "journeyFamilyId": "failure-unknown-idempotency-recovery",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:1bd0d30c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-f2bd23eb837f2ced",
+        "projectId": "W1-009-B-construction-small-0005",
+        "journeyFamilyId": "gui-feature-discoverability",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:1bd0d30c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-23cc6174b6f783dd",
+        "projectId": "W1-009-B-construction-small-0006",
+        "journeyFamilyId": "buyer-intent-constraints",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:986e2cfa",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-4379454a51542e81",
+        "projectId": "W1-009-B-construction-small-0006",
+        "journeyFamilyId": "offer-sourcing-comparison",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:986e2cfa",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-6dce7662797e995a",
+        "projectId": "W1-009-B-construction-small-0006",
+        "journeyFamilyId": "buy-now-vs-wait-price-timing",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:986e2cfa",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-blocked-W1-009-B-construction-small-0006-negotiation-substitution",
+        "projectId": "W1-009-B-construction-small-0006",
+        "journeyFamilyId": "negotiation-substitution",
+        "firmId": "firm:construction:small",
+        "outcome": "blocked",
+        "verdict": "unknown-preserved",
+        "recordedAssertions": 0,
+        "recordedAssertionsPassed": 0,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "none-blocked",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:986e2cfa",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": []
+      },
+      {
+        "evidenceId": "evidence-5b9e65d8e949d637",
+        "projectId": "W1-009-B-construction-small-0006",
+        "journeyFamilyId": "rent-borrow-vs-buy",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:986e2cfa",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-9e0ef56c9510b0a6",
+        "projectId": "W1-009-B-construction-small-0006",
+        "journeyFamilyId": "resale-rental-consignment",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:986e2cfa",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-6219ef64251eaa86",
+        "projectId": "W1-009-B-construction-small-0006",
+        "journeyFamilyId": "proactive-economic-opportunities",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:986e2cfa",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-552b475d0519dc57",
+        "projectId": "W1-009-B-construction-small-0006",
+        "journeyFamilyId": "merchant-commerce-lifecycle",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:986e2cfa",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-cefc8eff33f8b2da",
+        "projectId": "W1-009-B-construction-small-0006",
+        "journeyFamilyId": "supplier-procurement-receiving",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:986e2cfa",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-e3b0fe371378e83f",
+        "projectId": "W1-009-B-construction-small-0006",
+        "journeyFamilyId": "connected-commerce-channels-and-live-commerce",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:986e2cfa",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-255dafd6358e4f1d",
+        "projectId": "W1-009-B-construction-small-0006",
+        "journeyFamilyId": "trust-security-fraud-and-recourse",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:986e2cfa",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-454babb5d86b835c",
+        "projectId": "W1-009-B-construction-small-0006",
+        "journeyFamilyId": "failure-unknown-idempotency-recovery",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:986e2cfa",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-a4a0babada4fdddd",
+        "projectId": "W1-009-B-construction-small-0006",
+        "journeyFamilyId": "gui-feature-discoverability",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:986e2cfa",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-bc198fa46f22a033",
+        "projectId": "W1-009-B-construction-small-0007",
+        "journeyFamilyId": "buyer-intent-constraints",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:af72431c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-b6115ad448eb9736",
+        "projectId": "W1-009-B-construction-small-0007",
+        "journeyFamilyId": "offer-sourcing-comparison",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:af72431c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-20800cdebe71c79a",
+        "projectId": "W1-009-B-construction-small-0007",
+        "journeyFamilyId": "buy-now-vs-wait-price-timing",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:af72431c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-blocked-W1-009-B-construction-small-0007-negotiation-substitution",
+        "projectId": "W1-009-B-construction-small-0007",
+        "journeyFamilyId": "negotiation-substitution",
+        "firmId": "firm:construction:small",
+        "outcome": "blocked",
+        "verdict": "unknown-preserved",
+        "recordedAssertions": 0,
+        "recordedAssertionsPassed": 0,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "none-blocked",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:af72431c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": []
+      },
+      {
+        "evidenceId": "evidence-246b52eaee8d79b9",
+        "projectId": "W1-009-B-construction-small-0007",
+        "journeyFamilyId": "rent-borrow-vs-buy",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:af72431c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-af3f6d689b7cd98e",
+        "projectId": "W1-009-B-construction-small-0007",
+        "journeyFamilyId": "resale-rental-consignment",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:af72431c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-6f431a86151b0069",
+        "projectId": "W1-009-B-construction-small-0007",
+        "journeyFamilyId": "proactive-economic-opportunities",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:af72431c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-02d17627a2d31f34",
+        "projectId": "W1-009-B-construction-small-0007",
+        "journeyFamilyId": "merchant-commerce-lifecycle",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:af72431c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-685968776e4c3250",
+        "projectId": "W1-009-B-construction-small-0007",
+        "journeyFamilyId": "supplier-procurement-receiving",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:af72431c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-ca733394686f0e6f",
+        "projectId": "W1-009-B-construction-small-0007",
+        "journeyFamilyId": "connected-commerce-channels-and-live-commerce",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:af72431c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-6622e8a08cd35063",
+        "projectId": "W1-009-B-construction-small-0007",
+        "journeyFamilyId": "trust-security-fraud-and-recourse",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:af72431c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-510875b4f331df39",
+        "projectId": "W1-009-B-construction-small-0007",
+        "journeyFamilyId": "failure-unknown-idempotency-recovery",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:af72431c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-dd8e10a8dbc1df7b",
+        "projectId": "W1-009-B-construction-small-0007",
+        "journeyFamilyId": "gui-feature-discoverability",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:af72431c",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-c89d05cdda88d238",
+        "projectId": "W1-009-B-construction-small-0008",
+        "journeyFamilyId": "buyer-intent-constraints",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:e5c4aec3",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-e4335c177bcd83b7",
+        "projectId": "W1-009-B-construction-small-0008",
+        "journeyFamilyId": "offer-sourcing-comparison",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:e5c4aec3",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-d7353f4de52af901",
+        "projectId": "W1-009-B-construction-small-0008",
+        "journeyFamilyId": "buy-now-vs-wait-price-timing",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:e5c4aec3",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-blocked-W1-009-B-construction-small-0008-negotiation-substitution",
+        "projectId": "W1-009-B-construction-small-0008",
+        "journeyFamilyId": "negotiation-substitution",
+        "firmId": "firm:construction:small",
+        "outcome": "blocked",
+        "verdict": "unknown-preserved",
+        "recordedAssertions": 0,
+        "recordedAssertionsPassed": 0,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "none-blocked",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:e5c4aec3",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": []
+      },
+      {
+        "evidenceId": "evidence-3847ea29dd4717cb",
+        "projectId": "W1-009-B-construction-small-0008",
+        "journeyFamilyId": "rent-borrow-vs-buy",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:e5c4aec3",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-3b5827b34435f12c",
+        "projectId": "W1-009-B-construction-small-0008",
+        "journeyFamilyId": "resale-rental-consignment",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:e5c4aec3",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-19a5d6562530c171",
+        "projectId": "W1-009-B-construction-small-0008",
+        "journeyFamilyId": "proactive-economic-opportunities",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:e5c4aec3",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-d12eddc485a02b1d",
+        "projectId": "W1-009-B-construction-small-0008",
+        "journeyFamilyId": "merchant-commerce-lifecycle",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:e5c4aec3",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      },
+      {
+        "evidenceId": "evidence-bf69176c9e492bfd",
+        "projectId": "W1-009-B-construction-small-0008",
+        "journeyFamilyId": "supplier-procurement-receiving",
+        "firmId": "firm:construction:small",
+        "outcome": "pass",
+        "verdict": "assertion-pass",
+        "recordedAssertions": 1,
+        "recordedAssertionsPassed": 1,
+        "checkedAfterJourneyOnly": true,
+        "assertionTracing": "runner-local",
+        "oracleAssertionCount": 12,
+        "oracleFingerprint": "sha256:e5c4aec3",
+        "guiOnlyViolations": 0,
+        "sensitiveValueScrubbed": true,
+        "notes": [
+          "assertion ids use the runner-local vocabulary; the W1 oracle inventory for this project declares 12 semantic assertion ids (coverage gap flagged for the W3 runner continuation)"
+        ]
+      }
+    ],
+    "perRecordComplete": false,
+    "perRecordSha256": "9de91eb04af18aa0bb681be0da59e24c44484f80067b7f057c6e366cc39540da",
+    "perRecordSampleNote": "Full-campaign volume: the complete per-record certification list (48300 records) is bound by perRecordSha256 over its canonical serialization and is regenerable byte-identically by re-running the certifier over the same evidence; the first 100 records are embedded as a sample.",
+    "byFirm": [
+      {
+        "firmId": "firm:construction:large",
+        "assertionPass": 1200,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:construction:medium",
+        "assertionPass": 1200,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:construction:small",
+        "assertionPass": 1200,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:defense:large",
+        "assertionPass": 700,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:defense:medium",
+        "assertionPass": 700,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:defense:small",
+        "assertionPass": 700,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:entertainment:large",
+        "assertionPass": 1100,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:entertainment:medium",
+        "assertionPass": 1100,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:entertainment:small",
+        "assertionPass": 1100,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:fashion:large",
+        "assertionPass": 1600,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:fashion:medium",
+        "assertionPass": 1600,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:fashion:small",
+        "assertionPass": 1600,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:finance:large",
+        "assertionPass": 700,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:finance:medium",
+        "assertionPass": 700,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:finance:small",
+        "assertionPass": 700,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:healthcare:large",
+        "assertionPass": 700,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:healthcare:medium",
+        "assertionPass": 700,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:healthcare:small",
+        "assertionPass": 700,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:hospitality:large",
+        "assertionPass": 1400,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:hospitality:medium",
+        "assertionPass": 1400,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:hospitality:small",
+        "assertionPass": 1400,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:legal:large",
+        "assertionPass": 700,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:legal:medium",
+        "assertionPass": 700,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:legal:small",
+        "assertionPass": 700,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:manufacturing:large",
+        "assertionPass": 1300,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:manufacturing:medium",
+        "assertionPass": 1300,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:manufacturing:small",
+        "assertionPass": 1300,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:sales:large",
+        "assertionPass": 1600,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:sales:medium",
+        "assertionPass": 1600,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:sales:small",
+        "assertionPass": 1600,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:supermarket:large",
+        "assertionPass": 1700,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:supermarket:medium",
+        "assertionPass": 1700,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:supermarket:small",
+        "assertionPass": 1700,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:technology:large",
+        "assertionPass": 1200,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:technology:medium",
+        "assertionPass": 1200,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:technology:small",
+        "assertionPass": 1200,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:transportation:large",
+        "assertionPass": 900,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:transportation:medium",
+        "assertionPass": 900,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      },
+      {
+        "firmId": "firm:transportation:small",
+        "assertionPass": 900,
+        "assertionFail": 0,
+        "unknownPreserved": 100
+      }
+    ],
+    "byFamily": [
+      {
+        "journeyFamilyId": "autonomous-store-policy",
+        "assertionPass": 300,
+        "assertionFail": 0,
+        "unknownPreserved": 0
+      },
+      {
+        "journeyFamilyId": "bounded-multi-hop-trade-cycle",
+        "assertionPass": 600,
+        "assertionFail": 0,
+        "unknownPreserved": 0
+      },
+      {
+        "journeyFamilyId": "buy-now-vs-wait-price-timing",
+        "assertionPass": 2700,
+        "assertionFail": 0,
+        "unknownPreserved": 0
+      },
+      {
+        "journeyFamilyId": "buyer-intent-constraints",
+        "assertionPass": 3900,
+        "assertionFail": 0,
+        "unknownPreserved": 0
+      },
+      {
+        "journeyFamilyId": "commerce-twin-what-if",
+        "assertionPass": 1500,
+        "assertionFail": 0,
+        "unknownPreserved": 0
+      },
+      {
+        "journeyFamilyId": "connected-commerce-channels-and-live-commerce",
+        "assertionPass": 2100,
+        "assertionFail": 0,
+        "unknownPreserved": 0
+      },
+      {
+        "journeyFamilyId": "existing-group-buy",
+        "assertionPass": 1200,
+        "assertionFail": 0,
+        "unknownPreserved": 0
+      },
+      {
+        "journeyFamilyId": "failure-unknown-idempotency-recovery",
+        "assertionPass": 3900,
+        "assertionFail": 0,
+        "unknownPreserved": 0
+      },
+      {
+        "journeyFamilyId": "gui-feature-discoverability",
+        "assertionPass": 3900,
+        "assertionFail": 0,
+        "unknownPreserved": 0
+      },
+      {
+        "journeyFamilyId": "latent-demand-merchant-group-buy-proposal",
+        "assertionPass": 1200,
+        "assertionFail": 0,
+        "unknownPreserved": 0
+      },
+      {
+        "journeyFamilyId": "merchant-commerce-lifecycle",
+        "assertionPass": 2400,
+        "assertionFail": 0,
+        "unknownPreserved": 0
+      },
+      {
+        "journeyFamilyId": "negotiation-substitution",
+        "assertionPass": 0,
+        "assertionFail": 0,
+        "unknownPreserved": 3900
+      },
+      {
+        "journeyFamilyId": "offer-sourcing-comparison",
+        "assertionPass": 3900,
+        "assertionFail": 0,
+        "unknownPreserved": 0
+      },
+      {
+        "journeyFamilyId": "physical-no-rfid-supermarket",
+        "assertionPass": 600,
+        "assertionFail": 0,
+        "unknownPreserved": 0
+      },
+      {
+        "journeyFamilyId": "proactive-economic-opportunities",
+        "assertionPass": 3600,
+        "assertionFail": 0,
+        "unknownPreserved": 0
+      },
+      {
+        "journeyFamilyId": "rent-borrow-vs-buy",
+        "assertionPass": 3000,
+        "assertionFail": 0,
+        "unknownPreserved": 0
+      },
+      {
+        "journeyFamilyId": "resale-rental-consignment",
+        "assertionPass": 2100,
+        "assertionFail": 0,
+        "unknownPreserved": 0
+      },
+      {
+        "journeyFamilyId": "supplier-procurement-receiving",
+        "assertionPass": 3900,
+        "assertionFail": 0,
+        "unknownPreserved": 0
+      },
+      {
+        "journeyFamilyId": "trust-security-fraud-and-recourse",
+        "assertionPass": 3600,
+        "assertionFail": 0,
+        "unknownPreserved": 0
+      }
+    ]
+  },
+  "reconciliation": {
+    "perFirm": [
+      {
+        "firmId": "firm:construction:large",
+        "industry": "construction",
+        "firmSize": "large",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:construction:medium",
+        "industry": "construction",
+        "firmSize": "medium",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:construction:small",
+        "industry": "construction",
+        "firmSize": "small",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:defense:large",
+        "industry": "defense-security-government-contracting",
+        "firmSize": "large",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:defense:medium",
+        "industry": "defense-security-government-contracting",
+        "firmSize": "medium",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:defense:small",
+        "industry": "defense-security-government-contracting",
+        "firmSize": "small",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:entertainment:large",
+        "industry": "entertainment-media-production",
+        "firmSize": "large",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:entertainment:medium",
+        "industry": "entertainment-media-production",
+        "firmSize": "medium",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:entertainment:small",
+        "industry": "entertainment-media-production",
+        "firmSize": "small",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:fashion:large",
+        "industry": "fashion-apparel-retail-brands",
+        "firmSize": "large",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:fashion:medium",
+        "industry": "fashion-apparel-retail-brands",
+        "firmSize": "medium",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:fashion:small",
+        "industry": "fashion-apparel-retail-brands",
+        "firmSize": "small",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:finance:large",
+        "industry": "finance-banking-accounting",
+        "firmSize": "large",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:finance:medium",
+        "industry": "finance-banking-accounting",
+        "firmSize": "medium",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:finance:small",
+        "industry": "finance-banking-accounting",
+        "firmSize": "small",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:healthcare:large",
+        "industry": "healthcare-organizations",
+        "firmSize": "large",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:healthcare:medium",
+        "industry": "healthcare-organizations",
+        "firmSize": "medium",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:healthcare:small",
+        "industry": "healthcare-organizations",
+        "firmSize": "small",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:hospitality:large",
+        "industry": "hospitality-restaurants-hotels",
+        "firmSize": "large",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:hospitality:medium",
+        "industry": "hospitality-restaurants-hotels",
+        "firmSize": "medium",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:hospitality:small",
+        "industry": "hospitality-restaurants-hotels",
+        "firmSize": "small",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:legal:large",
+        "industry": "legal-professional-services",
+        "firmSize": "large",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:legal:medium",
+        "industry": "legal-professional-services",
+        "firmSize": "medium",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:legal:small",
+        "industry": "legal-professional-services",
+        "firmSize": "small",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:manufacturing:large",
+        "industry": "manufacturing-supply-chain",
+        "firmSize": "large",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:manufacturing:medium",
+        "industry": "manufacturing-supply-chain",
+        "firmSize": "medium",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:manufacturing:small",
+        "industry": "manufacturing-supply-chain",
+        "firmSize": "small",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:sales:large",
+        "industry": "sales-business-development",
+        "firmSize": "large",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:sales:medium",
+        "industry": "sales-business-development",
+        "firmSize": "medium",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:sales:small",
+        "industry": "sales-business-development",
+        "firmSize": "small",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:supermarket:large",
+        "industry": "supermarkets-local-retail",
+        "firmSize": "large",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:supermarket:medium",
+        "industry": "supermarkets-local-retail",
+        "firmSize": "medium",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:supermarket:small",
+        "industry": "supermarkets-local-retail",
+        "firmSize": "small",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:technology:large",
+        "industry": "technology-software-it-services",
+        "firmSize": "large",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:technology:medium",
+        "industry": "technology-software-it-services",
+        "firmSize": "medium",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:technology:small",
+        "industry": "technology-software-it-services",
+        "firmSize": "small",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:transportation:large",
+        "industry": "transportation-delivery",
+        "firmSize": "large",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:transportation:medium",
+        "industry": "transportation-delivery",
+        "firmSize": "medium",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      },
+      {
+        "firmId": "firm:transportation:small",
+        "industry": "transportation-delivery",
+        "firmSize": "small",
+        "manifestInventoryProjects": 100,
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0,
+        "drift": 0,
+        "reconciled": true,
+        "manifestTraced": true,
+        "outOfScopeProjects": 0
+      }
+    ],
+    "overall": {
+      "firms": 39,
+      "firmsReconciled": 39,
+      "manifestInventoryProjects": 3900,
+      "planned": 3900,
+      "executed": 3900,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0,
+      "reconciled": true,
+      "untracedProjectIds": [],
+      "fabricatedProjectIds": []
+    },
+    "manifestSource": "w1-009-portfolio-generator"
+  },
+  "guards": {
+    "holdoutLeakage": {
+      "w1HoldoutProjectIdsInEvidence": 0,
+      "w1HoldoutProjectIdSamples": [],
+      "executedProjectCount": 3900,
+      "executedSeedNamespaceComponents": [
+        "baseline"
+      ],
+      "baselineSeedRange": {
+        "min": 106688,
+        "max": 118187
+      },
+      "holdoutSeedRange": {
+        "min": 176593,
+        "max": 188092
+      },
+      "executedNumericSeedsChecked": 3900,
+      "numericSeedReDerivationMatches": 3900,
+      "numericSeedOutOfRange": 0,
+      "holdoutSeedSetIntersections": 0,
+      "blockedRecordFirmSeedAnchors": 3861,
+      "seedDisjointnessProven": true,
+      "leakageFree": true
+    },
+    "moneyIntegrity": {
+      "moneyValuesScanned": 51712,
+      "floatMoneyFound": 0,
+      "violations": [],
+      "scopes": [
+        {
+          "scope": "campaign-full-schedule-surface",
+          "values": 0,
+          "violations": 0
+        },
+        {
+          "scope": "campaign-full-records",
+          "values": 0,
+          "violations": 0
+        },
+        {
+          "scope": "committed-baseline-report",
+          "values": 0,
+          "violations": 0
+        },
+        {
+          "scope": "w1-baseline-portfolio-manifests+oracles",
+          "values": 51712,
+          "violations": 0
+        }
+      ]
+    },
+    "unknownPreservation": {
+      "unknownRecords": 0,
+      "blockedRecords": 3900,
+      "absentRecords": 0,
+      "aggregateChecks": [
+        {
+          "label": "project.planned (run scope)",
+          "recorded": 3900,
+          "actual": 3900,
+          "matches": true
+        },
+        {
+          "label": "project.executed",
+          "recorded": 3900,
+          "actual": 3900,
+          "matches": true
+        },
+        {
+          "label": "project.blocked",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "project.skipped",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "journey.planned",
+          "recorded": 48300,
+          "actual": 48300,
+          "matches": true
+        },
+        {
+          "label": "journey.executed",
+          "recorded": 44400,
+          "actual": 44400,
+          "matches": true
+        },
+        {
+          "label": "journey.blocked",
+          "recorded": 3900,
+          "actual": 3900,
+          "matches": true
+        },
+        {
+          "label": "journey.skipped",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "outcomes.pass",
+          "recorded": 44400,
+          "actual": 44400,
+          "matches": true
+        },
+        {
+          "label": "outcomes.fail",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "outcomes.blocked",
+          "recorded": 3900,
+          "actual": 3900,
+          "matches": true
+        },
+        {
+          "label": "outcomes.absent",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "outcomes.unknown",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.autonomous-store-policy.totalRuns",
+          "recorded": 300,
+          "actual": 300,
+          "matches": true
+        },
+        {
+          "label": "family.autonomous-store-policy.pass",
+          "recorded": 300,
+          "actual": 300,
+          "matches": true
+        },
+        {
+          "label": "family.autonomous-store-policy.blocked",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.autonomous-store-policy.unknown",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.bounded-multi-hop-trade-cycle.totalRuns",
+          "recorded": 600,
+          "actual": 600,
+          "matches": true
+        },
+        {
+          "label": "family.bounded-multi-hop-trade-cycle.pass",
+          "recorded": 600,
+          "actual": 600,
+          "matches": true
+        },
+        {
+          "label": "family.bounded-multi-hop-trade-cycle.blocked",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.bounded-multi-hop-trade-cycle.unknown",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.buy-now-vs-wait-price-timing.totalRuns",
+          "recorded": 2700,
+          "actual": 2700,
+          "matches": true
+        },
+        {
+          "label": "family.buy-now-vs-wait-price-timing.pass",
+          "recorded": 2700,
+          "actual": 2700,
+          "matches": true
+        },
+        {
+          "label": "family.buy-now-vs-wait-price-timing.blocked",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.buy-now-vs-wait-price-timing.unknown",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.buyer-intent-constraints.totalRuns",
+          "recorded": 3900,
+          "actual": 3900,
+          "matches": true
+        },
+        {
+          "label": "family.buyer-intent-constraints.pass",
+          "recorded": 3900,
+          "actual": 3900,
+          "matches": true
+        },
+        {
+          "label": "family.buyer-intent-constraints.blocked",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.buyer-intent-constraints.unknown",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.commerce-twin-what-if.totalRuns",
+          "recorded": 1500,
+          "actual": 1500,
+          "matches": true
+        },
+        {
+          "label": "family.commerce-twin-what-if.pass",
+          "recorded": 1500,
+          "actual": 1500,
+          "matches": true
+        },
+        {
+          "label": "family.commerce-twin-what-if.blocked",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.commerce-twin-what-if.unknown",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.connected-commerce-channels-and-live-commerce.totalRuns",
+          "recorded": 2100,
+          "actual": 2100,
+          "matches": true
+        },
+        {
+          "label": "family.connected-commerce-channels-and-live-commerce.pass",
+          "recorded": 2100,
+          "actual": 2100,
+          "matches": true
+        },
+        {
+          "label": "family.connected-commerce-channels-and-live-commerce.blocked",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.connected-commerce-channels-and-live-commerce.unknown",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.existing-group-buy.totalRuns",
+          "recorded": 1200,
+          "actual": 1200,
+          "matches": true
+        },
+        {
+          "label": "family.existing-group-buy.pass",
+          "recorded": 1200,
+          "actual": 1200,
+          "matches": true
+        },
+        {
+          "label": "family.existing-group-buy.blocked",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.existing-group-buy.unknown",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.failure-unknown-idempotency-recovery.totalRuns",
+          "recorded": 3900,
+          "actual": 3900,
+          "matches": true
+        },
+        {
+          "label": "family.failure-unknown-idempotency-recovery.pass",
+          "recorded": 3900,
+          "actual": 3900,
+          "matches": true
+        },
+        {
+          "label": "family.failure-unknown-idempotency-recovery.blocked",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.failure-unknown-idempotency-recovery.unknown",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.gui-feature-discoverability.totalRuns",
+          "recorded": 3900,
+          "actual": 3900,
+          "matches": true
+        },
+        {
+          "label": "family.gui-feature-discoverability.pass",
+          "recorded": 3900,
+          "actual": 3900,
+          "matches": true
+        },
+        {
+          "label": "family.gui-feature-discoverability.blocked",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.gui-feature-discoverability.unknown",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.latent-demand-merchant-group-buy-proposal.totalRuns",
+          "recorded": 1200,
+          "actual": 1200,
+          "matches": true
+        },
+        {
+          "label": "family.latent-demand-merchant-group-buy-proposal.pass",
+          "recorded": 1200,
+          "actual": 1200,
+          "matches": true
+        },
+        {
+          "label": "family.latent-demand-merchant-group-buy-proposal.blocked",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.latent-demand-merchant-group-buy-proposal.unknown",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.merchant-commerce-lifecycle.totalRuns",
+          "recorded": 2400,
+          "actual": 2400,
+          "matches": true
+        },
+        {
+          "label": "family.merchant-commerce-lifecycle.pass",
+          "recorded": 2400,
+          "actual": 2400,
+          "matches": true
+        },
+        {
+          "label": "family.merchant-commerce-lifecycle.blocked",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.merchant-commerce-lifecycle.unknown",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.negotiation-substitution.totalRuns",
+          "recorded": 3900,
+          "actual": 3900,
+          "matches": true
+        },
+        {
+          "label": "family.negotiation-substitution.pass",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.negotiation-substitution.blocked",
+          "recorded": 3900,
+          "actual": 3900,
+          "matches": true
+        },
+        {
+          "label": "family.negotiation-substitution.unknown",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.offer-sourcing-comparison.totalRuns",
+          "recorded": 3900,
+          "actual": 3900,
+          "matches": true
+        },
+        {
+          "label": "family.offer-sourcing-comparison.pass",
+          "recorded": 3900,
+          "actual": 3900,
+          "matches": true
+        },
+        {
+          "label": "family.offer-sourcing-comparison.blocked",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.offer-sourcing-comparison.unknown",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.physical-no-rfid-supermarket.totalRuns",
+          "recorded": 600,
+          "actual": 600,
+          "matches": true
+        },
+        {
+          "label": "family.physical-no-rfid-supermarket.pass",
+          "recorded": 600,
+          "actual": 600,
+          "matches": true
+        },
+        {
+          "label": "family.physical-no-rfid-supermarket.blocked",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.physical-no-rfid-supermarket.unknown",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.proactive-economic-opportunities.totalRuns",
+          "recorded": 3600,
+          "actual": 3600,
+          "matches": true
+        },
+        {
+          "label": "family.proactive-economic-opportunities.pass",
+          "recorded": 3600,
+          "actual": 3600,
+          "matches": true
+        },
+        {
+          "label": "family.proactive-economic-opportunities.blocked",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.proactive-economic-opportunities.unknown",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.rent-borrow-vs-buy.totalRuns",
+          "recorded": 3000,
+          "actual": 3000,
+          "matches": true
+        },
+        {
+          "label": "family.rent-borrow-vs-buy.pass",
+          "recorded": 3000,
+          "actual": 3000,
+          "matches": true
+        },
+        {
+          "label": "family.rent-borrow-vs-buy.blocked",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.rent-borrow-vs-buy.unknown",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.resale-rental-consignment.totalRuns",
+          "recorded": 2100,
+          "actual": 2100,
+          "matches": true
+        },
+        {
+          "label": "family.resale-rental-consignment.pass",
+          "recorded": 2100,
+          "actual": 2100,
+          "matches": true
+        },
+        {
+          "label": "family.resale-rental-consignment.blocked",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.resale-rental-consignment.unknown",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.supplier-procurement-receiving.totalRuns",
+          "recorded": 3900,
+          "actual": 3900,
+          "matches": true
+        },
+        {
+          "label": "family.supplier-procurement-receiving.pass",
+          "recorded": 3900,
+          "actual": 3900,
+          "matches": true
+        },
+        {
+          "label": "family.supplier-procurement-receiving.blocked",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.supplier-procurement-receiving.unknown",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.trust-security-fraud-and-recourse.totalRuns",
+          "recorded": 3600,
+          "actual": 3600,
+          "matches": true
+        },
+        {
+          "label": "family.trust-security-fraud-and-recourse.pass",
+          "recorded": 3600,
+          "actual": 3600,
+          "matches": true
+        },
+        {
+          "label": "family.trust-security-fraud-and-recourse.blocked",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        },
+        {
+          "label": "family.trust-security-fraud-and-recourse.unknown",
+          "recorded": 0,
+          "actual": 0,
+          "matches": true
+        }
+      ],
+      "recordLevelViolations": [],
+      "conversionsFound": 0,
+      "preserved": true
+    }
+  },
+  "determinism": [
+    {
+      "scheduleId": "v3-w3-010-baseline-schedule",
+      "experimentId": "v3-w3-010-baseline",
+      "cohortIds": [
+        "baseline-v3-w3-010"
+      ],
+      "reDerived": true,
+      "byteIdenticalModuloClockFields": true,
+      "fieldsCompared": 1643623,
+      "fieldMismatches": [],
+      "clockFieldsExcluded": [
+        "schedule.generatedAt",
+        "schedule.buildCommit"
+      ],
+      "executionOutcomeFieldsExcluded": [
+        "project.status",
+        "project.evidenceRecordId",
+        "project.blockReason"
+      ],
+      "derivedScheduleSha256": "513b9c8f7bb3ec95ff2ade5cbd9b5c71e220344a95cf0635bec6494e3bb6b5cd",
+      "executedScheduleSha256": "513b9c8f7bb3ec95ff2ade5cbd9b5c71e220344a95cf0635bec6494e3bb6b5cd",
+      "personaRosterChecks": [
+        {
+          "firmId": "firm:construction:small",
+          "personaCount": 25,
+          "rosterCount": 25,
+          "matches": true
+        },
+        {
+          "firmId": "firm:construction:medium",
+          "personaCount": 150,
+          "rosterCount": 150,
+          "matches": true
+        },
+        {
+          "firmId": "firm:construction:large",
+          "personaCount": 1000,
+          "rosterCount": 1000,
+          "matches": true
+        },
+        {
+          "firmId": "firm:finance:small",
+          "personaCount": 25,
+          "rosterCount": 25,
+          "matches": true
+        },
+        {
+          "firmId": "firm:finance:medium",
+          "personaCount": 150,
+          "rosterCount": 150,
+          "matches": true
+        },
+        {
+          "firmId": "firm:finance:large",
+          "personaCount": 1000,
+          "rosterCount": 1000,
+          "matches": true
+        },
+        {
+          "firmId": "firm:sales:small",
+          "personaCount": 25,
+          "rosterCount": 25,
+          "matches": true
+        },
+        {
+          "firmId": "firm:sales:medium",
+          "personaCount": 150,
+          "rosterCount": 150,
+          "matches": true
+        },
+        {
+          "firmId": "firm:sales:large",
+          "personaCount": 1000,
+          "rosterCount": 1000,
+          "matches": true
+        },
+        {
+          "firmId": "firm:technology:small",
+          "personaCount": 25,
+          "rosterCount": 25,
+          "matches": true
+        },
+        {
+          "firmId": "firm:technology:medium",
+          "personaCount": 150,
+          "rosterCount": 150,
+          "matches": true
+        },
+        {
+          "firmId": "firm:technology:large",
+          "personaCount": 1000,
+          "rosterCount": 1000,
+          "matches": true
+        },
+        {
+          "firmId": "firm:healthcare:small",
+          "personaCount": 25,
+          "rosterCount": 25,
+          "matches": true
+        },
+        {
+          "firmId": "firm:healthcare:medium",
+          "personaCount": 150,
+          "rosterCount": 150,
+          "matches": true
+        },
+        {
+          "firmId": "firm:healthcare:large",
+          "personaCount": 1000,
+          "rosterCount": 1000,
+          "matches": true
+        },
+        {
+          "firmId": "firm:transportation:small",
+          "personaCount": 25,
+          "rosterCount": 25,
+          "matches": true
+        },
+        {
+          "firmId": "firm:transportation:medium",
+          "personaCount": 150,
+          "rosterCount": 150,
+          "matches": true
+        },
+        {
+          "firmId": "firm:transportation:large",
+          "personaCount": 1000,
+          "rosterCount": 1000,
+          "matches": true
+        },
+        {
+          "firmId": "firm:hospitality:small",
+          "personaCount": 25,
+          "rosterCount": 25,
+          "matches": true
+        },
+        {
+          "firmId": "firm:hospitality:medium",
+          "personaCount": 150,
+          "rosterCount": 150,
+          "matches": true
+        },
+        {
+          "firmId": "firm:hospitality:large",
+          "personaCount": 1000,
+          "rosterCount": 1000,
+          "matches": true
+        },
+        {
+          "firmId": "firm:fashion:small",
+          "personaCount": 25,
+          "rosterCount": 25,
+          "matches": true
+        },
+        {
+          "firmId": "firm:fashion:medium",
+          "personaCount": 150,
+          "rosterCount": 150,
+          "matches": true
+        },
+        {
+          "firmId": "firm:fashion:large",
+          "personaCount": 1000,
+          "rosterCount": 1000,
+          "matches": true
+        },
+        {
+          "firmId": "firm:entertainment:small",
+          "personaCount": 25,
+          "rosterCount": 25,
+          "matches": true
+        },
+        {
+          "firmId": "firm:entertainment:medium",
+          "personaCount": 150,
+          "rosterCount": 150,
+          "matches": true
+        },
+        {
+          "firmId": "firm:entertainment:large",
+          "personaCount": 1000,
+          "rosterCount": 1000,
+          "matches": true
+        },
+        {
+          "firmId": "firm:legal:small",
+          "personaCount": 25,
+          "rosterCount": 25,
+          "matches": true
+        },
+        {
+          "firmId": "firm:legal:medium",
+          "personaCount": 150,
+          "rosterCount": 150,
+          "matches": true
+        },
+        {
+          "firmId": "firm:legal:large",
+          "personaCount": 1000,
+          "rosterCount": 1000,
+          "matches": true
+        },
+        {
+          "firmId": "firm:defense:small",
+          "personaCount": 25,
+          "rosterCount": 25,
+          "matches": true
+        },
+        {
+          "firmId": "firm:defense:medium",
+          "personaCount": 150,
+          "rosterCount": 150,
+          "matches": true
+        },
+        {
+          "firmId": "firm:defense:large",
+          "personaCount": 1000,
+          "rosterCount": 1000,
+          "matches": true
+        },
+        {
+          "firmId": "firm:manufacturing:small",
+          "personaCount": 25,
+          "rosterCount": 25,
+          "matches": true
+        },
+        {
+          "firmId": "firm:manufacturing:medium",
+          "personaCount": 150,
+          "rosterCount": 150,
+          "matches": true
+        },
+        {
+          "firmId": "firm:manufacturing:large",
+          "personaCount": 1000,
+          "rosterCount": 1000,
+          "matches": true
+        },
+        {
+          "firmId": "firm:supermarket:small",
+          "personaCount": 25,
+          "rosterCount": 25,
+          "matches": true
+        },
+        {
+          "firmId": "firm:supermarket:medium",
+          "personaCount": 150,
+          "rosterCount": 150,
+          "matches": true
+        },
+        {
+          "firmId": "firm:supermarket:large",
+          "personaCount": 1000,
+          "rosterCount": 1000,
+          "matches": true
+        }
+      ],
+      "notes": [
+        "Re-derived from the W1-009 portfolio generator (public surface) + the recorded W2 roster (docs/simulations/personas/cohort-manifest.json roleAllocation in W2 role-family order) — no runner code imported.",
+        "Persona ordering re-derivation uses the recorded W2 role-family iteration order; per-firm roster counts verified against the cohort manifest.",
+        "Executed schedule statuses/evidence pointers are execution facts audited by the reconciliation law, excluded from the derivation surface."
+      ]
+    }
+  ],
+  "integrity": {
+    "evidenceUnmutated": true,
+    "evidenceSha256Before": "d46e61c5ba343008cc36506565416f2cf2a5f08cd6872a2a1543cc22359c09c7",
+    "evidenceSha256After": "d46e61c5ba343008cc36506565416f2cf2a5f08cd6872a2a1543cc22359c09c7"
+  },
+  "lineage": [
+    {
+      "artifact": "docs/simulations/results/baseline/certification/campaign-full/evidence/campaign-full-records.jsonl",
+      "detail": "W1-010 campaign-evidence harvest (regenerated from the work/w3-010 runner)"
+    },
+    {
+      "artifact": "docs/simulations/results/baseline/certification/campaign-full/evidence/campaign-full-schedule-surface.json",
+      "detail": "Full-campaign schedule surface (sha256 272dc89fe634c9728dc6fdec420819f8f98e56bcdb481cd3266f621afc4c1ad9)"
+    },
+    {
+      "artifact": "docs/simulations/results/baseline/certification/campaign-full/evidence/baseline-report.json",
+      "detail": "W3-010 committed baseline report (cross-verified)"
+    },
+    {
+      "artifact": "docs/simulations/personas/cohort-manifest.json",
+      "detail": "W2-009 cohort manifest (persona roster source)"
+    },
+    {
+      "artifact": "packages/commerce/src/test/w1-009/portfolio",
+      "detail": "W1-009 portfolio generator + oracle (public surface)"
+    }
+  ],
+  "notes": [
+    "Campaign evidence: FULL campaign — run scope = the first 3900 scheduled projects (39 firm(s)); 0 scheduled projects remain untouched (status \"scheduled\", never executed). The scope prefix property is verified structurally (all non-scheduled projects inside the prefix; uniform \"scheduled\" suffix).",
+    "Harvest cross-verification against the committed W3-010 report: all reconciliation + outcome numbers agree.",
+    "Harvest reproduction proof: committed report regenerated byte-identically modulo the isolated throughput block, the 8 machine-absolute loadedFromPath fields and the path-dependent composite determinismFingerprint (committed 6d41dc822423e598 vs regenerated d7dde876437669f6 — every artifact sha256Hex16, byte length, count and aggregate matches).",
+    "Evidence surface: records are the harvest's certification-surface projection (consumed fields verbatim + per-record fullRecordSha256 binding to the full unprojected record); the full evidence is regenerable byte-identically by the preserved harvest script inside a work/w3-010 checkout.",
+    "W1 oracle assertion inventory: the campaign runner records runner-local assertion ids ({projectId}-assert-budget); the W1-009 oracle declares semantic ids per project (cost-validity, budget-constraint, ...). Verdicts certify the recorded after-journey assertions; the vocabulary gap is flagged for the W3 runner continuation.",
+    "W1 portfolio consumed: 3900 baseline + 3900 holdout manifests regenerated deterministically (holdout generated for the disjointness proof ONLY — never executed).",
+    "Full-campaign blocked cluster: all 3,900 negotiation-substitution journey records are blocked — the accepted W3-010 root cause (journey family absent from the W3-009 runner registry; a harness gap, not a product failure). The certification preserves every one of these as unknown-preserved (blocked) verdicts: no conversion anywhere in the pipeline."
+  ],
+  "reproducibility": {
+    "certifierVersion": "w1-010-certifier/1.0.0",
+    "outputCanonicalSha256": "fb343a297fe59e9785489fc66576303001b3d4ff2d1dc6059bb01d3b61da59f5",
+    "rerunDigest": "fb343a297fe59e9785489fc66576303001b3d4ff2d1dc6059bb01d3b61da59f5",
+    "byteIdenticalOnRerun": true
+  }
+}

@@ -94,8 +94,19 @@ export function holdoutLeakageGuard(args: HoldoutGuardArgs): HoldoutLeakageResul
     // Executed seeds are W1 seed materials: "w1-009:<namespace>:<industry>:<size>:<NNNN>".
     // Schedule seeds are FIRM-level (the firm's first-project material — the
     // W3-010 recording convention); record seeds are the project's own.
+    // Pre-index records by project for O(N+M) verification.
+    const recordsByProject = new Map<string, JourneyEvidenceRecordInput[]>();
+    for (const record of args.records) {
+      const list = recordsByProject.get(record.projectId);
+      if (list != null) list.push(record);
+      else recordsByProject.set(record.projectId, [record]);
+    }
+    const scheduledByProject = new Map<string, CampaignScheduleInput["projects"][number][]>();
     for (const schedule of args.schedules) {
       for (const project of schedule.projects) {
+        const list = scheduledByProject.get(project.projectId);
+        if (list != null) list.push(project);
+        else scheduledByProject.set(project.projectId, [project]);
         if (project.status !== "scheduled") namespaceComponents.add(project.seed.split(":")[1] ?? "<malformed>");
       }
     }
@@ -119,8 +130,7 @@ export function holdoutLeakageGuard(args: HoldoutGuardArgs): HoldoutLeakageResul
       const firmLevelMaterial = `w1-009:baseline:${industryId}:${size}:0001`;
       let blockedFirmSeedAnchors = 0;
       let recordSeedsMatch = true;
-      for (const record of args.records) {
-        if (record.projectId !== projectId) continue;
+      for (const record of recordsByProject.get(projectId) ?? []) {
         if (record.deterministicSeed === facts.seedMaterial) continue;
         if (record.deterministicSeed === firmLevelMaterial) {
           blockedFirmSeedAnchors += 1;
@@ -129,8 +139,7 @@ export function holdoutLeakageGuard(args: HoldoutGuardArgs): HoldoutLeakageResul
         recordSeedsMatch = false;
       }
       blockedRecordFirmSeedAnchors += blockedFirmSeedAnchors;
-      const scheduleSeedMatches = args.schedules
-        .flatMap((schedule) => schedule.projects.filter((project) => project.projectId === projectId))
+      const scheduleSeedMatches = (scheduledByProject.get(projectId) ?? [])
         .every((project) => project.seed === firmLevelMaterial);
       if (reDerived === facts.seedValue && recordSeedsMatch && scheduleSeedMatches) numericMatches += 1;
       const inBaselineRange = reDerived >= BASELINE_PREFIX && reDerived <= BASELINE_PREFIX + MAX_OFFSET;

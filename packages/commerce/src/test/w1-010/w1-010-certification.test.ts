@@ -14,6 +14,7 @@
  * by the before/after hashes inside the report).
  */
 import { describe, expect, it } from "vitest";
+import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -33,6 +34,22 @@ const CAMPAIGN_DIR = join(repoRoot, "docs/simulations/results/baseline/certifica
 const CAMPAIGN_EVIDENCE = join(CAMPAIGN_DIR, "evidence/campaign-smoke-cert-surface.json");
 const CAMPAIGN_COMMITTED_REPORT = join(CAMPAIGN_DIR, "evidence/baseline-report.json");
 const COHORT_MANIFEST = join(repoRoot, "docs/simulations/personas/cohort-manifest.json");
+const CAMPAIGN_FULL_DIR = join(repoRoot, "docs/simulations/results/baseline/certification/campaign-full");
+const CAMPAIGN_FULL_SCHEDULE_SURFACE = join(CAMPAIGN_FULL_DIR, "evidence/campaign-full-schedule-surface.json");
+const CAMPAIGN_FULL_RECORDS = join(CAMPAIGN_FULL_DIR, "evidence/campaign-full-records.jsonl");
+const CAMPAIGN_FULL_COMMITTED_REPORT = join(CAMPAIGN_FULL_DIR, "evidence/baseline-report.json");
+const FULL_RECORDS_PRESENT = existsSync(CAMPAIGN_FULL_RECORDS) && existsSync(CAMPAIGN_FULL_SCHEDULE_SURFACE);
+
+let fullReportCache: ReturnType<typeof buildCampaignCertification> | null = null;
+function fullReport(): ReturnType<typeof buildCampaignCertification> {
+  fullReportCache ??= buildCampaignCertification({
+    scheduleSurfacePath: CAMPAIGN_FULL_SCHEDULE_SURFACE,
+    recordsPath: CAMPAIGN_FULL_RECORDS,
+    committedReportPath: CAMPAIGN_FULL_COMMITTED_REPORT,
+    cohortManifestPath: COHORT_MANIFEST,
+  });
+  return fullReportCache!;
+}
 
 describe("W1-010 pilot certification (W3-009 evidence)", () => {
   const report = buildPilotCertification({ evidencePath: PILOT_EVIDENCE });
@@ -193,6 +210,89 @@ describe("W1-010 campaign-smoke certification (W3-010 evidence)", () => {
     expect(report.source.sourceKind).toBe("campaign-smoke");
     expect(report.notes.join(" ")).toContain("3861 scheduled projects remain untouched");
     expect(report.notes.join(" ")).toContain("runner-local");
+  });
+});
+
+describe.skipIf(!FULL_RECORDS_PRESENT)("W1-010 FULL campaign certification (W3-010 full-run evidence)", () => {
+  it("certifies 100% of the 48,300 records: 44,400 pass + 3,900 blocked preserved (acceptance §1)", { timeout: 300_000 }, () => {
+    const report = fullReport();
+    expect(report.source.recordCount).toBe(48300);
+    expect(report.source.sourceKind).toBe("full-campaign");
+    expect(report.source.sampleMode).toBe("full");
+    expect(report.verdicts.recordsCertified).toBe(48300);
+    expect(report.verdicts.uncertifiedExecutedRecords).toHaveLength(0);
+    expect(report.verdicts.counts).toEqual({ assertionPass: 44400, assertionFail: 0, unknownPreserved: 3900 });
+    // The preserved bucket is exactly the negotiation-substitution blocked cluster.
+    const neg = report.verdicts.byFamily?.find((row) => row.journeyFamilyId === "negotiation-substitution");
+    expect(neg).toEqual({ journeyFamilyId: "negotiation-substitution", assertionPass: 0, assertionFail: 0, unknownPreserved: 3900 });
+  });
+
+  it("binds the complete verdict list by digest and samples deterministically (acceptance §7)", () => {
+    const report = fullReport();
+    expect(report.verdicts.perRecordComplete).toBe(false);
+    expect(report.verdicts.perRecord).toHaveLength(100);
+    expect(report.verdicts.perRecordSha256).toMatch(/^[0-9a-f]{64}$/);
+    expect(report.verdicts.byFirm).toHaveLength(39);
+    expect(report.verdicts.byFamily).toHaveLength(19);
+  });
+
+  it("manifest↔execution reconciliation: 39/39 firms over the FULL 3,900-project inventory, drift 0 (acceptance §3)", () => {
+    const report = fullReport();
+    expect(report.reconciliation.overall).toMatchObject({
+      firms: 39,
+      firmsReconciled: 39,
+      manifestInventoryProjects: 3900,
+      planned: 3900,
+      executed: 3900,
+      blocked: 0,
+      skipped: 0,
+      drift: 0,
+      reconciled: true,
+    });
+    expect(report.reconciliation.overall.untracedProjectIds).toHaveLength(0);
+    expect(report.reconciliation.overall.fabricatedProjectIds).toHaveLength(0);
+    expect(report.reconciliation.perFirm.every((row) => row.outOfScopeProjects === 0)).toBe(true);
+  });
+
+  it("holdout leakage = 0 with all 3,900 executed seeds re-derived + disjoint (acceptance §2)", () => {
+    const guard = fullReport().guards.holdoutLeakage;
+    expect(guard.w1HoldoutProjectIdsInEvidence).toBe(0);
+    expect(guard.seedDisjointnessProven).toBe(true);
+    expect(guard.executedSeedNamespaceComponents).toEqual(["baseline"]);
+    expect(guard.executedNumericSeedsChecked).toBe(3900);
+    expect(guard.numericSeedReDerivationMatches).toBe(3900);
+    expect(guard.numericSeedOutOfRange).toBe(0);
+    expect(guard.holdoutSeedSetIntersections).toBe(0);
+  });
+
+  it("UNKNOWN preservation: all 3,900 blocked records preserved, zero conversions (acceptance §4)", () => {
+    const guard = fullReport().guards.unknownPreservation;
+    expect(guard.blockedRecords).toBe(3900);
+    expect(guard.conversionsFound).toBe(0);
+    expect(guard.preserved).toBe(true);
+    expect(guard.aggregateChecks).toHaveLength(89);
+    expect(guard.aggregateChecks.every((check) => check.matches)).toBe(true);
+  });
+
+  it("money integrity: zero float money across the full evidence set (acceptance §5)", () => {
+    const guard = fullReport().guards.moneyIntegrity;
+    expect(guard.floatMoneyFound).toBe(0);
+    expect(guard.violations).toHaveLength(0);
+    expect(guard.moneyValuesScanned).toBeGreaterThan(50000);
+  });
+
+  it("determinism audit reproduces the full campaign schedule byte-identically (acceptance §6)", () => {
+    const audit = fullReport().determinism[0]!;
+    expect(audit.byteIdenticalModuloClockFields).toBe(true);
+    expect(audit.fieldsCompared).toBeGreaterThan(1_000_000);
+    expect(audit.fieldMismatches).toHaveLength(0);
+    expect(audit.personaRosterChecks?.every((row) => row.matches)).toBe(true);
+  });
+
+  it("evidence unmutated + certification reproducible (acceptance §7)", () => {
+    const report = fullReport();
+    expect(report.integrity.evidenceUnmutated).toBe(true);
+    expect(report.reproducibility.byteIdenticalOnRerun).toBe(true);
   });
 });
 

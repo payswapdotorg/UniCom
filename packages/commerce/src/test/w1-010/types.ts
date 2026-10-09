@@ -343,6 +343,8 @@ export interface DeterminismAuditResult {
 export interface CertificationSourceMeta {
   readonly sourceKind: "pilot" | "campaign-smoke" | "full-campaign";
   readonly evidencePath: string;
+  readonly scheduleSurfacePath?: string;
+  readonly scheduleSurfaceSha256?: string;
   readonly experimentId: string;
   readonly buildCommit: string;
   readonly buildBranch: string | null;
@@ -364,7 +366,24 @@ export interface CertificationReport {
     readonly counts: VerdictCounts;
     readonly recordsCertified: number;
     readonly uncertifiedExecutedRecords: readonly string[];
+    /** true = the complete per-record list is embedded; false = sample + digest. */
+    readonly perRecordComplete: boolean;
     readonly perRecord: readonly RecordCertification[];
+    /** sha256 over the COMPLETE per-record certification list (binds sampled reports). */
+    readonly perRecordSha256: string;
+    readonly perRecordSampleNote?: string;
+    readonly byFirm?: readonly {
+      readonly firmId: string;
+      readonly assertionPass: number;
+      readonly assertionFail: number;
+      readonly unknownPreserved: number;
+    }[];
+    readonly byFamily?: readonly {
+      readonly journeyFamilyId: string;
+      readonly assertionPass: number;
+      readonly assertionFail: number;
+      readonly unknownPreserved: number;
+    }[];
   };
   readonly reconciliation: {
     readonly perFirm: readonly FirmReconciliationRow[];

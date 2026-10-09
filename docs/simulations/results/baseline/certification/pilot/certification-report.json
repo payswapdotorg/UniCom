@@ -14,7 +14,7 @@
     "generatedAt": "2026-10-10T07:00:00Z",
     "sampleMode": "pilot",
     "recordCount": 1092,
-    "evidenceSha256": "bbeb0e0961dc1441e2230bd35b6678421d39c0214937865117c438548c60fc2c"
+    "evidenceSha256": "8f2f1f3d2eaa846953ad630e2cc0a7fcc8851210499bfc35d5cc7136ea35c9f3"
   },
   "verdicts": {
     "counts": {
@@ -18589,7 +18589,9 @@
         "sensitiveValueScrubbed": true,
         "notes": []
       }
-    ]
+    ],
+    "perRecordComplete": true,
+    "perRecordSha256": "54af0cd72a35cc982d3acc0423ccefddcec5018f3ad58c709e1f649d1db6178d"
   },
   "reconciliation": {
     "perFirm": [
@@ -18850,8 +18852,8 @@
   ],
   "integrity": {
     "evidenceUnmutated": true,
-    "evidenceSha256Before": "bbeb0e0961dc1441e2230bd35b6678421d39c0214937865117c438548c60fc2c",
-    "evidenceSha256After": "bbeb0e0961dc1441e2230bd35b6678421d39c0214937865117c438548c60fc2c"
+    "evidenceSha256Before": "8f2f1f3d2eaa846953ad630e2cc0a7fcc8851210499bfc35d5cc7136ea35c9f3",
+    "evidenceSha256After": "8f2f1f3d2eaa846953ad630e2cc0a7fcc8851210499bfc35d5cc7136ea35c9f3"
   },
   "lineage": [
     {
@@ -18874,8 +18876,8 @@
   ],
   "reproducibility": {
     "certifierVersion": "w1-010-certifier/1.0.0",
-    "outputCanonicalSha256": "12e4720476d5b99131768d98986b04ac44d703a501720d96d67b6ced90d076dc",
-    "rerunDigest": "12e4720476d5b99131768d98986b04ac44d703a501720d96d67b6ced90d076dc",
+    "outputCanonicalSha256": "863fe16afeb2d720edb47f2fbb562b18594b108c64e96a2c6588dc7f2f1884c8",
+    "rerunDigest": "863fe16afeb2d720edb47f2fbb562b18594b108c64e96a2c6588dc7f2f1884c8",
     "byteIdenticalOnRerun": true
   }
 }
