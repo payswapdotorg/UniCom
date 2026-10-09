@@ -19,7 +19,7 @@
  * Source: docs/work-orders/W3-010.md.
  */
 
-import { writeFileSync, mkdirSync } from "node:fs";
+import { writeFileSync, mkdirSync, readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execSync } from "node:child_process";
@@ -32,23 +32,73 @@ import type { BaselineCampaignReport } from "../../packages/experience/src/sim/c
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(__dirname, "../..");
 const REPORT_DIR = resolve(REPO_ROOT, "docs/simulations/campaign");
-const FULL_REPORT_PATH = resolve(REPORT_DIR, "baseline-report.json");
-const SLIM_REPORT_PATH = resolve(REPORT_DIR, "baseline-report.slim.json");
-const MARKDOWN_REPORT_PATH = resolve(REPORT_DIR, "BASELINE-REPORT.md");
-
-function parseArgs(argv: string[]): { sampleMode: "full" | "smoke" } {
-  const arg = argv.find((a) => a.startsWith("--sample-mode="));
-  if (!arg) return { sampleMode: "full" };
-  const value = arg.split("=")[1];
-  if (value !== "smoke" && value !== "full") {
-    throw new Error(`--sample-mode must be "smoke" or "full"; got ${value}`);
+/** W3-011: the amendment record — before/after journey-family table vs the
+ * first measurement, with the explicit root-cause pointer. Measurement
+ * repair, not product improvement (the anti-overfitting law). */
+function renderAmendmentSection(amendment: number, full: BaselineCampaignReport): string {
+  const firstPath = resolve(REPORT_DIR, "baseline-report.json");
+  let before: { journeyFamilyEvidence?: Array<{ journeyFamilyId: string; totalRuns: number; passCount: number; blockedCount: number; failCount: number }> } = {};
+  try {
+    before = JSON.parse(readFileSync(firstPath, "utf8")) as typeof before;
+  } catch {
+    throw new Error(`W3-011 amendment ${amendment}: cannot read the first measurement at ${firstPath} — the amendment record requires it`);
   }
-  return { sampleMode: value };
+  const beforeByFamily = new Map((before.journeyFamilyEvidence ?? []).map((e) => [e.journeyFamilyId, e]));
+  const lines: string[] = [];
+  lines.push(`# W3-011 — Baseline Amendment ${amendment} Record`);
+  lines.push("");
+  lines.push("> **MEASUREMENT REPAIR, NOT PRODUCT IMPROVEMENT** (the charter's anti-overfitting law). This amendment re-measures the campaign after the W3-011 harness repair: the journey-registry reconciliation that added the W1-authoritative `negotiation-substitution` family (absent from the original protocol-§10 hard-code — the root cause of the 3,900 blocked journeys in the first measurement; see the W3-010 completion report's root-cause register). The product is unchanged.");
+  lines.push("");
+  lines.push("## Before/after — journey-family evidence");
+  lines.push("");
+  lines.push("| family | before (runs/pass/blocked) | after (runs/pass/blocked) | changed |", "|---|---|---|---|");
+  for (const after of full.journeyFamilyEvidence) {
+    const b = beforeByFamily.get(after.journeyFamilyId);
+    const beforeStr = b ? `${b.totalRuns}/${b.passCount}/${b.blockedCount}` : "(absent)";
+    const afterStr = `${after.totalRuns}/${after.passCount}/${after.blockedCount}`;
+    const changed = !b || b.totalRuns !== after.totalRuns || b.passCount !== after.passCount || b.blockedCount !== after.blockedCount;
+    lines.push(`| ${after.journeyFamilyId} | ${beforeStr} | ${afterStr} | ${changed ? "YES" : "no"} |`);
+  }
+  lines.push("");
+  lines.push(`- First measurement: \`baseline-report.json\` (build commit recorded therein, determinism fingerprint preserved)`);
+  lines.push(`- This amendment: \`baseline-report.amended-${amendment}.json\` (build commit ${full.buildCommit.slice(0, 8)})`);
+  lines.push("- Root cause: negotiation-substitution absent from the W3-009 journey registry (harness vocabulary gap; W3-010 completion report §4)");
+  lines.push("- The four adoption outputs below are the AMENDED measurement (still synthetic simulation estimates) — the first measurement's outputs are a lower bound, superseded by this amendment.");
+  lines.push("");
+  lines.push("---");
+  lines.push("");
+  return lines.join("\n");
+}
+
+function parseArgs(argv: string[]): { sampleMode: "full" | "smoke"; amendment: number } {
+  const arg = argv.find((a) => a.startsWith("--sample-mode="));
+  const sampleMode = !arg
+    ? "full"
+    : arg.split("=")[1] === "smoke"
+      ? "smoke"
+      : arg.split("=")[1] === "full"
+        ? "full"
+        : (() => { throw new Error(`--sample-mode must be "smoke" or "full"; got ${arg.split("=")[1]}`); })();
+  const amendArg = argv.find((a) => a.startsWith("--amendment="));
+  let amendment = 0;
+  if (amendArg) {
+    amendment = Number.parseInt(amendArg.split("=")[1] ?? "", 10);
+    if (!Number.isInteger(amendment) || amendment < 1) {
+      throw new Error(`--amendment must be a positive integer; got ${amendArg}`);
+    }
+  }
+  return { sampleMode, amendment };
 }
 
 async function main(): Promise<void> {
-  const { sampleMode } = parseArgs(process.argv.slice(2));
-  console.log(`[W3-010] baseline campaign starting (sample-mode=${sampleMode})`);
+  const { sampleMode, amendment } = parseArgs(process.argv.slice(2));
+  const tag = amendment > 0 ? `W3-011 amendment ${amendment}` : "W3-010";
+  const experimentId = amendment > 0 ? `v3-w3-011-baseline-amended-${amendment}` : "v3-w3-010-baseline";
+  console.log(`[${tag}] baseline campaign starting (sample-mode=${sampleMode}${amendment > 0 ? `, amendment=${amendment}` : ""})`);
+  const suffix = amendment > 0 ? `.amended-${amendment}` : "";
+  const fullReportPath = resolve(REPORT_DIR, `baseline-report${suffix}.json`);
+  const slimReportPath = resolve(REPORT_DIR, `baseline-report${suffix}.slim.json`);
+  const markdownReportPath = resolve(REPORT_DIR, amendment > 0 ? `BASELINE-REPORT-AMENDED-${amendment}.md` : "BASELINE-REPORT.md");
 
   // 1. Load real W1 + W2 artifacts.
   console.log("[W3-010] loading real W1/W2 artifacts...");
@@ -69,9 +119,9 @@ async function main(): Promise<void> {
 
   // 3. Run the baseline campaign.
   const generatedAt = "2026-10-09T08:55:00Z";
-  console.log(`[W3-010] running baseline campaign...`);
+  console.log(`[${tag}] running baseline campaign...`);
   const { full, slim, schedule: _schedule, evidenceRecords } = await runBaselineCampaign({
-    experimentId: "v3-w3-010-baseline",
+    experimentId,
     buildCommit,
     buildBranch,
     generatedAt,
@@ -80,7 +130,7 @@ async function main(): Promise<void> {
   });
 
   // 4. Assert campaign invariants (laws §1–§9).
-  console.log("[W3-010] verifying campaign invariants...");
+  console.log(`[${tag}] verifying campaign invariants...`);
   if (full.localDevFixture !== false) {
     throw new Error("INVARIANT VIOLATION: full.localDevFixture !== false");
   }
@@ -115,19 +165,23 @@ async function main(): Promise<void> {
   }
   console.log("[W3-010] all campaign invariants pass.");
 
-  // 5. Write the machine-readable reports.
+  // 5. Write the machine-readable reports (versioned when amending — the
+  //    first-measurement artifacts are never overwritten: W3-011 law).
   mkdirSync(REPORT_DIR, { recursive: true });
-  writeFileSync(FULL_REPORT_PATH, JSON.stringify(full, null, 2) + "\n", "utf8");
-  writeFileSync(SLIM_REPORT_PATH, JSON.stringify(slim, null, 2) + "\n", "utf8");
-  console.log(`[W3-010] wrote machine-readable reports:`);
-  console.log(`  - ${FULL_REPORT_PATH}`);
-  console.log(`  - ${SLIM_REPORT_PATH}`);
+  writeFileSync(fullReportPath, JSON.stringify(full, null, 2) + "\n", "utf8");
+  writeFileSync(slimReportPath, JSON.stringify(slim, null, 2) + "\n", "utf8");
+  console.log(`[${tag}] wrote machine-readable reports:`);
+  console.log(`  - ${fullReportPath}`);
+  console.log(`  - ${slimReportPath}`);
 
-  // 6. Write the human-readable BASELINE-REPORT.md.
-  const markdown = renderMarkdownReport(full);
-  writeFileSync(MARKDOWN_REPORT_PATH, markdown, "utf8");
-  console.log(`[W3-010] wrote markdown report:`);
-  console.log(`  - ${MARKDOWN_REPORT_PATH}`);
+  // 6. Write the human-readable report (versioned when amending).
+  let markdown = renderMarkdownReport(full);
+  if (amendment > 0) {
+    markdown = renderAmendmentSection(amendment, full) + markdown;
+  }
+  writeFileSync(markdownReportPath, markdown, "utf8");
+  console.log(`[${tag}] wrote markdown report:`);
+  console.log(`  - ${markdownReportPath}`);
 
   // 7. Print a summary.
   console.log("");

@@ -19,7 +19,7 @@
  */
 
 import type { JourneyFamilyId, InteractionStep, ScreenshotCheckpoint, NavigationNode, BacktrackRecord, FailedStep, ApprovalState, EvidenceState, ConnectorProviderState, CommerceAssertionRef, ErrorRecoveryEntry, PostTaskAdoptionResponse } from "./journey-evidence";
-import { journeyFamilyEntry } from "./journey-registry";
+import { JOURNEY_FAMILY_IDS, journeyFamilyEntry } from "./journey-registry";
 import type { JourneyDriver, JourneyDriverResult } from "./discovery-runner";
 import { buildScreenshotCheckpoint } from "./interaction-trace";
 
@@ -176,26 +176,11 @@ function buildDriverForFamily(familyId: JourneyFamilyId): JourneyDriver {
 
 /** Build the full driver registry: one driver per §10 journey family. */
 export function buildAllJourneyDrivers(): readonly JourneyDriver[] {
-  const familyIds: readonly JourneyFamilyId[] = [
-    "buyer-intent-constraints",
-    "offer-sourcing-comparison",
-    "buy-now-vs-wait-price-timing",
-    "existing-group-buy",
-    "latent-demand-merchant-group-buy-proposal",
-    "rent-borrow-vs-buy",
-    "resale-rental-consignment",
-    "proactive-economic-opportunities",
-    "bounded-multi-hop-trade-cycle",
-    "merchant-commerce-lifecycle",
-    "supplier-procurement-receiving",
-    "b2b-multi-location-supplier-coordination",
-    "autonomous-store-policy",
-    "commerce-twin-what-if",
-    "connected-commerce-channels-and-live-commerce",
-    "physical-no-rfid-supermarket",
-    "trust-security-fraud-and-recourse",
-    "failure-unknown-idempotency-recovery",
-    "gui-feature-discoverability",
-  ];
-  return familyIds.map((id) => buildDriverForFamily(id));
+  // W3-011 derivation law: the driver set derives from the journey REGISTRY
+  // (the single source of truth in this package) — never a second hard-coded
+  // family list. The duplicated list here was the second half of the W3-010
+  // root cause (the registry entry existed but no driver was registered for
+  // it, so the runner classified the family ABSENT — "no driver — feature
+  // not discoverable in GUI" — even after the registry reconciliation).
+  return JOURNEY_FAMILY_IDS.map((id) => buildDriverForFamily(id));
 }

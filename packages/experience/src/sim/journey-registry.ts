@@ -33,11 +33,24 @@ export interface JourneyFamilyRegistryEntry {
   readonly approvalRequired: boolean;
 }
 
-/** The 19 journey family ids (verbatim from the protocol §10 + state file). */
+/**
+ * W3-011 — DERIVATION LAW: W1's authoritative
+ * docs/simulations/scenarios/journey-families.json is the source of truth
+ * for which families the campaign schedules (via each project manifest's
+ * applicableJourneyFamilies). This registry must contain an entry for EVERY
+ * W1 family (test-pinned: registry ⊇ W1 families — journeyFamilyEntry()
+ * never throws for a W1 id). The protocol-§10-only family
+ * `b2b-multi-location-supplier-coordination` is retained below with its
+ * W3-011 mapping note (not silently dropped) but is never scheduled by the
+ * W1 manifests — W1's authority holds.
+ */
+
+/** The journey family ids (W1-authoritative 19 + the protocol-only 1, see above). */
 export const JOURNEY_FAMILY_IDS: readonly JourneyFamilyId[] = [
   "buyer-intent-constraints",
   "offer-sourcing-comparison",
   "buy-now-vs-wait-price-timing",
+  "negotiation-substitution",
   "existing-group-buy",
   "latent-demand-merchant-group-buy-proposal",
   "rent-borrow-vs-buy",
@@ -82,6 +95,24 @@ export const JOURNEY_FAMILY_REGISTRY: readonly JourneyFamilyRegistryEntry[] = [
     journeyFamilyId: "buy-now-vs-wait-price-timing",
     protocolSection: "§10.3",
     userLabel: "Buy now or wait for a better price",
+    surfaces: ["buyer-intent-canvas", "opportunity-inbox"],
+    applicableRoles: ["buyer", "procurement"],
+    noRfidPath: false,
+    connectorDependent: true,
+    approvalRequired: false,
+  },
+  {
+    // W3-011: the W1-authoritative family (docs/simulations/scenarios/
+    // journey-families.json id "negotiation-substitution", charter mandatory
+    // journey #3 "negotiation/substitution"). Absent from the original
+    // protocol-§10 hard-code — the root cause of the 3,900 blocked journeys
+    // in the first baseline measurement (W3-010 root-cause register). The
+    // driver probes the buyer-agent intent surfaces: intent-negotiation
+    // ("Negotiate the price") + intent-substitutes ("Allow similar
+    // alternatives") in packages/experience/src/navigation/feature-matrix.ts.
+    journeyFamilyId: "negotiation-substitution",
+    protocolSection: "§10.3 (charter mandatory journey #3: negotiation/substitution)",
+    userLabel: "Negotiate the price or allow similar alternatives",
     surfaces: ["buyer-intent-canvas", "opportunity-inbox"],
     applicableRoles: ["buyer", "procurement"],
     noRfidPath: false,
@@ -169,6 +200,11 @@ export const JOURNEY_FAMILY_REGISTRY: readonly JourneyFamilyRegistryEntry[] = [
     approvalRequired: true,
   },
   {
+    // W3-011 mapping note: protocol-§10-only family — NO W1 counterpart in
+    // the authoritative journey-families.json, so the W1 manifests never
+    // schedule it (supplier-procurement-receiving + merchant-commerce-
+    // lifecycle cover the W1-modelled procurement/receiving surface).
+    // Retained per the W3-011 work order ("do NOT silently drop either").
     journeyFamilyId: "b2b-multi-location-supplier-coordination",
     protocolSection: "§10.12",
     userLabel: "Sell business-to-business across locations",
