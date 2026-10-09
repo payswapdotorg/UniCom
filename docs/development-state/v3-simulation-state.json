@@ -38,24 +38,16 @@
     "baseline_required": true,
     "held_out_final_run_required": true
   },
-  "active_work_orders": [
-    {
-      "id": "W3-013",
-      "lane": "worker-3",
-      "dispatched_at": "2026-10-09T12:10:00Z",
-      "phase": "cycles.held_out_final"
-    }
-  ],
+  "active_work_orders": [],
   "frontier": [
     {
-      "id": "W3-013",
-      "status": "DISPATCHED",
-      "owner": "worker-3",
+      "id": "CERT",
+      "status": "PENDING",
+      "owner": "TL",
       "depends_on": [
-        "W3-012"
+        "W3-013"
       ],
-      "dispatched_at": "2026-10-09T12:10:00Z",
-      "note": "Wave D held-out final"
+      "note": "the final program certification record (the TL-authored closure per the charter's required-output artifacts + the honest verdict)"
     }
   ],
   "completed_work_orders": [
@@ -253,6 +245,26 @@
         "completion_report": "docs/work-orders/reports/W3-012-completion-report.md"
       },
       "cycle1_conclusion": "PRODUCT-FAILURE LIST EMPTY \u2014 both remediation orders were measurement repairs (harness class; the anti-overfitting law forbids counting them as product improvements). The product measures at the adoption ceiling under the fixture-level simulation. Caveats: fixture-level drivers (deterministic interaction graphs, no pixel rendering); the clean baseline does not exercise the failure/UNKNOWN/recovery dimension (the W3-009 failure-variants machinery exists for a follow-up resilience measurement); synthetic estimates only (not human preference research)"
+    },
+    {
+      "id": "W3-013",
+      "title": "Wave D: Held-Out Final Run (freeze + the 3,900 holdout projects + the final report)",
+      "completed_at": "2026-10-09T13:10:00Z",
+      "merged_sha": "a32e985",
+      "merge_mode": "no-ff (branch 847dde9; base 3e3fec6)",
+      "verdict": "ACCEPT \u2014 TL-executed under the local-chain doctrine (fourth consecutive vehicle stall). THE CEILING HOLDS ON UNSEEN SEEDS: 3,900/3,900 holdout projects, 196,800/196,800 journeys, drift 0, zero failures/blocks/absents; all four adoption outputs IDENTICAL to the amended-2 baseline (15,275/15,275 each; scores 83; synthetic simulation estimates); the 10-item release-gate checklist all-PASS with evidence pointers; the freeze record + deployment-scope separation + caveat register delivered in docs/simulations/results/final/",
+      "tl_battery": {
+        "tests": "experience 626/626 (+5) + commerce 405/405 + agent 559/559 = 1590/1590, zero regressions",
+        "typecheck": "exit 0",
+        "lint": "99 warnings, 0 errors",
+        "architecture_check": "violations: 0"
+      },
+      "deliverables": {
+        "src": "loadRealArtifactsForNamespace (namespace-parameterized loader), runBaselineCampaign namespace param + the \u00a77-mirror guard, scripts/sim/run-holdout-final.ts",
+        "tests": "+5 (the mirror, the default, the smoke campaign, the final-report artifacts, the human-readable verdict)",
+        "reports": "docs/simulations/results/final/final-report.json + FINAL-REPORT.md",
+        "completion_report": "docs/work-orders/reports/W3-013-completion-report.md"
+      }
     }
   ],
   "cycles": {
@@ -302,9 +314,22 @@
       "note": "no measured blockers remain; the held-out final (Wave D) serves as the second improvement-cycle verification per the charter's continuation condition"
     },
     "held_out_final": {
-      "status": "IN_PROGRESS",
+      "status": "COMPLETE",
       "started_at": "2026-10-09T12:10:00Z",
-      "work_order": "W3-013"
+      "completed_at": "2026-10-09T13:10:00Z",
+      "merged_sha": "a32e985",
+      "freeze": {
+        "code": "6a9d225",
+        "contract": "w2-009:v1",
+        "baseline_measurement": "amended-2 @ 3fcd39b (e485b624)"
+      },
+      "result": {
+        "projects": "3900/3900 (zero baseline ids \u2014 the \u00a77 mirror test-pinned)",
+        "journeys": "196800/196800 pass, drift 0",
+        "four_adoption_outputs": "all four 15275/15275 \u2014 IDENTICAL to the amended-2 baseline (holds: YES x4)",
+        "release_gate_checklist": "10/10 PASS",
+        "determinism_fingerprint": "d55d92c2250bad62"
+      }
     }
   },
   "release_gate": {
@@ -322,8 +347,8 @@
     "cycle_reports": "docs/simulations/results/cycles/",
     "final_report": "docs/simulations/results/final/"
   },
-  "overall_status": "WAVE_D_IN_PROGRESS",
-  "last_reviewed_at": "2026-10-09T12:10:00Z",
+  "overall_status": "SIMULATION_PHASE_COMPLETE_AWAITING_CERTIFICATION",
+  "last_reviewed_at": "2026-10-09T13:10:00Z",
   "benchmark_scope": {
     "mandate": "Commerce capabilities only; do not score broad vertical industry software as overall competitors.",
     "authoritative_matrix": "docs/simulations/V3-INDUSTRY-AND-COMPETITOR-MATRIX.md",
@@ -425,6 +450,10 @@
     {
       "ts": "2026-10-09T12:10:00Z",
       "event": "W3-013 DISPATCHED (Wave D held-out final). Note: three consecutive vehicle stalls (W3-010 quiet-after-delivery, W3-011/W3-012 no-show) \u2014 the TL executes locally under the local-chain doctrine if no branch appears within the window, per the established pattern."
+    },
+    {
+      "ts": "2026-10-09T13:10:00Z",
+      "event": "W3-013 ACCEPTED \u2014 no-ff merge a32e985; merged battery 1590/1590. THE CEILING HOLDS ON HELD-OUT SEEDS (all four outputs identical to baseline; release-gate 10/10 PASS; caveats recorded). The charter's stopping criteria are met: cycles.baseline (amended x2) + improvement_1 (two measurement repairs, empty product list) + improvement_2 (satisfied by the held-out) + held_out_final all COMPLETE. NEXT: the TL-authored certification record closes the program."
     }
   ]
 }
