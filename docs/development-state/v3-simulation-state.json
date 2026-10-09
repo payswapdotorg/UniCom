@@ -3,6 +3,8 @@
   "repository": "payswapdotorg/UniCom",
   "program": "V3 Cross-Industry Simulation and Adoption Optimization",
   "charter": "docs/V3-SIMULATION-ADOPTION-CHARTER-2026-10-09.md",
+  "tl_handoff": "docs/FINAL-TL-HANDOFF-V3-SIMULATIONS-2026-10-09.md",
+  "dispatch_issue": "https://github.com/payswapdotorg/UniCom/issues/8",
   "experiment_protocol": "docs/simulations/V3-EXPERIMENT-PROTOCOL.md",
   "industry_matrix": "docs/simulations/V3-INDUSTRY-AND-COMPETITOR-MATRIX.md",
   "architecture_version": "1.1-frozen-2026-10-05",
