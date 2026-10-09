@@ -40,24 +40,22 @@
   },
   "active_work_orders": [
     {
-      "id": "W3-010",
+      "id": "W3-011",
       "lane": "worker-3",
-      "dispatched_at": "2026-10-09T08:55:00Z",
-      "phase": "cycles.baseline"
+      "dispatched_at": "2026-10-09T09:50:00Z",
+      "phase": "cycles.improvement_1"
     }
   ],
   "frontier": [
     {
-      "id": "W3-010",
+      "id": "W3-011",
       "status": "DISPATCHED",
       "owner": "worker-3",
       "depends_on": [
-        "W1-009",
-        "W2-009",
-        "W3-009"
+        "W3-010"
       ],
-      "dispatched_at": "2026-10-09T08:55:00Z",
-      "phase": "cycles.baseline"
+      "dispatched_at": "2026-10-09T09:50:00Z",
+      "note": "Cycle-1 remediation order 1: journey-registry reconciliation with the W1 authoritative family list + negotiation-substitution driver + amended baseline re-run (baseline namespace only) + amended report"
     }
   ],
   "completed_work_orders": [
@@ -186,16 +184,60 @@
         "merge_kind": "no-ff (W1 branched from 5958ebc; write surfaces pairwise disjoint)"
       },
       "notes": "Turn died post-milestone-3 before writing the completion-report markdown; TL battery independently verified all 10 WO acceptance criteria (deviation noted). Assertion-only oracle: fixtures can never mark a GUI journey successful (S12)."
+    },
+    {
+      "id": "W3-010",
+      "title": "Baseline Campaign Run (cycles.baseline): Real Artifacts, 3,900 Projects, Four Adoption Outputs",
+      "completed_at": "2026-10-09T09:50:00Z",
+      "merged_sha": "b547e3c",
+      "merge_mode": "no-ff (branch efb5734 incl. TL-authored completion report; base e84ddb5)",
+      "verdict": "ACCEPT \u2014 TL acceptance under the local-chain doctrine (worker delivered the full campaign at 7f52ac4 then went quiet; TL verified gates, root-caused the blocked cluster, completed the report). Campaign: 3,900 baseline projects / 48,300 planned journeys = 44,400 executed + 3,900 blocked + 0 skipped, drift 0; four adoption outputs under frozen w2-009:v1 ((a) 0/15275 full-switch, (b) 0 willing score 5, (c) 39/15275 main-interface, (d) 39 willing score 5 \u2014 all synthetic simulation estimates); holdout untouched; determinism 6d41dc822423e598; zero-orphan 132/132",
+      "tl_battery": {
+        "tests": "branch + merged lineage: experience 604/604 (+30) + commerce 405/405 + agent 559/559 = 1568/1568, zero regressions (the worker's own sandbox could not run agent \u2014 environmental; TL re-ran green with workspace artifacts built)",
+        "typecheck": "12/12 branch-reachable projects exit 0",
+        "lint": "99 warnings, 0 errors (identical tier)",
+        "architecture_check": "violations: 0"
+      },
+      "deliverables": {
+        "src": "packages/experience/src/sim/ (real-artifact-loader, baseline-campaign, baseline-campaign-helpers, baseline-campaign-aggregates, adoption-mapper, campaign-report) + scripts/sim/run-baseline-campaign.ts",
+        "tests": "+30 experience tests (namespace guard, smoke invariants, zero-orphan, adoption-mapper)",
+        "reports": "docs/simulations/campaign/baseline-report.json (941KB) + baseline-report.slim.json + BASELINE-REPORT.md (\u00a70-\u00a79)",
+        "completion_report": "docs/work-orders/reports/W3-010-completion-report.md (TL-authored, local-chain doctrine)"
+      },
+      "root_cause_register": {
+        "cluster": "blocked-misc (3,900)",
+        "tl_analysis": "negotiation-substitution journey family absent from the W3-009 journey registry (protocol \u00a710 vocabulary vs W1 authoritative journey-families.json) \u2014 journeyFamilyEntry() throws 'unknown journey family id' before probing any surface; all 3,900 negotiation-substitution journeys blocked; every other family passes 100% (44,400/44,400)",
+        "classification": "harness vocabulary gap (campaign infrastructure), NOT a measured product failure; the W3-009 pilot masked it (fixture vocabulary matched the registry)",
+        "consequence": "adoption outputs are a LOWER BOUND for negotiation-substitution-inclusive eligibility until the amended baseline re-run"
+      },
+      "acceptance": "All 10 WO acceptance criteria verified by TL with evidence map in the completion report"
     }
   ],
   "cycles": {
     "baseline": {
-      "status": "DISPATCHED",
-      "work_order": "W3-010",
-      "dispatched_at": "2026-10-09T08:55:00Z"
+      "status": "COMPLETE_FIRST_MEASUREMENT",
+      "completed_at": "2026-10-09T09:50:00Z",
+      "merged_sha": "b547e3c",
+      "amendment_required": true,
+      "amendment_reason": "harness vocabulary gap (negotiation-substitution blocked x3,900 \u2014 see W3-010 root_cause_register); W3-011 amends within the baseline namespace",
+      "results": {
+        "projects": "3900 executed / 0 blocked / 0 skipped (drift 0)",
+        "journeys": "44400 executed + 3900 blocked + 0 skipped of 48300 planned (drift 0)",
+        "four_adoption_outputs": {
+          "a_full_switch_eligible": "0/15275",
+          "b_willing_switch": "0 (meanScore 5)",
+          "c_main_interface_eligible": "39/15275",
+          "d_willing_main_interface": "39 (meanScore 5)"
+        },
+        "determinism_fingerprint": "6d41dc822423e598",
+        "synthetic_estimate_label": "synthetic simulation estimate (all willingness numbers)"
+      }
     },
     "improvement_1": {
-      "status": "NOT_STARTED"
+      "status": "IN_PROGRESS",
+      "started_at": "2026-10-09T09:50:00Z",
+      "first_remediation_order": "W3-011 (harness repair: registry reconciliation + negotiation-substitution driver + amended baseline re-run)",
+      "product_remediation_pending": "product-facing orders derive from the AMENDED failure list (charter: a harness fix is measurement repair, not a product improvement)"
     },
     "improvement_2": {
       "status": "NOT_STARTED"
@@ -219,8 +261,8 @@
     "cycle_reports": "docs/simulations/results/cycles/",
     "final_report": "docs/simulations/results/final/"
   },
-  "overall_status": "W3-010_DISPATCHED",
-  "last_reviewed_at": "2026-10-09T08:55:00Z",
+  "overall_status": "CYCLE_1_REMEDIATION_DISPATCHED",
+  "last_reviewed_at": "2026-10-09T09:50:00Z",
   "benchmark_scope": {
     "mandate": "Commerce capabilities only; do not score broad vertical industry software as overall competitors.",
     "authoritative_matrix": "docs/simulations/V3-INDUSTRY-AND-COMPETITOR-MATRIX.md",
@@ -302,6 +344,10 @@
       "work_order": "W3-010",
       "by": "TL",
       "detail": "cycles.baseline opened: single-worker wave (real-artifact loader + 3,900 baseline-namespace project runs + frozen-contract adoption scoring + four outputs + \u00a78 baseline report); holdout namespace forbidden (\u00a77)"
+    },
+    {
+      "ts": "2026-10-09T09:50:00Z",
+      "event": "W3-010 ACCEPTED by TL under the local-chain doctrine \u2014 no-ff merge b547e3c; merged battery 1568/1568 (experience 604 + commerce 405 + agent 559); typecheck 12/12; lint 99w/0e; arch 0. cycles.baseline COMPLETE_FIRST_MEASUREMENT with the disclosed harness amendment (root cause: negotiation-substitution absent from the W3-009 journey registry \u2014 3,900 blocked journeys are a harness vocabulary gap, not product failures; outputs are a lower bound). W3-011 (cycle-1 remediation order 1) DISPATCHED to worker-3: registry reconciliation + driver + amended baseline re-run."
     }
   ]
 }
