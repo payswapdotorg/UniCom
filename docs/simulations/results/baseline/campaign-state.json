@@ -525,15 +525,34 @@
       "records": 1200,
       "evidenceSha256": "602c956143ca325e65fbc75c830d7548913bc90d8b77cfd9cbebdd2367e86942",
       "noRfidPathRuns": 0
+    },
+    {
+      "batch": {
+        "index": 27,
+        "firmId": "legal-professional-services-small",
+        "w1IndustryId": "legal-professional-services",
+        "w2IndustryId": "legal",
+        "firmSize": "small",
+        "cohortId": "baseline-legal-professional-services-small"
+      },
+      "scheduleDigest": "4ba1a189e37902504ee4a96193a15c288b82334dc4c1fbadba0f951c0b18fc3d",
+      "planned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0,
+      "records": 900,
+      "evidenceSha256": "54fe382973d05b8fda2bad7f0d0c2c787e9e7396fad74b447ba82eec43686ee9",
+      "noRfidPathRuns": 0
     }
   ],
   "totals": {
-    "firmsCompleted": 27,
-    "projectsPlanned": 2700,
-    "projectsExecuted": 2700,
+    "firmsCompleted": 28,
+    "projectsPlanned": 2800,
+    "projectsExecuted": 2800,
     "projectsBlocked": 0,
     "projectsSkipped": 0,
-    "evidenceRecords": 34500,
+    "evidenceRecords": 35400,
     "drift": 0
   }
 }
