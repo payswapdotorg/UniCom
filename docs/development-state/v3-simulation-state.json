@@ -25,7 +25,11 @@
   },
   "campaign_design": {
     "industries": 13,
-    "firm_sizes": ["small", "medium", "large"],
+    "firm_sizes": [
+      "small",
+      "medium",
+      "large"
+    ],
     "firms": 39,
     "projects_per_firm": 200,
     "project_runs": 7800,
@@ -36,16 +40,39 @@
   },
   "active_work_orders": [],
   "frontier": [
-    {"id": "W1-009", "status": "READY", "owner": "worker-1", "depends_on": []},
-    {"id": "W2-009", "status": "READY", "owner": "worker-2", "depends_on": []},
-    {"id": "W3-009", "status": "READY", "owner": "worker-3", "depends_on": []}
+    {
+      "id": "W1-009",
+      "status": "READY",
+      "owner": "worker-1",
+      "depends_on": []
+    },
+    {
+      "id": "W2-009",
+      "status": "READY",
+      "owner": "worker-2",
+      "depends_on": []
+    },
+    {
+      "id": "W3-009",
+      "status": "READY",
+      "owner": "worker-3",
+      "depends_on": []
+    }
   ],
   "completed_work_orders": [],
   "cycles": {
-    "baseline": {"status": "NOT_STARTED"},
-    "improvement_1": {"status": "NOT_STARTED"},
-    "improvement_2": {"status": "NOT_STARTED"},
-    "held_out_final": {"status": "NOT_STARTED"}
+    "baseline": {
+      "status": "NOT_STARTED"
+    },
+    "improvement_1": {
+      "status": "NOT_STARTED"
+    },
+    "improvement_2": {
+      "status": "NOT_STARTED"
+    },
+    "held_out_final": {
+      "status": "NOT_STARTED"
+    }
   },
   "release_gate": {
     "gui_only": "REQUIRED",
@@ -62,6 +89,57 @@
     "cycle_reports": "docs/simulations/results/cycles/",
     "final_report": "docs/simulations/results/final/"
   },
-  "overall_status": "READY_TO_DISPATCH",
-  "last_reviewed_at": "2026-10-09"
+  "overall_status": "READY_TO_DISPATCH_SCOPE_CORRECTED",
+  "last_reviewed_at": "2026-10-09",
+  "benchmark_scope": {
+    "mandate": "Commerce capabilities only; do not score broad vertical industry software as overall competitors.",
+    "authoritative_matrix": "docs/simulations/V3-INDUSTRY-AND-COMPETITOR-MATRIX.md",
+    "clarification_committed_at": "2026-10-09",
+    "compare_only": [
+      "procurement and supplier sourcing",
+      "catalog/storefront/channel commerce",
+      "POS/inventory/receiving/replenishment",
+      "buyer intent and constrained purchase",
+      "offer comparison/negotiation/substitution/buy-vs-wait",
+      "group-buy discovery and merchant demand-generated group-buy",
+      "rent/borrow/resale/rental/consignment",
+      "multi-hop trade cycles",
+      "proactive opportunity discovery",
+      "orders/fulfilment/returns/refunds/recourse",
+      "B2B commerce and supplier coordination",
+      "autonomous-store commerce controls",
+      "Commerce Twin and commerce simulations",
+      "commerce trust/security",
+      "live/marketplace/physical/local-edge commerce"
+    ],
+    "explicit_exclusion": "General project/design, clinical, dispatch, creative, legal matter-management, generic CRM or classified operations software is context only, not an overall competitor. Score only an isolated in-scope commerce function if one is relevant.",
+    "mandatory_journey_registry": "docs/simulations/V3-EXPERIMENT-PROTOCOL.md §10",
+    "required_journey_families": [
+      "buyer-intent-constraints",
+      "offer-sourcing-comparison",
+      "buy-now-vs-wait-price-timing",
+      "negotiation-substitution",
+      "existing-group-buy",
+      "latent-demand-merchant-group-buy-proposal",
+      "rent-borrow-vs-buy",
+      "resale-rental-consignment",
+      "proactive-economic-opportunities",
+      "bounded-multi-hop-trade-cycle",
+      "merchant-commerce-lifecycle",
+      "supplier-procurement-receiving",
+      "autonomous-store-policy",
+      "commerce-twin-what-if",
+      "connected-commerce-channels-and-live-commerce",
+      "physical-no-rfid-supermarket",
+      "trust-security-fraud-and-recourse",
+      "failure-unknown-idempotency-recovery",
+      "gui-feature-discoverability"
+    ],
+    "competitor_evidence_classes": {
+      "A": "authorized actual incumbent GUI/account/sandbox",
+      "B": "official interactive demo/authentic public UI",
+      "C": "official documentation capability checklist only",
+      "D": "unverified/inaccessible; excluded from performance superiority claims"
+    }
+  }
 }
