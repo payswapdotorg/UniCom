@@ -1,0 +1,2 @@
+https://chat.z.ai/api/oauth/authorize?client_id=[REDACTED]&redirect_uri=[REDACTED]&response_type=[REDACTED]&state=[REDACTED]
+https://bigmodel.cn/login?appId=[REDACTED]&redirect=[REDACTED]&state=[REDACTED]

@@ -1,0 +1,2829 @@
+{
+ "manifestKind": "w1-010-browser-pilot",
+ "schemaVersion": 1,
+ "browserExtension": {
+  "version": 1,
+  "addFieldPolicy": "additive-only over JOURNEY-EVIDENCE-SCHEMA v1"
+ },
+ "runId": "w1-010-browser-pilot-2026-10-09T170138167Z",
+ "generatedBy": "packages/experience/test/browser/run-browser-pilot.mjs",
+ "environment": {
+  "buildCommit": "7c2e19d8ab5ecdea46d31f2bc8477677653abef1",
+  "gitBranch": "work/w1-010",
+  "buildTreeDirty": true,
+  "nodeVersion": "v24.21.0",
+  "pnpmVersion": "10.33.2",
+  "playwrightVersion": "1.63.0",
+  "playwrightResolvedFrom": "import:playwright",
+  "chromiumVersion": "153.0.8010.12",
+  "baseUrl": "http://localhost:5173",
+  "serverPort": 3030,
+  "webPort": 5173,
+  "envMode": "started-by-runner",
+  "envRequirements": [
+   "Hono server packages/server at :3030 (node dist/entry-http.js)",
+   "Vite dev server serving packages/web at :5173",
+   "Vite heap capped via NODE_OPTIONS=--max-old-space-size=512 (sandbox RAM ceiling)",
+   "Playwright >= 1.63 with chromium installed; headless flags --disable-dev-shm-usage (64MB /dev/shm)"
+  ],
+  "operatingSystem": "linux x64",
+  "freeMemoryMb": {
+   "atStart": 1903,
+   "atEnd": 1446
+  },
+  "envSelfHealingRestarts": [],
+  "walkError": null
+ },
+ "landingSurface": {
+  "url": "http://localhost:5173/",
+  "routeOrigin": "homepage",
+  "rendered": true,
+  "documentTitle": "ZCode - Web + Server",
+  "unauthenticatedRenderSummary": "Welcome to ZCode /  / Connect your account to start using ZCode /  / Connect to Z.ai / Global / Connect to BigModel / CN",
+  "visibleButtons": [
+   {
+    "tag": "button",
+    "label": "Connect to Z.ai\nGlobal",
+    "href": null
+   },
+   {
+    "tag": "button",
+    "label": "Connect to BigModel\nCN",
+    "href": null
+   },
+   {
+    "tag": "button",
+    "label": "Use API key",
+    "href": null
+   }
+  ],
+  "visibleLinks": [],
+  "tabOrder": [
+   "Connect to Z.ai\nGlobal",
+   "Connect to BigModel\nCN",
+   "Use API key",
+   "(body)",
+   "Connect to Z.ai\nGlobal",
+   "Connect to BigModel\nCN",
+   "Use API key",
+   "(body)"
+  ],
+  "screenshot": "evidence/01-landing-small.png",
+  "consoleEvidenceFile": "evidence/01-landing-small-console.txt"
+ },
+ "warmup": {
+  "painted": true,
+  "bodyLen": 118
+ },
+ "discoveryWalk": {
+  "routeOrigin": "homepage",
+  "steps": [
+   {
+    "action": "navigate",
+    "control": {
+     "kind": "url",
+     "visibleLabel": "http://localhost:5173/"
+    },
+    "surfaceId": "landing:/",
+    "atUtc": "2026-10-09T17:02:22.974Z",
+    "screenshot": "evidence/01-landing-small.png",
+    "note": "ordinary landing surface"
+   },
+   {
+    "action": "navigate",
+    "control": {
+     "kind": "url",
+     "visibleLabel": "http://localhost:5173/"
+    },
+    "surfaceId": "landing:/",
+    "atUtc": "2026-10-09T17:02:40.434Z",
+    "screenshot": "evidence/02-landing-medium.png",
+    "note": "ordinary landing surface"
+   },
+   {
+    "action": "navigate",
+    "control": {
+     "kind": "url",
+     "visibleLabel": "http://localhost:5173/"
+    },
+    "surfaceId": "landing:/",
+    "atUtc": "2026-10-09T17:02:59.529Z",
+    "screenshot": "evidence/03-landing-large.png",
+    "note": "ordinary landing surface"
+   },
+   {
+    "action": "click",
+    "control": {
+     "kind": "button",
+     "visibleLabel": "Use API key"
+    },
+    "surfaceId": "landing:/",
+    "atUtc": "2026-10-09T17:03:25.490Z",
+    "causedTransitionTo": "onboarding:use-api-key",
+    "screenshot": "evidence/04-onboarding-apikey-panel.png",
+    "note": "the only visible non-OAuth forward path from the landing"
+   },
+   {
+    "action": "click",
+    "control": {
+     "kind": "button",
+     "visibleLabel": "Connect to Z.ai"
+    },
+    "surfaceId": "landing:/",
+    "atUtc": null,
+    "note": "external OAuth redirect intercepted+aborted (values redacted): https://chat.z.ai/api/oauth/authorize?client_id=[REDACTED]&redirect_uri=[REDACTED]&response_type=[REDACTED]&state=[REDACTED]"
+   },
+   {
+    "action": "click",
+    "control": {
+     "kind": "button",
+     "visibleLabel": "Connect to BigModel"
+    },
+    "surfaceId": "landing:/",
+    "atUtc": null,
+    "note": "external OAuth redirect intercepted+aborted (values redacted): https://bigmodel.cn/login?appId=[REDACTED]&redirect=[REDACTED]&state=[REDACTED]"
+   }
+  ],
+  "externalRedirectTargets": [
+   "https://chat.z.ai/api/oauth/authorize?client_id=[REDACTED]&redirect_uri=[REDACTED]&response_type=[REDACTED]&state=[REDACTED]",
+   "https://bigmodel.cn/login?appId=[REDACTED]&redirect=[REDACTED]&state=[REDACTED]"
+  ],
+  "oauthRedirectEvidenceFile": "evidence/05-oauth-redirect-targets.txt",
+  "oauthCaptureError": null,
+  "surfacesExamined": [
+   {
+    "surfaceId": "landing:/ (small)",
+    "rendered": true
+   },
+   {
+    "surfaceId": "landing:/ (medium)",
+    "rendered": true
+   },
+   {
+    "surfaceId": "landing:/ (large)",
+    "rendered": true
+   },
+   {
+    "surfaceId": "onboarding:use-api-key",
+    "rendered": true
+   },
+   {
+    "surfaceId": "share:/share",
+    "rendered": true
+   },
+   {
+    "surfaceId": "share:/cn/share",
+    "rendered": true
+   }
+  ]
+ },
+ "secondarySurfaces": [
+  {
+   "path": "/share",
+   "role": "public conversation-share landing (not part of first-discovery walk)",
+   "rendered": true,
+   "documentTitle": "ZCode Conversation Share",
+   "renderedSummary": "ZCode Conversation Share / Invalid share content /  / The shared content failed the public safety contract.",
+   "screenshot": "evidence/06-share-en.png",
+   "consoleEvidenceFile": "evidence/06-share-en-console.txt",
+   "error": null
+  },
+  {
+   "path": "/cn/share",
+   "role": "public conversation-share landing (not part of first-discovery walk)",
+   "rendered": true,
+   "documentTitle": "ZCode Conversation Share",
+   "renderedSummary": "ZCode Conversation Share / Invalid share content /  / The shared content failed the public safety contract.",
+   "screenshot": "evidence/07-share-zh.png",
+   "consoleEvidenceFile": "evidence/07-share-zh-console.txt",
+   "error": null
+  }
+ ],
+ "environmentBlocks": [
+  {
+   "surface": "zcode-desktop-electron",
+   "status": "blocked-environment",
+   "missingPrerequisite": "electron binary/package is not installed in this sandbox (disk ~2GB / RAM ~1.6GB ceiling; ELECTRON_MIRROR unverified) — the desktop agent workspace cannot be launched here",
+   "verification": "ls node_modules/.pnpm | grep electron → 0 entries []"
+  }
+ ],
+ "familyDiscoveries": [
+  {
+   "journeyFamilyId": "buyer-intent-constraints",
+   "protocolRef": "§10.1",
+   "routeOrigin": "homepage",
+   "discoveryPathKind": "primary-navigation",
+   "discoveryPathRef": "landing:/ → visible controls → onboarding:use-api-key (no deep links)",
+   "navigationGraph": [
+    {
+     "kind": "surface-action",
+     "fromSurfaceId": "landing:/",
+     "toSurfaceId": "onboarding:use-api-key",
+     "viaLabel": "Use API key",
+     "atInteractionIndex": 0
+    }
+   ],
+   "interactionCount": 4,
+   "outcome": "absent",
+   "outcomeRationale": "no visible sign of this family on any examined rendered surface; the commerce experience surfaces exist only as typed view contracts below the GUI (packages/experience/src/surfaces/*.ts have no renderer/host)",
+   "attemptedSigns": [
+    "intent canvas",
+    "budget",
+    "deadline",
+    "buyer intent",
+    "shopping goal"
+   ],
+   "signScan": {
+    "intent canvas": {
+     "present": false
+    },
+    "budget": {
+     "present": false
+    },
+    "deadline": {
+     "present": false
+    },
+    "buyer intent": {
+     "present": false
+    },
+    "shopping goal": {
+     "present": false
+    }
+   },
+   "profileOutcomes": {
+    "small": "absent",
+    "medium": "absent",
+    "large": "absent"
+   },
+   "successfulSteps": [
+    "landing-rendered",
+    "visible-controls-inventoried",
+    "sign-scan-executed"
+   ],
+   "failedOrBlockedSteps": [],
+   "guiOnlyProof": {
+    "deepLinkUsedForDiscovery": false,
+    "directApiCallsDuringJourney": [],
+    "directServiceInvocationsDuringJourney": [],
+    "dbMutationsDuringJourney": [],
+    "hiddenRouteTouchesDuringJourney": [],
+    "violations": [],
+    "instrumentationOnly": true
+   },
+   "sensitiveValueScrubbed": true,
+   "browser": {
+    "surfacesExamined": [
+     "landing:/ (small profile)",
+     "landing:/ (medium profile)",
+     "landing:/ (large profile)",
+     "onboarding:use-api-key",
+     "share:/share",
+     "share:/cn/share"
+    ],
+    "evidenceScreenshots": [
+     "evidence/01-landing-small.png",
+     "evidence/02-landing-medium.png",
+     "evidence/03-landing-large.png",
+     "evidence/04-onboarding-apikey-panel.png",
+     "evidence/06-share-en.png",
+     "evidence/07-share-zh.png"
+    ],
+    "consoleEvidenceFiles": [
+     "evidence/01-landing-small-console.txt",
+     "evidence/02-landing-medium-console.txt",
+     "evidence/03-landing-large-console.txt",
+     "evidence/04-onboarding-apikey-panel-console.txt",
+     "evidence/06-share-en-console.txt",
+     "evidence/07-share-zh-console.txt"
+    ],
+    "visibleControlsInventory": {
+     "landingButtons": [
+      {
+       "tag": "button",
+       "label": "Connect to Z.ai\nGlobal",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Connect to BigModel\nCN",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Use API key",
+       "href": null
+      }
+     ],
+     "landingLinks": [],
+     "onboardingButtons": [
+      {
+       "tag": "button",
+       "label": "Z.ai",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Get API Key",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Continue",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Cancel",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Skip for now",
+       "href": null
+      }
+     ]
+    }
+   }
+  },
+  {
+   "journeyFamilyId": "offer-sourcing-comparison",
+   "protocolRef": "§10.2",
+   "routeOrigin": "homepage",
+   "discoveryPathKind": "primary-navigation",
+   "discoveryPathRef": "landing:/ → visible controls → onboarding:use-api-key (no deep links)",
+   "navigationGraph": [
+    {
+     "kind": "surface-action",
+     "fromSurfaceId": "landing:/",
+     "toSurfaceId": "onboarding:use-api-key",
+     "viaLabel": "Use API key",
+     "atInteractionIndex": 0
+    }
+   ],
+   "interactionCount": 4,
+   "outcome": "absent",
+   "outcomeRationale": "no visible sign of this family on any examined rendered surface; the commerce experience surfaces exist only as typed view contracts below the GUI (packages/experience/src/surfaces/*.ts have no renderer/host)",
+   "attemptedSigns": [
+    "compare offers",
+    "compare sellers",
+    "seller comparison",
+    "best offer"
+   ],
+   "signScan": {
+    "compare offers": {
+     "present": false
+    },
+    "compare sellers": {
+     "present": false
+    },
+    "seller comparison": {
+     "present": false
+    },
+    "best offer": {
+     "present": false
+    }
+   },
+   "profileOutcomes": {
+    "small": "absent",
+    "medium": "absent",
+    "large": "absent"
+   },
+   "successfulSteps": [
+    "landing-rendered",
+    "visible-controls-inventoried",
+    "sign-scan-executed"
+   ],
+   "failedOrBlockedSteps": [],
+   "guiOnlyProof": {
+    "deepLinkUsedForDiscovery": false,
+    "directApiCallsDuringJourney": [],
+    "directServiceInvocationsDuringJourney": [],
+    "dbMutationsDuringJourney": [],
+    "hiddenRouteTouchesDuringJourney": [],
+    "violations": [],
+    "instrumentationOnly": true
+   },
+   "sensitiveValueScrubbed": true,
+   "browser": {
+    "surfacesExamined": [
+     "landing:/ (small profile)",
+     "landing:/ (medium profile)",
+     "landing:/ (large profile)",
+     "onboarding:use-api-key",
+     "share:/share",
+     "share:/cn/share"
+    ],
+    "evidenceScreenshots": [
+     "evidence/01-landing-small.png",
+     "evidence/02-landing-medium.png",
+     "evidence/03-landing-large.png",
+     "evidence/04-onboarding-apikey-panel.png",
+     "evidence/06-share-en.png",
+     "evidence/07-share-zh.png"
+    ],
+    "consoleEvidenceFiles": [
+     "evidence/01-landing-small-console.txt",
+     "evidence/02-landing-medium-console.txt",
+     "evidence/03-landing-large-console.txt",
+     "evidence/04-onboarding-apikey-panel-console.txt",
+     "evidence/06-share-en-console.txt",
+     "evidence/07-share-zh-console.txt"
+    ],
+    "visibleControlsInventory": {
+     "landingButtons": [
+      {
+       "tag": "button",
+       "label": "Connect to Z.ai\nGlobal",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Connect to BigModel\nCN",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Use API key",
+       "href": null
+      }
+     ],
+     "landingLinks": [],
+     "onboardingButtons": [
+      {
+       "tag": "button",
+       "label": "Z.ai",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Get API Key",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Continue",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Cancel",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Skip for now",
+       "href": null
+      }
+     ]
+    }
+   }
+  },
+  {
+   "journeyFamilyId": "buy-now-vs-wait-price-timing",
+   "protocolRef": "§10.3",
+   "routeOrigin": "homepage",
+   "discoveryPathKind": "primary-navigation",
+   "discoveryPathRef": "landing:/ → visible controls → onboarding:use-api-key (no deep links)",
+   "navigationGraph": [
+    {
+     "kind": "surface-action",
+     "fromSurfaceId": "landing:/",
+     "toSurfaceId": "onboarding:use-api-key",
+     "viaLabel": "Use API key",
+     "atInteractionIndex": 0
+    }
+   ],
+   "interactionCount": 4,
+   "outcome": "absent",
+   "outcomeRationale": "no visible sign of this family on any examined rendered surface; the commerce experience surfaces exist only as typed view contracts below the GUI (packages/experience/src/surfaces/*.ts have no renderer/host)",
+   "attemptedSigns": [
+    "price alert",
+    "price drop",
+    "buy now or wait",
+    "price timing"
+   ],
+   "signScan": {
+    "price alert": {
+     "present": false
+    },
+    "price drop": {
+     "present": false
+    },
+    "buy now or wait": {
+     "present": false
+    },
+    "price timing": {
+     "present": false
+    }
+   },
+   "profileOutcomes": {
+    "small": "absent",
+    "medium": "absent",
+    "large": "absent"
+   },
+   "successfulSteps": [
+    "landing-rendered",
+    "visible-controls-inventoried",
+    "sign-scan-executed"
+   ],
+   "failedOrBlockedSteps": [],
+   "guiOnlyProof": {
+    "deepLinkUsedForDiscovery": false,
+    "directApiCallsDuringJourney": [],
+    "directServiceInvocationsDuringJourney": [],
+    "dbMutationsDuringJourney": [],
+    "hiddenRouteTouchesDuringJourney": [],
+    "violations": [],
+    "instrumentationOnly": true
+   },
+   "sensitiveValueScrubbed": true,
+   "browser": {
+    "surfacesExamined": [
+     "landing:/ (small profile)",
+     "landing:/ (medium profile)",
+     "landing:/ (large profile)",
+     "onboarding:use-api-key",
+     "share:/share",
+     "share:/cn/share"
+    ],
+    "evidenceScreenshots": [
+     "evidence/01-landing-small.png",
+     "evidence/02-landing-medium.png",
+     "evidence/03-landing-large.png",
+     "evidence/04-onboarding-apikey-panel.png",
+     "evidence/06-share-en.png",
+     "evidence/07-share-zh.png"
+    ],
+    "consoleEvidenceFiles": [
+     "evidence/01-landing-small-console.txt",
+     "evidence/02-landing-medium-console.txt",
+     "evidence/03-landing-large-console.txt",
+     "evidence/04-onboarding-apikey-panel-console.txt",
+     "evidence/06-share-en-console.txt",
+     "evidence/07-share-zh-console.txt"
+    ],
+    "visibleControlsInventory": {
+     "landingButtons": [
+      {
+       "tag": "button",
+       "label": "Connect to Z.ai\nGlobal",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Connect to BigModel\nCN",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Use API key",
+       "href": null
+      }
+     ],
+     "landingLinks": [],
+     "onboardingButtons": [
+      {
+       "tag": "button",
+       "label": "Z.ai",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Get API Key",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Continue",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Cancel",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Skip for now",
+       "href": null
+      }
+     ]
+    }
+   }
+  },
+  {
+   "journeyFamilyId": "existing-group-buy",
+   "protocolRef": "§10.4",
+   "routeOrigin": "homepage",
+   "discoveryPathKind": "primary-navigation",
+   "discoveryPathRef": "landing:/ → visible controls → onboarding:use-api-key (no deep links)",
+   "navigationGraph": [
+    {
+     "kind": "surface-action",
+     "fromSurfaceId": "landing:/",
+     "toSurfaceId": "onboarding:use-api-key",
+     "viaLabel": "Use API key",
+     "atInteractionIndex": 0
+    }
+   ],
+   "interactionCount": 4,
+   "outcome": "absent",
+   "outcomeRationale": "no visible sign of this family on any examined rendered surface; the commerce experience surfaces exist only as typed view contracts below the GUI (packages/experience/src/surfaces/*.ts have no renderer/host)",
+   "attemptedSigns": [
+    "group buy",
+    "groupbuy",
+    "join group",
+    "group purchase"
+   ],
+   "signScan": {
+    "group buy": {
+     "present": false
+    },
+    "groupbuy": {
+     "present": false
+    },
+    "join group": {
+     "present": false
+    },
+    "group purchase": {
+     "present": false
+    }
+   },
+   "profileOutcomes": {
+    "small": "absent",
+    "medium": "absent",
+    "large": "absent"
+   },
+   "successfulSteps": [
+    "landing-rendered",
+    "visible-controls-inventoried",
+    "sign-scan-executed"
+   ],
+   "failedOrBlockedSteps": [],
+   "guiOnlyProof": {
+    "deepLinkUsedForDiscovery": false,
+    "directApiCallsDuringJourney": [],
+    "directServiceInvocationsDuringJourney": [],
+    "dbMutationsDuringJourney": [],
+    "hiddenRouteTouchesDuringJourney": [],
+    "violations": [],
+    "instrumentationOnly": true
+   },
+   "sensitiveValueScrubbed": true,
+   "browser": {
+    "surfacesExamined": [
+     "landing:/ (small profile)",
+     "landing:/ (medium profile)",
+     "landing:/ (large profile)",
+     "onboarding:use-api-key",
+     "share:/share",
+     "share:/cn/share"
+    ],
+    "evidenceScreenshots": [
+     "evidence/01-landing-small.png",
+     "evidence/02-landing-medium.png",
+     "evidence/03-landing-large.png",
+     "evidence/04-onboarding-apikey-panel.png",
+     "evidence/06-share-en.png",
+     "evidence/07-share-zh.png"
+    ],
+    "consoleEvidenceFiles": [
+     "evidence/01-landing-small-console.txt",
+     "evidence/02-landing-medium-console.txt",
+     "evidence/03-landing-large-console.txt",
+     "evidence/04-onboarding-apikey-panel-console.txt",
+     "evidence/06-share-en-console.txt",
+     "evidence/07-share-zh-console.txt"
+    ],
+    "visibleControlsInventory": {
+     "landingButtons": [
+      {
+       "tag": "button",
+       "label": "Connect to Z.ai\nGlobal",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Connect to BigModel\nCN",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Use API key",
+       "href": null
+      }
+     ],
+     "landingLinks": [],
+     "onboardingButtons": [
+      {
+       "tag": "button",
+       "label": "Z.ai",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Get API Key",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Continue",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Cancel",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Skip for now",
+       "href": null
+      }
+     ]
+    }
+   }
+  },
+  {
+   "journeyFamilyId": "latent-demand-merchant-group-buy-proposal",
+   "protocolRef": "§10.5",
+   "routeOrigin": "homepage",
+   "discoveryPathKind": "primary-navigation",
+   "discoveryPathRef": "landing:/ → visible controls → onboarding:use-api-key (no deep links)",
+   "navigationGraph": [
+    {
+     "kind": "surface-action",
+     "fromSurfaceId": "landing:/",
+     "toSurfaceId": "onboarding:use-api-key",
+     "viaLabel": "Use API key",
+     "atInteractionIndex": 0
+    }
+   ],
+   "interactionCount": 4,
+   "outcome": "absent",
+   "outcomeRationale": "no visible sign of this family on any examined rendered surface; the commerce experience surfaces exist only as typed view contracts below the GUI (packages/experience/src/surfaces/*.ts have no renderer/host)",
+   "attemptedSigns": [
+    "group buy proposal",
+    "propose a group buy",
+    "latent demand"
+   ],
+   "signScan": {
+    "group buy proposal": {
+     "present": false
+    },
+    "propose a group buy": {
+     "present": false
+    },
+    "latent demand": {
+     "present": false
+    }
+   },
+   "profileOutcomes": {
+    "small": "absent",
+    "medium": "absent",
+    "large": "absent"
+   },
+   "successfulSteps": [
+    "landing-rendered",
+    "visible-controls-inventoried",
+    "sign-scan-executed"
+   ],
+   "failedOrBlockedSteps": [],
+   "guiOnlyProof": {
+    "deepLinkUsedForDiscovery": false,
+    "directApiCallsDuringJourney": [],
+    "directServiceInvocationsDuringJourney": [],
+    "dbMutationsDuringJourney": [],
+    "hiddenRouteTouchesDuringJourney": [],
+    "violations": [],
+    "instrumentationOnly": true
+   },
+   "sensitiveValueScrubbed": true,
+   "browser": {
+    "surfacesExamined": [
+     "landing:/ (small profile)",
+     "landing:/ (medium profile)",
+     "landing:/ (large profile)",
+     "onboarding:use-api-key",
+     "share:/share",
+     "share:/cn/share"
+    ],
+    "evidenceScreenshots": [
+     "evidence/01-landing-small.png",
+     "evidence/02-landing-medium.png",
+     "evidence/03-landing-large.png",
+     "evidence/04-onboarding-apikey-panel.png",
+     "evidence/06-share-en.png",
+     "evidence/07-share-zh.png"
+    ],
+    "consoleEvidenceFiles": [
+     "evidence/01-landing-small-console.txt",
+     "evidence/02-landing-medium-console.txt",
+     "evidence/03-landing-large-console.txt",
+     "evidence/04-onboarding-apikey-panel-console.txt",
+     "evidence/06-share-en-console.txt",
+     "evidence/07-share-zh-console.txt"
+    ],
+    "visibleControlsInventory": {
+     "landingButtons": [
+      {
+       "tag": "button",
+       "label": "Connect to Z.ai\nGlobal",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Connect to BigModel\nCN",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Use API key",
+       "href": null
+      }
+     ],
+     "landingLinks": [],
+     "onboardingButtons": [
+      {
+       "tag": "button",
+       "label": "Z.ai",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Get API Key",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Continue",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Cancel",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Skip for now",
+       "href": null
+      }
+     ]
+    }
+   }
+  },
+  {
+   "journeyFamilyId": "rent-borrow-vs-buy",
+   "protocolRef": "§10.6",
+   "routeOrigin": "homepage",
+   "discoveryPathKind": "primary-navigation",
+   "discoveryPathRef": "landing:/ → visible controls → onboarding:use-api-key (no deep links)",
+   "navigationGraph": [
+    {
+     "kind": "surface-action",
+     "fromSurfaceId": "landing:/",
+     "toSurfaceId": "onboarding:use-api-key",
+     "viaLabel": "Use API key",
+     "atInteractionIndex": 0
+    }
+   ],
+   "interactionCount": 4,
+   "outcome": "absent",
+   "outcomeRationale": "no visible sign of this family on any examined rendered surface; the commerce experience surfaces exist only as typed view contracts below the GUI (packages/experience/src/surfaces/*.ts have no renderer/host)",
+   "attemptedSigns": [
+    "rent",
+    "borrow",
+    "rental",
+    "lease"
+   ],
+   "signScan": {
+    "rent": {
+     "present": false
+    },
+    "borrow": {
+     "present": false
+    },
+    "rental": {
+     "present": false
+    },
+    "lease": {
+     "present": false
+    }
+   },
+   "profileOutcomes": {
+    "small": "absent",
+    "medium": "absent",
+    "large": "absent"
+   },
+   "successfulSteps": [
+    "landing-rendered",
+    "visible-controls-inventoried",
+    "sign-scan-executed"
+   ],
+   "failedOrBlockedSteps": [],
+   "guiOnlyProof": {
+    "deepLinkUsedForDiscovery": false,
+    "directApiCallsDuringJourney": [],
+    "directServiceInvocationsDuringJourney": [],
+    "dbMutationsDuringJourney": [],
+    "hiddenRouteTouchesDuringJourney": [],
+    "violations": [],
+    "instrumentationOnly": true
+   },
+   "sensitiveValueScrubbed": true,
+   "browser": {
+    "surfacesExamined": [
+     "landing:/ (small profile)",
+     "landing:/ (medium profile)",
+     "landing:/ (large profile)",
+     "onboarding:use-api-key",
+     "share:/share",
+     "share:/cn/share"
+    ],
+    "evidenceScreenshots": [
+     "evidence/01-landing-small.png",
+     "evidence/02-landing-medium.png",
+     "evidence/03-landing-large.png",
+     "evidence/04-onboarding-apikey-panel.png",
+     "evidence/06-share-en.png",
+     "evidence/07-share-zh.png"
+    ],
+    "consoleEvidenceFiles": [
+     "evidence/01-landing-small-console.txt",
+     "evidence/02-landing-medium-console.txt",
+     "evidence/03-landing-large-console.txt",
+     "evidence/04-onboarding-apikey-panel-console.txt",
+     "evidence/06-share-en-console.txt",
+     "evidence/07-share-zh-console.txt"
+    ],
+    "visibleControlsInventory": {
+     "landingButtons": [
+      {
+       "tag": "button",
+       "label": "Connect to Z.ai\nGlobal",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Connect to BigModel\nCN",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Use API key",
+       "href": null
+      }
+     ],
+     "landingLinks": [],
+     "onboardingButtons": [
+      {
+       "tag": "button",
+       "label": "Z.ai",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Get API Key",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Continue",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Cancel",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Skip for now",
+       "href": null
+      }
+     ]
+    }
+   }
+  },
+  {
+   "journeyFamilyId": "resale-rental-consignment",
+   "protocolRef": "§10.7",
+   "routeOrigin": "homepage",
+   "discoveryPathKind": "primary-navigation",
+   "discoveryPathRef": "landing:/ → visible controls → onboarding:use-api-key (no deep links)",
+   "navigationGraph": [
+    {
+     "kind": "surface-action",
+     "fromSurfaceId": "landing:/",
+     "toSurfaceId": "onboarding:use-api-key",
+     "viaLabel": "Use API key",
+     "atInteractionIndex": 0
+    }
+   ],
+   "interactionCount": 4,
+   "outcome": "absent",
+   "outcomeRationale": "no visible sign of this family on any examined rendered surface; the commerce experience surfaces exist only as typed view contracts below the GUI (packages/experience/src/surfaces/*.ts have no renderer/host)",
+   "attemptedSigns": [
+    "resale",
+    "consignment",
+    "sell used",
+    "second-hand"
+   ],
+   "signScan": {
+    "resale": {
+     "present": false
+    },
+    "consignment": {
+     "present": false
+    },
+    "sell used": {
+     "present": false
+    },
+    "second-hand": {
+     "present": false
+    }
+   },
+   "profileOutcomes": {
+    "small": "absent",
+    "medium": "absent",
+    "large": "absent"
+   },
+   "successfulSteps": [
+    "landing-rendered",
+    "visible-controls-inventoried",
+    "sign-scan-executed"
+   ],
+   "failedOrBlockedSteps": [],
+   "guiOnlyProof": {
+    "deepLinkUsedForDiscovery": false,
+    "directApiCallsDuringJourney": [],
+    "directServiceInvocationsDuringJourney": [],
+    "dbMutationsDuringJourney": [],
+    "hiddenRouteTouchesDuringJourney": [],
+    "violations": [],
+    "instrumentationOnly": true
+   },
+   "sensitiveValueScrubbed": true,
+   "browser": {
+    "surfacesExamined": [
+     "landing:/ (small profile)",
+     "landing:/ (medium profile)",
+     "landing:/ (large profile)",
+     "onboarding:use-api-key",
+     "share:/share",
+     "share:/cn/share"
+    ],
+    "evidenceScreenshots": [
+     "evidence/01-landing-small.png",
+     "evidence/02-landing-medium.png",
+     "evidence/03-landing-large.png",
+     "evidence/04-onboarding-apikey-panel.png",
+     "evidence/06-share-en.png",
+     "evidence/07-share-zh.png"
+    ],
+    "consoleEvidenceFiles": [
+     "evidence/01-landing-small-console.txt",
+     "evidence/02-landing-medium-console.txt",
+     "evidence/03-landing-large-console.txt",
+     "evidence/04-onboarding-apikey-panel-console.txt",
+     "evidence/06-share-en-console.txt",
+     "evidence/07-share-zh-console.txt"
+    ],
+    "visibleControlsInventory": {
+     "landingButtons": [
+      {
+       "tag": "button",
+       "label": "Connect to Z.ai\nGlobal",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Connect to BigModel\nCN",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Use API key",
+       "href": null
+      }
+     ],
+     "landingLinks": [],
+     "onboardingButtons": [
+      {
+       "tag": "button",
+       "label": "Z.ai",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Get API Key",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Continue",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Cancel",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Skip for now",
+       "href": null
+      }
+     ]
+    }
+   }
+  },
+  {
+   "journeyFamilyId": "proactive-economic-opportunities",
+   "protocolRef": "§10.8",
+   "routeOrigin": "homepage",
+   "discoveryPathKind": "primary-navigation",
+   "discoveryPathRef": "landing:/ → visible controls → onboarding:use-api-key (no deep links)",
+   "navigationGraph": [
+    {
+     "kind": "surface-action",
+     "fromSurfaceId": "landing:/",
+     "toSurfaceId": "onboarding:use-api-key",
+     "viaLabel": "Use API key",
+     "atInteractionIndex": 0
+    }
+   ],
+   "interactionCount": 4,
+   "outcome": "absent",
+   "outcomeRationale": "no visible sign of this family on any examined rendered surface; the commerce experience surfaces exist only as typed view contracts below the GUI (packages/experience/src/surfaces/*.ts have no renderer/host)",
+   "attemptedSigns": [
+    "opportunity",
+    "opportunities",
+    "savings for you",
+    "cashback"
+   ],
+   "signScan": {
+    "opportunity": {
+     "present": false
+    },
+    "opportunities": {
+     "present": false
+    },
+    "savings for you": {
+     "present": false
+    },
+    "cashback": {
+     "present": false
+    }
+   },
+   "profileOutcomes": {
+    "small": "absent",
+    "medium": "absent",
+    "large": "absent"
+   },
+   "successfulSteps": [
+    "landing-rendered",
+    "visible-controls-inventoried",
+    "sign-scan-executed"
+   ],
+   "failedOrBlockedSteps": [],
+   "guiOnlyProof": {
+    "deepLinkUsedForDiscovery": false,
+    "directApiCallsDuringJourney": [],
+    "directServiceInvocationsDuringJourney": [],
+    "dbMutationsDuringJourney": [],
+    "hiddenRouteTouchesDuringJourney": [],
+    "violations": [],
+    "instrumentationOnly": true
+   },
+   "sensitiveValueScrubbed": true,
+   "browser": {
+    "surfacesExamined": [
+     "landing:/ (small profile)",
+     "landing:/ (medium profile)",
+     "landing:/ (large profile)",
+     "onboarding:use-api-key",
+     "share:/share",
+     "share:/cn/share"
+    ],
+    "evidenceScreenshots": [
+     "evidence/01-landing-small.png",
+     "evidence/02-landing-medium.png",
+     "evidence/03-landing-large.png",
+     "evidence/04-onboarding-apikey-panel.png",
+     "evidence/06-share-en.png",
+     "evidence/07-share-zh.png"
+    ],
+    "consoleEvidenceFiles": [
+     "evidence/01-landing-small-console.txt",
+     "evidence/02-landing-medium-console.txt",
+     "evidence/03-landing-large-console.txt",
+     "evidence/04-onboarding-apikey-panel-console.txt",
+     "evidence/06-share-en-console.txt",
+     "evidence/07-share-zh-console.txt"
+    ],
+    "visibleControlsInventory": {
+     "landingButtons": [
+      {
+       "tag": "button",
+       "label": "Connect to Z.ai\nGlobal",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Connect to BigModel\nCN",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Use API key",
+       "href": null
+      }
+     ],
+     "landingLinks": [],
+     "onboardingButtons": [
+      {
+       "tag": "button",
+       "label": "Z.ai",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Get API Key",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Continue",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Cancel",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Skip for now",
+       "href": null
+      }
+     ]
+    }
+   }
+  },
+  {
+   "journeyFamilyId": "bounded-multi-hop-trade-cycle",
+   "protocolRef": "§10.9",
+   "routeOrigin": "homepage",
+   "discoveryPathKind": "primary-navigation",
+   "discoveryPathRef": "landing:/ → visible controls → onboarding:use-api-key (no deep links)",
+   "navigationGraph": [
+    {
+     "kind": "surface-action",
+     "fromSurfaceId": "landing:/",
+     "toSurfaceId": "onboarding:use-api-key",
+     "viaLabel": "Use API key",
+     "atInteractionIndex": 0
+    }
+   ],
+   "interactionCount": 4,
+   "outcome": "absent",
+   "outcomeRationale": "no visible sign of this family on any examined rendered surface; the commerce experience surfaces exist only as typed view contracts below the GUI (packages/experience/src/surfaces/*.ts have no renderer/host)",
+   "attemptedSigns": [
+    "trade cycle",
+    "tradecycle",
+    "multi-hop",
+    "trade leg"
+   ],
+   "signScan": {
+    "trade cycle": {
+     "present": false
+    },
+    "tradecycle": {
+     "present": false
+    },
+    "multi-hop": {
+     "present": false
+    },
+    "trade leg": {
+     "present": false
+    }
+   },
+   "profileOutcomes": {
+    "small": "absent",
+    "medium": "absent",
+    "large": "absent"
+   },
+   "successfulSteps": [
+    "landing-rendered",
+    "visible-controls-inventoried",
+    "sign-scan-executed"
+   ],
+   "failedOrBlockedSteps": [],
+   "guiOnlyProof": {
+    "deepLinkUsedForDiscovery": false,
+    "directApiCallsDuringJourney": [],
+    "directServiceInvocationsDuringJourney": [],
+    "dbMutationsDuringJourney": [],
+    "hiddenRouteTouchesDuringJourney": [],
+    "violations": [],
+    "instrumentationOnly": true
+   },
+   "sensitiveValueScrubbed": true,
+   "browser": {
+    "surfacesExamined": [
+     "landing:/ (small profile)",
+     "landing:/ (medium profile)",
+     "landing:/ (large profile)",
+     "onboarding:use-api-key",
+     "share:/share",
+     "share:/cn/share"
+    ],
+    "evidenceScreenshots": [
+     "evidence/01-landing-small.png",
+     "evidence/02-landing-medium.png",
+     "evidence/03-landing-large.png",
+     "evidence/04-onboarding-apikey-panel.png",
+     "evidence/06-share-en.png",
+     "evidence/07-share-zh.png"
+    ],
+    "consoleEvidenceFiles": [
+     "evidence/01-landing-small-console.txt",
+     "evidence/02-landing-medium-console.txt",
+     "evidence/03-landing-large-console.txt",
+     "evidence/04-onboarding-apikey-panel-console.txt",
+     "evidence/06-share-en-console.txt",
+     "evidence/07-share-zh-console.txt"
+    ],
+    "visibleControlsInventory": {
+     "landingButtons": [
+      {
+       "tag": "button",
+       "label": "Connect to Z.ai\nGlobal",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Connect to BigModel\nCN",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Use API key",
+       "href": null
+      }
+     ],
+     "landingLinks": [],
+     "onboardingButtons": [
+      {
+       "tag": "button",
+       "label": "Z.ai",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Get API Key",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Continue",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Cancel",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Skip for now",
+       "href": null
+      }
+     ]
+    }
+   }
+  },
+  {
+   "journeyFamilyId": "merchant-commerce-lifecycle",
+   "protocolRef": "§10.10",
+   "routeOrigin": "homepage",
+   "discoveryPathKind": "primary-navigation",
+   "discoveryPathRef": "landing:/ → visible controls → onboarding:use-api-key (no deep links)",
+   "navigationGraph": [
+    {
+     "kind": "surface-action",
+     "fromSurfaceId": "landing:/",
+     "toSurfaceId": "onboarding:use-api-key",
+     "viaLabel": "Use API key",
+     "atInteractionIndex": 0
+    }
+   ],
+   "interactionCount": 4,
+   "outcome": "absent",
+   "outcomeRationale": "no visible sign of this family on any examined rendered surface; the commerce experience surfaces exist only as typed view contracts below the GUI (packages/experience/src/surfaces/*.ts have no renderer/host)",
+   "attemptedSigns": [
+    "storefront",
+    "product listing",
+    "checkout",
+    "catalog",
+    "merchant"
+   ],
+   "signScan": {
+    "storefront": {
+     "present": false
+    },
+    "product listing": {
+     "present": false
+    },
+    "checkout": {
+     "present": false
+    },
+    "catalog": {
+     "present": false
+    },
+    "merchant": {
+     "present": false
+    }
+   },
+   "profileOutcomes": {
+    "small": "absent",
+    "medium": "absent",
+    "large": "absent"
+   },
+   "successfulSteps": [
+    "landing-rendered",
+    "visible-controls-inventoried",
+    "sign-scan-executed"
+   ],
+   "failedOrBlockedSteps": [],
+   "guiOnlyProof": {
+    "deepLinkUsedForDiscovery": false,
+    "directApiCallsDuringJourney": [],
+    "directServiceInvocationsDuringJourney": [],
+    "dbMutationsDuringJourney": [],
+    "hiddenRouteTouchesDuringJourney": [],
+    "violations": [],
+    "instrumentationOnly": true
+   },
+   "sensitiveValueScrubbed": true,
+   "browser": {
+    "surfacesExamined": [
+     "landing:/ (small profile)",
+     "landing:/ (medium profile)",
+     "landing:/ (large profile)",
+     "onboarding:use-api-key",
+     "share:/share",
+     "share:/cn/share"
+    ],
+    "evidenceScreenshots": [
+     "evidence/01-landing-small.png",
+     "evidence/02-landing-medium.png",
+     "evidence/03-landing-large.png",
+     "evidence/04-onboarding-apikey-panel.png",
+     "evidence/06-share-en.png",
+     "evidence/07-share-zh.png"
+    ],
+    "consoleEvidenceFiles": [
+     "evidence/01-landing-small-console.txt",
+     "evidence/02-landing-medium-console.txt",
+     "evidence/03-landing-large-console.txt",
+     "evidence/04-onboarding-apikey-panel-console.txt",
+     "evidence/06-share-en-console.txt",
+     "evidence/07-share-zh-console.txt"
+    ],
+    "visibleControlsInventory": {
+     "landingButtons": [
+      {
+       "tag": "button",
+       "label": "Connect to Z.ai\nGlobal",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Connect to BigModel\nCN",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Use API key",
+       "href": null
+      }
+     ],
+     "landingLinks": [],
+     "onboardingButtons": [
+      {
+       "tag": "button",
+       "label": "Z.ai",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Get API Key",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Continue",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Cancel",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Skip for now",
+       "href": null
+      }
+     ]
+    }
+   }
+  },
+  {
+   "journeyFamilyId": "supplier-procurement-receiving",
+   "protocolRef": "§10.11",
+   "routeOrigin": "homepage",
+   "discoveryPathKind": "primary-navigation",
+   "discoveryPathRef": "landing:/ → visible controls → onboarding:use-api-key (no deep links)",
+   "navigationGraph": [
+    {
+     "kind": "surface-action",
+     "fromSurfaceId": "landing:/",
+     "toSurfaceId": "onboarding:use-api-key",
+     "viaLabel": "Use API key",
+     "atInteractionIndex": 0
+    }
+   ],
+   "interactionCount": 4,
+   "outcome": "absent",
+   "outcomeRationale": "no visible sign of this family on any examined rendered surface; the commerce experience surfaces exist only as typed view contracts below the GUI (packages/experience/src/surfaces/*.ts have no renderer/host)",
+   "attemptedSigns": [
+    "procurement",
+    "purchase order",
+    "receiving",
+    "reconciliation"
+   ],
+   "signScan": {
+    "procurement": {
+     "present": false
+    },
+    "purchase order": {
+     "present": false
+    },
+    "receiving": {
+     "present": false
+    },
+    "reconciliation": {
+     "present": false
+    }
+   },
+   "profileOutcomes": {
+    "small": "absent",
+    "medium": "absent",
+    "large": "absent"
+   },
+   "successfulSteps": [
+    "landing-rendered",
+    "visible-controls-inventoried",
+    "sign-scan-executed"
+   ],
+   "failedOrBlockedSteps": [],
+   "guiOnlyProof": {
+    "deepLinkUsedForDiscovery": false,
+    "directApiCallsDuringJourney": [],
+    "directServiceInvocationsDuringJourney": [],
+    "dbMutationsDuringJourney": [],
+    "hiddenRouteTouchesDuringJourney": [],
+    "violations": [],
+    "instrumentationOnly": true
+   },
+   "sensitiveValueScrubbed": true,
+   "browser": {
+    "surfacesExamined": [
+     "landing:/ (small profile)",
+     "landing:/ (medium profile)",
+     "landing:/ (large profile)",
+     "onboarding:use-api-key",
+     "share:/share",
+     "share:/cn/share"
+    ],
+    "evidenceScreenshots": [
+     "evidence/01-landing-small.png",
+     "evidence/02-landing-medium.png",
+     "evidence/03-landing-large.png",
+     "evidence/04-onboarding-apikey-panel.png",
+     "evidence/06-share-en.png",
+     "evidence/07-share-zh.png"
+    ],
+    "consoleEvidenceFiles": [
+     "evidence/01-landing-small-console.txt",
+     "evidence/02-landing-medium-console.txt",
+     "evidence/03-landing-large-console.txt",
+     "evidence/04-onboarding-apikey-panel-console.txt",
+     "evidence/06-share-en-console.txt",
+     "evidence/07-share-zh-console.txt"
+    ],
+    "visibleControlsInventory": {
+     "landingButtons": [
+      {
+       "tag": "button",
+       "label": "Connect to Z.ai\nGlobal",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Connect to BigModel\nCN",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Use API key",
+       "href": null
+      }
+     ],
+     "landingLinks": [],
+     "onboardingButtons": [
+      {
+       "tag": "button",
+       "label": "Z.ai",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Get API Key",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Continue",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Cancel",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Skip for now",
+       "href": null
+      }
+     ]
+    }
+   }
+  },
+  {
+   "journeyFamilyId": "b2b-multi-location-supplier-coordination",
+   "protocolRef": "§10.12",
+   "routeOrigin": "homepage",
+   "discoveryPathKind": "primary-navigation",
+   "discoveryPathRef": "landing:/ → visible controls → onboarding:use-api-key (no deep links)",
+   "navigationGraph": [
+    {
+     "kind": "surface-action",
+     "fromSurfaceId": "landing:/",
+     "toSurfaceId": "onboarding:use-api-key",
+     "viaLabel": "Use API key",
+     "atInteractionIndex": 0
+    }
+   ],
+   "interactionCount": 4,
+   "outcome": "absent",
+   "outcomeRationale": "no visible sign of this family on any examined rendered surface; the commerce experience surfaces exist only as typed view contracts below the GUI (packages/experience/src/surfaces/*.ts have no renderer/host)",
+   "attemptedSigns": [
+    "multi-location",
+    "b2b",
+    "channel coordination"
+   ],
+   "signScan": {
+    "multi-location": {
+     "present": false
+    },
+    "b2b": {
+     "present": false
+    },
+    "channel coordination": {
+     "present": false
+    }
+   },
+   "profileOutcomes": {
+    "small": "absent",
+    "medium": "absent",
+    "large": "absent"
+   },
+   "successfulSteps": [
+    "landing-rendered",
+    "visible-controls-inventoried",
+    "sign-scan-executed"
+   ],
+   "failedOrBlockedSteps": [],
+   "guiOnlyProof": {
+    "deepLinkUsedForDiscovery": false,
+    "directApiCallsDuringJourney": [],
+    "directServiceInvocationsDuringJourney": [],
+    "dbMutationsDuringJourney": [],
+    "hiddenRouteTouchesDuringJourney": [],
+    "violations": [],
+    "instrumentationOnly": true
+   },
+   "sensitiveValueScrubbed": true,
+   "browser": {
+    "surfacesExamined": [
+     "landing:/ (small profile)",
+     "landing:/ (medium profile)",
+     "landing:/ (large profile)",
+     "onboarding:use-api-key",
+     "share:/share",
+     "share:/cn/share"
+    ],
+    "evidenceScreenshots": [
+     "evidence/01-landing-small.png",
+     "evidence/02-landing-medium.png",
+     "evidence/03-landing-large.png",
+     "evidence/04-onboarding-apikey-panel.png",
+     "evidence/06-share-en.png",
+     "evidence/07-share-zh.png"
+    ],
+    "consoleEvidenceFiles": [
+     "evidence/01-landing-small-console.txt",
+     "evidence/02-landing-medium-console.txt",
+     "evidence/03-landing-large-console.txt",
+     "evidence/04-onboarding-apikey-panel-console.txt",
+     "evidence/06-share-en-console.txt",
+     "evidence/07-share-zh-console.txt"
+    ],
+    "visibleControlsInventory": {
+     "landingButtons": [
+      {
+       "tag": "button",
+       "label": "Connect to Z.ai\nGlobal",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Connect to BigModel\nCN",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Use API key",
+       "href": null
+      }
+     ],
+     "landingLinks": [],
+     "onboardingButtons": [
+      {
+       "tag": "button",
+       "label": "Z.ai",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Get API Key",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Continue",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Cancel",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Skip for now",
+       "href": null
+      }
+     ]
+    }
+   }
+  },
+  {
+   "journeyFamilyId": "autonomous-store-policy",
+   "protocolRef": "§10.13",
+   "routeOrigin": "homepage",
+   "discoveryPathKind": "primary-navigation",
+   "discoveryPathRef": "landing:/ → visible controls → onboarding:use-api-key (no deep links)",
+   "navigationGraph": [
+    {
+     "kind": "surface-action",
+     "fromSurfaceId": "landing:/",
+     "toSurfaceId": "onboarding:use-api-key",
+     "viaLabel": "Use API key",
+     "atInteractionIndex": 0
+    }
+   ],
+   "interactionCount": 4,
+   "outcome": "absent",
+   "outcomeRationale": "no visible sign of this family on any examined rendered surface; the commerce experience surfaces exist only as typed view contracts below the GUI (packages/experience/src/surfaces/*.ts have no renderer/host)",
+   "attemptedSigns": [
+    "autonomous store",
+    "auto-replenish",
+    "spend limit",
+    "autopilot store"
+   ],
+   "signScan": {
+    "autonomous store": {
+     "present": false
+    },
+    "auto-replenish": {
+     "present": false
+    },
+    "spend limit": {
+     "present": false
+    },
+    "autopilot store": {
+     "present": false
+    }
+   },
+   "profileOutcomes": {
+    "small": "absent",
+    "medium": "absent",
+    "large": "absent"
+   },
+   "successfulSteps": [
+    "landing-rendered",
+    "visible-controls-inventoried",
+    "sign-scan-executed"
+   ],
+   "failedOrBlockedSteps": [],
+   "guiOnlyProof": {
+    "deepLinkUsedForDiscovery": false,
+    "directApiCallsDuringJourney": [],
+    "directServiceInvocationsDuringJourney": [],
+    "dbMutationsDuringJourney": [],
+    "hiddenRouteTouchesDuringJourney": [],
+    "violations": [],
+    "instrumentationOnly": true
+   },
+   "sensitiveValueScrubbed": true,
+   "browser": {
+    "surfacesExamined": [
+     "landing:/ (small profile)",
+     "landing:/ (medium profile)",
+     "landing:/ (large profile)",
+     "onboarding:use-api-key",
+     "share:/share",
+     "share:/cn/share"
+    ],
+    "evidenceScreenshots": [
+     "evidence/01-landing-small.png",
+     "evidence/02-landing-medium.png",
+     "evidence/03-landing-large.png",
+     "evidence/04-onboarding-apikey-panel.png",
+     "evidence/06-share-en.png",
+     "evidence/07-share-zh.png"
+    ],
+    "consoleEvidenceFiles": [
+     "evidence/01-landing-small-console.txt",
+     "evidence/02-landing-medium-console.txt",
+     "evidence/03-landing-large-console.txt",
+     "evidence/04-onboarding-apikey-panel-console.txt",
+     "evidence/06-share-en-console.txt",
+     "evidence/07-share-zh-console.txt"
+    ],
+    "visibleControlsInventory": {
+     "landingButtons": [
+      {
+       "tag": "button",
+       "label": "Connect to Z.ai\nGlobal",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Connect to BigModel\nCN",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Use API key",
+       "href": null
+      }
+     ],
+     "landingLinks": [],
+     "onboardingButtons": [
+      {
+       "tag": "button",
+       "label": "Z.ai",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Get API Key",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Continue",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Cancel",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Skip for now",
+       "href": null
+      }
+     ]
+    }
+   }
+  },
+  {
+   "journeyFamilyId": "commerce-twin-what-if",
+   "protocolRef": "§10.14",
+   "routeOrigin": "homepage",
+   "discoveryPathKind": "primary-navigation",
+   "discoveryPathRef": "landing:/ → visible controls → onboarding:use-api-key (no deep links)",
+   "navigationGraph": [
+    {
+     "kind": "surface-action",
+     "fromSurfaceId": "landing:/",
+     "toSurfaceId": "onboarding:use-api-key",
+     "viaLabel": "Use API key",
+     "atInteractionIndex": 0
+    }
+   ],
+   "interactionCount": 4,
+   "outcome": "absent",
+   "outcomeRationale": "no visible sign of this family on any examined rendered surface; the commerce experience surfaces exist only as typed view contracts below the GUI (packages/experience/src/surfaces/*.ts have no renderer/host)",
+   "attemptedSigns": [
+    "what-if",
+    "counterfactual",
+    "commerce twin",
+    "simulation"
+   ],
+   "signScan": {
+    "what-if": {
+     "present": false
+    },
+    "counterfactual": {
+     "present": false
+    },
+    "commerce twin": {
+     "present": false
+    },
+    "simulation": {
+     "present": false
+    }
+   },
+   "profileOutcomes": {
+    "small": "absent",
+    "medium": "absent",
+    "large": "absent"
+   },
+   "successfulSteps": [
+    "landing-rendered",
+    "visible-controls-inventoried",
+    "sign-scan-executed"
+   ],
+   "failedOrBlockedSteps": [],
+   "guiOnlyProof": {
+    "deepLinkUsedForDiscovery": false,
+    "directApiCallsDuringJourney": [],
+    "directServiceInvocationsDuringJourney": [],
+    "dbMutationsDuringJourney": [],
+    "hiddenRouteTouchesDuringJourney": [],
+    "violations": [],
+    "instrumentationOnly": true
+   },
+   "sensitiveValueScrubbed": true,
+   "browser": {
+    "surfacesExamined": [
+     "landing:/ (small profile)",
+     "landing:/ (medium profile)",
+     "landing:/ (large profile)",
+     "onboarding:use-api-key",
+     "share:/share",
+     "share:/cn/share"
+    ],
+    "evidenceScreenshots": [
+     "evidence/01-landing-small.png",
+     "evidence/02-landing-medium.png",
+     "evidence/03-landing-large.png",
+     "evidence/04-onboarding-apikey-panel.png",
+     "evidence/06-share-en.png",
+     "evidence/07-share-zh.png"
+    ],
+    "consoleEvidenceFiles": [
+     "evidence/01-landing-small-console.txt",
+     "evidence/02-landing-medium-console.txt",
+     "evidence/03-landing-large-console.txt",
+     "evidence/04-onboarding-apikey-panel-console.txt",
+     "evidence/06-share-en-console.txt",
+     "evidence/07-share-zh-console.txt"
+    ],
+    "visibleControlsInventory": {
+     "landingButtons": [
+      {
+       "tag": "button",
+       "label": "Connect to Z.ai\nGlobal",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Connect to BigModel\nCN",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Use API key",
+       "href": null
+      }
+     ],
+     "landingLinks": [],
+     "onboardingButtons": [
+      {
+       "tag": "button",
+       "label": "Z.ai",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Get API Key",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Continue",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Cancel",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Skip for now",
+       "href": null
+      }
+     ]
+    }
+   }
+  },
+  {
+   "journeyFamilyId": "connected-commerce-channels-and-live-commerce",
+   "protocolRef": "§10.15",
+   "routeOrigin": "homepage",
+   "discoveryPathKind": "primary-navigation",
+   "discoveryPathRef": "landing:/ → visible controls → onboarding:use-api-key (no deep links)",
+   "navigationGraph": [
+    {
+     "kind": "surface-action",
+     "fromSurfaceId": "landing:/",
+     "toSurfaceId": "onboarding:use-api-key",
+     "viaLabel": "Use API key",
+     "atInteractionIndex": 0
+    }
+   ],
+   "interactionCount": 4,
+   "outcome": "absent",
+   "outcomeRationale": "no visible sign of this family on any examined rendered surface; the commerce experience surfaces exist only as typed view contracts below the GUI (packages/experience/src/surfaces/*.ts have no renderer/host)",
+   "attemptedSigns": [
+    "live commerce",
+    "livestream",
+    "connect channel",
+    "connector studio"
+   ],
+   "signScan": {
+    "live commerce": {
+     "present": false
+    },
+    "livestream": {
+     "present": false
+    },
+    "connect channel": {
+     "present": false
+    },
+    "connector studio": {
+     "present": false
+    }
+   },
+   "profileOutcomes": {
+    "small": "absent",
+    "medium": "absent",
+    "large": "absent"
+   },
+   "successfulSteps": [
+    "landing-rendered",
+    "visible-controls-inventoried",
+    "sign-scan-executed"
+   ],
+   "failedOrBlockedSteps": [],
+   "guiOnlyProof": {
+    "deepLinkUsedForDiscovery": false,
+    "directApiCallsDuringJourney": [],
+    "directServiceInvocationsDuringJourney": [],
+    "dbMutationsDuringJourney": [],
+    "hiddenRouteTouchesDuringJourney": [],
+    "violations": [],
+    "instrumentationOnly": true
+   },
+   "sensitiveValueScrubbed": true,
+   "browser": {
+    "surfacesExamined": [
+     "landing:/ (small profile)",
+     "landing:/ (medium profile)",
+     "landing:/ (large profile)",
+     "onboarding:use-api-key",
+     "share:/share",
+     "share:/cn/share"
+    ],
+    "evidenceScreenshots": [
+     "evidence/01-landing-small.png",
+     "evidence/02-landing-medium.png",
+     "evidence/03-landing-large.png",
+     "evidence/04-onboarding-apikey-panel.png",
+     "evidence/06-share-en.png",
+     "evidence/07-share-zh.png"
+    ],
+    "consoleEvidenceFiles": [
+     "evidence/01-landing-small-console.txt",
+     "evidence/02-landing-medium-console.txt",
+     "evidence/03-landing-large-console.txt",
+     "evidence/04-onboarding-apikey-panel-console.txt",
+     "evidence/06-share-en-console.txt",
+     "evidence/07-share-zh-console.txt"
+    ],
+    "visibleControlsInventory": {
+     "landingButtons": [
+      {
+       "tag": "button",
+       "label": "Connect to Z.ai\nGlobal",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Connect to BigModel\nCN",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Use API key",
+       "href": null
+      }
+     ],
+     "landingLinks": [],
+     "onboardingButtons": [
+      {
+       "tag": "button",
+       "label": "Z.ai",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Get API Key",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Continue",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Cancel",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Skip for now",
+       "href": null
+      }
+     ]
+    }
+   }
+  },
+  {
+   "journeyFamilyId": "physical-no-rfid-supermarket",
+   "protocolRef": "§10.16",
+   "routeOrigin": "homepage",
+   "discoveryPathKind": "primary-navigation",
+   "discoveryPathRef": "landing:/ → visible controls → onboarding:use-api-key (no deep links)",
+   "navigationGraph": [
+    {
+     "kind": "surface-action",
+     "fromSurfaceId": "landing:/",
+     "toSurfaceId": "onboarding:use-api-key",
+     "viaLabel": "Use API key",
+     "atInteractionIndex": 0
+    }
+   ],
+   "interactionCount": 4,
+   "outcome": "absent",
+   "outcomeRationale": "no visible sign of this family on any examined rendered surface; the commerce experience surfaces exist only as typed view contracts below the GUI (packages/experience/src/surfaces/*.ts have no renderer/host)",
+   "attemptedSigns": [
+    "supermarket",
+    "barcode",
+    "shelf count",
+    "pos import"
+   ],
+   "signScan": {
+    "supermarket": {
+     "present": false
+    },
+    "barcode": {
+     "present": false
+    },
+    "shelf count": {
+     "present": false
+    },
+    "pos import": {
+     "present": false
+    }
+   },
+   "profileOutcomes": {
+    "small": "absent",
+    "medium": "absent",
+    "large": "absent"
+   },
+   "successfulSteps": [
+    "landing-rendered",
+    "visible-controls-inventoried",
+    "sign-scan-executed"
+   ],
+   "failedOrBlockedSteps": [],
+   "guiOnlyProof": {
+    "deepLinkUsedForDiscovery": false,
+    "directApiCallsDuringJourney": [],
+    "directServiceInvocationsDuringJourney": [],
+    "dbMutationsDuringJourney": [],
+    "hiddenRouteTouchesDuringJourney": [],
+    "violations": [],
+    "instrumentationOnly": true
+   },
+   "sensitiveValueScrubbed": true,
+   "browser": {
+    "surfacesExamined": [
+     "landing:/ (small profile)",
+     "landing:/ (medium profile)",
+     "landing:/ (large profile)",
+     "onboarding:use-api-key",
+     "share:/share",
+     "share:/cn/share"
+    ],
+    "evidenceScreenshots": [
+     "evidence/01-landing-small.png",
+     "evidence/02-landing-medium.png",
+     "evidence/03-landing-large.png",
+     "evidence/04-onboarding-apikey-panel.png",
+     "evidence/06-share-en.png",
+     "evidence/07-share-zh.png"
+    ],
+    "consoleEvidenceFiles": [
+     "evidence/01-landing-small-console.txt",
+     "evidence/02-landing-medium-console.txt",
+     "evidence/03-landing-large-console.txt",
+     "evidence/04-onboarding-apikey-panel-console.txt",
+     "evidence/06-share-en-console.txt",
+     "evidence/07-share-zh-console.txt"
+    ],
+    "visibleControlsInventory": {
+     "landingButtons": [
+      {
+       "tag": "button",
+       "label": "Connect to Z.ai\nGlobal",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Connect to BigModel\nCN",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Use API key",
+       "href": null
+      }
+     ],
+     "landingLinks": [],
+     "onboardingButtons": [
+      {
+       "tag": "button",
+       "label": "Z.ai",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Get API Key",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Continue",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Cancel",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Skip for now",
+       "href": null
+      }
+     ]
+    }
+   }
+  },
+  {
+   "journeyFamilyId": "trust-security-fraud-and-recourse",
+   "protocolRef": "§10.17",
+   "routeOrigin": "homepage",
+   "discoveryPathKind": "primary-navigation",
+   "discoveryPathRef": "landing:/ → visible controls → onboarding:use-api-key (no deep links)",
+   "navigationGraph": [
+    {
+     "kind": "surface-action",
+     "fromSurfaceId": "landing:/",
+     "toSurfaceId": "onboarding:use-api-key",
+     "viaLabel": "Use API key",
+     "atInteractionIndex": 0
+    }
+   ],
+   "interactionCount": 4,
+   "outcome": "absent",
+   "outcomeRationale": "no visible sign of this family on any examined rendered surface; the commerce experience surfaces exist only as typed view contracts below the GUI (packages/experience/src/surfaces/*.ts have no renderer/host)",
+   "attemptedSigns": [
+    "dispute",
+    "fraud",
+    "counterfeit",
+    "recourse",
+    "refund"
+   ],
+   "signScan": {
+    "dispute": {
+     "present": false
+    },
+    "fraud": {
+     "present": false
+    },
+    "counterfeit": {
+     "present": false
+    },
+    "recourse": {
+     "present": false
+    },
+    "refund": {
+     "present": false
+    }
+   },
+   "profileOutcomes": {
+    "small": "absent",
+    "medium": "absent",
+    "large": "absent"
+   },
+   "successfulSteps": [
+    "landing-rendered",
+    "visible-controls-inventoried",
+    "sign-scan-executed"
+   ],
+   "failedOrBlockedSteps": [],
+   "guiOnlyProof": {
+    "deepLinkUsedForDiscovery": false,
+    "directApiCallsDuringJourney": [],
+    "directServiceInvocationsDuringJourney": [],
+    "dbMutationsDuringJourney": [],
+    "hiddenRouteTouchesDuringJourney": [],
+    "violations": [],
+    "instrumentationOnly": true
+   },
+   "sensitiveValueScrubbed": true,
+   "browser": {
+    "surfacesExamined": [
+     "landing:/ (small profile)",
+     "landing:/ (medium profile)",
+     "landing:/ (large profile)",
+     "onboarding:use-api-key",
+     "share:/share",
+     "share:/cn/share"
+    ],
+    "evidenceScreenshots": [
+     "evidence/01-landing-small.png",
+     "evidence/02-landing-medium.png",
+     "evidence/03-landing-large.png",
+     "evidence/04-onboarding-apikey-panel.png",
+     "evidence/06-share-en.png",
+     "evidence/07-share-zh.png"
+    ],
+    "consoleEvidenceFiles": [
+     "evidence/01-landing-small-console.txt",
+     "evidence/02-landing-medium-console.txt",
+     "evidence/03-landing-large-console.txt",
+     "evidence/04-onboarding-apikey-panel-console.txt",
+     "evidence/06-share-en-console.txt",
+     "evidence/07-share-zh-console.txt"
+    ],
+    "visibleControlsInventory": {
+     "landingButtons": [
+      {
+       "tag": "button",
+       "label": "Connect to Z.ai\nGlobal",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Connect to BigModel\nCN",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Use API key",
+       "href": null
+      }
+     ],
+     "landingLinks": [],
+     "onboardingButtons": [
+      {
+       "tag": "button",
+       "label": "Z.ai",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Get API Key",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Continue",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Cancel",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Skip for now",
+       "href": null
+      }
+     ]
+    }
+   }
+  },
+  {
+   "journeyFamilyId": "failure-unknown-idempotency-recovery",
+   "protocolRef": "§10.18",
+   "routeOrigin": "homepage",
+   "discoveryPathKind": "primary-navigation",
+   "discoveryPathRef": "landing:/ → visible controls → onboarding:use-api-key (no deep links)",
+   "navigationGraph": [
+    {
+     "kind": "surface-action",
+     "fromSurfaceId": "landing:/",
+     "toSurfaceId": "onboarding:use-api-key",
+     "viaLabel": "Use API key",
+     "atInteractionIndex": 0
+    }
+   ],
+   "interactionCount": 4,
+   "outcome": "absent",
+   "outcomeRationale": "no visible sign of this family on any examined rendered surface; the commerce experience surfaces exist only as typed view contracts below the GUI (packages/experience/src/surfaces/*.ts have no renderer/host)",
+   "attemptedSigns": [
+    "idempotency",
+    "resubmit",
+    "retry queue",
+    "recovery"
+   ],
+   "signScan": {
+    "idempotency": {
+     "present": false
+    },
+    "resubmit": {
+     "present": false
+    },
+    "retry queue": {
+     "present": false
+    },
+    "recovery": {
+     "present": false
+    }
+   },
+   "profileOutcomes": {
+    "small": "absent",
+    "medium": "absent",
+    "large": "absent"
+   },
+   "successfulSteps": [
+    "landing-rendered",
+    "visible-controls-inventoried",
+    "sign-scan-executed"
+   ],
+   "failedOrBlockedSteps": [],
+   "guiOnlyProof": {
+    "deepLinkUsedForDiscovery": false,
+    "directApiCallsDuringJourney": [],
+    "directServiceInvocationsDuringJourney": [],
+    "dbMutationsDuringJourney": [],
+    "hiddenRouteTouchesDuringJourney": [],
+    "violations": [],
+    "instrumentationOnly": true
+   },
+   "sensitiveValueScrubbed": true,
+   "browser": {
+    "surfacesExamined": [
+     "landing:/ (small profile)",
+     "landing:/ (medium profile)",
+     "landing:/ (large profile)",
+     "onboarding:use-api-key",
+     "share:/share",
+     "share:/cn/share"
+    ],
+    "evidenceScreenshots": [
+     "evidence/01-landing-small.png",
+     "evidence/02-landing-medium.png",
+     "evidence/03-landing-large.png",
+     "evidence/04-onboarding-apikey-panel.png",
+     "evidence/06-share-en.png",
+     "evidence/07-share-zh.png"
+    ],
+    "consoleEvidenceFiles": [
+     "evidence/01-landing-small-console.txt",
+     "evidence/02-landing-medium-console.txt",
+     "evidence/03-landing-large-console.txt",
+     "evidence/04-onboarding-apikey-panel-console.txt",
+     "evidence/06-share-en-console.txt",
+     "evidence/07-share-zh-console.txt"
+    ],
+    "visibleControlsInventory": {
+     "landingButtons": [
+      {
+       "tag": "button",
+       "label": "Connect to Z.ai\nGlobal",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Connect to BigModel\nCN",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Use API key",
+       "href": null
+      }
+     ],
+     "landingLinks": [],
+     "onboardingButtons": [
+      {
+       "tag": "button",
+       "label": "Z.ai",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Get API Key",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Continue",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Cancel",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Skip for now",
+       "href": null
+      }
+     ]
+    }
+   }
+  },
+  {
+   "journeyFamilyId": "gui-feature-discoverability",
+   "protocolRef": "§10.19",
+   "routeOrigin": "homepage",
+   "discoveryPathKind": "primary-navigation",
+   "discoveryPathRef": "landing:/ → visible controls → onboarding:use-api-key (no deep links)",
+   "navigationGraph": [
+    {
+     "kind": "surface-action",
+     "fromSurfaceId": "landing:/",
+     "toSurfaceId": "onboarding:use-api-key",
+     "viaLabel": "Use API key",
+     "atInteractionIndex": 0
+    }
+   ],
+   "interactionCount": 4,
+   "outcome": "absent",
+   "outcomeRationale": "no visible sign of this family on any examined rendered surface; the commerce experience surfaces exist only as typed view contracts below the GUI (packages/experience/src/surfaces/*.ts have no renderer/host)",
+   "attemptedSigns": [
+    "commerce",
+    "shopping",
+    "marketplace",
+    "trade",
+    "sell"
+   ],
+   "signScan": {
+    "commerce": {
+     "present": false
+    },
+    "shopping": {
+     "present": false
+    },
+    "marketplace": {
+     "present": false
+    },
+    "trade": {
+     "present": false
+    },
+    "sell": {
+     "present": false
+    }
+   },
+   "profileOutcomes": {
+    "small": "absent",
+    "medium": "absent",
+    "large": "absent"
+   },
+   "successfulSteps": [
+    "landing-rendered",
+    "visible-controls-inventoried",
+    "sign-scan-executed"
+   ],
+   "failedOrBlockedSteps": [],
+   "guiOnlyProof": {
+    "deepLinkUsedForDiscovery": false,
+    "directApiCallsDuringJourney": [],
+    "directServiceInvocationsDuringJourney": [],
+    "dbMutationsDuringJourney": [],
+    "hiddenRouteTouchesDuringJourney": [],
+    "violations": [],
+    "instrumentationOnly": true
+   },
+   "sensitiveValueScrubbed": true,
+   "browser": {
+    "surfacesExamined": [
+     "landing:/ (small profile)",
+     "landing:/ (medium profile)",
+     "landing:/ (large profile)",
+     "onboarding:use-api-key",
+     "share:/share",
+     "share:/cn/share"
+    ],
+    "evidenceScreenshots": [
+     "evidence/01-landing-small.png",
+     "evidence/02-landing-medium.png",
+     "evidence/03-landing-large.png",
+     "evidence/04-onboarding-apikey-panel.png",
+     "evidence/06-share-en.png",
+     "evidence/07-share-zh.png"
+    ],
+    "consoleEvidenceFiles": [
+     "evidence/01-landing-small-console.txt",
+     "evidence/02-landing-medium-console.txt",
+     "evidence/03-landing-large-console.txt",
+     "evidence/04-onboarding-apikey-panel-console.txt",
+     "evidence/06-share-en-console.txt",
+     "evidence/07-share-zh-console.txt"
+    ],
+    "visibleControlsInventory": {
+     "landingButtons": [
+      {
+       "tag": "button",
+       "label": "Connect to Z.ai\nGlobal",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Connect to BigModel\nCN",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Use API key",
+       "href": null
+      }
+     ],
+     "landingLinks": [],
+     "onboardingButtons": [
+      {
+       "tag": "button",
+       "label": "Z.ai",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Get API Key",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Continue",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Cancel",
+       "href": null
+      },
+      {
+       "tag": "button",
+       "label": "Skip for now",
+       "href": null
+      }
+     ]
+    }
+   }
+  }
+ ],
+ "firmProfiles": [
+  {
+   "firmSize": "small",
+   "landingUrl": "http://localhost:5173/",
+   "rendered": true,
+   "renderDigest": "djb32-be649c5f",
+   "error": null,
+   "retriedAfter": null,
+   "profileAgnostic": true,
+   "evidenceScreenshot": "evidence/01-landing-small.png",
+   "timingsMs": 18370,
+   "paintWaitMs": 16668
+  },
+  {
+   "firmSize": "medium",
+   "landingUrl": "http://localhost:5173/",
+   "rendered": true,
+   "renderDigest": "djb32-be649c5f",
+   "error": null,
+   "retriedAfter": null,
+   "profileAgnostic": true,
+   "evidenceScreenshot": "evidence/02-landing-medium.png",
+   "timingsMs": 17369,
+   "paintWaitMs": 15670
+  },
+  {
+   "firmSize": "large",
+   "landingUrl": "http://localhost:5173/",
+   "rendered": true,
+   "renderDigest": "djb32-be649c5f",
+   "error": null,
+   "retriedAfter": null,
+   "profileAgnostic": true,
+   "evidenceScreenshot": "evidence/03-landing-large.png",
+   "timingsMs": 18930,
+   "paintWaitMs": 17254
+  }
+ ],
+ "denominator": {
+  "planned": 57,
+  "executed": 57,
+  "blocked": 0,
+  "skipped": 0,
+  "recomputed": 57,
+  "outcomeSum": 57,
+  "zeroDrift": true,
+  "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 57 = 57 + 0 + 0 = 57 (zero drift)",
+  "byOutcome": {
+   "pass": 0,
+   "fail": 0,
+   "blocked": 0,
+   "absent": 57,
+   "unknown": 0
+  },
+  "attemptLevel": "19 journey families × 3 firm profiles (small/medium/large)",
+  "familyLevel": {
+   "planned": 19,
+   "executed": 19,
+   "blocked": 0,
+   "skipped": 0
+  }
+ },
+ "guiOnlyProof": {
+  "deepLinkUsedForDiscovery": false,
+  "directApiCallsDuringJourney": [],
+  "directServiceInvocationsDuringJourney": [],
+  "dbMutationsDuringJourney": [],
+  "hiddenRouteTouchesDuringJourney": [],
+  "violations": [],
+  "instrumentationOnly": true
+ },
+ "sensitiveValueScrubbed": true,
+ "manifestValidation": {
+  "valid": true,
+  "errors": []
+ },
+ "evidenceIntegrity": {
+  "pointersChecked": 13,
+  "missing": [],
+  "allPointersResolve": true,
+  "note": "every evidence pointer resolves to a file on disk relative to the manifest"
+ }
+}

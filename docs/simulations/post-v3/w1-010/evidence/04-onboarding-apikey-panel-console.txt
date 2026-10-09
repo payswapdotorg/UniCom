@@ -1,0 +1,8 @@
+[debug] [vite] connecting...
+[debug] [vite] connected.
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[log] [2026-10-09 17:03:22.032] [ui] [Root] 后台启动 OAuth 本地会话恢复
+[debug] [2026-10-09 17:03:22.037] [ui] [purchaseTelemetry] 套餐入口查询状态 {status: loading, configuredSources: 0, generation: 0}
+[debug] [2026-10-09 17:03:22.221] [ui] [purchaseTelemetry] 套餐入口查询状态 {status: ready, configuredSources: 0, generation: 0}
+[log] [2026-10-09 17:03:22.232] [ui] [providerFamilyDomainMigration] provider family domain 迁移等待模型选择视图恢复
+[log] [2026-10-09 17:03:22.337] [ui] [Root] provider 可用性登录入口守卫完成检查 {reason: startup, source: registry, providerCount: 0, hasUsableProvider: false, hasUser: false}
