@@ -38,31 +38,26 @@
     "baseline_required": true,
     "held_out_final_run_required": true
   },
-  "active_work_orders": [],
+  "active_work_orders": [
+    {
+      "id": "W3-010",
+      "lane": "worker-3",
+      "dispatched_at": "2026-10-09T08:55:00Z",
+      "phase": "cycles.baseline"
+    }
+  ],
   "frontier": [
     {
-      "id": "W1-009",
-      "status": "COMPLETE",
-      "owner": "worker-1",
-      "depends_on": [],
-      "dispatched_at": "2026-10-09T04:55:00Z",
-      "completed_at": "2026-10-09T08:25:00Z"
-    },
-    {
-      "id": "W2-009",
-      "status": "COMPLETE",
-      "owner": "worker-2",
-      "depends_on": [],
-      "dispatched_at": "2026-10-09T04:55:00Z",
-      "completed_at": "2026-10-09T06:35:49Z"
-    },
-    {
-      "id": "W3-009",
-      "status": "COMPLETE",
+      "id": "W3-010",
+      "status": "DISPATCHED",
       "owner": "worker-3",
-      "depends_on": [],
-      "dispatched_at": "2026-10-09T04:55:00Z",
-      "completed_at": "2026-10-09T08:05:00Z"
+      "depends_on": [
+        "W1-009",
+        "W2-009",
+        "W3-009"
+      ],
+      "dispatched_at": "2026-10-09T08:55:00Z",
+      "phase": "cycles.baseline"
     }
   ],
   "completed_work_orders": [
@@ -195,7 +190,9 @@
   ],
   "cycles": {
     "baseline": {
-      "status": "NOT_STARTED"
+      "status": "DISPATCHED",
+      "work_order": "W3-010",
+      "dispatched_at": "2026-10-09T08:55:00Z"
     },
     "improvement_1": {
       "status": "NOT_STARTED"
@@ -222,8 +219,8 @@
     "cycle_reports": "docs/simulations/results/cycles/",
     "final_report": "docs/simulations/results/final/"
   },
-  "overall_status": "WAVE_009_COMPLETE",
-  "last_reviewed_at": "2026-10-09T08:25:00Z",
+  "overall_status": "W3-010_DISPATCHED",
+  "last_reviewed_at": "2026-10-09T08:55:00Z",
   "benchmark_scope": {
     "mandate": "Commerce capabilities only; do not score broad vertical industry software as overall competitors.",
     "authoritative_matrix": "docs/simulations/V3-INDUSTRY-AND-COMPETITOR-MATRIX.md",
@@ -298,6 +295,13 @@
       "work_order": "W1-009",
       "by": "TL",
       "detail": "accepted after branch battery (1390/1390) + merged-lineage gate (1538/1538 at 47c07ce); turn died post-milestone-3 (no worker completion report - TL battery verified all 10 criteria); wave-009 now complete (W1+W2+W3)"
+    },
+    {
+      "ts": "2026-10-09T08:55:00Z",
+      "event": "dispatch",
+      "work_order": "W3-010",
+      "by": "TL",
+      "detail": "cycles.baseline opened: single-worker wave (real-artifact loader + 3,900 baseline-namespace project runs + frozen-contract adoption scoring + four outputs + \u00a78 baseline report); holdout namespace forbidden (\u00a77)"
     }
   ]
 }
