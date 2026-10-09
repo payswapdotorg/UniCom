@@ -1,0 +1,45 @@
+{
+  "schema": "unicom-w3-010-campaign-state/1",
+  "experimentId": "v3-baseline",
+  "buildCommit": "c51703e4df2919859a56d5b24f8fda2bd4283c00",
+  "campaign": {
+    "experimentId": "v3-baseline",
+    "seedNamespace": "baseline",
+    "clockStartUtc": "2026-10-12T00:00:00Z",
+    "generatedAt": "2026-10-12T00:00:00Z",
+    "deploymentTarget": "local-dev-real-contracts",
+    "firms": 39,
+    "projectsPerFirm": 100,
+    "totalProjects": 3900
+  },
+  "batches": [
+    {
+      "batch": {
+        "index": 0,
+        "firmId": "construction-small",
+        "w1IndustryId": "construction",
+        "w2IndustryId": "construction",
+        "firmSize": "small",
+        "cohortId": "baseline-construction-small"
+      },
+      "scheduleDigest": "027b0f9dfc740f343478ec52215e5e176144ed096954c8f682ae2e7f59bc610a",
+      "planned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0,
+      "records": 1300,
+      "evidenceSha256": "98427b70322c14a3c7f7deabd2b55f696edb86637cc6b3aa205dfee56363aab5",
+      "noRfidPathRuns": 0
+    }
+  ],
+  "totals": {
+    "firmsCompleted": 1,
+    "projectsPlanned": 100,
+    "projectsExecuted": 100,
+    "projectsBlocked": 0,
+    "projectsSkipped": 0,
+    "evidenceRecords": 1300,
+    "drift": 0
+  }
+}
