@@ -39,17 +39,7 @@
     "held_out_final_run_required": true
   },
   "active_work_orders": [],
-  "frontier": [
-    {
-      "id": "CERT",
-      "status": "PENDING",
-      "owner": "TL",
-      "depends_on": [
-        "W3-013"
-      ],
-      "note": "the final program certification record (the TL-authored closure per the charter's required-output artifacts + the honest verdict)"
-    }
-  ],
+  "frontier": [],
   "completed_work_orders": [
     {
       "id": "W2-009",
@@ -347,8 +337,8 @@
     "cycle_reports": "docs/simulations/results/cycles/",
     "final_report": "docs/simulations/results/final/"
   },
-  "overall_status": "SIMULATION_PHASE_COMPLETE_AWAITING_CERTIFICATION",
-  "last_reviewed_at": "2026-10-09T13:10:00Z",
+  "overall_status": "PROGRAM_COMPLETE_CERTIFIED",
+  "last_reviewed_at": "2026-10-09T13:25:00Z",
   "benchmark_scope": {
     "mandate": "Commerce capabilities only; do not score broad vertical industry software as overall competitors.",
     "authoritative_matrix": "docs/simulations/V3-INDUSTRY-AND-COMPETITOR-MATRIX.md",
@@ -454,6 +444,22 @@
     {
       "ts": "2026-10-09T13:10:00Z",
       "event": "W3-013 ACCEPTED \u2014 no-ff merge a32e985; merged battery 1590/1590. THE CEILING HOLDS ON HELD-OUT SEEDS (all four outputs identical to baseline; release-gate 10/10 PASS; caveats recorded). The charter's stopping criteria are met: cycles.baseline (amended x2) + improvement_1 (two measurement repairs, empty product list) + improvement_2 (satisfied by the held-out) + held_out_final all COMPLETE. NEXT: the TL-authored certification record closes the program."
+    },
+    {
+      "ts": "2026-10-09T13:25:00Z",
+      "event": "CERTIFICATION RECORDED (e89512d): the V3 simulation program COMPLETE per the charter's stopping criteria. All 7 work orders accepted; final battery 1590/1590; the measurement chain (3 amendments + held-out) versioned and preserved; the caveat register bounds the verdict (fixture-level, no failure-variant dimension, synthetic estimates, no production authorization)."
     }
-  ]
+  ],
+  "certification": {
+    "recorded_at": "2026-10-09T13:25:00Z",
+    "certified_by": "resident TL (Z.ai Code)",
+    "record": "docs/simulations/results/final/PROGRAM-CERTIFICATION.md",
+    "merged_sha": "e89512d",
+    "verdict": "COMPLETE \u2014 the charter's programme executed end-to-end; the ceiling confirmed on held-out seeds; the release-gate checklist 10/10 PASS; the honest-deviations and caveat registers delivered",
+    "operator_boundaries": [
+      "any production deployment decision (outside this charter)",
+      "the real-human validation program (recruited, consented)",
+      "the resilience-UX follow-up measurement (optional; the failure-variants machinery exists)"
+    ]
+  }
 }
