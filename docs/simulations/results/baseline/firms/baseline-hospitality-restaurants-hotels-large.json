@@ -1,0 +1,199 @@
+{
+  "schema": "unicom-w3-010-firm-report/1",
+  "experimentId": "v3-baseline",
+  "buildCommit": "c51703e4df2919859a56d5b24f8fda2bd4283c00",
+  "generatedAt": "2026-10-12T00:00:00Z",
+  "clockStartUtc": "2026-10-12T00:00:00Z",
+  "deploymentTarget": "local-dev-real-contracts",
+  "seedNamespace": "baseline",
+  "batch": {
+    "index": 20,
+    "firmId": "hospitality-restaurants-hotels-large",
+    "w1IndustryId": "hospitality-restaurants-hotels",
+    "w2IndustryId": "hospitality",
+    "firmSize": "large",
+    "cohortId": "baseline-hospitality-restaurants-hotels-large"
+  },
+  "loaderProvenance": {
+    "w1Source": "packages/commerce/src/test/w1-009/portfolio/ (W1-009 test-only public surface)",
+    "w2Source": "@unicom/agent contract.w2-009 (persona-cohort + persona-scoring)",
+    "seedNamespace": "baseline",
+    "baselineProjects": 3900,
+    "holdoutLoaded": false,
+    "personaTarget": 15275
+  },
+  "scheduleDigest": "08e436bab10626a1f4973cbe8fbd1a5e4a1ec86c344211265ac2e97343103369",
+  "reconciliation": {
+    "experimentId": "v3-baseline",
+    "cohortId": "baseline-hospitality-restaurants-hotels-large",
+    "totalPlanned": 100,
+    "executed": 100,
+    "blocked": 0,
+    "skipped": 0,
+    "reconciled": true,
+    "drift": 0,
+    "byJourneyFamily": [
+      {
+        "journeyFamilyId": "buyer-intent-constraints",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "offer-sourcing-comparison",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "buy-now-vs-wait-price-timing",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "existing-group-buy",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "latent-demand-merchant-group-buy-proposal",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "rent-borrow-vs-buy",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "proactive-economic-opportunities",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "merchant-commerce-lifecycle",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "supplier-procurement-receiving",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "physical-no-rfid-supermarket",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "connected-commerce-channels-and-live-commerce",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "trust-security-fraud-and-recourse",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "failure-unknown-idempotency-recovery",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "gui-feature-discoverability",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      },
+      {
+        "journeyFamilyId": "b2b-multi-location-supplier-coordination",
+        "planned": 100,
+        "executed": 100,
+        "blocked": 0,
+        "skipped": 0
+      }
+    ],
+    "byOutcome": {
+      "pass": 1500,
+      "fail": 0,
+      "blocked": 0,
+      "absent": 0,
+      "unknown": 0
+    }
+  },
+  "evidence": {
+    "file": "packages/experience/reports/sim/v3-baseline/evidence/baseline-hospitality-restaurants-hotels-large.ndjson.gz",
+    "records": 1500,
+    "sha256": "74559497ee82a34f7ddb8ffc089fc69d65861fb511c18399412a490f6bb9464b",
+    "bytesUncompressed": 7396684,
+    "bytesGzip": 382522
+  },
+  "noRfid": null,
+  "failureVariants": {
+    "count": 100,
+    "byOutcome": {
+      "fail": 25,
+      "unknown": 15,
+      "blocked": 50,
+      "absent": 5,
+      "pass": 5
+    }
+  },
+  "roleAccess": {
+    "transitions": 7,
+    "roles": [
+      "project-owner",
+      "procurement",
+      "finance",
+      "ops",
+      "end-user",
+      "approver",
+      "supplier",
+      "auditor"
+    ]
+  },
+  "journeyRunsByRole": {
+    "industry-specialist": 600,
+    "project-program-mgmt": 98,
+    "sales": 190,
+    "procurement": 226,
+    "field-ops": 206,
+    "compliance-audit": 81,
+    "approver-executive": 49,
+    "finance-accounting": 15,
+    "it": 35
+  },
+  "guiOnlyProof": {
+    "recordsChecked": 1500,
+    "violations": 0,
+    "deepLinkUsedForDiscovery": 0,
+    "sensitiveValueScrubbed": 1500
+  },
+  "holdoutLeakage": 0
+}
