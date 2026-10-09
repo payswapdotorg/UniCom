@@ -199,6 +199,7 @@ export async function runBaselineCampaign(args: {
 
   for (const project of projectsToRun) {
     let anyFamilyPassed = false;
+    let anyFamilyThrew = false;
     for (const familyId of project.journeyFamilies) {
       const personaId = project.personaIds[0] ?? `${project.firmId}-persona-default`;
       try {
@@ -216,7 +217,10 @@ export async function runBaselineCampaign(args: {
         totalJourneyRuns += 1;
         if (record.outcome === "pass") anyFamilyPassed = true;
       } catch (error) {
-        // A blocked journey still produces an evidence record (law §2).
+        // A blocked journey still produces an evidence record (law §2 —
+        // failures captured too). We do NOT mark the project blocked yet —
+        // a later journey family may still pass.
+        anyFamilyThrew = true;
         const blockedRecord = makeBlockedEvidenceRecord(
           env,
           project,
@@ -226,12 +230,15 @@ export async function runBaselineCampaign(args: {
         );
         evidenceRecords.push(blockedRecord);
         totalJourneyRuns += 1;
-        markBlocked(schedule, project.projectId, blockedRecord.evidenceId);
       }
     }
+    // Project-level transition happens AFTER all journey families have run.
     if (anyFamilyPassed) {
       markExecuted(schedule, project.projectId, `${project.projectId}-evidence`);
+    } else if (anyFamilyThrew) {
+      markBlocked(schedule, project.projectId, "runner-threw-on-all-families");
     } else {
+      // No pass; no throw — every family produced a fail/absent/unknown record.
       const stillScheduled = schedule.projects.find(
         (p) => p.projectId === project.projectId,
       )?.status === "scheduled";

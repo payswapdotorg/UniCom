@@ -12,7 +12,7 @@
  */
 
 import { describe, expect, it } from "vitest";
-import { loadRealArtifacts } from "./real-artifact-loader-impl.js";
+import { loadRealArtifacts } from "./real-artifact-loader-impl";
 import {
   W1_REAL_INDUSTRY_IDS,
   W2_SHORT_INDUSTRY_IDS,
@@ -22,8 +22,8 @@ import {
   TOTAL_FIRMS,
   TOTAL_PERSONAS,
   FROZEN_CONTRACT_VERSION,
-} from "../src/sim/real-artifact-loader.js";
-import { LOCAL_DEV_INDUSTRIES } from "../src/sim/local-fixtures.js";
+} from "../../src/sim/real-artifact-loader";
+import { LOCAL_DEV_INDUSTRIES } from "../../src/sim/local-fixtures";
 
 describe("W3-010 real-artifact loader", () => {
   it("produces contracts with localDevFixture === false", () => {
@@ -41,9 +41,15 @@ describe("W3-010 real-artifact loader", () => {
     const contracts = loadRealArtifacts();
     expect(contracts.w1IndustryIds).toHaveLength(13);
     expect(contracts.w1IndustryIds).toEqual(W1_REAL_INDUSTRY_IDS);
-    // The real portfolio must NOT contain the local-dev fixture's synthetic
-    // industry vocabulary (e.g., "retail-ecommerce", "grocery-supermarket-no-rfid").
-    for (const fixtureIndustry of LOCAL_DEV_INDUSTRIES) {
+    // The real portfolio must NOT contain the local-dev fixture's SYNTHETIC
+    // industry vocabulary — i.e., fixture ids that don't correspond to a
+    // real W1 industry. ("manufacturing-supply-chain" coincidentally appears
+    // in both the fixture and the real portfolio; it is not a synthetic
+    // id, so it is allowed.)
+    const SYNTHETIC_FIXTURE_INDUSTRIES = LOCAL_DEV_INDUSTRIES.filter(
+      (industry) => !W1_REAL_INDUSTRY_IDS.includes(industry),
+    );
+    for (const fixtureIndustry of SYNTHETIC_FIXTURE_INDUSTRIES) {
       expect(contracts.w1IndustryIds).not.toContain(fixtureIndustry);
     }
   });

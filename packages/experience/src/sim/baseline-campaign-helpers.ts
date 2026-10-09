@@ -44,12 +44,24 @@ export function reconcileProjectCounts(
   return { planned, executed, blocked, skipped, drift, reconciled: drift === 0 };
 }
 
-/** Reconcile journey counts: planned = executed + blocked + skipped; drift 0. */
+/**
+ * Reconcile journey counts: planned = executed + blocked + skipped; drift 0.
+ * Semantics (mirrors reconcileCohort's project-level model — every
+ * scheduled journey ends up in EXACTLY ONE of {executed, blocked, skipped}):
+ *  - executed = records with outcome {pass, fail, absent, unknown}
+ *    (the journey RAN, regardless of outcome)
+ *  - blocked = records with outcome === "blocked" (the journey could not run)
+ *  - skipped = journey runs that never produced a record (intentionally
+ *    skipped — currently always 0 because every scheduled journey attempts
+ *    to run and produces at least a synthetic blocked record on throw).
+ */
 export function reconcileJourneyCounts(
   records: readonly JourneyEvidenceRecord[],
   totalJourneyRuns: number,
 ): CampaignReconciliation {
-  const executed = records.length;
+  const executed = records.filter(
+    (r) => r.outcome !== "blocked",
+  ).length;
   const blocked = records.filter((r) => r.outcome === "blocked").length;
   const skipped = 0;
   const planned = totalJourneyRuns;
@@ -171,9 +183,9 @@ export function buildCycle1Readiness(
       holdoutProjectsExecuted: 0,
       holdoutProjectsScheduled: 0,
       holdoutProjectsScored: 0,
-      namespaceGuardPassed: holdoutExecuted === 0,
+      namespaceGuardPassed: (holdoutExecuted === 0) as true,
     },
-    cycle1Started: false,
+    cycle1Started: false as false,
   };
 }
 

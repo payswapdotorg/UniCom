@@ -32,6 +32,7 @@
  */
 
 import type { RunnerConsumedContracts } from "./w1-w2-contracts";
+import type { Persona } from "@unicom/agent";
 
 /** SHA-256 fingerprint of a loaded artifact (hex, first 16 chars). */
 export interface ArtifactFingerprint {
@@ -76,6 +77,8 @@ export interface RealArtifactContracts extends RunnerConsumedContracts {
   readonly w1ToW2FirmId: ReadonlyMap<string, string>;
   /** The frozen adoption contract version (e.g., "w2-009:v1"). */
   readonly contractVersion: string;
+  /** The 15,275 frozen @unicom/agent Personas (for computeAdoptionDecision). */
+  readonly agentPersonas: readonly Persona[];
 }
 
 /** The 13 real W1 industries (long ids — verbatim from scenarios/industries.json). */

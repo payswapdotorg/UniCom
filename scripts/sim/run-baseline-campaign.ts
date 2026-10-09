@@ -24,10 +24,10 @@ import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execSync } from "node:child_process";
 
-import { loadRealArtifacts } from "../packages/experience/test/sim/real-artifact-loader-impl.js";
-import { runBaselineCampaign } from "../packages/experience/src/sim/baseline-campaign.js";
-import { SYNTHETIC_ESTIMATE_LABEL } from "../packages/experience/src/sim/real-artifact-loader.js";
-import type { BaselineCampaignReport } from "../packages/experience/src/sim/campaign-report.js";
+import { loadRealArtifacts } from "../../packages/experience/test/sim/real-artifact-loader-impl";
+import { runBaselineCampaign } from "../../packages/experience/src/sim/baseline-campaign";
+import { SYNTHETIC_ESTIMATE_LABEL } from "../../packages/experience/src/sim/real-artifact-loader";
+import type { BaselineCampaignReport } from "../../packages/experience/src/sim/campaign-report";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(__dirname, "../..");

@@ -20,13 +20,14 @@
  */
 
 import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { resolve, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import {
   generatePortfolio,
   type GeneratedPortfolio,
   type ProjectManifest as W1ProjectManifestGen,
-} from "../../../commerce/src/test/w1-009/portfolio/index.js";
+} from "../../../commerce/src/test/w1-009/portfolio/index";
 import type {
   FirmCohort,
   Persona,
@@ -56,23 +57,23 @@ import type {
   W2AdoptionScoreSchema,
   W2AdoptionInstrument,
   RunnerConsumedContracts,
-} from "../../src/sim/w1-w2-contracts.js";
+} from "../../src/sim/w1-w2-contracts";
 import type {
   RealArtifactContracts,
   RealArtifactFingerprints,
   ArtifactFingerprint,
   RealArtifactLoader,
-} from "../../src/sim/real-artifact-loader.js";
+} from "../../src/sim/real-artifact-loader";
 import {
   W1_REAL_INDUSTRY_IDS,
   W2_SHORT_INDUSTRY_IDS,
   w1IndustryToW2Short,
   w1FirmCohortIdToW2FirmId,
   FROZEN_CONTRACT_VERSION,
-} from "../../src/sim/real-artifact-loader.js";
+} from "../../src/sim/real-artifact-loader";
 
-/** The repo root (resolves from this file's location). */
-const REPO_ROOT = resolve(__dirname, "../../../../..");
+/** The repo root (4 levels up from packages/experience/test/sim/). */
+const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../../../..");
 
 /** Resolve a path relative to the repo root. */
 function repoPath(relative: string): string {
@@ -356,6 +357,7 @@ export const realArtifactLoader: RealArtifactLoader = {
       w1ToW2Industry,
       w1ToW2FirmId,
       contractVersion: FROZEN_CONTRACT_VERSION,
+      agentPersonas: personas,
     };
 
     return contracts;

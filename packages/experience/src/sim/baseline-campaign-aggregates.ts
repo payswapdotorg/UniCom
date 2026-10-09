@@ -46,7 +46,10 @@ export function buildPersonaOutcomes(
   }
 
   const results: Array<{ readonly persona: Persona; readonly outcome: JourneyOutcomeForPersona }> = [];
-  for (const persona of contracts.personas.values()) {
+  // Iterate the frozen @unicom/agent Personas (NOT the W3-009 W2Persona map;
+  // the agent Persona carries the scoring-relevant fields like roleFamily,
+  // seniority, switchingCost, applicableJourneys etc.).
+  for (const persona of contracts.agentPersonas) {
     const records = byPersona.get(persona.personaId) ?? [];
     const outcome = mapJourneyEvidenceToPersonaOutcome({ persona, records }, contracts);
     results.push({ persona, outcome });

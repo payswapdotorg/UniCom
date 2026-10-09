@@ -15,11 +15,11 @@
  */
 
 import { describe, expect, it } from "vitest";
-import { loadRealArtifacts } from "./real-artifact-loader-impl.js";
+import { loadRealArtifacts } from "./real-artifact-loader-impl";
 import {
   runBaselineCampaign,
   buildBaselineSchedule,
-} from "../src/sim/baseline-campaign.js";
+} from "../../src/sim/baseline-campaign";
 import {
   BASELINE_NAMESPACE,
   BASELINE_PROJECT_COUNT,
@@ -27,8 +27,8 @@ import {
   SYNTHETIC_ESTIMATE_LABEL,
   TOTAL_FIRMS,
   TOTAL_PERSONAS,
-} from "../src/sim/real-artifact-loader.js";
-import { buildZeroOrphanMap } from "../src/sim/zero-orphan-map.js";
+} from "../../src/sim/real-artifact-loader";
+import { buildZeroOrphanMap } from "../../src/sim/zero-orphan-map";
 import { SCORING_CONTRACT_VERSION } from "@unicom/agent";
 
 const SMOKE_RUN_ARGS = {
@@ -191,7 +191,7 @@ describe("W3-010 baseline campaign — zero-orphan feature matrix (real portfoli
     expect(map.rows.length).toBeGreaterThanOrEqual(132);
     for (const row of map.rows) {
       // Each row must resolve to a surface + journey or FAIL/ABSENT.
-      expect(row.resolution).toMatch(/^(pass|fail|absent)$/i);
+      expect(row.verdict).toMatch(/^(pass|fail|absent)$/i);
     }
   });
 });
