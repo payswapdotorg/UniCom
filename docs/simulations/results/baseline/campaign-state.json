@@ -31,15 +31,34 @@
       "records": 1300,
       "evidenceSha256": "98427b70322c14a3c7f7deabd2b55f696edb86637cc6b3aa205dfee56363aab5",
       "noRfidPathRuns": 0
+    },
+    {
+      "batch": {
+        "index": 1,
+        "firmId": "construction-medium",
+        "w1IndustryId": "construction",
+        "w2IndustryId": "construction",
+        "firmSize": "medium",
+        "cohortId": "baseline-construction-medium"
+      },
+      "scheduleDigest": "3b2ae16caa2f08544b8935f3e5efafce66fd40eb73bb5707793f7a1366f02edd",
+      "planned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0,
+      "records": 1300,
+      "evidenceSha256": "bd88fae3b7c99aa406b821e27d2e5bc5b76cc357499d151cac4399edd1328161",
+      "noRfidPathRuns": 0
     }
   ],
   "totals": {
-    "firmsCompleted": 1,
-    "projectsPlanned": 100,
-    "projectsExecuted": 100,
+    "firmsCompleted": 2,
+    "projectsPlanned": 200,
+    "projectsExecuted": 200,
     "projectsBlocked": 0,
     "projectsSkipped": 0,
-    "evidenceRecords": 1300,
+    "evidenceRecords": 2600,
     "drift": 0
   }
 }
