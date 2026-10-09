@@ -1,0 +1,37 @@
+[
+  {
+    "scheduleId": "v3-w3-010-baseline-schedule",
+    "experimentId": "v3-w3-010-baseline",
+    "cohortIds": [
+      "baseline-v3-w3-010"
+    ],
+    "reDerived": true,
+    "byteIdenticalModuloClockFields": true,
+    "fieldsCompared": 1643623,
+    "fieldMismatches": [],
+    "clockFieldsExcluded": [
+      "schedule.generatedAt",
+      "schedule.buildCommit"
+    ],
+    "executionOutcomeFieldsExcluded": [
+      "project.status",
+      "project.evidenceRecordId",
+      "project.blockReason"
+    ],
+    "derivedScheduleSha256": "513b9c8f7bb3ec95ff2ade5cbd9b5c71e220344a95cf0635bec6494e3bb6b5cd",
+    "executedScheduleSha256": "513b9c8f7bb3ec95ff2ade5cbd9b5c71e220344a95cf0635bec6494e3bb6b5cd",
+    "personaRosterChecks": [
+      {
+        "firmId": "firm:construction:small",
+        "personaCount": 25,
+        "rosterCount": 25,
+        "matches": true
+      }
+    ],
+    "notes": [
+      "Re-derived from the W1-009 portfolio generator (public surface) + the recorded W2 roster (docs/simulations/personas/cohort-manifest.json roleAllocation in W2 role-family order) — no runner code imported.",
+      "Persona ordering re-derivation uses the recorded W2 role-family iteration order; per-firm roster counts verified against the cohort manifest.",
+      "Executed schedule statuses/evidence pointers are execution facts audited by the reconciliation law, excluded from the derivation surface."
+    ]
+  }
+]

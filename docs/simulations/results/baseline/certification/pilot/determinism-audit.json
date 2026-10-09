@@ -1,0 +1,30 @@
+[
+  {
+    "scheduleId": "v3-baseline-pilot-schedules",
+    "experimentId": "v3-baseline",
+    "cohortIds": [
+      "pilot-S",
+      "pilot-M",
+      "pilot-L"
+    ],
+    "reDerived": true,
+    "byteIdenticalModuloClockFields": true,
+    "fieldsCompared": 4305,
+    "fieldMismatches": [],
+    "clockFieldsExcluded": [
+      "schedule.generatedAt",
+      "schedule.buildCommit"
+    ],
+    "executionOutcomeFieldsExcluded": [
+      "project.status",
+      "project.evidenceRecordId",
+      "project.blockReason"
+    ],
+    "derivedScheduleSha256": "e4704f8972971f4c635808188a50657dbdaad6a02fda515faedae0f08411e5f9",
+    "executedScheduleSha256": "e4704f8972971f4c635808188a50657dbdaad6a02fda515faedae0f08411e5f9",
+    "notes": [
+      "Re-derived from the recorded W3-009 fixture rules (project-id rule, fnv1a seeds, (i+idx)%3 journey-family sampling, persona roster) — no runner code imported.",
+      "Executed schedule statuses/evidence pointers are execution facts audited by the reconciliation law, excluded from the derivation surface."
+    ]
+  }
+]

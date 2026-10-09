@@ -1,0 +1,73 @@
+{
+  "source": {
+    "sourceKind": "pilot",
+    "evidencePath": "packages/experience/reports/sim/pilot-summary.json",
+    "experimentId": "v3-baseline",
+    "buildCommit": "w3-009-pilot",
+    "buildBranch": null,
+    "deploymentTarget": "local-dev-fixture",
+    "localDevFixture": true,
+    "generatedAt": "2026-10-10T07:00:00Z",
+    "sampleMode": "pilot",
+    "recordCount": 1092,
+    "evidenceSha256": "bbeb0e0961dc1441e2230bd35b6678421d39c0214937865117c438548c60fc2c"
+  },
+  "perFirm": [
+    {
+      "firmId": "firm-grocery-L-1",
+      "industry": "grocery-supermarket-no-rfid",
+      "firmSize": "large",
+      "manifestInventoryProjects": 48,
+      "planned": 48,
+      "executed": 48,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0,
+      "reconciled": true,
+      "manifestTraced": true,
+      "outOfScopeProjects": 0
+    },
+    {
+      "firmId": "firm-manuf-M-1",
+      "industry": "manufacturing-supply-chain",
+      "firmSize": "medium",
+      "manifestInventoryProjects": 24,
+      "planned": 24,
+      "executed": 24,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0,
+      "reconciled": true,
+      "manifestTraced": true,
+      "outOfScopeProjects": 0
+    },
+    {
+      "firmId": "firm-retail-S-1",
+      "industry": "retail-ecommerce",
+      "firmSize": "small",
+      "manifestInventoryProjects": 12,
+      "planned": 12,
+      "executed": 12,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0,
+      "reconciled": true,
+      "manifestTraced": true,
+      "outOfScopeProjects": 0
+    }
+  ],
+  "overall": {
+    "firms": 3,
+    "firmsReconciled": 3,
+    "manifestInventoryProjects": 84,
+    "planned": 84,
+    "executed": 84,
+    "blocked": 0,
+    "skipped": 0,
+    "drift": 0,
+    "reconciled": true,
+    "untracedProjectIds": [],
+    "fabricatedProjectIds": []
+  },
+  "manifestSource": "w3-009-local-dev-fixture"
+}

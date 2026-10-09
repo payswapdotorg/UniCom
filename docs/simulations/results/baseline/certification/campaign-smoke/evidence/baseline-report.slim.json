@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "experimentId": "v3-w3-010-baseline",
+  "workOrderId": "W3-010",
+  "phase": "cycles.baseline",
+  "buildCommit": "d1ae5909e27e3f6cd666a88332ca3134a0cc3591",
+  "generatedAt": "2026-10-09T08:55:00Z",
+  "namespace": "baseline",
+  "contractVersion": "w2-009:v1",
+  "syntheticEstimateLabel": "synthetic simulation estimate",
+  "cohort": {
+    "industries": 13,
+    "firmSizes": 3,
+    "firms": 39,
+    "personas": 15275,
+    "baselineProjects": 3900
+  },
+  "projectReconciliation": {
+    "planned": 39,
+    "executed": 39,
+    "blocked": 0,
+    "skipped": 0,
+    "drift": 0,
+    "reconciled": true
+  },
+  "journeyReconciliation": {
+    "planned": 507,
+    "executed": 468,
+    "blocked": 39,
+    "skipped": 0,
+    "drift": 0,
+    "reconciled": true
+  },
+  "outcomeCounts": {
+    "pass": 468,
+    "fail": 0,
+    "blocked": 39,
+    "absent": 0,
+    "unknown": 0
+  },
+  "fourAdoptionOutputs": [
+    {
+      "outputId": "a",
+      "denominator": 15275,
+      "eligibleCount": 0,
+      "eligiblePct": 0,
+      "meanScore": null,
+      "syntheticEstimateLabel": "synthetic simulation estimate"
+    },
+    {
+      "outputId": "b",
+      "denominator": 15275,
+      "eligibleCount": 0,
+      "eligiblePct": 0,
+      "meanScore": 4,
+      "syntheticEstimateLabel": "synthetic simulation estimate"
+    },
+    {
+      "outputId": "c",
+      "denominator": 15275,
+      "eligibleCount": 1,
+      "eligiblePct": 0.006546644844517185,
+      "meanScore": null,
+      "syntheticEstimateLabel": "synthetic simulation estimate"
+    },
+    {
+      "outputId": "d",
+      "denominator": 15275,
+      "eligibleCount": 1,
+      "eligiblePct": 0.006546644844517185,
+      "meanScore": 4,
+      "syntheticEstimateLabel": "synthetic simulation estimate"
+    }
+  ],
+  "topFrictionCauses": [],
+  "determinismFingerprint": "d6d52efed26d648e"
+}

@@ -1,0 +1,23 @@
+{
+  "w1HoldoutProjectIdsInEvidence": 0,
+  "w1HoldoutProjectIdSamples": [],
+  "executedProjectCount": 3900,
+  "executedSeedNamespaceComponents": [
+    "baseline"
+  ],
+  "baselineSeedRange": {
+    "min": 106688,
+    "max": 118187
+  },
+  "holdoutSeedRange": {
+    "min": 176593,
+    "max": 188092
+  },
+  "executedNumericSeedsChecked": 39,
+  "numericSeedReDerivationMatches": 39,
+  "numericSeedOutOfRange": 0,
+  "holdoutSeedSetIntersections": 0,
+  "blockedRecordFirmSeedAnchors": 38,
+  "seedDisjointnessProven": true,
+  "leakageFree": true
+}
