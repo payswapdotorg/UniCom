@@ -27,8 +27,9 @@
 | trust-security-fraud-and-recourse | 3600/3600/0 | 7200/7200/0 | YES |
 
 - First measurement: `baseline-report.json` (build commit recorded therein, determinism fingerprint preserved)
+- Amendment 1 (W3-011): `baseline-report.amended-1.json` — the journey-registry reconciliation; its per-family before/after table carries the amendment-1 column for every family below (48,300/48,300 pass at that amendment)
 - This amendment: `baseline-report.amended-2.json` (build commit 3fcd39bf)
-- Root cause: negotiation-substitution absent from the W3-009 journey registry (harness vocabulary gap; W3-010 completion report §4)
+- Root cause (this amendment): the campaign's `personaIds[0]` single-attribution — only 39/15,275 personas ever accumulated evidence (empty bundles score ~4) — plus the W2 `applicableJourneys` vocabulary never reconciled with the W1 authoritative family ids (the third seam). The amendment-1 root cause (negotiation-substitution absent from the W3-009 journey registry) is recorded in `BASELINE-REPORT-AMENDED-1.md`.
 - The four adoption outputs below are the AMENDED measurement (still synthetic simulation estimates) — the first measurement's outputs are a lower bound, superseded by this amendment.
 
 ---
