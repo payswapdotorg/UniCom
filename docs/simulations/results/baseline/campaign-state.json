@@ -373,15 +373,34 @@
       "records": 1500,
       "evidenceSha256": "a2de07c05313a9e72bd1831a93085a27b861eb3072cf2adadc5a28380acba509",
       "noRfidPathRuns": 0
+    },
+    {
+      "batch": {
+        "index": 19,
+        "firmId": "hospitality-restaurants-hotels-medium",
+        "w1IndustryId": "hospitality-restaurants-hotels",
+        "w2IndustryId": "hospitality",
+        "firmSize": "medium",
+        "cohortId": "baseline-hospitality-restaurants-hotels-medium"
+      },
+      "scheduleDigest": "a3b7913560b06d3e69c98fac268cae21b1953ed97da2c4565d8e4e2b3f9005c2",
+      "planned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0,
+      "records": 1500,
+      "evidenceSha256": "54037cb422387c7e6e094f6a428eecc82f4075b613a7b7d2e2074a2f9bb23e84",
+      "noRfidPathRuns": 0
     }
   ],
   "totals": {
-    "firmsCompleted": 19,
-    "projectsPlanned": 1900,
-    "projectsExecuted": 1900,
+    "firmsCompleted": 20,
+    "projectsPlanned": 2000,
+    "projectsExecuted": 2000,
     "projectsBlocked": 0,
     "projectsSkipped": 0,
-    "evidenceRecords": 22800,
+    "evidenceRecords": 24300,
     "drift": 0
   }
 }
