@@ -10,7 +10,7 @@
       "title": "7,800 manifest reconciliation (13×3×100 baseline + 13×3×100 holdout)",
       "status": "PASS",
       "evidence": {
-        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "file": "src/test/w1-009/portfolio/portfolio-reconciliation.test.ts",
         "tests": [
           "generates exactly 3,900 baseline projects",
           "generates exactly 3,900 holdout projects",
@@ -30,7 +30,7 @@
       "title": "Deterministic reproduction (same seed ⇒ byte-identical portfolio)",
       "status": "PASS",
       "evidence": {
-        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "file": "src/test/w1-009/portfolio/portfolio-reconciliation.test.ts",
         "tests": [
           "byte-identical canonicalJson for two runs of the same inputs",
           "identical fingerprints for two runs of the full baseline",
@@ -48,7 +48,7 @@
       "title": "Idempotency of generator (same inputs ⇒ same output)",
       "status": "PASS",
       "evidence": {
-        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "file": "src/test/w1-009/portfolio/portfolio-reconciliation.test.ts",
         "tests": [
           "returns identical results when called twice with identical inputs"
         ]
@@ -64,7 +64,7 @@
       "title": "UNKNOWN preservation (oracle never auto-promotes UNKNOWN)",
       "status": "PASS",
       "evidence": {
-        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "file": "src/test/w1-009/portfolio/portfolio-assertions.test.ts",
         "tests": [
           "every oracle declares at least one UNKNOWN condition",
           "every oracle has an UNKNOWN-preservation assertion (kind=UNKNOWN)",
@@ -82,7 +82,7 @@
       "title": "Baseline/holdout namespace separation (disjoint seeds + project ids)",
       "status": "PASS",
       "evidence": {
-        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "file": "src/test/w1-009/portfolio/portfolio-reconciliation.test.ts",
         "tests": [
           "seed namespaces have disjoint prefixes",
           "baseline and holdout project ids NEVER collide",
@@ -100,7 +100,7 @@
       "title": "Role-mix ≥8 role families per industry",
       "status": "PASS",
       "evidence": {
-        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "file": "src/test/w1-009/portfolio/portfolio-roles-journeys.test.ts",
         "tests": [
           "every industry has ≥8 role families in the registry",
           "every project manifest declares ≥8 role families in roleMix",
@@ -119,7 +119,7 @@
       "title": "19 mandatory journey families covered across the campaign",
       "status": "PASS",
       "evidence": {
-        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "file": "src/test/w1-009/portfolio/portfolio-roles-journeys.test.ts",
         "tests": [
           "exposes exactly 19 journey families",
           "every journey family appears in at least one industry cohort",
@@ -138,7 +138,7 @@
       "title": "No-RFID coverage passing the W3-004 contracts",
       "status": "PASS",
       "evidence": {
-        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "file": "src/test/w1-009/portfolio/portfolio-no-rfid.test.ts",
         "tests": [
           "RFID is never required for any project",
           "every supermarket-industry project declares physical-no-rfid-supermarket",
@@ -158,7 +158,7 @@
       "title": "Provider UNKNOWN preservation (oracle preserves UNKNOWN)",
       "status": "PASS",
       "evidence": {
-        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "file": "src/test/w1-009/portfolio/portfolio-assertions.test.ts",
         "tests": [
           "every oracle has a PROVIDER_UNKNOWN assertion"
         ]
@@ -174,7 +174,7 @@
       "title": "Approval policy (purchase above maxAmountMinor requires approval)",
       "status": "PASS",
       "evidence": {
-        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "file": "src/test/w1-009/portfolio/portfolio-assertions.test.ts",
         "tests": [
           "every oracle has an APPROVAL assertion",
           "every project template declares an APPROVE_PURCHASE step",
@@ -193,7 +193,7 @@
       "title": "Money conservation (integer minor units only; no float)",
       "status": "PASS",
       "evidence": {
-        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "file": "src/test/w1-009/portfolio/portfolio-assertions.test.ts",
         "tests": [
           "every line total uses integer minor units",
           "every oracle expected money values use integer minor units",
@@ -211,7 +211,7 @@
       "title": "Fixtures never mark journeys successful (oracle is assertion-only)",
       "status": "PASS",
       "evidence": {
-        "file": "src/test/w1-009/portfolio/portfolio-contracts.test.ts",
+        "file": "src/test/w1-009/portfolio/portfolio-assertions.test.ts",
         "tests": [
           "no oracle contains a 'journey-successful' field",
           "every oracle assertion is a CHECK (not a verdict)",
