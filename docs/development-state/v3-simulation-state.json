@@ -1,0 +1,65 @@
+{
+  "schema_version": "3.0",
+  "repository": "payswapdotorg/UniCom",
+  "program": "V3 Cross-Industry Simulation and Adoption Optimization",
+  "charter": "docs/V3-SIMULATION-ADOPTION-CHARTER-2026-10-09.md",
+  "experiment_protocol": "docs/simulations/V3-EXPERIMENT-PROTOCOL.md",
+  "industry_matrix": "docs/simulations/V3-INDUSTRY-AND-COMPETITOR-MATRIX.md",
+  "architecture_version": "1.1-frozen-2026-10-05",
+  "architecture_changes_authorized": false,
+  "production_deployment_authorized": false,
+  "production_mutation_allowed": false,
+  "progress_authority": {
+    "sole_source_of_truth": "docs/development-state/v3-simulation-state.json",
+    "v1_registry": "docs/development-state/v1-work-order-state.json",
+    "v2_registry": "docs/development-state/v2-work-order-state.json",
+    "rule": "V1/V2 completed-state registries remain immutable under this program; V3 progress lives here."
+  },
+  "worker_limit": 3,
+  "worker_lanes": {
+    "worker-1": "project-procurement-economics-scenarios",
+    "worker-2": "persona-incumbent-benchmark-adoption-metrics",
+    "worker-3": "gui-only-browser-runner-evidence"
+  },
+  "campaign_design": {
+    "industries": 13,
+    "firm_sizes": ["small", "medium", "large"],
+    "firms": 39,
+    "projects_per_firm": 200,
+    "project_runs": 7800,
+    "synthetic_professionals": 15275,
+    "minimum_full_improvement_cycles": 2,
+    "baseline_required": true,
+    "held_out_final_run_required": true
+  },
+  "active_work_orders": [],
+  "frontier": [
+    {"id": "W1-009", "status": "READY", "owner": "worker-1", "depends_on": []},
+    {"id": "W2-009", "status": "READY", "owner": "worker-2", "depends_on": []},
+    {"id": "W3-009", "status": "READY", "owner": "worker-3", "depends_on": []}
+  ],
+  "completed_work_orders": [],
+  "cycles": {
+    "baseline": {"status": "NOT_STARTED"},
+    "improvement_1": {"status": "NOT_STARTED"},
+    "improvement_2": {"status": "NOT_STARTED"},
+    "held_out_final": {"status": "NOT_STARTED"}
+  },
+  "release_gate": {
+    "gui_only": "REQUIRED",
+    "feature_discoverability": "REQUIRED",
+    "competitor_evidence_class": "REQUIRED",
+    "no_silent_failures": "REQUIRED",
+    "safety_invariants": "REQUIRED",
+    "adoption_metric_separation": "REQUIRED",
+    "holdout_retest": "REQUIRED",
+    "human_willingness_not_inferred_from_simulation": "REQUIRED"
+  },
+  "reporting": {
+    "baseline_report": "docs/simulations/results/baseline/",
+    "cycle_reports": "docs/simulations/results/cycles/",
+    "final_report": "docs/simulations/results/final/"
+  },
+  "overall_status": "READY_TO_DISPATCH",
+  "last_reviewed_at": "2026-10-09"
+}
