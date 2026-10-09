@@ -259,15 +259,34 @@
       "records": 900,
       "evidenceSha256": "146c8509173ccac1c2c01bb2155f769372a03bf630e431ce15397fcafa26f908",
       "noRfidPathRuns": 0
+    },
+    {
+      "batch": {
+        "index": 13,
+        "firmId": "healthcare-organizations-medium",
+        "w1IndustryId": "healthcare-organizations",
+        "w2IndustryId": "healthcare",
+        "firmSize": "medium",
+        "cohortId": "baseline-healthcare-organizations-medium"
+      },
+      "scheduleDigest": "5cc255823c505c04c59d8fac60a32d0a1dd49eeaa96139464efe36c3839886ee",
+      "planned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0,
+      "records": 900,
+      "evidenceSha256": "f6a5175d26eca8aa39b15d4d542b509cd3daffba8a10dff1795a7858154862c3",
+      "noRfidPathRuns": 0
     }
   ],
   "totals": {
-    "firmsCompleted": 13,
-    "projectsPlanned": 1300,
-    "projectsExecuted": 1300,
+    "firmsCompleted": 14,
+    "projectsPlanned": 1400,
+    "projectsExecuted": 1400,
     "projectsBlocked": 0,
     "projectsSkipped": 0,
-    "evidenceRecords": 16500,
+    "evidenceRecords": 17400,
     "drift": 0
   }
 }
