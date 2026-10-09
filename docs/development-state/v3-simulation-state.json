@@ -43,11 +43,6 @@
       "id": "W1-009",
       "lane": "worker-1",
       "dispatched_at": "2026-10-09T04:55:00Z"
-    },
-    {
-      "id": "W3-009",
-      "lane": "worker-3",
-      "dispatched_at": "2026-10-09T04:55:00Z"
     }
   ],
   "frontier": [
@@ -68,10 +63,11 @@
     },
     {
       "id": "W3-009",
-      "status": "DISPATCHED",
+      "status": "COMPLETE",
       "owner": "worker-3",
       "depends_on": [],
-      "dispatched_at": "2026-10-09T04:55:00Z"
+      "dispatched_at": "2026-10-09T04:55:00Z",
+      "completed_at": "2026-10-09T08:05:00Z"
     }
   ],
   "completed_work_orders": [
@@ -81,10 +77,10 @@
       "completed_at": "2026-10-09T06:35:49Z",
       "merged_sha": "7bf1266",
       "merge_mode": "fast-forward (main 5958ebc -> 7bf1266)",
-      "verdict": "ACCEPT — phase-A contract layer complete per WO definition of complete; four adoption VALUES are campaign outputs (tracked under cycles.baseline, not W2-009 acceptance)",
+      "verdict": "ACCEPT \u2014 phase-A contract layer complete per WO definition of complete; four adoption VALUES are campaign outputs (tracked under cycles.baseline, not W2-009 acceptance)",
       "tl_battery": {
         "tests": "1396/1396 on merged lineage (commerce 349 + agent 559 + experience 488); +62 W2-009 tests vs 1334 baseline; zero regressions",
-        "typecheck": "branch-reachable projects all clean (shared/rpc/provider/provider-node/services/client/server/zcode-server-cli/agent/commerce/experience/desktop.host); packages/ui + packages/web OOM-killed by sandbox 4GB RAM ceiling — differentially IDENTICAL on main baseline (environmental, not branch)",
+        "typecheck": "branch-reachable projects all clean (shared/rpc/provider/provider-node/services/client/server/zcode-server-cli/agent/commerce/experience/desktop.host); packages/ui + packages/web OOM-killed by sandbox 4GB RAM ceiling \u2014 differentially IDENTICAL on main baseline (environmental, not branch)",
         "lint": "99 warnings, 0 errors (exit 0)",
         "architecture_check": "violations: 0, baseline: 0, new: 0"
       },
@@ -96,7 +92,55 @@
         "scoring_contract_version": "w2-009:v1 (frozen)"
       },
       "acceptance": "All 10 WO acceptance criteria verified by TL (scale 39 firms / 15,275 personas reconciled; commerce-only incumbents with evidence classes; four separate outputs; veto-first; versioned frozen weights; score-direction fixtures; caveat labeled)",
-      "session": "https://chat.z.ai/c/2e67111e-1608-4aa8-8d73-33a3fe043938 (original session completed; tab destroyed at 05:57Z by site sweep AFTER report completion — report harvested by TL from DOM; session VOID+re-dispatch unnecessary)"
+      "session": "https://chat.z.ai/c/2e67111e-1608-4aa8-8d73-33a3fe043938 (original session completed; tab destroyed at 05:57Z by site sweep AFTER report completion \u2014 report harvested by TL from DOM; session VOID+re-dispatch unnecessary)"
+    },
+    {
+      "id": "W3-009",
+      "owner": "worker-3",
+      "lane": "gui-only-browser-runner-evidence",
+      "branch": "work/w3-009",
+      "merged_commit": "2f1ff1f",
+      "branch_head_at_acceptance": "ffbb9b4",
+      "accepted_at": "2026-10-09T08:05:00Z",
+      "acceptance_evidence": {
+        "branch_battery": {
+          "tests": "1420/1420",
+          "commerce": 349,
+          "agent": 497,
+          "experience": 574,
+          "new_sim_tests": 86,
+          "regressions": 0,
+          "lint": "97w/0e (0 warnings in sim files)",
+          "architecture": "0 violations",
+          "typecheck": "12/12 branch-reachable projects clean; ui/web OOM identical to pristine baseline (environmental)"
+        },
+        "merged_lineage_battery": {
+          "commit": "2f1ff1f",
+          "tests": "1482/1482",
+          "commerce": 349,
+          "agent": 559,
+          "experience": 574,
+          "lint": "99w/0e (0 new vs e88a784 baseline)",
+          "architecture": "0 violations",
+          "typecheck": "commerce/agent/experience clean"
+        },
+        "pilot_law": {
+          "satisfied": true,
+          "cohorts": [
+            "pilot-S",
+            "pilot-M",
+            "pilot-L"
+          ],
+          "projects": 84,
+          "evidence_records": 1092,
+          "journey_families_covered": 19,
+          "reconciliation": "planned 84 = executed 84 + blocked 0 + skipped 0, drift 0",
+          "zero_orphan": "132/132 rows PASS",
+          "throughput_projection": "sub-5-second full campaign on local-dev fixture"
+        },
+        "merge_kind": "no-ff (W3 branched from 5958ebc pre-W2-merge 7bf1266; write surfaces pairwise disjoint)"
+      },
+      "notes": "GUI-only runner + instrumentation delivered; campaign run deferred to cycles.baseline per pilot law (TL acceptance gate passed). Local-dev fixture swap for real W1/W2 artifacts is the follow-up once W1-009 lands."
     }
   ],
   "cycles": {
@@ -128,8 +172,8 @@
     "cycle_reports": "docs/simulations/results/cycles/",
     "final_report": "docs/simulations/results/final/"
   },
-  "overall_status": "WAVE_009_DISPATCHED",
-  "last_reviewed_at": "2026-10-09T06:35:49Z",
+  "overall_status": "WAVE_009_IN_FLIGHT_W1_REMAINING",
+  "last_reviewed_at": "2026-10-09T08:05:00Z",
   "benchmark_scope": {
     "mandate": "Commerce capabilities only; do not score broad vertical industry software as overall competitors.",
     "authoritative_matrix": "docs/simulations/V3-INDUSTRY-AND-COMPETITOR-MATRIX.md",
@@ -152,7 +196,7 @@
       "live/marketplace/physical/local-edge commerce"
     ],
     "explicit_exclusion": "General project/design, clinical, dispatch, creative, legal matter-management, generic CRM or classified operations software is context only, not an overall competitor. Score only an isolated in-scope commerce function if one is relevant.",
-    "mandatory_journey_registry": "docs/simulations/V3-EXPERIMENT-PROTOCOL.md §10",
+    "mandatory_journey_registry": "docs/simulations/V3-EXPERIMENT-PROTOCOL.md \u00a710",
     "required_journey_families": [
       "buyer-intent-constraints",
       "offer-sourcing-comparison",
@@ -189,7 +233,14 @@
     },
     {
       "ts": "2026-10-09T06:35:49Z",
-      "event": "W2-009 ACCEPTED by TL — merged fast-forward to main (7bf1266); gates re-run on merged lineage: 1396/1396 tests, lint 99w/0e, architecture 0 violations, typecheck branch-reachable clean (ui/web OOM differentially identical on main = environmental); marked COMPLETE (contract layer; four adoption VALUES deferred to cycles.baseline campaign)"
+      "event": "W2-009 ACCEPTED by TL \u2014 merged fast-forward to main (7bf1266); gates re-run on merged lineage: 1396/1396 tests, lint 99w/0e, architecture 0 violations, typecheck branch-reachable clean (ui/web OOM differentially identical on main = environmental); marked COMPLETE (contract layer; four adoption VALUES deferred to cycles.baseline campaign)"
+    },
+    {
+      "ts": "2026-10-09T08:05:00Z",
+      "event": "accept",
+      "work_order": "W3-009",
+      "by": "TL",
+      "detail": "accepted after branch battery (1420/1420) + merged-lineage gate (1482/1482 at 2f1ff1f); no-ff merge; pilot law satisfied; campaign deferred to cycles.baseline"
     }
   ]
 }
