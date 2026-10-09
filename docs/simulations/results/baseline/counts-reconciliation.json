@@ -1,0 +1,470 @@
+{
+  "schema": "unicom-w3-010-counts-reconciliation/1",
+  "experimentId": "v3-baseline",
+  "buildCommit": "c51703e4df2919859a56d5b24f8fda2bd4283c00",
+  "overall": {
+    "totalPlanned": 3900,
+    "totalExecuted": 3900,
+    "totalBlocked": 0,
+    "totalSkipped": 0,
+    "reconciled": true,
+    "drift": 0,
+    "invariant": "totalPlanned = executed + blocked + skipped"
+  },
+  "byJourneyFamily": [
+    {
+      "journeyFamilyId": "buyer-intent-constraints",
+      "planned": 3900,
+      "executed": 3900,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "offer-sourcing-comparison",
+      "planned": 3900,
+      "executed": 3900,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "buy-now-vs-wait-price-timing",
+      "planned": 3900,
+      "executed": 3900,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "existing-group-buy",
+      "planned": 1200,
+      "executed": 1200,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "latent-demand-merchant-group-buy-proposal",
+      "planned": 1200,
+      "executed": 1200,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "rent-borrow-vs-buy",
+      "planned": 3000,
+      "executed": 3000,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "resale-rental-consignment",
+      "planned": 2100,
+      "executed": 2100,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "proactive-economic-opportunities",
+      "planned": 3600,
+      "executed": 3600,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "bounded-multi-hop-trade-cycle",
+      "planned": 600,
+      "executed": 600,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "merchant-commerce-lifecycle",
+      "planned": 2400,
+      "executed": 2400,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "supplier-procurement-receiving",
+      "planned": 3900,
+      "executed": 3900,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "b2b-multi-location-supplier-coordination",
+      "planned": 3900,
+      "executed": 3900,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "autonomous-store-policy",
+      "planned": 300,
+      "executed": 300,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "commerce-twin-what-if",
+      "planned": 1500,
+      "executed": 1500,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "connected-commerce-channels-and-live-commerce",
+      "planned": 2100,
+      "executed": 2100,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "physical-no-rfid-supermarket",
+      "planned": 600,
+      "executed": 600,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "trust-security-fraud-and-recourse",
+      "planned": 3600,
+      "executed": 3600,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "failure-unknown-idempotency-recovery",
+      "planned": 3900,
+      "executed": 3900,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "gui-feature-discoverability",
+      "planned": 3900,
+      "executed": 3900,
+      "blocked": 0,
+      "skipped": 0
+    }
+  ],
+  "byOutcome": {
+    "pass": 49500,
+    "fail": 0,
+    "blocked": 0,
+    "absent": 0,
+    "unknown": 0
+  },
+  "perFirm": [
+    {
+      "cohortId": "baseline-construction-small",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-construction-medium",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-construction-large",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-finance-banking-accounting-small",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-finance-banking-accounting-medium",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-finance-banking-accounting-large",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-sales-business-development-small",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-sales-business-development-medium",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-sales-business-development-large",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-technology-software-it-services-small",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-technology-software-it-services-medium",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-technology-software-it-services-large",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-healthcare-organizations-small",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-healthcare-organizations-medium",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-healthcare-organizations-large",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-transportation-delivery-small",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-transportation-delivery-medium",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-transportation-delivery-large",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-hospitality-restaurants-hotels-small",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-hospitality-restaurants-hotels-medium",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-hospitality-restaurants-hotels-large",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-fashion-apparel-retail-brands-small",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-fashion-apparel-retail-brands-medium",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-fashion-apparel-retail-brands-large",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-entertainment-media-production-small",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-entertainment-media-production-medium",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-entertainment-media-production-large",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-legal-professional-services-small",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-legal-professional-services-medium",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-legal-professional-services-large",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-defense-security-government-contracting-small",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-defense-security-government-contracting-medium",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-defense-security-government-contracting-large",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-manufacturing-supply-chain-small",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-manufacturing-supply-chain-medium",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-manufacturing-supply-chain-large",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-supermarkets-local-retail-small",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-supermarkets-local-retail-medium",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    },
+    {
+      "cohortId": "baseline-supermarkets-local-retail-large",
+      "totalPlanned": 100,
+      "executed": 100,
+      "blocked": 0,
+      "skipped": 0,
+      "drift": 0
+    }
+  ]
+}

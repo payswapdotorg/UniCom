@@ -1,0 +1,19 @@
+{
+  "schema": "unicom-w3-010-determinism-proof/1",
+  "experimentId": "v3-baseline",
+  "method": "re-run one full firm from the same schedule (same buildCommit, same frozen clock) and compare evidence NDJSON sha256 + schedule digest + reconciliation",
+  "rerunFirmBatch": 0,
+  "rerunFirmId": "construction-small",
+  "rerunCohortId": "baseline-construction-small",
+  "buildCommitUsed": "c51703e4df2919859a56d5b24f8fda2bd4283c00",
+  "evidenceSha256Original": "98427b70322c14a3c7f7deabd2b55f696edb86637cc6b3aa205dfee56363aab5",
+  "evidenceSha256Rerun": "98427b70322c14a3c7f7deabd2b55f696edb86637cc6b3aa205dfee56363aab5",
+  "evidenceByteIdentical": true,
+  "scheduleDigestOriginal": "027b0f9dfc740f343478ec52215e5e176144ed096954c8f682ae2e7f59bc610a",
+  "scheduleDigestRerun": "027b0f9dfc740f343478ec52215e5e176144ed096954c8f682ae2e7f59bc610a",
+  "scheduleDigestIdentical": true,
+  "reconciliationDeepEqual": true,
+  "recordsOriginal": 1300,
+  "recordsRerun": 1300,
+  "byteIdentical": true
+}

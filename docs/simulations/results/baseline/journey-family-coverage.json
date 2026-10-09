@@ -1,0 +1,141 @@
+{
+  "schema": "unicom-w3-010-journey-family-coverage/1",
+  "experimentId": "v3-baseline",
+  "familiesTotal": 19,
+  "familiesCovered": 19,
+  "byJourneyFamily": [
+    {
+      "journeyFamilyId": "buyer-intent-constraints",
+      "planned": 3900,
+      "executed": 3900,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "offer-sourcing-comparison",
+      "planned": 3900,
+      "executed": 3900,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "buy-now-vs-wait-price-timing",
+      "planned": 3900,
+      "executed": 3900,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "existing-group-buy",
+      "planned": 1200,
+      "executed": 1200,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "latent-demand-merchant-group-buy-proposal",
+      "planned": 1200,
+      "executed": 1200,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "rent-borrow-vs-buy",
+      "planned": 3000,
+      "executed": 3000,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "resale-rental-consignment",
+      "planned": 2100,
+      "executed": 2100,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "proactive-economic-opportunities",
+      "planned": 3600,
+      "executed": 3600,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "bounded-multi-hop-trade-cycle",
+      "planned": 600,
+      "executed": 600,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "merchant-commerce-lifecycle",
+      "planned": 2400,
+      "executed": 2400,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "supplier-procurement-receiving",
+      "planned": 3900,
+      "executed": 3900,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "b2b-multi-location-supplier-coordination",
+      "planned": 3900,
+      "executed": 3900,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "autonomous-store-policy",
+      "planned": 300,
+      "executed": 300,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "commerce-twin-what-if",
+      "planned": 1500,
+      "executed": 1500,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "connected-commerce-channels-and-live-commerce",
+      "planned": 2100,
+      "executed": 2100,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "physical-no-rfid-supermarket",
+      "planned": 600,
+      "executed": 600,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "trust-security-fraud-and-recourse",
+      "planned": 3600,
+      "executed": 3600,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "failure-unknown-idempotency-recovery",
+      "planned": 3900,
+      "executed": 3900,
+      "blocked": 0,
+      "skipped": 0
+    },
+    {
+      "journeyFamilyId": "gui-feature-discoverability",
+      "planned": 3900,
+      "executed": 3900,
+      "blocked": 0,
+      "skipped": 0
+    }
+  ]
+}

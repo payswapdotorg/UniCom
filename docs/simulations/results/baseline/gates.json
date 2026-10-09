@@ -1,0 +1,15 @@
+{
+  "schema": "unicom-w3-010-gates/1",
+  "recordedAt": "2026-10-12T00:00:00Z",
+  "branch": "work/w3-010",
+  "campaignBuildCommit": "c51703e4df2919859a56d5b24f8fda2bd4283c00",
+  "battery": {
+    "pnpm --filter @unicom/experience test": { "files": 84, "tests": 583, "passed": 583, "failed": 0, "exitCode": 0 },
+    "pnpm --filter @unicom/commerce test": { "files": 64, "tests": 405, "passed": 405, "failed": 0, "exitCode": 0 },
+    "pnpm --filter @unicom/agent test": { "files": 57, "tests": 559, "passed": 559, "failed": 0, "exitCode": 0 },
+    "pnpm lint": { "warnings": 99, "errors": 0, "note": "99 warnings all pre-existing at base 47c07ce; the W3-010 files contribute zero warnings and zero errors" },
+    "pnpm architecture:check": { "violations": 0, "baseline": 0, "new": 0, "result": "OK" },
+    "npx tsc -b packages/experience": { "exitCode": 0, "note": "src project builds clean; the pre-existing test-tree typecheck errors (144 at base) are unchanged and out of the W3-010 battery" },
+    "git fetch origin main:main": { "exitCode": 0, "mainAfter": "46ab390b3ebd0242e69d3528025e8e0fcb7a0eea", "note": "pre-gate ref sync succeeded; base 47c07ce is an ancestor of main; origin main already contains a W3-010 acceptance (b547e3c) from a parallel execution chain — see the completion report deviations" }
+  }
+}
