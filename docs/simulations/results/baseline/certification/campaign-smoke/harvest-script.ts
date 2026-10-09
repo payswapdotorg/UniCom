@@ -7,12 +7,16 @@
  * from the committed docs/simulations/campaign/baseline-report.json) and
  * writes the CERTIFICATION SURFACE for the W1-010 harness:
  *
- *   harvest-out/<name>-cert-surface.json — the compact, complete
- *   certification surface: schedule (persona roster factored per firm),
- *   per-record consumed fields + a sha256 digest of each FULL record, and
- *   the regenerated report's reconciliation blocks. The full unprojected
- *   evidence (records carry complete interaction traces) stays in the
- *   scratch worktree and is regenerable byte-identically by this script.
+ *   harvest-out/<name>-cert-surface.json      (smoke: single JSON file)
+ *   harvest-out/<name>-schedule-surface.json  (full: schedule + roster + report)
+ *   harvest-out/<name>-records.jsonl          (full: one projected record/line)
+ *
+ * Records are projected to the W1-010 certification surface: consumed fields
+ * verbatim (postTaskAdoptionResponse trimmed to the consumed claim booleans
+ * + label), plus fullRecordSha256 (sha256 of the full unprojected record).
+ * The full evidence (complete interaction traces, screenshot checkpoints,
+ * full adoption score components) is regenerable byte-identically by this
+ * script from the work/w3-010 branch.
  *
  * Reproducibility proof baked into _meta: the regenerated report matches
  * the committed report modulo (a) the isolated throughput block and (b)
@@ -21,9 +25,11 @@
  * separately; every sha256Hex16 artifact fingerprint and every count
  * matches exactly).
  *
- * Usage: npx tsx scripts/sim/harvest-w1-010-evidence.ts --sample-mode=smoke
+ * Usage:
+ *   npx tsx scripts/sim/harvest-w1-010-evidence.ts --sample-mode=smoke
+ *   npx tsx scripts/sim/harvest-w1-010-evidence.ts --sample-mode=full
  */
-import { writeFileSync, readFileSync, mkdirSync } from "node:fs";
+import { writeFileSync, readFileSync, mkdirSync, createWriteStream } from "node:fs";
 import { createHash } from "node:crypto";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -55,9 +61,27 @@ const CONSUMED_RECORD_FIELDS = [
   "industry", "firmSize", "firmId", "role", "personaId", "projectId",
   "deterministicSeed", "buildCommit", "deploymentTarget", "runStartedAt",
   "runEndedAt", "outcome", "successfulSteps", "connectorProviderState",
-  "commerceAssertionRefs", "postTaskAdoptionResponse", "guiOnlyProof",
-  "sensitiveValueScrubbed",
+  "commerceAssertionRefs", "guiOnlyProof", "sensitiveValueScrubbed",
 ] as const;
+
+/** Project a record to the certification surface (consumed fields verbatim). */
+function projectRecord(record: JourneyEvidenceRecord): Record<string, unknown> {
+  const source = record as unknown as Record<string, unknown>;
+  const projection: Record<string, unknown> = {};
+  for (const field of CONSUMED_RECORD_FIELDS) {
+    projection[field] = source[field];
+  }
+  const adoption = record.postTaskAdoptionResponse;
+  projection.postTaskAdoptionResponse = adoption == null ? undefined : {
+    technicalFullSwitchEligible: adoption.technicalFullSwitchEligible,
+    mainInterfaceEligible: adoption.mainInterfaceEligible,
+    syntheticEstimateLabel: adoption.syntheticEstimateLabel,
+  };
+  return {
+    ...projection,
+    fullRecordSha256: createHash("sha256").update(JSON.stringify(record)).digest("hex"),
+  };
+}
 
 async function main(): Promise<void> {
   const { sampleMode, outName } = parseArgs(process.argv.slice(2));
@@ -69,6 +93,7 @@ async function main(): Promise<void> {
     generatedAt: string;
     experimentId: string;
     determinismFingerprint: string;
+    projectReconciliation: { planned: number; executed: number; blocked: number; skipped: number; drift: number; reconciled: boolean };
   };
 
   const contracts = loadRealArtifacts();
@@ -82,12 +107,11 @@ async function main(): Promise<void> {
   });
 
   // --- Reproducibility of the committed report (semantic fields) ----------
-  const norm = (o: unknown): string => {
-    const s = JSON.stringify(o).replace(/\/home\/[^" ]*\/(docs|packages)\//g, "<repo>/$1/");
-    return s;
-  };
+  const norm = (o: unknown): string =>
+    JSON.stringify(o).replace(/\/home\/[^" ]*\/(docs|packages)\//g, "<repo>/$1/");
   const { throughput: _tp, determinismFingerprint: _dfp, ...regenerated } = full as Record<string, unknown>;
-  const { throughput: _tpc, determinismFingerprint: _cfp, ...committedMinus } = committed as unknown as Record<string, unknown> & typeof _dummy;
+  const committedRaw = JSON.parse(readFileSync(resolve(REPO_ROOT, "docs/simulations/campaign/baseline-report.json"), "utf8")) as Record<string, unknown>;
+  const { throughput: _tpc, determinismFingerprint: _cfp, ...committedMinus } = committedRaw;
   const reportReproduced = norm(regenerated) === norm(committedMinus);
   const fingerprintDiffers = full.determinismFingerprint !== committed.determinismFingerprint;
 
@@ -122,61 +146,91 @@ async function main(): Promise<void> {
       ...(project.blockReason !== undefined ? { blockReason: project.blockReason } : {}),
     })),
   };
-  const compactRecords = evidenceRecords.map((record: JourneyEvidenceRecord) => {
-    const projection: Record<string, unknown> = {};
-    for (const field of CONSUMED_RECORD_FIELDS) {
-      projection[field] = (record as unknown as Record<string, unknown>)[field];
-    }
-    return {
-      ...projection,
-      fullRecordSha256: createHash("sha256").update(JSON.stringify(record)).digest("hex"),
-    };
-  });
+  const projectedRecords: Record<string, unknown>[] = [];
+  for (const record of evidenceRecords) projectedRecords.push(projectRecord(record));
 
-  const certSurface = {
-    schema: "unicom-w1-010-campaign-evidence-harvest/1",
-    surface: "certification-surface/1",
-    harvest: {
-      branch: committed.buildBranch,
-      commit: committed.buildCommit,
-      generatedAt: committed.generatedAt,
-      sampleMode,
-      harvestScript: "scripts/sim/harvest-w1-010-evidence.ts (run inside a work/w3-010 checkout; preserved at docs/simulations/results/baseline/certification/campaign-smoke/harvest-script.ts)",
-      committedReportPath: "docs/simulations/campaign/baseline-report.json (work/w3-010 @ 80fd2f9)",
-      projectionNote:
-        "Records are projected to the W1-010 certification surface: the consumed fields are preserved verbatim and each record carries fullRecordSha256 (sha256 of the full unprojected record). The full evidence (complete interaction traces, screenshot checkpoints) is regenerable byte-identically by the harvest script from the work/w3-010 branch. The schedule's persona roster is factored per firm (identical across a firm's projects — asserted at harvest time).",
-      consumedRecordFields: CONSUMED_RECORD_FIELDS,
-    },
-    report: {
-      experimentId: full.experimentId,
-      buildCommit: full.buildCommit,
-      buildBranch: full.buildBranch,
-      generatedAt: full.generatedAt,
-      namespace: full.namespace,
-      projectReconciliation: full.projectReconciliation,
-      journeyReconciliation: full.journeyReconciliation,
-      outcomeCounts: full.outcomeCounts,
-      journeyFamilyEvidence: full.journeyFamilyEvidence,
-      determinismFingerprint: full.determinismFingerprint,
-    },
-    personaIdsByFirm,
-    schedule: compactSchedule,
-    evidenceRecords: compactRecords,
-    _meta: {
-      committedReportReproducedModuloThroughputLoadedFromPathAndFingerprint: reportReproduced,
-      fingerprintDiffersDueToLoadedFromPath: fingerprintDiffers,
-      committedDeterminismFingerprint: committed.determinismFingerprint,
-      regeneratedDeterminismFingerprint: full.determinismFingerprint,
-      recordCount: evidenceRecords.length,
-      scheduledProjects: schedule.projects.length,
-      firmCount: Object.keys(personaIdsByFirm).length,
-    },
+  const harvestBlock = {
+    branch: committed.buildBranch,
+    commit: committed.buildCommit,
+    generatedAt: committed.generatedAt,
+    sampleMode,
+    harvestScript: "scripts/sim/harvest-w1-010-evidence.ts (run inside a work/w3-010 checkout; preserved at docs/simulations/results/baseline/certification/campaign-smoke/harvest-script.ts)",
+    committedReportPath: "docs/simulations/campaign/baseline-report.json (work/w3-010 @ 80fd2f9 code; full-run report committed at main 7f52ac4)",
+    projectionNote:
+      "Records are projected to the W1-010 certification surface: consumed fields verbatim (postTaskAdoptionResponse trimmed to the consumed claim booleans + label) + fullRecordSha256 (sha256 of the full unprojected record). The full evidence is regenerable byte-identically by the harvest script from the work/w3-010 branch. The schedule's persona roster is factored per firm (identical across a firm's projects — asserted at harvest time).",
+    consumedRecordFields: CONSUMED_RECORD_FIELDS,
+  };
+  const reportBlock = {
+    experimentId: full.experimentId,
+    buildCommit: full.buildCommit,
+    buildBranch: full.buildBranch,
+    generatedAt: full.generatedAt,
+    namespace: full.namespace,
+    projectReconciliation: full.projectReconciliation,
+    journeyReconciliation: full.journeyReconciliation,
+    outcomeCounts: full.outcomeCounts,
+    journeyFamilyEvidence: full.journeyFamilyEvidence,
+    determinismFingerprint: full.determinismFingerprint,
+  };
+  const metaBlock = {
+    committedReportReproducedModuloThroughputLoadedFromPathAndFingerprint: reportReproduced,
+    fingerprintDiffersDueToLoadedFromPath: fingerprintDiffers,
+    fingerprintNote:
+      "The report determinism fingerprint covers the fingerprints block, whose 8 loadedFromPath fields are machine-absolute (the original run's checkout path). All sha256Hex16 artifact fingerprints, byte lengths, counts, aggregates and reconciliation numbers match exactly; only the composite fingerprint differs across checkout locations. Flagged for the W3 runner continuation (loadedFromPath should be repo-relative).",
+    committedDeterminismFingerprint: committed.determinismFingerprint,
+    regeneratedDeterminismFingerprint: full.determinismFingerprint,
+    recordCount: evidenceRecords.length,
+    scheduledProjects: schedule.projects.length,
+    firmCount: Object.keys(personaIdsByFirm).length,
   };
 
   mkdirSync(OUT_DIR, { recursive: true });
-  const outPath = resolve(OUT_DIR, `${outName}-cert-surface.json`);
-  writeFileSync(outPath, `${JSON.stringify(certSurface, null, 1)}\n`, "utf8");
-  console.log(`[w1-010-harvest] wrote ${outPath}`);
+
+  if (sampleMode === "smoke") {
+    const certSurface = {
+      schema: "unicom-w1-010-campaign-evidence-harvest/1",
+      surface: "certification-surface/1",
+      harvest: harvestBlock,
+      report: reportBlock,
+      personaIdsByFirm,
+      schedule: compactSchedule,
+      evidenceRecords: projectedRecords,
+      _meta: metaBlock,
+    };
+    const outPath = resolve(OUT_DIR, `${outName}-cert-surface.json`);
+    writeFileSync(outPath, `${JSON.stringify(certSurface, null, 1)}\n`, "utf8");
+    console.log(`[w1-010-harvest] wrote ${outPath}`);
+  } else {
+    // Full campaign: split outputs (records as JSONL — the record volume is
+    // too large for a single committed JSON artifact).
+    const scheduleSurface = {
+      schema: "unicom-w1-010-campaign-evidence-harvest/1",
+      surface: "certification-surface-schedule/1",
+      harvest: { ...harvestBlock, recordsFile: `${outName}-records.jsonl` },
+      report: reportBlock,
+      personaIdsByFirm,
+      schedule: compactSchedule,
+      _meta: metaBlock,
+    };
+    const schedulePath = resolve(OUT_DIR, `${outName}-schedule-surface.json`);
+    writeFileSync(schedulePath, `${JSON.stringify(scheduleSurface, null, 1)}\n`, "utf8");
+    console.log(`[w1-010-harvest] wrote ${schedulePath}`);
+    const recordsPath = resolve(OUT_DIR, `${outName}-records.jsonl`);
+    const stream = createWriteStream(recordsPath, "utf8");
+    const hasher = createHash("sha256");
+    for (const record of projectedRecords) {
+      const line = JSON.stringify(record);
+      hasher.update(line); hasher.update("\n");
+      stream.write(line + "\n");
+    }
+    await new Promise<void>((resolvePromise, reject) => {
+      stream.end(() => resolvePromise());
+      stream.on("error", reject);
+    });
+    const recordsSha = hasher.digest("hex");
+    console.log(`[w1-010-harvest] wrote ${recordsPath} (sha256 ${recordsSha.slice(0, 16)}…)`);
+  }
+
   console.log(`[w1-010-harvest] records=${evidenceRecords.length} scheduled=${schedule.projects.length} firms=${Object.keys(personaIdsByFirm).length}`);
   console.log(`[w1-010-harvest] committed report reproduced (modulo throughput + loadedFromPath + composite fingerprint): ${reportReproduced}`);
   console.log(`[w1-010-harvest] determinism fingerprint: committed=${committed.determinismFingerprint} regenerated=${full.determinismFingerprint} (path-induced difference: ${fingerprintDiffers})`);
@@ -185,7 +239,5 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 }
-
-const _dummy = null as unknown as { throughput?: unknown; determinismFingerprint?: string };
 
 await main();

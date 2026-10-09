@@ -6,7 +6,7 @@
 
 - Source kind: `campaign-smoke` (sampleMode `smoke`)
 - Experiment: `v3-w3-010-baseline` @ build `d1ae5909e27e3f6cd666a88332ca3134a0cc3591` (branch `work/w3-010`)
-- Evidence: `docs/simulations/results/baseline/certification/campaign-smoke/evidence/campaign-smoke-cert-surface.json` (507 records, sha256 `53f5acbd17eb4373…`)
+- Evidence: `docs/simulations/results/baseline/certification/campaign-smoke/evidence/campaign-smoke-cert-surface.json` (507 records, sha256 `8a6865b1cdf5caed…`)
 
 ## Oracle certification verdicts
 
