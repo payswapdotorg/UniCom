@@ -71,49 +71,10 @@ function buildRegistry(): CommerceModuleRegistry {
       continue;
     }
     const module = parsed.module;
-    if (seenModuleIds.has(module.moduleId)) {
-      warnings.push({ source: file, message: `duplicate moduleId "${module.moduleId}"` });
-      continue;
-    }
+    const duplicateId = seenModuleIds.has(module.moduleId);
+    warnings.push(...moduleContractWarnings(module, modules, file));
+    if (duplicateId) continue;
     seenModuleIds.add(module.moduleId);
-    // Namespace reservation: the id prefix must match the declared owner lane.
-    const reservedOwner = reservedOwnerForModuleId(module.moduleId);
-    if (reservedOwner !== null && reservedOwner !== module.owner) {
-      warnings.push({
-        source: file,
-        message:
-          `moduleId "${module.moduleId}" is reserved for lane ${reservedOwner} but owner is ${module.owner}`,
-      });
-    }
-    // Journey ownership: a module may only claim journeys its lane owns.
-    for (const journeyId of module.journeys) {
-      const family = journeyFamily(journeyId);
-      const laneOwns =
-        family.owner === module.owner || family.sharedWith?.includes(module.owner) === true;
-      if (!laneOwns) {
-        warnings.push({
-          source: file,
-          message: `journey ${journeyId} (${family.familyName}) is owned by ${family.owner}, not ${module.owner}`,
-        });
-      }
-      // Duplicate journey coverage across READY modules is surfaced honestly —
-      // the host still renders deterministically (first moduleId in sort order).
-      if (module.status.kind !== "unavailable") {
-        const priorClaim = modules.find(
-          (other) =>
-            other.moduleId !== module.moduleId &&
-            other.status.kind !== "unavailable" &&
-            other.journeys.includes(journeyId),
-        );
-        if (priorClaim) {
-          warnings.push({
-            source: file,
-            message:
-              `journey ${journeyId} is already claimed by module "${priorClaim.moduleId}"; "${module.moduleId}" also claims it — the first module renders`,
-          });
-        }
-      }
-    }
     modules.push(module);
   }
   modules.sort((a, b) => a.moduleId.localeCompare(b.moduleId));
@@ -127,6 +88,87 @@ function buildRegistry(): CommerceModuleRegistry {
 
 /** The process-wide registry instance (discovery runs once at module load). */
 export const commerceModuleRegistry: CommerceModuleRegistry = buildRegistry();
+
+/**
+ * Catalog-sanctioned shared claim: the journey catalog explicitly allows a
+ * journey to have legitimate rendered sides on multiple lanes (`sharedWith` —
+ * e.g. J5's buyer-proposal side (W2-012) and merchant-review side (W3-015);
+ * J18's shared state components usable by both feature lanes). Two DISTINCT
+ * sanctioned lanes each claiming the journey is therefore NOT a registry
+ * warning: each side keeps its own module surface, and the journey route
+ * deterministically renders the first claiming module in sort order (the
+ * other side stays reachable through its own nav entry). Only UNSANCTIONED
+ * duplicates warn: two modules of the SAME lane claiming one journey, or a
+ * lane that does not own the journey at all (that case also warns via the
+ * lane-ownership check below).
+ */
+export function isCatalogSanctionedSharedClaim(
+  family: CommerceJourneyFamily,
+  module: CommerceFeatureModule,
+  priorClaim: CommerceFeatureModule,
+): boolean {
+  const sanctionedLanes = new Set<CommerceModuleOwner>([family.owner, ...(family.sharedWith ?? [])]);
+  return (
+    module.owner !== priorClaim.owner &&
+    sanctionedLanes.has(module.owner) &&
+    sanctionedLanes.has(priorClaim.owner)
+  );
+}
+
+/**
+ * Contract warnings for one candidate module against the already-accepted
+ * modules (PURE — buildRegistry applies it per discovered file; exported so
+ * the shared-claim law is pinnable with synthetic registries). Returns the
+ * honest warnings; a duplicate moduleId is the only fatal case (the module is
+ * then skipped — every other warning surfaces while the module registers).
+ */
+export function moduleContractWarnings(
+  candidate: CommerceFeatureModule,
+  accepted: readonly CommerceFeatureModule[],
+  source: string,
+): readonly CommerceRegistryWarning[] {
+  const warnings: CommerceRegistryWarning[] = [];
+  if (accepted.some((other) => other.moduleId === candidate.moduleId)) {
+    warnings.push({ source, message: `duplicate moduleId "${candidate.moduleId}"` });
+    return warnings;
+  }
+  // Namespace reservation: the id prefix must match the declared owner lane.
+  const reservedOwner = reservedOwnerForModuleId(candidate.moduleId);
+  if (reservedOwner !== null && reservedOwner !== candidate.owner) {
+    warnings.push({
+      source,
+      message: `moduleId "${candidate.moduleId}" is reserved for lane ${reservedOwner} but owner is ${candidate.owner}`,
+    });
+  }
+  // Journey ownership: a module may only claim journeys its lane owns.
+  for (const journeyId of candidate.journeys) {
+    const family = journeyFamily(journeyId);
+    const laneOwns =
+      family.owner === candidate.owner || family.sharedWith?.includes(candidate.owner) === true;
+    if (!laneOwns) {
+      warnings.push({
+        source,
+        message: `journey ${journeyId} (${family.familyName}) is owned by ${family.owner}, not ${candidate.owner}`,
+      });
+    }
+    // Duplicate journey coverage across READY modules is surfaced honestly —
+    // the host still renders deterministically (first moduleId in sort order) —
+    // EXCEPT catalog-sanctioned shared claims (sharedWith by design).
+    if (candidate.status.kind !== "unavailable") {
+      const priorClaim = accepted.find(
+        (other) => other.status.kind !== "unavailable" && other.journeys.includes(journeyId),
+      );
+      if (priorClaim && !isCatalogSanctionedSharedClaim(family, candidate, priorClaim)) {
+        warnings.push({
+          source,
+          message:
+            `journey ${journeyId} is already claimed by module "${priorClaim.moduleId}"; "${candidate.moduleId}" also claims it — the first module renders`,
+        });
+      }
+    }
+  }
+  return warnings;
+}
 
 /** Rendered coverage state for one journey. */
 export type CommerceJourneyCoverageState =

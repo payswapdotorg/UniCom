@@ -7,11 +7,13 @@
 import { describe, expect, it } from "vitest";
 import {
   commerceModuleRegistry,
+  isCatalogSanctionedSharedClaim,
+  moduleContractWarnings,
   pendingLanesForFeatureSection,
   resolveJourneyCoverage,
 } from "./module-registry.js";
 import type { CommerceModuleRegistry } from "./module-registry.js";
-import { defineCommerceModule } from "./contract/index.js";
+import { defineCommerceModule, journeyFamily } from "./contract/index.js";
 import type { CommerceFeatureModule } from "./contract/index.js";
 
 const load = () => Promise.resolve({ default: () => null });
@@ -40,7 +42,7 @@ function registryOf(
 }
 
 describe("the real discovered registry (src/commerce-modules/*/module.ts(x))", () => {
-  it("has zero warnings — any contract violation would surface honestly here", () => {
+  it("has zero warnings — catalog-sanctioned shared claims (J5 buyer + merchant sides, J18 shared sides) are permitted by design; only unsanctioned duplicate/foreign-lane claims warn", () => {
     expect(commerceModuleRegistry.warnings).toEqual([]);
   });
 
@@ -52,6 +54,59 @@ describe("the real discovered registry (src/commerce-modules/*/module.ts(x))", (
 
   it("resolves coverage for all 19 journeys without crashing", () => {
     expect(resolveJourneyCoverage().length).toBe(19);
+  });
+});
+
+describe("moduleContractWarnings: the shared-claim law (merge-time J5 dual claim)", () => {
+  it("permits J5 claimed by both the W2-012 buyer side and the W3-015 merchant-review side (catalog sharedWith)", () => {
+    const buyer = moduleOf({ moduleId: "buyer-groupbuy", owner: "W2-012", journeys: ["J4", "J5"] });
+    const merchant = moduleOf({ moduleId: "merchant-groupbuy-review", owner: "W3-015", journeys: ["J5"] });
+    expect(moduleContractWarnings(merchant, [buyer], "synthetic")).toEqual([]);
+    // symmetric: the buyer side arriving second is equally sanctioned
+    expect(moduleContractWarnings(buyer, [merchant], "synthetic")).toEqual([]);
+  });
+
+  it("permits J18's shared sides (the W1 host module + a W2/W3 feature-lane module)", () => {
+    const host = moduleOf({ moduleId: "host-states", owner: "W1-011", journeys: ["J18"] });
+    const feature = moduleOf({ moduleId: "buyer-states", owner: "W2-012", journeys: ["J18"] });
+    expect(moduleContractWarnings(feature, [host], "synthetic")).toEqual([]);
+    expect(isCatalogSanctionedSharedClaim(journeyFamily("J18"), feature, host)).toBe(true);
+  });
+
+  it("still warns on unsanctioned duplicates: the SAME lane claiming one journey twice", () => {
+    const first = moduleOf({ moduleId: "buyer-intent", owner: "W2-012", journeys: ["J1"] });
+    const second = moduleOf({ moduleId: "buyer-intent-alt", owner: "W2-012", journeys: ["J1"] });
+    const warnings = moduleContractWarnings(second, [first], "synthetic");
+    expect(warnings).toHaveLength(1);
+    expect(warnings[0]?.message).toContain("already claimed");
+  });
+
+  it("still warns when a foreign lane claims a journey it does not own", () => {
+    const foreign = moduleOf({ moduleId: "buyer-storefront", owner: "W2-012", journeys: ["J10"] });
+    const warnings = moduleContractWarnings(foreign, [], "synthetic");
+    expect(warnings).toHaveLength(1);
+    expect(warnings[0]?.message).toContain("is owned by W3-015, not W2-012");
+  });
+
+  it("does not treat an unavailable module's claim as a conflicting prior claim", () => {
+    const unavailable = moduleOf({
+      moduleId: "merchant-connectors",
+      owner: "W3-015",
+      journeys: ["J15"],
+      status: { kind: "unavailable", reason: "waiting on a live connector" },
+    });
+    const ready = moduleOf({ moduleId: "merchant-connectors-alt", owner: "W3-015", journeys: ["J15"] });
+    const warnings = moduleContractWarnings(ready, [unavailable], "synthetic");
+    // same lane, but the prior claim is unavailable → not a duplicate conflict
+    expect(warnings).toEqual([]);
+  });
+
+  it("keeps the duplicate-moduleId warning fatal (module skipped, not registered twice)", () => {
+    const first = moduleOf({ moduleId: "buyer-intent", owner: "W2-012", journeys: ["J1"] });
+    const twin = moduleOf({ moduleId: "buyer-intent", owner: "W2-012", journeys: ["J1"] });
+    const warnings = moduleContractWarnings(twin, [first], "synthetic");
+    expect(warnings).toHaveLength(1);
+    expect(warnings[0]?.message).toContain('duplicate moduleId "buyer-intent"');
   });
 });
 
@@ -72,6 +127,25 @@ describe("resolveJourneyCoverage with synthetic registries", () => {
     if (j5?.state.kind === "in-development") {
       expect(j5.state.reason).toContain("W2-012 + W3-015");
     }
+  });
+
+  it("renders deterministically when a sanctioned shared journey is claimed by two lanes (first module in sort order renders the journey route)", () => {
+    const buyer = moduleOf({
+      moduleId: "buyer-groupbuy",
+      owner: "W2-012",
+      journeys: ["J4", "J5"],
+      nav: [{ path: "/commerce/buyer/group-buy/latent-demand", label: "Propose a group deal", journeys: ["J5"] }],
+    });
+    const merchant = moduleOf({
+      moduleId: "merchant-groupbuy-review",
+      owner: "W3-015",
+      journeys: ["J5"],
+      nav: [{ path: "/commerce/merchant/group-buy-review", label: "Review group deals", journeys: ["J5"] }],
+    });
+    const registry = registryOf([buyer, merchant]);
+    const j5 = resolveJourneyCoverage(registry).find((entry) => entry.family.journeyId === "J5");
+    expect(j5?.state.kind).toBe("ready");
+    expect(j5?.path).toBe("/commerce/buyer/group-buy/latent-demand");
   });
 
   it("marks a journey ready when a registered module claims it, using the module nav path", () => {
