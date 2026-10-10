@@ -30,6 +30,11 @@ import {
 } from "./share/conversationShareRoute.js";
 import type { IPlatformService, RemoteTarget, ServerRemoteInfo } from "@zcode/shared";
 import { WEB_DEFAULT_THEME, resolveWebInitialTheme } from "./webThemeSeed.js";
+import {
+  CommerceEntryOverlay,
+  isCommerceHostPath,
+  renderCommerceHostPage,
+} from "./commerceEntry.js";
 
 function resolveWebThemePreference(defaultTheme: Theme = WEB_DEFAULT_THEME): Theme {
   const saved = localStorage.getItem("zcode-theme");
@@ -409,6 +414,21 @@ function WebBootstrapErrorScreen({ message }: { message: string }) {
           >
             {/^zh\b/i.test(navigator.language) ? "重试" : "Retry"}
           </button>
+          {/* W1-011: 普通流程入口 —— 连接失败/等待连接的常规墙面上永远可见的 UNiCOM 商业主机入口，非深链专属。 */}
+          <div className="mt-3 flex flex-col gap-1">
+            <button
+              type="button"
+              className="rounded-lg border border-border bg-surface px-3 py-2 text-ui-xs text-foreground-subtle hover:bg-surface-hover"
+              onClick={() => {
+                window.location.assign("/commerce");
+              }}
+            >
+              UNiCOM Commerce → (demo, no connection needed)
+            </button>
+            <span className="text-[11px] text-foreground-subtle">
+              UNiCOM 商业主机：合成演示数据，无需连接服务器
+            </span>
+          </div>
         </section>
       </div>
     </div>
@@ -426,6 +446,17 @@ async function bootstrapWebApp() {
   const params = new URLSearchParams(window.location.search);
   if (isWebOAuthCallback(params)) {
     renderWebAuthCallbackPage();
+    return;
+  }
+
+  // W1-011: /commerce 是独立渲染的 commerce host（demo 模式无需 WS/服务器），
+  // 不进入 ZCode 应用 bootstrap。普通入口由应用内固定入口按钮与连接墙面入口提供。
+  if (isCommerceHostPath(window.location.pathname)) {
+    try {
+      await renderCommerceHostPage(root);
+    } catch (error) {
+      renderWebBootstrapError(error);
+    }
     return;
   }
 
@@ -455,6 +486,8 @@ async function bootstrapWebApp() {
           settingService={services.settingService}
           broadcastService={services.broadcastService}
         >
+          {/* W1-011: 普通应用表面上的常驻 UNiCOM Commerce 入口（普通导航发现路径）。 */}
+          <CommerceEntryOverlay />
           <Root
             services={services}
             platform={platform}

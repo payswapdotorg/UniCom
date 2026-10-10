@@ -38,6 +38,7 @@ export interface CommerceHostState {
 
 export type CommerceHostAction =
   | { readonly type: "navigate"; readonly path: string }
+  | { readonly type: "sync-path"; readonly path: string }
   | { readonly type: "back" }
   | { readonly type: "toggle-role"; readonly roleId: CommerceRoleId }
   | { readonly type: "set-active-role"; readonly roleId: CommerceRoleId | null }
@@ -72,6 +73,13 @@ export function commerceHostReducer(
       const path = normalizeCommercePath(action.path);
       if (path === state.path) return state;
       return { ...state, path, pathHistory: [...state.pathHistory, state.path].slice(-32) };
+    }
+    case "sync-path": {
+      // URL-driven navigation (browser back/forward): path follows the URL,
+      // the in-app history stack is not touched.
+      const path = normalizeCommercePath(action.path);
+      if (path === state.path) return state;
+      return { ...state, path };
     }
     case "back": {
       const previous = state.pathHistory[state.pathHistory.length - 1];
