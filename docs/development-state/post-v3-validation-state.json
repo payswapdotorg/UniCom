@@ -44,7 +44,7 @@
       "activated_at": "2026-10-09T15:22:02Z",
       "base_sha": "e60d568",
       "merged_commit": "9b785b4",
-      "verdict": "ACCEPT \u2014 Gates 0+1 executed with real-browser evidence: chromium 153.0.8010.12 via Playwright 1.63.0 against the reachable web shell; the 19-family first-discovery walk = 57/57 attempts ALL ABSENT (zero drift), proving the commerce experience surfaces have NO rendered UI (typed contracts with zero non-test consumers); the exact missing prerequisite documented (a rendered host UI \u2014 operator-owned product decision); runner + 39 tests + manifest + 13 evidence artifacts committed and reproducible; TL-executed local-chain recovery disclosed (vehicle drought, 3 failures)"
+      "verdict": "ACCEPT — Gates 0+1 executed with real-browser evidence: chromium 153.0.8010.12 via Playwright 1.63.0 against the reachable web shell; the 19-family first-discovery walk = 57/57 attempts ALL ABSENT (zero drift), proving the commerce experience surfaces have NO rendered UI (typed contracts with zero non-test consumers); the exact missing prerequisite documented (a rendered host UI — operator-owned product decision); runner + 39 tests + manifest + 13 evidence artifacts committed and reproducible; TL-executed local-chain recovery disclosed (vehicle drought, 3 failures)"
     },
     {
       "id": "W2-010",
@@ -65,7 +65,7 @@
       "activated_at": "2026-10-09T15:22:02Z",
       "base_sha": "e60d568",
       "merged_commit": "86d8d93",
-      "verdict": "ACCEPT \u2014 the complete fault matrix executed: 11 families / 63 scenarios ALL PASS (21 expected-success + 42 expected-block), all 7 invariants proven (UNKNOWN\u2260failure, no pending-as-settled, no side effects without authority, per-leg TradeCycle consent, predictions never mutate canonical truth, no duplicate effects); fixture-labelled honestly (real runtimes driven through typed view contracts \u2014 browser-labelled reruns await a rendered commerce UI); F07-S01 draft-expectation correction disclosed; TL-executed local-chain recovery disclosed"
+      "verdict": "ACCEPT — the complete fault matrix executed: 11 families / 63 scenarios ALL PASS (21 expected-success + 42 expected-block), all 7 invariants proven (UNKNOWN≠failure, no pending-as-settled, no side effects without authority, per-leg TradeCycle consent, predictions never mutate canonical truth, no duplicate effects); fixture-labelled honestly (real runtimes driven through typed view contracts — browser-labelled reruns await a rendered commerce UI); F07-S01 draft-expectation correction disclosed; TL-executed local-chain recovery disclosed"
     },
     {
       "id": "W3-014",
@@ -88,7 +88,7 @@
       "activated_at": "2026-10-09T15:22:02Z",
       "base_sha": "e60d568",
       "merged_commit": "d531ea1",
-      "verdict": "ACCEPT \u2014 commerce incumbent evidence ledger: 28 incumbents, 73 observations, classes A0/B11/C51/D11 (every claim = committed capture + verbatim quote + class + limitation; A=0 honest \u2014 no accounts exist, blocked-listed); frozen task pack (19 capabilities mapped to the journey registry) committed BEFORE evidence; 19 workflow-level comparison tables (no aggregate winner; UNiCOM row honestly contract-level); gap register across all 13 industries; human-validation package PREPARE-ONLY (no recruitment/contact/participant data). TL ruling recorded: B-class STANDS (public-UI content observation with per-record no-interaction limitation)"
+      "verdict": "ACCEPT — commerce incumbent evidence ledger: 28 incumbents, 73 observations, classes A0/B11/C51/D11 (every claim = committed capture + verbatim quote + class + limitation; A=0 honest — no accounts exist, blocked-listed); frozen task pack (19 capabilities mapped to the journey registry) committed BEFORE evidence; 19 workflow-level comparison tables (no aggregate winner; UNiCOM row honestly contract-level); gap register across all 13 industries; human-validation package PREPARE-ONLY (no recruitment/contact/participant data). TL ruling recorded: B-class STANDS (public-UI content observation with per-record no-interaction limitation)"
     }
   ],
   "gates": [
@@ -96,7 +96,7 @@
       "id": "G0",
       "name": "safe-real-UI-environment-identified",
       "status": "COMPLETE",
-      "note": "Real environment established + evidence-bound: browser runtime verified (Playwright 1.63 + chromium + xvfb), the rendered surfaces characterized with real-browser evidence (ZCode agent connect wall; commerce UI ABSENT \u2014 the phase-defining finding), desktop app environment-blocked with verification"
+      "note": "Real environment established + evidence-bound: browser runtime verified (Playwright 1.63 + chromium + xvfb), the rendered surfaces characterized with real-browser evidence (ZCode agent connect wall; commerce UI ABSENT — the phase-defining finding), desktop app environment-blocked with verification"
     },
     {
       "id": "G1",
@@ -108,13 +108,13 @@
       "id": "G2",
       "name": "failure-UNKNOWN-recovery-and-comparator-evidence",
       "status": "COMPLETE",
-      "note": "Resilience dimension: 63/63 fixture-contract scenarios pass with 7 invariants proven (browser-labelled reruns structurally await a rendered commerce UI \u2014 disclosed, not hidden). Comparator evidence: 73 observations A/B/C/D-classed with captured sources; unavailable access honestly D-classed"
+      "note": "Resilience dimension: 63/63 fixture-contract scenarios pass with 7 invariants proven (browser-labelled reruns structurally await a rendered commerce UI — disclosed, not hidden). Comparator evidence: 73 observations A/B/C/D-classed with captured sources; unavailable access honestly D-classed"
     },
     {
       "id": "G3",
       "name": "expanded-journey-suite-and-independent-merged-lineage-acceptance",
       "status": "COMPLETE",
-      "note": "Every declared scenario maps to an observed result (W1-010: 57/57 browser attempts; W2-010: 63/63 resilience scenarios; W3-014: 73 observations classed); all denominators published with zero drift; tests rerun from the merged lineage (1,692/1,692); the TL independently inspected evidence samples (captures, DOM snapshots, oracles, traces). The browser-lane expansion is honestly bounded: additional firm profiles produce the identical absent classification (commerce UI absent) \u2014 expansion adds no information until the operator-owned rendered-UI decision."
+      "note": "Every declared scenario maps to an observed result (W1-010: 57/57 browser attempts; W2-010: 63/63 resilience scenarios; W3-014: 73 observations classed); all denominators published with zero drift; tests rerun from the merged lineage (1,692/1,692); the TL independently inspected evidence samples (captures, DOM snapshots, oracles, traces). The browser-lane expansion is honestly bounded: additional firm profiles produce the identical absent classification (commerce UI absent) — expansion adds no information until the operator-owned rendered-UI decision."
     },
     {
       "id": "G4",
@@ -138,7 +138,7 @@
     "No participant research occurs until operator authorization and informed consent.",
     "No production deployment or live commerce mutation is authorized by this phase."
   ],
-  "last_reviewed_at": "2026-10-09T22:25:00Z",
+  "last_reviewed_at": "2026-10-10T01:10:00Z",
   "active_work_orders": [],
   "frontier": [
     {
@@ -173,7 +173,7 @@
       }
     },
     {
-      "event": "RATIFICATION \u2014 resident TL (Z.ai Code, this session) ratifies the 15:22:02Z PARALLEL_DISPATCH",
+      "event": "RATIFICATION — resident TL (Z.ai Code, this session) ratifies the 15:22:02Z PARALLEL_DISPATCH",
       "recorded_at": "2026-10-09T15:46:15Z",
       "recorded_by": "resident TL (Z.ai Code session web-a95c8999)",
       "detail": "Provenance correction: eb1ceca was committed under the W3-012 Worker git identity by the parallel TL chain while attributing recorded_by to the resident TL. The resident TL (registry owner per the handoff) hereby ratifies the dispatch decision and the Gate-0 scouting summary as TL-grade and binding. Lanes W1-010/W2-010/W3-014 confirmed ACTIVE. Worker materialization (branches work/w1-010, work/w2-010, work/w3-014 + commits + evidence) remains PENDING and is the resident fleet's execution responsibility. No gate statuses changed by this entry.",
@@ -183,7 +183,7 @@
       "recorded_at": "2026-10-09T18:10:00Z",
       "recorded_by": "resident TL (Z.ai Code)",
       "action": "TRIPLE_ACCEPTANCE",
-      "detail": "All three work orders ACCEPTED after TL evidence inspection (never status-message trust): W1-010 (9b785b4), W2-010 (86d8d93), W3-014 (d531ea1). Merged-lineage battery: experience 728/728 + commerce 405/405 + agent 559/559 = 1,692/1,692 (baseline 1,590 + 102 additive, zero regressions); lint 99w/0e; architecture 0 violations; tsc differentially identical to base. Vehicle disclosure: W1-010/W2-010 completed via TL-executed local-chain recovery after 4 subagent backend failures (the W3-011 precedent); W3-014 was subagent-delivered. G0/G1/G2 COMPLETE. Remaining frontier: G3 (expanded suite \u2014 structurally bounded by the commerce-UI absence finding; the honest expansion is the fixture-level completion + the operator-owned rendered-UI decision) and G4 (final report)."
+      "detail": "All three work orders ACCEPTED after TL evidence inspection (never status-message trust): W1-010 (9b785b4), W2-010 (86d8d93), W3-014 (d531ea1). Merged-lineage battery: experience 728/728 + commerce 405/405 + agent 559/559 = 1,692/1,692 (baseline 1,590 + 102 additive, zero regressions); lint 99w/0e; architecture 0 violations; tsc differentially identical to base. Vehicle disclosure: W1-010/W2-010 completed via TL-executed local-chain recovery after 4 subagent backend failures (the W3-011 precedent); W3-014 was subagent-delivered. G0/G1/G2 COMPLETE. Remaining frontier: G3 (expanded suite — structurally bounded by the commerce-UI absence finding; the honest expansion is the fixture-level completion + the operator-owned rendered-UI decision) and G4 (final report)."
     },
     {
       "recorded_at": "2026-10-09T18:25:00Z",
@@ -210,12 +210,19 @@
       },
       "issue_tracker_close_out": "Issue #8 (the V3 dispatch issue, open since 2026-10-09T05:01Z) closed with the full V3 program record — the program it tracked is PROGRAM_COMPLETE_CERTIFIED with an empty frontier; matches the #9 close-out precedent. After this, zero open issues/PRs remain; the actionable frontier is exclusively the three operator-owned decisions."
     },
-        {
-      "event": "EXTERNAL BLOCKER RECORDED \u2014 platform turn-generation gate closed since ~16:45Z 2026-10-09",
+    {
+      "event": "EXTERNAL BLOCKER RECORDED — platform turn-generation gate closed since ~16:45Z 2026-10-09",
       "recorded_at": "2026-10-09T23:40:12Z",
       "recorded_by": "resident TL (Z.ai Code session web-a95c8999)",
       "type": "BLOCKER_RECORD",
-      "detail": "The Z.ai platform's turn-generation gate has been closed platform-wide since ~16:45Z (peak-capacity dialog on every generation attempt; one 'usage exceeds the personal limit' banner observed 18:30Z; zero account-quota surfaces exist in the client). Chat CREATES and message SENDS succeed (all three lane trees grow server-side; the 20:00:57Z create broke through) but no assistant content materializes on any lane despite continuous 3-minute kick daemons with server-verified send paths. No lane fabricated progress \u2014 all work orders remain honestly dispatched-in-flight with zero executed turns. Idle-workspace sandbox TTLs (~22:42-22:49Z) released the workspaces; per the local-chain doctrine a turn-spawn re-provisions them. The resident watch continues past the midnight deadline with self-renewing automation (peak_retry daemons with 80-cycle budgets, tab cures, supervisor-guarded recovery). Lanes: W1-010 chat e222f18a (packet committed + prior partial turn with G1 pilot launch before the gate closed), W2-010 chat 0a7bbbce (packet committed), W3-014 chat 0631123a (packet committed 20:00:57Z)."
+      "detail": "The Z.ai platform's turn-generation gate has been closed platform-wide since ~16:45Z (peak-capacity dialog on every generation attempt; one 'usage exceeds the personal limit' banner observed 18:30Z; zero account-quota surfaces exist in the client). Chat CREATES and message SENDS succeed (all three lane trees grow server-side; the 20:00:57Z create broke through) but no assistant content materializes on any lane despite continuous 3-minute kick daemons with server-verified send paths. No lane fabricated progress — all work orders remain honestly dispatched-in-flight with zero executed turns. Idle-workspace sandbox TTLs (~22:42-22:49Z) released the workspaces; per the local-chain doctrine a turn-spawn re-provisions them. The resident watch continues past the midnight deadline with self-renewing automation (peak_retry daemons with 80-cycle budgets, tab cures, supervisor-guarded recovery). Lanes: W1-010 chat e222f18a (packet committed + prior partial turn with G1 pilot launch before the gate closed), W2-010 chat 0a7bbbce (packet committed), W3-014 chat 0631123a (packet committed 20:00:57Z)."
+    },
+    {
+      "event": "BLOCKER RESOLVED — post-review verification: the lane vehicles are gone, zero duplicate work, no open loops remain",
+      "recorded_at": "2026-10-10T01:10:00Z",
+      "recorded_by": "resident TL (Z.ai Code session web-6ddc0a59)",
+      "type": "BLOCKER_RESOLUTION_VERIFICATION",
+      "detail": "Operator progress review (10 Oct) received and confirmed accurate; the review correctly classifies the blocker entry as honest non-progress. Post-review verification by this session: (a) the platform turn-generation gate has REOPENED (this session generates turns normally); (b) the three lane chat vehicles named in the blocker record (e222f18a / 0a7bbbce / 0631123a) NO LONGER EXIST — absent from the full 75-chat account list, deleted at some point after the blocker record; they were dispatch vehicles for work orders ALREADY ACCEPTED at 18:10Z (merged 9b785b4 / 86d8d93 / d531ea1 via TL-executed local-chain recovery + the W3-014 subagent), so their disappearance leaves zero outstanding obligations and zero duplicate-work risk; (c) zero orphan workspaces (all released by TTL ~22:42-22:49Z per the blocker record, confirmed via the workspaces API); (d) the peak_retry kick daemons are no longer running (budgets exhausted); the standing replay ring (supervisor/watcher/custodian/stall_recovery/frame_guard/login_keeper) is healthy and idle — infrastructure only; (e) repository clean at cf8a040; issue tracker at 0 open / 0 PRs. CONCLUSION: the blocker record's open loop (lanes 'in-flight') is closed as MOOT — superseded vehicles for already-accepted work. No work-order status changes; no state changes; the frontier remains exclusively the three operator-owned decisions (rendered commerce UI / human-research authorization / production deployment)."
     }
   ],
   "merged_lineage_battery": {
