@@ -71,6 +71,12 @@ export function buildJourneyStepsA(walkState, { outDir }) {
 
     step("J2", "buyer-compare", async ({ page, cap, navPathTaken }) => {
       const interaction = await attemptInteraction(async () => {
+        // FIX (re-run-1 diagnosis): locator.count() never auto-waits — the
+        // initial verified-count raced the lazily-loaded module chunk and read
+        // 0 on a still-mounting surface (re-run 1: verifiedBefore=0 although
+        // Meridian renders VERIFIED against the demo clock). Wait for the
+        // stale offer card first — it is the re-check target anyway.
+        await page.locator('[data-testid="cm-offer-stale"]').first().waitFor({ timeout: 20000 });
         const verifiedBefore = await page.locator('[data-testid="cm-offer-verified"]').count();
         await page.getByRole("button", { name: "Re-check freshness now" }).first().click({ timeout: 15000 });
         const staleGone = await countBecomes(page, '[data-testid="cm-offer-stale"]', 0, 15000);

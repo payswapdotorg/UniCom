@@ -2,8 +2,8 @@
  "manifestKind": "merged-gate-commerce-evidence",
  "schemaVersion": 1,
  "runId": "merged-gate-commerce-evidence-2026-10-10T134131100Z",
- "generatedBy": "packages/web/test/browser/merge-merged-gate-rerun.mjs",
- "generatedAtUtc": "2026-10-10T14:13:27.341Z",
+ "generatedBy": "packages/web/test/browser/run-merged-gate-evidence.mjs",
+ "generatedAtUtc": "2026-10-10T13:44:27.851Z",
  "lineage": "merged (W1-011 host + W2-012 buyer/peer + W3-015 merchant/procurement/physical/trust)",
  "selectedSteps": null,
  "environment": {
@@ -440,100 +440,28 @@
    "owningLane": "W2-012",
    "moduleId": "buyer-intent",
    "howReached": "commerce home → visible row button for J1 (ordinary nav — no deep link)",
-   "navPathTaken": "/commerce/buyer/intent",
-   "outcome": "PASS",
-   "surfaceOutcome": "PASS",
-   "surfaceChecks": [
-    {
-     "name": "intent canvas heading",
-     "ok": true,
-     "detail": "J1 · Intent canvas"
-    },
-    {
-     "name": "constraint catalog from the typed contract",
-     "ok": true,
-     "detail": "17-facet catalog"
-    },
-    {
-     "name": "predictive guidance labelled",
-     "ok": true,
-     "detail": "predictive — not a promise"
-    },
-    {
-     "name": "plan options rendered",
-     "ok": true,
-     "detail": "Plan options"
-    }
-   ],
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
    "interaction": {
-    "outcome": "PASS",
+    "outcome": "BLOCKED",
     "declared": "edit a constraint facet (the 17-facet catalog) and review plan options",
-    "label": "edit the Group-deal constraint facet, then Review intent & compare plans",
-    "checks": [
-     {
-      "name": "facet captured counter updated",
-      "ok": true,
-      "detail": "1 of 17 constraint facets captured"
-     },
-     {
-      "name": "plan options rendered after review click",
-      "ok": true,
-      "detail": "Plan options panel"
-     }
-    ],
+    "label": null,
+    "checks": [],
     "note": null
    },
    "merchantSide": null,
    "screenshots": [
-    "evidence-rerun/05-journey-J1-buyer-intent.png",
     "evidence/99-journey-J1-error.png"
    ],
    "evidence": {
-    "screenshot": "evidence-rerun/05-journey-J1-buyer-intent.png",
-    "bodyEvidenceFile": "evidence-rerun/05-journey-J1-buyer-intent-body.txt",
-    "consoleEvidenceFile": "evidence-rerun/05-journey-J1-buyer-intent-console.txt"
+    "screenshot": null,
+    "bodyEvidenceFile": "evidence/99-journey-J1-error-body.txt",
+    "consoleEvidenceFile": "evidence/99-journey-J1-error-console.txt"
    },
-   "timingsMs": 657,
-   "note": "nav /commerce/buyer/intent",
-   "original": {
-    "outcome": "BLOCKED",
-    "surfaceOutcome": "BLOCKED",
-    "interactionOutcome": "BLOCKED",
-    "howReached": "commerce home → visible row button for J1 (ordinary nav — no deep link)",
-    "screenshots": [
-     "evidence/99-journey-J1-error.png"
-    ],
-    "evidence": {
-     "screenshot": null,
-     "bodyEvidenceFile": "evidence/99-journey-J1-error-body.txt",
-     "consoleEvidenceFile": "evidence/99-journey-J1-error-console.txt"
-    },
-    "note": null
-   },
-   "reRun": {
-    "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-    "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-    "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,explore-taxonomy-J19,journey-J1,journey-J2,journey-J3,journey-J4,journey-J5,journey-J6,journey-J7,role-hold-finance,journey-J9,role-hold-procurement-receiving,journey-J11,role-hold-trust-support,journey-J17",
-    "startedAtUtc": "2026-10-10T14:03:53.962Z",
-    "outcome": "PASS",
-    "interactionOutcome": "PASS",
-    "supersededOutcome": "BLOCKED",
-    "note": "LABELLED targeted re-run (selectedSteps recorded in its manifest — never a first-discovery claim); this outcome supersedes the original, which stays recorded under .original"
-   },
-   "reRunHistory": [
-    {
-     "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-     "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-     "buildCommit": "950577e753c16a9a518160d5cda1b5ca1a4d766a",
-     "buildTreeDirty": false,
-     "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,explore-taxonomy-J19,journey-J1,journey-J2,journey-J3,journey-J4,journey-J5,journey-J6,journey-J7,role-hold-finance,journey-J9,role-hold-procurement-receiving,journey-J11,role-hold-trust-support,journey-J17",
-     "startedAtUtc": "2026-10-10T14:03:53.962Z",
-     "outcome": "PASS",
-     "surfaceOutcome": "PASS",
-     "interactionOutcome": "PASS",
-     "note": null
-    }
-   ]
+   "timingsMs": 617,
+   "note": null
   },
   {
    "journeyId": "J2",
@@ -541,122 +469,28 @@
    "owningLane": "W2-012",
    "moduleId": "buyer-compare",
    "howReached": "commerce home → visible row button for J2 (ordinary nav — no deep link)",
-   "navPathTaken": "/commerce/buyer/compare",
-   "outcome": "PASS",
-   "surfaceOutcome": "PASS",
-   "surfaceChecks": [
-    {
-     "name": "four freshness classes rendered",
-     "ok": true,
-     "detail": "Freshness legend (UNKNOWN ≠ FAILED)"
-    },
-    {
-     "name": "verified offer chip present",
-     "ok": true,
-     "detail": "cm-offer-verified"
-    },
-    {
-     "name": "unknown offer chip present",
-     "ok": true,
-     "detail": "cm-offer-unknown ×1"
-    },
-    {
-     "name": "unavailable offer chip present",
-     "ok": true,
-     "detail": "cm-offer-unavailable ×1"
-    },
-    {
-     "name": "UNKNOWN never shown as a price",
-     "ok": true,
-     "detail": "price UNKNOWN — never shown as a number"
-    }
-   ],
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
    "interaction": {
-    "outcome": "PASS",
+    "outcome": "BLOCKED",
     "declared": "re-check a stale offer's freshness (stale → verified)",
-    "label": "Re-check freshness now on the stale Cascade offer",
-    "checks": [
-     {
-      "name": "one verified offer before the re-check",
-      "ok": true,
-      "detail": "verified=1"
-     },
-     {
-      "name": "stale class cleared after the re-check",
-      "ok": true,
-      "detail": "cm-offer-stale count → 0"
-     },
-     {
-      "name": "re-checked offer now verified",
-      "ok": true,
-      "detail": "verified=2"
-     }
-    ],
+    "label": null,
+    "checks": [],
     "note": null
    },
    "merchantSide": null,
    "screenshots": [
-    "evidence-rerun-3/06-journey-J2-buyer-compare.png",
     "evidence/99-journey-J2-error.png"
    ],
    "evidence": {
-    "screenshot": "evidence-rerun-3/06-journey-J2-buyer-compare.png",
-    "bodyEvidenceFile": "evidence-rerun-3/06-journey-J2-buyer-compare-body.txt",
-    "consoleEvidenceFile": "evidence-rerun-3/06-journey-J2-buyer-compare-console.txt"
+    "screenshot": null,
+    "bodyEvidenceFile": "evidence/99-journey-J2-error-body.txt",
+    "consoleEvidenceFile": "evidence/99-journey-J2-error-console.txt"
    },
-   "timingsMs": 1045,
-   "note": "nav /commerce/buyer/compare",
-   "original": {
-    "outcome": "BLOCKED",
-    "surfaceOutcome": "BLOCKED",
-    "interactionOutcome": "BLOCKED",
-    "howReached": "commerce home → visible row button for J2 (ordinary nav — no deep link)",
-    "screenshots": [
-     "evidence/99-journey-J2-error.png"
-    ],
-    "evidence": {
-     "screenshot": null,
-     "bodyEvidenceFile": "evidence/99-journey-J2-error-body.txt",
-     "consoleEvidenceFile": "evidence/99-journey-J2-error-console.txt"
-    },
-    "note": null
-   },
-   "reRun": {
-    "runId": "merged-gate-commerce-evidence-2026-10-10T141223939Z",
-    "manifestPath": "commerce-merged-gate-rerun3-manifest.json",
-    "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,journey-J2",
-    "startedAtUtc": "2026-10-10T14:12:23.939Z",
-    "outcome": "PASS",
-    "interactionOutcome": "PASS",
-    "supersededOutcome": "BLOCKED",
-    "note": "LABELLED targeted re-run (selectedSteps recorded in its manifest — never a first-discovery claim); this outcome supersedes the original, which stays recorded under .original"
-   },
-   "reRunHistory": [
-    {
-     "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-     "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-     "buildCommit": "950577e753c16a9a518160d5cda1b5ca1a4d766a",
-     "buildTreeDirty": false,
-     "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,explore-taxonomy-J19,journey-J1,journey-J2,journey-J3,journey-J4,journey-J5,journey-J6,journey-J7,role-hold-finance,journey-J9,role-hold-procurement-receiving,journey-J11,role-hold-trust-support,journey-J17",
-     "startedAtUtc": "2026-10-10T14:03:53.962Z",
-     "outcome": "FAIL",
-     "surfaceOutcome": "PASS",
-     "interactionOutcome": "FAIL",
-     "note": null
-    },
-    {
-     "runId": "merged-gate-commerce-evidence-2026-10-10T141223939Z",
-     "manifestPath": "commerce-merged-gate-rerun3-manifest.json",
-     "buildCommit": "3c3ba87474ab662b1ec909c103349f028865e4e9",
-     "buildTreeDirty": true,
-     "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,journey-J2",
-     "startedAtUtc": "2026-10-10T14:12:23.939Z",
-     "outcome": "PASS",
-     "surfaceOutcome": "PASS",
-     "interactionOutcome": "PASS",
-     "note": null
-    }
-   ]
+   "timingsMs": 549,
+   "note": null
   },
   {
    "journeyId": "J3",
@@ -664,105 +498,28 @@
    "owningLane": "W2-012",
    "moduleId": "buyer-decide",
    "howReached": "commerce home → visible row button for J3 (ordinary nav — no deep link)",
-   "navPathTaken": "/commerce/buyer/decide",
-   "outcome": "PASS",
-   "surfaceOutcome": "PASS",
-   "surfaceChecks": [
-    {
-     "name": "decision card rendered",
-     "ok": true,
-     "detail": "Decision card — Buy 40 boxes"
-    },
-    {
-     "name": "predictions labelled predictive, never state",
-     "ok": true,
-     "detail": "Predictions (predictive truth — never state)"
-    },
-    {
-     "name": "price timing labelled predictive",
-     "ok": true,
-     "detail": "predictive — not a promise"
-    },
-    {
-     "name": "negotiation panel present",
-     "ok": true,
-     "detail": "Negotiate (an offer, never a commitment)"
-    }
-   ],
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
    "interaction": {
-    "outcome": "PASS",
+    "outcome": "BLOCKED",
     "declared": "negotiation step: review counter-offer gate → send → deterministic reply",
-    "label": "counter-offer gate → send (OFFERED) → deterministic countered reply",
-    "checks": [
-     {
-      "name": "gate declares OFFER, not commitment",
-      "ok": true,
-      "detail": "gate terms"
-     },
-     {
-      "name": "OFFERED state rendered as pending, not failed",
-      "ok": true,
-      "detail": "OFFERED chip + pending note"
-     },
-     {
-      "name": "countered reply rendered",
-      "ok": true,
-      "detail": "countered state"
-     }
-    ],
+    "label": null,
+    "checks": [],
     "note": null
    },
    "merchantSide": null,
    "screenshots": [
-    "evidence-rerun/07-journey-J3-buyer-decide.png",
     "evidence/99-journey-J3-error.png"
    ],
    "evidence": {
-    "screenshot": "evidence-rerun/07-journey-J3-buyer-decide.png",
-    "bodyEvidenceFile": "evidence-rerun/07-journey-J3-buyer-decide-body.txt",
-    "consoleEvidenceFile": "evidence-rerun/07-journey-J3-buyer-decide-console.txt"
+    "screenshot": null,
+    "bodyEvidenceFile": "evidence/99-journey-J3-error-body.txt",
+    "consoleEvidenceFile": "evidence/99-journey-J3-error-console.txt"
    },
-   "timingsMs": 1050,
-   "note": "nav /commerce/buyer/decide",
-   "original": {
-    "outcome": "BLOCKED",
-    "surfaceOutcome": "BLOCKED",
-    "interactionOutcome": "BLOCKED",
-    "howReached": "commerce home → visible row button for J3 (ordinary nav — no deep link)",
-    "screenshots": [
-     "evidence/99-journey-J3-error.png"
-    ],
-    "evidence": {
-     "screenshot": null,
-     "bodyEvidenceFile": "evidence/99-journey-J3-error-body.txt",
-     "consoleEvidenceFile": "evidence/99-journey-J3-error-console.txt"
-    },
-    "note": null
-   },
-   "reRun": {
-    "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-    "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-    "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,explore-taxonomy-J19,journey-J1,journey-J2,journey-J3,journey-J4,journey-J5,journey-J6,journey-J7,role-hold-finance,journey-J9,role-hold-procurement-receiving,journey-J11,role-hold-trust-support,journey-J17",
-    "startedAtUtc": "2026-10-10T14:03:53.962Z",
-    "outcome": "PASS",
-    "interactionOutcome": "PASS",
-    "supersededOutcome": "BLOCKED",
-    "note": "LABELLED targeted re-run (selectedSteps recorded in its manifest — never a first-discovery claim); this outcome supersedes the original, which stays recorded under .original"
-   },
-   "reRunHistory": [
-    {
-     "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-     "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-     "buildCommit": "950577e753c16a9a518160d5cda1b5ca1a4d766a",
-     "buildTreeDirty": false,
-     "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,explore-taxonomy-J19,journey-J1,journey-J2,journey-J3,journey-J4,journey-J5,journey-J6,journey-J7,role-hold-finance,journey-J9,role-hold-procurement-receiving,journey-J11,role-hold-trust-support,journey-J17",
-     "startedAtUtc": "2026-10-10T14:03:53.962Z",
-     "outcome": "PASS",
-     "surfaceOutcome": "PASS",
-     "interactionOutcome": "PASS",
-     "note": null
-    }
-   ]
+   "timingsMs": 545,
+   "note": null
   },
   {
    "journeyId": "J4",
@@ -770,105 +527,28 @@
    "owningLane": "W2-012",
    "moduleId": "buyer-groupbuy",
    "howReached": "commerce home → visible row button for J4 (ordinary nav — no deep link)",
-   "navPathTaken": "/commerce/buyer/group-buy",
-   "outcome": "PASS",
-   "surfaceOutcome": "PASS",
-   "surfaceChecks": [
-    {
-     "name": "pool terms visible (threshold/eligibility/price)",
-     "ok": true,
-     "detail": "Price at threshold"
-    },
-    {
-     "name": "commitment terms spelled out separately",
-     "ok": true,
-     "detail": "Commitment terms (what a REAL commitment would mean)"
-    },
-    {
-     "name": "consent terms visible",
-     "ok": true,
-     "detail": "Consent terms"
-    }
-   ],
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
    "interaction": {
-    "outcome": "PASS",
+    "outcome": "BLOCKED",
     "declared": "join gate: express interest through the authorization gate (interest ≠ commitment)",
-    "label": "join gate → Record my interest (not a commitment)",
-    "checks": [
-     {
-      "name": "gate shows terms before any commitment",
-      "ok": true,
-      "detail": "pool terms in gate"
-     },
-     {
-      "name": "gate separates interest from commitment",
-      "ok": true,
-      "detail": "interest ≠ commitment in gate"
-     },
-     {
-      "name": "interest recorded with OFFERED chip",
-      "ok": true,
-      "detail": "OFFERED + interest recorded"
-     },
-     {
-      "name": "interest chip restates not-a-commitment",
-      "ok": true,
-      "detail": "chip text"
-     }
-    ],
+    "label": null,
+    "checks": [],
     "note": null
    },
    "merchantSide": null,
    "screenshots": [
-    "evidence-rerun/08-journey-J4-buyer-groupbuy.png",
     "evidence/99-journey-J4-error.png"
    ],
    "evidence": {
-    "screenshot": "evidence-rerun/08-journey-J4-buyer-groupbuy.png",
-    "bodyEvidenceFile": "evidence-rerun/08-journey-J4-buyer-groupbuy-body.txt",
-    "consoleEvidenceFile": "evidence-rerun/08-journey-J4-buyer-groupbuy-console.txt"
+    "screenshot": null,
+    "bodyEvidenceFile": "evidence/99-journey-J4-error-body.txt",
+    "consoleEvidenceFile": "evidence/99-journey-J4-error-console.txt"
    },
-   "timingsMs": 1426,
-   "note": "nav /commerce/buyer/group-buy",
-   "original": {
-    "outcome": "BLOCKED",
-    "surfaceOutcome": "BLOCKED",
-    "interactionOutcome": "BLOCKED",
-    "howReached": "commerce home → visible row button for J4 (ordinary nav — no deep link)",
-    "screenshots": [
-     "evidence/99-journey-J4-error.png"
-    ],
-    "evidence": {
-     "screenshot": null,
-     "bodyEvidenceFile": "evidence/99-journey-J4-error-body.txt",
-     "consoleEvidenceFile": "evidence/99-journey-J4-error-console.txt"
-    },
-    "note": null
-   },
-   "reRun": {
-    "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-    "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-    "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,explore-taxonomy-J19,journey-J1,journey-J2,journey-J3,journey-J4,journey-J5,journey-J6,journey-J7,role-hold-finance,journey-J9,role-hold-procurement-receiving,journey-J11,role-hold-trust-support,journey-J17",
-    "startedAtUtc": "2026-10-10T14:03:53.962Z",
-    "outcome": "PASS",
-    "interactionOutcome": "PASS",
-    "supersededOutcome": "BLOCKED",
-    "note": "LABELLED targeted re-run (selectedSteps recorded in its manifest — never a first-discovery claim); this outcome supersedes the original, which stays recorded under .original"
-   },
-   "reRunHistory": [
-    {
-     "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-     "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-     "buildCommit": "950577e753c16a9a518160d5cda1b5ca1a4d766a",
-     "buildTreeDirty": false,
-     "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,explore-taxonomy-J19,journey-J1,journey-J2,journey-J3,journey-J4,journey-J5,journey-J6,journey-J7,role-hold-finance,journey-J9,role-hold-procurement-receiving,journey-J11,role-hold-trust-support,journey-J17",
-     "startedAtUtc": "2026-10-10T14:03:53.962Z",
-     "outcome": "PASS",
-     "surfaceOutcome": "PASS",
-     "interactionOutcome": "PASS",
-     "note": null
-    }
-   ]
+   "timingsMs": 537,
+   "note": null
   },
   {
    "journeyId": "J5",
@@ -876,52 +556,15 @@
    "owningLane": "W2-012 + W3-015",
    "moduleId": "buyer-groupbuy (buyer side) + merchant-groupbuy-review (merchant side)",
    "howReached": "commerce home → visible row button for J5 (ordinary nav — no deep link)",
-   "navPathTaken": "/commerce/buyer/group-buy/latent-demand",
-   "outcome": "PASS",
-   "surfaceOutcome": "PASS",
-   "surfaceChecks": [
-    {
-     "name": "consenting participants roster",
-     "ok": true,
-     "detail": "Recruited participants (consent visible)"
-    },
-    {
-     "name": "declining studio visibly excluded",
-     "ok": true,
-     "detail": "declined · excluded"
-    },
-    {
-     "name": "non-consenting never enrolled",
-     "ok": true,
-     "detail": "Never listed in the proposal"
-    },
-    {
-     "name": "merchant terms proposed explicitly",
-     "ok": true,
-     "detail": "Proposed merchant terms"
-    }
-   ],
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
    "interaction": {
-    "outcome": "PASS",
+    "outcome": "BLOCKED",
     "declared": "buyer side: send a latent-demand proposal (OFFERED, pending ≠ failed); merchant side: accept/counter/reject desk with no-binding-effect label",
-    "label": "proposal gate → Send proposal to the merchant (OFFERED)",
-    "checks": [
-     {
-      "name": "gate states no participant is committed by sending",
-      "ok": true,
-      "detail": "gate terms"
-     },
-     {
-      "name": "proposal sent — OFFERED pending state",
-      "ok": true,
-      "detail": "OFFERED chip"
-     },
-     {
-      "name": "pending is not an error and not an acceptance",
-      "ok": true,
-      "detail": "pending note"
-     }
-    ],
+    "label": null,
+    "checks": [],
     "note": null
    },
    "merchantSide": {
@@ -982,57 +625,16 @@
     "note": "the J5 merchant side: accept/counter/reject desk with the no-binding-effect statement, reached after ordinary discovery via a labelled targeted deep link"
    },
    "screenshots": [
-    "evidence-rerun/09-journey-J5-buyer-latent-demand.png",
     "evidence/99-journey-J5-error.png",
     "evidence/26-safety-j5-merchant-desk.png"
    ],
    "evidence": {
-    "screenshot": "evidence-rerun/09-journey-J5-buyer-latent-demand.png",
-    "bodyEvidenceFile": "evidence-rerun/09-journey-J5-buyer-latent-demand-body.txt",
-    "consoleEvidenceFile": "evidence-rerun/09-journey-J5-buyer-latent-demand-console.txt"
+    "screenshot": null,
+    "bodyEvidenceFile": "evidence/99-journey-J5-error-body.txt",
+    "consoleEvidenceFile": "evidence/99-journey-J5-error-console.txt"
    },
-   "timingsMs": 617,
-   "note": "nav /commerce/buyer/group-buy/latent-demand (buyer side — the merchant review side is captured in the safety slice)",
-   "original": {
-    "outcome": "BLOCKED",
-    "surfaceOutcome": "BLOCKED",
-    "interactionOutcome": "BLOCKED",
-    "howReached": "commerce home → visible row button for J5 (ordinary nav — no deep link)",
-    "screenshots": [
-     "evidence/99-journey-J5-error.png",
-     "evidence/26-safety-j5-merchant-desk.png"
-    ],
-    "evidence": {
-     "screenshot": null,
-     "bodyEvidenceFile": "evidence/99-journey-J5-error-body.txt",
-     "consoleEvidenceFile": "evidence/99-journey-J5-error-console.txt"
-    },
-    "note": null
-   },
-   "reRun": {
-    "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-    "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-    "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,explore-taxonomy-J19,journey-J1,journey-J2,journey-J3,journey-J4,journey-J5,journey-J6,journey-J7,role-hold-finance,journey-J9,role-hold-procurement-receiving,journey-J11,role-hold-trust-support,journey-J17",
-    "startedAtUtc": "2026-10-10T14:03:53.962Z",
-    "outcome": "PASS",
-    "interactionOutcome": "PASS",
-    "supersededOutcome": "BLOCKED",
-    "note": "LABELLED targeted re-run (selectedSteps recorded in its manifest — never a first-discovery claim); this outcome supersedes the original, which stays recorded under .original; J5 merchant side carried from run 1's safety slice (j5-merchant-desk PASS — the desk was not re-run)"
-   },
-   "reRunHistory": [
-    {
-     "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-     "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-     "buildCommit": "950577e753c16a9a518160d5cda1b5ca1a4d766a",
-     "buildTreeDirty": false,
-     "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,explore-taxonomy-J19,journey-J1,journey-J2,journey-J3,journey-J4,journey-J5,journey-J6,journey-J7,role-hold-finance,journey-J9,role-hold-procurement-receiving,journey-J11,role-hold-trust-support,journey-J17",
-     "startedAtUtc": "2026-10-10T14:03:53.962Z",
-     "outcome": "PASS",
-     "surfaceOutcome": "PASS",
-     "interactionOutcome": "PASS",
-     "note": null
-    }
-   ]
+   "timingsMs": 555,
+   "note": null
   },
   {
    "journeyId": "J6",
@@ -1040,105 +642,28 @@
    "owningLane": "W2-012",
    "moduleId": "peer-rent",
    "howReached": "commerce home → visible row button for J6 (ordinary nav — no deep link)",
-   "navPathTaken": "/commerce/rent",
-   "outcome": "PASS",
-   "surfaceOutcome": "PASS",
-   "surfaceChecks": [
-    {
-     "name": "deposit terms visible before request",
-     "ok": true,
-     "detail": "Deposit"
-    },
-    {
-     "name": "return terms visible",
-     "ok": true,
-     "detail": "Return by the agreed end date"
-    },
-    {
-     "name": "UNKNOWN availability blocked honestly",
-     "ok": true,
-     "detail": "Blocked: availability is UNKNOWN"
-    },
-    {
-     "name": "deposit settlement exact math",
-     "ok": true,
-     "detail": "Deposit settlement (depositReturn, exact math)"
-    }
-   ],
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
    "interaction": {
-    "outcome": "PASS",
+    "outcome": "BLOCKED",
     "declared": "rental lifecycle: request (terms + deposit gate) → start → return → deposit settlement math",
-    "label": "rental request gate → start → return → deposit settlement (fair wear)",
-    "checks": [
-     {
-      "name": "gate shows the deposit before requesting",
-      "ok": true,
-      "detail": "deposit terms in gate"
-     },
-     {
-      "name": "settlement rendered with exact math",
-      "ok": true,
-      "detail": "depositReturn panel"
-     },
-     {
-      "name": "wear deduction itemized",
-      "ok": true,
-      "detail": "fair-wear deduction"
-     }
-    ],
+    "label": null,
+    "checks": [],
     "note": null
    },
    "merchantSide": null,
    "screenshots": [
-    "evidence-rerun/10-journey-J6-peer-rent.png",
     "evidence/99-journey-J6-error.png"
    ],
    "evidence": {
-    "screenshot": "evidence-rerun/10-journey-J6-peer-rent.png",
-    "bodyEvidenceFile": "evidence-rerun/10-journey-J6-peer-rent-body.txt",
-    "consoleEvidenceFile": "evidence-rerun/10-journey-J6-peer-rent-console.txt"
+    "screenshot": null,
+    "bodyEvidenceFile": "evidence/99-journey-J6-error-body.txt",
+    "consoleEvidenceFile": "evidence/99-journey-J6-error-console.txt"
    },
-   "timingsMs": 1082,
-   "note": "nav /commerce/rent",
-   "original": {
-    "outcome": "BLOCKED",
-    "surfaceOutcome": "BLOCKED",
-    "interactionOutcome": "BLOCKED",
-    "howReached": "commerce home → visible row button for J6 (ordinary nav — no deep link)",
-    "screenshots": [
-     "evidence/99-journey-J6-error.png"
-    ],
-    "evidence": {
-     "screenshot": null,
-     "bodyEvidenceFile": "evidence/99-journey-J6-error-body.txt",
-     "consoleEvidenceFile": "evidence/99-journey-J6-error-console.txt"
-    },
-    "note": null
-   },
-   "reRun": {
-    "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-    "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-    "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,explore-taxonomy-J19,journey-J1,journey-J2,journey-J3,journey-J4,journey-J5,journey-J6,journey-J7,role-hold-finance,journey-J9,role-hold-procurement-receiving,journey-J11,role-hold-trust-support,journey-J17",
-    "startedAtUtc": "2026-10-10T14:03:53.962Z",
-    "outcome": "PASS",
-    "interactionOutcome": "PASS",
-    "supersededOutcome": "BLOCKED",
-    "note": "LABELLED targeted re-run (selectedSteps recorded in its manifest — never a first-discovery claim); this outcome supersedes the original, which stays recorded under .original"
-   },
-   "reRunHistory": [
-    {
-     "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-     "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-     "buildCommit": "950577e753c16a9a518160d5cda1b5ca1a4d766a",
-     "buildTreeDirty": false,
-     "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,explore-taxonomy-J19,journey-J1,journey-J2,journey-J3,journey-J4,journey-J5,journey-J6,journey-J7,role-hold-finance,journey-J9,role-hold-procurement-receiving,journey-J11,role-hold-trust-support,journey-J17",
-     "startedAtUtc": "2026-10-10T14:03:53.962Z",
-     "outcome": "PASS",
-     "surfaceOutcome": "PASS",
-     "interactionOutcome": "PASS",
-     "note": null
-    }
-   ]
+   "timingsMs": 559,
+   "note": null
   },
   {
    "journeyId": "J7",
@@ -1146,112 +671,28 @@
    "owningLane": "W2-012",
    "moduleId": "peer-resale",
    "howReached": "commerce home → visible row button for J7 (ordinary nav — no deep link)",
-   "navPathTaken": "/commerce/resale",
-   "outcome": "PASS",
-   "surfaceOutcome": "PASS",
-   "surfaceChecks": [
-    {
-     "name": "listing track rendered",
-     "ok": true,
-     "detail": "Resale listing —"
-    },
-    {
-     "name": "marketplace fee shown with exact math",
-     "ok": true,
-     "detail": "Marketplace fee on sale"
-    },
-    {
-     "name": "consignment track rendered",
-     "ok": true,
-     "detail": "Hand over to consignment (with authorization)"
-    }
-   ],
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
    "interaction": {
-    "outcome": "PASS",
+    "outcome": "BLOCKED",
     "declared": "listing action gate: publish a listing (terms, fee, net at ask)",
-    "label": "listing action gate → Publish the listing (DRAFT → ACTIVE)",
-    "checks": [
-     {
-      "name": "resale track prepared from the asset card (visible click)",
-      "ok": true,
-      "detail": "cm-listing-track rendered in DRAFT"
-     },
-     {
-      "name": "gate shows fee + net before publishing",
-      "ok": true,
-      "detail": "fee/net in gate"
-     },
-     {
-      "name": "listing moved to ACTIVE",
-      "ok": true,
-      "detail": "ACTIVE chip"
-     }
-    ],
+    "label": null,
+    "checks": [],
     "note": null
    },
    "merchantSide": null,
    "screenshots": [
-    "evidence-rerun-2/11-journey-J7-peer-resale.png",
     "evidence/99-journey-J7-error.png"
    ],
    "evidence": {
-    "screenshot": "evidence-rerun-2/11-journey-J7-peer-resale.png",
-    "bodyEvidenceFile": "evidence-rerun-2/11-journey-J7-peer-resale-body.txt",
-    "consoleEvidenceFile": "evidence-rerun-2/11-journey-J7-peer-resale-console.txt"
+    "screenshot": null,
+    "bodyEvidenceFile": "evidence/99-journey-J7-error-body.txt",
+    "consoleEvidenceFile": "evidence/99-journey-J7-error-console.txt"
    },
-   "timingsMs": 1276,
-   "note": "nav /commerce/resale (consignment track prepared on a second asset for the surface assertion)",
-   "original": {
-    "outcome": "BLOCKED",
-    "surfaceOutcome": "BLOCKED",
-    "interactionOutcome": "BLOCKED",
-    "howReached": "commerce home → visible row button for J7 (ordinary nav — no deep link)",
-    "screenshots": [
-     "evidence/99-journey-J7-error.png"
-    ],
-    "evidence": {
-     "screenshot": null,
-     "bodyEvidenceFile": "evidence/99-journey-J7-error-body.txt",
-     "consoleEvidenceFile": "evidence/99-journey-J7-error-console.txt"
-    },
-    "note": null
-   },
-   "reRun": {
-    "runId": "merged-gate-commerce-evidence-2026-10-10T140753885Z",
-    "manifestPath": "commerce-merged-gate-rerun2-manifest.json",
-    "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,journey-J7",
-    "startedAtUtc": "2026-10-10T14:07:53.885Z",
-    "outcome": "PASS",
-    "interactionOutcome": "PASS",
-    "supersededOutcome": "BLOCKED",
-    "note": "LABELLED targeted re-run (selectedSteps recorded in its manifest — never a first-discovery claim); this outcome supersedes the original, which stays recorded under .original"
-   },
-   "reRunHistory": [
-    {
-     "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-     "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-     "buildCommit": "950577e753c16a9a518160d5cda1b5ca1a4d766a",
-     "buildTreeDirty": false,
-     "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,explore-taxonomy-J19,journey-J1,journey-J2,journey-J3,journey-J4,journey-J5,journey-J6,journey-J7,role-hold-finance,journey-J9,role-hold-procurement-receiving,journey-J11,role-hold-trust-support,journey-J17",
-     "startedAtUtc": "2026-10-10T14:03:53.962Z",
-     "outcome": "ABSENT",
-     "surfaceOutcome": "ABSENT",
-     "interactionOutcome": "FAIL",
-     "note": null
-    },
-    {
-     "runId": "merged-gate-commerce-evidence-2026-10-10T140753885Z",
-     "manifestPath": "commerce-merged-gate-rerun2-manifest.json",
-     "buildCommit": "950577e753c16a9a518160d5cda1b5ca1a4d766a",
-     "buildTreeDirty": true,
-     "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,journey-J7",
-     "startedAtUtc": "2026-10-10T14:07:53.885Z",
-     "outcome": "PASS",
-     "surfaceOutcome": "PASS",
-     "interactionOutcome": "PASS",
-     "note": null
-    }
-   ]
+   "timingsMs": 559,
+   "note": null
   },
   {
    "journeyId": "J8",
@@ -1307,10 +748,7 @@
     "consoleEvidenceFile": "evidence/12-journey-J8-buyer-opportunities-console.txt"
    },
    "timingsMs": 1390,
-   "note": "nav /commerce/opportunities",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "note": "nav /commerce/opportunities"
   },
   {
    "journeyId": "J9",
@@ -1319,7 +757,7 @@
    "moduleId": "peer-tradecycle",
    "howReached": "commerce home → visible row button for J9 (ordinary nav — no deep link)",
    "navPathTaken": "/commerce/trade-cycle",
-   "outcome": "PASS",
+   "outcome": "FAIL",
    "surfaceOutcome": "PASS",
    "surfaceChecks": [
     {
@@ -1339,79 +777,29 @@
     }
    ],
    "interaction": {
-    "outcome": "PASS",
+    "outcome": "FAIL",
     "declared": "per-leg consent for your own leg + a refusal path that stops the cycle",
-    "label": "consent to own leg through the gate, then a refusal path stops the cycle",
+    "label": null,
     "checks": [
      {
-      "name": "gate: only this leg is authorized by consent",
-      "ok": true,
-      "detail": "gate terms"
-     },
-     {
-      "name": "own leg shows CONSENTED",
-      "ok": true,
-      "detail": "leg 3 chip CONSENTED (legIndex 2 — Harbor Lane's giving leg)"
-     },
-     {
-      "name": "refusal stops the cycle honestly",
-      "ok": true,
-      "detail": "stopped panel"
+      "name": "interaction error",
+      "ok": false,
+      "detail": "TimeoutError: locator.waitFor: Timeout 15000ms exceeded."
      }
     ],
-    "note": null
+    "note": "the interaction control or its expected post-state was not reachable on the rendered surface (module-level failure, not an environment failure)"
    },
    "merchantSide": null,
    "screenshots": [
-    "evidence-rerun/13-journey-J9-peer-tradecycle.png",
     "evidence/13-journey-J9-peer-tradecycle.png"
    ],
    "evidence": {
-    "screenshot": "evidence-rerun/13-journey-J9-peer-tradecycle.png",
-    "bodyEvidenceFile": "evidence-rerun/13-journey-J9-peer-tradecycle-body.txt",
-    "consoleEvidenceFile": "evidence-rerun/13-journey-J9-peer-tradecycle-console.txt"
+    "screenshot": "evidence/13-journey-J9-peer-tradecycle.png",
+    "bodyEvidenceFile": "evidence/13-journey-J9-peer-tradecycle-body.txt",
+    "consoleEvidenceFile": "evidence/13-journey-J9-peer-tradecycle-console.txt"
    },
-   "timingsMs": 1015,
-   "note": "nav /commerce/trade-cycle",
-   "original": {
-    "outcome": "FAIL",
-    "surfaceOutcome": "PASS",
-    "interactionOutcome": "FAIL",
-    "howReached": "commerce home → visible row button for J9 (ordinary nav — no deep link)",
-    "screenshots": [
-     "evidence/13-journey-J9-peer-tradecycle.png"
-    ],
-    "evidence": {
-     "screenshot": "evidence/13-journey-J9-peer-tradecycle.png",
-     "bodyEvidenceFile": "evidence/13-journey-J9-peer-tradecycle-body.txt",
-     "consoleEvidenceFile": "evidence/13-journey-J9-peer-tradecycle-console.txt"
-    },
-    "note": "nav /commerce/trade-cycle"
-   },
-   "reRun": {
-    "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-    "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-    "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,explore-taxonomy-J19,journey-J1,journey-J2,journey-J3,journey-J4,journey-J5,journey-J6,journey-J7,role-hold-finance,journey-J9,role-hold-procurement-receiving,journey-J11,role-hold-trust-support,journey-J17",
-    "startedAtUtc": "2026-10-10T14:03:53.962Z",
-    "outcome": "PASS",
-    "interactionOutcome": "PASS",
-    "supersededOutcome": "FAIL",
-    "note": "LABELLED targeted re-run (selectedSteps recorded in its manifest — never a first-discovery claim); this outcome supersedes the original, which stays recorded under .original"
-   },
-   "reRunHistory": [
-    {
-     "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-     "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-     "buildCommit": "950577e753c16a9a518160d5cda1b5ca1a4d766a",
-     "buildTreeDirty": false,
-     "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,explore-taxonomy-J19,journey-J1,journey-J2,journey-J3,journey-J4,journey-J5,journey-J6,journey-J7,role-hold-finance,journey-J9,role-hold-procurement-receiving,journey-J11,role-hold-trust-support,journey-J17",
-     "startedAtUtc": "2026-10-10T14:03:53.962Z",
-     "outcome": "PASS",
-     "surfaceOutcome": "PASS",
-     "interactionOutcome": "PASS",
-     "note": null
-    }
-   ]
+   "timingsMs": 16395,
+   "note": "nav /commerce/trade-cycle"
   },
   {
    "journeyId": "J10",
@@ -1472,10 +860,7 @@
     "consoleEvidenceFile": "evidence/15-journey-J10-merchant-storefront-console.txt"
    },
    "timingsMs": 1491,
-   "note": "nav /commerce/merchant/storefront (Finance held for the refund step)",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "note": "nav /commerce/merchant/storefront (Finance held for the refund step)"
   },
   {
    "journeyId": "J11",
@@ -1484,7 +869,7 @@
    "moduleId": "procurement-supply",
    "howReached": "commerce home → visible row button for J11 (ordinary nav — no deep link)",
    "navPathTaken": "/commerce/procurement/supply",
-   "outcome": "PASS",
+   "outcome": "FAIL",
    "surfaceOutcome": "PASS",
    "surfaceChecks": [
     {
@@ -1504,74 +889,29 @@
     }
    ],
    "interaction": {
-    "outcome": "PASS",
+    "outcome": "FAIL",
     "declared": "partial receiving with quantity-difference visibility",
-    "label": "Receive partial against po-demo-3 (partial receiving is a first-class state)",
+    "label": null,
     "checks": [
      {
-      "name": "PO moved to PARTIALLY_RECEIVED",
-      "ok": true,
-      "detail": "PARTIALLY_RECEIVED chip"
-     },
-     {
-      "name": "quantity difference visible (expected vs received)",
-      "ok": true,
-      "detail": "expected/received line"
+      "name": "interaction error",
+      "ok": false,
+      "detail": "TimeoutError: locator.textContent: Timeout 30000ms exceeded."
      }
     ],
-    "note": null
+    "note": "the interaction control or its expected post-state was not reachable on the rendered surface (module-level failure, not an environment failure)"
    },
    "merchantSide": null,
    "screenshots": [
-    "evidence-rerun/16-journey-J11-procurement-supply.png",
     "evidence/16-journey-J11-procurement-supply.png"
    ],
    "evidence": {
-    "screenshot": "evidence-rerun/16-journey-J11-procurement-supply.png",
-    "bodyEvidenceFile": "evidence-rerun/16-journey-J11-procurement-supply-body.txt",
-    "consoleEvidenceFile": "evidence-rerun/16-journey-J11-procurement-supply-console.txt"
+    "screenshot": "evidence/16-journey-J11-procurement-supply.png",
+    "bodyEvidenceFile": "evidence/16-journey-J11-procurement-supply-body.txt",
+    "consoleEvidenceFile": "evidence/16-journey-J11-procurement-supply-console.txt"
    },
-   "timingsMs": 1213,
-   "note": "nav /commerce/procurement/supply (Procurement + Receiving held)",
-   "original": {
-    "outcome": "FAIL",
-    "surfaceOutcome": "PASS",
-    "interactionOutcome": "FAIL",
-    "howReached": "commerce home → visible row button for J11 (ordinary nav — no deep link)",
-    "screenshots": [
-     "evidence/16-journey-J11-procurement-supply.png"
-    ],
-    "evidence": {
-     "screenshot": "evidence/16-journey-J11-procurement-supply.png",
-     "bodyEvidenceFile": "evidence/16-journey-J11-procurement-supply-body.txt",
-     "consoleEvidenceFile": "evidence/16-journey-J11-procurement-supply-console.txt"
-    },
-    "note": "nav /commerce/procurement/supply (Procurement + Receiving held)"
-   },
-   "reRun": {
-    "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-    "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-    "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,explore-taxonomy-J19,journey-J1,journey-J2,journey-J3,journey-J4,journey-J5,journey-J6,journey-J7,role-hold-finance,journey-J9,role-hold-procurement-receiving,journey-J11,role-hold-trust-support,journey-J17",
-    "startedAtUtc": "2026-10-10T14:03:53.962Z",
-    "outcome": "PASS",
-    "interactionOutcome": "PASS",
-    "supersededOutcome": "FAIL",
-    "note": "LABELLED targeted re-run (selectedSteps recorded in its manifest — never a first-discovery claim); this outcome supersedes the original, which stays recorded under .original"
-   },
-   "reRunHistory": [
-    {
-     "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-     "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-     "buildCommit": "950577e753c16a9a518160d5cda1b5ca1a4d766a",
-     "buildTreeDirty": false,
-     "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,explore-taxonomy-J19,journey-J1,journey-J2,journey-J3,journey-J4,journey-J5,journey-J6,journey-J7,role-hold-finance,journey-J9,role-hold-procurement-receiving,journey-J11,role-hold-trust-support,journey-J17",
-     "startedAtUtc": "2026-10-10T14:03:53.962Z",
-     "outcome": "PASS",
-     "surfaceOutcome": "PASS",
-     "interactionOutcome": "PASS",
-     "note": null
-    }
-   ]
+   "timingsMs": 31142,
+   "note": "nav /commerce/procurement/supply (Procurement + Receiving held)"
   },
   {
    "journeyId": "J12",
@@ -1632,10 +972,7 @@
     "consoleEvidenceFile": "evidence/17-journey-J12-merchant-b2b-console.txt"
    },
    "timingsMs": 1303,
-   "note": "nav /commerce/b2b",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "note": "nav /commerce/b2b"
   },
   {
    "journeyId": "J13",
@@ -1696,10 +1033,7 @@
     "consoleEvidenceFile": "evidence/18-journey-J13-merchant-autonomous-console.txt"
    },
    "timingsMs": 1457,
-   "note": "nav /commerce/autonomous/store",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "note": "nav /commerce/autonomous/store"
   },
   {
    "journeyId": "J14",
@@ -1755,10 +1089,7 @@
     "consoleEvidenceFile": "evidence/19-journey-J14-buyer-twin-console.txt"
    },
    "timingsMs": 1043,
-   "note": "nav /commerce/twin",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "note": "nav /commerce/twin"
   },
   {
    "journeyId": "J15",
@@ -1809,10 +1140,7 @@
     "consoleEvidenceFile": "evidence/20-journey-J15-merchant-connectors-console.txt"
    },
    "timingsMs": 1101,
-   "note": "nav /commerce/connectors",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "note": "nav /commerce/connectors"
   },
   {
    "journeyId": "J16",
@@ -1873,10 +1201,7 @@
     "consoleEvidenceFile": "evidence/21-journey-J16-physical-store-console.txt"
    },
    "timingsMs": 1548,
-   "note": "nav /commerce/physical/store (Receiving held for the count paths)",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "note": "nav /commerce/physical/store (Receiving held for the count paths)"
   },
   {
    "journeyId": "J17",
@@ -1885,7 +1210,7 @@
    "moduleId": "trust-recourse",
    "howReached": "commerce home → visible row button for J17 (ordinary nav — no deep link)",
    "navPathTaken": "/commerce/trust/recourse",
-   "outcome": "PASS",
+   "outcome": "FAIL",
    "surfaceOutcome": "PASS",
    "surfaceChecks": [
     {
@@ -1910,7 +1235,7 @@
     }
    ],
    "interaction": {
-    "outcome": "PASS",
+    "outcome": "FAIL",
     "declared": "dispute evidence → controlled refund → out-of-bounds refusal → idempotent replay (no double effect)",
     "label": "evidence → idempotent replay (no double effect) → uphold → controlled refund → out-of-bounds refusal",
     "checks": [
@@ -1931,8 +1256,8 @@
      },
      {
       "name": "controlled refund executed within captured",
-      "ok": true,
-      "detail": "refunded total flipped to USD 24.00 (case-1 payment)"
+      "ok": false,
+      "detail": "refund recorded"
      },
      {
       "name": "out-of-bounds refund refused",
@@ -1944,55 +1269,15 @@
    },
    "merchantSide": null,
    "screenshots": [
-    "evidence-rerun/23-journey-J17-trust-recourse.png",
     "evidence/23-journey-J17-trust-recourse.png"
    ],
    "evidence": {
-    "screenshot": "evidence-rerun/23-journey-J17-trust-recourse.png",
-    "bodyEvidenceFile": "evidence-rerun/23-journey-J17-trust-recourse-body.txt",
-    "consoleEvidenceFile": "evidence-rerun/23-journey-J17-trust-recourse-console.txt"
+    "screenshot": "evidence/23-journey-J17-trust-recourse.png",
+    "bodyEvidenceFile": "evidence/23-journey-J17-trust-recourse-body.txt",
+    "consoleEvidenceFile": "evidence/23-journey-J17-trust-recourse-console.txt"
    },
-   "timingsMs": 1450,
-   "note": "nav /commerce/trust/recourse (Trust & safety + Support + Finance held)",
-   "original": {
-    "outcome": "FAIL",
-    "surfaceOutcome": "PASS",
-    "interactionOutcome": "FAIL",
-    "howReached": "commerce home → visible row button for J17 (ordinary nav — no deep link)",
-    "screenshots": [
-     "evidence/23-journey-J17-trust-recourse.png"
-    ],
-    "evidence": {
-     "screenshot": "evidence/23-journey-J17-trust-recourse.png",
-     "bodyEvidenceFile": "evidence/23-journey-J17-trust-recourse-body.txt",
-     "consoleEvidenceFile": "evidence/23-journey-J17-trust-recourse-console.txt"
-    },
-    "note": "nav /commerce/trust/recourse (Trust & safety + Support + Finance held)"
-   },
-   "reRun": {
-    "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-    "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-    "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,explore-taxonomy-J19,journey-J1,journey-J2,journey-J3,journey-J4,journey-J5,journey-J6,journey-J7,role-hold-finance,journey-J9,role-hold-procurement-receiving,journey-J11,role-hold-trust-support,journey-J17",
-    "startedAtUtc": "2026-10-10T14:03:53.962Z",
-    "outcome": "PASS",
-    "interactionOutcome": "PASS",
-    "supersededOutcome": "FAIL",
-    "note": "LABELLED targeted re-run (selectedSteps recorded in its manifest — never a first-discovery claim); this outcome supersedes the original, which stays recorded under .original"
-   },
-   "reRunHistory": [
-    {
-     "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-     "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-     "buildCommit": "950577e753c16a9a518160d5cda1b5ca1a4d766a",
-     "buildTreeDirty": false,
-     "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,explore-taxonomy-J19,journey-J1,journey-J2,journey-J3,journey-J4,journey-J5,journey-J6,journey-J7,role-hold-finance,journey-J9,role-hold-procurement-receiving,journey-J11,role-hold-trust-support,journey-J17",
-     "startedAtUtc": "2026-10-10T14:03:53.962Z",
-     "outcome": "PASS",
-     "surfaceOutcome": "PASS",
-     "interactionOutcome": "PASS",
-     "note": null
-    }
-   ]
+   "timingsMs": 22174,
+   "note": "nav /commerce/trust/recourse (Trust & safety + Support + Finance held)"
   },
   {
    "journeyId": "J18",
@@ -2053,10 +1338,7 @@
     "consoleEvidenceFile": "evidence/24-journey-J18-host-states-console.txt"
    },
    "timingsMs": 661,
-   "note": "nav /commerce/states",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "note": "nav /commerce/states"
   },
   {
    "journeyId": "J19",
@@ -2065,7 +1347,7 @@
    "moduleId": "reference-explore",
    "howReached": "header nav Explore (the J19 reference module) — the canonical taxonomy walk",
    "navPathTaken": "/commerce/explore",
-   "outcome": "PASS",
+   "outcome": "FAIL",
    "surfaceOutcome": "PASS",
    "surfaceChecks": [
     {
@@ -2130,13 +1412,13 @@
     }
    ],
    "interaction": {
-    "outcome": "PASS",
+    "outcome": "FAIL",
     "declared": "the taxonomy walk itself: all 7 groups / 19 cards + a card navigation",
     "label": "taxonomy card walk: the J1 card's Open button mounts the buyer-intent module",
     "checks": [
      {
       "name": "card click navigated to the journey's rendered module",
-      "ok": true,
+      "ok": false,
       "detail": "J1 · Intent canvas rendered"
      }
     ],
@@ -2144,58 +1426,16 @@
    },
    "merchantSide": null,
    "screenshots": [
-    "evidence-rerun/03-explore-J19.png",
-    "evidence-rerun/03b-explore-card-navigation.png",
     "evidence/03-explore-J19.png",
     "evidence/03b-explore-card-navigation.png"
    ],
    "evidence": {
-    "screenshot": "evidence-rerun/03-explore-J19.png",
-    "bodyEvidenceFile": "evidence-rerun/03-explore-J19-body.txt",
-    "consoleEvidenceFile": "evidence-rerun/03-explore-J19-console.txt"
+    "screenshot": "evidence/03-explore-J19.png",
+    "bodyEvidenceFile": "evidence/03-explore-J19-body.txt",
+    "consoleEvidenceFile": "evidence/03-explore-J19-console.txt"
    },
-   "timingsMs": 2339,
-   "note": "the J19 module (reference-explore): the canonical 7-group taxonomy with registry-derived availability",
-   "original": {
-    "outcome": "FAIL",
-    "surfaceOutcome": "PASS",
-    "interactionOutcome": "FAIL",
-    "howReached": "header nav Explore (the J19 reference module) — the canonical taxonomy walk",
-    "screenshots": [
-     "evidence/03-explore-J19.png",
-     "evidence/03b-explore-card-navigation.png"
-    ],
-    "evidence": {
-     "screenshot": "evidence/03-explore-J19.png",
-     "bodyEvidenceFile": "evidence/03-explore-J19-body.txt",
-     "consoleEvidenceFile": "evidence/03-explore-J19-console.txt"
-    },
-    "note": "the J19 module (reference-explore): the canonical 7-group taxonomy with registry-derived availability"
-   },
-   "reRun": {
-    "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-    "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-    "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,explore-taxonomy-J19,journey-J1,journey-J2,journey-J3,journey-J4,journey-J5,journey-J6,journey-J7,role-hold-finance,journey-J9,role-hold-procurement-receiving,journey-J11,role-hold-trust-support,journey-J17",
-    "startedAtUtc": "2026-10-10T14:03:53.962Z",
-    "outcome": "PASS",
-    "interactionOutcome": "PASS",
-    "supersededOutcome": "FAIL",
-    "note": "LABELLED targeted re-run (selectedSteps recorded in its manifest — never a first-discovery claim); this outcome supersedes the original, which stays recorded under .original"
-   },
-   "reRunHistory": [
-    {
-     "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-     "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-     "buildCommit": "950577e753c16a9a518160d5cda1b5ca1a4d766a",
-     "buildTreeDirty": false,
-     "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,explore-taxonomy-J19,journey-J1,journey-J2,journey-J3,journey-J4,journey-J5,journey-J6,journey-J7,role-hold-finance,journey-J9,role-hold-procurement-receiving,journey-J11,role-hold-trust-support,journey-J17",
-     "startedAtUtc": "2026-10-10T14:03:53.962Z",
-     "outcome": "PASS",
-     "surfaceOutcome": "PASS",
-     "interactionOutcome": "PASS",
-     "note": null
-    }
-   ]
+   "timingsMs": 1839,
+   "note": "the J19 module (reference-explore): the canonical 7-group taxonomy with registry-derived availability"
   }
  ],
  "safetySlice": [
@@ -2443,39 +1683,39 @@
  "totals": {
   "journeys": {
    "byOutcome": {
-    "PASS": 19,
-    "FAIL": 0,
+    "PASS": 8,
+    "FAIL": 4,
     "ABSENT": 0,
-    "BLOCKED": 0,
+    "BLOCKED": 7,
     "UNKNOWN": 0,
     "SKIPPED": 0
    },
    "planned": 19,
-   "executed": 19,
-   "blocked": 0,
+   "executed": 12,
+   "blocked": 7,
    "skipped": 0,
    "recomputed": 19,
    "outcomeSum": 19,
    "zeroDrift": true,
-   "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 19 = 19 + 0 + 0 = 19 (zero drift)"
+   "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 19 = 12 + 7 + 0 = 19 (zero drift)"
   },
   "interactions": {
    "byOutcome": {
-    "PASS": 18,
-    "FAIL": 0,
+    "PASS": 7,
+    "FAIL": 4,
     "ABSENT": 1,
-    "BLOCKED": 0,
+    "BLOCKED": 7,
     "UNKNOWN": 0,
     "SKIPPED": 0
    },
    "planned": 19,
-   "executed": 19,
-   "blocked": 0,
+   "executed": 12,
+   "blocked": 7,
    "skipped": 0,
    "recomputed": 19,
    "outcomeSum": 19,
    "zeroDrift": true,
-   "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 19 = 19 + 0 + 0 = 19 (zero drift)"
+   "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 19 = 12 + 7 + 0 = 19 (zero drift)"
   },
   "safety": {
    "byOutcome": {
@@ -2512,319 +1752,7 @@
    "outcomeSum": 6,
    "zeroDrift": true,
    "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 6 = 6 + 0 + 0 = 6 (zero drift)"
-  },
-  "reRuns": [
-   {
-    "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-    "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-    "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,explore-taxonomy-J19,journey-J1,journey-J2,journey-J3,journey-J4,journey-J5,journey-J6,journey-J7,role-hold-finance,journey-J9,role-hold-procurement-receiving,journey-J11,role-hold-trust-support,journey-J17",
-    "journeysAttempted": [
-     "J19",
-     "J1",
-     "J2",
-     "J3",
-     "J4",
-     "J5",
-     "J6",
-     "J7",
-     "J9",
-     "J11",
-     "J17"
-    ],
-    "walkSteps": [
-     {
-      "id": "landing-connect-wall",
-      "outcome": "PASS"
-     },
-     {
-      "id": "first-discovery-entry-click",
-      "outcome": "PASS"
-     },
-     {
-      "id": "commerce-home",
-      "outcome": "PASS"
-     },
-     {
-      "id": "role-hold-finance",
-      "outcome": "PASS"
-     },
-     {
-      "id": "role-hold-procurement-receiving",
-      "outcome": "PASS"
-     },
-     {
-      "id": "role-hold-trust-support",
-      "outcome": "PASS"
-     }
-    ],
-    "totals": {
-     "journeys": {
-      "byOutcome": {
-       "PASS": 9,
-       "FAIL": 1,
-       "ABSENT": 1,
-       "BLOCKED": 8,
-       "UNKNOWN": 0,
-       "SKIPPED": 0
-      },
-      "planned": 19,
-      "executed": 11,
-      "blocked": 8,
-      "skipped": 0,
-      "recomputed": 19,
-      "outcomeSum": 19,
-      "zeroDrift": true,
-      "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 19 = 11 + 8 + 0 = 19 (zero drift)"
-     },
-     "interactions": {
-      "byOutcome": {
-       "PASS": 9,
-       "FAIL": 2,
-       "ABSENT": 0,
-       "BLOCKED": 8,
-       "UNKNOWN": 0,
-       "SKIPPED": 0
-      },
-      "planned": 19,
-      "executed": 11,
-      "blocked": 8,
-      "skipped": 0,
-      "recomputed": 19,
-      "outcomeSum": 19,
-      "zeroDrift": true,
-      "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 19 = 11 + 8 + 0 = 19 (zero drift)"
-     },
-     "safety": {
-      "byOutcome": {
-       "PASS": 0,
-       "FAIL": 0,
-       "ABSENT": 0,
-       "BLOCKED": 5,
-       "UNKNOWN": 0,
-       "SKIPPED": 0
-      },
-      "planned": 5,
-      "executed": 0,
-      "blocked": 5,
-      "skipped": 0,
-      "recomputed": 5,
-      "outcomeSum": 5,
-      "zeroDrift": true,
-      "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 5 = 0 + 5 + 0 = 5 (zero drift)"
-     },
-     "walkSteps": {
-      "byOutcome": {
-       "PASS": 6,
-       "FAIL": 0,
-       "ABSENT": 0,
-       "BLOCKED": 0,
-       "UNKNOWN": 0,
-       "SKIPPED": 0
-      },
-      "planned": 6,
-      "executed": 6,
-      "blocked": 0,
-      "skipped": 0,
-      "recomputed": 6,
-      "outcomeSum": 6,
-      "zeroDrift": true,
-      "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 6 = 6 + 0 + 0 = 6 (zero drift)"
-     }
-    }
-   },
-   {
-    "runId": "merged-gate-commerce-evidence-2026-10-10T140753885Z",
-    "manifestPath": "commerce-merged-gate-rerun2-manifest.json",
-    "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,journey-J7",
-    "journeysAttempted": [
-     "J7"
-    ],
-    "walkSteps": [
-     {
-      "id": "landing-connect-wall",
-      "outcome": "PASS"
-     },
-     {
-      "id": "first-discovery-entry-click",
-      "outcome": "PASS"
-     },
-     {
-      "id": "commerce-home",
-      "outcome": "PASS"
-     }
-    ],
-    "totals": {
-     "journeys": {
-      "byOutcome": {
-       "PASS": 1,
-       "FAIL": 0,
-       "ABSENT": 0,
-       "BLOCKED": 18,
-       "UNKNOWN": 0,
-       "SKIPPED": 0
-      },
-      "planned": 19,
-      "executed": 1,
-      "blocked": 18,
-      "skipped": 0,
-      "recomputed": 19,
-      "outcomeSum": 19,
-      "zeroDrift": true,
-      "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 19 = 1 + 18 + 0 = 19 (zero drift)"
-     },
-     "interactions": {
-      "byOutcome": {
-       "PASS": 1,
-       "FAIL": 0,
-       "ABSENT": 0,
-       "BLOCKED": 18,
-       "UNKNOWN": 0,
-       "SKIPPED": 0
-      },
-      "planned": 19,
-      "executed": 1,
-      "blocked": 18,
-      "skipped": 0,
-      "recomputed": 19,
-      "outcomeSum": 19,
-      "zeroDrift": true,
-      "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 19 = 1 + 18 + 0 = 19 (zero drift)"
-     },
-     "safety": {
-      "byOutcome": {
-       "PASS": 0,
-       "FAIL": 0,
-       "ABSENT": 0,
-       "BLOCKED": 5,
-       "UNKNOWN": 0,
-       "SKIPPED": 0
-      },
-      "planned": 5,
-      "executed": 0,
-      "blocked": 5,
-      "skipped": 0,
-      "recomputed": 5,
-      "outcomeSum": 5,
-      "zeroDrift": true,
-      "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 5 = 0 + 5 + 0 = 5 (zero drift)"
-     },
-     "walkSteps": {
-      "byOutcome": {
-       "PASS": 3,
-       "FAIL": 0,
-       "ABSENT": 0,
-       "BLOCKED": 0,
-       "UNKNOWN": 0,
-       "SKIPPED": 0
-      },
-      "planned": 3,
-      "executed": 3,
-      "blocked": 0,
-      "skipped": 0,
-      "recomputed": 3,
-      "outcomeSum": 3,
-      "zeroDrift": true,
-      "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 3 = 3 + 0 + 0 = 3 (zero drift)"
-     }
-    }
-   },
-   {
-    "runId": "merged-gate-commerce-evidence-2026-10-10T141223939Z",
-    "manifestPath": "commerce-merged-gate-rerun3-manifest.json",
-    "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,journey-J2",
-    "journeysAttempted": [
-     "J2"
-    ],
-    "walkSteps": [
-     {
-      "id": "landing-connect-wall",
-      "outcome": "PASS"
-     },
-     {
-      "id": "first-discovery-entry-click",
-      "outcome": "PASS"
-     },
-     {
-      "id": "commerce-home",
-      "outcome": "PASS"
-     }
-    ],
-    "totals": {
-     "journeys": {
-      "byOutcome": {
-       "PASS": 1,
-       "FAIL": 0,
-       "ABSENT": 0,
-       "BLOCKED": 18,
-       "UNKNOWN": 0,
-       "SKIPPED": 0
-      },
-      "planned": 19,
-      "executed": 1,
-      "blocked": 18,
-      "skipped": 0,
-      "recomputed": 19,
-      "outcomeSum": 19,
-      "zeroDrift": true,
-      "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 19 = 1 + 18 + 0 = 19 (zero drift)"
-     },
-     "interactions": {
-      "byOutcome": {
-       "PASS": 1,
-       "FAIL": 0,
-       "ABSENT": 0,
-       "BLOCKED": 18,
-       "UNKNOWN": 0,
-       "SKIPPED": 0
-      },
-      "planned": 19,
-      "executed": 1,
-      "blocked": 18,
-      "skipped": 0,
-      "recomputed": 19,
-      "outcomeSum": 19,
-      "zeroDrift": true,
-      "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 19 = 1 + 18 + 0 = 19 (zero drift)"
-     },
-     "safety": {
-      "byOutcome": {
-       "PASS": 0,
-       "FAIL": 0,
-       "ABSENT": 0,
-       "BLOCKED": 5,
-       "UNKNOWN": 0,
-       "SKIPPED": 0
-      },
-      "planned": 5,
-      "executed": 0,
-      "blocked": 5,
-      "skipped": 0,
-      "recomputed": 5,
-      "outcomeSum": 5,
-      "zeroDrift": true,
-      "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 5 = 0 + 5 + 0 = 5 (zero drift)"
-     },
-     "walkSteps": {
-      "byOutcome": {
-       "PASS": 3,
-       "FAIL": 0,
-       "ABSENT": 0,
-       "BLOCKED": 0,
-       "UNKNOWN": 0,
-       "SKIPPED": 0
-      },
-      "planned": 3,
-      "executed": 3,
-      "blocked": 0,
-      "skipped": 0,
-      "recomputed": 3,
-      "outcomeSum": 3,
-      "zeroDrift": true,
-      "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 3 = 3 + 0 + 0 = 3 (zero drift)"
-     }
-    }
-   }
-  ]
+  }
  },
  "deepLinkPolicy": {
   "usedForDiscovery": false,
@@ -2835,8 +1763,7 @@
     "to": "/commerce/merchant/group-buy-review",
     "reason": "no shell nav entry reaches the merchant J5 side today — the J5 home/Explore entry deterministically renders the buyer side (registry sort: buyer-groupbuy precedes merchant-groupbuy-review); ordinary discovery of J5 completed first via the home row button"
    }
-  ],
-  "reRunNote": "the targeted re-runs used NO deep links: each re-run walked the ordinary landing → UNiCOM Commerce → /commerce flow first (its walkSteps record this) and opened every journey through its ordinary home row button"
+  ]
  },
  "timings": {
   "startedAtUtc": "2026-10-10T13:41:31.100Z",
@@ -3062,23 +1989,6 @@
     "ms": 15267,
     "freeMemoryMb": 238
    }
-  ],
-  "reRuns": [
-   {
-    "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-    "totalMs": 75470,
-    "coldBootWarmupMs": 16662
-   },
-   {
-    "runId": "merged-gate-commerce-evidence-2026-10-10T140753885Z",
-    "totalMs": 47671,
-    "coldBootWarmupMs": 17678
-   },
-   {
-    "runId": "merged-gate-commerce-evidence-2026-10-10T141223939Z",
-    "totalMs": 50754,
-    "coldBootWarmupMs": 19754
-   }
   ]
  },
  "memoryTelemetry": {
@@ -3089,151 +1999,13 @@
  },
  "sensitiveValueScrubbed": true,
  "evidenceIntegrity": {
-  "pointersChecked": 104,
+  "pointersChecked": 92,
   "missing": [],
   "allPointersResolve": true,
-  "note": "every evidence pointer (run 1 + both re-runs) resolves to a file on disk relative to the merged manifest"
+  "note": "every evidence pointer resolves to a file on disk relative to the manifest"
  },
  "manifestValidation": {
   "valid": true,
   "errors": []
- },
- "gateRun": {
-  "runId": "merged-gate-commerce-evidence-2026-10-10T134131100Z",
-  "manifestPath": "commerce-merged-gate-manifest.run1-partial.json",
-  "note": "run 1 — the full-gate walk (all 30 planned steps) at harness commit 6d4ecc3; J1–J7 BLOCKED by the journeys-a factory bug, J9/J11/J17/J19 FAIL on four further harness defects. Archived unchanged."
- },
- "reRuns": [
-  {
-   "runId": "merged-gate-commerce-evidence-2026-10-10T140353962Z",
-   "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-   "buildCommit": "950577e753c16a9a518160d5cda1b5ca1a4d766a",
-   "buildTreeDirty": false,
-   "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,explore-taxonomy-J19,journey-J1,journey-J2,journey-J3,journey-J4,journey-J5,journey-J6,journey-J7,role-hold-finance,journey-J9,role-hold-procurement-receiving,journey-J11,role-hold-trust-support,journey-J17",
-   "startedAtUtc": "2026-10-10T14:03:53.962Z",
-   "completedAtUtc": "2026-10-10T14:05:09.432Z",
-   "totalMs": 75470,
-   "freeMemoryMb": {
-    "atStart": 1569,
-    "atEnd": 1349
-   },
-   "journeys": [
-    "J19",
-    "J1",
-    "J2",
-    "J3",
-    "J4",
-    "J5",
-    "J6",
-    "J7",
-    "J9",
-    "J11",
-    "J17"
-   ],
-   "walkSteps": [
-    {
-     "id": "landing-connect-wall",
-     "outcome": "PASS"
-    },
-    {
-     "id": "first-discovery-entry-click",
-     "outcome": "PASS"
-    },
-    {
-     "id": "commerce-home",
-     "outcome": "PASS"
-    },
-    {
-     "id": "role-hold-finance",
-     "outcome": "PASS"
-    },
-    {
-     "id": "role-hold-procurement-receiving",
-     "outcome": "PASS"
-    },
-    {
-     "id": "role-hold-trust-support",
-     "outcome": "PASS"
-    }
-   ],
-   "note": "LABELLED targeted probe (--only; selectedSteps pinned in its manifest) — targeted re-runs after harness fixes, never first-discovery claims and never the gate"
-  },
-  {
-   "runId": "merged-gate-commerce-evidence-2026-10-10T140753885Z",
-   "manifestPath": "commerce-merged-gate-rerun2-manifest.json",
-   "buildCommit": "950577e753c16a9a518160d5cda1b5ca1a4d766a",
-   "buildTreeDirty": true,
-   "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,journey-J7",
-   "startedAtUtc": "2026-10-10T14:07:53.885Z",
-   "completedAtUtc": "2026-10-10T14:08:41.556Z",
-   "totalMs": 47671,
-   "freeMemoryMb": {
-    "atStart": 1524,
-    "atEnd": 1317
-   },
-   "journeys": [
-    "J7"
-   ],
-   "walkSteps": [
-    {
-     "id": "landing-connect-wall",
-     "outcome": "PASS"
-    },
-    {
-     "id": "first-discovery-entry-click",
-     "outcome": "PASS"
-    },
-    {
-     "id": "commerce-home",
-     "outcome": "PASS"
-    }
-   ],
-   "note": "LABELLED targeted probe (--only; selectedSteps pinned in its manifest) — targeted re-runs after harness fixes, never first-discovery claims and never the gate"
-  },
-  {
-   "runId": "merged-gate-commerce-evidence-2026-10-10T141223939Z",
-   "manifestPath": "commerce-merged-gate-rerun3-manifest.json",
-   "buildCommit": "3c3ba87474ab662b1ec909c103349f028865e4e9",
-   "buildTreeDirty": true,
-   "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,journey-J2",
-   "startedAtUtc": "2026-10-10T14:12:23.939Z",
-   "completedAtUtc": "2026-10-10T14:13:14.693Z",
-   "totalMs": 50754,
-   "freeMemoryMb": {
-    "atStart": 1511,
-    "atEnd": 1285
-   },
-   "journeys": [
-    "J2"
-   ],
-   "walkSteps": [
-    {
-     "id": "landing-connect-wall",
-     "outcome": "PASS"
-    },
-    {
-     "id": "first-discovery-entry-click",
-     "outcome": "PASS"
-    },
-    {
-     "id": "commerce-home",
-     "outcome": "PASS"
-    }
-   ],
-   "note": "LABELLED targeted probe (--only; selectedSteps pinned in its manifest) — targeted re-runs after harness fixes, never first-discovery claims and never the gate"
-  }
- ],
- "supersededOutcomes": [
-  "J1: BLOCKED → PASS",
-  "J2: BLOCKED → PASS",
-  "J3: BLOCKED → PASS",
-  "J4: BLOCKED → PASS",
-  "J5: BLOCKED → PASS",
-  "J6: BLOCKED → PASS",
-  "J7: BLOCKED → PASS",
-  "J9: FAIL → PASS",
-  "J11: FAIL → PASS",
-  "J17: FAIL → PASS",
-  "J19: FAIL → PASS"
- ]
+ }
 }

@@ -1,0 +1,19 @@
+2026-10-10T14:12:24.734Z [env] pre-vite memory gate: freeMem=1438MB (target ≥1100MB)
+2026-10-10T14:12:24.737Z [env] vite dev server spawning on :5199 (heap cap 512MB, log /home/z/battery/merged-gate/docs/rendered-ui/merged-gate/evidence-rerun-3/vite-dev.log, pid 16222)
+2026-10-10T14:12:26.332Z [env] vite attempt 1/3: up=true (freeMem=1253MB)
+2026-10-10T14:12:26.365Z [browser] launching headless chromium (freeMem=1246MB)
+2026-10-10T14:12:26.674Z [browser] chromium 153.0.8010.12 (playwright 1.63.0 from import:playwright)
+2026-10-10T14:12:46.567Z [env] warm-up cold boot: painted=true in 19754ms (freeMem=456MB)
+2026-10-10T14:12:46.691Z [walk] LABELLED TARGETED PROBE (--only): landing-connect-wall, first-discovery-entry-click, commerce-home, journey-J2
+2026-10-10T14:13:01.251Z [walk] landing-connect-wall: PASS (14560ms, freeMem=760MB)
+2026-10-10T14:13:10.979Z [walk] first-discovery-entry-click: PASS (9728ms, freeMem=377MB)
+2026-10-10T14:13:11.072Z [walk] commerce-home: PASS (93ms, freeMem=247MB)
+2026-10-10T14:13:12.117Z [walk] journey-J2: PASS (1045ms, freeMem=255MB)
+2026-10-10T14:13:14.693Z [env] browser closed, vite torn down (freeMem=1285MB)
+2026-10-10T14:13:14.696Z [manifest] /home/z/battery/merged-gate/docs/rendered-ui/merged-gate/commerce-merged-gate-rerun3-manifest.json (valid=true)
+2026-10-10T14:13:14.697Z [evidence] 12 pointers checked, missing=0
+2026-10-10T14:13:14.697Z [totals] journeys planned = executed + blocked + skipped = ΣbyOutcome → 19 = 1 + 18 + 0 = 19 (zero drift)
+2026-10-10T14:13:14.697Z [totals] interactions planned = executed + blocked + skipped = ΣbyOutcome → 19 = 1 + 18 + 0 = 19 (zero drift)
+2026-10-10T14:13:14.697Z [totals] safety planned = executed + blocked + skipped = ΣbyOutcome → 5 = 0 + 5 + 0 = 5 (zero drift)
+2026-10-10T14:13:14.697Z [totals] walkSteps planned = executed + blocked + skipped = ΣbyOutcome → 3 = 3 + 0 + 0 = 3 (zero drift)
+2026-10-10T14:13:14.697Z [outcomes] journeys: 1 PASS / 0 FAIL / 0 ABSENT / 18 BLOCKED / 0 UNKNOWN / 0 SKIPPED | safety: 0 PASS / 0 FAIL / 0 ABSENT / 5 BLOCKED / 0 UNKNOWN / 0 SKIPPED
