@@ -52,9 +52,9 @@
       "id": "W2-012",
       "path": "docs/work-orders/W2-012.md",
       "lane": "buyer-opportunity-group-and-peer-commerce-ui",
-      "status": "READY",
-      "owner": null,
-      "branch": null,
+      "status": "DISPATCHED",
+      "owner": "worker-2 vehicle (Task-tool subagent, resident session web-6ddc0a59)",
+      "branch": "work/w2-012",
       "commit": null,
       "accepted_at": null
     },
@@ -62,9 +62,9 @@
       "id": "W3-015",
       "path": "docs/work-orders/W3-015.md",
       "lane": "merchant-procurement-physical-commerce-and-trust-ui",
-      "status": "READY",
-      "owner": null,
-      "branch": null,
+      "status": "DISPATCHED",
+      "owner": "worker-3 vehicle (Task-tool subagent, resident session web-6ddc0a59)",
+      "branch": "work/w3-015",
       "commit": null,
       "accepted_at": null
     }
@@ -143,7 +143,9 @@
     }
   ],
   "active_work_orders": [
-    "W1-011"
+    "W1-011",
+    "W2-012",
+    "W3-015"
   ],
   "frontier": [
     "HOST"
@@ -169,7 +171,18 @@
         "docs/development-state/rendered-commerce-ui-state.json",
         "docs/rendered-ui/CONTRACT-MAP.md"
       ]
+    },
+    {
+      "event": "W1-011 STAGE 1 VERIFIED (contract published + host shell rendered) + W2-012/W3-015 DISPATCHED IN PARALLEL + W1 FINISHING VEHICLE RUNNING",
+      "recorded_at": "2026-10-10T07:15:00Z",
+      "recorded_by": "resident TL (Z.ai Code session web-6ddc0a59)",
+      "type": "DISPATCH_AND_STAGE_VERIFICATION",
+      "detail": "Vehicle drought struck the W1 lane twice before success (recorded honestly per contract-map §7.4): vehicle-1 died on context deadline after drafting the contract files uncommitted; vehicle-2 failed at the platform request layer BUT had silently committed e6f2f58 (contract publication) + baca779 (demo fixtures + host-state model) before dying; vehicle-3 (Task ID 29) verified the inherited state, completed the remaining scope, and delivered 4 commits total on work/w1-011: e6f2f58 contract publication (the W2/W3 seam — CommerceJourneyId J1-J19, CommerceModuleOwner, defineCommerceModule/parseCommerceModule, module-id prefix reservation, role model 10 roles/22 permissions, journey catalog aligned to CONTRACT-MAP §4, convention-based auto-discovery at src/commerce-modules/<moduleId>/module.ts(x)), baca779 demo fixtures + pure host-state model, a92e725 J18 shared state components + host-states reference module, 7b29529 rendered commerce host shell at /commerce with ordinary-flow discovery entry (labelled button on the connect wall + always-visible overlay entry; existing ZCode app untouched). TL INDEPENDENTLY RE-VERIFIED on the worktree: vitest 85/85 (9 files), lint 0 errors/99 warnings (exact baseline), architecture:check 0 violations, scoped tsc (packages/web/tsconfig.scoped.json) clean, tree clean, worklog Task ID 29 appended. The full-root tsc -b packages/web OOMs at 3.9G pod RAM (known environmental limit; scoped noEmit config is the authoritative web check; the 40 pre-existing agent-test errors remain the only accepted baseline set, saved at /home/z/harvest/typecheck-baseline-w1-011.txt). DEPENDENCY SATISFIED -> W2-012 (worktree /home/z/battery/w2-012, branch work/w2-012) and W3-015 (worktree /home/z/battery/w3-015, branch work/w3-015) both branched from 7b29529 and DISPATCHED in parallel per handoff §5 step 3, while the W1 finishing vehicle (resume of the successful worker-1 agent) runs browser evidence + route/surface discovery manifest + accessibility polish + vite build smoke as the third concurrent worker — exactly three workers, TL as orchestrator. W2/W3 boundaries: separate module directories under src/commerce-modules/ (buyer-/peer- prefixes W2; merchant-/procurement-/physical-/trust- W3), no package.json/lockfile edits (all deps already present), no browser runs (RAM ceiling; browser evidence via W1 vehicle now and TL merged-lineage gate later), staged commits + honest partial reporting against the vehicle deadline risk.",
+      "artifacts": [
+        "docs/development-state/rendered-commerce-ui-state.json",
+        "packages/web/src/commerce-host/contract/index.ts"
+      ]
     }
   ],
-  "last_reviewed_at": "2026-10-10T05:40:00Z"
+  "last_reviewed_at": "2026-10-10T07:15:00Z"
 }
