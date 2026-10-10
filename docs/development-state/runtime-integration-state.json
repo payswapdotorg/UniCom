@@ -1,0 +1,175 @@
+{
+  "schema_version": "1.0",
+  "repository": "payswapdotorg/UniCom",
+  "program": "UNiCOM Runtime Integration Phase (TradeCycle execution, GroupBuy formation, connector wiring)",
+  "status": "AUTHORIZED_FOR_IMPLEMENTATION",
+  "tracking_issue": "https://github.com/payswapdotorg/UniCom/issues/11",
+  "tl_handoff": "docs/FINAL-TL-HANDOFF-RUNTIME-INTEGRATION-2026-10-10.md",
+  "operator_directive": {
+    "source": "Operator TL Progress Review, 2026-10-10, resident session web-6ddc0a59 (IM chat 2094341d)",
+    "authorization_basis": "Recommendation 2: 'Define the next integration/functional phase. Prioritize wiring the TradeCycle execution boundary and GroupBuy formation to their actual permitted runtimes, while preserving each journey's consent and authorization rules.' Recommendation 3: 'Connect and verify real commerce providers. Until at least one provider can be connected and exercised safely, clearly distinguish demo functionality from operational integrations.' Closing: 'The handoff and implementation records are in the repository; no further work needs to depend on this chat.' Recommendation 4 gates remain closed: 'Keep deployment and user research separately gated.'",
+    "recorded_at": "2026-10-10T18:50:00Z"
+  },
+  "prior_phases": {
+    "v3": {
+      "status": "PROGRAM_COMPLETE_CERTIFIED",
+      "immutable_state": "docs/development-state/v3-simulation-state.json",
+      "certification": "docs/simulations/results/final/PROGRAM-CERTIFICATION.md"
+    },
+    "post_v3": {
+      "status": "PROGRAM_COMPLETE_PENDING_OPERATOR_DECISIONS",
+      "immutable_state": "docs/development-state/post-v3-validation-state.json",
+      "final_report": "docs/simulations/post-v3/FINAL-REPORT.md"
+    },
+    "rendered_commerce_ui": {
+      "status": "OPERATOR_REVIEWED_COMPLETE_NOT_PRODUCTION_READY",
+      "immutable_state": "docs/development-state/rendered-commerce-ui-state.json",
+      "final_report": "docs/rendered-ui/FINAL-REPORT.md",
+      "operator_review_recorded_at": "2026-10-10T18:50:00Z"
+    }
+  },
+  "architecture": {
+    "baseline": "1.1-frozen-2026-10-05",
+    "architecture_changes_authorized": false,
+    "implementation_within_frozen_architecture_authorized": true,
+    "permitted_dependency_paths": "web -> @unicom/commerce (contract.ts) and @unicom/experience (contract.ts, runtime/index.ts) via public entrypoints only; module graph unchanged: commerce requires [], agent requires [], experience requires [agent]; the experience->commerce edge remains FORBIDDEN; web must not depend on @unicom/agent (unchanged frozen-design rule from the rendered-UI phase)",
+    "kernel_extension_pattern": "additive-only: new domain/runtime/projection files inside packages/commerce/src following the existing layer laws, re-exported through the single public contract.ts (one-contract-surface rule, per-wave file pattern; architecture:check must stay 0 violations)",
+    "production_deployment_authorized": false,
+    "production_mutation_allowed": false,
+    "human_research_authorized": false
+  },
+  "policy": {
+    "progress_authority": "docs/development-state/runtime-integration-state.json",
+    "prior_phase_records_immutable": true,
+    "maximum_workers": 3,
+    "tl_is_worker": false,
+    "dispatch_allowed": true,
+    "dispatch_gate": "operator progress review 2026-10-10 recommendations 2-3 (recorded above); no further chat authorization required",
+    "consent_and_authorization_rules_preserved": true,
+    "synthetic_demo_data_allowed_only_when_labeled": true,
+    "no_live_commerce_side_effects": true,
+    "connector_exercise_safety": "connector runtime may be exercised only through its own safe paths (typed adapters' non-live surfaces, health observation, journey telemetry, browser-only/feed-file connectors); no credentials, no live provider calls, no purchases/payments/refunds/orders anywhere",
+    "live_named_provider_connection": "NOT_POSSIBLE_THIS_PHASE — requires operator-provided credentials; remains an operator frontier decision",
+    "fixture_success_is_not_browser_success": true
+  },
+  "work_orders": [
+    {
+      "id": "W1-012",
+      "path": "docs/work-orders/W1-012.md",
+      "lane": "commerce-kernel-execution-aggregates",
+      "status": "READY",
+      "owner": "worker-1 (Task-tool subagents, resident session web-6ddc0a59)",
+      "branch": "work/w1-012",
+      "dependency": null,
+      "seam_requirement": "first commit must publish the kernel execution-contract seam (domain types + command payloads + contract.ts re-exports) so W2-013/W3-016 can code against it immediately"
+    },
+    {
+      "id": "W2-013",
+      "path": "docs/work-orders/W2-013.md",
+      "lane": "buyer-and-peer-commerce-runtime-wiring",
+      "status": "READY_AFTER_W1_SEAM",
+      "owner": "worker-2 (Task-tool subagents, resident session web-6ddc0a59)",
+      "branch": "work/w2-013",
+      "dependency": "W1-012 seam commit"
+    },
+    {
+      "id": "W3-016",
+      "path": "docs/work-orders/W3-016.md",
+      "lane": "merchant-groupbuy-and-connector-runtime-wiring",
+      "status": "READY_AFTER_W1_SEAM",
+      "owner": "worker-3 (Task-tool subagents, resident session web-6ddc0a59)",
+      "branch": "work/w3-016",
+      "dependency": "W1-012 seam commit"
+    }
+  ],
+  "operator_decisions": [
+    {
+      "id": "runtime_integration_phase",
+      "status": "APPROVED",
+      "required": true,
+      "decided_at": "2026-10-10T18:50:00Z",
+      "detail": "APPROVED by the operator's 2026-10-10 progress review (recommendations 2-3, closing instruction that no further work depends on the chat). Scope: wiring demo-only capabilities to their actual permitted runtimes within frozen architecture baseline 1.1-frozen-2026-10-05 ONLY. Production deployment, live commerce mutation, live named-provider credentials and human research remain NOT_AUTHORIZED as separate decisions."
+    },
+    {
+      "id": "production_deployment",
+      "status": "NOT_AUTHORIZED",
+      "required": false,
+      "detail": "Separate future operator decision; no production deployment or live commerce mutations."
+    },
+    {
+      "id": "live_named_provider_credentials",
+      "status": "NOT_AUTHORIZED",
+      "required": false,
+      "detail": "Connecting a named live provider requires operator-provided credentials; this phase exercises the connector runtime through safe non-live paths only."
+    },
+    {
+      "id": "human_research",
+      "status": "NOT_AUTHORIZED",
+      "required": false,
+      "detail": "Separate study approval/consent/privacy/ethics gates; preparation-only artifacts remain separate."
+    }
+  ],
+  "acceptance_gates": [
+    {
+      "id": "KSEAM",
+      "name": "kernel execution-contract seam published (W1-012 first commit, TL verified)",
+      "status": "PENDING"
+    },
+    {
+      "id": "KERNEL",
+      "name": "commerce-kernel TradeCycle-execution and GroupBuy-formation aggregates complete with exhaustive tests (W1-012)",
+      "status": "PENDING"
+    },
+    {
+      "id": "WIRE_BUYER",
+      "name": "J5 buyer-side and J9 peer TradeCycle UIs driven by real kernel commands through public entrypoints (W2-013)",
+      "status": "PENDING"
+    },
+    {
+      "id": "WIRE_MERCHANT",
+      "name": "J5 merchant review wired to the kernel formation aggregate; J15 connector manager wired to the experience connector runtime with safe exercise and honest status (W3-016)",
+      "status": "PENDING"
+    },
+    {
+      "id": "SAFETY",
+      "name": "consent/authorization/idempotency invariants re-verified on the wired surfaces (browser safety slice extended to kernel-driven paths)",
+      "status": "PENDING"
+    },
+    {
+      "id": "BROWSER",
+      "name": "merged-lineage real-browser gate over the affected journeys (J5 buyer+merchant, J9, J15) plus regression spot-checks",
+      "status": "PENDING"
+    },
+    {
+      "id": "TL_ACCEPT",
+      "name": "merged battery (vitest + lint + architecture + scoped tsc) and final phase report with honest limitations",
+      "status": "PENDING"
+    }
+  ],
+  "active_work_orders": [],
+  "frontier": [
+    "production_deployment",
+    "human_research",
+    "canonical_vite_build_requires_ge_3gb_free_environment (variant verified: docs/rendered-ui/vite-build/)",
+    "live_named_provider_credentials",
+    "j12_b2b_contract_only_surfaces_demo_labeled",
+    "j16_camera_qr_capture_registered_gap"
+  ],
+  "dispatch_log": [
+    {
+      "event": "PHASE OPENED — operator review adopted; build campaign closed; three work orders defined; W1-012 dispatched",
+      "recorded_at": "2026-10-10T19:05:00Z",
+      "recorded_by": "resident TL (Z.ai Code session web-6ddc0a59)",
+      "type": "PHASE_OPENING_AND_FIRST_DISPATCH",
+      "detail": "The resident TL harvested the operator's 2026-10-10 progress review, verified every claim against the repository, closed the production-build blocker at the maximum achievable evidence level (canonical build exceeds the pod's measured 2,550 MB absolute ceiling; the no-sourcemap variant builds successfully and reproducibly, exit 0 x3, output retained with a per-file SHA-256 manifest), reconciled tracking issue #10 (closed with the terminal record per the operator's directive and the #8/#9 precedent), and defined this successor phase from the review's recommendations 2-3. Work orders W1-012 (commerce-kernel execution aggregates), W2-013 (buyer/peer runtime wiring) and W3-016 (merchant group-buy + connector runtime wiring) committed; W1-012 dispatched first with the seam-first sequencing (its first commit publishes the kernel execution-contract seam; W2-013 and W3-016 dispatch in parallel from that seam while W1 completes). Prior-phase records immutable; deployment, live providers and human research remain NOT_AUTHORIZED.",
+      "artifacts": [
+        "docs/work-orders/W1-012.md",
+        "docs/work-orders/W2-013.md",
+        "docs/work-orders/W3-016.md",
+        "docs/FINAL-TL-HANDOFF-RUNTIME-INTEGRATION-2026-10-10.md",
+        "docs/rendered-ui/vite-build/VITE-PRODUCTION-BUILD-RECORD-2026-10-10.md"
+      ]
+    }
+  ],
+  "last_reviewed_at": "2026-10-10T19:05:00Z"
+}
