@@ -19,4 +19,8 @@ interface ImportMetaEnv {
 
 interface ImportMeta {
   readonly env: ImportMetaEnv;
+  // W1-011 commerce host: module auto-discovery uses Vite's import.meta.glob
+  // over src/commerce-modules/*/module.ts(x). Values are validated at runtime
+  // by parseCommerceModule (commerce-host/contract), so unknown is honest here.
+  glob(pattern: string, options?: { readonly eager?: boolean }): Record<string, unknown>;
 }
