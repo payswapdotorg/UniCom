@@ -65,7 +65,28 @@
       "activated_at": "2026-10-09T15:22:02Z",
       "base_sha": "e60d568",
       "merged_commit": "86d8d93",
-      "verdict": "ACCEPT — the complete fault matrix executed: 11 families / 63 scenarios ALL PASS (21 expected-success + 42 expected-block), all 7 invariants proven (UNKNOWN≠failure, no pending-as-settled, no side effects without authority, per-leg TradeCycle consent, predictions never mutate canonical truth, no duplicate effects); fixture-labelled honestly (real runtimes driven through typed view contracts — browser-labelled reruns await a rendered commerce UI); F07-S01 draft-expectation correction disclosed; TL-executed local-chain recovery disclosed"
+      "verdict": "ACCEPT — the complete fault matrix executed: 11 families / 63 scenarios ALL PASS (21 expected-success + 42 expected-block), all 7 invariants proven (UNKNOWN≠failure, no pending-as-settled, no side effects without authority, per-leg TradeCycle consent, predictions never mutate canonical truth, no duplicate effects); fixture-labelled honestly (real runtimes driven through typed view contracts — browser-labelled reruns await a rendered commerce UI); F07-S01 draft-expectation correction disclosed; TL-executed local-chain recovery disclosed",
+      "reexecution_acceptance": {
+        "accepted_at": "2026-10-10T01:50:00Z",
+        "accepted_by": "resident TL (Z.ai Code session web-a95c8999)",
+        "kind": "superseding evidence refresh (additive; original 2026-10-09T18:10:00Z acceptance and merged_commit 86d8d93 preserved)",
+        "branch": "work/pv-w2-010-int",
+        "base": "6b566b2",
+        "patch_head": "3db78e3a5870244e5cc9c847a143a946c113b061",
+        "battery": "pnpm install OK (21.1s); experience 95 files / 689 tests, 689 passed 0 failed (87.7s; +63 tests additive vs base 88/626); oxlint 103 warnings 0 errors; tsc -b packages/experience exit 0; architecture OK, violations 0, baseline 0, new 0",
+        "verdict": "ACCEPT — re-executed resilience matrix: 11 fault families / 45 scenarios / 125 oracle checks ALL PASS, drift 0; 7/7 invariants (INV-1..INV-6 release-blocking + INV-7 isolation); fixture-only labeling present on all 45 evidence records (executionLabel \"fixture-only\", browserEvidence null, browserRuns DEFERRED awaiting W1-010 runner — the WO fixture-only law honored, no competing browser runner built); matrix + oracle + results + evidence artifacts committed and byte-identical between docs/simulations/resilience/ and packages/experience/reports/sim/; 0 release-blocking findings (1 DEFERRED browser-label sequencing dependency, 4 LOW product observations)",
+        "evidence": [
+          "3db78e3a5870244e5cc9c847a143a946c113b061",
+          "docs/simulations/resilience/README.md",
+          "docs/simulations/resilience/FINDINGS.md",
+          "docs/simulations/resilience/EVIDENCE-EXTENSION.md",
+          "docs/simulations/resilience/resilience-matrix.json",
+          "docs/simulations/resilience/results/resilience-results.json",
+          "docs/simulations/resilience/results/resilience-evidence.json",
+          "packages/experience/src/sim/resilience/",
+          "packages/experience/test/resilience/"
+        ]
+      }
     },
     {
       "id": "W3-014",
@@ -88,7 +109,33 @@
       "activated_at": "2026-10-09T15:22:02Z",
       "base_sha": "e60d568",
       "merged_commit": "d531ea1",
-      "verdict": "ACCEPT — commerce incumbent evidence ledger: 28 incumbents, 73 observations, classes A0/B11/C51/D11 (every claim = committed capture + verbatim quote + class + limitation; A=0 honest — no accounts exist, blocked-listed); frozen task pack (19 capabilities mapped to the journey registry) committed BEFORE evidence; 19 workflow-level comparison tables (no aggregate winner; UNiCOM row honestly contract-level); gap register across all 13 industries; human-validation package PREPARE-ONLY (no recruitment/contact/participant data). TL ruling recorded: B-class STANDS (public-UI content observation with per-record no-interaction limitation)"
+      "verdict": "ACCEPT — commerce incumbent evidence ledger: 28 incumbents, 73 observations, classes A0/B11/C51/D11 (every claim = committed capture + verbatim quote + class + limitation; A=0 honest — no accounts exist, blocked-listed); frozen task pack (19 capabilities mapped to the journey registry) committed BEFORE evidence; 19 workflow-level comparison tables (no aggregate winner; UNiCOM row honestly contract-level); gap register across all 13 industries; human-validation package PREPARE-ONLY (no recruitment/contact/participant data). TL ruling recorded: B-class STANDS (public-UI content observation with per-record no-interaction limitation)",
+      "reexecution_acceptance": {
+        "accepted_at": "2026-10-10T01:50:00Z",
+        "accepted_by": "resident TL (Z.ai Code session web-a95c8999)",
+        "kind": "superseding evidence refresh (additive; original 2026-10-09T18:10:00Z acceptance and merged_commit d531ea1 preserved)",
+        "branch": "work/pv-w3-014-int",
+        "base": "6b566b2",
+        "patch_head": "d2808816957bad50526feb4964e173eae9787ae7",
+        "battery": "experience 88 files / 626 tests, 626 passed 0 failed (81.9s; docs-only — zero code files touched, all 136 changed files under docs/); oxlint 99 warnings 0 errors; tsc -b packages/experience exit 0; architecture OK, violations 0, baseline 0, new 0",
+        "verdict": "ACCEPT — re-executed incumbent evidence: 29 incumbents / 64 observations / classes A0/B9/C46/D9; TL spot re-verification located all 64 quotes verbatim in this session's raw captures (fetch honesty: 34 usable / 11 URL-miss 404 / 1 login-wall / 2 tracker-stubs / 5 EMPTY / 4 CLI failures); 19-capability task pack frozen before captures; 19 workflow tables, no aggregate winner, UNiCOM rows contract-level per Gate-0; gap register + blocked-tasks register; human-validation package PREPARE-ONLY confirmed (7 authorization gates all FALSE, zero recruitment, zero PII, zero credentials in repo); 30.7MB captures verified as text/JSON page+search files under docs/competitors/captures/ with zero code touched",
+        "evidence": [
+          "d2808816957bad50526feb4964e173eae9787ae7",
+          "docs/competitors/TASK-PACK.md",
+          "docs/competitors/task-pack.json",
+          "docs/competitors/EVIDENCE-LEDGER.md",
+          "docs/competitors/ledger.json",
+          "docs/competitors/WORKFLOW-COMPARISON.md",
+          "docs/competitors/EVIDENCE-GAP-REGISTER.md",
+          "docs/competitors/gap-register.json",
+          "docs/competitors/BLOCKED-TASKS.md",
+          "docs/competitors/captures/",
+          "docs/human-validation/STUDY-PROTOCOL.md",
+          "docs/human-validation/CONSENT-AND-RESEARCH-MATERIALS.md",
+          "docs/human-validation/package-manifest.json",
+          "docs/work-orders/reports/W3-014-completion-report.md"
+        ]
+      }
     }
   ],
   "gates": [
@@ -223,6 +270,13 @@
       "recorded_by": "resident TL (Z.ai Code session web-6ddc0a59)",
       "type": "BLOCKER_RESOLUTION_VERIFICATION",
       "detail": "Operator progress review (10 Oct) received and confirmed accurate; the review correctly classifies the blocker entry as honest non-progress. Post-review verification by this session: (a) the platform turn-generation gate has REOPENED (this session generates turns normally); (b) the three lane chat vehicles named in the blocker record (e222f18a / 0a7bbbce / 0631123a) NO LONGER EXIST — absent from the full 75-chat account list, deleted at some point after the blocker record; they were dispatch vehicles for work orders ALREADY ACCEPTED at 18:10Z (merged 9b785b4 / 86d8d93 / d531ea1 via TL-executed local-chain recovery + the W3-014 subagent), so their disappearance leaves zero outstanding obligations and zero duplicate-work risk; (c) zero orphan workspaces (all released by TTL ~22:42-22:49Z per the blocker record, confirmed via the workspaces API); (d) the peak_retry kick daemons are no longer running (budgets exhausted); the standing replay ring (supervisor/watcher/custodian/stall_recovery/frame_guard/login_keeper) is healthy and idle — infrastructure only; (e) repository clean at cf8a040; issue tracker at 0 open / 0 PRs. CONCLUSION: the blocker record's open loop (lanes 'in-flight') is closed as MOOT — superseded vehicles for already-accepted work. No work-order status changes; no state changes; the frontier remains exclusively the three operator-owned decisions (rendered commerce UI / human-research authorization / production deployment)."
+    },
+    {
+      "event": "ACCEPTANCES — W2-010 + W3-014 battery-verified and accepted by resident TL",
+      "recorded_at": "2026-10-10T01:50:00Z",
+      "recorded_by": "resident TL (Z.ai Code session web-a95c8999)",
+      "type": "ACCEPTANCE",
+      "detail": "Both harvested re-executed deliveries (base 6b566b2) integrated on dedicated branches and battery-verified this session. W2-010 @3db78e3a5870244e5cc9c847a143a946c113b061: install OK; experience 95 files/689 tests 689 passed 0 failed (+63 additive vs base); oxlint 103w/0e; tsc -b exit 0; architecture OK 0 violations. W3-014 @d2808816957bad50526feb4964e173eae9787ae7: experience 88 files/626 tests 626 passed 0 failed (docs-only, zero code files touched); oxlint 99w/0e; tsc -b exit 0; architecture OK 0 violations. Evidence inspected (acceptance recorded from evidence, not worker status): W2-010 — 11 fault families fixture-labeled, oracle+results committed (45/45 scenarios, 125/125 checks, drift 0, 7/7 invariants; every record executionLabel \"fixture-only\", browserRuns DEFERRED to W1-010 runner). W3-014 — ledger A0/B9/C46/D9 (29 incumbents, 64 observations, all 64 quotes TL-re-verified verbatim against the session captures), gap register, blocked-tasks register, PREPARE-ONLY study package (7 gates FALSE, zero execution, zero PII). OPERATOR DECISIONS QUEUED (verbatim from BLOCKED-TASKS.md, surfaced for the operator): C-1 Class-B treatment ruling — the 9 B-class observations are content-extraction views with interaction NOT exercised; if the TL/operator rules B requires exercised interaction, all 9 reclassify to C (one field per observation in ledger.json). NOTE: the standing 18:10Z TL ruling already answered this: \"B-class STANDS (public-UI content observation with per-record no-interaction limitation)\"; the re-execution re-queues it only because it re-executed from base 6b566b2 which predates that ruling. C-2 Human-validation study execution — real_human_research_authorized=false; requires operator authorization + informed-consent/privacy/legal approvals per protocol §0 gates (maps to frontier OPERATOR-DECISION-HUMAN-RESEARCH-AUTHORIZATION). D-1 UNiCOM rendered-UI comparison side + TP-19 discoverability execution — owner W1-010 rendered-browser lane, Gate-0/G1 (maps to frontier OPERATOR-DECISION-RENDERED-COMMERCE-UI). D-2 Resilience/failure-scenario evidence formats — owner W2-010 lane; browser-labeled evidence awaits the rendered-UI precondition. DISCLOSURE (dual acceptance, recorded honestly): these are re-executions (W2-010: 45 scenarios vs the accepted 63; W3-014: 29 incumbents/64 observations vs the accepted 28/73) harvested from the blocker-window redispatch; both WOs were already ACCEPTED at 2026-10-09T18:10:00Z (merged 86d8d93 / d531ea1), and the 01:10Z blocker-resolution verification ruled the lane vehicles moot assuming zero surviving duplicate work — the harvested patches did survive on disk and are hereby reviewed, battery-verified, and accepted as a superseding evidence refresh, recorded additively with the original acceptance preserved (no history overwritten). Gate statuses re-verified and honestly unchanged: G0-G4 remain COMPLETE on the merged evidence (G2 stands on the merged 63/63 matrix; the re-executed 45/45 fixture matrix is consistent additional fixture-level evidence; browser-labeled reruns remain deferred to the rendered-UI operator decision)."
     }
   ],
   "merged_lineage_battery": {
