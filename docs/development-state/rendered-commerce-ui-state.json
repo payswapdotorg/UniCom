@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0",
+  "repository": "payswapdotorg/UniCom",
+  "program": "Rendered UNiCOM Commerce UI Implementation",
+  "status": "AWAITING_OPERATOR_AUTHORIZATION",
+  "tracking_issue": "https://github.com/payswapdotorg/UniCom/issues/10",
+  "tl_handoff": "docs/FINAL-TL-HANDOFF-RENDERED-COMMERCE-UI-2026-10-10.md",
+  "prior_phases": {
+    "v3": {
+      "status": "PROGRAM_COMPLETE_CERTIFIED",
+      "immutable_state": "docs/development-state/v3-simulation-state.json",
+      "certification": "docs/simulations/results/final/PROGRAM-CERTIFICATION.md"
+    },
+    "post_v3": {
+      "status": "PROGRAM_COMPLETE_PENDING_OPERATOR_DECISIONS",
+      "immutable_state": "docs/development-state/post-v3-validation-state.json",
+      "final_report": "docs/simulations/post-v3/FINAL-REPORT.md"
+    }
+  },
+  "architecture": {
+    "baseline": "1.1-frozen-2026-10-05",
+    "architecture_changes_authorized": false,
+    "implementation_within_frozen_architecture_authorized": false,
+    "production_deployment_authorized": false,
+    "production_mutation_allowed": false,
+    "human_research_authorized": false
+  },
+  "policy": {
+    "progress_authority": "docs/development-state/rendered-commerce-ui-state.json",
+    "v3_and_post_v3_records_immutable": true,
+    "maximum_workers": 3,
+    "tl_is_worker": false,
+    "dispatch_allowed": false,
+    "dispatch_gate": "explicit operator approval to build the rendered commerce UI within the frozen architecture",
+    "product_ui_must_be_real_rendered_react": true,
+    "fixture_success_is_not_browser_success": true,
+    "synthetic_demo_data_allowed_only_when_labeled": true,
+    "no_live_commerce_side_effects": true
+  },
+  "work_orders": [
+    {
+      "id": "W1-011",
+      "path": "docs/work-orders/W1-011.md",
+      "lane": "rendered-host-ui-navigation-and-shared-contract",
+      "status": "READY",
+      "owner": null,
+      "branch": null,
+      "commit": null,
+      "accepted_at": null
+    },
+    {
+      "id": "W2-012",
+      "path": "docs/work-orders/W2-012.md",
+      "lane": "buyer-opportunity-group-and-peer-commerce-ui",
+      "status": "READY",
+      "owner": null,
+      "branch": null,
+      "commit": null,
+      "accepted_at": null
+    },
+    {
+      "id": "W3-015",
+      "path": "docs/work-orders/W3-015.md",
+      "lane": "merchant-procurement-physical-commerce-and-trust-ui",
+      "status": "READY",
+      "owner": null,
+      "branch": null,
+      "commit": null,
+      "accepted_at": null
+    }
+  ],
+  "operator_decisions": [
+    {
+      "id": "rendered_ui_implementation",
+      "status": "PENDING",
+      "required": true,
+      "detail": "Authorize/decline a rendered commerce UI implementation within the frozen architecture. Handoff creation is not approval."
+    },
+    {
+      "id": "production_deployment",
+      "status": "NOT_AUTHORIZED",
+      "required": false,
+      "detail": "Separate future operator decision; no production deployment or live commerce mutations."
+    },
+    {
+      "id": "human_research",
+      "status": "NOT_AUTHORIZED",
+      "required": false,
+      "detail": "Separate study approval/consent/privacy/ethics gates; preparation-only artifacts remain separate."
+    }
+  ],
+  "current_findings": {
+    "reachable_web_surface": "ZCode account connect wall / shared conversation surface",
+    "rendered_commerce_ui": "ABSENT",
+    "gui_journey_families": 19,
+    "post_v3_browser_attempts": 57,
+    "post_v3_absent_attempts": 57,
+    "missing_prerequisite": "Rendered host UI connecting existing experience-plane view contracts to the reachable web app"
+  },
+  "acceptance_gates": [
+    {
+      "id": "AUTH",
+      "name": "operator authorization recorded",
+      "status": "PENDING"
+    },
+    {
+      "id": "MAP",
+      "name": "surface-contract-runtime-component map accepted",
+      "status": "PENDING"
+    },
+    {
+      "id": "HOST",
+      "name": "common host, navigation, accessibility and role switching rendered",
+      "status": "PENDING"
+    },
+    {
+      "id": "BUYER",
+      "name": "buyer/peer-commerce journeys rendered",
+      "status": "PENDING"
+    },
+    {
+      "id": "MERCHANT",
+      "name": "merchant/procurement/physical/trust journeys rendered",
+      "status": "PENDING"
+    },
+    {
+      "id": "BROWSER",
+      "name": "real-browser discovery and critical journey execution evidence",
+      "status": "PENDING"
+    },
+    {
+      "id": "SAFETY",
+      "name": "resilience/authority/idempotency and canonical truth invariants verified",
+      "status": "PENDING"
+    },
+    {
+      "id": "TL_ACCEPT",
+      "name": "merged-lineage independent TL acceptance and final report",
+      "status": "PENDING"
+    }
+  ],
+  "active_work_orders": [],
+  "frontier": [
+    "AUTH"
+  ],
+  "last_reviewed_at": "2026-10-10"
+}
