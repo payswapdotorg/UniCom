@@ -102,8 +102,15 @@ export function buildJourneyStepsB(walkState, { outDir }) {
         await gate.waitFor({ timeout: 15000 });
         const gateText = (await gate.textContent()) ?? "";
         await page.getByRole("button", { name: "Consent to my leg", exact: true }).click({ timeout: 15000 });
-        await page.locator('[data-testid="cm-tradecycle-leg-1"] .cm-chip-ok', { hasText: "CONSENTED" }).waitFor({ timeout: 15000 });
-        await page.getByRole("button", { name: "Ferry Road Press refuses — stop the cycle" }).click({ timeout: 15000 });
+        // FIX (run-1 diagnosis): Harbor Lane's OWN leg is legIndex 2 → testid
+        // cm-tradecycle-leg-2 (the cycle's legs are 0-indexed: leg 1 is
+        // Northlight→Two Harbors and stays UNCONSENTED). Run 1 waited on leg-1's
+        // chip-ok and timed out.
+        await page.locator('[data-testid="cm-tradecycle-leg-2"] .cm-chip-ok', { hasText: "CONSENTED" }).waitFor({ timeout: 15000 });
+        // FIX (run-1 diagnosis): "Ferry Road Press" is the RE-PLAN alternative —
+        // not a participant of the initial Cycle A. The refuse buttons on the
+        // initial cycle belong to its other givers (Two Harbors / Northlight).
+        await page.getByRole("button", { name: "Northlight Atelier refuses — stop the cycle" }).click({ timeout: 15000 });
         const stopped = page.locator('[data-testid="cm-tradecycle-stopped"]');
         await stopped.waitFor({ timeout: 15000 });
         const stoppedText = (await stopped.textContent()) ?? "";
@@ -112,7 +119,7 @@ export function buildJourneyStepsB(walkState, { outDir }) {
           label: "consent to own leg through the gate, then a refusal path stops the cycle",
           checks: [
             check("gate: only this leg is authorized by consent", gateText.includes("Consenting authorizes ONLY this leg"), "gate terms"),
-            check("own leg shows CONSENTED", true, "leg 1 chip CONSENTED"),
+            check("own leg shows CONSENTED", true, "leg 3 chip CONSENTED (legIndex 2 — Harbor Lane's giving leg)"),
             check("refusal stops the cycle honestly", stoppedText.includes("Cycle stopped") && stoppedText.includes("No other leg was committed"), "stopped panel"),
           ],
         };
@@ -179,7 +186,10 @@ export function buildJourneyStepsB(walkState, { outDir }) {
       const interaction = await attemptInteraction(async () => {
         await confirmableAction(page, "Receive partial against po-demo-3 (scripted)", "Receive now");
         const partial = await waitBodyText(page, "PARTIALLY_RECEIVED", 25000);
-        const poRow = await page.locator(".cm-state-item", { hasText: "po-demo-3" }).first().textContent();
+        // FIX (run-1 diagnosis): the PO rows render as .cm-journey-item (not
+        // .cm-state-item) — run 1's locator never matched and textContent hit
+        // its 30s default timeout.
+        const poRow = await page.locator(".cm-journey-item", { hasText: "po-demo-3" }).first().textContent();
         return {
           outcome: partial && (poRow ?? "").includes("expected") ? "PASS" : "FAIL",
           label: "Receive partial against po-demo-3 (partial receiving is a first-class state)",

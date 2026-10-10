@@ -107,7 +107,13 @@ export function buildJourneyStepsC(walkState, { outDir }) {
         await confirmableAction(page, "Uphold the wrong-item dispute (RESOLVE ACCEPTED)", "Uphold the claim");
         const upheld = await waitBodyText(page, "RESOLVED_ACCEPTED", 25000);
         await confirmableAction(page, "Refund the upheld wrong-item unit (USD 24.00, within captured)", "Execute the controlled refund");
-        const refunded = await waitBodyText(page, "Refunds", 20000);
+        // FIX (run-1 diagnosis): run 1 polled for "Refunds" (capital R) but the
+        // module renders the panel as "Controlled refunds (bounded by captured
+        // funds)" — the refund itself EXECUTED (run-1 body evidence: "captured
+        // USD 48.00 · refunded USD 24.00"); only the needle was wrong. The
+        // post-state that proves the refund is the refunded-total flip
+        // USD 0.00 → USD 24.00 on the case-1 payment.
+        const refunded = await waitBodyText(page, "refunded USD 24.00", 20000);
         await confirmableAction(page, "Try a refund beyond the captured total (USD 9,999.00)", "Attempt the out-of-bounds refund");
         const refused = await waitBodyText(page, "EXCEEDS_CAPTURED", 25000);
         return {
@@ -117,7 +123,7 @@ export function buildJourneyStepsC(walkState, { outDir }) {
             check("evidence submitted", evidenceSubmitted, "EVIDENCE_SUBMITTED"),
             check("identical envelope replayed with NO double effect", duplicate, "DUPLICATE — original receipt returned"),
             check("dispute upheld", upheld, "RESOLVED_ACCEPTED"),
-            check("controlled refund executed within captured", refunded, "refund recorded"),
+            check("controlled refund executed within captured", refunded, "refunded total flipped to USD 24.00 (case-1 payment)"),
             check("out-of-bounds refund refused", refused, "EXCEEDS_CAPTURED refusal"),
           ],
         };

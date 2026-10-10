@@ -8,7 +8,7 @@
 
 import { EXPLORE_GROUP_TITLES } from "./commerce-evidence-lib.mjs";
 import { journeyRows, snapshot, waitPainted } from "./commerce-evidence-capture.mjs";
-import { attemptInteraction, check, waitModuleFrame } from "./merged-gate-lib.mjs";
+import { attemptInteraction, check, waitBodyText, waitModuleFrame } from "./merged-gate-lib.mjs";
 
 export function buildDiscoverySteps(walkState, { baseUrl, outDir }) {
   return [
@@ -150,7 +150,11 @@ export function buildDiscoverySteps(walkState, { baseUrl, outDir }) {
         const interaction = await attemptInteraction(async () => {
           await page.locator('[data-testid="cm-explore-J1"]').getByRole("button", { name: "Open", exact: true }).click({ timeout: 15000 });
           await waitModuleFrame(page, "buyer-intent");
-          const landed = await page.evaluate(() => document.body.innerText.includes("J1 · Intent canvas"));
+          // FIX (run-1 diagnosis): the module frame header renders immediately
+          // while the module component loads LAZILY (run-1 03b body evidence
+          // showed "Loading the commerce module…") — a single immediate
+          // evaluate raced the chunk load. Poll for the module's own heading.
+          const landed = await waitBodyText(page, "J1 · Intent canvas", 45000);
           const cardNavShot = await snapshot(page, cap, outDir, "03b-explore-card-navigation");
           return {
             outcome: landed ? "PASS" : "FAIL",

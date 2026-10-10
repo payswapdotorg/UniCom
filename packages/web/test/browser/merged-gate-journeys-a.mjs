@@ -15,7 +15,13 @@ import {
 const surfaceCheck = (body, name, needle, detail) => check(name, body.includes(needle), detail ?? needle);
 
 export function buildJourneyStepsA(walkState, { outDir }) {
-  const step = (journeyId, moduleId, shotBase, fn) => ({
+  // FIX (run-1 diagnosis): the factory previously took a vestigial `shotBase`
+  // 4th parameter while every call site passed (journeyId, moduleId, fn) — so
+  // `fn` received undefined and each J1–J7 step threw "TypeError: fn is not a
+  // function" BEFORE any navigation (run-1 BLOCKED×7, error shots 99-*). The
+  // shot base is already hardcoded inside each step body; the parameter is
+  // gone. Journeys B/C use this same 3-arg shape — A now matches.
+  const step = (journeyId, moduleId, fn) => ({
     id: `journey-${journeyId}`,
     kind: "journey",
     journeyId,
