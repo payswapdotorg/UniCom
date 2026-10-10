@@ -54,7 +54,18 @@ function buildRegistry(): CommerceModuleRegistry {
   const seenModuleIds = new Set<string>();
   const files = Object.keys(moduleFileExports).sort();
   for (const file of files) {
-    const parsed = parseCommerceModule(moduleFileExports[file]);
+    // import.meta.glob({ eager: true }) maps file → module NAMESPACE; the
+    // commerce module contract is the DEFAULT export. Unwrap it (a plain
+    // module object never carries a `default` key, so this is unambiguous).
+    const fileExport = moduleFileExports[file];
+    const value: unknown =
+      typeof fileExport === "object" &&
+      fileExport !== null &&
+      "default" in fileExport &&
+      Object.keys(fileExport).length <= 2
+        ? (fileExport as { default: unknown }).default
+        : fileExport;
+    const parsed = parseCommerceModule(value);
     if (!parsed.ok) {
       warnings.push({ source: file, message: `invalid module export: ${parsed.error}` });
       continue;
