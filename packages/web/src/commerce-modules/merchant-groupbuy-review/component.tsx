@@ -2,90 +2,203 @@
  * merchant-groupbuy-review component — the J5 merchant-side surface (lazily
  * loaded).
  *
- * The queue of incoming latent-demand group-buy proposals renders from
- * committed DEMO fixtures (deterministic, resettable). Every merchant
- * decision — accept, counter, reject — is an EXPLICIT act: the full terms,
- * the threshold state and the no-binding-effect statement are shown BEFORE
- * anything commits, and the decision itself lands in LOCAL DEMO STATE only
- * (the commerce kernel has no group-buy aggregate yet; formation happens on
- * the buyer side and is never simulated here). Below-threshold pools are
- * held: they can be countered or accepted into threshold MONITORING, never
- * auto-committed. PENDING, ACCEPTED (monitoring), COUNTERED (awaiting buyer
- * response), REJECTED (with reason) and EXPIRED are all honest states.
+ * KERNEL-WIRED (W3-016): the queue renders REAL W1-012 GroupBuy formation
+ * aggregates (see seed.ts) and every merchant decision — accept, counter,
+ * reject, and the explicit formation of a HELD pool — runs as a REAL
+ * transition of that kernel machine through the public `@unicom/commerce`
+ * entrypoint. Threshold MONITORING, HELD pools and FORMED final terms
+ * render from kernel truth; participant rosters and consent terms render
+ * from the aggregate's own interest records. The former "local demo state /
+ * not the kernel journal" statements are superseded: decisions are
+ * kernel-journaled facts (revisioned, deterministic).
+ *
+ * The desk remains a REVIEW surface: it never overrides buyer consent
+ * (only consenting studios are ever in a roster, withdrawals are honored
+ * any time before formation, buyer-side events are never simulated here),
+ * it enrolls nobody, charges nobody, reserves no stock, and no commitment,
+ * purchase, payment or order is ever created — commitments exist only on
+ * the commerce planes, after formation.
  */
 
 import type { JSX } from "react";
 
 import { useState } from "react";
-import { multiplyMoneyByInteger, subtractMoney, unwrap } from "@unicom/commerce";
+import {
+  decideGroupBuyProposal,
+  formGroupBuy,
+  groupBuyPoolValue,
+  groupBuyThresholdMet,
+  poolParticipantCountOf,
+  poolUnitsOf,
+  subtractMoney,
+  unwrap,
+} from "@unicom/commerce";
+import type {
+  GroupBuyCounterTerms,
+  GroupBuyDecisionError,
+  GroupBuyFormationError,
+} from "@unicom/commerce";
 import type { CommerceModuleProps } from "../../commerce-host/contract/index.js";
 import { demoMoney, fmtMoney } from "../merchant-shared/demo-runtime.js";
+import { DemoTag } from "../merchant-shared/ui.js";
 import {
-  ConfirmableAction,
-  DemoTag,
-  PermissionBoundary,
-} from "../merchant-shared/ui.js";
-import {
-  DEMO_PROPOSALS,
   GROUPBUY_REVIEW_FIXTURES_ID,
+  GROUPBUY_REVIEW_NOW,
   GROUPBUY_REVIEW_NOW_LABEL,
-  REJECT_REASONS,
   clockLabel,
-  poolUnitsOf,
-  thresholdMet,
-  thresholdSummary,
 } from "./fixtures.js";
-import type { DemoCounterOption, DemoProposal } from "./fixtures.js";
+import type { DemoCounterOption } from "./fixtures.js";
+import {
+  seedGroupBuyReview,
+  thresholdSummaryOf,
+} from "./seed.js";
+import type { SeededPool } from "./seed.js";
+import {
+  HeldFormationPanel,
+  PendingDecisions,
+  PoolHeader,
+  PoolRoster,
+  PoolStateDetail,
+  PoolTermsPanel,
+  PoolThresholdRow,
+} from "./component-parts.js";
+import type { PoolView } from "./component-parts.js";
 
-/** One recorded decision (LOCAL DEMO STATE — not the kernel journal). */
+/** One kernel transition recorded by this desk (kind, states, revision). */
 interface DecisionLogEntry {
-  readonly kind: "ACCEPT" | "COUNTER" | "REJECT";
-  readonly proposalId: string;
+  readonly kind: "ACCEPT" | "COUNTER" | "REJECT" | "FORM";
+  readonly poolId: string;
+  readonly from: string;
+  readonly to: string;
+  readonly revision: number;
   readonly detail: string;
   readonly at: string;
 }
 
-const STATUS_CHIP: Readonly<Record<DemoProposal["status"], { readonly className: string; readonly label: string }>> = {
-  PENDING: { className: "cm-chip cm-chip-warn", label: "PENDING review" },
-  ACCEPTED: { className: "cm-chip cm-chip-ok", label: "ACCEPTED — threshold monitoring" },
-  COUNTERED: { className: "cm-chip cm-chip-unknown", label: "COUNTERED — awaiting buyer response" },
-  REJECTED: { className: "cm-chip cm-chip-warn", label: "REJECTED — with reason" },
-  EXPIRED: { className: "cm-chip cm-chip-muted", label: "EXPIRED — window closed" },
-};
+/** A kernel refusal surfaced honestly (nothing was applied). */
+interface MachineRefusal {
+  readonly poolId: string;
+  readonly code: string;
+  readonly detail: string;
+}
 
-function money(minor: string): string {
-  return fmtMoney(demoMoney(minor));
+function refusalDetail(error: GroupBuyDecisionError | GroupBuyFormationError): string {
+  switch (error.code) {
+    case "INVALID_GROUP_BUY_TRANSITION":
+      return `the formation machine refuses ${error.trigger} from ${error.from} — the transition does not exist in the lifecycle table; nothing was applied`;
+    case "COUNTER_TERMS_REQUIRED":
+      return "the formation machine requires counter terms for a COUNTER — nothing was applied";
+    case "COUNTER_TERMS_NOT_ALLOWED":
+      return `the formation machine does not accept replacement terms on ${error.trigger} — the terms on record stand; nothing was applied`;
+    case "REJECTION_REASON_REQUIRED":
+      return "the formation machine requires a recorded reason for a REJECT — nothing was applied";
+    case "CURRENCY_MISMATCH":
+      return `currency mismatch (${error.left} vs ${error.right}) — nothing was applied`;
+    case "NOT_HELD":
+      return `formation runs only from HELD (this pool is ${error.state}) — nothing was applied`;
+    case "POOL_BELOW_THRESHOLD":
+      return `the live pool no longer meets both thresholds (${error.participants} studios / ${error.units} boxes) — nothing was applied`;
+    default:
+      return "the formation machine refused the transition — nothing was applied";
+  }
 }
 
 export default function MerchantGroupbuyReviewComponent({ host }: CommerceModuleProps): JSX.Element {
-  const [proposals, setProposals] = useState<readonly DemoProposal[]>(DEMO_PROPOSALS);
+  const [pools, setPools] = useState<readonly SeededPool[]>(() => seedGroupBuyReview());
   const [decisions, setDecisions] = useState<readonly DecisionLogEntry[]>([]);
   const [rejectReasons, setRejectReasons] = useState<Readonly<Record<string, string>>>({});
+  const [refusal, setRefusal] = useState<MachineRefusal | null>(null);
 
   const reset = (): void => {
-    setProposals(DEMO_PROPOSALS);
+    setPools(seedGroupBuyReview());
     setDecisions([]);
     setRejectReasons({});
+    setRefusal(null);
   };
 
-  const recordDecision = (
-    proposalId: string,
+  /** Apply a kernel outcome: replace the pool's aggregate on success. */
+  const applyDecision = (
+    poolId: string,
     kind: DecisionLogEntry["kind"],
     detail: string,
-    patch: Partial<DemoProposal>,
+    outcome: { readonly ok: true; readonly value: SeededPool["aggregate"] } | { readonly ok: false; readonly error: GroupBuyDecisionError | GroupBuyFormationError },
   ): void => {
-    setProposals((current) =>
-      current.map((proposal) =>
-        proposal.proposalId === proposalId ? { ...proposal, ...patch } : proposal,
+    if (!outcome.ok) {
+      setRefusal({ poolId, code: outcome.error.code, detail: refusalDetail(outcome.error) });
+      return;
+    }
+    setRefusal(null);
+    const pool = pools.find((entry) => entry.aggregate.groupBuyId === poolId);
+    const previousState = pool?.aggregate.state ?? "?";
+    setPools((current) =>
+      current.map((entry) =>
+        entry.aggregate.groupBuyId === poolId ? { ...entry, aggregate: outcome.value } : entry,
       ),
     );
     setDecisions((current) => [
       ...current,
-      { kind, proposalId, detail, at: GROUPBUY_REVIEW_NOW_LABEL },
+      {
+        kind,
+        poolId,
+        from: previousState,
+        to: outcome.value.state,
+        revision: outcome.value.revision,
+        detail,
+        at: GROUPBUY_REVIEW_NOW_LABEL,
+      },
     ]);
   };
 
-  const openCount = proposals.filter((proposal) => proposal.status === "PENDING").length;
+  const accept = (poolId: string, met: boolean): void => {
+    const pool = pools.find((entry) => entry.aggregate.groupBuyId === poolId);
+    if (!pool) return;
+    applyDecision(
+      poolId,
+      "ACCEPT",
+      `at ${fmtMoney(pool.aggregate.terms.proposedUnitPrice)} / box — ${met ? "threshold met" : "below threshold, monitoring"}`,
+      decideGroupBuyProposal(pool.aggregate, "ACCEPT"),
+    );
+  };
+
+  const counter = (poolId: string, option: DemoCounterOption): void => {
+    const pool = pools.find((entry) => entry.aggregate.groupBuyId === poolId);
+    if (!pool) return;
+    const counterTerms: GroupBuyCounterTerms = {
+      unitPrice: demoMoney(option.unitPriceMinor),
+      minimumUnits: option.minimumBoxes,
+      note: option.note,
+    };
+    applyDecision(
+      poolId,
+      "COUNTER",
+      `counter ${fmtMoney(counterTerms.unitPrice)} / box (min ${counterTerms.minimumUnits})`,
+      decideGroupBuyProposal(pool.aggregate, "COUNTER", { counterTerms }),
+    );
+  };
+
+  const reject = (poolId: string, reason: string): void => {
+    const pool = pools.find((entry) => entry.aggregate.groupBuyId === poolId);
+    if (!pool) return;
+    applyDecision(
+      poolId,
+      "REJECT",
+      `reason: ${reason}`,
+      decideGroupBuyProposal(pool.aggregate, "REJECT", { rejectionReason: reason }),
+    );
+  };
+
+  const form = (poolId: string): void => {
+    const pool = pools.find((entry) => entry.aggregate.groupBuyId === poolId);
+    if (!pool) return;
+    applyDecision(
+      poolId,
+      "FORM",
+      `final terms at ${fmtMoney(pool.aggregate.terms.proposedUnitPrice)} / box — pool value ${fmtMoney(groupBuyPoolValue(pool.aggregate.terms.proposedUnitPrice, pool.interests))}`,
+      formGroupBuy(pool.aggregate, pool.interests, pool.aggregate.terms.proposedUnitPrice, GROUPBUY_REVIEW_NOW),
+    );
+  };
+
+  const openCount = pools.filter((pool) => pool.aggregate.state === "PENDING").length;
 
   return (
     <div className="cm-stack">
@@ -96,14 +209,19 @@ export default function MerchantGroupbuyReviewComponent({ host }: CommerceModule
         </div>
         <p className="cm-card-sub">
           Buyer pools propose group deals for things you don&apos;t currently offer as a group
-          buy — this is your review desk (fixtures{" "}
+          buy — this is your review desk, wired to the REAL GroupBuy formation machine of the
+          commerce kernel (W1-012 seam, through <code>@unicom/commerce</code>; fixtures{" "}
           <code>{GROUPBUY_REVIEW_FIXTURES_ID}</code>, demo clock {GROUPBUY_REVIEW_NOW_LABEL}).
-          Participant counts vs thresholds, proposed terms and deadlines are visible before any
-          decision; accept, counter and reject each show the full terms before they commit. Every
-          decision lands in LOCAL DEMO STATE ONLY — no binding effect: it binds neither you nor
-          the participants, reserves no stock, moves no money and enrolls nobody. The buyer side
-          of this same synthetic scenario space is W2-012&apos;s surface (buyer-groupbuy,{" "}
-          <code>w2ld-</code> fixtures) — mirrored read-only for coherence, never edited here.
+          Participant counts vs thresholds, proposed terms, consent terms and deadlines render
+          from the kernel aggregate before any decision; accept, counter, reject and the
+          explicit formation of a HELD pool each run as a real, revisioned kernel transition —
+          kernel-journaled facts, no longer local demo state. The desk remains a review surface:
+          it never overrides buyer consent, enrolls nobody, charges nobody, reserves no stock,
+          and creates no commitment — commitments exist only on the commerce planes. The seeded
+          history (interests, the recorded counter, the withdrawal in w3gr-prop-8) is a
+          deterministic fixture script; the desk itself never simulates a buyer. The buyer side
+          of this same synthetic scenario space is W2&apos;s surface (buyer-groupbuy,{" "}
+          <code>w2ld-</code> fixtures) — mirrored read-only, never edited here.
         </p>
         <div className="cm-row">
           <button type="button" className="cm-button" onClick={reset}>
@@ -118,233 +236,76 @@ export default function MerchantGroupbuyReviewComponent({ host }: CommerceModule
       <section aria-label="Incoming proposals">
         <h2 className="cm-section-title">Incoming latent-demand proposals ({openCount} awaiting review)</h2>
         <div className="cm-stack">
-          {proposals.map((proposal) => {
-            const units = poolUnitsOf(proposal);
-            const met = thresholdMet(proposal);
-            const summary = thresholdSummary(proposal);
-            const price = money(proposal.unitPriceMinor);
-            const list = money(proposal.listPriceMinor);
-            const saving = fmtMoney(
-              unwrap(
-                subtractMoney(demoMoney(proposal.listPriceMinor), demoMoney(proposal.unitPriceMinor)),
+          {pools.map((pool) => {
+            const aggregate = pool.aggregate;
+            const poolId = String(aggregate.groupBuyId);
+            const units = poolUnitsOf(pool.interests);
+            const studios = poolParticipantCountOf(pool.interests);
+            const met = groupBuyThresholdMet(aggregate.terms.threshold, pool.interests);
+            const view: PoolView = {
+              poolId,
+              aggregate,
+              interests: pool.interests,
+              units,
+              studios,
+              met,
+              summary: thresholdSummaryOf(aggregate, pool.interests),
+              price: fmtMoney(aggregate.terms.proposedUnitPrice),
+              list: fmtMoney(aggregate.terms.listUnitPrice),
+              saving: fmtMoney(
+                unwrap(subtractMoney(aggregate.terms.listUnitPrice, aggregate.terms.proposedUnitPrice)),
               ),
-            );
-            const poolValue = fmtMoney(multiplyMoneyByInteger(demoMoney(proposal.unitPriceMinor), units));
-            const deadline = clockLabel(proposal.deadlineIso);
-            const chip = STATUS_CHIP[proposal.status];
-            const rejectReason = rejectReasons[proposal.proposalId];
+              poolValue: fmtMoney(groupBuyPoolValue(aggregate.terms.proposedUnitPrice, pool.interests)),
+              deadline: clockLabel(aggregate.terms.windowClosesAt),
+            };
             return (
-              <div key={proposal.proposalId} className="cm-state-item" data-proposal-id={proposal.proposalId}>
-                <div className="cm-row">
-                  <span className="cm-state-item-label">{proposal.proposalId}</span>
-                  <span className={chip.className} data-status={proposal.status}>{chip.label}</span>
-                  <span className="cm-env-note">on your desk since {proposal.openedAtLabel}</span>
-                  <DemoTag />
-                </div>
-
-                <div className="cm-stack">
-                  <div className="cm-journey-item">
-                    <span className="cm-journey-name">Product</span>
-                    <span className="cm-journey-summary">{proposal.productTitle} — {proposal.productSkuId}</span>
-                  </div>
-                  <div className="cm-journey-item">
-                    <span className="cm-journey-name">Proposed group price</span>
-                    <span className="cm-journey-summary">{price} / box (vs {list} list — buyers save {saving} / box)</span>
-                  </div>
-                  <div className="cm-journey-item">
-                    <span className="cm-journey-name">Pool</span>
-                    <span className="cm-journey-summary">{units} boxes from {proposal.participants.length} consenting studios</span>
-                  </div>
-                  <div className="cm-journey-item">
-                    <span className="cm-journey-name">Pool value at the proposed price</span>
-                    <span className="cm-journey-summary">{poolValue} — {units} × {price}, exact math via the commerce runtime</span>
-                  </div>
-                  <div className="cm-journey-item">
-                    <span className="cm-journey-name">Threshold</span>
-                    <span className="cm-journey-summary">{summary}</span>
-                  </div>
-                  <div className="cm-journey-item">
-                    <span className="cm-journey-name">Pool closes</span>
-                    <span className="cm-journey-summary">{deadline} (demo clock)</span>
-                  </div>
-                </div>
-
-                <div className="cm-row">
-                  {met ? (
-                    <span className="cm-chip cm-chip-ok">threshold met</span>
-                  ) : (
-                    <span className="cm-chip cm-chip-warn">below threshold — held in review</span>
-                  )}
-                  {!met ? (
-                    <span className="cm-env-note">
-                      a below-threshold pool can be countered or accepted into threshold MONITORING — never auto-committed
-                    </span>
-                  ) : null}
-                </div>
-
-                <div className="cm-stack" aria-label="Consenting participants">
-                  {proposal.participants.map((participant) => (
-                    <div key={participant.name} className="cm-row">
-                      <span className="cm-state-item-label">{participant.name}</span>
-                      <span className="cm-chip cm-chip-ok">consented · {participant.units} boxes</span>
-                      <DemoTag />
-                    </div>
-                  ))}
-                  <p className="cm-state-item-detail">
-                    Only consenting studios are listed — enrollment without consent never happens
-                    {proposal.excludedStudio
-                      ? ` (${proposal.excludedStudio} declined to join this pool and was excluded when it formed)`
-                      : ""}
-                    .
-                  </p>
-                </div>
-
-                {proposal.mirrorNote ? (
-                  <p className="cm-state-item-detail">{proposal.mirrorNote}</p>
+              <div key={poolId} className="cm-state-item" data-proposal-id={poolId}>
+                <PoolHeader view={view} />
+                <PoolTermsPanel view={view} />
+                <PoolThresholdRow view={view} />
+                <PoolRoster view={view} />
+                {aggregate.state === "PENDING" ? (
+                  <PendingDecisions
+                    host={host}
+                    view={view}
+                    rejectReason={rejectReasons[poolId]}
+                    onAccept={() => accept(poolId, met)}
+                    onCounter={(option) => counter(poolId, option)}
+                    onRejectReason={(reason) =>
+                      setRejectReasons((current) => ({ ...current, [poolId]: reason }))
+                    }
+                    onReject={() => reject(poolId, rejectReasons[poolId] ?? "")}
+                  />
                 ) : null}
-
-                {proposal.status === "PENDING" ? (
-                  <PermissionBoundary host={host} permission="groupbuy.review-proposal">
-                    <div className="cm-stack">
-                      <p className="cm-card-sub">
-                        PENDING review — the buyers see &quot;offered, awaiting merchant review&quot;
-                        on their side (W2&apos;s surface). Accept, counter or reject; each is an
-                        explicit decision with the terms shown before it commits.
-                      </p>
-                      <ConfirmableAction
-                        actionLabel={`Accept ${proposal.proposalId} at the proposed terms`}
-                        confirmLabel="Record the acceptance"
-                        statement={`Records your ACCEPTANCE of ${proposal.proposalId} in LOCAL DEMO STATE ONLY — no binding effect: it binds neither you nor the studios, reserves no stock, moves no money and enrolls nobody. Terms: ${units} boxes of ${proposal.productTitle} (${proposal.productSkuId}) at ${price} / box (vs ${list} list), pool closes ${deadline}. The pool is ${met ? `at your threshold (${summary}) — threshold met; monitoring runs while the participants confirm` : `BELOW your threshold (${summary}) — accepting opens threshold MONITORING only; nothing can auto-commit until the pool reaches ${proposal.thresholdStudios} studios / ${proposal.thresholdBoxes} boxes`}. Formation happens only on the buyer side, after every participant confirms a second time — this host never simulates it.`}
-                        onExecute={() => {
-                          recordDecision(
-                            proposal.proposalId,
-                            "ACCEPT",
-                            `at ${price} / box — ${met ? "threshold met" : "below threshold, monitoring"}`,
-                            { status: "ACCEPTED", acceptedAtLabel: GROUPBUY_REVIEW_NOW_LABEL },
-                          );
-                        }}
-                      />
-                      <p className="cm-card-sub">Counter options (each shows the full terms before sending):</p>
-                      {proposal.counterOptions.map((option) => (
-                        <CounterOptionAction
-                          key={option.counterId}
-                          proposal={proposal}
-                          option={option}
-                          onSend={() => {
-                            recordDecision(
-                              proposal.proposalId,
-                              "COUNTER",
-                              `counter ${money(option.unitPriceMinor)} / box (min ${option.minimumBoxes})`,
-                              {
-                                status: "COUNTERED",
-                                counteredWith: option,
-                                counteredAtLabel: GROUPBUY_REVIEW_NOW_LABEL,
-                              },
-                            );
-                          }}
-                        />
-                      ))}
-                      <div className="cm-stack">
-                        <p className="cm-card-sub">
-                          Reject with a recorded reason (the buyers see the reason on their side):
-                        </p>
-                        {REJECT_REASONS.map((reason) => (
-                          <button
-                            key={reason}
-                            type="button"
-                            className="cm-button"
-                            aria-pressed={rejectReason === reason}
-                            onClick={() =>
-                              setRejectReasons((current) => ({
-                                ...current,
-                                [proposal.proposalId]: reason,
-                              }))
-                            }
-                          >
-                            {reason}
-                          </button>
-                        ))}
-                        {rejectReason ? (
-                          <ConfirmableAction
-                            actionLabel={`Reject ${proposal.proposalId} — record the reason`}
-                            confirmLabel="Record the rejection"
-                            statement={`Records your REJECTION of ${proposal.proposalId} with the reason: ${rejectReason} — in LOCAL DEMO STATE ONLY, no binding effect. The proposal ends REJECTED; nothing was ever committed and no participant is affected. The pool can re-propose next round with new terms.`}
-                            onExecute={() => {
-                              recordDecision(
-                                proposal.proposalId,
-                                "REJECT",
-                                `reason: ${rejectReason}`,
-                                {
-                                  status: "REJECTED",
-                                  rejectedReason: rejectReason,
-                                  rejectedAtLabel: GROUPBUY_REVIEW_NOW_LABEL,
-                                },
-                              );
-                            }}
-                          />
-                        ) : null}
-                      </div>
-                    </div>
-                  </PermissionBoundary>
+                {aggregate.state === "HELD" ? (
+                  <HeldFormationPanel host={host} view={view} onForm={() => form(poolId)} />
                 ) : null}
-
-                {proposal.status === "ACCEPTED" ? (
-                  <div className="cm-stack">
-                    <p className="cm-state-item-detail">
-                      Accepted {proposal.acceptedAtLabel} (local demo state). Monitoring: {summary} —{" "}
-                      {met
-                        ? "threshold met; the pool now waits on every participant's second confirmation on the buyer side"
-                        : `still below threshold; monitoring continues and nothing can commit until the pool reaches ${proposal.thresholdStudios} studios / ${proposal.thresholdBoxes} boxes`}
-                      .
-                    </p>
-                    <p className="cm-state-item-detail">
-                      Formation itself is a buyer-side event this host never simulates — no
-                      binding effect, nothing reserved, nobody enrolled.
-                    </p>
-                  </div>
-                ) : null}
-
-                {proposal.status === "COUNTERED" && proposal.counteredWith ? (
-                  <div className="cm-stack">
-                    <p className="cm-state-item-detail">
-                      Counter terms: {money(proposal.counteredWith.unitPriceMinor)} / box,{" "}
-                      {proposal.counteredWith.minimumBoxes}-box minimum (sent{" "}
-                      {proposal.counteredAtLabel}, local demo state).
-                    </p>
-                    <p className="cm-state-item-detail">
-                      Awaiting buyer response — pending is not an error and not an acceptance: the
-                      studios may accept the counter, decline it, or send a new round. No simulated
-                      buyer response exists in this host, and nothing commits while you wait.
-                    </p>
-                  </div>
-                ) : null}
-
-                {proposal.status === "REJECTED" ? (
-                  <p className="cm-state-item-detail">
-                    Rejected {proposal.rejectedAtLabel} (local demo state) — reason:{" "}
-                    {proposal.rejectedReason}. A rejected proposal ends here; nothing was ever
-                    committed. The pool can re-propose next round with new terms.
-                  </p>
-                ) : null}
-
-                {proposal.status === "EXPIRED" ? (
-                  <p className="cm-state-item-detail">
-                    The pool&apos;s window closed {deadline} — before a decision was recorded.
-                    EXPIRED is a time fact, not a failure; nothing was committed, and no decision
-                    is available now. The buyers can open a new round.
-                  </p>
-                ) : null}
+                <PoolStateDetail view={view} />
               </div>
             );
           })}
         </div>
       </section>
 
-      <section aria-label="Decision log">
-        <h2 className="cm-section-title">Decision log (local demo state — not the kernel journal)</h2>
+      {refusal ? (
+        <section className="cm-card" aria-label="Kernel refusal">
+          <div className="cm-row">
+            <h2 className="cm-card-title">The formation machine refused the last action</h2>
+            <span className="cm-chip cm-chip-warn" data-status="REFUSED">{refusal.code}</span>
+          </div>
+          <p className="cm-card-sub">
+            {refusal.poolId}: {refusal.detail}. Refusals are deterministic and total — no partial
+            application ever happens; the aggregate above is unchanged.
+          </p>
+        </section>
+      ) : null}
+
+      <section aria-label="Kernel decision log">
+        <h2 className="cm-section-title">Kernel decision log — formation-machine transitions</h2>
         {decisions.length === 0 ? (
           <p className="cm-card-sub">
-            No decisions recorded yet — the queue above is exactly the committed fixtures.
+            No decisions recorded yet — the queue above is exactly the seeded kernel aggregates
+            (every pool&apos;s history was driven by the same formation machine).
           </p>
         ) : (
           <ul className="cm-perm-list" data-testid="cm-decision-log">
@@ -352,44 +313,34 @@ export default function MerchantGroupbuyReviewComponent({ host }: CommerceModule
               .slice()
               .reverse()
               .map((entry, index) => (
-                <li key={`${entry.proposalId}-${entry.kind}-${index}`}>
-                  <code>{entry.kind}</code> · {entry.proposalId} · {entry.detail} · {entry.at}
+                <li key={`${entry.poolId}-${entry.kind}-${index}`}>
+                  <code>{entry.kind}</code> · {entry.poolId} · {entry.from} → {entry.to} · kernel
+                  revision {entry.revision} · {entry.detail} · {entry.at}
                 </li>
               ))}
           </ul>
         )}
+        <p className="cm-env-note">
+          The W1-012 command-envelope journal (typed GroupBuyCommandPayload handlers) is the
+          kernel lane&apos;s concurrent work; this desk drives the published formation aggregate
+          directly — every entry above is a real machine transition with its resulting kernel
+          revision, never a fabricated state.
+        </p>
       </section>
 
       <section className="cm-card" aria-label="Boundaries">
         <h2 className="cm-card-title">What this surface will never do</h2>
         <p className="cm-card-sub">
-          No binding effect: every accept / counter / reject is a local demo record. The
-          deterministic commerce kernel has no group-buy aggregate yet (recorded as a lane
-          blocker), formation happens on the buyer side and is never simulated here, and no
-          participant, merchant or stock position is ever enrolled, charged, reserved or committed
-          by anything on this surface.
+          It will never override buyer consent (only consenting studios are ever listed or
+          frozen into a roster; withdrawals before formation are honored and visible), never
+          simulate a buyer response, never enroll anyone, charge anyone or reserve stock — and
+          no purchase, payment, refund or order is created anywhere on it. Formation is the
+          organizer&apos;s second confirmation: it freezes final terms and the consenting-only
+          roster, and a commitment would exist only on the commerce planes after it — nothing
+          here creates one. Live pools and buyers do not exist: everything renders from
+          deterministic fixtures through the real formation machine.
         </p>
       </section>
     </div>
-  );
-}
-
-function CounterOptionAction({
-  proposal,
-  option,
-  onSend,
-}: {
-  readonly proposal: DemoProposal;
-  readonly option: DemoCounterOption;
-  readonly onSend: () => void;
-}): JSX.Element {
-  const counterPrice = money(option.unitPriceMinor);
-  return (
-    <ConfirmableAction
-      actionLabel={`Counter at ${counterPrice} / box (min ${option.minimumBoxes} boxes)`}
-      confirmLabel={`Send the counter — ${counterPrice} / box`}
-      statement={`Sends your COUNTER to the ${proposal.proposalId} pool in LOCAL DEMO STATE ONLY — no binding effect. Original ask: ${poolUnitsOf(proposal)} boxes at ${money(proposal.unitPriceMinor)} / box. Your counter: ${counterPrice} / box with a ${option.minimumBoxes}-box minimum, pool still closes ${clockLabel(proposal.deadlineIso)} (${option.note}) The proposal moves to COUNTERED and the studios decide — no simulated buyer response exists here; nothing commits while you wait.`}
-      onExecute={onSend}
-    />
   );
 }
