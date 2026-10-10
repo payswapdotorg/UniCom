@@ -94,7 +94,12 @@ export type CommerceSubjectType =
   // link roles). No new commerce semantics beyond the vocabulary extension. ---
   | "WARRANTY_CLAIM"
   | "SUBSCRIPTION_ACTION"
-  | "SHARED_LOGISTICS_BATCH";
+  | "SHARED_LOGISTICS_BATCH"
+  // --- W1-012 (additive): execution-aggregate subjects. GroupBuy formation
+  // and TradeCycle execution are kernel-owned aggregates (their typed
+  // contracts live in domain/groupbuy.ts and domain/tradecycle.ts). ---
+  | "GROUP_BUY"
+  | "TRADE_CYCLE";
 
 // --- Principals ---
 export type MerchantId = Brand<string, "MerchantId">;
