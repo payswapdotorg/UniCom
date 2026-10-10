@@ -102,7 +102,6 @@ export default function MerchantB2bComponent({ host }: CommerceModuleProps): JSX
   void version; // re-render trigger after each completed command
 
   const transfers = view.allTransfers();
-  const seeded = transfers.find((entry) => entry.transferId === SEEDED_TRANSFER.transferId)!;
   const levelOf = (skuId: string, locationId: typeof WAREHOUSE_LOCATION): number =>
     view.level(makeId<"SkuId">(skuId), locationId)?.onHand ?? 0;
 

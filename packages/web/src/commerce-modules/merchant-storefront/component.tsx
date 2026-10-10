@@ -675,8 +675,6 @@ export default function MerchantStorefrontComponent({ host }: CommerceModuleProp
         <div className="cm-stack">
           {view.allPaymentIntents().map((intent) => {
             const settlement = view.settlementRecord(intent.paymentId);
-            const captured = view.capturedTotalFor(intent.paymentId);
-            const refunded = view.refundedTotalFor(intent.paymentId);
             return (
               <div key={intent.paymentId} className="cm-journey-item">
                 <span className="cm-journey-name">{intent.paymentId}</span>
