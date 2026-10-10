@@ -15,7 +15,6 @@ import type {
   PrincipalRef,
   TradeCycleExecution,
   TradeCycleExecutionLeg,
-  TradeCycleId,
 } from "@unicom/commerce";
 import { makeId, principalRefEquals } from "@unicom/commerce";
 import { utc } from "../buyer-support/demo-data.js";
