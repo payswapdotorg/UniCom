@@ -107,7 +107,9 @@ export function buildDiscoveryAndHomeSteps(walkState, { baseUrl, outDir }) {
         const inv = shot.inventory;
         const body = inv.bodyText;
         walkState.homeRows = await journeyRows(page);
-        live.homeBadge = await page.locator('[data-testid="cm-env-badge"]').textContent().catch(() => null);
+        // .first(): the badge testid legitimately appears twice on home
+        // (header + scenario card) — strict-mode locators need one element.
+        live.homeBadge = (await page.locator('[data-testid="cm-env-badge"]').first().textContent().catch(() => null))?.trim() ?? null;
         live.a11y = await a11ySpotChecks(page);
         live.tabOrderHome = await tabOrder(page, 10);
         const ready = walkState.homeRows.filter((r) => r.chipKind === "ok").length;

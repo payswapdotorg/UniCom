@@ -153,7 +153,9 @@ export function blockedReason(
   const holders = COMMERCE_PERMISSION_HOLDERS[permission];
   return (
     `Blocked: requires ${permission}. ` +
-    `Held by ${holders.join(", ")}. You currently hold: ` +
+    // Holder roles are named by their human titles (same vocabulary as "You
+    // currently hold") — a raw role id is not a name a user can act on.
+    `Held by ${holders.map((roleId) => commerceRole(roleId).title).join(", ")}. You currently hold: ` +
     `${state.heldRoles.map((roleId) => commerceRole(roleId).title).join(", ") || "no role"}.`
   );
 }

@@ -74,7 +74,7 @@ describe("RolesSurface", () => {
     expect(gated).not.toBeNull();
     const text = textOf(gated as HTMLElement);
     expect(text).toContain("Blocked: requires finance.approve-refund");
-    expect(text).toContain("Held by finance");
+    expect(text).toContain("Held by Finance");
     expect(text).toContain("You currently hold: Buyer, Merchant");
     const button = gated?.querySelector("button");
     expect(button?.hasAttribute("disabled")).toBe(true);

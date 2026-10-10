@@ -161,7 +161,7 @@ describe("visible blocked-action reasons", () => {
     const state = initialCommerceHostState(); // buyer + merchant
     const reason = blockedReason(state, "finance.approve-refund");
     expect(reason).toContain("Blocked: requires finance.approve-refund");
-    expect(reason).toContain("Held by finance");
+    expect(reason).toContain("Held by Finance");
     expect(reason).toContain("Buyer, Merchant");
   });
 

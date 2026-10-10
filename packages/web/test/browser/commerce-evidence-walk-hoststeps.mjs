@@ -5,6 +5,8 @@
 //
 // `walkState` is the shared mutable walk state (see commerce-evidence-walk-steps.mjs).
 
+import { snapshot } from "./commerce-evidence-capture.mjs";
+
 const check = (name, ok, detail = "") => ({ name, ok: ok === true, detail: String(detail).slice(0, 220) });
 
 /** Steps 6–10: role switcher, role-denied interaction, system surface, reset. */

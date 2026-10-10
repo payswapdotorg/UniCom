@@ -365,10 +365,10 @@ async function main() {
     },
     sensitiveValueScrubbed: true,
   };
-  const validation = validateManifest(manifest);
-  manifest.manifestValidation = { valid: validation.valid, errors: validation.errors };
-
   // HONESTY LAW (self-check): every evidence pointer must resolve on disk.
+  // Computed BEFORE validateManifest so the validator sees the integrity
+  // verdict it is required to assert (observed: validating earlier always
+  // failed on evidenceIntegrity.allPointersResolve).
   const manifestDir = path.dirname(manifestPath);
   const pointers = collectEvidencePointers(manifest);
   const missing = pointers.filter((ref) => !existsSync(path.resolve(manifestDir, ref)));
@@ -378,6 +378,8 @@ async function main() {
     allPointersResolve: missing.length === 0,
     note: "every evidence pointer resolves to a file on disk relative to the manifest",
   };
+  const validation = validateManifest(manifest);
+  manifest.manifestValidation = { valid: validation.valid, errors: validation.errors };
   writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 1)}\n`);
   log(`[manifest] ${manifestPath} (valid=${validation.valid}${validation.valid ? "" : ` errors=${validation.errors.length}`})`);
   log(`[evidence] ${pointers.length} pointers checked, missing=${missing.length}${missing.length > 0 ? `: ${missing.slice(0, 5).join(", ")}` : ""}`);

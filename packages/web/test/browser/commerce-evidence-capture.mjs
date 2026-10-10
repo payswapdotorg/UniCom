@@ -60,13 +60,21 @@ export async function visibleInventory(page) {
           href: el.getAttribute("href"),
         }))
         .filter((c) => c.label || c.href);
+    // Form controls are counted by VISIBILITY alone: an associated <label>
+    // (htmlFor) is the accessible-name mechanism for e.g. the intent textarea,
+    // but it is not an attribute on the control itself.
+    const visibleControls = (sel) =>
+      Array.from(document.querySelectorAll(sel)).filter((el) => {
+        const r = el.getBoundingClientRect();
+        return r.width > 0 && r.height > 0;
+      }).length;
     return {
       documentTitle: document.title,
       bodyText: document.body.innerText,
       url: window.location.pathname,
       links: pick("a").slice(0, 60),
       buttons: pick("button").slice(0, 60),
-      inputs: pick("input, select, textarea").length,
+      inputs: visibleControls("input, select, textarea"),
     };
   });
 }
