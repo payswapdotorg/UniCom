@@ -57,11 +57,14 @@
       "id": "W1-012",
       "path": "docs/work-orders/W1-012.md",
       "lane": "commerce-kernel-execution-aggregates",
-      "status": "READY",
+      "status": "ACCEPTED",
       "owner": "worker-1 (Task-tool subagents, resident session web-6ddc0a59)",
       "branch": "work/w1-012",
       "dependency": null,
-      "seam_requirement": "first commit must publish the kernel execution-contract seam (domain types + command payloads + contract.ts re-exports) so W2-013/W3-016 can code against it immediately"
+      "seam_requirement": "first commit must publish the kernel execution-contract seam (domain types + command payloads + contract.ts re-exports) so W2-013/W3-016 can code against it immediately",
+      "commits": "1f034e5 (seam) → a82c015 (runtime wiring + twin projection) → 7099dc3 (scenario tests) → 0e27e18 (lane manifest)",
+      "accepted_at": "2026-10-10T21:20:00Z",
+      "acceptance_evidence": "TL independent verification: commerce vitest 430/430 reproduced, lint 101w/0e reproduced, architecture 0/0 reproduced, scoped tsc clean reproduced; manifest reviewed; actor-law spot-checks (organizer/initiator/SYSTEM discipline, interest-never-commitment) and UNKNOWN-preservation journaling verified; twin-equivalence machine-checked in battery (the prior vehicle's snapshot-without-twin breakage of 83 tests was caught and fixed by the continuation vehicle)"
     },
     {
       "id": "W2-013",
@@ -113,12 +116,14 @@
     {
       "id": "KSEAM",
       "name": "kernel execution-contract seam published (W1-012 first commit, TL verified)",
-      "status": "PENDING"
+      "status": "PASSED",
+      "passed_at": "2026-10-10T21:20:00Z"
     },
     {
       "id": "KERNEL",
       "name": "commerce-kernel TradeCycle-execution and GroupBuy-formation aggregates complete with exhaustive tests (W1-012)",
-      "status": "PENDING"
+      "status": "PASSED",
+      "passed_at": "2026-10-10T21:20:00Z"
     },
     {
       "id": "WIRE_BUYER",
@@ -148,22 +153,16 @@
   ],
   "active_work_orders": [
     {
-      "id": "W1-012",
-      "status": "IN_FLIGHT",
-      "vehicle": "worker-1 vehicle (Task ID 36)",
-      "progress_at_last_check": "seam commit 1f034e5 landed (14 domain machine tests, commerce vitest 419/419); runtime handlers (handler-groupbuy.ts, handler-tradecycle.ts) + kernel wiring in progress on work/w1-012"
-    },
-    {
       "id": "W2-013",
       "status": "IN_FLIGHT",
-      "vehicle": "worker-2 vehicle (Task ID 37)",
-      "progress_at_last_check": "J9 peer-tradecycle kernel-driven rewiring COMMITTED (9d31097: 12 kernel-scenario tests, web vitest 278/278, lint 101w/0e, scoped tsc clean, all browser-evidenced selectors preserved, 'Not wired (blocker)' superseded); J5 buyer-groupbuy kernel wiring in progress"
+      "vehicle": "worker-2 continuation vehicle (Task ID 40)",
+      "progress_at_last_check": "J9 committed (9d31097); continuation vehicle actively rewiring J5 buyer-groupbuy (kernel.ts + gate.tsx + groupbuy-data.ts + component/test/latent-demand in progress)"
     },
     {
       "id": "W3-016",
       "status": "IN_FLIGHT",
-      "vehicle": "worker-3 vehicle (Task ID 38)",
-      "progress_at_last_check": "J5 merchant-groupbuy-review rewiring in progress on work/w3-016 (component/fixtures/module/tests modified, no commit yet); J15 connector wiring pending"
+      "vehicle": "worker-3 continuation vehicle (Task ID 41)",
+      "progress_at_last_check": "J5 merchant committed (bd10015); continuation vehicle actively wiring J15 merchant-connectors to the experience connector runtime (runtime.ts + component-parts.tsx + component/fixtures/module/tests in progress; probe dirs to be disposed)"
     }
   ],
   "frontier": [
