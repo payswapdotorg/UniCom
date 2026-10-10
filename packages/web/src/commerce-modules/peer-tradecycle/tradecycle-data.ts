@@ -1,13 +1,25 @@
 /**
- * peer-tradecycle fixture data + the pure per-leg consent state machine (J9).
+ * peer-tradecycle fixture data + the kernel-truth view models (J9, W2-013).
  *
- * All participants/items are deterministic committed DEMO fixtures
- * namespaced to this lane (w2tc-*). The consent machine is PURE: every
- * transition returns a new cycle (or an honest rejection) and mirrors the
- * agent-lane engine's laws — authorization belongs to the GIVING
- * participant of each leg; a stop event never commits any other leg.
+ * Everything synthetic stays a deterministic committed DEMO fixture
+ * namespaced to this lane (w2tc-*): the participants and their identities,
+ * the candidate cycles (discovery is the agent lane's — candidates arrive
+ * here as committed fixtures), the items, the proof levels and the consent
+ * windows. EXECUTION is no longer a local state machine: the candidate is
+ * opened as a `TradeCycleExecution` aggregate of the commerce kernel (its
+ * legs validated by the kernel's own cycle-shape laws) and every
+ * consent/refusal/withdrawal/lapse/execution travels as a typed kernel
+ * command through ./kernel.ts.
  */
+import type {
+  PrincipalRef,
+  TradeCycleExecution,
+  TradeCycleExecutionLeg,
+  TradeCycleId,
+} from "@unicom/commerce";
+import { makeId, principalRefEquals } from "@unicom/commerce";
 import { utc } from "../buyer-support/demo-data.js";
+import { TradecycleKernel } from "./kernel.js";
 
 /** One synthetic trade participant (the demo buyer plus peers). */
 export interface DemoTradeParticipant {
@@ -16,39 +28,6 @@ export interface DemoTradeParticipant {
   readonly gives: string;
   readonly wants: string;
   readonly proofLevel: string;
-}
-
-/** Consent state of one leg (the GIVING participant's decision only). */
-export type LegConsentState = "UNCONSENTED" | "CONSENTED" | "REFUSED" | "EXPIRED" | "WITHDRAWN";
-
-/** Cycle lifecycle: stops are honest stops — never silent commits. */
-export type CycleStatus =
-  | "PROPOSED"
-  | "ALL_LEGS_CONSENTED"
-  | "STOPPED_REFUSAL"
-  | "STOPPED_EXPIRY"
-  | "STOPPED_WITHDRAWAL"
-  | "HANDOFF_PREPARED";
-
-export interface DemoTradeLeg {
-  readonly legIndex: number;
-  /** Giving participant (the only one who may authorize this leg). */
-  readonly fromId: string;
-  /** Receiving participant (their stated want is satisfied by this item). */
-  readonly toId: string;
-  /** The item that moves from → to on this leg. */
-  readonly item: string;
-  readonly consentExpiresAt: ReturnType<typeof utc>;
-  consent: LegConsentState;
-}
-
-export interface DemoTradeCycle {
-  readonly cycleId: string;
-  readonly label: string;
-  status: CycleStatus;
-  readonly legs: DemoTradeLeg[];
-  /** The participant available as the re-plan alternative (or null). */
-  readonly alternativeParticipantId: string | null;
 }
 
 export const DEMO_TRADE_PARTICIPANTS: readonly DemoTradeParticipant[] = [
@@ -82,149 +61,185 @@ export const DEMO_TRADE_PARTICIPANTS: readonly DemoTradeParticipant[] = [
   },
 ];
 
-const EXPIRY = utc("2026-10-13T18:00:00Z");
+/** The demo participants as kernel principals (DEMO fixture identities). */
+export const DEMO_TRADE_PRINCIPALS: Readonly<Record<string, PrincipalRef>> = Object.fromEntries(
+  DEMO_TRADE_PARTICIPANTS.map((participant) => [
+    participant.id,
+    { kind: "CUSTOMER", customerId: makeId<"CustomerId">(`w2tc-${participant.id}`) } as PrincipalRef,
+  ]),
+);
 
-function leg(legIndex: number, fromId: string, toId: string, item: string): DemoTradeLeg {
-  return {
-    legIndex,
-    fromId,
-    toId,
-    item,
-    consentExpiresAt: EXPIRY,
-    consent: "UNCONSENTED",
-  };
+export function participantName(principal: PrincipalRef): string {
+  const entry = Object.entries(DEMO_TRADE_PRINCIPALS).find(([, ref]) => principalRefEquals(ref, principal));
+  return entry ? (DEMO_TRADE_PARTICIPANTS.find((one) => one.id === entry[0])?.name ?? "unknown participant") : "unknown participant";
 }
 
-/** The committed demo candidate cycles (the discovery engine is agent-lane). */
-export function initialCycle(): DemoTradeCycle {
-  return {
-    cycleId: "w2tc-cycle-a",
-    label: "Cycle A — 3 hops (Harbor Lane ⇄ Two Harbors ⇄ Northlight)",
-    status: "PROPOSED",
-    legs: [
-      leg(0, "two-harbors", "harbor-lane", "Overlock sewing machine (4-thread)"),
-      leg(1, "northlight", "two-harbors", "Photography light kit (3 heads)"),
-      leg(2, "harbor-lane", "northlight", "Wide-format A1 printer"),
-    ],
-    alternativeParticipantId: "ferry-road",
-  };
+/** The fixture participant id behind a kernel principal (or null). */
+export function participantIdOf(principal: PrincipalRef): string | null {
+  const entry = Object.entries(DEMO_TRADE_PRINCIPALS).find(([, ref]) => principalRefEquals(ref, principal));
+  return entry ? entry[0] : null;
 }
 
-/** The re-plan candidate: the refused participant swapped for the alternative. */
-export function rePlanCycle(): DemoTradeCycle {
-  return {
-    cycleId: "w2tc-cycle-b",
-    label: "Cycle B (re-plan) — 3 hops with Ferry Road Press instead of Northlight",
-    status: "PROPOSED",
-    legs: [
-      leg(0, "two-harbors", "harbor-lane", "Overlock sewing machine (4-thread)"),
-      leg(1, "ferry-road", "two-harbors", "Guillotine paper trimmer"),
-      leg(2, "harbor-lane", "ferry-road", "Wide-format A1 printer"),
-    ],
-    alternativeParticipantId: null,
-  };
+export function participant(id: string): string {
+  return DEMO_TRADE_PARTICIPANTS.find((one) => one.id === id)?.name ?? id;
 }
 
-export type CycleStep =
-  | { readonly ok: true; readonly cycle: DemoTradeCycle }
-  | { readonly ok: false; readonly error: string };
+/** The initiating principal of the demo cycles (the demo buyer). */
+export const DEMO_TRADECYCLE_INITIATOR: PrincipalRef = DEMO_TRADE_PRINCIPALS["harbor-lane"]!;
 
-function clone(cycle: DemoTradeCycle): DemoTradeCycle {
-  return { ...cycle, legs: cycle.legs.map((one) => ({ ...one })) };
-}
+/** Consent windows are fixture data (the demo clock), rendered as such. */
+export const TRADECYCLE_CONSENT_WINDOW_ENDS = utc("2026-10-13T18:00:00Z");
 
-function legOf(cycle: DemoTradeCycle, legIndex: number): DemoTradeLeg | null {
-  return cycle.legs.find((one) => one.legIndex === legIndex) ?? null;
-}
-
-/** The giving participant records consent for their leg (PROPOSED cycles only). */
-export function consentLeg(cycle: DemoTradeCycle, legIndex: number): CycleStep {
-  if (cycle.status !== "PROPOSED") {
-    return { ok: false, error: `cycle is ${cycle.status} — consent is only collected while PROPOSED` };
-  }
-  const target = legOf(cycle, legIndex);
-  if (!target) return { ok: false, error: `no leg ${legIndex}` };
-  if (target.consent !== "UNCONSENTED") {
-    return { ok: false, error: `leg ${legIndex} is ${target.consent} — consent was already recorded or the leg is stopped` };
-  }
-  const next = clone(cycle);
-  const nextLeg = legOf(next, legIndex)!;
-  nextLeg.consent = "CONSENTED";
-  if (next.legs.every((one) => one.consent === "CONSENTED")) next.status = "ALL_LEGS_CONSENTED";
-  return { ok: true, cycle: next };
-}
-
-/** The giving participant refuses: the cycle stops; NO other leg is committed. */
-export function refuseLeg(cycle: DemoTradeCycle, legIndex: number): CycleStep {
-  if (cycle.status !== "PROPOSED" && cycle.status !== "ALL_LEGS_CONSENTED") {
-    return { ok: false, error: `cycle is ${cycle.status} — it has already stopped or moved on` };
-  }
-  const target = legOf(cycle, legIndex);
-  if (!target) return { ok: false, error: `no leg ${legIndex}` };
-  if (target.consent === "REFUSED" || target.consent === "EXPIRED" || target.consent === "WITHDRAWN") {
-    return { ok: false, error: `leg ${legIndex} is already ${target.consent}` };
-  }
-  const next = clone(cycle);
-  const nextLeg = legOf(next, legIndex)!;
-  nextLeg.consent = "REFUSED";
-  next.status = "STOPPED_REFUSAL";
-  return { ok: true, cycle: next };
-}
-
-/** The consent window lapses on a leg: the cycle stops; nothing commits. */
-export function lapseLeg(cycle: DemoTradeCycle, legIndex: number): CycleStep {
-  if (cycle.status !== "PROPOSED" && cycle.status !== "ALL_LEGS_CONSENTED") {
-    return { ok: false, error: `cycle is ${cycle.status} — it has already stopped or moved on` };
-  }
-  const target = legOf(cycle, legIndex);
-  if (!target) return { ok: false, error: `no leg ${legIndex}` };
-  if (target.consent !== "UNCONSENTED") {
-    return { ok: false, error: `leg ${legIndex} is ${target.consent} — only an unanswered leg can lapse` };
-  }
-  const next = clone(cycle);
-  const nextLeg = legOf(next, legIndex)!;
-  nextLeg.consent = "EXPIRED";
-  next.status = "STOPPED_EXPIRY";
-  return { ok: true, cycle: next };
-}
-
-/** A consented giver drops out before execution: the cycle stops; nothing commits. */
-export function withdrawLeg(cycle: DemoTradeCycle, legIndex: number): CycleStep {
-  if (cycle.status !== "PROPOSED" && cycle.status !== "ALL_LEGS_CONSENTED") {
-    return { ok: false, error: `cycle is ${cycle.status} — it has already stopped or moved on` };
-  }
-  const target = legOf(cycle, legIndex);
-  if (!target) return { ok: false, error: `no leg ${legIndex}` };
-  if (target.consent !== "CONSENTED") {
-    return { ok: false, error: `leg ${legIndex} is ${target.consent} — only a consented leg can be withdrawn` };
-  }
-  const next = clone(cycle);
-  const nextLeg = legOf(next, legIndex)!;
-  nextLeg.consent = "WITHDRAWN";
-  next.status = "STOPPED_WITHDRAWAL";
-  return { ok: true, cycle: next };
+/**
+ * One fixture candidate: the display data plus the kernel legs in the
+ * kernel's canonical closed-cycle order (each receiver is the next giver —
+ * `validateTradeCycleLegs` enforces this before the cycle can open).
+ */
+export interface DemoCycleCandidate {
+  readonly cycleId: string;
+  readonly label: string;
+  /** Kernel leg index shown at each display position (browser-evidenced order). */
+  readonly displayOrder: readonly number[];
+  /** itemByKernelLeg[legIndex]: the fixture item moving on that kernel leg. */
+  readonly itemByKernelLeg: readonly string[];
+  readonly alternativeParticipantId: string | null;
 }
 
 /**
- * Execution hand-off: prepared only when EVERY leg is consented. This never
- * executes anything — the commerce seam + per-leg authorizations live in the
- * agent lane (blocker); the demo records the hand-off request honestly.
+ * Cycle A fixture. Kernel legs (canonical closed order):
+ * 0: Two Harbors → Harbor Lane (overlock machine)
+ * 1: Harbor Lane → Northlight (printer — YOUR giving leg)
+ * 2: Northlight → Two Harbors (light kit)
  */
-export function prepareHandoff(cycle: DemoTradeCycle): CycleStep {
-  if (cycle.status !== "ALL_LEGS_CONSENTED") {
-    return { ok: false, error: `cycle is ${cycle.status} — hand-off needs every leg consented` };
-  }
-  const next = clone(cycle);
-  next.status = "HANDOFF_PREPARED";
-  return { ok: true, cycle: next };
+export const CYCLE_A: DemoCycleCandidate = {
+  cycleId: "w2tc-cycle-a",
+  label: "Cycle A — 3 hops (Harbor Lane ⇄ Two Harbors ⇄ Northlight)",
+  displayOrder: [0, 2, 1],
+  itemByKernelLeg: [
+    "Overlock sewing machine (4-thread)",
+    "Wide-format A1 printer",
+    "Photography light kit (3 heads)",
+  ],
+  alternativeParticipantId: "ferry-road",
+};
+
+/**
+ * Cycle B fixture (the re-plan: Ferry Road Press replaces Northlight).
+ * Kernel legs: 0: Two Harbors → Harbor Lane (overlock) · 1: Harbor Lane →
+ * Ferry Road (printer — YOUR giving leg) · 2: Ferry Road → Two Harbors (trimmer).
+ */
+export const CYCLE_B: DemoCycleCandidate = {
+  cycleId: "w2tc-cycle-b",
+  label: "Cycle B (re-plan) — 3 hops with Ferry Road Press instead of Northlight",
+  displayOrder: [0, 2, 1],
+  itemByKernelLeg: [
+    "Overlock sewing machine (4-thread)",
+    "Wide-format A1 printer",
+    "Guillotine paper trimmer",
+  ],
+  alternativeParticipantId: null,
+};
+
+/** Kernel giver/taker of each leg, in canonical leg order, per candidate. */
+const CYCLE_LEG_PARTICIPANTS: Readonly<Record<string, readonly (readonly [string, string])[]>> = {
+  [CYCLE_A.cycleId]: [
+    ["two-harbors", "harbor-lane"],
+    ["harbor-lane", "northlight"],
+    ["northlight", "two-harbors"],
+  ],
+  [CYCLE_B.cycleId]: [
+    ["two-harbors", "harbor-lane"],
+    ["harbor-lane", "ferry-road"],
+    ["ferry-road", "two-harbors"],
+  ],
+};
+
+/** Per-leg proof level (the giver's fixture proof level). */
+function proofLevelOf(participantId: string): TradeCycleExecutionLeg["requiredProofLevel"] {
+  const level = DEMO_TRADE_PARTICIPANTS.find((one) => one.id === participantId)?.proofLevel ?? "P0";
+  return level as TradeCycleExecutionLeg["requiredProofLevel"];
 }
 
-/** Which stop reasons may re-plan (a refusal/withdrawal/expiry may, a prepared hand-off may not). */
-export function canRePlan(cycle: DemoTradeCycle): boolean {
+/** Build the kernel aggregate for a fixture candidate (all legs PENDING). */
+export function kernelCycleOf(candidate: DemoCycleCandidate): TradeCycleExecution {
+  const pairs = CYCLE_LEG_PARTICIPANTS[candidate.cycleId]!;
+  const legs: TradeCycleExecutionLeg[] = pairs.map(([fromId, toId], kernelLegIndex) => ({
+    legIndex: kernelLegIndex,
+    fromRef: DEMO_TRADE_PRINCIPALS[fromId]!,
+    toRef: DEMO_TRADE_PRINCIPALS[toId]!,
+    offeredItemRef: `w2tc-item:${candidate.itemByKernelLeg[kernelLegIndex]}`,
+    requiredProofLevel: proofLevelOf(fromId),
+    consentState: "PENDING",
+    revision: 1,
+  }));
+  return {
+    tradeCycleId: makeId<"TradeCycleId">(candidate.cycleId),
+    initiatingRef: DEMO_TRADECYCLE_INITIATOR,
+    legs,
+    executionMode: "ATOMIC",
+    bounds: { maxHops: 5, environment: "LAB" },
+    state: "OPEN",
+    revision: 1,
+  };
+}
+
+/** The fixture candidate metadata of a kernel cycle id. */
+export function candidateOf(cycleId: string): DemoCycleCandidate | null {
+  if (cycleId === CYCLE_A.cycleId) return CYCLE_A;
+  if (cycleId === CYCLE_B.cycleId) return CYCLE_B;
+  return null;
+}
+
+/**
+ * Seed the demo kernel: cycle A is opened through the kernel command path
+ * (validateTradeCycleLegs runs inside OPEN — the fixture candidate must pass
+ * the kernel's own cycle-shape laws or the seed fails honestly).
+ */
+export function seedTradecycleDemo(): TradecycleKernel {
+  const kernel = new TradecycleKernel();
+  const opened = kernel.apply(DEMO_TRADECYCLE_INITIATOR, {
+    type: "OPEN_TRADE_CYCLE",
+    cycle: kernelCycleOf(CYCLE_A),
+  });
+  if (opened.status !== "EXECUTED") {
+    throw new Error(`demo seed failed honestly: ${opened.status === "REJECTED" ? opened.reason.detail : opened.status}`);
+  }
+  return kernel;
+}
+
+/** Re-open a fresh kernel with the re-plan candidate (cycle B). */
+export function rePlanSeed(): TradecycleKernel {
+  const kernel = new TradecycleKernel();
+  const opened = kernel.apply(DEMO_TRADECYCLE_INITIATOR, {
+    type: "OPEN_TRADE_CYCLE",
+    cycle: kernelCycleOf(CYCLE_B),
+  });
+  if (opened.status !== "EXECUTED") {
+    throw new Error(`demo seed failed honestly: ${opened.status === "REJECTED" ? opened.reason.detail : opened.status}`);
+  }
+  return kernel;
+}
+
+/** Opaque per-leg authorization references (DEMO fixture references). */
+export function authorizationRefOf(participantId: string): string {
+  return `w2tc-authz-${participantId}`;
+}
+
+/** Human label for a kernel cycle state (kernel vocabulary, spelled out). */
+export const TRADECYCLE_STATE_LABELS: Readonly<Record<TradeCycleExecution["state"], string>> = {
+  OPEN: "OPEN — awaiting each giver's consent",
+  ALL_LEGS_AUTHORIZED: "ALL_LEGS_AUTHORIZED — every leg carries its giver's consent",
+  COMMITTED: "COMMITTED — executed by the commerce kernel",
+  STOPPED_REFUSAL: "STOPPED_REFUSAL",
+  STOPPED_WITHDRAWAL: "STOPPED_WITHDRAWAL",
+  STOPPED_EXPIRY: "STOPPED_EXPIRY",
+  RECOURSE_OPEN: "RECOURSE_OPEN",
+  ROLLED_BACK: "ROLLED_BACK",
+};
+
+/** Is this kernel state a stop (nothing may progress from here)? */
+export function isStoppedCycle(state: TradeCycleExecution["state"]): boolean {
   return (
-    (cycle.status === "STOPPED_REFUSAL" ||
-      cycle.status === "STOPPED_EXPIRY" ||
-      cycle.status === "STOPPED_WITHDRAWAL") &&
-    cycle.alternativeParticipantId !== null
+    state === "STOPPED_REFUSAL" || state === "STOPPED_WITHDRAWAL" || state === "STOPPED_EXPIRY" || state === "ROLLED_BACK"
   );
 }
