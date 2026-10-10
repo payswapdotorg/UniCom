@@ -1,0 +1,669 @@
+{
+ "manifestKind": "w1-011-commerce-host-evidence",
+ "schemaVersion": 1,
+ "runId": "w1-011-commerce-evidence-2026-10-10T073237725Z",
+ "generatedBy": "packages/web/test/browser/run-commerce-evidence.mjs",
+ "generatedAtUtc": "2026-10-10T07:34:26.431Z",
+ "environment": {
+  "buildCommit": "7b2952909a4611b13cc26d1e4d58bc77ca209285",
+  "gitBranch": "work/w1-011",
+  "buildTreeDirty": true,
+  "nodeVersion": "v24.21.0",
+  "pnpmVersion": "10.33.2",
+  "playwrightVersion": "1.63.0",
+  "playwrightResolvedFrom": "import:playwright",
+  "chromiumVersion": "153.0.8010.12",
+  "baseUrl": "http://localhost:5199",
+  "webPort": 5199,
+  "envMode": "started-by-runner (vite ONLY — no ZCode server)",
+  "envRequirements": [
+   "Vite dev server serving packages/web (@zcode/web) — nothing else; the commerce host renders from committed demo fixtures",
+   "Vite heap capped via NODE_OPTIONS=--max-old-space-size=512 (sandbox RAM ceiling, sibling workers running)",
+   "Playwright with chromium installed (resolved via import:playwright per the W1-010 pilot); headless flags --disable-dev-shm-usage --no-sandbox"
+  ],
+  "operatingSystem": "linux x64",
+  "freeMemoryMb": {
+   "atStart": 1571,
+   "atEnd": 1586
+  },
+  "walkError": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5199/"
+ },
+ "firstDiscovery": {
+  "routeOrigin": "ordinary-landing:/",
+  "landingRendered": null,
+  "entryButtonLabel": null,
+  "entryButtonFound": null,
+  "clicked": false,
+  "landedOn": null,
+  "landedTitle": null,
+  "deepLinkUsedForDiscovery": false,
+  "steps": []
+ },
+ "checkedSurfaces": [
+  {
+   "surfaceId": "landing-connect-wall",
+   "howReached": "browser lands on the ordinary app surface / (no ZCode server: the honest connect/bootstrap wall)",
+   "outcome": "BLOCKED",
+   "checks": [],
+   "screenshot": null,
+   "consoleEvidenceFile": null,
+   "bodyEvidenceFile": null,
+   "timingsMs": 6,
+   "error": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5199/",
+   "note": null
+  },
+  {
+   "surfaceId": "first-discovery-entry-click",
+   "howReached": "click the visible UNiCOM Commerce entry button on the ordinary wall (ordinary flow — no deep link)",
+   "outcome": "BLOCKED",
+   "checks": [],
+   "screenshot": null,
+   "consoleEvidenceFile": null,
+   "bodyEvidenceFile": null,
+   "timingsMs": 0,
+   "error": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5199/",
+   "note": null
+  },
+  {
+   "surfaceId": "commerce-home",
+   "howReached": "the commerce host landing (/commerce) reached by the ordinary discovery click",
+   "outcome": "BLOCKED",
+   "checks": [],
+   "screenshot": null,
+   "consoleEvidenceFile": null,
+   "bodyEvidenceFile": null,
+   "timingsMs": 0,
+   "error": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5199/",
+   "note": null
+  },
+  {
+   "surfaceId": "explore-taxonomy-J19",
+   "howReached": "click the visible Explore nav link in the host header (J19 reference module surface)",
+   "outcome": "BLOCKED",
+   "checks": [],
+   "screenshot": null,
+   "consoleEvidenceFile": null,
+   "bodyEvidenceFile": null,
+   "timingsMs": 0,
+   "error": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5199/",
+   "note": null
+  },
+  {
+   "surfaceId": "module-host-states-J18",
+   "howReached": "nav Home → click the visible Open button on the J18 row (the states module entry)",
+   "outcome": "BLOCKED",
+   "checks": [],
+   "screenshot": null,
+   "consoleEvidenceFile": null,
+   "bodyEvidenceFile": null,
+   "timingsMs": 0,
+   "error": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5199/",
+   "note": null
+  },
+  {
+   "surfaceId": "in-development-journey-J1",
+   "howReached": "header Back → click the visible View status button on the J1 row (an unshipped lane journey)",
+   "outcome": "BLOCKED",
+   "checks": [],
+   "screenshot": null,
+   "consoleEvidenceFile": null,
+   "bodyEvidenceFile": null,
+   "timingsMs": 0,
+   "error": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5199/",
+   "note": null
+  },
+  {
+   "surfaceId": "role-switcher",
+   "howReached": "nav Roles → hold the Finance role checkbox → click Emphasize (visible interactions)",
+   "outcome": "BLOCKED",
+   "checks": [],
+   "screenshot": null,
+   "consoleEvidenceFile": null,
+   "bodyEvidenceFile": null,
+   "timingsMs": 0,
+   "error": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5199/",
+   "note": null
+  },
+  {
+   "surfaceId": "role-denied-interaction",
+   "howReached": "the Sample gated actions on the Roles surface, before holding any additional role",
+   "outcome": "BLOCKED",
+   "checks": [],
+   "screenshot": null,
+   "consoleEvidenceFile": null,
+   "bodyEvidenceFile": null,
+   "timingsMs": 0,
+   "error": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5199/",
+   "note": null
+  },
+  {
+   "surfaceId": "system-surface-and-demo-mode",
+   "howReached": "nav System (environment/mode honesty + module registry + journey coverage)",
+   "outcome": "BLOCKED",
+   "checks": [],
+   "screenshot": null,
+   "consoleEvidenceFile": null,
+   "bodyEvidenceFile": null,
+   "timingsMs": 0,
+   "error": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5199/",
+   "note": null
+  },
+  {
+   "surfaceId": "demo-reset",
+   "howReached": "click the visible Reset demo fixtures button, then nav Roles to verify the reset",
+   "outcome": "BLOCKED",
+   "checks": [],
+   "screenshot": null,
+   "consoleEvidenceFile": null,
+   "bodyEvidenceFile": null,
+   "timingsMs": 0,
+   "error": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5199/",
+   "note": null
+  }
+ ],
+ "journeyCoverage": [
+  {
+   "journeyId": "J1",
+   "familyName": "Buyer Intent Canvas",
+   "owningLane": "W2-012",
+   "expectedState": "in-development",
+   "homeEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J1 on this surface"
+   },
+   "exploreEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J1 on this surface"
+   },
+   "outcome": "ABSENT",
+   "reason": "home: ABSENT; explore: ABSENT",
+   "evidenceScreenshots": [
+    "evidence/02-commerce-home.png",
+    "evidence/03-explore.png"
+   ]
+  },
+  {
+   "journeyId": "J2",
+   "familyName": "Offer sourcing and comparison",
+   "owningLane": "W2-012",
+   "expectedState": "in-development",
+   "homeEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J2 on this surface"
+   },
+   "exploreEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J2 on this surface"
+   },
+   "outcome": "ABSENT",
+   "reason": "home: ABSENT; explore: ABSENT",
+   "evidenceScreenshots": [
+    "evidence/02-commerce-home.png",
+    "evidence/03-explore.png"
+   ]
+  },
+  {
+   "journeyId": "J3",
+   "familyName": "Buy now vs wait, negotiation, substitution",
+   "owningLane": "W2-012",
+   "expectedState": "in-development",
+   "homeEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J3 on this surface"
+   },
+   "exploreEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J3 on this surface"
+   },
+   "outcome": "ABSENT",
+   "reason": "home: ABSENT; explore: ABSENT",
+   "evidenceScreenshots": [
+    "evidence/02-commerce-home.png",
+    "evidence/03-explore.png"
+   ]
+  },
+  {
+   "journeyId": "J4",
+   "familyName": "Group buying — discovery, join, leave",
+   "owningLane": "W2-012",
+   "expectedState": "in-development",
+   "homeEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J4 on this surface"
+   },
+   "exploreEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J4 on this surface"
+   },
+   "outcome": "ABSENT",
+   "reason": "home: ABSENT; explore: ABSENT",
+   "evidenceScreenshots": [
+    "evidence/02-commerce-home.png",
+    "evidence/03-explore.png"
+   ]
+  },
+  {
+   "journeyId": "J5",
+   "familyName": "Latent-demand group buys (buyer + merchant sides)",
+   "owningLane": "W2-012 + W3-015",
+   "expectedState": "in-development",
+   "homeEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J5 on this surface"
+   },
+   "exploreEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J5 on this surface"
+   },
+   "outcome": "ABSENT",
+   "reason": "home: ABSENT; explore: ABSENT",
+   "evidenceScreenshots": [
+    "evidence/02-commerce-home.png",
+    "evidence/03-explore.png"
+   ]
+  },
+  {
+   "journeyId": "J6",
+   "familyName": "Rent or borrow vs buy",
+   "owningLane": "W2-012",
+   "expectedState": "in-development",
+   "homeEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J6 on this surface"
+   },
+   "exploreEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J6 on this surface"
+   },
+   "outcome": "ABSENT",
+   "reason": "home: ABSENT; explore: ABSENT",
+   "evidenceScreenshots": [
+    "evidence/02-commerce-home.png",
+    "evidence/03-explore.png"
+   ]
+  },
+  {
+   "journeyId": "J7",
+   "familyName": "Resale, rental and consignment of owned items",
+   "owningLane": "W2-012",
+   "expectedState": "in-development",
+   "homeEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J7 on this surface"
+   },
+   "exploreEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J7 on this surface"
+   },
+   "outcome": "ABSENT",
+   "reason": "home: ABSENT; explore: ABSENT",
+   "evidenceScreenshots": [
+    "evidence/02-commerce-home.png",
+    "evidence/03-explore.png"
+   ]
+  },
+  {
+   "journeyId": "J8",
+   "familyName": "Proactive economic opportunities",
+   "owningLane": "W2-012",
+   "expectedState": "in-development",
+   "homeEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J8 on this surface"
+   },
+   "exploreEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J8 on this surface"
+   },
+   "outcome": "ABSENT",
+   "reason": "home: ABSENT; explore: ABSENT",
+   "evidenceScreenshots": [
+    "evidence/02-commerce-home.png",
+    "evidence/03-explore.png"
+   ]
+  },
+  {
+   "journeyId": "J9",
+   "familyName": "Bounded multi-hop trades (TradeCycle)",
+   "owningLane": "W2-012",
+   "expectedState": "in-development",
+   "homeEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J9 on this surface"
+   },
+   "exploreEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J9 on this surface"
+   },
+   "outcome": "ABSENT",
+   "reason": "home: ABSENT; explore: ABSENT",
+   "evidenceScreenshots": [
+    "evidence/02-commerce-home.png",
+    "evidence/03-explore.png"
+   ]
+  },
+  {
+   "journeyId": "J10",
+   "familyName": "Merchant commerce lifecycle",
+   "owningLane": "W3-015",
+   "expectedState": "in-development",
+   "homeEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J10 on this surface"
+   },
+   "exploreEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J10 on this surface"
+   },
+   "outcome": "ABSENT",
+   "reason": "home: ABSENT; explore: ABSENT",
+   "evidenceScreenshots": [
+    "evidence/02-commerce-home.png",
+    "evidence/03-explore.png"
+   ]
+  },
+  {
+   "journeyId": "J11",
+   "familyName": "Supplier procurement and receiving",
+   "owningLane": "W3-015",
+   "expectedState": "in-development",
+   "homeEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J11 on this surface"
+   },
+   "exploreEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J11 on this surface"
+   },
+   "outcome": "ABSENT",
+   "reason": "home: ABSENT; explore: ABSENT",
+   "evidenceScreenshots": [
+    "evidence/02-commerce-home.png",
+    "evidence/03-explore.png"
+   ]
+  },
+  {
+   "journeyId": "J12",
+   "familyName": "B2B and multi-location commerce",
+   "owningLane": "W3-015",
+   "expectedState": "in-development",
+   "homeEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J12 on this surface"
+   },
+   "exploreEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J12 on this surface"
+   },
+   "outcome": "ABSENT",
+   "reason": "home: ABSENT; explore: ABSENT",
+   "evidenceScreenshots": [
+    "evidence/02-commerce-home.png",
+    "evidence/03-explore.png"
+   ]
+  },
+  {
+   "journeyId": "J13",
+   "familyName": "Autonomous store policies",
+   "owningLane": "W3-015",
+   "expectedState": "in-development",
+   "homeEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J13 on this surface"
+   },
+   "exploreEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J13 on this surface"
+   },
+   "outcome": "ABSENT",
+   "reason": "home: ABSENT; explore: ABSENT",
+   "evidenceScreenshots": [
+    "evidence/02-commerce-home.png",
+    "evidence/03-explore.png"
+   ]
+  },
+  {
+   "journeyId": "J14",
+   "familyName": "Commerce Twin what-if",
+   "owningLane": "W2-012",
+   "expectedState": "in-development",
+   "homeEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J14 on this surface"
+   },
+   "exploreEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J14 on this surface"
+   },
+   "outcome": "ABSENT",
+   "reason": "home: ABSENT; explore: ABSENT",
+   "evidenceScreenshots": [
+    "evidence/02-commerce-home.png",
+    "evidence/03-explore.png"
+   ]
+  },
+  {
+   "journeyId": "J15",
+   "familyName": "Connected commerce channels and live commerce",
+   "owningLane": "W3-015",
+   "expectedState": "in-development",
+   "homeEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J15 on this surface"
+   },
+   "exploreEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J15 on this surface"
+   },
+   "outcome": "ABSENT",
+   "reason": "home: ABSENT; explore: ABSENT",
+   "evidenceScreenshots": [
+    "evidence/02-commerce-home.png",
+    "evidence/03-explore.png"
+   ]
+  },
+  {
+   "journeyId": "J16",
+   "familyName": "Physical, no-RFID supermarket operations",
+   "owningLane": "W3-015",
+   "expectedState": "in-development",
+   "homeEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J16 on this surface"
+   },
+   "exploreEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J16 on this surface"
+   },
+   "outcome": "ABSENT",
+   "reason": "home: ABSENT; explore: ABSENT",
+   "evidenceScreenshots": [
+    "evidence/02-commerce-home.png",
+    "evidence/03-explore.png"
+   ]
+  },
+  {
+   "journeyId": "J17",
+   "familyName": "Trust, security and recourse",
+   "owningLane": "W3-015",
+   "expectedState": "in-development",
+   "homeEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J17 on this surface"
+   },
+   "exploreEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J17 on this surface"
+   },
+   "outcome": "ABSENT",
+   "reason": "home: ABSENT; explore: ABSENT",
+   "evidenceScreenshots": [
+    "evidence/02-commerce-home.png",
+    "evidence/03-explore.png"
+   ]
+  },
+  {
+   "journeyId": "J18",
+   "familyName": "Failure, unknown and recovery states",
+   "owningLane": "W1-011 + W2-012 + W3-015",
+   "expectedState": "ready",
+   "homeEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J18 on this surface"
+   },
+   "exploreEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J18 on this surface"
+   },
+   "outcome": "ABSENT",
+   "reason": "home: ABSENT; explore: ABSENT",
+   "evidenceScreenshots": [
+    "evidence/02-commerce-home.png",
+    "evidence/03-explore.png"
+   ]
+  },
+  {
+   "journeyId": "J19",
+   "familyName": "Feature discoverability (Explore)",
+   "owningLane": "W1-011",
+   "expectedState": "ready",
+   "homeEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J19 on this surface"
+   },
+   "exploreEntry": {
+    "present": false,
+    "chip": null,
+    "outcome": "ABSENT",
+    "reason": "no visible entry row for J19 on this surface"
+   },
+   "outcome": "ABSENT",
+   "reason": "home: ABSENT; explore: ABSENT",
+   "evidenceScreenshots": [
+    "evidence/02-commerce-home.png",
+    "evidence/03-explore.png"
+   ]
+  }
+ ],
+ "roleInteraction": null,
+ "demoReset": null,
+ "accessibilitySpotChecks": {
+  "note": "captured live before the W1-011 accessibility polish pass (same run as the screenshots)",
+  "tabOrderHome": null
+ },
+ "denominator": {
+  "planned": 29,
+  "executed": 19,
+  "blocked": 10,
+  "skipped": 0,
+  "recomputed": 29,
+  "outcomeSum": 29,
+  "zeroDrift": true,
+  "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 29 = 19 + 10 + 0 = 29 (zero drift)",
+  "byOutcome": {
+   "PASS": 0,
+   "FAIL": 0,
+   "ABSENT": 19,
+   "BLOCKED": 10,
+   "UNKNOWN": 0,
+   "SKIPPED": 0
+  },
+  "attemptLevel": "10 checked surfaces + 19 journey-family coverage entries"
+ },
+ "guiOnlyProof": {
+  "deepLinkUsedForDiscovery": false,
+  "violations": [],
+  "recoveryDeepLinks": [],
+  "instrumentationOnly": true
+ },
+ "sensitiveValueScrubbed": true,
+ "manifestValidation": {
+  "valid": false,
+  "errors": [
+   "evidenceIntegrity.allPointersResolve must be true"
+  ]
+ },
+ "evidenceIntegrity": {
+  "pointersChecked": 2,
+  "missing": [
+   "evidence/02-commerce-home.png",
+   "evidence/03-explore.png"
+  ],
+  "allPointersResolve": false,
+  "note": "every evidence pointer resolves to a file on disk relative to the manifest"
+ }
+}

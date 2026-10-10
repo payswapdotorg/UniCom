@@ -1,0 +1,11 @@
+2026-10-10T07:32:38.578Z [env] vite dev server spawning on :5199 (heap cap 512MB, log /home/z/battery/w1-011/docs/rendered-ui/w1-011/evidence/vite-dev.log, pid 31621)
+2026-10-10T07:32:40.633Z [env] vite dev server up=true at http://localhost:5199 (freeMem=1186MB)
+2026-10-10T07:32:40.947Z [browser] launching headless chromium (freeMem=1129MB)
+2026-10-10T07:32:41.429Z [browser] chromium 153.0.8010.12 (playwright 1.63.0 from import:playwright)
+2026-10-10T07:34:23.928Z [env] warm-up cold boot: painted=false in 102211ms (freeMem=1485MB)
+2026-10-10T07:34:23.998Z [walk] landing-connect-wall: BLOCKED (Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5199/)
+2026-10-10T07:34:26.431Z [env] browser closed, vite torn down (freeMem=1586MB)
+2026-10-10T07:34:26.433Z [manifest] /home/z/battery/w1-011/docs/rendered-ui/w1-011/commerce-evidence-manifest.json (valid=false errors=1)
+2026-10-10T07:34:26.433Z [evidence] 2 pointers checked, missing=2: evidence/02-commerce-home.png, evidence/03-explore.png
+2026-10-10T07:34:26.433Z [denominator] planned = executed + blocked + skipped = ΣbyOutcome → 29 = 19 + 10 + 0 = 29 (zero drift)
+2026-10-10T07:34:26.433Z [outcomes] surfaces: landing-connect-wall=BLOCKED, first-discovery-entry-click=BLOCKED, commerce-home=BLOCKED, explore-taxonomy-J19=BLOCKED, module-host-states-J18=BLOCKED, in-development-journey-J1=BLOCKED, role-switcher=BLOCKED, role-denied-interaction=BLOCKED, system-surface-and-demo-mode=BLOCKED, demo-reset=BLOCKED | journeys: 0 PASS / 0 FAIL / 19 ABSENT / 10 BLOCKED / 0 UNKNOWN / 0 SKIPPED

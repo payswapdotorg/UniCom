@@ -1,0 +1,524 @@
+/*
+ * W1-011 commerce host styles — self-contained by design.
+ *
+ * The ZCode web app's Tailwind entry (@zcode/ui/styles.css) only reliably
+ * scans packages/ui sources, and this pod cannot run the Vite dev server to
+ * verify arbitrary utility compilation. The commerce host therefore ships
+ * its own small stylesheet: semantic class names, CSS custom properties for
+ * tokens (dark default, light via prefers-color-scheme), no build-time
+ * dependency. Focus-visible styles included; responsive via flex-wrap and
+ * max-width rather than breakpoint gymnastics.
+ */
+
+:root {
+  --cm-bg: #0d1117;
+  --cm-bg-raised: #151b23;
+  --cm-bg-inset: #0a0e14;
+  --cm-border: #2b3440;
+  --cm-border-strong: #3d4956;
+  --cm-fg: #e6edf3;
+  --cm-fg-subtle: #9aa7b4;
+  --cm-fg-faint: #6e7b87;
+  --cm-accent: #4c8dff;
+  --cm-accent-fg: #ffffff;
+  --cm-ok: #3fb950;
+  --cm-ok-bg: rgba(63, 185, 80, 0.12);
+  --cm-warn: #d29922;
+  --cm-warn-bg: rgba(210, 153, 34, 0.12);
+  --cm-err: #f85149;
+  --cm-err-bg: rgba(248, 81, 73, 0.12);
+  --cm-unknown: #a371f7;
+  --cm-unknown-bg: rgba(163, 113, 247, 0.12);
+  --cm-muted: #8b949e;
+  --cm-muted-bg: rgba(139, 148, 158, 0.12);
+  --cm-radius: 10px;
+  --cm-font:
+    Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --cm-bg: #f6f8fa;
+    --cm-bg-raised: #ffffff;
+    --cm-bg-inset: #eef1f5;
+    --cm-border: #d0d7de;
+    --cm-border-strong: #afb8c1;
+    --cm-fg: #1f2328;
+    --cm-fg-subtle: #57606a;
+    --cm-fg-faint: #6e7781;
+    --cm-accent: #0969da;
+    --cm-accent-fg: #ffffff;
+    --cm-ok: #1a7f37;
+    --cm-ok-bg: rgba(26, 127, 55, 0.1);
+    --cm-warn: #9a6700;
+    --cm-warn-bg: rgba(154, 103, 0, 0.12);
+    --cm-err: #cf222e;
+    --cm-err-bg: rgba(207, 34, 46, 0.1);
+    --cm-unknown: #8250df;
+    --cm-unknown-bg: rgba(130, 80, 223, 0.1);
+    --cm-muted: #57606a;
+    --cm-muted-bg: rgba(87, 96, 106, 0.1);
+  }
+}
+
+.cm-app {
+  min-height: 100vh;
+  background: var(--cm-bg);
+  color: var(--cm-fg);
+  font-family: var(--cm-font);
+  display: flex;
+  flex-direction: column;
+}
+
+.cm-app a {
+  color: var(--cm-accent);
+  text-decoration: none;
+}
+
+.cm-app a:hover {
+  text-decoration: underline;
+}
+
+.cm-app :focus-visible {
+  outline: 2px solid var(--cm-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* --- Header --- */
+
+.cm-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  padding: 10px 20px;
+  background: var(--cm-bg-raised);
+  border-bottom: 1px solid var(--cm-border);
+}
+
+.cm-brand {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--cm-fg);
+  letter-spacing: 0.01em;
+}
+
+.cm-brand-sub {
+  color: var(--cm-fg-faint);
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.cm-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-right: auto;
+}
+
+.cm-nav a {
+  padding: 5px 10px;
+  border-radius: 6px;
+  color: var(--cm-fg-subtle);
+  font-size: 13px;
+}
+
+.cm-nav a:hover {
+  background: var(--cm-muted-bg);
+  text-decoration: none;
+  color: var(--cm-fg);
+}
+
+.cm-nav a[aria-current="page"] {
+  background: var(--cm-muted-bg);
+  color: var(--cm-fg);
+  font-weight: 600;
+}
+
+.cm-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--cm-fg-subtle);
+}
+
+.cm-button {
+  font: inherit;
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--cm-border-strong);
+  background: var(--cm-bg-raised);
+  color: var(--cm-fg);
+  cursor: pointer;
+}
+
+.cm-button:hover {
+  border-color: var(--cm-accent);
+}
+
+.cm-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.cm-button-primary {
+  background: var(--cm-accent);
+  border-color: var(--cm-accent);
+  color: var(--cm-accent-fg);
+}
+
+.cm-button-primary:disabled {
+  background: var(--cm-muted-bg);
+  border-color: var(--cm-border);
+  color: var(--cm-fg-faint);
+}
+
+/* --- Layout --- */
+
+.cm-main {
+  flex: 1;
+  width: 100%;
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 24px 20px 64px;
+}
+
+.cm-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--cm-border);
+  color: var(--cm-fg-faint);
+  font-size: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+}
+
+.cm-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cm-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.cm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 12px;
+}
+
+/* --- Cards & panels --- */
+
+.cm-card {
+  background: var(--cm-bg-raised);
+  border: 1px solid var(--cm-border);
+  border-radius: var(--cm-radius);
+  padding: 16px;
+}
+
+.cm-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+
+.cm-card-sub {
+  color: var(--cm-fg-subtle);
+  font-size: 13px;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.cm-section-title {
+  font-size: 16px;
+  font-weight: 650;
+  margin: 26px 0 10px;
+}
+
+.cm-hero {
+  background: linear-gradient(180deg, var(--cm-bg-raised), var(--cm-bg));
+  border: 1px solid var(--cm-border);
+  border-radius: var(--cm-radius);
+  padding: 26px;
+}
+
+.cm-hero h1 {
+  margin: 0 0 10px;
+  font-size: 24px;
+}
+
+.cm-hero p {
+  margin: 0 0 4px;
+  color: var(--cm-fg-subtle);
+  line-height: 1.6;
+  max-width: 72ch;
+  font-size: 14px;
+}
+
+/* --- Chips & badges --- */
+
+.cm-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.cm-chip-ok {
+  color: var(--cm-ok);
+  background: var(--cm-ok-bg);
+}
+
+.cm-chip-warn {
+  color: var(--cm-warn);
+  background: var(--cm-warn-bg);
+}
+
+.cm-chip-err {
+  color: var(--cm-err);
+  background: var(--cm-err-bg);
+}
+
+.cm-chip-unknown {
+  color: var(--cm-unknown);
+  background: var(--cm-unknown-bg);
+}
+
+.cm-chip-muted {
+  color: var(--cm-muted);
+  background: var(--cm-muted-bg);
+}
+
+.cm-chip-demo {
+  color: var(--cm-warn);
+  background: var(--cm-warn-bg);
+  border-color: var(--cm-warn);
+}
+
+.cm-env-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--cm-warn);
+  background: var(--cm-warn-bg);
+  border: 1px solid var(--cm-warn);
+}
+
+.cm-env-note {
+  font-size: 11.5px;
+  color: var(--cm-fg-faint);
+}
+
+/* --- Lists --- */
+
+.cm-journey-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  align-items: baseline;
+  padding: 9px 12px;
+  border: 1px solid var(--cm-border);
+  border-radius: 8px;
+  background: var(--cm-bg-raised);
+}
+
+.cm-journey-id {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  color: var(--cm-fg-faint);
+  min-width: 30px;
+}
+
+.cm-journey-name {
+  font-weight: 600;
+  font-size: 13.5px;
+}
+
+.cm-journey-summary {
+  flex-basis: 100%;
+  color: var(--cm-fg-subtle);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.cm-role-card {
+  border: 1px solid var(--cm-border);
+  border-radius: 8px;
+  padding: 12px;
+  background: var(--cm-bg-raised);
+}
+
+.cm-role-card-held {
+  border-color: var(--cm-accent);
+}
+
+.cm-perm-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  font-size: 12px;
+  color: var(--cm-fg-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cm-perm-list code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+}
+
+.cm-blocked-reason {
+  font-size: 12px;
+  color: var(--cm-err);
+  background: var(--cm-err-bg);
+  border: 1px solid var(--cm-err);
+  border-radius: 6px;
+  padding: 6px 9px;
+  line-height: 1.45;
+}
+
+.cm-state-item {
+  border: 1px solid var(--cm-border);
+  border-left-width: 4px;
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: var(--cm-bg-raised);
+}
+
+.cm-state-item-label {
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.cm-state-item-detail {
+  color: var(--cm-fg-subtle);
+  font-size: 12.5px;
+  margin-top: 3px;
+  line-height: 1.5;
+}
+
+.cm-demo-tag {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--cm-warn);
+  letter-spacing: 0.05em;
+}
+
+textarea.cm-intent-draft {
+  width: 100%;
+  min-height: 74px;
+  resize: vertical;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--cm-fg);
+  background: var(--cm-bg-inset);
+  border: 1px solid var(--cm-border);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+/* --- Module surface frame --- */
+
+.cm-module-frame {
+  border: 1px dashed var(--cm-border-strong);
+  border-radius: var(--cm-radius);
+  padding: 16px;
+  background: var(--cm-bg-inset);
+}
+
+.cm-module-frame-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: var(--cm-fg-faint);
+}
+
+.cm-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--cm-accent);
+  color: var(--cm-accent-fg);
+  padding: 8px 14px;
+  border-radius: 0 0 8px 0;
+  z-index: 50;
+}
+
+.cm-skip-link:focus {
+  left: 0;
+}
+
+/* --- Accessibility: reduced motion --------------------------------------
+   The host itself renders no animations today; this guard neutralizes any
+   animation, transition or smooth scrolling a present or future module
+   surface adds (the 0.01ms + single-iteration pattern keeps terminal frames
+   visible instead of freezing mid-animation). Vestibular safety is respected
+   by default, not opt-in. */
+
+@media (prefers-reduced-motion: reduce) {
+  .cm-app,
+  .cm-app *,
+  .cm-app *::before,
+  .cm-app *::after,
+  .cm-entry-overlay,
+  .cm-entry-overlay * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --- Commerce entry button on the ZCode app surface --- */
+
+.cm-entry-overlay {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2147483000;
+  font-family: var(--cm-font);
+}
+
+.cm-entry-overlay button {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cm-accent-fg);
+  background: var(--cm-accent);
+  border: none;
+  border-radius: 999px;
+  padding: 9px 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+.cm-entry-overlay button:hover {
+  filter: brightness(1.08);
+}

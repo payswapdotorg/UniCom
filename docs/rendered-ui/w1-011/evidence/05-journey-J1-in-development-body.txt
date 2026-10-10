@@ -1,0 +1,23 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+J1 · Buyer Intent Canvas
+in development
+lane W2-012
+
+Describe what you need in your own words, add constraints (deadline, budget, quality, proof, recourse), and compare plans before buying.
+
+The Buyer Intent Canvas module is not registered yet (lane W2-012). The typed view contracts and the deterministic commerce runtime exist; the rendered journey ships with that lane.
+
+What exists today: the typed view contracts and the deterministic commerce runtime for this journey are implemented and proven by the W2-010 resilience matrix (63 scenarios, 7 invariants) — the rendered screens ship with lane W2-012.
+
+See related capabilities in Explore
+Back to all journeys
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)
