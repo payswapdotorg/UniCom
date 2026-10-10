@@ -77,6 +77,8 @@ describe("merchant-connectors (J15) — the real connector runtime (safe exercis
     expect(text).toContain("correlation journey-w3cn-journey-catalog-observe-1-w3cn-seed-1");
     // Execution-mode telemetry rollup.
     expect(text).toContain("PASS_THROUGH_NATIVE: 1 journeys — 0 succeeded, 1 failed-recoverable, 0 unknown");
+    // Per-adapter telemetry rollup.
+    expect(text).toContain("shopify-harbor-lane-demo.myshopify.com: 1 journeys — last failed-recoverable at Oct 12, 09:00 UTC");
     // The W3-005 health-surface recovery plan.
     expect(text).toContain("last journey Oct 12, 09:00 UTC · outcome failed-recoverable");
     expect(text).toContain("recovery: Try the operation again (the last run failed recoverably — a retry may succeed without changes)");

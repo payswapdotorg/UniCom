@@ -113,6 +113,19 @@ export function RuntimeSpacePanel({ space }: { readonly space: ConnectorRuntimeS
         </span>
       </div>
       <div className="cm-journey-item">
+        <span className="cm-journey-name">Per-adapter telemetry (journey rollups)</span>
+        <span className="cm-journey-summary">
+          {space.adapterTelemetry
+            .map(
+              (adapter) =>
+                `${adapter.adapterId}: ${adapter.journeys} journeys — last ${adapter.lastOutcome ?? "none"}${
+                  adapter.lastJourneyAt === undefined ? "" : ` at ${clockLabel(adapter.lastJourneyAt)}`
+                }`,
+            )
+            .join(" · ") || "no adapters recorded"}
+        </span>
+      </div>
+      <div className="cm-journey-item">
         <span className="cm-journey-name">Health surface recovery plan (W3-005 projection)</span>
         <span className="cm-journey-summary">
           {entry === undefined
