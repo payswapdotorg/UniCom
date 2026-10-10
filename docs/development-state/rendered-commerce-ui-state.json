@@ -182,7 +182,17 @@
         "docs/development-state/rendered-commerce-ui-state.json",
         "packages/web/src/commerce-host/contract/index.ts"
       ]
+    },
+    {
+      "event": "EXTERNAL VEHICLE GATE BLOCKED — three-lane dispatch + solo retry failed at the platform request layer; partial work preserved; TL probing on cadence",
+      "recorded_at": "2026-10-10T07:50:00Z",
+      "recorded_by": "resident TL (Z.ai Code session web-6ddc0a59)",
+      "type": "EXTERNAL_BLOCKER",
+      "detail": "At ~07:25-07:35Z the three parallel dispatches (W1 finishing vehicle, W2-012 vehicle 2, W3-015 vehicle 1) ALL failed with backend request timeouts ('prod-openai-adapter-backend... context deadline exceeded' / 'context deadline exceeded') — the same external turn-generation gate failure class as the 2026-10-09 16:45Z platform event (cf8a040 precedent). A solo retry after a 120s pause (07:42Z) failed instantly at the request layer, confirming the gate is currently closed for subagent vehicles (the resident TL session itself generates turns normally). HONEST HARVEST of partial state before recording (vehicles execute even when their result delivery fails): work/w1-011 has the W1 finishing vehicle's uncommitted partials (packages/web/vitest.config.ts modified; docs/rendered-ui/w1-011/ + packages/web/test/ new); work/w2-012 has commit 5ed7786 (buyer-groupbuy J4+J5 module with threshold/deadline/eligibility/consent terms, interest-never-commitment join+withdraw gates, latent-demand recruitment with consenting-only participants, proposal accept/counter/reject states, 10 tests) + uncommitted peer-rent/ partial; work/w3-015 has uncommitted merchant-shared/ + merchant-storefront/ partials. All partials preserved on disk for continuation vehicles; the TL does NOT absorb the lanes (tl_is_worker:false; contract-map §7.4 drought contingency). No fabricated progress; frontier unchanged [HOST]; the TL continues probing the vehicle gate on a cadence and will re-dispatch continuation vehicles (harvesting the partials) the moment the gate reopens.",
+      "artifacts": [
+        "docs/development-state/rendered-commerce-ui-state.json"
+      ]
     }
   ],
-  "last_reviewed_at": "2026-10-10T07:15:00Z"
+  "last_reviewed_at": "2026-10-10T07:50:00Z"
 }
