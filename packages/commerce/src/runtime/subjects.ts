@@ -220,6 +220,16 @@ export function reorderProposalSubject(proposalId: string): CommerceSubjectRef {
   return { subjectType: "REORDER_PROPOSAL", subjectId: proposalId };
 }
 
+// --- W1-012 (additive): execution-aggregate subjects ---
+
+export function groupBuySubject(groupBuyId: string): CommerceSubjectRef {
+  return { subjectType: "GROUP_BUY", subjectId: groupBuyId };
+}
+
+export function tradeCycleSubject(tradeCycleId: string): CommerceSubjectRef {
+  return { subjectType: "TRADE_CYCLE", subjectId: tradeCycleId };
+}
+
 export function mintCampaignId(n: number) {
   return makeId<"CampaignId">(`camp-${n}`);
 }

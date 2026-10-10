@@ -60,6 +60,10 @@ const COLLECTIONS: readonly (keyof TwinStateSnapshot)[] = [
   "skuPrices",
   "priceAdjustments",
   "restockOrders",
+  // --- W1-012 (additive): execution-aggregate collections ---
+  "groupBuys",
+  "groupBuyInterests",
+  "tradeCycles",
 ];
 
 /**

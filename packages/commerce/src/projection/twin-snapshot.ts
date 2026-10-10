@@ -24,6 +24,8 @@ import type { ReconciliationRecord } from "../domain/reconciliation.js";
 import type { PaymentCaptureRecord, SettlementRecord } from "../domain/settlement.js";
 import type { ChargebackRecord, DisputeRecord } from "../domain/recourse.js";
 import type { CashVarianceRecord, StoreCashSession } from "../domain/store-ops.js";
+import type { GroupBuyAggregate, GroupBuyInterestRecord } from "../domain/groupbuy.js";
+import type { TradeCycleExecution } from "../domain/tradecycle.js";
 import type {
   AutonomousOverrideRecord,
   AutonomousStoreControl,
@@ -71,6 +73,10 @@ export interface TwinStateSnapshot {
   readonly skuPrices: readonly SkuPriceRecord[];
   readonly priceAdjustments: readonly PriceAdjustmentRecord[];
   readonly restockOrders: readonly RestockOrderRecord[];
+  // --- W1-012 (additive): execution-aggregate collections ---
+  readonly groupBuys: readonly GroupBuyAggregate[];
+  readonly groupBuyInterests: readonly GroupBuyInterestRecord[];
+  readonly tradeCycles: readonly TradeCycleExecution[];
 }
 
 function byRevision(a: { readonly revision: number }, b: { readonly revision: number }): number {
@@ -85,6 +91,7 @@ function sorted<V extends { readonly revision: number }>(collection: ReadonlyMap
 export function snapshotOfTwin(state: TwinState): TwinStateSnapshot {
   const collections: TwinCollections = state.collections();
   const autonomous = state.autonomousCollections();
+  const execution = state.executionCollections();
   return {
     levels: sorted(collections.levels),
     reservations: sorted(collections.reservations),
@@ -118,5 +125,8 @@ export function snapshotOfTwin(state: TwinState): TwinStateSnapshot {
     skuPrices: sorted(autonomous.skuPrices),
     priceAdjustments: sorted(autonomous.priceAdjustments),
     restockOrders: sorted(autonomous.restockOrders),
+    groupBuys: sorted(execution.groupBuys),
+    groupBuyInterests: sorted(execution.interests),
+    tradeCycles: sorted(execution.tradeCycles),
   };
 }

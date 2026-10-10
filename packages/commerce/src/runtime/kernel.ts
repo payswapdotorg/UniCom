@@ -45,6 +45,8 @@ import { handleAdjustSkuPrice, handleSetSkuPrice } from "./handler-price-book.js
 import { handleAdvanceCampaign, handleApplyCampaignEffect, handleOpenCampaign, handleResolveCampaignStacking } from "./handler-marketing.js";
 import { handleAccrueLoyalty, handleAdjustLoyalty, handleExpireLoyalty, handleOpenCustomerRecord, handleOpenLoyaltyAccount, handleRedeemLoyalty } from "./handler-crm.js";
 import { handleAdvanceReorderProposal, handleProposeReorder, handleRecordDemandSignal } from "./handler-forecasting.js";
+import { handleCloseGroupBuy, handleDecideGroupBuyProposal, handleExpireGroupBuy, handleFormGroupBuy, handleOpenGroupBuyProposal, handleRecordGroupBuyInterest, handleWithdrawGroupBuyInterest } from "./handler-groupbuy.js";
+import { handleAuthorizeTradeCycleLeg, handleExecuteTradeCycle, handleExecuteTradeCycleLeg, handleLapseTradeCycleLeg, handleOpenTradeCycle, handleRefuseTradeCycleLeg, handleRollbackTradeCycleLeg, handleWithdrawTradeCycleLeg } from "./handler-tradecycle.js";
 import { policySubject } from "./subjects.js";
 import { authorityTargetStore, gateAuthorityCommand } from "./policy-gate.js";
 
@@ -126,6 +128,22 @@ const HANDLERS: Readonly<Record<string, RuntimeCommandHandler>> = Object.freeze(
   RECORD_DEMAND_SIGNAL: handleRecordDemandSignal,
   PROPOSE_REORDER: handleProposeReorder,
   ADVANCE_REORDER_PROPOSAL: handleAdvanceReorderProposal,
+  // --- W1-012 (additive): execution-aggregate commands ---
+  OPEN_GROUP_BUY_PROPOSAL: handleOpenGroupBuyProposal,
+  RECORD_GROUP_BUY_INTEREST: handleRecordGroupBuyInterest,
+  WITHDRAW_GROUP_BUY_INTEREST: handleWithdrawGroupBuyInterest,
+  DECIDE_GROUP_BUY_PROPOSAL: handleDecideGroupBuyProposal,
+  FORM_GROUP_BUY: handleFormGroupBuy,
+  CLOSE_GROUP_BUY: handleCloseGroupBuy,
+  EXPIRE_GROUP_BUY: handleExpireGroupBuy,
+  OPEN_TRADE_CYCLE: handleOpenTradeCycle,
+  AUTHORIZE_TRADE_CYCLE_LEG: handleAuthorizeTradeCycleLeg,
+  REFUSE_TRADE_CYCLE_LEG: handleRefuseTradeCycleLeg,
+  WITHDRAW_TRADE_CYCLE_LEG: handleWithdrawTradeCycleLeg,
+  LAPSE_TRADE_CYCLE_LEG: handleLapseTradeCycleLeg,
+  EXECUTE_TRADE_CYCLE: handleExecuteTradeCycle,
+  EXECUTE_TRADE_CYCLE_LEG: handleExecuteTradeCycleLeg,
+  ROLLBACK_TRADE_CYCLE_LEG: handleRollbackTradeCycleLeg,
 });
 
 export class CommerceKernel {

@@ -33,3 +33,4 @@ export type { KernelStateSnapshot } from "./kernel-snapshot.js";
 export type { EmittedEventSpec, CommandContext } from "./handler.js";
 export { gateAutonomousCommand, authorityTargetStore, gateAuthorityCommand } from "./policy-gate.js";
 export { KernelAutonomousStoreFold } from "./kernel-fold-autonomous.js";
+export { KernelExecutionFold } from "./kernel-fold-execution.js";

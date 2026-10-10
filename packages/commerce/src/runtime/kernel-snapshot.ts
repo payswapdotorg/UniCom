@@ -21,6 +21,8 @@ import type { ReconciliationRecord } from "../domain/reconciliation.js";
 import type { PaymentCaptureRecord, SettlementRecord } from "../domain/settlement.js";
 import type { ChargebackRecord, DisputeRecord } from "../domain/recourse.js";
 import type { CashVarianceRecord, StoreCashSession } from "../domain/store-ops.js";
+import type { GroupBuyAggregate, GroupBuyInterestRecord } from "../domain/groupbuy.js";
+import type { TradeCycleExecution } from "../domain/tradecycle.js";
 import type {
   AutonomousOverrideRecord,
   AutonomousStoreControl,
@@ -68,6 +70,10 @@ export interface KernelStateSnapshot {
   readonly skuPrices: readonly SkuPriceRecord[];
   readonly priceAdjustments: readonly PriceAdjustmentRecord[];
   readonly restockOrders: readonly RestockOrderRecord[];
+  // --- W1-012 (additive): execution-aggregate collections ---
+  readonly groupBuys: readonly GroupBuyAggregate[];
+  readonly groupBuyInterests: readonly GroupBuyInterestRecord[];
+  readonly tradeCycles: readonly TradeCycleExecution[];
 }
 
 /** Build the snapshot from a kernel state's sorted getters. */
@@ -105,5 +111,8 @@ export function snapshotOf(state: KernelState): KernelStateSnapshot {
     skuPrices: state.autonomousOps().allPriceRecords(),
     priceAdjustments: state.autonomousOps().allPriceAdjustments(),
     restockOrders: state.autonomousOps().allRestockOrders(),
+    groupBuys: state.executionOps().allGroupBuys(),
+    groupBuyInterests: state.executionOps().allGroupBuyInterests(),
+    tradeCycles: state.executionOps().allTradeCycles(),
   };
 }
