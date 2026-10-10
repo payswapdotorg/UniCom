@@ -79,10 +79,13 @@
       "id": "W3-016",
       "path": "docs/work-orders/W3-016.md",
       "lane": "merchant-groupbuy-and-connector-runtime-wiring",
-      "status": "READY_AFTER_W1_SEAM",
+      "status": "ACCEPTED",
       "owner": "worker-3 (Task-tool subagents, resident session web-6ddc0a59)",
       "branch": "work/w3-016",
-      "dependency": "W1-012 seam commit"
+      "dependency": "W1-012 seam commit",
+      "commits": "1f034e5 (seam base) → bd10015 (J5 merchant kernel wiring) → 3d57d7c (J15 connector runtime wiring) → 7507e78 (per-adapter telemetry rollup) → f385702 (lane manifest)",
+      "accepted_at": "2026-10-10T22:00:00Z",
+      "acceptance_evidence": "TL independent verification: web vitest 282/282 reproduced, lint 101w/0e reproduced, architecture 0/0 reproduced, scoped tsc clean reproduced; manifest reviewed — connector exercise record: REAL createShopifyAdapter registered-never-connected (0 instances), health UNKNOWN honestly via the adapter's own no-instance branch, one read-only journey REFUSED BY THE CANONICAL GATE (failed-recoverable, CATALOG_ONLY_NO_CONNECTED_INSTANCE) with evidence correlation + telemetry rollups, tripwire port enforcing 0 provider HTTP calls, real vault empty (0 credentials), live-connected stays NONE, precise safe-exercise label; browser boundary honest (runtime barrel not browser-evaluable — node builtins; guarded dynamic import renders the committed test-pinned SAFE_EXERCISE_RECORD + honest UNAVAILABLE boundary, never fabricated runtime state)"
     }
   ],
   "operator_decisions": [
@@ -133,7 +136,8 @@
     {
       "id": "WIRE_MERCHANT",
       "name": "J5 merchant review wired to the kernel formation aggregate; J15 connector manager wired to the experience connector runtime with safe exercise and honest status (W3-016)",
-      "status": "PENDING"
+      "status": "PASSED",
+      "passed_at": "2026-10-10T22:00:00Z"
     },
     {
       "id": "SAFETY",
@@ -155,14 +159,8 @@
     {
       "id": "W2-013",
       "status": "IN_FLIGHT",
-      "vehicle": "worker-2 continuation vehicle (Task ID 40)",
-      "progress_at_last_check": "J9 committed (9d31097); continuation vehicle actively rewiring J5 buyer-groupbuy (kernel.ts + gate.tsx + groupbuy-data.ts + component/test/latent-demand in progress)"
-    },
-    {
-      "id": "W3-016",
-      "status": "IN_FLIGHT",
-      "vehicle": "worker-3 continuation vehicle (Task ID 41)",
-      "progress_at_last_check": "J5 merchant committed (bd10015); continuation vehicle actively wiring J15 merchant-connectors to the experience connector runtime (runtime.ts + component-parts.tsx + component/fixtures/module/tests in progress; probe dirs to be disposed)"
+      "vehicle": "worker-2 continuation vehicle 3 (Task ID 42)",
+      "progress_at_last_check": "J9 committed (9d31097); vehicle 3 actively completing J5 buyer-groupbuy kernel wiring (7 files in flight incl. latent-demand-parts.tsx split)"
     }
   ],
   "frontier": [
