@@ -10,11 +10,7 @@
  */
 
 import { makeId, revisePolicy } from "@unicom/commerce";
-import type {
-  AutonomousStorePolicy,
-  PolicyProposal,
-  AutonomousStorePolicyId,
-} from "@unicom/commerce";
+import type { AutonomousStorePolicy, PolicyProposal } from "@unicom/commerce";
 import { DEMO_CURRENCY, demoMoney } from "../merchant-shared/demo-runtime.js";
 
 /** Fixture identity (shown on the surface; bumps when fixtures change). */
@@ -45,7 +41,7 @@ export const AUTONOMOUS_SKU = {
  * with a 4-unit restock rule (4 × USD 30.00 = USD 120.00 per trigger).
  */
 export const HEALTHY_POLICY: AutonomousStorePolicy = {
-  policyId: makeId<AutonomousStorePolicyId>("pol-demo-harbor24"),
+  policyId: makeId<"AutonomousStorePolicyId">("pol-demo-harbor24"),
   autonomousStoreId: AUTONOMOUS_STORE_ID,
   revision: 1,
   policyCurrency: DEMO_CURRENCY,
