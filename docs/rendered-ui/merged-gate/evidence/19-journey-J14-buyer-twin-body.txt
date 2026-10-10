@@ -1,0 +1,76 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module buyer-twin
+owner lane W2-012
+status ready
+J14 · Commerce Twin — what-if
+DEMO
+PREDICTIVE — never canonical
+
+The Commerce Twin tests decisions on a safe copy of your situation. Everything it produces is a forecast: deterministic arithmetic over committed demo facts, labelled predictive on every panel. Forecasts from the advisory runtime (computeDemandForecast) are never auto-applied — and this surface has no path that writes commerce facts: no order, price change, listing or commitment can be created from here.
+
+What-if · shift ink purchasing to the co-op pool
+DEMO
+PREDICTIVE — never canonical
+Purchasing shift
+Keep buying at list (0%)
+Shift a quarter to the pool (25%)
+Shift half to the pool (50%)
+Shift three quarters (75%)
+Shift everything to the pool (100%)
+Demand scenario
+Steady demand (×1.0)
+Busy season (×1.25)
+Quiet season (×0.75)
+Brand-new SKU (no history)
+Counterfactual result
+PREDICTIVE — never canonical
+
+Forecast UNKNOWN (NO_DATA) — the runtime refused to guess. No projection is shown: an honest unknown beats an invented number. UNKNOWN is not a failure and not a zero forecast.
+
+Canonical facts this counterfactual ran against
+OPERATIONAL
+
+Verified list price: 49.00 USD per set (committed demo fixture, verified feed)
+
+Pool threshold price: 41.00 USD per set (applies only if the pool forms — J4 surface shows the live threshold state)
+
+Your purchase history: weekly units [3, 4, 2, 3, 5, 3] (committed demo fixture)
+
+What-if · sell the plotter, rent one when needed
+DEMO
+PREDICTIVE — never canonical
+
+Counterfactual: you sell the idle plotter at the evidence-backed ask and rent at the verified weekly rate when work demands it. All numbers below are projections over committed demo fixtures — nothing is listed, sold or rented by viewing them.
+
+Projected weeks of use per year
+4 weeks
+12 weeks
+26 weeks
+
+Rent spend at the projection: 1140.00 USD for 12 weeks at the verified rate (plus 480.00 USD deposit held during each rental)
+
+Buy price you would avoid: 2400.00 USD
+
+Resale net if you sold today: 741.00 USD — evidence-backed estimate from the J7 surface (listing there takes your explicit action)
+
+These projections do not decide for you: the J6 (rent) and J7 (resale) surfaces own the real actions, each with its own terms and confirmation gates.
+
+Write-block — this Twin cannot change real records
+STRUCTURAL
+
+Why nothing can be applied from here: Predictions never mutate canonical truth (architecture invariant). The forecasting runtime is advisory-only; the Commerce Twin is a read-side projection over committed demo facts. This surface exposes no order, price, listing, rental or commitment command — there is nothing to click that would write commerce facts.
+
+What acting on a projection looks like: You take the idea to the owning surface — J4 for the pool, J6 for renting, J7 for resale — where every action shows terms, consequence and evidence and requires your explicit confirmation.
+
+Audit: The Twin's outputs are recomputed deterministically from committed fixtures on every render — no hidden state, no side effects, nothing to roll back.
+
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

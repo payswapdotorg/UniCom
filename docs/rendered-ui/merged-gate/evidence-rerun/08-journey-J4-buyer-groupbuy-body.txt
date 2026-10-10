@@ -1,0 +1,78 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module buyer-groupbuy
+owner lane W2-012
+status ready
+J4 · Group buys — discover, join, leave
+DEMO
+
+Team up with other buyers toward a group threshold. The law of this surface: interest is never a commitment. Every pool shows its threshold, deadline, eligibility and the exact terms a future commitment would carry — before you express anything. Formation itself is the agent lane's group-buy engine; in this host the formation states are demo-only local state (recorded as a lane blocker, never simulated as a live outcome).
+
+You currently hold interest in 1 of 2 pools.
+
+What is real here, and what is not
+
+Real: The discovery surface, the terms shown, and the join/leave/consent flows — all deterministic demo fixtures.
+
+Demo-only: Participant counts, threshold progress and any 'formation' state — they live in local screen state only.
+
+Not wired: The canonical GroupBuy formation engine (agent lane) is not connected to this host; no group-buy commitment is ever created.
+
+A3 recycled card — studio pool
+DEMO
+48/60 toward the threshold
+
+Group threshold: 60 units
+
+Deadline: Oct 15, 18:00 (demo clock)
+
+Eligibility: Studios inside Meridian's delivery area; one participation per studio.
+
+Price at threshold: 11.20 USD per box (vs 12.75 list, demo)
+
+Consent terms: Your interest is shared with the organizer only. It is NOT a commitment: nothing is owed, charged or ordered while you are merely interested.
+
+Commitment terms (what a REAL commitment would mean): A commitment would exist only after the threshold is met AND you confirm a second time against the formed deal's final terms. Payment-on-formation is the organizer's rule; you may withdraw interest any time before that second confirmation.
+
+Organizer note: 48 of 60 boxes spoken for (demo participants).
+
+Your interest is recorded
+OFFERED
+interest — not a commitment
+
+Withdraw any time; withdrawing interest cancels nothing else (there is nothing else to cancel).
+
+Withdraw my interest
+Pigment ink set — print co-op
+DEMO
+threshold met — formation pending
+
+Group threshold: 24 units
+
+Deadline: Oct 13, 12:00 (demo clock)
+
+Eligibility: Co-op members who have completed a previous group buy.
+
+Price at threshold: 41.00 USD per set (vs 49.00 list, demo)
+
+Consent terms: Threshold already met — the pool is awaiting the organizer's formation step. Your interest still commits you to nothing.
+
+Commitment terms (what a REAL commitment would mean): If you express interest now, you join the waiting list for the formed deal's final terms — the deal is NOT formed yet, and no money moves in demo mode.
+
+Organizer note: Threshold reached (24/24). Formation pending organizer authorization — not automatic.
+
+Express interest (with authorization)
+No pool for what you need?
+
+If enough buyers would buy something that no seller currently offers as a group deal, you can propose one — the merchant review side is a separate lane's surface.
+
+Propose a group deal (J5)
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

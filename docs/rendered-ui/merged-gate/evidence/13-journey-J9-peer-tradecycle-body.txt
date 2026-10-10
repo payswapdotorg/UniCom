@@ -1,0 +1,83 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module peer-tradecycle
+owner lane W2-012
+status partial
+J9 · Trade cycles — multi-hop swaps
+DEMO
+
+A trade cycle chains gives-and-wants across several participants so everyone both gives and receives. The law of this surface: every leg needs its own consent from the giving participant — a refusal, a dropout or an expired consent window stops or re-plans the whole cycle. Other legs are never silently committed: a stop is a stop.
+
+What is real here, and what is not
+
+Real: The per-leg terms, the per-leg consent lifecycle (consent / refusal / withdrawal / expiry), the stop-and-re-plan mechanics — all deterministic demo state mirroring the coordination laws.
+
+Demo-only: The candidate cycle itself. Discovery (bounded search over the offer graph) and validation (per-leg authorization checks) run in the agent lane, which the web host cannot import — candidates here are committed demo fixtures.
+
+Not wired (blocker): Execution. Even with every leg consented, no trade leg executes in this host: the commerce seam carrying per-leg authorizations is agent-lane. The hand-off panel below records the request honestly — it never simulates a completed trade.
+
+Cycle A — 3 hops (Harbor Lane ⇄ Two Harbors ⇄ Northlight)
+DEMO
+
+Cycle: w2tc-cycle-a · 3 hops · 3 participants
+
+Status: PROPOSED
+
+Leg 1 · Two Harbors Design (peer studio) → Harbor Lane Print Studio (you, demo buyer)
+UNCONSENTED
+DEMO
+
+Item moving on this leg: Overlock sewing machine (4-thread)
+
+Consent authority: Two Harbors Design (peer studio) — only the giving participant may authorize this leg
+
+Proof level: P2 — provider-signed
+
+Privacy: Only the immediate counterpart learns your identity on this leg — no participant sees the whole graph.
+
+Consent window ends: 2026-10-13T18:00:00Z (demo clock)
+
+Two Harbors Design consents (demo advance)
+Two Harbors Design refuses — stop the cycle
+Let this leg's consent window lapse
+Leg 2 · Northlight Atelier (peer studio) → Two Harbors Design (peer studio)
+UNCONSENTED
+DEMO
+
+Item moving on this leg: Photography light kit (3 heads)
+
+Consent authority: Northlight Atelier (peer studio) — only the giving participant may authorize this leg
+
+Proof level: P1 — receipt
+
+Privacy: Only the immediate counterpart learns your identity on this leg — no participant sees the whole graph.
+
+Consent window ends: 2026-10-13T18:00:00Z (demo clock)
+
+Northlight Atelier consents (demo advance)
+Northlight Atelier refuses — stop the cycle
+Let this leg's consent window lapse
+Leg 3 · Harbor Lane Print Studio (you, demo buyer) → Northlight Atelier (peer studio)
+CONSENTED
+DEMO
+
+Item moving on this leg: Wide-format A1 printer
+
+Consent authority: Harbor Lane Print Studio (you, demo buyer) — only the giving participant may authorize this leg
+
+Proof level: P2 — provider-signed
+
+Privacy: Only the immediate counterpart learns your identity on this leg — no participant sees the whole graph.
+
+Consent window ends: 2026-10-13T18:00:00Z (demo clock)
+
+Withdraw my consent (dropout)
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

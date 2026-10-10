@@ -1,0 +1,1 @@
+[navigate] http://localhost:5199/commerce/buyer/compare

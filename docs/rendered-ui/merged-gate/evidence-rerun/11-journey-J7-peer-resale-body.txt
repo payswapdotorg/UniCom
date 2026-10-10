@@ -1,0 +1,71 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module peer-resale
+owner lane W2-012
+status ready
+J7 · Recover value from what you own
+DEMO
+
+Resale, consignment or rental for gear you no longer use at full capacity. The law of this surface: nothing is ever listed or committed implicitly — every path shows its terms, consequence and evidence, then waits for your explicit confirm. Listing and consignment lifecycles run on the deterministic commerce runtime (advanceListing / advanceConsignment / consignmentPayout) with exact money math. Outcome estimates cite comparable sales with their freshness; when the comps are UNKNOWN the estimate is UNKNOWN too — never a made-up price.
+
+Your under-used assets
+Vinyl cutting plotter (24 in, like-new blades)
+DEMO
+
+Condition: LIKE_NEW
+
+Original cost: 1490.00 USD
+
+Outcome estimate (evidence-based): ask 780.00 USD → net 741.00 USD after the marketplace fee — derived from the comparable sales below (demo arithmetic, exact money).
+
+verified
+checked 2026-10-11T15:00:00Z · 18 h ago
+Same model, Meridian resale sold at 810.00 USD
+stale
+checked 2026-10-08T09:30:00Z · 3 d ago
+Same model + stand, Ferry Road sold at 765.00 USD
+Prepare a resale listing…
+Send to consignment…
+Rent it out instead (J6)
+Overlock sewing machine (4-thread)
+DEMO
+
+Condition: GOOD
+
+Original cost: 620.00 USD
+
+Outcome estimate (evidence-based): ask 320.00 USD → net 304.00 USD after the marketplace fee — derived from the comparable sales below (demo arithmetic, exact money).
+
+stale
+checked 2026-10-09T11:00:00Z · 2 d ago
+Same model, Harbor Lane sold at 335.00 USD
+UNKNOWN
+checked 2026-09-20T10:00:00Z
+Older model, Northlight sold at 210.00 USD
+Prepare a resale listing…
+Send to consignment…
+Rent it out instead (J6)
+Event tent, 6 m (frame + canvas)
+DEMO
+
+Condition: GOOD
+
+Original cost: 890.00 USD
+
+Outcome estimate (evidence-based): UNKNOWN — no confirmed comparable sale exists. This is not a lowball estimate; it is an honest unknown.
+
+UNKNOWN
+checked 2026-09-05T08:00:00Z
+Similar size, feed never answered sold at 450.00 USD
+Prepare a resale listing…
+Send to consignment…
+Rent it out instead (J6)
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

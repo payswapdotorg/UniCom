@@ -1,0 +1,1172 @@
+{
+ "manifestKind": "merged-gate-commerce-evidence",
+ "schemaVersion": 1,
+ "runId": "merged-gate-commerce-evidence-2026-10-10T140753885Z",
+ "generatedBy": "packages/web/test/browser/run-merged-gate-evidence.mjs",
+ "generatedAtUtc": "2026-10-10T14:08:41.556Z",
+ "lineage": "merged (W1-011 host + W2-012 buyer/peer + W3-015 merchant/procurement/physical/trust)",
+ "selectedSteps": "landing-connect-wall,first-discovery-entry-click,commerce-home,journey-J7",
+ "environment": {
+  "buildCommit": "950577e753c16a9a518160d5cda1b5ca1a4d766a",
+  "gitBranch": "work/merged-gate",
+  "buildTreeDirty": true,
+  "nodeVersion": "v24.21.0",
+  "pnpmVersion": "10.33.2",
+  "playwrightVersion": "1.63.0",
+  "playwrightResolvedFrom": "import:playwright",
+  "chromiumVersion": "153.0.8010.12",
+  "baseUrl": "http://localhost:5199",
+  "webPort": 5199,
+  "envMode": "started-by-runner (vite DEV ONLY — no ZCode server)",
+  "envRequirements": [
+   "Vite dev server serving packages/web (@zcode/web) — nothing else; the commerce host renders from committed demo fixtures",
+   "Vite heap capped via NODE_OPTIONS=--max-old-space-size=512 + GOMEMLIMIT=384MiB (sandbox RAM ceiling)",
+   "Playwright with chromium installed (resolved via import:playwright per the W1-010 pilot); headless flags --disable-dev-shm-usage --no-sandbox"
+  ],
+  "operatingSystem": "linux x64",
+  "freeMemoryMb": {
+   "atStart": 1524,
+   "atEnd": 1317
+  },
+  "envSelfHealingRestarts": [],
+  "walkError": null
+ },
+ "firstDiscovery": {
+  "routeOrigin": "ordinary-landing:/",
+  "landingRendered": true,
+  "entryButtonLabel": "UNiCOM Commerce → (demo, no connection needed)",
+  "entryButtonFound": true,
+  "clicked": true,
+  "landedOn": "/commerce",
+  "landedTitle": "UNiCOM Commerce — Demo",
+  "deepLinkUsedForDiscovery": false,
+  "steps": [
+   {
+    "action": "navigate",
+    "control": {
+     "kind": "url",
+     "visibleLabel": "http://localhost:5199/"
+    },
+    "atUtc": "2026-10-10T14:08:26.050Z",
+    "screenshot": "evidence-rerun-2/01-landing-connect-wall.png",
+    "note": "ordinary landing surface — the ZCode web app with no server behind it"
+   },
+   {
+    "action": "click",
+    "control": {
+     "kind": "button",
+     "visibleLabel": "UNiCOM Commerce → (demo, no connection needed)"
+    },
+    "surfaceId": "landing:/",
+    "atUtc": "2026-10-10T14:08:26.181Z",
+    "note": "the ordinary-flow discovery click — the only path used to reach /commerce in this run",
+    "screenshot": null
+   },
+   {
+    "action": "landed",
+    "control": {
+     "kind": "url",
+     "visibleLabel": "/commerce"
+    },
+    "atUtc": "2026-10-10T14:08:37.666Z",
+    "screenshot": "evidence-rerun-2/02-commerce-home.png",
+    "note": "landed on the commerce host — title \"UNiCOM Commerce — Demo\""
+   }
+  ]
+ },
+ "walkPlan": [
+  {
+   "id": "landing-connect-wall",
+   "kind": "walk",
+   "journeyId": null,
+   "safetyId": null
+  },
+  {
+   "id": "first-discovery-entry-click",
+   "kind": "walk",
+   "journeyId": null,
+   "safetyId": null
+  },
+  {
+   "id": "commerce-home",
+   "kind": "walk",
+   "journeyId": null,
+   "safetyId": null
+  },
+  {
+   "id": "explore-taxonomy-J19",
+   "kind": "journey",
+   "journeyId": "J19",
+   "safetyId": null
+  },
+  {
+   "id": "safety-role-denied",
+   "kind": "safety",
+   "journeyId": null,
+   "safetyId": "role-denied"
+  },
+  {
+   "id": "journey-J1",
+   "kind": "journey",
+   "journeyId": "J1",
+   "safetyId": null
+  },
+  {
+   "id": "journey-J2",
+   "kind": "journey",
+   "journeyId": "J2",
+   "safetyId": null
+  },
+  {
+   "id": "journey-J3",
+   "kind": "journey",
+   "journeyId": "J3",
+   "safetyId": null
+  },
+  {
+   "id": "journey-J4",
+   "kind": "journey",
+   "journeyId": "J4",
+   "safetyId": null
+  },
+  {
+   "id": "journey-J5",
+   "kind": "journey",
+   "journeyId": "J5",
+   "safetyId": null
+  },
+  {
+   "id": "journey-J6",
+   "kind": "journey",
+   "journeyId": "J6",
+   "safetyId": null
+  },
+  {
+   "id": "journey-J7",
+   "kind": "journey",
+   "journeyId": "J7",
+   "safetyId": null
+  },
+  {
+   "id": "role-hold-finance",
+   "kind": "walk",
+   "journeyId": null,
+   "safetyId": null
+  },
+  {
+   "id": "journey-J8",
+   "kind": "journey",
+   "journeyId": "J8",
+   "safetyId": null
+  },
+  {
+   "id": "journey-J9",
+   "kind": "journey",
+   "journeyId": "J9",
+   "safetyId": null
+  },
+  {
+   "id": "role-hold-procurement-receiving",
+   "kind": "walk",
+   "journeyId": null,
+   "safetyId": null
+  },
+  {
+   "id": "journey-J10",
+   "kind": "journey",
+   "journeyId": "J10",
+   "safetyId": null
+  },
+  {
+   "id": "journey-J11",
+   "kind": "journey",
+   "journeyId": "J11",
+   "safetyId": null
+  },
+  {
+   "id": "journey-J12",
+   "kind": "journey",
+   "journeyId": "J12",
+   "safetyId": null
+  },
+  {
+   "id": "journey-J13",
+   "kind": "journey",
+   "journeyId": "J13",
+   "safetyId": null
+  },
+  {
+   "id": "journey-J14",
+   "kind": "journey",
+   "journeyId": "J14",
+   "safetyId": null
+  },
+  {
+   "id": "journey-J15",
+   "kind": "journey",
+   "journeyId": "J15",
+   "safetyId": null
+  },
+  {
+   "id": "role-hold-trust-support",
+   "kind": "walk",
+   "journeyId": null,
+   "safetyId": null
+  },
+  {
+   "id": "journey-J16",
+   "kind": "journey",
+   "journeyId": "J16",
+   "safetyId": null
+  },
+  {
+   "id": "journey-J17",
+   "kind": "journey",
+   "journeyId": "J17",
+   "safetyId": null
+  },
+  {
+   "id": "journey-J18",
+   "kind": "journey",
+   "journeyId": "J18",
+   "safetyId": null
+  },
+  {
+   "id": "safety-unknown-not-failed",
+   "kind": "safety",
+   "journeyId": null,
+   "safetyId": "unknown-not-failed"
+  },
+  {
+   "id": "safety-j5-merchant-desk",
+   "kind": "safety",
+   "journeyId": null,
+   "safetyId": "j5-merchant-desk"
+  },
+  {
+   "id": "safety-j5-dual-claim",
+   "kind": "safety",
+   "journeyId": null,
+   "safetyId": "j5-dual-claim"
+  },
+  {
+   "id": "safety-demo-mode-and-reset",
+   "kind": "safety",
+   "journeyId": null,
+   "safetyId": "demo-mode-and-reset"
+  }
+ ],
+ "walkSteps": [
+  {
+   "id": "landing-connect-wall",
+   "howReached": "browser lands on the ordinary app surface / (no ZCode server: the honest connect/bootstrap wall)",
+   "outcome": "PASS",
+   "checks": [
+    {
+     "name": "painted with visible content",
+     "ok": true,
+     "detail": "bodyText 154 chars"
+    },
+    {
+     "name": "document title recorded",
+     "ok": true,
+     "detail": "ZCode - Web"
+    },
+    {
+     "name": "visible UNiCOM Commerce entry button on the wall",
+     "ok": true,
+     "detail": "UNiCOM Commerce → (demo, no connection needed)"
+    }
+   ],
+   "screenshot": "evidence-rerun-2/01-landing-connect-wall.png",
+   "bodyEvidenceFile": "evidence-rerun-2/01-landing-connect-wall-body.txt",
+   "consoleEvidenceFile": "evidence-rerun-2/01-landing-connect-wall-console.txt",
+   "errorScreenshot": null,
+   "error": null,
+   "retriedAfter": null,
+   "timingsMs": 11607,
+   "note": "title=\"ZCode - Web\"; 2 visible buttons"
+  },
+  {
+   "id": "first-discovery-entry-click",
+   "howReached": "click the visible UNiCOM Commerce entry button on the ordinary wall (ordinary flow — no deep link)",
+   "outcome": "PASS",
+   "checks": [
+    {
+     "name": "entry button was visible and clickable",
+     "ok": true,
+     "detail": "UNiCOM Commerce → (demo, no connection needed)"
+    },
+    {
+     "name": "browser URL is /commerce",
+     "ok": true,
+     "detail": "/commerce"
+    },
+    {
+     "name": "commerce host title",
+     "ok": true,
+     "detail": "UNiCOM Commerce — Demo"
+    }
+   ],
+   "screenshot": "evidence-rerun-2/02-commerce-home.png",
+   "bodyEvidenceFile": "evidence-rerun-2/02-commerce-home-body.txt",
+   "consoleEvidenceFile": "evidence-rerun-2/02-commerce-home-console.txt",
+   "errorScreenshot": null,
+   "error": null,
+   "retriedAfter": null,
+   "timingsMs": 11616,
+   "note": "ordinary-flow discovery complete: wall → visible button → /commerce"
+  },
+  {
+   "id": "commerce-home",
+   "howReached": "the commerce host landing (/commerce) reached by the ordinary discovery click",
+   "outcome": "PASS",
+   "checks": [
+    {
+     "name": "all 19 journey families listed",
+     "ok": true,
+     "detail": "19 rows"
+    },
+    {
+     "name": "ready chips = 19 (registry-derived, merged lineage)",
+     "ok": true,
+     "detail": "ok-chips: 19"
+    },
+    {
+     "name": "in-development chips = 0",
+     "ok": true,
+     "detail": "warn-chips: 0"
+    },
+    {
+     "name": "ready-count copy honest (19 of the 19)",
+     "ok": true,
+     "detail": "“19 of the 19 …” present"
+    },
+    {
+     "name": "DEMO badge always visible",
+     "ok": true,
+     "detail": "badge=\"DEMO\""
+    },
+    {
+     "name": "demo scenario card rendered",
+     "ok": true,
+     "detail": "committed demo firm visible"
+    }
+   ],
+   "screenshot": "evidence-rerun-2/02b-commerce-home.png",
+   "bodyEvidenceFile": "evidence-rerun-2/02b-commerce-home-body.txt",
+   "consoleEvidenceFile": "evidence-rerun-2/02b-commerce-home-console.txt",
+   "errorScreenshot": null,
+   "error": null,
+   "retriedAfter": null,
+   "timingsMs": 118,
+   "note": "ready=19 in-development=0 (registry-derived)"
+  }
+ ],
+ "journeys": [
+  {
+   "journeyId": "J1",
+   "familyName": "Buyer Intent Canvas",
+   "owningLane": "W2-012",
+   "moduleId": "buyer-intent",
+   "howReached": "not reached — the walk aborted before this journey",
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
+   "interaction": {
+    "outcome": "BLOCKED",
+    "declared": "edit a constraint facet (the 17-facet catalog) and review plan options",
+    "label": null,
+    "checks": [],
+    "note": "the journey step never ran"
+   },
+   "merchantSide": null,
+   "screenshots": [],
+   "evidence": {
+    "screenshot": null,
+    "bodyEvidenceFile": null,
+    "consoleEvidenceFile": null
+   },
+   "timingsMs": null,
+   "note": "the journey step never ran"
+  },
+  {
+   "journeyId": "J2",
+   "familyName": "Offer sourcing and comparison",
+   "owningLane": "W2-012",
+   "moduleId": "buyer-compare",
+   "howReached": "not reached — the walk aborted before this journey",
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
+   "interaction": {
+    "outcome": "BLOCKED",
+    "declared": "re-check a stale offer's freshness (stale → verified)",
+    "label": null,
+    "checks": [],
+    "note": "the journey step never ran"
+   },
+   "merchantSide": null,
+   "screenshots": [],
+   "evidence": {
+    "screenshot": null,
+    "bodyEvidenceFile": null,
+    "consoleEvidenceFile": null
+   },
+   "timingsMs": null,
+   "note": "the journey step never ran"
+  },
+  {
+   "journeyId": "J3",
+   "familyName": "Buy now vs wait, negotiation, substitution",
+   "owningLane": "W2-012",
+   "moduleId": "buyer-decide",
+   "howReached": "not reached — the walk aborted before this journey",
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
+   "interaction": {
+    "outcome": "BLOCKED",
+    "declared": "negotiation step: review counter-offer gate → send → deterministic reply",
+    "label": null,
+    "checks": [],
+    "note": "the journey step never ran"
+   },
+   "merchantSide": null,
+   "screenshots": [],
+   "evidence": {
+    "screenshot": null,
+    "bodyEvidenceFile": null,
+    "consoleEvidenceFile": null
+   },
+   "timingsMs": null,
+   "note": "the journey step never ran"
+  },
+  {
+   "journeyId": "J4",
+   "familyName": "Group buying — discovery, join, leave",
+   "owningLane": "W2-012",
+   "moduleId": "buyer-groupbuy",
+   "howReached": "not reached — the walk aborted before this journey",
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
+   "interaction": {
+    "outcome": "BLOCKED",
+    "declared": "join gate: express interest through the authorization gate (interest ≠ commitment)",
+    "label": null,
+    "checks": [],
+    "note": "the journey step never ran"
+   },
+   "merchantSide": null,
+   "screenshots": [],
+   "evidence": {
+    "screenshot": null,
+    "bodyEvidenceFile": null,
+    "consoleEvidenceFile": null
+   },
+   "timingsMs": null,
+   "note": "the journey step never ran"
+  },
+  {
+   "journeyId": "J5",
+   "familyName": "Latent-demand group buys (buyer + merchant sides)",
+   "owningLane": "W2-012 + W3-015",
+   "moduleId": "buyer-groupbuy (buyer side) + merchant-groupbuy-review (merchant side)",
+   "howReached": "not reached — the walk aborted before this journey",
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
+   "interaction": {
+    "outcome": "BLOCKED",
+    "declared": "buyer side: send a latent-demand proposal (OFFERED, pending ≠ failed); merchant side: accept/counter/reject desk with no-binding-effect label",
+    "label": null,
+    "checks": [],
+    "note": "the journey step never ran"
+   },
+   "merchantSide": null,
+   "screenshots": [],
+   "evidence": {
+    "screenshot": null,
+    "bodyEvidenceFile": null,
+    "consoleEvidenceFile": null
+   },
+   "timingsMs": null,
+   "note": "the journey step never ran"
+  },
+  {
+   "journeyId": "J6",
+   "familyName": "Rent or borrow vs buy",
+   "owningLane": "W2-012",
+   "moduleId": "peer-rent",
+   "howReached": "not reached — the walk aborted before this journey",
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
+   "interaction": {
+    "outcome": "BLOCKED",
+    "declared": "rental lifecycle: request (terms + deposit gate) → start → return → deposit settlement math",
+    "label": null,
+    "checks": [],
+    "note": "the journey step never ran"
+   },
+   "merchantSide": null,
+   "screenshots": [],
+   "evidence": {
+    "screenshot": null,
+    "bodyEvidenceFile": null,
+    "consoleEvidenceFile": null
+   },
+   "timingsMs": null,
+   "note": "the journey step never ran"
+  },
+  {
+   "journeyId": "J7",
+   "familyName": "Resale, rental and consignment of owned items",
+   "owningLane": "W2-012",
+   "moduleId": "peer-resale",
+   "howReached": "commerce home → visible row button for J7 (ordinary nav — no deep link)",
+   "navPathTaken": "/commerce/resale",
+   "outcome": "PASS",
+   "surfaceOutcome": "PASS",
+   "surfaceChecks": [
+    {
+     "name": "listing track rendered",
+     "ok": true,
+     "detail": "Resale listing —"
+    },
+    {
+     "name": "marketplace fee shown with exact math",
+     "ok": true,
+     "detail": "Marketplace fee on sale"
+    },
+    {
+     "name": "consignment track rendered",
+     "ok": true,
+     "detail": "Hand over to consignment (with authorization)"
+    }
+   ],
+   "interaction": {
+    "outcome": "PASS",
+    "declared": "listing action gate: publish a listing (terms, fee, net at ask)",
+    "label": "listing action gate → Publish the listing (DRAFT → ACTIVE)",
+    "checks": [
+     {
+      "name": "resale track prepared from the asset card (visible click)",
+      "ok": true,
+      "detail": "cm-listing-track rendered in DRAFT"
+     },
+     {
+      "name": "gate shows fee + net before publishing",
+      "ok": true,
+      "detail": "fee/net in gate"
+     },
+     {
+      "name": "listing moved to ACTIVE",
+      "ok": true,
+      "detail": "ACTIVE chip"
+     }
+    ],
+    "note": null
+   },
+   "merchantSide": null,
+   "screenshots": [
+    "evidence-rerun-2/11-journey-J7-peer-resale.png"
+   ],
+   "evidence": {
+    "screenshot": "evidence-rerun-2/11-journey-J7-peer-resale.png",
+    "bodyEvidenceFile": "evidence-rerun-2/11-journey-J7-peer-resale-body.txt",
+    "consoleEvidenceFile": "evidence-rerun-2/11-journey-J7-peer-resale-console.txt"
+   },
+   "timingsMs": 1276,
+   "note": "nav /commerce/resale (consignment track prepared on a second asset for the surface assertion)"
+  },
+  {
+   "journeyId": "J8",
+   "familyName": "Proactive economic opportunities",
+   "owningLane": "W2-012",
+   "moduleId": "buyer-opportunities",
+   "howReached": "not reached — the walk aborted before this journey",
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
+   "interaction": {
+    "outcome": "BLOCKED",
+    "declared": "why-suggested + expiry asserted; mark interested (never a commitment)",
+    "label": null,
+    "checks": [],
+    "note": "the journey step never ran"
+   },
+   "merchantSide": null,
+   "screenshots": [],
+   "evidence": {
+    "screenshot": null,
+    "bodyEvidenceFile": null,
+    "consoleEvidenceFile": null
+   },
+   "timingsMs": null,
+   "note": "the journey step never ran"
+  },
+  {
+   "journeyId": "J9",
+   "familyName": "Bounded multi-hop trades (TradeCycle)",
+   "owningLane": "W2-012",
+   "moduleId": "peer-tradecycle",
+   "howReached": "not reached — the walk aborted before this journey",
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
+   "interaction": {
+    "outcome": "BLOCKED",
+    "declared": "per-leg consent for your own leg + a refusal path that stops the cycle",
+    "label": null,
+    "checks": [],
+    "note": "the journey step never ran"
+   },
+   "merchantSide": null,
+   "screenshots": [],
+   "evidence": {
+    "screenshot": null,
+    "bodyEvidenceFile": null,
+    "consoleEvidenceFile": null
+   },
+   "timingsMs": null,
+   "note": "the journey step never ran"
+  },
+  {
+   "journeyId": "J10",
+   "familyName": "Merchant commerce lifecycle",
+   "owningLane": "W3-015",
+   "moduleId": "merchant-storefront",
+   "howReached": "not reached — the walk aborted before this journey",
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
+   "interaction": {
+    "outcome": "BLOCKED",
+    "declared": "order a unit (cart → checkout) + a controlled refund step",
+    "label": null,
+    "checks": [],
+    "note": "the journey step never ran"
+   },
+   "merchantSide": null,
+   "screenshots": [],
+   "evidence": {
+    "screenshot": null,
+    "bodyEvidenceFile": null,
+    "consoleEvidenceFile": null
+   },
+   "timingsMs": null,
+   "note": "the journey step never ran"
+  },
+  {
+   "journeyId": "J11",
+   "familyName": "Supplier procurement and receiving",
+   "owningLane": "W3-015",
+   "moduleId": "procurement-supply",
+   "howReached": "not reached — the walk aborted before this journey",
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
+   "interaction": {
+    "outcome": "BLOCKED",
+    "declared": "partial receiving with quantity-difference visibility",
+    "label": null,
+    "checks": [],
+    "note": "the journey step never ran"
+   },
+   "merchantSide": null,
+   "screenshots": [],
+   "evidence": {
+    "screenshot": null,
+    "bodyEvidenceFile": null,
+    "consoleEvidenceFile": null
+   },
+   "timingsMs": null,
+   "note": "the journey step never ran"
+  },
+  {
+   "journeyId": "J12",
+   "familyName": "B2B and multi-location commerce",
+   "owningLane": "W3-015",
+   "moduleId": "merchant-b2b",
+   "howReached": "not reached — the walk aborted before this journey",
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
+   "interaction": {
+    "outcome": "BLOCKED",
+    "declared": "inter-location transfer dispatch + receipt; DEMO-labelled contract-only surfaces asserted",
+    "label": null,
+    "checks": [],
+    "note": "the journey step never ran"
+   },
+   "merchantSide": null,
+   "screenshots": [],
+   "evidence": {
+    "screenshot": null,
+    "bodyEvidenceFile": null,
+    "consoleEvidenceFile": null
+   },
+   "timingsMs": null,
+   "note": "the journey step never ran"
+  },
+  {
+   "journeyId": "J13",
+   "familyName": "Autonomous store policies",
+   "owningLane": "W3-015",
+   "moduleId": "merchant-autonomous",
+   "howReached": "not reached — the walk aborted before this journey",
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
+   "interaction": {
+    "outcome": "BLOCKED",
+    "declared": "policy bounds: in-band adjustment refused while halted + journaled human override",
+    "label": null,
+    "checks": [],
+    "note": "the journey step never ran"
+   },
+   "merchantSide": null,
+   "screenshots": [],
+   "evidence": {
+    "screenshot": null,
+    "bodyEvidenceFile": null,
+    "consoleEvidenceFile": null
+   },
+   "timingsMs": null,
+   "note": "the journey step never ran"
+  },
+  {
+   "journeyId": "J14",
+   "familyName": "Commerce Twin what-if",
+   "owningLane": "W2-012",
+   "moduleId": "buyer-twin",
+   "howReached": "not reached — the walk aborted before this journey",
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
+   "interaction": {
+    "outcome": "BLOCKED",
+    "declared": "what-if inputs; PREDICTIVE-never-canonical chips + structural write-block asserted",
+    "label": null,
+    "checks": [],
+    "note": "the journey step never ran"
+   },
+   "merchantSide": null,
+   "screenshots": [],
+   "evidence": {
+    "screenshot": null,
+    "bodyEvidenceFile": null,
+    "consoleEvidenceFile": null
+   },
+   "timingsMs": null,
+   "note": "the journey step never ran"
+  },
+  {
+   "journeyId": "J15",
+   "familyName": "Connected commerce channels and live commerce",
+   "owningLane": "W3-015",
+   "moduleId": "merchant-connectors",
+   "howReached": "not reached — the walk aborted before this journey",
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
+   "interaction": {
+    "outcome": "BLOCKED",
+    "declared": "integration manager: connected=none asserted + an attempt that refuses to fabricate success",
+    "label": null,
+    "checks": [],
+    "note": "the journey step never ran"
+   },
+   "merchantSide": null,
+   "screenshots": [],
+   "evidence": {
+    "screenshot": null,
+    "bodyEvidenceFile": null,
+    "consoleEvidenceFile": null
+   },
+   "timingsMs": null,
+   "note": "the journey step never ran"
+  },
+  {
+   "journeyId": "J16",
+   "familyName": "Physical, no-RFID supermarket operations",
+   "owningLane": "W3-015",
+   "moduleId": "physical-store",
+   "howReached": "not reached — the walk aborted before this journey",
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
+   "interaction": {
+    "outcome": "BLOCKED",
+    "declared": "a no-RFID count path (barcode capture offline) + offline queue replay",
+    "label": null,
+    "checks": [],
+    "note": "the journey step never ran"
+   },
+   "merchantSide": null,
+   "screenshots": [],
+   "evidence": {
+    "screenshot": null,
+    "bodyEvidenceFile": null,
+    "consoleEvidenceFile": null
+   },
+   "timingsMs": null,
+   "note": "the journey step never ran"
+  },
+  {
+   "journeyId": "J17",
+   "familyName": "Trust, security and recourse",
+   "owningLane": "W3-015",
+   "moduleId": "trust-recourse",
+   "howReached": "not reached — the walk aborted before this journey",
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
+   "interaction": {
+    "outcome": "BLOCKED",
+    "declared": "dispute evidence → controlled refund → out-of-bounds refusal → idempotent replay (no double effect)",
+    "label": null,
+    "checks": [],
+    "note": "the journey step never ran"
+   },
+   "merchantSide": null,
+   "screenshots": [],
+   "evidence": {
+    "screenshot": null,
+    "bodyEvidenceFile": null,
+    "consoleEvidenceFile": null
+   },
+   "timingsMs": null,
+   "note": "the journey step never ran"
+  },
+  {
+   "journeyId": "J18",
+   "familyName": "Failure, unknown and recovery states",
+   "owningLane": "W1-011 + W2-012 + W3-015",
+   "moduleId": "host-states",
+   "howReached": "not reached — the walk aborted before this journey",
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
+   "interaction": {
+    "outcome": "BLOCKED",
+    "declared": "ABSENT by design — the reference states module provides no interactive control (shell Back exercised)",
+    "label": null,
+    "checks": [],
+    "note": "the journey step never ran"
+   },
+   "merchantSide": null,
+   "screenshots": [],
+   "evidence": {
+    "screenshot": null,
+    "bodyEvidenceFile": null,
+    "consoleEvidenceFile": null
+   },
+   "timingsMs": null,
+   "note": "the journey step never ran"
+  },
+  {
+   "journeyId": "J19",
+   "familyName": "Feature discoverability (Explore)",
+   "owningLane": "W1-011",
+   "moduleId": "reference-explore",
+   "howReached": "not reached — the walk aborted before this journey",
+   "navPathTaken": null,
+   "outcome": "BLOCKED",
+   "surfaceOutcome": "BLOCKED",
+   "surfaceChecks": [],
+   "interaction": {
+    "outcome": "BLOCKED",
+    "declared": "the taxonomy walk itself: all 7 groups / 19 cards + a card navigation",
+    "label": null,
+    "checks": [],
+    "note": "the journey step never ran"
+   },
+   "merchantSide": null,
+   "screenshots": [],
+   "evidence": {
+    "screenshot": null,
+    "bodyEvidenceFile": null,
+    "consoleEvidenceFile": null
+   },
+   "timingsMs": null,
+   "note": "the journey step never ran"
+  }
+ ],
+ "safetySlice": [
+  {
+   "safetyId": "role-denied",
+   "title": "Role-denied interaction: accessible reason + holder roles",
+   "howReached": "not reached — the walk aborted before this safety item",
+   "outcome": "BLOCKED",
+   "checks": [
+    {
+     "name": "safety item not captured",
+     "ok": false,
+     "detail": "never ran"
+    }
+   ],
+   "screenshot": null,
+   "bodyEvidenceFile": null,
+   "consoleEvidenceFile": null,
+   "interaction": null,
+   "timingsMs": null,
+   "note": "the safety step never ran"
+  },
+  {
+   "safetyId": "unknown-not-failed",
+   "title": "UNKNOWN/pending rendered as NOT-failed",
+   "howReached": "not reached — the walk aborted before this safety item",
+   "outcome": "BLOCKED",
+   "checks": [
+    {
+     "name": "safety item not captured",
+     "ok": false,
+     "detail": "never ran"
+    }
+   ],
+   "screenshot": null,
+   "bodyEvidenceFile": null,
+   "consoleEvidenceFile": null,
+   "interaction": null,
+   "timingsMs": null,
+   "note": "the safety step never ran"
+  },
+  {
+   "safetyId": "j5-merchant-desk",
+   "title": "J5 merchant accept/counter/reject desk (no binding effect)",
+   "howReached": "not reached — the walk aborted before this safety item",
+   "outcome": "BLOCKED",
+   "checks": [
+    {
+     "name": "safety item not captured",
+     "ok": false,
+     "detail": "never ran"
+    }
+   ],
+   "screenshot": null,
+   "bodyEvidenceFile": null,
+   "consoleEvidenceFile": null,
+   "interaction": null,
+   "timingsMs": null,
+   "note": "the safety step never ran"
+  },
+  {
+   "safetyId": "j5-dual-claim",
+   "title": "J5 dual-claim tolerated by the shell (zero registry warnings)",
+   "howReached": "not reached — the walk aborted before this safety item",
+   "outcome": "BLOCKED",
+   "checks": [
+    {
+     "name": "safety item not captured",
+     "ok": false,
+     "detail": "never ran"
+    }
+   ],
+   "screenshot": null,
+   "bodyEvidenceFile": null,
+   "consoleEvidenceFile": null,
+   "interaction": null,
+   "timingsMs": null,
+   "note": "the safety step never ran"
+  },
+  {
+   "safetyId": "demo-mode-and-reset",
+   "title": "Demo-mode indicator + deterministic reset",
+   "howReached": "not reached — the walk aborted before this safety item",
+   "outcome": "BLOCKED",
+   "checks": [
+    {
+     "name": "safety item not captured",
+     "ok": false,
+     "detail": "never ran"
+    }
+   ],
+   "screenshot": null,
+   "bodyEvidenceFile": null,
+   "consoleEvidenceFile": null,
+   "interaction": null,
+   "timingsMs": null,
+   "note": "the safety step never ran"
+  }
+ ],
+ "totals": {
+  "journeys": {
+   "byOutcome": {
+    "PASS": 1,
+    "FAIL": 0,
+    "ABSENT": 0,
+    "BLOCKED": 18,
+    "UNKNOWN": 0,
+    "SKIPPED": 0
+   },
+   "planned": 19,
+   "executed": 1,
+   "blocked": 18,
+   "skipped": 0,
+   "recomputed": 19,
+   "outcomeSum": 19,
+   "zeroDrift": true,
+   "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 19 = 1 + 18 + 0 = 19 (zero drift)"
+  },
+  "interactions": {
+   "byOutcome": {
+    "PASS": 1,
+    "FAIL": 0,
+    "ABSENT": 0,
+    "BLOCKED": 18,
+    "UNKNOWN": 0,
+    "SKIPPED": 0
+   },
+   "planned": 19,
+   "executed": 1,
+   "blocked": 18,
+   "skipped": 0,
+   "recomputed": 19,
+   "outcomeSum": 19,
+   "zeroDrift": true,
+   "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 19 = 1 + 18 + 0 = 19 (zero drift)"
+  },
+  "safety": {
+   "byOutcome": {
+    "PASS": 0,
+    "FAIL": 0,
+    "ABSENT": 0,
+    "BLOCKED": 5,
+    "UNKNOWN": 0,
+    "SKIPPED": 0
+   },
+   "planned": 5,
+   "executed": 0,
+   "blocked": 5,
+   "skipped": 0,
+   "recomputed": 5,
+   "outcomeSum": 5,
+   "zeroDrift": true,
+   "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 5 = 0 + 5 + 0 = 5 (zero drift)"
+  },
+  "walkSteps": {
+   "byOutcome": {
+    "PASS": 3,
+    "FAIL": 0,
+    "ABSENT": 0,
+    "BLOCKED": 0,
+    "UNKNOWN": 0,
+    "SKIPPED": 0
+   },
+   "planned": 3,
+   "executed": 3,
+   "blocked": 0,
+   "skipped": 0,
+   "recomputed": 3,
+   "outcomeSum": 3,
+   "zeroDrift": true,
+   "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 3 = 3 + 0 + 0 = 3 (zero drift)"
+  }
+ },
+ "deepLinkPolicy": {
+  "usedForDiscovery": false,
+  "note": "first discovery of /commerce followed the ordinary flow only (land / on the connect wall → visible UNiCOM Commerce button). The targeted deep links below are LABELLED re-visits made AFTER ordinary discovery had already completed — never discovery.",
+  "targetedDeepLinks": [
+   {
+    "stepId": "safety-j5-merchant-desk",
+    "to": "/commerce/merchant/group-buy-review",
+    "reason": "no shell nav entry reaches the merchant J5 side today — the J5 home/Explore entry deterministically renders the buyer side (registry sort: buyer-groupbuy precedes merchant-groupbuy-review); ordinary discovery of J5 completed first via the home row button"
+   }
+  ]
+ },
+ "timings": {
+  "startedAtUtc": "2026-10-10T14:07:53.885Z",
+  "completedAtUtc": "2026-10-10T14:08:41.556Z",
+  "totalMs": 47671,
+  "coldBootWarmupMs": 17678,
+  "steps": [
+   {
+    "stepId": "landing-connect-wall",
+    "kind": "walk",
+    "ms": 11607,
+    "freeMemoryMb": 800
+   },
+   {
+    "stepId": "first-discovery-entry-click",
+    "kind": "walk",
+    "ms": 11616,
+    "freeMemoryMb": 422
+   },
+   {
+    "stepId": "commerce-home",
+    "kind": "walk",
+    "ms": 118,
+    "freeMemoryMb": 324
+   },
+   {
+    "stepId": "journey-J7",
+    "kind": "journey",
+    "ms": 1276,
+    "freeMemoryMb": 323
+   }
+  ],
+  "slowestStepsMs": [
+   {
+    "stepId": "first-discovery-entry-click",
+    "kind": "walk",
+    "ms": 11616,
+    "freeMemoryMb": 422
+   },
+   {
+    "stepId": "landing-connect-wall",
+    "kind": "walk",
+    "ms": 11607,
+    "freeMemoryMb": 800
+   },
+   {
+    "stepId": "journey-J7",
+    "kind": "journey",
+    "ms": 1276,
+    "freeMemoryMb": 323
+   },
+   {
+    "stepId": "commerce-home",
+    "kind": "walk",
+    "ms": 118,
+    "freeMemoryMb": 324
+   }
+  ]
+ },
+ "memoryTelemetry": {
+  "atStartMb": 1524,
+  "atEndMb": 1317,
+  "minDuringWalkMb": 323,
+  "samples": 4
+ },
+ "sensitiveValueScrubbed": true,
+ "evidenceIntegrity": {
+  "pointersChecked": 12,
+  "missing": [],
+  "allPointersResolve": true,
+  "note": "every evidence pointer resolves to a file on disk relative to the manifest"
+ },
+ "manifestValidation": {
+  "valid": true,
+  "errors": []
+ }
+}

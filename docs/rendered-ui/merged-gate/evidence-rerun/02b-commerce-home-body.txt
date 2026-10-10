@@ -1,0 +1,137 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+UNiCOM Commerce
+
+One place to run buying and selling: describe what you need in your own words, compare offers with verified, stale and unknown freshness kept visibly separate, team up with other buyers, rent instead of buying, run a store end to end, and keep every pending, unknown and overdue state honest instead of hiding it behind a spinner or an error.
+
+This is the rendered commerce host. Buyer and peer-commerce journeys are implemented by lane W2-012; merchant, procurement, physical-store and trust journeys by lane W3-015. Journeys whose module has not shipped yet are shown honestly as in development — never as dead links.
+
+19 of the 19 journey families are rendered right now.
+
+Explore capabilities
+Switch role
+System & demo fixtures
+Your scenario
+DEMO
+synthetic fixtures — deterministic, resettable, no credentials
+
+Harbor Lane Print Studio · small firm · specialty printing
+
+Two-person studio; buys paper and inks, sells custom prints locally.
+
+What do you need? (your intent draft — kept while you switch roles)
+All 19 journey families
+
+Every family is reachable from here and from Explore. 19 are rendered; the rest show their honest implementation status and owning lane.
+
+J1
+Open
+Buyer Intent Canvas
+ready
+Describe what you need in your own words, add constraints (deadline, budget, quality, proof, recourse), and compare plans before buying.
+J2
+Open
+Offer sourcing and comparison
+ready
+Compare offers across sellers with verified, stale and unknown freshness kept visibly separate — unknown is never shown as a price.
+J3
+Open
+Buy now vs wait, negotiation, substitution
+ready
+Weigh buying now against waiting, negotiate with sellers, and allow substitutes when a similar item serves the need.
+J4
+Open
+Group buying — discovery, join, leave
+ready
+Team up with other buyers toward a group threshold; interest is never a commitment and joining needs your explicit consent.
+J5
+Open
+Latent-demand group buys (buyer + merchant sides)
+ready
+Buyers propose group deals to sellers; merchants review, accept, counter or reject — no silent enrollment on either side.
+J6
+Open
+Rent or borrow vs buy
+ready
+Compare renting or borrowing against buying, with duration, availability, deposit, condition, return and damage terms visible.
+J7
+Open
+Resale, rental and consignment of owned items
+ready
+Sell or rent out what you own, or hand items to a consignment partner — listing always requires your explicit action.
+J8
+Open
+Proactive economic opportunities
+ready
+Suggestions beyond the current task — with why-suggested, provenance, expiry and a safe next action for each.
+J9
+Open
+Bounded multi-hop trades (TradeCycle)
+ready
+partial: The consent lifecycle is fully rendered (per-leg consent, refusal/dropout/expiry stops, re-plan, execution hand-off boundary). The discovery/validation engine itself (agent lane) is not importable by the web host — candidates are committed demo fixtures; execution never simulates a live trade leg.
+Multi-person swap chains where every leg needs individual consent; a refusal re-plans without silent commitments.
+J10
+Open
+Merchant commerce lifecycle
+ready
+Run a store end to end: catalog, checkout, payments, orders, fulfillment, returns, exchanges, refunds and support.
+J11
+Open
+Supplier procurement and receiving
+ready
+From supplier quotes through approvals and purchase orders to partial receiving, substitution and reconciliation-gated stock updates.
+J12
+Open
+B2B and multi-location commerce
+ready
+partial: Multi-location transfers and per-location stock are real kernel state; B2B quotes, channel price breaks and net-terms AR have no kernel aggregate yet — rendered as committed DEMO fixtures, and live credit/AR actions are honestly unavailable.
+Coordinate business-to-business selling, negotiated price lists, terms and stock across locations and channels.
+J13
+Open
+Autonomous store policies
+ready
+Let UNiCOM run day-to-day selling inside limits you set — margins, spend, refund bands, stop conditions and an audit trail.
+J14
+Open
+Commerce Twin what-if
+ready
+Test decisions on a safe copy of the business — predictions are clearly non-authoritative and never change real records.
+J15
+Open
+Connected commerce channels and live commerce
+ready
+Connect marketplaces, files, agent protocols and live-selling streams — with connected, demo and unavailable states kept distinct.
+J16
+Open
+Physical, no-RFID supermarket operations
+ready
+Barcode, camera, QR, weighing and cycle-count capture that works offline and reconciles before touching canonical stock — no RFID required.
+J17
+Open
+Trust, security and recourse
+ready
+Separate trust kinds and proof levels, see threats and security evidence, and pursue controlled refunds, returns and disputes.
+J18
+Open
+Failure, unknown and recovery states
+ready
+Preserved non-failure states — pending, attempted, overdue, settlement-unknown, not-promoted-unknown — never collapse into errors.
+J19
+Open
+Feature discoverability (Explore)
+ready
+Everything UNiCOM commerce can do, grouped by what you want to achieve, each capability with an honest availability state and a Try-it path.
+Your roles (multiple allowed)
+
+Buyer (emphasized) · Merchant
+
+Role families available on the Roles surface: Buying, Selling, Supply, Finance, Trust & support.
+
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

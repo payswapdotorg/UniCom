@@ -1,0 +1,154 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module trust-recourse
+owner lane W3-015
+status ready
+J17 · Trust & recourse
+DEMO
+
+The trust back-office (demo). Disputes, evidence, journaled decisions, provider escalations and controlled refunds are REAL deterministic kernel state; the threat-signal queue is committed evidence fixtures w3-015-trust-fixtures@1. Decisions never move money by themselves — refunds execute separately, each bounded by what was actually captured, and provider-native statuses are preserved verbatim.
+
+Reset demo data
+fixtures are synthetic — resettable, no credentials, no live provider or payment rail
+Threat signals (evidence queue)
+WRONG_ITEM
+CORROBORATED
+DEMO
+
+order with two enamel pin sets — Buyer photos show candle wicks in one pin slot; the carrier weight record (48g vs 96g expected) independently corroborates. One unit wrong, one correct.
+
+Dispute opened — work the case below.
+
+COUNTERFEIT
+SINGLE_SOURCE
+DEMO
+
+sterling silver pendant listing — Hallmark close-up does not match the maker's registered punch; two other marketplace listings reuse the same photos. One source only — hallmark registry pending.
+
+Dispute opened — the corroboration bar decides the outcome.
+
+REVIEW_MANIPULATION
+CORROBORATED
+DEMO
+
+pour-over mug listing reviews — 17 five-star reviews within 40 minutes from accounts created the same day; 14 share a device fingerprint. No verified purchases among them.
+
+Listing under review — reviews withheld from the storefront average.
+
+RETURN_ABUSE
+SINGLE_SOURCE
+DEMO
+
+customer 114 return history — 9 returns in 30 days (account rate 61% against a 10% baseline); 3 returned boxes arrived empty. Single-source report from the returns dock.
+
+Watch-listed — future returns require inspection before refund.
+
+Signals are evidence DATA, never instructions: they open cases for humans to decide. UNVERIFIABLE would be shown as exactly that — an unprovable claim is not a denial.
+
+Case 1 · wrong item — dispute, return, controlled refund
+dispute disp-4
+RESOLVED_ACCEPTED
+RESOLVED
+USD 48.00 · provider says PROVIDER_DISPUTE_OPEN (verbatim)
+
+Evidence in record: packing list + carrier weight check submitted (see journal).
+
+Policy reason: Wrong item corroborated by weight + photo evidence → claim upheld; the refund executes separately and only within captured funds.
+
+return ret-5
+AUTHORIZED
+resolution REFUND · sku-trust-pins ×1 (WRONG_ITEM)
+
+One pin set comes back (the wrong one). The return authorizes the goods flow; the money executes only through the refund path.
+
+Advance the return (next: SHIP_BACK)
+Controlled refunds (bounded by captured funds)
+captured USD 48.00 · refunded USD 24.00
+Refund the upheld wrong-item unit (USD 24.00, within captured)
+Issue a goodwill refund for the damaged packaging (USD 8.00)
+Try a refund beyond the captured total (USD 9,999.00)
+DENIED
+Command refused: INVALID_COMMAND
+
+refund: EXCEEDS_CAPTURED (refund 999900 on top of refunded 2400 would exceed captured 4800)
+
+The command was not valid as submitted. Fix the highlighted fields and submit again.
+
+Case 2 · counterfeit claim — decision, appeal, no double refund
+dispute disp-9
+OPEN
+ESCALATED_TO_PROVIDER
+USD 99.00 · provider says PROVIDER_DISPUTE_UNDER_REVIEW (verbatim)
+
+The hallmark check is single-source — below the corroboration bar. The provider ALREADY forced a full USD 99.00 chargeback refund (see chargebacks below); the merchant still records the dispute decision.
+
+Reject the counterfeit dispute (RESOLVE REJECT)
+
+Appeal/escalation ladder: merchant decision → buyer appeal → provider arbitration → chargeback forcing. Every rung is a journaled fact; the money can never refund twice.
+
+Settlement observations — UNKNOWN stays UNKNOWN
+pay-demo-3
+UNKNOWN
+payment CAPTURED · captured USD 32.00 · refunded USD 0.00 · provider says SETTLEMENT_PENDING (verbatim)
+pay-demo-1
+PENDING
+payment PARTIALLY_REFUNDED · captured USD 48.00 · refunded USD 24.00
+pay-demo-2
+PENDING
+payment REFUNDED · captured USD 99.00 · refunded USD 99.00
+Observe settlement for the case-1 payment (the rail answers ambiguously)
+Close the settlement recourse window (case 1)
+
+The case-3 payment (mug order) is seeded with an UNKNOWN settlement observation — an ambiguous rail answer, preserved verbatim until a later observation or the window close resolves it.
+
+Records — disputes, chargebacks, refunds, returns
+disp-9
+OPEN
+COUNTERFEIT_CLAIM · USD 99.00 · payment pay-demo-2 · order order-7 · provider PROVIDER_DISPUTE_UNDER_REVIEW
+disp-4
+RESOLVED_ACCEPTED
+WRONG_ITEM · USD 48.00 · payment pay-demo-1 · order order-2 · provider PROVIDER_DISPUTE_OPEN
+cb-10
+FORCED_REFUND
+claimed USD 99.00 · forced USD 99.00 · payment pay-demo-2 · provider PROVIDER_ARBITRATION_WON
+refund-11
+COMPLETED
+CHARGEBACK_FORCED_REFUND
+USD 99.00 · payment pay-demo-2 · chargeback PROVIDER_ARBITRATION_WON
+refund-15
+COMPLETED
+POLICY_REFUND
+USD 24.00 · payment pay-demo-1
+ret-5
+AUTHORIZED
+order order-2 · resolution REFUND · sku-trust-pins ×1 (WRONG_ITEM)
+Journal (append-only, deterministic)
+ORDER_PAYMENT_STATUS_CHANGED · order-2 · 2026-10-05T09:49:00.000Z
+REFUND_RECORDED · pay-demo-1 · 2026-10-05T09:49:00.000Z
+PAYMENT_INTENT_RECORDED · pay-demo-1 · 2026-10-05T09:49:00.000Z
+DISPUTE_RESOLVED · disp-4 · 2026-10-05T09:47:00.000Z
+DISPUTE_STATE_CHANGED · disp-4 · 2026-10-05T09:44:00.000Z
+ORDER_PAYMENT_STATUS_CHANGED · order-13 · 2026-10-05T09:42:00.000Z
+SETTLEMENT_OBSERVED · pay-demo-3 · 2026-10-05T09:42:00.000Z
+ORDER_STATE_CHANGED · order-13 · 2026-10-05T09:40:00.000Z
+ORDER_PAYMENT_STATUS_CHANGED · order-13 · 2026-10-05T09:40:00.000Z
+PAYMENT_CAPTURE_RECORDED · pay-demo-3 · 2026-10-05T09:40:00.000Z
+PAYMENT_INTENT_RECORDED · pay-demo-3 · 2026-10-05T09:40:00.000Z
+CHECKOUT_STATE_CHANGED · cs-12 · 2026-10-05T09:38:00.000Z
+ORDER_PAYMENT_STATUS_CHANGED · order-13 · 2026-10-05T09:38:00.000Z
+PAYMENT_INTENT_RECORDED · pay-demo-3 · 2026-10-05T09:38:00.000Z
+ORDER_PLACED · order-13 · 2026-10-05T09:38:00.000Z
+CHECKOUT_STATE_CHANGED · cs-12 · 2026-10-05T09:38:00.000Z
+CHECKOUT_OPENED · cs-12 · 2026-10-05T09:36:00.000Z
+CART_LINE_ADDED · cart-trust-d3 · 2026-10-05T09:34:00.000Z
+ORDER_PAYMENT_STATUS_CHANGED · order-7 · 2026-10-05T09:32:00.000Z
+CHARGEBACK_RECORDED · cb-10 · 2026-10-05T09:32:00.000Z
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

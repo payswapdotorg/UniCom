@@ -1,0 +1,101 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module buyer-compare
+owner lane W2-012
+status ready
+J2 · Compare offers across sellers
+DEMO
+
+For your intent's product (A3 recycled card stock, 40 boxes). Freshness is classified against the fixed demo clock 2026-10-12T09:00:00Z; verified prices are looked up through the deterministic commerce runtime. Verified ≤ 30 min old, older confirmations are stale, unanswered feeds are UNKNOWN (never a price), and withdrawn offers are unavailable.
+
+Hide unavailable & UNKNOWN
+2 priced · 2 UNKNOWN or unavailable
+Meridian Office Supply
+verified
+checked 2026-10-12T08:52:00Z · 8 min ago
+DEMO
+
+Price (40 boxes would cost): 12.75 USD per box
+
+40-box total (exact math): 510.00 USD — computed by the commerce runtime
+
+Stock: 62 boxes in stock (feed-confirmed)
+
+Delivery: Delivered Wed Oct 14
+
+Protection: Returns accepted within 14 days (receipted)
+
+Seller note: Feed refreshed minutes before the demo clock.
+
+Add to shortlist
+Weigh in buy-now vs wait
+Cascade Foods Wholesale
+verified
+checked 2026-10-12T08:59:00Z · 1 min ago
+DEMO
+
+Price (40 boxes would cost): 11.99 USD per box
+
+40-box total (exact math): 479.60 USD — computed by the commerce runtime
+
+Stock: Stock last confirmed 2 days ago — may have moved
+
+Delivery: Delivered in 3–5 business days (unconfirmed)
+
+Protection: Returns accepted within 7 days
+
+Seller note: The price is real but its confirmation is old — treat as a guide.
+
+Add to shortlist
+Weigh in buy-now vs wait
+Paper Trail Co-op
+UNKNOWN
+checked 2026-10-11T16:45:00Z · 16 h ago
+DEMO
+
+Price (40 boxes would cost): price UNKNOWN — never shown as a number
+
+Stock: Stock could not be confirmed — the co-op feed did not answer
+
+Delivery: Delivery estimate UNKNOWN
+
+Protection: Protection terms UNKNOWN until the seller answers
+
+Seller note: UNKNOWN is not a failure and not a price: nothing here should be read as an offer.
+
+Weigh in buy-now vs wait
+Harbor Stationers
+unavailable
+checked 2026-10-09T11:05:00Z · 2 d ago
+DEMO
+
+Price (40 boxes would cost): no live offer
+
+Stock: Seller withdrew the listing (feed said: seasonal paper line ended)
+
+Delivery: No delivery — offer unavailable
+
+Protection: No terms — there is no live offer to protect
+
+Seller note: Unavailable is shown honestly so you don't chase a dead offer.
+
+Weigh in buy-now vs wait
+Freshness legend (UNKNOWN ≠ FAILED)
+
+verified: Confirmed by the seller's feed within the last 30 minutes (demo clock).
+
+stale: Confirmed once, but older — the price stays visible with its age and a caution.
+
+UNKNOWN: The feed could not confirm. No price, no stock, no promise — and not an error.
+
+unavailable: The seller or feed says the offer is off the table. Honest, not hidden.
+
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

@@ -1,0 +1,106 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module merchant-connectors
+owner lane W3-015
+status ready
+J15 · Connectors & integrations
+DEMO
+
+The integration manager (demo). The board below differentiates connected, disconnected, demo and unavailable providers accurately, from committed fixtures w3-015-connectors-fixtures@1. Attempting a connection records an honest ATTEMPTED → DISCONNECTED outcome; a live integration is never fabricated and no credential is ever requested or stored.
+
+Reset demo data
+fixtures are synthetic — resettable, no credentials, no live provider
+Genuinely connected integrations
+NONE_TODAY
+
+None. No marketplace, supplier portal, payment rail or accounting backend is connected right now — the demo environment has no live provider contracts, and this board says so rather than implying otherwise. Everything that LOOKS like an integration below is labelled demo, disconnected or unavailable.
+
+Connection board
+Northwind supplier portal
+DISCONNECTED
+SUPPLIER_PORTAL
+
+A real supplier portal integration that would need live credentials and a contracted account. No credentials exist in this demo — and none are requested.
+
+Data flow: Purchase orders out; order confirmations, ship notices and invoices in.
+
+Next step: In a real deployment: enter portal credentials through the operator-owned secret store, then request access. Here: attempts are journaled with their honest DISCONNECTED outcome.
+
+Attempt connection — Northwind supplier portal
+attempt 1
+ATTEMPTED
+DISCONNECTED
+2026-10-10 · no live credentials or provider contract exists in this demo environment — the attempt cannot succeed, and success is never fabricated
+Harbor wholesale marketplace
+DISCONNECTED
+MARKETPLACE
+
+A marketplace integration (listing sync + orders in) that would create live listings and receive live orders the moment it connects. Disabled in demo — no fabricated marketplace activity.
+
+Data flow: Listings and stock levels out; orders and returns in.
+
+Next step: In a real deployment: authorize the marketplace app, map listings, then enable order ingestion. Here: attempts are journaled with their honest DISCONNECTED outcome.
+
+Attempt connection — Harbor wholesale marketplace
+CSV stock file feed (demo)
+DEMO
+FILE_FEED
+
+The one working integration in this environment — and it is a DEMO: it reads committed fixture rows (supplier price/stock CSV) locally and deterministically. No file leaves this machine; no feed is fetched.
+
+Data flow: Supplier stock/price rows in (committed fixture file, DEMO-labelled).
+
+Next step: Run the demo import below to see the deterministic rows it would deliver. A real feed would need a scheduled fetch contract with the supplier.
+
+No attempt is offered: this is the working demo integration — run its import below.
+
+Run the demo file-feed import (local, deterministic)
+Supplier catalog browser-sync
+UNAVAILABLE
+BROWSER_ONLY
+
+This connector can ONLY work through an interactive browser session with the supplier's catalog site (no API exists). There is no live browser session in this environment — never connected, so no freshness is claimed (no fabricated 'last synced').
+
+Data flow: Catalog pages scraped in (requires a human-in-the-loop browser session).
+
+Next step: In a real deployment with the browser vehicle: open an authenticated browser session, then run the catalog sync. Until then this stays unavailable — not disconnected, because there is nothing to disconnect.
+
+No attempt is offered: this provider does not exist here, so there is nothing to attempt — an attempt would be theater.
+
+Live commerce rail (payment provider)
+UNAVAILABLE
+LIVE_COMMERCE
+
+No payment provider contract exists for this environment. There is nothing to connect to, and a live rail is never simulated: payments in these demos run on the deterministic DEMO rail only.
+
+Data flow: Payment authorizations, captures, refunds, settlement observations.
+
+Next step: Requires an operator decision and a real provider contract (see the blocker register). Until then, every payment surface stays on the demo rail, labelled.
+
+No attempt is offered: this provider does not exist here, so there is nothing to attempt — an attempt would be theater.
+
+Accounting export
+UNAVAILABLE
+ACCOUNTING
+
+No accounting backend is registered. Exports would be fabricated here — so the export path is unavailable, not 'connected with zero rows'.
+
+Data flow: Journal summaries and settlement reports out.
+
+Next step: Register an accounting backend contract first; the export button then unlocks against it.
+
+No attempt is offered: this provider does not exist here, so there is nothing to attempt — an attempt would be theater.
+
+What this board will never do
+
+It will never show a fabricated "connected" chip, a fabricated "last synced" timestamp, or a successful live attempt in an environment with no provider. UNAVAILABLE is not DISCONNECTED (there is nothing to disconnect), DEMO is not CONNECTED (it is local and deterministic), and an ATTEMPT is not a success. The status vocabulary stays honest so the operator can trust the one state that matters: nothing is live.
+
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

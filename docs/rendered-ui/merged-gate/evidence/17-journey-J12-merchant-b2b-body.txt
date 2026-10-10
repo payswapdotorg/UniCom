@@ -1,0 +1,111 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module merchant-b2b
+owner lane W3-015
+status partial
+J12 · B2B & multi-location commerce
+DEMO
+
+Harbor Lane runs three channels out of one warehouse (fixtures w3-015-b2b-fixtures@1). Multi-location stock and every transfer below are REAL deterministic kernel state — dispatch, receipt and cancellation move units exactly once. Channels, price breaks, quotes and net-terms AR are committed DEMO fixtures (no kernel aggregate exists for them yet) — labelled, never passed off as live.
+
+Reset demo data
+fixtures are synthetic — resettable, no credentials, no live portal or AR system
+Multi-location stock (canonical, per location)
+sku-b2b-syrup
+Cold-brew concentrate, 750ml
+warehouse on hand 28 · storefront on hand 12
+sku-b2b-greens
+Salad greens, case
+warehouse on hand 30 · storefront on hand 0
+
+One SKU, one location, one canonical level — a transfer never blends locations.
+
+Inter-location transfers (real kernel state)
+trf-demo-b2b-1
+RECEIVED
+sku-b2b-syrup ×12 · loc-demo-b2b-warehouse → loc-demo-b2b-storefront · revision 3
+
+Transfer complete: 12 units are on the storefront's canonical shelf. Dispatch and receipt each happened exactly once.
+
+Open a second transfer (10 greens cases warehouse → storefront)
+
+EXECUTED receipt rcpt-5 · idempotency key idem-10 recorded — subjects: STOCK_TRANSFER:trf-demo-b2b-1, INVENTORY_LEVEL:sku-b2b-syrup|loc-demo-b2b-storefront
+
+Channels & wholesale price breaks (DEMO fixtures)
+Retail storefront
+The Harbor Lane storefront (J10) — unit prices, walk-in and online orders.
+DEMO
+Wholesale portal
+Logged-in B2B accounts ordering by the case at wholesale price breaks.
+DEMO
+Field sales
+Route salespeople taking orders on site (offline-capable, J16 flows).
+DEMO
+sku-b2b-syrup
+retail unit — USD 6.50
+DEMO
+sku-b2b-syrup
+wholesale 5+ units — USD 5.20
+DEMO
+sku-b2b-syrup
+case of 24 — USD 4.80
+DEMO
+sku-b2b-greens
+retail unit — USD 5.90
+DEMO
+sku-b2b-greens
+wholesale 10+ cases — USD 4.70
+DEMO
+
+Price breaks are committed fixture data (the per-channel price book has no kernel aggregate yet) — the J10 storefront and the J13 autonomous price book are the real kernel-priced surfaces.
+
+B2B quote requests (DEMO fixtures, local review state)
+quote-b2b-1
+PENDING
+DEMO
+
+Café Luna · sku-b2b-syrup ×24 — Weekly cold-brew service — asks for the case-of-24 break on a standing order.
+
+Approve the wholesale break for Café Luna (local demo decision)
+quote-b2b-2
+OFFERED
+DEMO
+
+Green Grocer Co-op · sku-b2b-greens ×10 — Opening order pending the co-op board's sign-off.
+
+Decision recorded (OFFERED, local demo state) — pressing approve again changes nothing: the decision is already recorded.
+
+Live credit checks, AR collection and real wholesale-portal accounts do not exist in this environment — they are shown as unavailable, never simulated. The quote review below records merchant decisions in LOCAL DEMO STATE only (resettable, DEMO-labelled); nothing binds an account or moves money.
+
+Net-terms invoices (DEMO fixtures — AR, not live)
+inv-b2b-1
+OVERDUE
+USD 312.00 · net 30 · Café Luna
+
+Issued 2026-09-05, due 2026-10-05 — 12 days past due at the demo date. Fixture fact, not a live AR feed.
+
+inv-b2b-2
+PENDING
+USD 59.00 · net 30 · Green Grocer Co-op
+
+Issued 2026-10-04, due 2026-11-03 — not yet due.
+
+OVERDUE is a fact about time, not a failure state; collecting an invoice would be a live payment action, which does not exist here — the honest state is "unavailable", never a simulated collection.
+
+Journal (append-only, deterministic)
+INVENTORY_ADJUSTED · sku-b2b-syrup|loc-demo-b2b-storefront · 2026-10-05T09:10:00.000Z
+TRANSFER_STATE_CHANGED · trf-demo-b2b-1 · 2026-10-05T09:10:00.000Z
+INVENTORY_ADJUSTED · sku-b2b-syrup|loc-demo-b2b-warehouse · 2026-10-05T09:08:00.000Z
+TRANSFER_STATE_CHANGED · trf-demo-b2b-1 · 2026-10-05T09:08:00.000Z
+TRANSFER_OPENED · trf-demo-b2b-1 · 2026-10-05T09:06:00.000Z
+INVENTORY_RECEIVED · sku-b2b-greens|loc-demo-b2b-warehouse · 2026-10-05T09:04:00.000Z
+INVENTORY_RECEIVED · sku-b2b-syrup|loc-demo-b2b-warehouse · 2026-10-05T09:02:00.000Z
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

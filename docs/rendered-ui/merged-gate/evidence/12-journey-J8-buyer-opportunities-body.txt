@@ -1,0 +1,168 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module buyer-opportunities
+owner lane W2-012
+status ready
+J8 · Opportunity inbox
+DEMO
+
+Suggestions beyond your current task — each with why it was suggested, the evidence behind it (with provenance and capture times), an expiry, and a safe next action. Suggestions never act on your behalf: acting, ordering or committing always takes your explicit confirmation on the owning surface. Predictions are labelled predictive and are never operational truth.
+
+Suggestions here never act on your behalf: every next action is safe (view, alert, review) or takes your explicit confirmation elsewhere.
+
+Pigment ink set: buy now or wait?
+DEMO
+interested
+
+The co-op price held at 41.00 USD for three weeks; your usage suggests a decision window before your shelf runs dry.
+
+Why suggested: Current verified price 41.00 USD per set (co-op feed, checked 2026-10-12T08:00Z, demo clock). You hold 2 sets on the shelf.
+
+Inference: Past co-op promos ran on ~3-week cycles (committed demo history). your studio burns ~3 boxes/week (SIMPLE_MOVING_AVERAGE over your committed demo purchase history, computed by the commerce runtime).
+
+Prediction (predictive — non-authoritative): At ~3 boxes/week you need the next set within 2–3 weeks; waiting for a promo may or may not line up with that. Predictive only — computed by the deterministic forecasting runtime from your demo history; never operational truth, never a price promise.
+
+Recommendation: Safe next action: set a price alert — you decide later, nothing is ordered or reserved by acting on this.
+
+Estimated value: If a 4.00 USD promo lands in time: ~12.00 USD saved on 3 sets (demo arithmetic).
+
+Expires: 2026-10-19T09:00:00Z (demo clock)
+
+Surfaced: 2026-10-12T08:30:00Z · 30 min ago (demo clock)
+
+Requires your authorization to act: No — the next action below is safe (view/review only).
+
+evidence w2o-01-e1 · connector-observation · captured 2026-10-12T08:00:00Z · Co-op price feed: 41.00 USD/set verified at 2026-10-12T08:00Z (demo clock). (provenance: demo-feed/co-op-prices)
+
+evidence w2o-01-e2 · account-history · captured 2026-10-11T20:00:00Z · Your purchase history: weekly ink units [3, 4, 2, 3, 5, 3] (committed demo fixture). (provenance: demo-account/harbor-lane-purchases)
+
+Mark interested (never a commitment)
+Dismiss this suggestion
+
+Interested — this marks the suggestion for yourself only. It creates no alert subscription, order, reservation or commitment of any kind.
+
+A3 recycled card pool needs 12 more boxes
+DEMO
+new
+
+The studio pool you watched is 48/60 toward its threshold; the deadline is Oct 15, 18:00 (demo clock).
+
+Why suggested: 48 of 60 boxes spoken for; threshold price 11.20 USD/box vs 12.75 list (demo pool state).
+
+Inference: Pools this close to threshold usually form — but formation is the organizer's call, not yours.
+
+Recommendation: Safe next action: view the pool on the group-buy surface. Expressing interest is never a commitment there either.
+
+Estimated value: 1.55 USD/box below list at the threshold price (exact demo fixture values).
+
+Expires: 2026-10-15T18:00:00Z (demo clock)
+
+Surfaced: 2026-10-12T07:05:00Z · 1 h ago (demo clock)
+
+Requires your authorization to act: No — the next action below is safe (view/review only).
+
+evidence w2o-02-e1 · agent-certification · captured 2026-10-12T07:00:00Z · Pool progress snapshot 48/60, taken 2026-10-12T07:00Z (demo clock). (provenance: demo-groupbuy/w2gb-01)
+
+View the pool on the group-buy surface (J4)
+Dismiss this suggestion
+Your idle plotter could list at ~780.00 USD
+DEMO
+new
+
+The vinyl plotter has not run in 6 weeks; comparable sales support an ask near 780.00 USD.
+
+Why suggested: Two comparable sales: 810.00 USD (verified 2026-10-11) and 765.00 USD (stale, 2026-10-08) — demo comparables.
+
+Inference: An ask of 780.00 USD sits between the comps; net ~741.00 USD after the 500 bps marketplace fee.
+
+Recommendation: Safe next action: review the resale surface — listing there always takes your explicit action, never this inbox's.
+
+Estimated value: Estimated net 741.00 USD at ask (exact fee math on the resale surface).
+
+Expires: 2026-10-26T09:00:00Z (demo clock)
+
+Surfaced: 2026-10-12T06:40:00Z · 2 h ago (demo clock)
+
+Requires your authorization to act: No — the next action below is safe (view/review only).
+
+evidence w2o-03-e1 · independent-observation · captured 2026-10-11T15:00:00Z · Comparable resale sales with freshness classes (peer-resale demo fixtures). (provenance: demo-resale/w2s-01-comparables)
+
+Review the resale surface (J7)
+Dismiss this suggestion
+Press warranty covers the feed-roller fix until Nov 2
+DEMO
+new
+
+Your press account shows a feed-roller replacement covered under warranty expiring Nov 2, 2026 (demo clock).
+
+Why suggested: Warranty term on the press account: feed-roller parts+labor covered to 2026-11-02 (demo record).
+
+Inference: The roller shows early wear per the last service note; a claim now is likely in-window.
+
+Recommendation: Safe next action: review the claim details — filing goes through support with your confirmation, not from here.
+
+Estimated value: Covered fix vs ~180.00 USD out-of-warranty (demo service quote).
+
+Expires: 2026-11-02T23:59:00Z (demo clock)
+
+Surfaced: 2026-10-11T09:00:00Z · 24 h ago (demo clock)
+
+Requires your authorization to act: Yes — any real action goes through its owning surface with your explicit confirm.
+
+evidence w2o-04-e1 · receipt · captured 2026-10-10T16:00:00Z · Warranty term record + last service note (demo account history). (provenance: demo-account/harbor-lane-press-warranty)
+
+Mark interested (never a commitment)
+Dismiss this suggestion
+Design-software seat unused for 60 days — suggestion EXPIRED
+DEMO
+expired
+
+This suggested downgrading one design seat; the downgrade window closed Oct 11 (demo clock) with the billing cycle.
+
+Why suggested: Seat usage: 0 logins in 60 days (demo account history); the billing-cycle change window closed 2026-10-11.
+
+Recommendation: No safe next action — the suggestion expired. It will return at the next billing window if the seat stays unused.
+
+Expires: 2026-10-11T23:59:00Z (demo clock)
+
+Surfaced: 2026-10-09T10:05:00Z · 2 d ago (demo clock)
+
+Requires your authorization to act: No — the next action below is safe (view/review only).
+
+evidence w2o-05-e1 · account-history · captured 2026-10-09T10:00:00Z · Seat login history: 0 sessions in 60 days (demo fixture). (provenance: demo-account/harbor-lane-seats)
+
+No safe next action — this suggestion expired. It may return at the next window.
+Dismiss this suggestion
+Thursday route could carry both your deliveries
+DEMO
+unknown
+
+Two of your inbound deliveries land in the same neighborhood Thursday; a shared route could split the leg cost.
+
+Why suggested: Delivery A (paper) and Delivery B (binding wire) both route through Meridian on Thursday (demo manifests).
+
+Inference: Shared-leg pricing historically split the leg cost ~50/50 on that route (committed demo history).
+
+Recommendation: Safe next action: review the shared-logistics option — capacity could not be confirmed, so treat the split as UNKNOWN, not promised.
+
+Estimated value: UNKNOWN — the carrier feed never answered the capacity check; no estimate is shown as fact.
+
+Expires: 2026-10-13T09:00:00Z (demo clock)
+
+Surfaced: 2026-10-11T12:10:00Z · 20 h ago (demo clock)
+
+Requires your authorization to act: No — the next action below is safe (view/review only).
+
+evidence w2o-06-e1 · document · captured 2026-10-11T12:00:00Z · Two delivery manifests routing through Meridian, Thursday (demo fixtures). (provenance: demo-logistics/thursday-route)
+
+Mark interested (never a commitment)
+Dismiss this suggestion
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)
