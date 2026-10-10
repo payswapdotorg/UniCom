@@ -76,7 +76,12 @@ function HostHeader(): JSX.Element {
       <div className="cm-header-meta">
         <EnvironmentBadge />
         {state.pathHistory.length > 0 ? (
-          <button type="button" className="cm-button" onClick={() => dispatch({ type: "back" })}>
+          <button
+            type="button"
+            className="cm-button"
+            aria-label="Back to the previous surface"
+            onClick={() => dispatch({ type: "back" })}
+          >
             ← Back
           </button>
         ) : null}
@@ -156,7 +161,9 @@ export function CommerceHostApp(): JSX.Element {
       </a>
       <div className="cm-app">
         <HostHeader />
-        <main className="cm-main" id="cm-main">
+        <main className="cm-main" id="cm-main" tabIndex={-1}>
+          {/* tabIndex -1 lets the skip link actually MOVE focus here (not just
+              scroll) — programmatic focus targets must be focusable. */}
           <Suspense fallback={<LoadingStatePanel view={MODULE_LOADING_VIEW} />}>
             <RoutedContent />
           </Suspense>

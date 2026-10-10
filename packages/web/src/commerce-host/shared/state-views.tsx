@@ -117,18 +117,36 @@ export function LoadingStatePanel({ view }: { readonly view: LoadingStateView })
   );
 }
 
-/** Empty state — always proposes the first action (onboarding law). */
-export function EmptyStatePanel({ view }: { readonly view: EmptyStateView }): JSX.Element {
+/** Empty state — always proposes the first action (onboarding law). The
+ * next-step control renders ONLY when the surface wires `onFirstAction`: the
+ * shared component never renders a button that does nothing (a dead control
+ * is a deceptive control). Unwired, the proposed action stays visible as
+ * guidance text. */
+export function EmptyStatePanel({
+  view,
+  onFirstAction,
+}: {
+  readonly view: EmptyStateView;
+  /** Perform the view's first action (e.g. navigate to the target surface). */
+  readonly onFirstAction?: () => void;
+}): JSX.Element {
   return (
     <div className="cm-card" data-testid="cm-empty">
       <h3 className="cm-card-title">Nothing here yet</h3>
       <p className="cm-card-sub">{view.reasonSummary}</p>
       <p className="cm-card-sub">
         <strong>Next step:</strong> {view.firstAction.rationale}
+        {onFirstAction ? null : (
+          <>
+            {" "}— <em>{view.firstAction.actionLabel}</em>
+          </>
+        )}
       </p>
-      <button type="button" className="cm-button cm-button-primary">
-        {view.firstAction.actionLabel}
-      </button>
+      {onFirstAction ? (
+        <button type="button" className="cm-button cm-button-primary" onClick={onFirstAction}>
+          {view.firstAction.actionLabel}
+        </button>
+      ) : null}
       {view.teachingNote ? <p className="cm-card-sub">{view.teachingNote}</p> : null}
     </div>
   );

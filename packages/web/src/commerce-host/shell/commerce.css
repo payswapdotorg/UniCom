@@ -475,6 +475,27 @@ textarea.cm-intent-draft {
   left: 0;
 }
 
+/* --- Accessibility: reduced motion --------------------------------------
+   The host itself renders no animations today; this guard neutralizes any
+   animation, transition or smooth scrolling a present or future module
+   surface adds (the 0.01ms + single-iteration pattern keeps terminal frames
+   visible instead of freezing mid-animation). Vestibular safety is respected
+   by default, not opt-in. */
+
+@media (prefers-reduced-motion: reduce) {
+  .cm-app,
+  .cm-app *,
+  .cm-app *::before,
+  .cm-app *::after,
+  .cm-entry-overlay,
+  .cm-entry-overlay * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* --- Commerce entry button on the ZCode app surface --- */
 
 .cm-entry-overlay {

@@ -172,6 +172,30 @@ describe("surface phase panels (typed views from @unicom/experience)", () => {
     expect(rendered.container.querySelector('[data-testid="cm-empty"]')).not.toBeNull();
   });
 
+  it("never renders a dead control: the first-action button appears ONLY when wired (a11y/deception law)", () => {
+    // Unwired: the proposed action stays visible as guidance TEXT — no button
+    // that does nothing when clicked.
+    const unwired = renderUi(<EmptyStatePanel view={SAMPLE_EMPTY} />);
+    expect(unwired.container.querySelector("button")).toBeNull();
+    expect(textOf(unwired.container)).toContain("Describe what you need");
+    unwired.unmount();
+
+    // Wired: a real, labelled, working button.
+    let fired = 0;
+    const wired = renderUi(
+      <EmptyStatePanel
+        view={SAMPLE_EMPTY}
+        onFirstAction={() => {
+          fired += 1;
+        }}
+      />,
+    );
+    const button = wired.container.querySelector<HTMLButtonElement>("button");
+    expect(button?.textContent).toBe("Describe what you need");
+    button?.click();
+    expect(fired).toBe(1);
+  });
+
   it("renders FAILED and UNKNOWN errors as visually DISTINCT panels", () => {
     const failed = renderUi(<ErrorStatePanel view={sampleError("failed")} />);
     const failedText = textOf(failed.container);
