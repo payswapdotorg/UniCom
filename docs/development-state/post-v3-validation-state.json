@@ -85,7 +85,8 @@
           "docs/simulations/resilience/results/resilience-evidence.json",
           "packages/experience/src/sim/resilience/",
           "packages/experience/test/resilience/"
-        ]
+        ],
+        "branch_status": "LOCAL-ONLY on the station (/home/z/unicom) — origin declined auxiliary-branch pushes (repository rule; only main accepted); the delivery is durably preserved as the harvested git-am patch series on disk and by patch-head sha in this record"
       }
     },
     {
@@ -114,7 +115,7 @@
         "accepted_at": "2026-10-10T01:50:00Z",
         "accepted_by": "resident TL (Z.ai Code session web-a95c8999)",
         "kind": "superseding evidence refresh (additive; original 2026-10-09T18:10:00Z acceptance and merged_commit d531ea1 preserved)",
-        "branch": "work/pv-w3-014-int",
+        "branch": "work/w3-014-int",
         "base": "6b566b2",
         "patch_head": "d2808816957bad50526feb4964e173eae9787ae7",
         "battery": "experience 88 files / 626 tests, 626 passed 0 failed (81.9s; docs-only — zero code files touched, all 136 changed files under docs/); oxlint 99 warnings 0 errors; tsc -b packages/experience exit 0; architecture OK, violations 0, baseline 0, new 0",
@@ -134,7 +135,8 @@
           "docs/human-validation/CONSENT-AND-RESEARCH-MATERIALS.md",
           "docs/human-validation/package-manifest.json",
           "docs/work-orders/reports/W3-014-completion-report.md"
-        ]
+        ],
+        "branch_status": "LOCAL-ONLY on the station (/home/z/unicom) — origin declined auxiliary-branch pushes (repository rule; only main accepted); the delivery is durably preserved as the harvested git-am patch series on disk and by patch-head sha in this record"
       }
     }
   ],
