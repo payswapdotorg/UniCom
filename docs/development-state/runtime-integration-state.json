@@ -70,10 +70,13 @@
       "id": "W2-013",
       "path": "docs/work-orders/W2-013.md",
       "lane": "buyer-and-peer-commerce-runtime-wiring",
-      "status": "READY_AFTER_W1_SEAM",
+      "status": "ACCEPTED",
       "owner": "worker-2 (Task-tool subagents, resident session web-6ddc0a59)",
       "branch": "work/w2-013",
-      "dependency": "W1-012 seam commit"
+      "dependency": "W1-012 seam commit",
+      "commits": "1f034e5 (seam base) → 9d31097 (J9 peer-tradecycle kernel-driven) → 8e3eca8 (J5 buyer kernel-driven, vehicle-4 verify/fix/land) → 0ee20aa (lane manifest)",
+      "accepted_at": "2026-10-10T22:15:00Z",
+      "acceptance_evidence": "TL independent verification: web vitest 286/286 reproduced, architecture 0/0 reproduced, scoped tsc clean reproduced, lint 102w/0e reproduced (true baseline disclosed as 102: the 102nd = one unused TradeCycleId import in the committed J9 tradecycle-data.ts:18 — registered as a one-line TL fix at merge); manifest reviewed — both modules kernel-driven via lane-local executors over the seam's domain machines with CommandExecution result shapes; selector/copy/permission preservation asserted; the vehicle-4 find: inherited partials substantially correct (vitest+tsc green first run) with ONE real defect (latent-demand-parts.tsx 429 effective lines vs the 400 law) fixed by mechanical split; honest gaps: executor lane-local by drought-safe design (TL merge-time swap to runtime handlers needs no surface change), formation never creates commitments (kernel law)"
     },
     {
       "id": "W3-016",
@@ -131,7 +134,8 @@
     {
       "id": "WIRE_BUYER",
       "name": "J5 buyer-side and J9 peer TradeCycle UIs driven by real kernel commands through public entrypoints (W2-013)",
-      "status": "PENDING"
+      "status": "PASSED",
+      "passed_at": "2026-10-10T22:15:00Z"
     },
     {
       "id": "WIRE_MERCHANT",
@@ -155,14 +159,7 @@
       "status": "PENDING"
     }
   ],
-  "active_work_orders": [
-    {
-      "id": "W2-013",
-      "status": "IN_FLIGHT",
-      "vehicle": "worker-2 continuation vehicle 3 (Task ID 42)",
-      "progress_at_last_check": "J9 committed (9d31097); vehicle 3 actively completing J5 buyer-groupbuy kernel wiring (7 files in flight incl. latent-demand-parts.tsx split)"
-    }
-  ],
+  "active_work_orders": [],
   "frontier": [
     "production_deployment",
     "human_research",
