@@ -146,7 +146,26 @@
       "status": "PENDING"
     }
   ],
-  "active_work_orders": [],
+  "active_work_orders": [
+    {
+      "id": "W1-012",
+      "status": "IN_FLIGHT",
+      "vehicle": "worker-1 vehicle (Task ID 36)",
+      "progress_at_last_check": "seam commit 1f034e5 landed (14 domain machine tests, commerce vitest 419/419); runtime handlers (handler-groupbuy.ts, handler-tradecycle.ts) + kernel wiring in progress on work/w1-012"
+    },
+    {
+      "id": "W2-013",
+      "status": "IN_FLIGHT",
+      "vehicle": "worker-2 vehicle (Task ID 37)",
+      "progress_at_last_check": "J9 peer-tradecycle kernel-driven rewiring COMMITTED (9d31097: 12 kernel-scenario tests, web vitest 278/278, lint 101w/0e, scoped tsc clean, all browser-evidenced selectors preserved, 'Not wired (blocker)' superseded); J5 buyer-groupbuy kernel wiring in progress"
+    },
+    {
+      "id": "W3-016",
+      "status": "IN_FLIGHT",
+      "vehicle": "worker-3 vehicle (Task ID 38)",
+      "progress_at_last_check": "J5 merchant-groupbuy-review rewiring in progress on work/w3-016 (component/fixtures/module/tests modified, no commit yet); J15 connector wiring pending"
+    }
+  ],
   "frontier": [
     "production_deployment",
     "human_research",
@@ -168,6 +187,16 @@
         "docs/work-orders/W3-016.md",
         "docs/FINAL-TL-HANDOFF-RUNTIME-INTEGRATION-2026-10-10.md",
         "docs/rendered-ui/vite-build/VITE-PRODUCTION-BUILD-RECORD-2026-10-10.md"
+      ]
+    },
+    {
+      "event": "THREE-LANE DISPATCH CONFIRMED ACTIVE (drought pattern: vehicles execute despite result-delivery failures)",
+      "recorded_at": "2026-10-10T19:35:00Z",
+      "recorded_by": "resident TL (Z.ai Code session web-6ddc0a59)",
+      "type": "DISPATCH_CONFIRMATION",
+      "detail": "All three lane vehicles launched and are EXECUTING despite Task-tool result-delivery failures at the platform request layer (the same drought class as 14fe583 in the prior phase). TL verification cadence on the worktrees: W1-012 seam commit 1f034e5 verified (per-wave domain files groupbuy.ts/tradecycle.ts/tradecycle-legs.ts + contract.ts re-export block within the 300-line cap + 14 domain machine tests; commerce vitest 419/419 claimed at commit) with runtime handlers in progress; W2-013 branched from the seam and already committed the J9 kernel-driven rewiring (9d31097) with J5 buyer in progress; W3-016 branched from the seam with J5 merchant rewiring in progress. W2/W3 base on the seam's domain machines through the public contract (the runtime handlers land concurrently on W1's branch; merge-time integration is the TL's). No lane absorbed by the TL (tl_is_worker:false); no duplicate vehicles dispatched (activity verified on the worktrees before every retry decision). Monitoring on cadence; harvest at lane completion.",
+      "artifacts": [
+        "docs/development-state/runtime-integration-state.json"
       ]
     }
   ],
