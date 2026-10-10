@@ -31,6 +31,7 @@ import { KernelRecourseFold } from "./kernel-fold-recourse.js";
 import { KernelStoreOpsFold } from "./kernel-fold-store-ops.js";
 import { KernelAutonomousStoreFold } from "./kernel-fold-autonomous.js";
 import { KernelMerchantFold } from "./kernel-fold-merchant.js";
+import { KernelExecutionFold } from "./kernel-fold-execution.js";
 
 type OrderEventPayloadLike =
   | { readonly kind: "ORDER_PLACED"; readonly snapshot: OrderSnapshot }
@@ -70,6 +71,8 @@ export class KernelState {
   private readonly autonomousFold = new KernelAutonomousStoreFold();
   /** W1-007 merchant-parity collections (campaigns, customer records, loyalty ledger, demand signals, reorder proposals). */
   private readonly merchantFold = new KernelMerchantFold();
+  /** W1-012 execution-aggregate collections (group buys + interest records, trade cycles). */
+  private readonly executionFold = new KernelExecutionFold();
 
   /** Fold one immutable fact into state. Pure with respect to inputs. */
   apply(event: AnyCommerceEvent): void {
@@ -149,6 +152,10 @@ export class KernelState {
       case "DEMAND_SIGNAL":
       case "REORDER_PROPOSAL":
         this.merchantFold.apply(event);
+        return;
+      case "GROUP_BUY":
+      case "TRADE_CYCLE":
+        this.executionFold.apply(event);
         return;
       default:
         return;
@@ -322,6 +329,8 @@ export class KernelState {
   autonomousOps(): KernelAutonomousStoreFold { return this.autonomousFold; }
   /** W1-007 merchant-parity collections (typed fold accessors). */
   merchantOps(): KernelMerchantFold { return this.merchantFold; }
+  /** W1-012 execution-aggregate collections (typed fold accessors). */
+  executionOps(): KernelExecutionFold { return this.executionFold; }
   subscription(subscriptionId: string): Subscription | undefined { return this.subscriptions.get(subscriptionId); }
   allSubscriptions(): readonly Subscription[] { return [...this.subscriptions.values()].sort(byKey); }
   listing(listingId: string): ResaleListing | undefined { return this.listings.get(listingId); }

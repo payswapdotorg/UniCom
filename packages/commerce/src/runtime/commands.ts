@@ -77,6 +77,8 @@ import type {
   LoyaltyAccountId,
   ReorderProposalId,
 } from "../domain/ids.js";
+import type { GroupBuyCommandPayload } from "../domain/groupbuy.js";
+import type { TradeCycleCommandPayload } from "../domain/tradecycle.js";
 
 /** Supply-side flows: multi-location transfers and supplier purchase orders. */
 export type SupplyCommandPayload =
@@ -271,7 +273,9 @@ export type RuntimeCommandPayload =
   | AutonomousStoreCommandPayload
   | MarketingCommandPayload
   | CrmCommandPayload
-  | ForecastingCommandPayload;
+  | ForecastingCommandPayload
+  | GroupBuyCommandPayload
+  | TradeCycleCommandPayload;
 
 /**
  * W1-007 marketing campaign commands. Campaigns are journaled lifecycle

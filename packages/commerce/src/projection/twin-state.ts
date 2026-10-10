@@ -18,7 +18,7 @@
  * - Serialization: `toSerializable`/`fromSerializable` freeze and restore the
  *   whole mirror as structured plain data (checkpoints for snapshot resume).
  */
-import { nextRevision, type AnyCommerceEvent } from "../domain/events.js";
+import type { AnyCommerceEvent } from "../domain/events.js";
 import type { CanonicalInventoryLevel, InventoryReservation } from "../domain/inventory.js";
 import { inventoryKey } from "../domain/inventory.js";
 import type { Cart, CheckoutSession } from "../domain/cart.js";
@@ -37,18 +37,15 @@ import type { ChargebackRecord, DisputeRecord } from "../domain/recourse.js";
 import type { CashVarianceRecord, StoreCashSession } from "../domain/store-ops.js";
 import type { CountObservationState } from "./inventory-projection.js";
 import { countObservationStateOf } from "./inventory-projection.js";
+import { applyOrderFamilyEvent, type TwinOrderCollections } from "./twin-order-fold.js";
 import { applyRecourseEvent, type TwinRecourseCollections } from "./twin-recourse-state.js";
 import { applyStoreOpsEvent, type TwinStoreOpsCollections } from "./twin-store-ops-state.js";
 import { applyAutonomousStoreEvent, copyAutonomousCollections, emptyAutonomousCollections, restoreAutonomousCollections, serializeAutonomousCollections, type TwinAutonomousCollections, type TwinAutonomousSerializable } from "./twin-autonomous-state.js";
+import { applyExecutionEvent, copyExecutionCollections, emptyExecutionCollections, restoreExecutionCollections, serializeExecutionCollections, type TwinExecutionCollections, type TwinExecutionSerializable } from "./twin-execution-state.js";
 
 interface PayloadLike {
   readonly kind?: unknown;
   readonly [key: string]: unknown;
-}
-
-function kindOf(event: AnyCommerceEvent): string {
-  const payload = event.payload as PayloadLike | null | undefined;
-  return typeof payload?.kind === "string" ? payload.kind : "";
 }
 
 function optional<T>(value: unknown): T | undefined {
@@ -88,7 +85,7 @@ export interface TwinCollections {
 }
 
 /** Structured, checkpoint-serializable form of the whole twin mirror. */
-export type TwinSerializableState = { readonly [K in keyof TwinCollections]: readonly (readonly [string, TwinCollections[K] extends ReadonlyMap<string, infer V> ? V : never])[] } & { readonly autonomousOps: TwinAutonomousSerializable };
+export type TwinSerializableState = { readonly [K in keyof TwinCollections]: readonly (readonly [string, TwinCollections[K] extends ReadonlyMap<string, infer V> ? V : never])[] } & { readonly autonomousOps: TwinAutonomousSerializable; readonly executionOps: TwinExecutionSerializable };
 
 /**
  * The full authoritative-state mirror. Field-by-field the same collections the
@@ -127,6 +124,8 @@ export class TwinState {
   private readonly cashVariances = new Map<string, CashVarianceRecord>();
   /** W1-005 (additive): autonomous-store runtime bag (single field). */
   private readonly autonomousOpsBag = emptyAutonomousCollections();
+  /** W1-012 (additive): execution-aggregate bag (group buys + interests, trade cycles). */
+  private readonly executionOpsBag = emptyExecutionCollections();
 
   /** Every Map collection, in one registry (generic clone/serialize/resume). */
   private static readonly MAP_KEYS = [
@@ -187,27 +186,24 @@ export class TwinState {
   /** @internal fold seam (pure fold + resume only). */
   private applyInPlace(event: AnyCommerceEvent): void {
     const payload = event.payload as PayloadLike;
-    const kind = kindOf(event);
     switch (event.subject.subjectType) {
+      // --- order family (W1-012 mechanical extraction to twin-order-fold.ts) ---
       case "INVENTORY_LEVEL":
-        this.foldInventory(payload);
-        return;
       case "ORDER":
-        this.foldOrder(event.subject.subjectId, kind, payload);
+      case "CART":
+      case "CHECKOUT_SESSION":
+      case "FULFILLMENT_ORDER":
+      case "SHIPMENT":
+        applyOrderFamilyEvent(this.orderCollectionsBag(), event);
         return;
-      case "CART": {
-        const cart = optional<Cart>(payload.cart);
-        if (cart) this.carts.set(cart.cartId, cart);
-        return;
-      }
-      case "CHECKOUT_SESSION": {
-        const session = optional<CheckoutSession>(payload.session);
-        if (session) this.checkoutSessions.set(session.checkoutSessionId, session);
-        return;
-      }
       case "PAYMENT":
-        this.foldPayment(event.subject.subjectId, payload);
+        applyOrderFamilyEvent(this.orderCollectionsBag(), event);
         applyRecourseEvent(this.recourseBag(), event);
+        return;
+      // --- W1-012 (additive): execution aggregates ---
+      case "GROUP_BUY":
+      case "TRADE_CYCLE":
+        applyExecutionEvent(this.executionOpsBag, event);
         return;
       case "DISPUTE":
       case "CHARGEBACK":
@@ -228,14 +224,6 @@ export class TwinState {
       case "PURCHASE_ORDER": {
         const po = optional<PurchaseOrder>(payload.purchaseOrder);
         if (po) this.purchaseOrders.set(po.purchaseOrderId, po);
-        return;
-      }
-      case "FULFILLMENT_ORDER":
-        this.foldFulfillment(event.subject.subjectId, payload);
-        return;
-      case "SHIPMENT": {
-        const shipment = optional<Shipment>(payload.shipment);
-        if (shipment) this.shipments.set(shipment.shipmentId, shipment);
         return;
       }
       case "RETURN": {
@@ -295,71 +283,26 @@ export class TwinState {
     return { storeSessions: this.storeSessions, cashVariances: this.cashVariances };
   }
 
+  private orderCollectionsBag(): TwinOrderCollections {
+    return {
+      levels: this.levels,
+      reservations: this.reservations,
+      carts: this.carts,
+      checkoutSessions: this.checkoutSessions,
+      orders: this.orders,
+      payments: this.payments,
+      fulfillments: this.fulfillments,
+      shipments: this.shipments,
+      fulfillmentByOrder: this.fulfillmentByOrder,
+      shipmentByFulfillment: this.shipmentByFulfillment,
+    };
+  }
+
   /** W1-005 autonomous-store runtime collections (read-only views). */
   autonomousCollections(): TwinAutonomousCollections { return this.autonomousOpsBag; }
 
-  private foldInventory(payload: PayloadLike): void {
-    const level = optional<CanonicalInventoryLevel>(payload.resultingLevel);
-    if (level) this.levels.set(inventoryKey(level.skuId, level.locationId), level);
-    const reservationId = typeof payload.reservationId === "string" ? payload.reservationId : undefined;
-    const kind = typeof payload.kind === "string" ? payload.kind : "";
-    if (!reservationId || !kind) return;
-    const existing = this.reservations.get(reservationId);
-    if (kind === "INVENTORY_RESERVED" && !existing) {
-      this.reservations.set(reservationId, {
-        reservationId: reservationId as InventoryReservation["reservationId"],
-        skuId: payload.skuId as InventoryReservation["skuId"],
-        locationId: payload.locationId as InventoryReservation["locationId"],
-        units: typeof payload.units === "number" ? payload.units : 0,
-        status: "OPEN",
-        revision: 1,
-      });
-      return;
-    }
-    if (existing && (kind === "INVENTORY_RESERVATION_COMMITTED" || kind === "INVENTORY_RESERVATION_RELEASED")) {
-      this.reservations.set(reservationId, {
-        ...existing,
-        status: kind === "INVENTORY_RESERVATION_COMMITTED" ? "COMMITTED" : "RELEASED",
-        revision: nextRevision(existing.revision),
-      });
-    }
-  }
-
-  private foldOrder(orderId: string, kind: string, payload: PayloadLike): void {
-    if (kind === "ORDER_PLACED") {
-      const snapshot = optional<OrderSnapshot>(payload.snapshot);
-      if (snapshot) this.orders.set(orderId, snapshot);
-      return;
-    }
-    const current = this.orders.get(orderId);
-    if (!current || typeof payload.to !== "string") return;
-    const revision = nextRevision(current.revision);
-    if (kind === "ORDER_STATE_CHANGED") {
-      this.orders.set(orderId, { ...current, state: payload.to as OrderSnapshot["state"], revision });
-    } else if (kind === "ORDER_PAYMENT_STATUS_CHANGED") {
-      this.orders.set(orderId, { ...current, paymentStatus: payload.to as OrderSnapshot["paymentStatus"], revision });
-    } else if (kind === "ORDER_FULFILLMENT_STATUS_CHANGED") {
-      this.orders.set(orderId, { ...current, fulfillmentStatus: payload.to as OrderSnapshot["fulfillmentStatus"], revision });
-    }
-  }
-
-  private foldPayment(paymentId: string, payload: PayloadLike): void {
-    const intent = optional<PaymentIntent>(payload.intent);
-    if (intent) this.payments.set(paymentId, intent);
-  }
-
-  private foldFulfillment(subjectId: string, payload: PayloadLike): void {
-    const fulfillment = optional<FulfillmentOrder>(payload.fulfillment);
-    const shipment = optional<Shipment>(payload.shipment);
-    if (fulfillment) {
-      this.fulfillments.set(subjectId, fulfillment);
-      this.fulfillmentByOrder.set(fulfillment.orderId, fulfillment.fulfillmentOrderId);
-    }
-    if (fulfillment && shipment) {
-      this.shipmentByFulfillment.set(fulfillment.fulfillmentOrderId, shipment.shipmentId);
-      this.shipments.set(shipment.shipmentId, shipment);
-    }
-  }
+  /** W1-012 execution-aggregate collections (read-only views). */
+  executionCollections(): TwinExecutionCollections { return this.executionOpsBag; }
 
   private clone(): TwinState {
     const next = new TwinState();
@@ -369,6 +312,7 @@ export class TwinState {
       for (const [mapKey, value] of source) target.set(mapKey, value);
     }
     copyAutonomousCollections(next.autonomousOpsBag, this.autonomousOpsBag);
+    copyExecutionCollections(next.executionOpsBag, this.executionOpsBag);
     return next;
   }
 
@@ -380,7 +324,11 @@ export class TwinState {
       const map = this[key] as ReadonlyMap<string, unknown>;
       out[key] = [...map.entries()];
     }
-    return { ...out, autonomousOps: serializeAutonomousCollections(this.autonomousOpsBag) } as TwinSerializableState;
+    return {
+      ...out,
+      autonomousOps: serializeAutonomousCollections(this.autonomousOpsBag),
+      executionOps: serializeExecutionCollections(this.executionOpsBag),
+    } as TwinSerializableState;
   }
 
   static fromSerializable(serialized: TwinSerializableState): TwinState {
@@ -391,6 +339,7 @@ export class TwinState {
       for (const [mapKey, value] of record[key] ?? []) target.set(mapKey, value);
     }
     restoreAutonomousCollections(state.autonomousOpsBag, (serialized as { autonomousOps?: TwinAutonomousSerializable }).autonomousOps);
+    restoreExecutionCollections(state.executionOpsBag, (serialized as { executionOps?: TwinExecutionSerializable }).executionOps);
     return state;
   }
 }
