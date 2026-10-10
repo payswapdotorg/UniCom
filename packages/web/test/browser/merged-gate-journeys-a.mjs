@@ -263,6 +263,12 @@ export function buildJourneyStepsA(walkState, { outDir }) {
 
     step("J7", "peer-resale", async ({ page, cap, navPathTaken }) => {
       const interaction = await attemptInteraction(async () => {
+        // FIX (re-run diagnosis): the listing track does not exist until the
+        // owner commits an asset to the resale path — "Publish this listing
+        // (with authorization)" only renders after the visible
+        // "Prepare a resale listing…" click on the asset card.
+        await page.getByRole("button", { name: "Prepare a resale listing…" }).first().click({ timeout: 15000 });
+        await page.locator('[data-testid="cm-listing-track"]').first().waitFor({ timeout: 15000 });
         await page.getByRole("button", { name: "Publish this listing (with authorization)" }).first().click({ timeout: 15000 });
         const gate = page.locator('[data-testid="cm-commitment-gate"]');
         await gate.waitFor({ timeout: 15000 });
@@ -275,15 +281,28 @@ export function buildJourneyStepsA(walkState, { outDir }) {
           outcome: "PASS",
           label: "listing action gate → Publish the listing (DRAFT → ACTIVE)",
           checks: [
+            check("resale track prepared from the asset card (visible click)", true, "cm-listing-track rendered in DRAFT"),
             check("gate shows fee + net before publishing", gateText.includes("Fee on a successful sale") && gateText.includes("Net at ask"), "fee/net in gate"),
             check("listing moved to ACTIVE", trackText.includes("ACTIVE"), "ACTIVE chip"),
           ],
         };
       });
-      const shot = await snapStep(page, cap, outDir, "11-journey-J7-peer-resale", "J7 after publishing the listing");
+      // The consignment track is the third value-recovery path on this surface:
+      // prepare it on a second open asset (visible click) so the surface check
+      // below asserts a rendered consignment track, not just its entry button.
+      try {
+        await page.getByRole("button", { name: "Send to consignment…" }).first().click({ timeout: 15000 });
+        await page.locator('[data-testid="cm-consignment-track"]').first().waitFor({ timeout: 15000 });
+      } catch {
+        // the surface check below records the honest outcome either way
+      }
+      const shot = await snapStep(page, cap, outDir, "11-journey-J7-peer-resale", "J7 after publishing the listing + the consignment track");
       const body = shot.inventory.bodyText;
       return {
-        rendered: body.includes("J7 · Recover value from what you own") && body.includes("Your under-use assets"),
+        // FIX (re-run diagnosis): the section heading renders "Your under-used
+        // assets" (with the d) — run 2's rendered check needle missed it and
+        // classified the surface ABSENT although the module was rendered.
+        rendered: body.includes("J7 · Recover value from what you own") && body.includes("Your under-used assets"),
         checks: [
           surfaceCheck(body, "listing track rendered", "Resale listing —"),
           surfaceCheck(body, "marketplace fee shown with exact math", "Marketplace fee on sale"),
@@ -293,7 +312,7 @@ export function buildJourneyStepsA(walkState, { outDir }) {
         screenshot: shot.screenshot,
         bodyFile: shot.bodyFile,
         consoleFile: shot.consoleFile,
-        note: `nav ${navPathTaken}`,
+        note: `nav ${navPathTaken} (consignment track prepared on a second asset for the surface assertion)`,
       };
     }),
   ];

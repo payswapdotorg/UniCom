@@ -1,0 +1,19 @@
+2026-10-10T14:07:54.746Z [env] pre-vite memory gate: freeMem=1452MB (target ≥1100MB)
+2026-10-10T14:07:54.748Z [env] vite dev server spawning on :5199 (heap cap 512MB, log /home/z/battery/merged-gate/docs/rendered-ui/merged-gate/evidence-rerun-2/vite-dev.log, pid 15400)
+2026-10-10T14:07:56.355Z [env] vite attempt 1/3: up=true (freeMem=1250MB)
+2026-10-10T14:07:56.383Z [browser] launching headless chromium (freeMem=1249MB)
+2026-10-10T14:07:56.590Z [browser] chromium 153.0.8010.12 (playwright 1.63.0 from import:playwright)
+2026-10-10T14:08:14.380Z [env] warm-up cold boot: painted=true in 17678ms (freeMem=497MB)
+2026-10-10T14:08:14.443Z [walk] LABELLED TARGETED PROBE (--only): landing-connect-wall, first-discovery-entry-click, commerce-home, journey-J7
+2026-10-10T14:08:26.050Z [walk] landing-connect-wall: PASS (11607ms, freeMem=800MB)
+2026-10-10T14:08:37.666Z [walk] first-discovery-entry-click: PASS (11616ms, freeMem=422MB)
+2026-10-10T14:08:37.785Z [walk] commerce-home: PASS (118ms, freeMem=324MB)
+2026-10-10T14:08:39.061Z [walk] journey-J7: PASS (1276ms, freeMem=323MB)
+2026-10-10T14:08:41.556Z [env] browser closed, vite torn down (freeMem=1317MB)
+2026-10-10T14:08:41.563Z [manifest] /home/z/battery/merged-gate/docs/rendered-ui/merged-gate/commerce-merged-gate-rerun2-manifest.json (valid=true)
+2026-10-10T14:08:41.563Z [evidence] 12 pointers checked, missing=0
+2026-10-10T14:08:41.563Z [totals] journeys planned = executed + blocked + skipped = ΣbyOutcome → 19 = 1 + 18 + 0 = 19 (zero drift)
+2026-10-10T14:08:41.563Z [totals] interactions planned = executed + blocked + skipped = ΣbyOutcome → 19 = 1 + 18 + 0 = 19 (zero drift)
+2026-10-10T14:08:41.563Z [totals] safety planned = executed + blocked + skipped = ΣbyOutcome → 5 = 0 + 5 + 0 = 5 (zero drift)
+2026-10-10T14:08:41.563Z [totals] walkSteps planned = executed + blocked + skipped = ΣbyOutcome → 3 = 3 + 0 + 0 = 3 (zero drift)
+2026-10-10T14:08:41.563Z [outcomes] journeys: 1 PASS / 0 FAIL / 0 ABSENT / 18 BLOCKED / 0 UNKNOWN / 0 SKIPPED | safety: 0 PASS / 0 FAIL / 0 ABSENT / 5 BLOCKED / 0 UNKNOWN / 0 SKIPPED

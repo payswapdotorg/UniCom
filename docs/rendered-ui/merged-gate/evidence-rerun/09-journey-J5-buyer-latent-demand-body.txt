@@ -1,0 +1,71 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module buyer-groupbuy
+owner lane W2-012
+status ready
+J5 · Propose a group deal (latent demand)
+DEMO
+
+Enough buyers would buy something no seller currently offers as a group deal — so propose one. Laws on this surface: only CONSENTING participants are recruited (the demo fixture set includes a studio that declined, visibly excluded), the proposal carries explicit merchant terms, and no participant — including you — is enrolled silently. The merchant review side (accept/reject/counter decisions) is W3-015's surface; the responses here are deterministic BUYER-SIDE fixtures (w2ld- namespace).
+
+Recruited participants (consent visible)
+Ferry Road Press
+consented · 16 boxes
+DEMO
+
+Explicitly agreed (demo fixture) to appear in this proposal with a 16-box share.
+
+Two Harbors Design
+consented · 12 boxes
+DEMO
+
+Explicitly agreed (demo fixture) to a 12-box share.
+
+Quayside Studio
+consented · 8 boxes
+DEMO
+
+Explicitly agreed (demo fixture) to an 8-box share.
+
+Northlight Atelier
+declined · excluded
+DEMO
+
+Declined (demo fixture) — EXCLUDED from the proposal. Non-consenting studios are never silently enrolled.
+
+Consenting total: 36 boxes from 3 studios
+
+Non-consenting: Never listed in the proposal — enrollment without consent is structurally not offered here.
+
+Proposed merchant terms
+
+Volume: 36 boxes of A3 recycled card
+
+Target group price: 11.20 USD per box (vs 12.75 list — the exact savings a merchant would weigh)
+
+Pool closes by: Oct 20, 18:00 (demo clock)
+
+Your studio's share: Your interest is not a commitment — you confirm a second time if the merchant accepts
+
+40-box reference cost at target price: 448.00 USD (exact math via the commerce runtime)
+
+Send the proposal to
+Meridian Office Supply
+Cascade Foods Wholesale
+Paper Trail Co-op
+Proposal to Meridian Office Supply
+OFFERED
+DEMO
+
+Sent and on the merchant's desk. Pending is not an error and not an acceptance. The merchant review side is W3-015's surface — reveal the deterministic demo reply:
+
+Reveal merchant review outcome (demo)
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

@@ -1,0 +1,338 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+Roles & permissions
+
+One user, several roles. Holding a role grants its permissions; the emphasized role only changes what the surfaces put in front of you — it never switches your identity, and your scenario (Harbor Lane Print Studio, intent draft) is preserved across every switch.
+
+Emphasized role: Buyer
+
+Buying
+Buyer
+emphasized
+
+Shops for their own needs: describes intent, compares plans, joins group deals, rents, trades.
+
+✓ intent.create
+✓ intent.see-plan-options
+✓ offers.compare
+✓ groupbuy.express-interest
+· groupbuy.review-proposal (granted by another held role)
+✓ rental.request
+✓ resale.list-own-items
+✓ tradecycle.consent-leg
+✓ opportunities.view
+· storefront.manage (granted by another held role)
+· orders.process (granted by another held role)
+· procurement.request-quotes
+· procurement.approve-po
+· receiving.receive-delivery
+· receiving.count-stock
+· finance.view-settlements (granted by another held role)
+· finance.approve-refund (granted by another held role)
+· trust.review-disputes
+· support.handle-recourse
+✓ twin.run-what-if
+· connectors.manage (granted by another held role)
+✓ system.view-demo-fixtures
+Emphasized
+Clear emphasis
+Requester
+
+Raises purchase requests for a team or firm without approval authority of their own.
+
+✓ intent.create
+✓ intent.see-plan-options
+✓ offers.compare
+· groupbuy.express-interest (granted by another held role)
+· groupbuy.review-proposal (granted by another held role)
+· rental.request (granted by another held role)
+· resale.list-own-items (granted by another held role)
+· tradecycle.consent-leg (granted by another held role)
+✓ opportunities.view
+· storefront.manage (granted by another held role)
+· orders.process (granted by another held role)
+· procurement.request-quotes
+· procurement.approve-po
+· receiving.receive-delivery
+· receiving.count-stock
+· finance.view-settlements (granted by another held role)
+· finance.approve-refund (granted by another held role)
+· trust.review-disputes
+· support.handle-recourse
+· twin.run-what-if (granted by another held role)
+· connectors.manage (granted by another held role)
+✓ system.view-demo-fixtures
+Emphasize
+Selling
+Merchant
+
+Runs the storefront: catalog, pricing, checkout, orders, channels and customer-facing group-buy proposals.
+
+· intent.create (granted by another held role)
+· intent.see-plan-options (granted by another held role)
+· offers.compare (granted by another held role)
+· groupbuy.express-interest (granted by another held role)
+✓ groupbuy.review-proposal
+· rental.request (granted by another held role)
+· resale.list-own-items (granted by another held role)
+· tradecycle.consent-leg (granted by another held role)
+✓ opportunities.view
+✓ storefront.manage
+✓ orders.process
+· procurement.request-quotes
+· procurement.approve-po
+· receiving.receive-delivery
+· receiving.count-stock
+· finance.view-settlements (granted by another held role)
+· finance.approve-refund (granted by another held role)
+· trust.review-disputes
+· support.handle-recourse
+✓ twin.run-what-if
+✓ connectors.manage
+✓ system.view-demo-fixtures
+Emphasize
+Store operator
+
+Operates day-to-day selling including in-person checkout and shelf workflows.
+
+· intent.create (granted by another held role)
+· intent.see-plan-options (granted by another held role)
+· offers.compare (granted by another held role)
+· groupbuy.express-interest (granted by another held role)
+· groupbuy.review-proposal (granted by another held role)
+· rental.request (granted by another held role)
+· resale.list-own-items (granted by another held role)
+· tradecycle.consent-leg (granted by another held role)
+· opportunities.view (granted by another held role)
+✓ storefront.manage
+✓ orders.process
+· procurement.request-quotes
+· procurement.approve-po
+· receiving.receive-delivery
+✓ receiving.count-stock
+· finance.view-settlements (granted by another held role)
+· finance.approve-refund (granted by another held role)
+· trust.review-disputes
+· support.handle-recourse
+· twin.run-what-if (granted by another held role)
+· connectors.manage (granted by another held role)
+✓ system.view-demo-fixtures
+Emphasize
+Supply
+Procurement
+
+Sources from suppliers: requests quotes and moves purchase orders through approvals.
+
+· intent.create (granted by another held role)
+· intent.see-plan-options (granted by another held role)
+✓ offers.compare
+· groupbuy.express-interest (granted by another held role)
+· groupbuy.review-proposal (granted by another held role)
+· rental.request (granted by another held role)
+· resale.list-own-items (granted by another held role)
+· tradecycle.consent-leg (granted by another held role)
+✓ opportunities.view
+· storefront.manage (granted by another held role)
+· orders.process (granted by another held role)
+✓ procurement.request-quotes
+· procurement.approve-po
+· receiving.receive-delivery
+· receiving.count-stock
+· finance.view-settlements (granted by another held role)
+· finance.approve-refund (granted by another held role)
+· trust.review-disputes
+· support.handle-recourse
+· twin.run-what-if (granted by another held role)
+· connectors.manage (granted by another held role)
+✓ system.view-demo-fixtures
+Emphasize
+Receiving
+
+Receives deliveries, counts stock and reconciles observations before canonical updates.
+
+· intent.create (granted by another held role)
+· intent.see-plan-options (granted by another held role)
+· offers.compare (granted by another held role)
+· groupbuy.express-interest (granted by another held role)
+· groupbuy.review-proposal (granted by another held role)
+· rental.request (granted by another held role)
+· resale.list-own-items (granted by another held role)
+· tradecycle.consent-leg (granted by another held role)
+· opportunities.view (granted by another held role)
+· storefront.manage (granted by another held role)
+· orders.process (granted by another held role)
+· procurement.request-quotes
+· procurement.approve-po
+✓ receiving.receive-delivery
+✓ receiving.count-stock
+· finance.view-settlements (granted by another held role)
+· finance.approve-refund (granted by another held role)
+· trust.review-disputes
+· support.handle-recourse
+· twin.run-what-if (granted by another held role)
+· connectors.manage (granted by another held role)
+✓ system.view-demo-fixtures
+Emphasize
+Finance
+Finance
+
+Sees settlements and payment states with unknowns preserved, and approves refunds within policy.
+
+· intent.create (granted by another held role)
+· intent.see-plan-options (granted by another held role)
+· offers.compare (granted by another held role)
+· groupbuy.express-interest (granted by another held role)
+· groupbuy.review-proposal (granted by another held role)
+· rental.request (granted by another held role)
+· resale.list-own-items (granted by another held role)
+· tradecycle.consent-leg (granted by another held role)
+· opportunities.view (granted by another held role)
+· storefront.manage (granted by another held role)
+· orders.process (granted by another held role)
+· procurement.request-quotes
+· procurement.approve-po
+· receiving.receive-delivery
+· receiving.count-stock
+✓ finance.view-settlements
+✓ finance.approve-refund
+· trust.review-disputes
+· support.handle-recourse
+· twin.run-what-if (granted by another held role)
+· connectors.manage (granted by another held role)
+✓ system.view-demo-fixtures
+Emphasize
+Approver
+
+Grants or denies approvals for purchase orders and material decisions.
+
+· intent.create (granted by another held role)
+· intent.see-plan-options (granted by another held role)
+· offers.compare (granted by another held role)
+· groupbuy.express-interest (granted by another held role)
+✓ groupbuy.review-proposal
+· rental.request (granted by another held role)
+· resale.list-own-items (granted by another held role)
+· tradecycle.consent-leg (granted by another held role)
+· opportunities.view (granted by another held role)
+· storefront.manage (granted by another held role)
+✓ orders.process
+· procurement.request-quotes
+✓ procurement.approve-po
+· receiving.receive-delivery
+· receiving.count-stock
+· finance.view-settlements (granted by another held role)
+· finance.approve-refund (granted by another held role)
+· trust.review-disputes
+· support.handle-recourse
+· twin.run-what-if (granted by another held role)
+· connectors.manage (granted by another held role)
+✓ system.view-demo-fixtures
+Emphasize
+Trust & support
+Trust & safety
+
+Reviews disputes, threat evidence and proof levels; keeps security decisions auditable.
+
+· intent.create (granted by another held role)
+· intent.see-plan-options (granted by another held role)
+· offers.compare (granted by another held role)
+· groupbuy.express-interest (granted by another held role)
+· groupbuy.review-proposal (granted by another held role)
+· rental.request (granted by another held role)
+· resale.list-own-items (granted by another held role)
+· tradecycle.consent-leg (granted by another held role)
+· opportunities.view (granted by another held role)
+· storefront.manage (granted by another held role)
+· orders.process (granted by another held role)
+· procurement.request-quotes
+· procurement.approve-po
+· receiving.receive-delivery
+· receiving.count-stock
+✓ finance.view-settlements
+· finance.approve-refund (granted by another held role)
+✓ trust.review-disputes
+· support.handle-recourse
+· twin.run-what-if (granted by another held role)
+· connectors.manage (granted by another held role)
+✓ system.view-demo-fixtures
+Emphasize
+Support
+
+Handles customer recourse: returns, refunds within bands, escalations.
+
+· intent.create (granted by another held role)
+· intent.see-plan-options (granted by another held role)
+· offers.compare (granted by another held role)
+· groupbuy.express-interest (granted by another held role)
+· groupbuy.review-proposal (granted by another held role)
+· rental.request (granted by another held role)
+· resale.list-own-items (granted by another held role)
+· tradecycle.consent-leg (granted by another held role)
+· opportunities.view (granted by another held role)
+· storefront.manage (granted by another held role)
+✓ orders.process
+· procurement.request-quotes
+· procurement.approve-po
+· receiving.receive-delivery
+· receiving.count-stock
+· finance.view-settlements (granted by another held role)
+· finance.approve-refund (granted by another held role)
+· trust.review-disputes
+✓ support.handle-recourse
+· twin.run-what-if (granted by another held role)
+· connectors.manage (granted by another held role)
+✓ system.view-demo-fixtures
+Emphasize
+Effective permissions (union of held roles)
+
+16 of 22 granted. Not granted are listed with the roles that would grant them.
+
+✓ intent.create
+✓ intent.see-plan-options
+✓ offers.compare
+✓ groupbuy.express-interest
+✓ groupbuy.review-proposal
+✓ rental.request
+✓ resale.list-own-items
+✓ tradecycle.consent-leg
+✓ opportunities.view
+✓ storefront.manage
+✓ orders.process
+✗ procurement.request-quotes — held by procurement
+✗ procurement.approve-po — held by approver
+✗ receiving.receive-delivery — held by receiving
+✗ receiving.count-stock — held by store-operator, receiving
+✓ finance.view-settlements
+✓ finance.approve-refund
+✗ trust.review-disputes — held by trust
+✗ support.handle-recourse — held by support
+✓ twin.run-what-if
+✓ connectors.manage
+✓ system.view-demo-fixtures
+Sample gated actions
+
+Try these: unauthorized actions are visibly blocked with the reason — they are never hidden, and never silently enabled.
+
+Approve a refund within policy
+allowed
+Review a dispute with evidence
+Blocked: requires trust.review-disputes. Held by Trust & safety. You currently hold: Buyer, Merchant, Finance.
+Approve a purchase order
+Blocked: requires procurement.approve-po. Held by Approver. You currently hold: Buyer, Merchant, Finance.
+Connect a sales channel
+allowed
+Scenario preserved across switches
+
+Firm: Harbor Lane Print Studio (small, specialty printing). Intent draft: “Need 40 boxes of A3 recycled card stock within 2 weeks, budget around 480, seller must accept returns.”
+
+Switch roles above — this card keeps its values. Emphasis changes; identity and scenario do not.
+
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

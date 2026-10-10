@@ -1,0 +1,145 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module buyer-decide
+owner lane W2-012
+status ready
+J3 · Buy now, wait, negotiate or substitute
+DEMO
+
+The decision card below is the typed contract rendered in full: operational state and predictive outcome are SEPARATE blocks — the prediction can never overwrite what is. The demo clock is 2026-10-12T09:00:00Z. Nothing here places an order; every action is either read-only or a clearly-gated offer.
+
+Decision card — Buy 40 boxes of A3 recycled card stock now, or wait for a possible price drop.
+DEMO
+decision demo-decision/buy-vs-wait-a3
+
+Goal echo: Keep the Oct 20 print run on schedule, around 480 total, protected by returns.
+
+Action available: request-changes (read-only in demo mode)
+
+Operational state (what IS)
+
+State: Two verified offers exist (12.75 and 11.99 per box); your deadline is Oct 20; stock is confirmed at one seller and stale at the other.
+
+Last changed: 2026-10-12T08:40:00Z
+
+Alternatives (each with a predicted outcome)
+Buy now from the verified seller
+prediction inside
+
+510.00 USD total, delivered Oct 14, returns accepted within 14 days.
+
+Predicted outcome: Deadline met with 6 days of slack; cost is 30.40 USD above the stale offer. — confidence High — stock and delivery are feed-confirmed (demo).
+
+Trade-offs: Certain delivery; Not the lowest price
+
+Wait for the modeled late-October drop
+prediction inside
+
+A 4–7% drop MIGHT appear within 2–3 weeks; the pattern is historical, not guaranteed.
+
+Predicted outcome: Possible saving of 20–36 USD against the express-fee risk of ~45 USD. — confidence Low — three years of pattern, no live feed.
+
+Trade-offs: Deadline risk; Saving may not materialize
+
+Substitute A2 card for part of the run
+prediction inside
+
+A2 card is 9.80 per box (verified) and fits two of the three print jobs.
+
+Predicted outcome: Blended cost ~422 USD if 16 of 40 boxes become A2. — confidence Medium — A2 fit for 2 of 3 jobs is a workshop judgment, not a fact.
+
+Trade-offs: Cheaper overall; One job still needs A3
+
+Predictions (predictive truth — never state)
+
+Prediction: Buying now costs ~30 USD more than the stale offer but removes deadline risk.
+
+Risk & stop conditions
+
+Downside: If you wait and the drop does not come, express delivery (~45 USD) or a missed print run.
+
+Severity: medium
+
+Stop conditions: Stop waiting if no drop by Oct 17 · Stop waiting if verified stock drops below 40 boxes
+
+Recourse: The verified seller accepts returns within 14 days (receipted).
+
+Authority
+
+Approvals: Reading and comparing offers needs no approval. Placing the order would — and that path is not wired in demo mode.
+
+History
+
+2026-10-12T08:40:00Z · buyer-agent (demo): Decision card assembled from two verified offers and the intent constraints.
+
+Rendered sections: objective, state, evidence, alternatives, predictions, risk, organization, authority, action, history — every contract field lands on screen (DECISION_CARD_RENDER_SECTIONS order).
+
+Price timing
+predictive — not a promise
+
+What the model says: One seller's A3 card historically drops 4–7% for 2–3 weeks in late October (last 3 years, demo history).
+
+Why it may not happen: A supply shortage would break the pattern; the model has no live feed (honest limitation).
+
+Deadline interaction: Your print run needs the paper by Oct 20 — waiting past Oct 17 risks express fees that exceed the modeled saving.
+
+Negotiate (an offer, never a commitment)
+DEMO
+
+Send a counter-offer to one seller at a time. Sending creates an OFFERED record — the seller may accept, counter or reject it; nothing is owed by either side until an order would exist (and demo mode never creates one). Replies below are deterministic demo behaviors of the committed merchants.
+
+Reply from Meridian Office Supply
+countered
+DEMO
+
+Counter: we can do 12.47 USD per box — splitting the difference (demo).
+
+You can send another round from the drafting panel; every round stays a non-binding offer.
+
+Draft another round
+Substitution — a similar item may serve the need
+DEMO
+
+Your intent allowed alternatives (“similar models fine”). Each candidate carries fit, non-fit and a freshness chip. Marking one “under consideration” changes only THIS surface — it never orders, reserves or re-prices anything.
+
+A2 recycled card (same mill, 420 × 594 mm)
+verified
+checked 2026-10-12T08:50:00Z
+DEMO
+
+Unit price (verified feed): 9.80 USD per box
+
+If all 40 boxes switched: 392.00 USD — 118.00 USD vs the verified A3 offer
+
+Fits: Two of your three print jobs (the poster series tolerates 5 mm shorter sheets).
+
+Does not fit: The gallery-proof job needs exact A3 size.
+
+Trade-off: 24 of 40 boxes could become A2: a 16-box A3 + 24-box A2 blend.
+
+Mark as under consideration
+Off-brand A3 card (other mill)
+stale
+checked 2026-10-10T09:10:00Z
+DEMO
+
+Unit price (verified feed): 11.25 USD per box
+
+If all 40 boxes switched: 450.00 USD — 60.00 USD vs the verified A3 offer
+
+Fits: All three jobs by size and weight class.
+
+Does not fit: Color reproduction differs slightly between mills — your ICC profile is tuned to the current mill.
+
+Trade-off: Cheaper per box, but you would re-profile color (about an afternoon of work).
+
+Mark as under consideration
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

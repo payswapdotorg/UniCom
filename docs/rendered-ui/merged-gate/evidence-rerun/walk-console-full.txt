@@ -1,0 +1,35 @@
+[navigate] http://localhost:5199/
+[debug] [vite] connecting...
+[debug] [vite] connected.
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[error] Failed to load resource: the server responded with a status of 502 (Bad Gateway)
+[error] WebSocket connection to 'ws://localhost:5199/ws' failed: Connection closed before receiving a handshake response
+[navigate] http://localhost:5199/commerce
+[debug] [vite] connecting...
+[debug] [vite] connected.
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[navigate] http://localhost:5199/commerce/explore
+[navigate] http://localhost:5199/commerce/buyer/intent
+[navigate] http://localhost:5199/commerce
+[navigate] http://localhost:5199/commerce/buyer/intent
+[navigate] http://localhost:5199/commerce
+[navigate] http://localhost:5199/commerce/buyer/compare
+[navigate] http://localhost:5199/commerce
+[navigate] http://localhost:5199/commerce/buyer/decide
+[navigate] http://localhost:5199/commerce
+[navigate] http://localhost:5199/commerce/buyer/group-buy
+[navigate] http://localhost:5199/commerce
+[navigate] http://localhost:5199/commerce/buyer/group-buy/latent-demand
+[navigate] http://localhost:5199/commerce
+[navigate] http://localhost:5199/commerce/rent
+[navigate] http://localhost:5199/commerce
+[navigate] http://localhost:5199/commerce/resale
+[navigate] http://localhost:5199/commerce/roles
+[navigate] http://localhost:5199/commerce
+[navigate] http://localhost:5199/commerce/trade-cycle
+[navigate] http://localhost:5199/commerce/roles
+[navigate] http://localhost:5199/commerce
+[navigate] http://localhost:5199/commerce/procurement/supply
+[navigate] http://localhost:5199/commerce/roles
+[navigate] http://localhost:5199/commerce
+[navigate] http://localhost:5199/commerce/trust/recourse
