@@ -143,5 +143,17 @@
   "frontier": [
     "AUTH"
   ],
-  "last_reviewed_at": "2026-10-10"
+  "dispatch_log": [
+    {
+      "event": "TL READINESS + MAP-GATE PREPARATION — handoff verified, contracts inventoried, implementation map committed (pre-authorization, permitted by handoff §2)",
+      "recorded_at": "2026-10-10T05:35:00Z",
+      "recorded_by": "resident TL (Z.ai Code session web-6ddc0a59)",
+      "type": "TL_PRE_AUTHORIZATION_PREPARATION",
+      "detail": "The resident TL read and verified the complete UI-phase artifact set (handoff + W1-011/W2-012/W3-015 + this registry + tracking issue #10) and confirmed the operator's boundary: handoff creation is NOT authorization; status remains AWAITING_OPERATOR_AUTHORIZATION; dispatch_allowed stays false; no implementation started. Permitted pre-authorization work executed (read-only, non-mutating): (1) full read-only inspection — 16 experience surface files / 84 typed view interfaces / 7 runtime view constructors inventoried with zero non-test consumers confirmed (the POST-V3 finding still holds); commerce runtime inventory (15+ handlers, 20+ domain modules, public entrypoints contract.ts; experience contract.ts + runtime/index.ts); packages/web host baseline (React 19, @zcode/ui available, zero @unicom/* deps today); (2) dependency-direction ruling recorded: web → @unicom/experience/commerce via public entrypoints is USE of the frozen architecture (forbidDeepImports + publicEntrypoints govern it; no cycle possible), not an architecture change — React must not be added to domain/runtime packages; (3) the implementation map committed at docs/rendered-ui/CONTRACT-MAP.md: all 19 journey families mapped (journey → existing contract → runtime capability → rendered component owner → evidence requirement), write-surface boundaries, browser-gate evidence law (W1-010 format reuse, J19 ordinary-discovery, PASS/FAIL/ABSENT/BLOCKED/UNKNOWN/SKIPPED), and the known risks (state-vocabulary preservation, contract-only capabilities, vehicle-drought contingency under tl_is_worker:false). MAP gate remains PENDING pending formal acceptance in the post-AUTH sequence; frontier unchanged [AUTH].",
+      "artifacts": [
+        "docs/rendered-ui/CONTRACT-MAP.md"
+      ]
+    }
+  ],
+  "last_reviewed_at": "2026-10-10T05:35:00Z"
 }
