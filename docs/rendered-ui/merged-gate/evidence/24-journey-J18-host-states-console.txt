@@ -1,0 +1,4 @@
+[navigate] http://localhost:5199/commerce
+[navigate] http://localhost:5199/commerce/states
+[navigate] http://localhost:5199/commerce
+[navigate] http://localhost:5199/commerce/states

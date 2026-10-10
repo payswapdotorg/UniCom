@@ -1,0 +1,168 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+Environment & mode
+DEMO
+
+Mode: demo — deterministic synthetic fixtures (w1-011-demo-fixtures@1). No provider account or credential is required or present. No purchases, payments, refunds, rentals, group-buy commitments or trade legs can be made from this host. Every fixture-derived value is DEMO-labelled where it is rendered.
+
+Connected integrations: none. When a real connector integration lands, it will appear here with its honest state — this surface will not invent one.
+
+Reset demo fixtures
+resets scenario, roles and intent draft to the committed defaults (revision 0)
+Registered modules (19)
+buyer-compare
+Compare offers
+ready
+lane W2-012
+journeys J2
+J2 — compare seller offers with verified, stale, UNKNOWN and unavailable freshness kept visibly separate; source timestamps are always shown and UNKNOWN never poses as a price.
+buyer-decide
+Buy now vs wait
+ready
+lane W2-012
+journeys J3
+J3 — a complete decision card (buy now / wait / substitute with trade-offs), price-timing guidance labeled predictive, multi-merchant negotiation with accept/counter/reject outcomes, and substitution paths across sellers.
+buyer-groupbuy
+Group buys
+ready
+lane W2-012
+journeys J4, J5
+J4 — discover group buys with threshold, deadline, eligibility and commitment terms visible; interest is never a commitment and joining/leaving needs explicit authorization. J5 — propose a latent-demand group deal to a merchant with only consenting participants, then watch accept/counter/reject states.
+buyer-intent
+Intent canvas
+ready
+lane W2-012
+journeys J1
+J1 — describe what you need, add constraints (deadline, budget, quality, trust, delivery, substitutions, proof and recourse), and compare plan options before buying. Plan guidance is predictive, never a promise.
+buyer-opportunities
+Opportunity inbox
+ready
+lane W2-012
+journeys J8
+J8 — proactive economic opportunities: price timing, group deals, resale, warranty recovery, shared logistics, unused subscriptions. Every suggestion shows why it was suggested, its evidence and provenance, its expiry, and a safe next action that never commits you.
+buyer-twin
+Commerce Twin (what-if)
+ready
+lane W2-012
+journeys J14
+J14 — test decisions on a safe copy: demand-shift and rent-vs-own counterfactuals computed by the deterministic advisory runtime, every number labelled predictive-never-canonical, with a structural write-block to commerce truth.
+host-states
+States: pending, unknown, failed — kept honest
+ready
+lane W1-011
+journeys J18
+The shared state components every commerce surface uses: loading, empty, error (failed ≠ unknown), offline, and the preserved non-failure lifecycle states (offered, pending, attempted, overdue, settlement-unknown, not-promoted-unknown) — never collapsed into errors.
+merchant-autonomous
+Autonomous store controls — policy, gates and audit trail
+ready
+lane W3-015
+journeys J13
+See the autonomous-store policy in force (spend limits, margin floor, approval thresholds, stop conditions), preview what the policy says BEFORE anything commits, watch halted autonomy recover through journaled human overrides, and audit every decision in the append-only policy-application trail.
+merchant-b2b
+B2B & multi-location — channels, transfers, wholesale terms
+partial
+lane W3-015
+journeys J12
+Run multi-location commerce: dispatch and receive real inter-location stock transfers, see per-channel wholesale price breaks, review B2B quote requests, and track net-terms invoices — with the honest boundary that channels, quotes and AR are committed DEMO fixtures while transfers are real kernel state.
+Reason: Multi-location transfers and per-location stock are real kernel state; B2B quotes, channel price breaks and net-terms AR have no kernel aggregate yet — rendered as committed DEMO fixtures, and live credit/AR actions are honestly unavailable.
+merchant-connectors
+Connectors — the honest integration manager
+ready
+lane W3-015
+journeys J15
+See exactly what is connected (nothing today), disconnected (needs live credentials — disabled in demo), demo (local deterministic file feed) and unavailable (no provider exists — never simulated). Attempt connections and see honest ATTEMPTED → DISCONNECTED outcomes with the next step; never a fabricated success.
+merchant-groupbuy-review
+Merchant group-buy review
+ready
+lane W3-015
+journeys J5
+J5 merchant side — review latent-demand group-buy proposals from buyer pools: participant count vs threshold, proposed terms and deadline, with accept / counter / reject decisions shown in full before they commit. Local demo state only — no binding effect; the formation engine stays buyer-side and is never simulated.
+merchant-storefront
+Merchant storefront — the full commerce lifecycle
+ready
+lane W3-015
+journeys J10
+Run the studio store end to end: catalog and pricing with promotions, inventory, checkout, orders, fulfillment and delivery, returns, exchanges, refunds and support — every state rendered from the deterministic commerce kernel, with pending, unknown and duplicate states kept honest.
+peer-rent
+Rent or borrow
+ready
+lane W2-012
+journeys J6
+J6 — rent/borrow vs buy with duration, availability, deposit, condition, return, damage and recourse terms; the rental lifecycle runs on the deterministic commerce runtime and OVERDUE stays a preserved state, never a failure.
+peer-resale
+Resale & consignment
+ready
+lane W2-012
+journeys J7
+J7 — recover value from under-used assets: list for resale, hand to a consignment partner, or rent out. Explicit owner action before any listing; evidence-backed outcome estimates; exact payout math from the deterministic commerce runtime.
+peer-tradecycle
+Trade cycles (multi-hop swaps)
+partial
+lane W2-012
+journeys J9
+J9 — bounded multi-hop trade cycles with at least three synthetic participants: per-leg terms, per-leg individual consent, privacy/proof and recourse; refusal, dropout or expiry stops or re-plans the cycle without silently committing other legs.
+Reason: The consent lifecycle is fully rendered (per-leg consent, refusal/dropout/expiry stops, re-plan, execution hand-off boundary). The discovery/validation engine itself (agent lane) is not importable by the web host — candidates are committed demo fixtures; execution never simulates a live trade leg.
+physical-store
+Physical store — the no-RFID supermarket
+ready
+lane W3-015
+journeys J16
+Count stock by barcode, manual entry, weighed goods and CSV import; queue observations offline and replay them deterministically; apply POS syncs; see conflicts and discrepancies before anything promotes — canonical stock moves only through reconciliation. No RFID identifier or device is ever required.
+procurement-supply
+Procurement & supply — suppliers to reconciled stock
+ready
+lane W3-015
+journeys J11
+Request and compare supplier quotes, approve purchase orders, receive partially, handle substitutions, attach receipt/invoice evidence, and promote counts to canonical stock only through reconciliation — with expected, scanned, supplier-reported and reconciled quantities kept visibly separate.
+reference-explore
+Explore capabilities
+ready
+lane W1-011
+journeys J19
+Everything UNiCOM commerce can do, grouped by what you want to achieve — the reference module proving the feature-module contract end-to-end (discovery, typing, lazy load, host services).
+trust-recourse
+Trust & recourse — evidence, decisions, appeals, controlled refunds
+ready
+lane W3-015
+journeys J17
+Work trust and safety cases end to end: review threat signals and proof levels, submit evidence into disputes, resolve with journaled decisions and policy reasons, watch provider escalations land as chargebacks (with the no-double-refund guard), and execute controlled refunds and returns bounded by captured funds — UNKNOWN settlement states preserved, never collapsed.
+Registry warnings (0)
+
+None — every discovered module file validated against the published contract.
+
+Journey coverage
+
+19 of 19 journey families are rendered by a registered, non-unavailable module. The remaining 0 render honest in-development states naming their owning lane.
+
+J1 · Buyer Intent Canvas — ready
+J2 · Offer sourcing and comparison — ready
+J3 · Buy now vs wait, negotiation, substitution — ready
+J4 · Group buying — discovery, join, leave — ready
+J5 · Latent-demand group buys (buyer + merchant sides) — ready
+J6 · Rent or borrow vs buy — ready
+J7 · Resale, rental and consignment of owned items — ready
+J8 · Proactive economic opportunities — ready
+J9 · Bounded multi-hop trades (TradeCycle) — partial (The consent lifecycle is fully rendered (per-leg consent, refusal/dropout/expiry stops, re-plan, execution hand-off boundary). The discovery/validation engine itself (agent lane) is not importable by the web host — candidates are committed demo fixtures; execution never simulates a live trade leg.)
+J10 · Merchant commerce lifecycle — ready
+J11 · Supplier procurement and receiving — ready
+J12 · B2B and multi-location commerce — partial (Multi-location transfers and per-location stock are real kernel state; B2B quotes, channel price breaks and net-terms AR have no kernel aggregate yet — rendered as committed DEMO fixtures, and live credit/AR actions are honestly unavailable.)
+J13 · Autonomous store policies — ready
+J14 · Commerce Twin what-if — ready
+J15 · Connected commerce channels and live commerce — ready
+J16 · Physical, no-RFID supermarket operations — ready
+J17 · Trust, security and recourse — ready
+J18 · Failure, unknown and recovery states — ready
+J19 · Feature discoverability (Explore) — ready
+For W2-012 / W3-015 module developers
+
+Create src/commerce-modules/<moduleId>/module.ts default-exporting defineCommerceModule({…}) from commerce-host/contract/index.js; use a module id with your lane's reserved prefix (buyer-/peer- for W2-012, merchant-/procurement-/physical-/trust- for W3-015). The registry discovers it automatically — no host files are edited by feature workers. The shared honest-state components live in commerce-host/shared/index.js.
+
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)
