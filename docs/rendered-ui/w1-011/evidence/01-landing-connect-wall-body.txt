@@ -1,0 +1,7 @@
+Web bootstrap failed
+
+WebSocket connection failed: ws://localhost:5199/ws
+
+Retry
+UNiCOM Commerce → (demo, no connection needed)
+UNiCOM 商业主机：合成演示数据，无需连接服务器

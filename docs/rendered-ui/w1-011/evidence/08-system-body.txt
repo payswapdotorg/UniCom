@@ -1,0 +1,64 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+Environment & mode
+DEMO
+
+Mode: demo — deterministic synthetic fixtures (w1-011-demo-fixtures@1). No provider account or credential is required or present. No purchases, payments, refunds, rentals, group-buy commitments or trade legs can be made from this host. Every fixture-derived value is DEMO-labelled where it is rendered.
+
+Connected integrations: none. When a real connector integration lands, it will appear here with its honest state — this surface will not invent one.
+
+Reset demo fixtures
+resets scenario, roles and intent draft to the committed defaults (revision 0)
+Registered modules (2)
+host-states
+States: pending, unknown, failed — kept honest
+ready
+lane W1-011
+journeys J18
+The shared state components every commerce surface uses: loading, empty, error (failed ≠ unknown), offline, and the preserved non-failure lifecycle states (offered, pending, attempted, overdue, settlement-unknown, not-promoted-unknown) — never collapsed into errors.
+reference-explore
+Explore capabilities
+ready
+lane W1-011
+journeys J19
+Everything UNiCOM commerce can do, grouped by what you want to achieve — the reference module proving the feature-module contract end-to-end (discovery, typing, lazy load, host services).
+Registry warnings (0)
+
+None — every discovered module file validated against the published contract.
+
+Journey coverage
+
+2 of 19 journey families are rendered by a registered, non-unavailable module. The remaining 17 render honest in-development states naming their owning lane.
+
+J1 · Buyer Intent Canvas — in development
+J2 · Offer sourcing and comparison — in development
+J3 · Buy now vs wait, negotiation, substitution — in development
+J4 · Group buying — discovery, join, leave — in development
+J5 · Latent-demand group buys (buyer + merchant sides) — in development
+J6 · Rent or borrow vs buy — in development
+J7 · Resale, rental and consignment of owned items — in development
+J8 · Proactive economic opportunities — in development
+J9 · Bounded multi-hop trades (TradeCycle) — in development
+J10 · Merchant commerce lifecycle — in development
+J11 · Supplier procurement and receiving — in development
+J12 · B2B and multi-location commerce — in development
+J13 · Autonomous store policies — in development
+J14 · Commerce Twin what-if — in development
+J15 · Connected commerce channels and live commerce — in development
+J16 · Physical, no-RFID supermarket operations — in development
+J17 · Trust, security and recourse — in development
+J18 · Failure, unknown and recovery states — ready
+J19 · Feature discoverability (Explore) — ready
+For W2-012 / W3-015 module developers
+
+Create src/commerce-modules/<moduleId>/module.ts default-exporting defineCommerceModule({…}) from commerce-host/contract/index.js; use a module id with your lane's reserved prefix (buyer-/peer- for W2-012, merchant-/procurement-/physical-/trust- for W3-015). The registry discovers it automatically — no host files are edited by feature workers. The shared honest-state components live in commerce-host/shared/index.js.
+
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)
