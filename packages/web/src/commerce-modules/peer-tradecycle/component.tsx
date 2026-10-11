@@ -17,6 +17,7 @@ import { DemoTag, TermLine } from "../buyer-support/ui.js";
 import { KernelCommitmentGate } from "./gate.js";
 import { LegCard } from "./leg-cards.js";
 import { LinkedDraftLedger } from "../buyer-groupbuy/linking-draft.js";
+import { LinkingDraftKernel } from "../buyer-groupbuy/linking-draft-kernel.js";
 import {
   CYCLE_A,
   CYCLE_B,
@@ -55,6 +56,8 @@ export default function PeerTradecycleComponent({ host }: CommerceModuleProps): 
   // proceeds) travels through the existing kernel command path under its own
   // idempotency key.
   const [draftLedger] = useState<LinkedDraftLedger>(() => new LinkedDraftLedger());
+  // W2-017 Stage 2: the kernel-native draft runner.
+  const [draftKernel] = useState<LinkingDraftKernel>(() => new LinkingDraftKernel());
 
   const cycle = kernel.cycle(cycleId);
   if (cycle === null) {
@@ -105,6 +108,7 @@ export default function PeerTradecycleComponent({ host }: CommerceModuleProps): 
     setOwnGateLeg(null);
     setExecuteGateOpen(false);
     draftLedger.reset();
+    draftKernel.reset();
   };
 
   const stopped = cycle.state === "STOPPED_REFUSAL" || cycle.state === "STOPPED_WITHDRAWAL" || cycle.state === "STOPPED_EXPIRY";
@@ -203,6 +207,7 @@ export default function PeerTradecycleComponent({ host }: CommerceModuleProps): 
                 setOwnGateLeg={setOwnGateLeg}
                 run={run}
                 draftLedger={draftLedger}
+                draftKernel={draftKernel}
               />
             );
           })}

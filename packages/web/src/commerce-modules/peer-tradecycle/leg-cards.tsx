@@ -14,7 +14,9 @@ import { PROOF_LEVELS } from "@unicom/experience";
 import { DemoTag, PermissionGate, TermLine } from "../buyer-support/ui.js";
 import { KernelCommitmentGate } from "./gate.js";
 import { TradeCycleLegLinkedDraftAffordance } from "../buyer-groupbuy/linking-draft-panel.js";
+import { TradeCycleLegKernelDraftAffordance } from "../buyer-groupbuy/linking-draft-kernel-panel.js";
 import { LinkedDraftLedger } from "../buyer-groupbuy/linking-draft.js";
+import { LinkingDraftKernel } from "../buyer-groupbuy/linking-draft-kernel.js";
 import { DEMO_TRADE_PARTICIPANTS, DEMO_TRADE_PRINCIPALS, participantIdOf, participantName } from "./tradecycle-data.js";
 import type { DemoCycleCandidate } from "./tradecycle-data.js";
 
@@ -56,6 +58,7 @@ export function LegCard({
   setOwnGateLeg,
   run,
   draftLedger,
+  draftKernel,
 }: {
   readonly displayPosition: number;
   readonly leg: TradeCycleExecutionLeg;
@@ -68,6 +71,8 @@ export function LegCard({
   readonly run: (payload: TradeCycleCommandPayload) => void;
   /** W2-015 Stage 1: the local DEMO ledger for linked-order drafts. */
   readonly draftLedger: LinkedDraftLedger;
+  /** W2-017 Stage 2: the kernel-native draft runner. */
+  readonly draftKernel: LinkingDraftKernel;
 }): JSX.Element {
   const youRef = DEMO_TRADE_PRINCIPALS["harbor-lane"]!;
   const isOwnLeg = principalRefEquals(leg.fromRef, youRef);
@@ -203,12 +208,7 @@ export function LegCard({
         ) : null}
       </PermissionGate>
 
-      {/* W2-015 Stage 1: the human-confirmed linked-order-draft affordance for
-          THIS leg only. Renders ONLY when the leg is COMMITTED (execution truth
-          exists). The acting principal is the leg's RECEIVER (the participant
-          whose stated want was satisfied — they would place the linked order
-          for the item they received). Refusing to draft this leg never drafts
-          another (law 7 — per-leg isolation). */}
+      {/* W2-015 Stage 1: the linked-order-draft affordance (prefill only). */}
       {leg.consentState === "COMMITTED" ? (
         <TradeCycleLegLinkedDraftAffordance
           host={host}
@@ -218,6 +218,17 @@ export function LegCard({
           ledger={draftLedger}
           permission="tradecycle.consent-leg"
           merchantIdForPrefill="merchant-1"
+        />
+      ) : null}
+      {/* W2-017 Stage 2: the kernel-native draft affordance (issues the REAL LINK command). */}
+      {leg.consentState === "COMMITTED" ? (
+        <TradeCycleLegKernelDraftAffordance
+          host={host}
+          cycle={cycle}
+          leg={leg}
+          actingPrincipal={leg.toRef}
+          kernel={draftKernel}
+          permission="tradecycle.consent-leg"
         />
       ) : null}
     </div>

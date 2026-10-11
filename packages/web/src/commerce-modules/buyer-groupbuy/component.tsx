@@ -20,6 +20,7 @@ import { FormationGate, InterestedItem, JoinGate, LeaveGate } from "./component-
 import { LatentDemandPanel } from "./latent-demand.js";
 import { FormedGroupBuyPanel } from "./formed-panel.js";
 import { LinkedDraftLedger } from "./linking-draft.js";
+import { LinkingDraftKernel } from "./linking-draft-kernel.js";
 import { DEMO_GROUP_BUY_POOLS, DEMO_GROUPBUY_BUYER, DEMO_GROUPBUY_PRINCIPALS, GROUPBUY_STATE_LABELS, groupBuyIdOf, openForInterest, participantName, seedGroupbuyDemo, unitsLabel, yourInterestOf } from "./groupbuy-data.js";
 import type { GroupBuyKernel } from "./kernel.js";
 
@@ -43,6 +44,8 @@ function GroupBuyPanel({ host }: { readonly host: CommerceModuleProps["host"] })
   // proceeds) travels through the existing kernel command path under its own
   // idempotency key.
   const [draftLedger] = useState<LinkedDraftLedger>(() => new LinkedDraftLedger());
+  // W2-017 Stage 2: the kernel-native draft runner (issues the REAL LINK command).
+  const [draftKernel] = useState<LinkingDraftKernel>(() => new LinkingDraftKernel());
 
   const interestedCount = DEMO_GROUP_BUY_POOLS.filter((pool) => yourInterestOf(kernel, pool.poolId) !== null).length;
 
@@ -64,6 +67,7 @@ function GroupBuyPanel({ host }: { readonly host: CommerceModuleProps["host"] })
     setError(null);
     setLastOutcome(null);
     draftLedger.reset();
+    draftKernel.reset();
   };
 
   return (
@@ -155,6 +159,7 @@ function GroupBuyPanel({ host }: { readonly host: CommerceModuleProps["host"] })
                 pool={pool}
                 buyerPrincipal={DEMO_GROUPBUY_BUYER}
                 draftLedger={draftLedger}
+                draftKernel={draftKernel}
                 merchantIdForPrefill={LINKING_DRAFT_MERCHANT_ID}
               />
             ) : null}

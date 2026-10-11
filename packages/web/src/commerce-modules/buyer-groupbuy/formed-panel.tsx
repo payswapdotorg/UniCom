@@ -18,7 +18,9 @@ import type { CommerceModuleProps } from "../../commerce-host/contract/index.js"
 import { moneyText } from "../buyer-support/demo-data.js";
 import { TermLine } from "../buyer-support/ui.js";
 import { GroupBuyLinkedDraftAffordance } from "./linking-draft-panel.js";
+import { GroupBuyKernelDraftAffordance } from "./linking-draft-kernel-panel.js";
 import { LinkedDraftLedger } from "./linking-draft.js";
+import { LinkingDraftKernel } from "./linking-draft-kernel.js";
 import { participantName, unitsLabel } from "./groupbuy-data.js";
 import type { DemoGroupBuyPool } from "./groupbuy-data.js";
 
@@ -30,6 +32,7 @@ export function FormedGroupBuyPanel({
   pool,
   buyerPrincipal,
   draftLedger,
+  draftKernel,
   merchantIdForPrefill,
 }: {
   readonly host: CommerceModuleProps["host"];
@@ -38,6 +41,7 @@ export function FormedGroupBuyPanel({
   readonly pool: DemoGroupBuyPool;
   readonly buyerPrincipal: PrincipalRef;
   readonly draftLedger: LinkedDraftLedger;
+  readonly draftKernel: LinkingDraftKernel;
   readonly merchantIdForPrefill: string;
 }): JSX.Element {
   if (aggregate.state !== "FORMED" || aggregate.formation === undefined) {
@@ -67,8 +71,7 @@ export function FormedGroupBuyPanel({
         participant could withdraw any time. No money moved: an actual commitment would
         live on the commerce planes, and this kernel aggregate never creates one.
       </p>
-      {/* W2-015 Stage 1: the human-confirmed linked-order-draft affordance.
-          Renders ONLY for a FORMED aggregate (formation truth exists).
+      {/* W2-015 Stage 1: the human-confirmed linked-order-draft affordance (prefill only).
           The buyer's share is in the frozen roster if they consented;
           otherwise no share → no draft (the affordance is per-share). */}
       {buyerShare ? (
@@ -80,6 +83,19 @@ export function FormedGroupBuyPanel({
           ledger={draftLedger}
           permission="groupbuy.express-interest"
           merchantIdForPrefill={merchantIdForPrefill}
+        />
+      ) : null}
+      {/* W2-017 Stage 2: the kernel-native draft affordance (issues the REAL LINK command).
+          ADDS to the Stage-1 prefill — never replaces it. The confirm gate issues
+          LINK_GROUPBUY_TO_ORDER_DRAFT through the LinkingDraftKernel runner. */}
+      {buyerShare ? (
+        <GroupBuyKernelDraftAffordance
+          host={host}
+          aggregate={aggregate}
+          share={buyerShare}
+          actingPrincipal={buyerPrincipal}
+          kernel={draftKernel}
+          permission="groupbuy.express-interest"
         />
       ) : null}
     </div>

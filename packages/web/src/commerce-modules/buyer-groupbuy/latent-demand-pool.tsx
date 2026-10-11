@@ -25,7 +25,9 @@ import { moneyText } from "../buyer-support/demo-data.js";
 import { TermLine } from "../buyer-support/ui.js";
 import { KernelCommitmentGate } from "./gate.js";
 import { GroupBuyLinkedDraftAffordance } from "./linking-draft-panel.js";
+import { GroupBuyKernelDraftAffordance } from "./linking-draft-kernel-panel.js";
 import { LinkedDraftLedger } from "./linking-draft.js";
+import { LinkingDraftKernel } from "./linking-draft-kernel.js";
 import {
   DEMO_GROUPBUY_PRINCIPALS,
   LATENT_DEMAND_TERMS,
@@ -220,6 +222,7 @@ export function FormedDealPanel({
   host,
   buyerPrincipal,
   draftLedger,
+  draftKernel,
   merchantIdForPrefill,
 }: {
   readonly aggregate: GroupBuyAggregate;
@@ -230,6 +233,7 @@ export function FormedDealPanel({
   readonly host: CommerceModuleProps["host"];
   readonly buyerPrincipal: PrincipalRef;
   readonly draftLedger: LinkedDraftLedger;
+  readonly draftKernel: LinkingDraftKernel;
   readonly merchantIdForPrefill: string;
 }): JSX.Element {
   const buyerShare = roster.find((share) => principalRefEquals(share.participantRef, buyerPrincipal));
@@ -264,10 +268,7 @@ export function FormedDealPanel({
           value={`command ${lastOutcome.receipt.commandId} · idempotency key ${lastOutcome.receipt.idempotencyKey} · executed ${lastOutcome.receipt.executedAt} · resulting revision ${lastOutcome.receipt.resultingRevision}`}
         />
       ) : null}
-      {/* W2-015 Stage 1: the human-confirmed linked-order-draft affordance.
-          Renders ONLY for a FORMED aggregate (formation truth exists).
-          The buyer's share is in the frozen roster if they consented;
-          otherwise no share → no draft (the affordance is per-share). */}
+      {/* W2-015 Stage 1: the human-confirmed linked-order-draft affordance (prefill only). */}
       {buyerShare ? (
         <GroupBuyLinkedDraftAffordance
           host={host}
@@ -277,6 +278,17 @@ export function FormedDealPanel({
           ledger={draftLedger}
           permission="groupbuy.express-interest"
           merchantIdForPrefill={merchantIdForPrefill}
+        />
+      ) : null}
+      {/* W2-017 Stage 2: the kernel-native draft affordance (issues the REAL LINK command). */}
+      {buyerShare ? (
+        <GroupBuyKernelDraftAffordance
+          host={host}
+          aggregate={aggregate}
+          share={buyerShare}
+          actingPrincipal={buyerPrincipal}
+          kernel={draftKernel}
+          permission="groupbuy.express-interest"
         />
       ) : null}
     </div>
