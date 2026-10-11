@@ -100,7 +100,7 @@
     "third_party_notices_generator_environmentally_blocked_on_this_pod_pre_existing"
   ],
   "closeout_rule": "Do not close issue #16 or report the phase complete while any gate is blocked or unproven. Preserve blockers and evidence history without changing denominators to manufacture green status.",
-  "last_reviewed_at": "2026-10-11T21:12:00Z",
+  "last_reviewed_at": "2026-10-11T21:17:00Z",
   "dispatch_log": [
     {
       "event": "PHASE ACTIVATION \u2014 linking observation completeness derived from the closed phase's frontier",
@@ -108,6 +108,13 @@
       "recorded_by": "resident TL (Z.ai Code, commerce-integration-3 phase)",
       "type": "PHASE_ACTIVATION",
       "detail": "Phase II closed PHASE_COMPLETE_ALL_GATES_PASSED at a0fe845 (~2h22m window, issue #15 closed). The frontier's natural small continuation: the draft ledger + UNKNOWN-recovery surfaces (the kernel states exist; the UI plane completes the feature) \u2014 the midnight-fit scope. The order template carries the phase-6 lessons: scoped tsc mandatory in acceptance; the write surface derived from the full integration path (the singleton swap touches every composing component). J18 ABSENT-by-design is protected (host-states out of scope; the ledger lives on the SystemSurface)."
+    },
+    {
+      "event": "W1-018 LANDED on the live worker session",
+      "recorded_at": "2026-10-11T21:17:00Z",
+      "recorded_by": "resident TL",
+      "type": "DISPATCH_LANDED",
+      "detail": "Cycle-1 landing (RESP-None; currentId -> 1653bf31, n=24 -> 26). The session generates its 6th lane. Branch watcher v3 armed on work/w1-018."
     }
   ]
 }
