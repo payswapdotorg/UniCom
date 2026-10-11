@@ -33,6 +33,7 @@ import {
 } from "./latent-demand-parts.js";
 import { FormedDealPanel, LatentFormGate, LatentShareGate, YourLatentInterestItem } from "./latent-demand-pool.js";
 import { LinkedDraftLedger } from "./linking-draft.js";
+import { LinkingDraftKernel } from "./linking-draft-kernel.js";
 import {
   DEMO_GROUPBUY_BUYER,
   DEMO_GROUPBUY_PRINCIPALS,
@@ -66,6 +67,8 @@ export function LatentDemandPanel({ host }: { readonly host: CommerceModuleProps
   // proceeds) travels through the existing kernel command path under its own
   // idempotency key.
   const [draftLedger] = useState<LinkedDraftLedger>(() => new LinkedDraftLedger());
+  // W2-017 Stage 2: the kernel-native draft runner.
+  const [draftKernel] = useState<LinkingDraftKernel>(() => new LinkingDraftKernel());
 
   const aggregate = kernel.groupBuy(LATENT_DEMAND_PROPOSAL_ID);
   const sent = aggregate !== null;
@@ -417,6 +420,7 @@ export function LatentDemandPanel({ host }: { readonly host: CommerceModuleProps
               host={host}
               buyerPrincipal={DEMO_GROUPBUY_BUYER}
               draftLedger={draftLedger}
+              draftKernel={draftKernel}
               merchantIdForPrefill={LINKING_DRAFT_MERCHANT_ID}
             />
           ) : null}

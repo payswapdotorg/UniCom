@@ -16,7 +16,9 @@ import type { CommerceHostServices } from "../../commerce-host/contract/index.js
 import { DEMO_MERCHANT_ACTOR, fmtMoney } from "../merchant-shared/demo-runtime.js";
 import { StatusChip } from "../merchant-shared/ui.js";
 import { GroupBuyLinkedDraftAffordance } from "../buyer-groupbuy/linking-draft-panel.js";
+import { GroupBuyKernelDraftAffordance } from "../buyer-groupbuy/linking-draft-kernel-panel.js";
 import { LinkedDraftLedger } from "../buyer-groupbuy/linking-draft.js";
+import { LinkingDraftKernel } from "../buyer-groupbuy/linking-draft-kernel.js";
 import { clockLabel, studioNameOf } from "./fixtures.js";
 import { participantIdOf } from "./seed.js";
 import type { PoolView } from "./component-parts.js";
@@ -26,10 +28,12 @@ export function FormedMerchantPanel({
   view,
   host,
   draftLedger,
+  draftKernel,
 }: {
   readonly view: PoolView;
   readonly host: CommerceHostServices;
   readonly draftLedger: LinkedDraftLedger;
+  readonly draftKernel: LinkingDraftKernel;
 }): JSX.Element {
   const aggregate = view.aggregate;
   if (aggregate.state !== "FORMED" || aggregate.formation === undefined) {
@@ -65,12 +69,7 @@ export function FormedMerchantPanel({
         Formation froze the final terms and the consenting-only roster. No commitment was created
         — commitments exist only on the commerce planes — and withdrawn studios stay out forever.
       </p>
-      {/* W2-015 Stage 1: the human-confirmed linked-order-draft affordance.
-          Renders ONLY for a FORMED aggregate (formation truth exists). The
-          acting principal is the DEMO merchant organizer; the prefill carries
-          the FIRST consenting participant's share (the organizer may draft a
-          linked order on behalf of any consenting participant — each
-          participant's share is its own separately-authorized draft). */}
+      {/* W2-015 Stage 1: the human-confirmed linked-order-draft affordance (prefill only). */}
       {roster.length > 0 ? (
         <GroupBuyLinkedDraftAffordance
           host={host}
@@ -80,6 +79,17 @@ export function FormedMerchantPanel({
           ledger={draftLedger}
           permission="groupbuy.review-proposal"
           merchantIdForPrefill={DEMO_MERCHANT_ACTOR.merchantId}
+        />
+      ) : null}
+      {/* W2-017 Stage 2: the kernel-native draft affordance (issues the REAL LINK command). */}
+      {roster.length > 0 ? (
+        <GroupBuyKernelDraftAffordance
+          host={host}
+          aggregate={aggregate}
+          share={roster[0]!}
+          actingPrincipal={DEMO_MERCHANT_ACTOR}
+          kernel={draftKernel}
+          permission="groupbuy.review-proposal"
         />
       ) : null}
     </div>

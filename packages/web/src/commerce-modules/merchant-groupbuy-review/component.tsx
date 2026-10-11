@@ -54,6 +54,7 @@ import {
 } from "./seed.js";
 import type { SeededPool } from "./seed.js";
 import { LinkedDraftLedger } from "../buyer-groupbuy/linking-draft.js";
+import { LinkingDraftKernel } from "../buyer-groupbuy/linking-draft-kernel.js";
 import {
   HeldFormationPanel,
   PendingDecisions,
@@ -114,6 +115,7 @@ export default function MerchantGroupbuyReviewComponent({ host }: CommerceModule
   // proceeds) travels through the existing kernel command path under its own
   // idempotency key.
   const [draftLedger] = useState<LinkedDraftLedger>(() => new LinkedDraftLedger());
+  const [draftKernel] = useState<LinkingDraftKernel>(() => new LinkingDraftKernel());
 
   const reset = (): void => {
     setPools(seedGroupBuyReview());
@@ -121,6 +123,7 @@ export default function MerchantGroupbuyReviewComponent({ host }: CommerceModule
     setRejectReasons({});
     setRefusal(null);
     draftLedger.reset();
+    draftKernel.reset();
   };
 
   /** Apply a kernel outcome: replace the pool's aggregate on success. */
@@ -287,7 +290,7 @@ export default function MerchantGroupbuyReviewComponent({ host }: CommerceModule
                 {aggregate.state === "HELD" ? (
                   <HeldFormationPanel host={host} view={view} onForm={() => form(poolId)} />
                 ) : null}
-                <PoolStateDetail view={view} host={host} draftLedger={draftLedger} />
+                <PoolStateDetail view={view} host={host} draftLedger={draftLedger} draftKernel={draftKernel} />
               </div>
             );
           })}

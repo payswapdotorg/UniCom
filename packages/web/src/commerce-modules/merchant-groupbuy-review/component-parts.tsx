@@ -296,10 +296,12 @@ export function PoolStateDetail({
   view,
   host,
   draftLedger,
+  draftKernel,
 }: {
   readonly view: PoolView;
   readonly host: CommerceHostServices;
   readonly draftLedger: LinkedDraftLedger;
+  readonly draftKernel: import("../buyer-groupbuy/linking-draft-kernel.js").LinkingDraftKernel;
 }): JSX.Element {
   const aggregate = view.aggregate;
   const terms = aggregate.terms;
@@ -356,7 +358,7 @@ export function PoolStateDetail({
     );
   }
   if (aggregate.state === "FORMED" && aggregate.formation) {
-    return <FormedMerchantPanel view={view} host={host} draftLedger={draftLedger} />;
+    return <FormedMerchantPanel view={view} host={host} draftLedger={draftLedger} draftKernel={draftKernel} />;
   }
   return <span />;
 }
