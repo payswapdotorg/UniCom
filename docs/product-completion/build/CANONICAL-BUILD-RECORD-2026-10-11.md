@@ -274,3 +274,22 @@ policy (none was made or needed); nothing here modifies `packages/**`,
 `vite.config.ts`, or any build script. The BUILD acceptance gate's PASS/FAIL
 marking belongs to the TL per the work-order acceptance criteria; this record
 supplies the required evidence in full.
+
+## 11. DEFINITIVE final-merged-commit run (TL-captured at closeout)
+
+The phase's three lanes were merged to `main` (three `--no-ff` merge commits + the THIRD-PARTY-NOTICES record, final lineage **`29c7ae7`**), the merged regression battery + real-browser gates were run on that tree (see `../merged-gate/`), and pushing `main` auto-fired the workflow's `push` trigger on exactly that commit:
+
+| Field | Value |
+|---|---|
+| Run / job | [38131004309](https://github.com/payswapdotorg/UniCom/actions/runs/38131004309) / job 114445145053 |
+| Head commit | `29c7ae7` (the final merged lineage — the gate-relevant tree, identical module sources to the battery/browser-gate tree) |
+| Command | `pnpm --filter @zcode/web build` (unchanged canonical config, hidden sourcemaps) |
+| Exit code | **0** |
+| Measured memory floor | **10,873 MB** (≥3,072 MB required — 3.5×) |
+| Modules / build time | 8,144 transformed / ✓ built in 14.27 s |
+| Output inventory | 6,200 files / 137,124,002 bytes (~130.8 MB) |
+| Source-map posture | `SOURCEMAP_URL_COMMENTS=absent (hidden sourcemap posture confirmed)` — zero `sourceMappingURL` references |
+| Deterministic dist SHA-256 | `5f5e5248bdc9953e1455f80905e1d92470638ff6a0200d1a051de0d803768deb` |
+| Job window | 2026-10-11T10:10:36Z → 10:11:50Z (74 s) |
+
+The lane-content runs 1–3 (§10) plus this final-commit run together demonstrate the canonical build reproducibly succeeds at 10.3–10.9 GB measured free memory — the pod-local blocker (2,550 MB ceiling, 13 OOM-killed attempts preserved in `docs/rendered-ui/vite-build/`) is superseded by CI evidence on the public-repo runner. The BUILD gate is recorded PASSED on this evidence.
