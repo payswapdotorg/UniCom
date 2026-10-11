@@ -114,7 +114,7 @@
     "third_party_notices_generator_environmentally_blocked_on_this_pod_pre_existing"
   ],
   "closeout_rule": "Do not close issue #15 or report the phase complete while any gate is blocked or unproven. Preserve blockers and evidence history without changing denominators to manufacture green status.",
-  "last_reviewed_at": "2026-10-11T18:55:00Z",
+  "last_reviewed_at": "2026-10-11T18:43:00Z",
   "dispatch_log": [
     {
       "event": "PHASE ACTIVATION \u2014 Stage 2 authorized by the TL \u00a78 record; W1-016 + W2-017 derived",
@@ -122,6 +122,13 @@
       "recorded_by": "resident TL (Z.ai Code, web-6ddc0a59 session, commerce-integration-2 phase)",
       "type": "PHASE_ACTIVATION",
       "detail": "Roadmap derivation: the repo's phase chain + the closed phase's frontier named Stage 2 as the teed-up continuation; its precondition (Stage 1 evidence) was satisfied by the commerce-integration closeout (dd7013c, all gates green); \u00a78 records the authorization under the operator's standing delegation + continuous-watch directive. Standing gates unchanged. Dispatch from inside the replay per the operator directive."
+    },
+    {
+      "event": "W1-016 LANDED on the live worker session",
+      "recorded_at": "2026-10-11T18:43:00Z",
+      "recorded_by": "resident TL (Z.ai Code, commerce-integration-2 phase)",
+      "type": "DISPATCH_LANDED",
+      "detail": "The full W1-016 order (5,953 chars) landed as a continuation on chat 309bcf10 (the session that delivered W1-014/W2-015/W3-018): the ESA edge 405'd the first browser ladders, the \u00a78 stop/continue cure closed the W3-018-era stuck turn cleanly (stop 200 + continue 410), cycle 2 passed the edge and hit MODEL_CONCURRENCY_LIMIT (the capacity lottery), cycle 3's send reported NO-REQUEST (the RESP-None capture-read law) but the SERVER-SIDE truth confirms: currentId moved 74a5ff25 -> 36d80e7b, thread n=14 -> 16 (new user record + NEW TURN RECORD), updated_at 18:42:25Z. Generation armed; the branch watcher (120s rounds on work/w1-016) is the delivery signal; the TL battery pipeline is warm."
     }
   ]
 }
