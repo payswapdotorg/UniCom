@@ -233,7 +233,9 @@ export function useCameraScan({
       }
       return;
     }
-    const payload = detected[0].rawValue;
+    const first = detected[0];
+    if (first === undefined) return; // length>0 without an element — keep scanning
+    const payload = first.rawValue;
     stopScan();
     applyDecodedPayload(payload);
   }, [applyDecodedPayload, stopScan]);
