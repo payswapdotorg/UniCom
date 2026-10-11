@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "payswapdotorg/UniCom",
   "program": "UNiCOM Product Completion & Build Readiness",
-  "status": "READY_FOR_TL_DISPATCH",
+  "status": "BASELINE_VERIFIED_LANES_DISPATCHED",
   "tracking_issue": "https://github.com/payswapdotorg/UniCom/issues/12",
   "tl_handoff": "docs/FINAL-TL-HANDOFF-PRODUCT-COMPLETION-2026-10-11.md",
   "prior_phase_records_immutable": true,
@@ -117,7 +117,9 @@
     {
       "id": "BASELINE",
       "name": "Current default-branch head, clean baseline and frozen-architecture boundary verified",
-      "status": "PENDING"
+      "status": "PASSED",
+      "passed_at": "2026-10-11T07:29:45Z",
+      "evidence": "Default-branch HEAD verified 604fae55bd6409d893822a1d8323ce405b7f85e6 (clean working tree; registry JSON validated); baseline SHA posted to issue #12; lanes work/w1-013, work/w2-014, work/w3-017 created from it."
     },
     {
       "id": "BUILD",
@@ -155,7 +157,29 @@
       "status": "PENDING"
     }
   ],
-  "active_work_orders": [],
+  "active_work_orders": [
+    {
+      "id": "W1-013",
+      "branch": "work/w1-013",
+      "worktree": "/home/z/battery/w1-013",
+      "status": "IN_PROGRESS",
+      "dispatched_at": "2026-10-11T07:29:45Z"
+    },
+    {
+      "id": "W2-014",
+      "branch": "work/w2-014",
+      "worktree": "/home/z/battery/w2-014",
+      "status": "IN_PROGRESS",
+      "dispatched_at": "2026-10-11T07:29:45Z"
+    },
+    {
+      "id": "W3-017",
+      "branch": "work/w3-017",
+      "worktree": "/home/z/battery/w3-017",
+      "status": "IN_PROGRESS",
+      "dispatched_at": "2026-10-11T07:29:45Z"
+    }
+  ],
   "frontier": [
     "canonical_vite_build_requires_suitable_environment_and_proof",
     "j12_b2b_contract_only_or_demo_labelled_rendered_surfaces",
@@ -167,5 +191,14 @@
     "human_research_not_authorized"
   ],
   "closeout_rule": "Do not close issue #12 or report release readiness complete while the canonical build gate is blocked or unproven. Preserve blockers and evidence history without changing denominators to manufacture green status.",
-  "last_reviewed_at": "2026-10-11T07:09:53Z"
+  "last_reviewed_at": "2026-10-11T07:29:45Z",
+  "dispatch_log": [
+    {
+      "event": "BASELINE verified + three lanes dispatched (W1-013 / W2-014 / W3-017)",
+      "recorded_at": "2026-10-11T07:29:45Z",
+      "recorded_by": "resident TL (Z.ai Code, web-6ddc0a59 session, product-completion phase)",
+      "type": "DISPATCH",
+      "detail": "Handoff 2647bad + registry 604fae5 ingested from origin (5 commits). Baseline verified: HEAD 604fae5 clean, registry JSON valid, prior runtime-integration record immutable. Environment measured: pod MemAvailable 1789 MB (ceiling 2550 MB with pausable infra) \u2014 canonical >=3GB build cannot run locally, so W1-013 primary path is a build-only GitHub Actions workflow on the public repo (Actions enabled, ubuntu runners, no deploy/no secrets), with local attempts preserved as variant evidence only. Lanes created from 604fae5 with disjoint write surfaces: work/w1-013 (.github/workflows + docs/product-completion/build), work/w2-014 (merchant-b2b J12 module + lane tests + evidence), work/w3-017 (physical-store J16 module + lane tests + evidence). Workers instructed: first small seam/map commit fast, then implementation + lane-local verification (vitest scope, lint, scoped tsc, architecture check), completion report per lane, NO self-merge to main. TL will merge incrementally with independent reproduction, then run merged gates (regression battery + real Chromium browser gate + safety + manifest validation), prepare the two TL-owned operator decision packets, final report + registry closeout + issue #12 update."
+    }
+  ]
 }
