@@ -1,0 +1,164 @@
+name: canonical-web-build
+
+# W1-013 — Canonical Vite production-build evidence (BUILD-ONLY workflow).
+#
+# Purpose: prove the repository's UNCHANGED canonical web build
+# (`pnpm --filter @zcode/web build`, vite.config.ts production posture with
+# hidden sourcemaps) on a GitHub-hosted runner for the public repo
+# (ubuntu-latest, 4 vCPU / 16 GB standard runner), with a MEASURED
+# free-memory floor, because the development pod's measured absolute ceiling
+# (2,550 MB MemAvailable) cannot complete the sourcemap-generation phase
+# (13 OOM-killed local attempts, preserved in
+# docs/rendered-ui/vite-build/VITE-PRODUCTION-BUILD-RECORD-2026-10-10.md).
+#
+# Safety laws (work order W1-013 + product-completion handoff):
+#   BUILD-ONLY — no deploy, no publish, no push, no registry writes, no
+#   secrets, no credentials, no external side effects, no paid
+#   infrastructure. permissions: contents: read. This workflow never
+#   mutates the repository or any external system.
+#   The build command and vite.config.ts are used UNCHANGED — hidden
+#   sourcemaps stay on; the historical `--sourcemap false` variant is NOT
+#   run here and is not canonical evidence. dist/ is never uploaded or
+#   committed; only small text evidence artifacts are retained.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  COREPACK_ENABLE_DOWNLOAD_PROMPT: "0"
+
+jobs:
+  canonical-web-build:
+    name: "pnpm --filter @zcode/web build (canonical, hidden sourcemaps)"
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout (read-only)
+        uses: actions/checkout@v7
+
+      - name: Use Node 24 (pinned by major, per engines >=24.0.0)
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Enable corepack and pin pnpm to the repo packageManager (10.33.2)
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.2 --activate
+          echo "pnpm --version => $(pnpm --version)"
+          test "$(pnpm --version)" = "10.33.2"
+
+      - name: Record environment identity
+        run: |
+          {
+            echo "workflow=canonical-web-build"
+            echo "run_id=${GITHUB_RUN_ID} attempt=${GITHUB_RUN_ATTEMPT} event=${GITHUB_EVENT_NAME}"
+            echo "ref=${GITHUB_REF}"
+            echo "commit_sha=${GITHUB_SHA}"
+            echo "job_started_utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo "node_version=$(node --version)"
+            echo "pnpm_version=$(pnpm --version)"
+            echo "os=$(head -2 /etc/os-release | tr '\n' ' ')"
+            echo "nproc=$(nproc)"
+            echo "runner=${RUNNER_NAME:-unknown} image=${ImageOS:-unknown}/${ImageVersion:-unknown}"
+            echo "mem_available_mb_before=$(free -m | awk '/^Mem:/{print $7}')"
+          } | tee evidence-summary.txt
+          free -m
+
+      - name: Start memory-floor sampler (MemAvailable every 2 s)
+        run: |
+          nohup bash -c 'while true; do grep "^MemAvailable:" /proc/meminfo; sleep 2; done' > memfloor.log 2>&1 &
+          echo $! > memfloor.pid
+          echo "sampler_pid=$(cat memfloor.pid)"
+          echo "sampler_start_utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          grep '^MemAvailable:' /proc/meminfo
+
+      - name: Install dependencies (frozen lockfile, hoisted linker per .npmrc)
+        run: |
+          echo "INSTALL_START_UTC=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          pnpm install --frozen-lockfile
+          echo "INSTALL_END_UTC=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+      - name: Record toolchain versions (web-resolved vite)
+        run: |
+          vite_version=$(node -p "JSON.parse(require('fs').readFileSync('packages/web/node_modules/vite/package.json','utf8')).version")
+          ts_version=$(node -p "JSON.parse(require('fs').readFileSync('node_modules/typescript/package.json','utf8')).version")
+          echo "vite_version_web=${vite_version}"
+          echo "typescript_version=${ts_version}"
+          echo "vite_version_web=${vite_version}" >> evidence-summary.txt
+          echo "typescript_version=${ts_version}" >> evidence-summary.txt
+
+      - name: Canonical build - pnpm --filter @zcode/web build (unchanged command)
+        run: |
+          echo "BUILD_START_UTC=$(date -u +%Y-%m-%dT%H:%M:%SZ)" | tee -a evidence-summary.txt
+          set +e
+          pnpm --filter @zcode/web build 2>&1 | tee build.log
+          status=${PIPESTATUS[0]}
+          set -e
+          echo "CANONICAL_BUILD_EXIT_CODE=${status}" | tee -a evidence-summary.txt
+          echo "BUILD_END_UTC=$(date -u +%Y-%m-%dT%H:%M:%SZ)" | tee -a evidence-summary.txt
+          exit "${status}"
+
+      - name: Stop memory-floor sampler and compute measured floor
+        if: always()
+        run: |
+          if [[ -f memfloor.pid ]]; then
+            kill "$(cat memfloor.pid)" 2>/dev/null || true
+          fi
+          sleep 1
+          {
+            echo "sampler_datapoints=$(wc -l < memfloor.log)"
+            echo "sampler_end_utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          } | tee -a evidence-summary.txt
+          min_kb=$(awk 'NR==1{min=$2} $2<min{min=$2} END{print min}' memfloor.log)
+          echo "MEASURED_MEMORY_FLOOR_KB=${min_kb}" | tee -a evidence-summary.txt
+          echo "MEASURED_MEMORY_FLOOR_MB=$((min_kb / 1024))" | tee -a evidence-summary.txt
+          if (( min_kb >= 3145728 )); then
+            echo "MEMORY_FLOOR_AT_LEAST_3GB=yes" | tee -a evidence-summary.txt
+          else
+            echo "MEMORY_FLOOR_AT_LEAST_3GB=no" | tee -a evidence-summary.txt
+          fi
+
+      - name: Output inventory - file count, bytes, SHA-256 manifest, deterministic digest
+        run: |
+          set -euo pipefail
+          DIST=packages/web/dist
+          test -d "${DIST}"
+          files=$(find "${DIST}" -type f | wc -l)
+          bytes=$(find "${DIST}" -type f -printf '%s\n' | awk '{t+=$1} END{print t}')
+          maps=$(find "${DIST}" -type f -name '*.map' | wc -l)
+          {
+            echo "DIST_FILE_COUNT=${files}"
+            echo "DIST_TOTAL_BYTES=${bytes}"
+            echo "DIST_MAP_FILE_COUNT=${maps}"
+          } | tee -a evidence-summary.txt
+          ( cd "${DIST}" && find . -type f -exec sha256sum {} \; | sort -k2 ) > dist-manifest-sha256.txt
+          echo "manifest_lines=$(wc -l < dist-manifest-sha256.txt)"
+          head -3 dist-manifest-sha256.txt
+          if grep -R -q --include='*.js' --include='*.mjs' --include='*.css' 'sourceMappingURL' "${DIST}"; then
+            echo "SOURCEMAP_URL_COMMENTS=present" | tee -a evidence-summary.txt
+          else
+            echo "SOURCEMAP_URL_COMMENTS=absent (hidden sourcemap posture confirmed)" | tee -a evidence-summary.txt
+          fi
+          dist_digest=$(node --input-type=module -e "import { computeDeterministicSourceSha256 } from './scripts/deterministic-tar-archive.mjs'; console.log(computeDeterministicSourceSha256('packages/web/dist'));")
+          echo "DIST_DETERMINISTIC_SHA256=${dist_digest}" | tee -a evidence-summary.txt
+
+      - name: Upload evidence artifacts (small text files only - never dist/)
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: canonical-build-evidence
+          path: |
+            evidence-summary.txt
+            build.log
+            memfloor.log
+            dist-manifest-sha256.txt
+          retention-days: 90
+          if-no-files-found: warn
