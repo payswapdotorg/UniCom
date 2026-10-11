@@ -264,6 +264,6 @@ function principalLabel(principal: PrincipalRef): string {
   if (principal.kind === "CUSTOMER") return `customer:${principal.customerId}`;
   if (principal.kind === "MERCHANT") return `merchant:${principal.merchantId}`;
   if (principal.kind === "SYSTEM") return `system:${principal.systemPrincipalId}`;
-  if (principal.kind === "AUTONOMOUS_STORE") return `autonomous-store:${principal.autonomousStoreId}`;
-  return `principal:${principal.kind}`;
+  // AUTONOMOUS_STORE is the remaining kind — exhaustive over PrincipalRef's union.
+  return `autonomous-store:${principal.autonomousStoreId}`;
 }

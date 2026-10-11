@@ -37,7 +37,7 @@
  * Demo labelling: every prefill value is DEMO-labelled (synthetic demo state
  * derived from the aggregate's own facts — never a live order).
  */
-import { makeId } from "@unicom/commerce";
+import { currency, makeId, money } from "@unicom/commerce";
 import type {
   GroupBuyAggregate,
   GroupBuyParticipantShare,
@@ -137,7 +137,7 @@ export function tradeCycleLegDraftPrefillOf(
     consentBasis:
       `Leg ${leg.legIndex} of ${cycle.tradeCycleId} committed (the giver authorized, the cycle executed atomically). The item moved from its giver to its receiver; placement requires a separate PLACE_ORDER under the acting principal's own authority. The price is the acting human's to set (the trade-cycle aggregate carries no money).`,
     skuRef: leg.offeredItemRef,
-    unitPrice: { amountMinor: "0", currency: "USD" },
+    unitPrice: money("0", currency("USD")),
     units: 1,
     cartId: `cart-link-tc-${cycle.tradeCycleId}-leg-${leg.legIndex}`,
   };
