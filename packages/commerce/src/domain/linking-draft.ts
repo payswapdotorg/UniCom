@@ -28,6 +28,7 @@
  * (never a silent no-op).
  */
 import type { LinkedDraftId } from "./ids.js";
+export type { LinkedDraftId } from "./ids.js";
 import type { GroupBuyAggregate } from "./groupbuy.js";
 import type { TradeCycleExecution } from "./tradecycle.js";
 import type { PrincipalRef } from "./principals.js";

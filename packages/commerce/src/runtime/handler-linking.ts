@@ -44,7 +44,7 @@ export const handleLinkGroupBuyToOrderDraft: RuntimeCommandHandler = async (enve
     existingDraft,
     ctx.now,
   );
-  if (!result.ok) return rejectInvalidState(`draft ${payload.draftId}: ${result.error.code} — ${result.error.detail ?? "refused"}`);
+  if (!result.ok) return rejectInvalidState(`draft ${payload.draftId}: ${result.error.code}${"detail" in result.error ? ` — ${result.error.detail}` : ""}`);
   ctx.emit({
     subject: linkedDraftSubject(result.value.draftId as string),
     kind: "LINKED_DRAFT_CREATED",
@@ -68,7 +68,7 @@ export const handleLinkTradeCycleLegToSettlementDraft: RuntimeCommandHandler = a
     existingDraft,
     ctx.now,
   );
-  if (!result.ok) return rejectInvalidState(`draft ${payload.draftId}: ${result.error.code} — ${result.error.detail ?? "refused"}`);
+  if (!result.ok) return rejectInvalidState(`draft ${payload.draftId}: ${result.error.code}${"detail" in result.error ? ` — ${result.error.detail}` : ""}`);
   ctx.emit({
     subject: linkedDraftSubject(result.value.draftId as string),
     kind: "LINKED_DRAFT_CREATED",
