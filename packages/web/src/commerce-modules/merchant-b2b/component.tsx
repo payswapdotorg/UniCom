@@ -4,56 +4,62 @@
  * Multi-location truth: the seed stocks the warehouse through the kernel and
  * opens one requested transfer; dispatch moves units OUT of the source,
  * confirming receipt moves them INTO the destination, and a cancellation is
- * a deliberate act whose units never left. Channel price breaks, the B2B
- * quote queue and net-terms invoices are committed DEMO fixtures — the
- * boundary is stated on the surface, and quote decisions land in LOCAL DEMO
- * STATE only.
+ * a deliberate act whose units never left. W2-014 completes the B2B plane on
+ * top of the EXISTING public contracts: the wholesale order pad resolves
+ * committed per-account price lists with the real `negotiatedPrice` /
+ * `enforceMinimumOrder` contracts and places orders through the kernel's own
+ * B2B minimum-order gate (net-terms bank-transfer mandate, UNKNOWN preserved),
+ * the quote desk reviews requests with contract-computed offers (accept /
+ * counter / reject — LOCAL DEMO STATE, never binding), and the net-terms AR
+ * section ages fixture invoices + on-terms orders at the fixed demo date
+ * (finance-visibility-gated). Channels and the quote queue itself remain
+ * committed DEMO fixtures — labelled, never passed off as live.
  */
 
 import type { JSX } from "react";
 
 
 import { useState } from "react";
-import { makeId } from "@unicom/commerce";
-import type {
-  CommandExecution,
-  PrincipalRef,
-  RuntimeCommandPayload,
-} from "@unicom/commerce";
+import { makeId, negotiatedPrice, multiplyMoneyByInteger } from "@unicom/commerce";
+import type { B2BPriceList, CommandExecution } from "@unicom/commerce";
 import type { CommerceModuleProps } from "../../commerce-host/contract/index.js";
 import { DEMO_MERCHANT_ACTOR, DemoCommerceRuntime, demoMoney, fmtMoney } from "../merchant-shared/demo-runtime.js";
 import {
   CommandOutcomeView,
-  ConfirmableAction,
   DemoTag,
   EventTrail,
-  PermissionBoundary,
-  StatusChip,
   useRefresh,
   useSeededRuntime,
 } from "../merchant-shared/ui.js";
 import {
-  B2B_QUOTES,
-  B2B_SKUS,
-  B2B_UNAVAILABLE_NOTE,
   B2B_FIXTURES_ID,
+  B2B_MINIMUM_ORDER_POLICY,
+  B2B_SKUS,
+  B2B_QUOTES,
   CHANNELS,
-  NET_TERMS_INVOICES,
+  COMPANY_ACCOUNTS,
+  DEFAULT_COMPANY_ACCOUNT,
   OPENING_STOCK,
   PRICE_BREAKS,
   SEEDED_TRANSFER,
   STOREFRONT_LOCATION,
   WAREHOUSE_LOCATION,
+  initialPriceLists,
+  withNegotiatedEntry,
+  type B2bQuoteDecision,
+  type B2bQuoteFixture,
 } from "./fixtures.js";
-
-type KernelRun = (
-  actor: PrincipalRef,
-  payload: RuntimeCommandPayload,
-  opts?: { readonly commandId?: string; readonly idempotencyKey?: string },
-) => Promise<CommandExecution>;
+import type { KernelRun } from "./kernel-run.js";
+import { TransfersSection } from "./component-parts.js";
+import { WholesaleOrderPadSection, type B2bOrderRow } from "./b2b-order-pad.js";
+import { QuoteDeskSection } from "./b2b-quotes.js";
+import { NetTermsArSection } from "./b2b-ar.js";
 
 async function seedB2bDemo(): Promise<DemoCommerceRuntime> {
-  const runtime = new DemoCommerceRuntime();
+  // The kernel's own B2B minimum-order gate (the contract's minimumOrderPolicy
+  // option) — enforced at PLACE_ORDER, exercised exactly as the kernel's own
+  // B2B scenario documents.
+  const runtime = new DemoCommerceRuntime({ minimumOrderPolicy: B2B_MINIMUM_ORDER_POLICY });
   for (const line of OPENING_STOCK) {
     await runtime.run(DEMO_MERCHANT_ACTOR, {
       type: "RECEIVE_STOCK",
@@ -74,9 +80,9 @@ export default function MerchantB2bComponent({ host }: CommerceModuleProps): JSX
   const { runtime, reset } = useSeededRuntime(seedB2bDemo);
   const { version, refresh } = useRefresh();
   const [lastOutcome, setLastOutcome] = useState<CommandExecution | null>(null);
-  const [quoteStatuses, setQuoteStatuses] = useState<Readonly<Record<string, "PENDING" | "OFFERED" | "DECLINED">>>(() =>
-    Object.fromEntries(B2B_QUOTES.map((quote) => [quote.quoteId, quote.status])),
-  );
+  const [priceLists, setPriceLists] = useState<Record<string, B2BPriceList>>(() => initialPriceLists());
+  const [quoteDecisions, setQuoteDecisions] = useState<Readonly<Record<string, B2bQuoteDecision>>>({});
+  const [placements, setPlacements] = useState<Readonly<Record<string, string>>>({});
 
   const runCommand: KernelRun = async (actor, payload, opts) => {
     const outcome = await runtime!.run(actor, payload, opts);
@@ -105,6 +111,56 @@ export default function MerchantB2bComponent({ host }: CommerceModuleProps): JSX
   const levelOf = (skuId: string, locationId: typeof WAREHOUSE_LOCATION): number =>
     view.level(makeId<"SkuId">(skuId), locationId)?.onHand ?? 0;
 
+  const b2bOrders: readonly B2bOrderRow[] = view
+    .allOrders()
+    .filter((order) => order.cartId?.startsWith("cart-b2b-") === true)
+    .map((order) => {
+      const account =
+        COMPANY_ACCOUNTS.find(
+          (entry) => order.cartId !== undefined && entry.companyAccountId === placements[order.cartId],
+        ) ?? DEFAULT_COMPANY_ACCOUNT;
+      return { order, account };
+    });
+
+  const acceptQuote = (quote: B2bQuoteFixture): void => {
+    const base = priceLists[quote.companyAccountId];
+    if (!base) return;
+    const updated = withNegotiatedEntry(base, quote.requestedTier);
+    setPriceLists((current) => ({ ...current, [quote.companyAccountId]: updated }));
+    const offer = negotiatedPrice(updated, makeId<"SkuId">(quote.skuId), quote.units);
+    const note = offer.ok
+      ? `Accepted — the local demo price list now carries ${quote.skuId} at ${fmtMoney(offer.value)}/unit from ${quote.requestedTier.minQuantity} units; the offered basket is ${quote.units} × ${fmtMoney(offer.value)} = ${fmtMoney(multiplyMoneyByInteger(offer.value, quote.units))} (contract-computed). The wholesale order pad resolves this tier immediately.`
+      : "Accepted, but the contract refused to resolve the offered quantity against the updated list.";
+    setQuoteDecisions((current) => ({ ...current, [quote.quoteId]: { kind: "ACCEPTED", note } }));
+  };
+
+  const counterQuote = (quote: B2bQuoteFixture): void => {
+    const base = priceLists[quote.companyAccountId];
+    const current = base ? negotiatedPrice(base, makeId<"SkuId">(quote.skuId), quote.units) : null;
+    const note = current?.ok
+      ? `Countered at the standing tier (contract-resolved): ${fmtMoney(current.value)}/unit — ${quote.units} × ${fmtMoney(current.value)} = ${fmtMoney(multiplyMoneyByInteger(current.value, quote.units))}. The requested break was not granted; the local price list is unchanged and the account can accept or re-request.`
+      : "Countered — the standing tier could not be resolved by the contract for this quantity.";
+    setQuoteDecisions((currentDecisions) => ({
+      ...currentDecisions,
+      [quote.quoteId]: { kind: "COUNTERED", note },
+    }));
+  };
+
+  const rejectQuote = (quote: B2bQuoteFixture, reason: string): void => {
+    setQuoteDecisions((current) => ({
+      ...current,
+      [quote.quoteId]: { kind: "REJECTED", reason, note: `Declined the requested break for ${quote.account}.` },
+    }));
+  };
+
+  const resetDemo = (): void => {
+    setLastOutcome(null);
+    setPriceLists(initialPriceLists());
+    setQuoteDecisions({});
+    setPlacements({});
+    reset();
+  };
+
   return (
     <div className="cm-stack">
       <section className="cm-card">
@@ -116,19 +172,14 @@ export default function MerchantB2bComponent({ host }: CommerceModuleProps): JSX
           Harbor Lane runs three channels out of one warehouse (fixtures{" "}
           <code>{B2B_FIXTURES_ID}</code>). Multi-location stock and every transfer below are REAL
           deterministic kernel state — dispatch, receipt and cancellation move units exactly
-          once. Channels, price breaks, quotes and net-terms AR are committed DEMO fixtures
-          (no kernel aggregate exists for them yet) — labelled, never passed off as live.
+          once. The wholesale order pad resolves committed per-account price lists with the real
+          B2B contracts and places orders through the kernel&apos;s minimum-order gate (synthetic
+          demo state, never a live purchase order). The channel tier ladder and the quote-decision
+          queue are committed DEMO fixtures (no kernel aggregate exists for them yet) — labelled,
+          never passed off as live.
         </p>
         <div className="cm-row">
-          <button
-            type="button"
-            className="cm-button"
-            onClick={() => {
-              setLastOutcome(null);
-              setQuoteStatuses(Object.fromEntries(B2B_QUOTES.map((quote) => [quote.quoteId, quote.status])));
-              reset();
-            }}
-          >
+          <button type="button" className="cm-button" onClick={resetDemo}>
             Reset demo data
           </button>
           <span className="cm-env-note">
@@ -156,132 +207,16 @@ export default function MerchantB2bComponent({ host }: CommerceModuleProps): JSX
         </div>
       </section>
 
-      <section aria-label="Transfers">
-        <h2 className="cm-section-title">Inter-location transfers (real kernel state)</h2>
-        <div className="cm-stack">
-          {transfers.map((transfer) => (
-            <div key={transfer.transferId} className="cm-state-item">
-              <div className="cm-row">
-                <span className="cm-state-item-label">{transfer.transferId}</span>
-                {transfer.state === "CANCELLED" ? (
-                  <span className="cm-chip cm-chip-muted" title="A deliberate cancellation — not a failure">
-                    CANCELLED
-                  </span>
-                ) : (
-                  <StatusChip status={transfer.state} note="Transfer lifecycle: REQUESTED → DISPATCHED → RECEIVED (or CANCELLED)" />
-                )}
-                <span className="cm-journey-summary">
-                  {transfer.lines
-                    .map((line) => `${line.skuId} ×${line.units}`)
-                    .join(", ")} ·{" "}
-                  {transfer.fromLocationId} → {transfer.toLocationId} · revision {transfer.revision}
-                </span>
-              </div>
-              {transfer.state === "CANCELLED" ? (
-                <p className="cm-state-item-detail">
-                  Cancelled by choice while still requested — the units never left the warehouse,
-                  so nothing had to come back. A deliberate act, not a failure.
-                </p>
-              ) : null}
-              <div className="cm-row">
-                <PermissionBoundary host={host} permission="orders.process">
-                  {transfer.transferId === SEEDED_TRANSFER.transferId && transfer.state === "REQUESTED" ? (
-                    <ConfirmableAction
-                      actionLabel="Dispatch the requested transfer (12 syrups leave the warehouse)"
-                      confirmLabel="Dispatch it"
-                      statement="ADVANCE_TRANSFER DISPATCH: 12 cold-brew concentrates leave the warehouse canonically (TRANSFER_OUT) and the transfer becomes DISPATCHED. The storefront does NOT get them until receipt is confirmed."
-                      onExecute={() => {
-                        void runCommand(DEMO_MERCHANT_ACTOR, {
-                          type: "ADVANCE_TRANSFER",
-                          transferId: transfer.transferId,
-                          trigger: "DISPATCH",
-                        });
-                      }}
-                    />
-                  ) : null}
-                  {transfer.transferId === SEEDED_TRANSFER.transferId && transfer.state === "DISPATCHED" ? (
-                    <>
-                      <ConfirmableAction
-                        actionLabel="Confirm receipt at the storefront (12 syrups arrive)"
-                        confirmLabel="Confirm the receipt"
-                        statement="ADVANCE_TRANSFER CONFIRM_RECEIPT: the storefront's canonical stock gains the 12 units (TRANSFER_IN). In-transit and on-shelf stay distinguishable because the effect lands only here."
-                        onExecute={() => {
-                          void runCommand(DEMO_MERCHANT_ACTOR, {
-                            type: "ADVANCE_TRANSFER",
-                            transferId: transfer.transferId,
-                            trigger: "CONFIRM_RECEIPT",
-                          });
-                        }}
-                      />
-                      <ConfirmableAction
-                        actionLabel="Try to re-dispatch the in-flight transfer (see the refusal)"
-                        confirmLabel="Attempt the invalid dispatch"
-                        statement="The transfer is DISPATCHED — re-dispatching is an invalid lifecycle transition. The kernel refuses it deterministically with the transition error; nothing is partially applied."
-                        onExecute={() => {
-                          void runCommand(DEMO_MERCHANT_ACTOR, {
-                            type: "ADVANCE_TRANSFER",
-                            transferId: transfer.transferId,
-                            trigger: "DISPATCH",
-                          });
-                        }}
-                      />
-                    </>
-                  ) : null}
-                  {transfer.transferId === SEEDED_TRANSFER.transferId && transfer.state === "RECEIVED" ? (
-                    <p className="cm-card-sub">
-                      Transfer complete: 12 units are on the storefront&apos;s canonical shelf.
-                      Dispatch and receipt each happened exactly once.
-                    </p>
-                  ) : null}
-                </PermissionBoundary>
-              </div>
-            </div>
-          ))}
-          <div className="cm-row">
-            <PermissionBoundary host={host} permission="orders.process">
-              <ConfirmableAction
-                actionLabel="Open a second transfer (10 greens cases warehouse → storefront)"
-                confirmLabel="Open the transfer"
-                statement="OPEN_TRANSFER creates a NEW requested transfer for 10 salad-green cases. It moves nothing yet — dispatch decides when units leave; cancelling while requested means they never do."
-                onExecute={() => {
-                  void runCommand(DEMO_MERCHANT_ACTOR, {
-                    type: "OPEN_TRANSFER",
-                    transfer: {
-                      transferId: makeId<"TransferId">("trf-demo-b2b-2"),
-                      fromLocationId: WAREHOUSE_LOCATION,
-                      toLocationId: STOREFRONT_LOCATION,
-                      lines: [{ skuId: makeId<"SkuId">("sku-b2b-greens"), units: 10 }],
-                      state: "REQUESTED",
-                      revision: 1,
-                    },
-                  });
-                }}
-              />
-            </PermissionBoundary>
-          </div>
-          {transfers
-            .filter((entry) => entry.transferId !== SEEDED_TRANSFER.transferId && entry.state === "REQUESTED")
-            .map((entry) => (
-              <div key={entry.transferId} className="cm-row">
-                <PermissionBoundary host={host} permission="orders.process">
-                  <ConfirmableAction
-                    actionLabel={`Cancel the requested ${entry.transferId} while it has not shipped`}
-                    confirmLabel="Cancel it (units stay)"
-                    statement="ADVANCE_TRANSFER CANCEL_REQUEST from REQUESTED: the transfer is cancelled and the 10 cases never leave the warehouse — a deliberate cancellation, journaled, not a failure."
-                    onExecute={() => {
-                      void runCommand(DEMO_MERCHANT_ACTOR, {
-                        type: "ADVANCE_TRANSFER",
-                        transferId: entry.transferId,
-                        trigger: "CANCEL_REQUEST",
-                      });
-                    }}
-                  />
-                </PermissionBoundary>
-              </div>
-            ))}
-          {lastOutcome ? <CommandOutcomeView outcome={lastOutcome} /> : null}
-        </div>
-      </section>
+      <TransfersSection host={host} transfers={transfers} runCommand={runCommand} />
+
+      <WholesaleOrderPadSection
+        host={host}
+        runtime={runtime}
+        runCommand={runCommand}
+        priceLists={priceLists}
+        orders={b2bOrders}
+        onPlaced={(cartId, accountId) => setPlacements((current) => ({ ...current, [cartId]: accountId }))}
+      />
 
       <section aria-label="Channels">
         <h2 className="cm-section-title">Channels &amp; wholesale price breaks (DEMO fixtures)</h2>
@@ -304,76 +239,24 @@ export default function MerchantB2bComponent({ host }: CommerceModuleProps): JSX
           ))}
           <p className="cm-card-sub">
             Price breaks are committed fixture data (the per-channel price book has no kernel
-            aggregate yet) — the J10 storefront and the J13 autonomous price book are the real
-            kernel-priced surfaces.
+            aggregate yet) — the per-account negotiated lists the order pad resolves, and the J10
+            storefront / J13 autonomous price book, are the contract-priced surfaces.
           </p>
         </div>
       </section>
 
-      <section aria-label="B2B quotes">
-        <h2 className="cm-section-title">B2B quote requests (DEMO fixtures, local review state)</h2>
-        <div className="cm-stack">
-          {B2B_QUOTES.map((quote) => {
-            const status = quoteStatuses[quote.quoteId] ?? quote.status;
-            return (
-              <div key={quote.quoteId} className="cm-state-item">
-                <div className="cm-row">
-                  <span className="cm-state-item-label">{quote.quoteId}</span>
-                  <StatusChip status={status} note="LOCAL DEMO review state — never kernel truth, never binding" />
-                  <DemoTag />
-                </div>
-                <p className="cm-state-item-detail">
-                  {quote.account} · {quote.skuId} ×{quote.units} — {quote.note}
-                </p>
-                <div className="cm-row">
-                  <PermissionBoundary host={host} permission="storefront.manage">
-                    {status === "PENDING" ? (
-                      <ConfirmableAction
-                        actionLabel={`Approve the wholesale break for ${quote.account} (local demo decision)`}
-                        confirmLabel="Record the approval"
-                        statement="Records the merchant's approval in LOCAL DEMO STATE only: the quote flips to OFFERED on this screen. It binds no account, reserves no stock and moves no money — a real quote contract would need an aggregate that does not exist yet."
-                        onExecute={() => {
-                          setQuoteStatuses((current) => ({ ...current, [quote.quoteId]: "OFFERED" }));
-                        }}
-                      />
-                    ) : (
-                      <p className="cm-card-sub">
-                        {status === "OFFERED"
-                          ? "Decision recorded (OFFERED, local demo state) — pressing approve again changes nothing: the decision is already recorded."
-                          : "Declined — the account can re-request next season."}
-                      </p>
-                    )}
-                  </PermissionBoundary>
-                </div>
-              </div>
-            );
-          })}
-          <p className="cm-card-sub">{B2B_UNAVAILABLE_NOTE}</p>
-        </div>
-      </section>
+      <QuoteDeskSection
+        host={host}
+        priceLists={priceLists}
+        decisions={quoteDecisions}
+        onAccept={acceptQuote}
+        onCounter={counterQuote}
+        onReject={rejectQuote}
+      />
 
-      <section aria-label="Net terms">
-        <h2 className="cm-section-title">Net-terms invoices (DEMO fixtures — AR, not live)</h2>
-        <div className="cm-stack">
-          {NET_TERMS_INVOICES.map((invoice) => (
-            <div key={invoice.invoiceId} className="cm-state-item">
-              <div className="cm-row">
-                <span className="cm-state-item-label">{invoice.invoiceId}</span>
-                <StatusChip status={invoice.status} note={invoice.status === "OVERDUE" ? "Past due — a fixture fact, not a live AR feed" : "Not yet due"} />
-                <span className="cm-env-note">
-                  {fmtMoney(demoMoney(invoice.amountMinor))} · {invoice.terms} · {invoice.account}
-                </span>
-              </div>
-              <p className="cm-state-item-detail">{invoice.detail}</p>
-            </div>
-          ))}
-          <p className="cm-card-sub">
-            OVERDUE is a fact about time, not a failure state; collecting an invoice would be a
-            live payment action, which does not exist here — the honest state is
-            &quot;unavailable&quot;, never a simulated collection.
-          </p>
-        </div>
-      </section>
+      <NetTermsArSection host={host} orders={b2bOrders} />
+
+      {lastOutcome ? <CommandOutcomeView outcome={lastOutcome} /> : null}
 
       <section aria-label="Journal">
         <h2 className="cm-section-title">Journal (append-only, deterministic)</h2>
