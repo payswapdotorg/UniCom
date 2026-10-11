@@ -2,7 +2,7 @@
   "schema_version": 1,
   "repository": "payswapdotorg/UniCom",
   "program": "UNiCOM Commerce Plane Integration II \u2014 kernel-native draft linking (Stage 2)",
-  "status": "ACTIVE_W1_DISPATCHED",
+  "status": "PHASE_COMPLETE_ALL_GATES_PASSED",
   "tracking_issue": 15,
   "prior_phase_records_immutable": [
     "docs/development-state/commerce-integration-state.json (Stage 0+1, PHASE_COMPLETE_ALL_GATES_PASSED, closeout dd7013c)",
@@ -105,29 +105,32 @@
     {
       "id": "BROWSER",
       "name": "Merged real-Chromium zero-drift gate + lane extension evidence for the kernel-draft controls",
-      "status": "PENDING"
+      "status": "PASSED",
+      "evidence": "Merged zero-drift gate on c5d4371/main (docs/commerce-integration-2/merged-gate/, committed 6948b46): journeys 19/19 PASS; interactions with J18 ABSENT-by-design \u2014 classification identical to the accepted baseline; safety 5/5; walk 6/6; 92/92 pointers; denominators 19/19/5/6/30 zero-drift, manifest valid. Lane extension: W2-017 6/6 (docs/commerce-integration-2/w2-017/evidence/) \u2014 the kernel-native commands END-TO-END on the composed surfaces: the merchant-desk FORMED kernel affordance ADD-alongside Stage-1; the confirm issues the REAL LINK_GROUPBUY_TO_ORDER_DRAFT -> the record (receipt w2ld-cmd-2 + draft w2ld-gb-w3gr-prop-8-1 + provenance + the NO-order/payment/reservation boundary); the walked-to-COMMITTED J9 leg -> LINK_TRADECYCLE_LEG_TO_SETTLEMENT_DRAFT -> the settlement draft record (w2ld-tc-*); zero console errors. Three capture-script iterations root-caused + documented (shared-testid disambiguation, async record waits, record-content checks) \u2014 implementation never at fault. Memory: the replay console briefly paused for the two capture runs (the banked pause/restore pattern, restored + verified via deploy.sh)."
     },
     {
       "id": "SAFETY",
       "name": "Human-confirmed only; no auto payments/reservations/recourse; typed refusals rendered honestly; tripwires on the merged tree",
-      "status": "PENDING"
+      "status": "PASSED",
+      "evidence": "The 5-item safety slice PASS inside the merged gate. The human-confirmation gate precedes every kernel command (never auto-fires; the confirm states exactly what command will be issued); the kernel draft record renders 'NO order, NO payment, NO reservation, NO recourse case' \u2014 PROVEN LIVE in the browser capture; payments/reservations/recourse never created by linking (placing remains the existing separately-authorized flow); typed refusals rendered verbatim (kill switch LINKING_DISABLED + authorization, vitest-covered); the no-role permission block precedes the affordance; DEMO labelling on every fixture-derived value; registered-never-connected posture unchanged."
     },
     {
       "id": "TL_ACCEPT",
       "name": "Independent TL verification, final report, evidence manifests, registry + issue closeout",
-      "status": "PENDING"
+      "status": "PASSED",
+      "evidence": "docs/commerce-integration-2/FINAL-REPORT.md (this closeout): all 8 gates PASSED with TL-observed evidence; merged battery 2,186|0; three TL changes-requested rounds this phase (W1-016 kernel-integration + scoped-tsc type fixes, W2-017 wiring) \u2014 every round TL-found with precise diagnoses, worker-fixed on the live session in minutes, TL-re-verified; honest limitations \u00a73 preserved incl. the three TL order-surface errors (disclosed + cured + the lesson baked into the order template), the composed-surface-test deviation, and the memory-ceiling pause/restore. Issue #15 closed with the terminal evidence table."
     }
   ],
   "active_work_orders": [],
   "frontier": [
-    "commerce_plane_linking_stage_2_in_flight (W1-016 dispatched; W2-017 queued on the W1-016 merge)",
+    "commerce_plane_linking_complete_through_stage_2 (spec -> host prefill -> kernel-native); natural continuations: UNKNOWN-recovery observation surface, Stage-2 draft ledgers in system views, the deployment-coverage layer (the make-it-real program)",
     "production_deployment_not_authorized",
     "live_named_provider_credentials_not_authorized",
     "human_research_not_authorized",
     "third_party_notices_generator_environmentally_blocked_on_this_pod_pre_existing"
   ],
   "closeout_rule": "Do not close issue #15 or report the phase complete while any gate is blocked or unproven. Preserve blockers and evidence history without changing denominators to manufacture green status.",
-  "last_reviewed_at": "2026-10-11T20:30:00Z",
+  "last_reviewed_at": "2026-10-11T21:02:00Z",
   "dispatch_log": [
     {
       "event": "PHASE ACTIVATION \u2014 Stage 2 authorized by the TL \u00a78 record; W1-016 + W2-017 derived",
@@ -177,6 +180,13 @@
       "recorded_by": "resident TL (Z.ai Code, commerce-integration-2 phase)",
       "type": "MERGE",
       "detail": "Lane e3cd13f delivered in 16 min (panels + runner + 11 tests, all-green TL battery); changes-requested for the wiring (panels unwired \u2014 third occurrence of the order-surface pattern); fix c74dff9 in 8 min (all composing surfaces, ADD-alongside Stage-1). Merged no-ff ffd12b6; merged-tree battery 2,186|0 (commerce 521 + web 367 + experience 739 + agent 559), lint baseline, architecture 0, scoped tsc clean. Recorded deviation: composed-surface vitest tests absent \u2014 the BROWSER lane capture proves the composed surfaces end-to-end. Remaining gates: BROWSER + SAFETY + TL_ACCEPT."
+    },
+    {
+      "event": "PHASE CLOSEOUT \u2014 all 8 gates PASSED, Commerce Plane Integration II (Stage 2) complete",
+      "recorded_at": "2026-10-11T21:02:00Z",
+      "recorded_by": "resident TL (Z.ai Code, commerce-integration-2 phase)",
+      "type": "PHASE_CLOSEOUT",
+      "detail": "W2-017 merged ffd12b6 (lane battery green; the wiring changes-requested round) -> merged battery 2,186|0 across all four suites -> W2-017 lane capture 6/6 after three capture-script iterations (the kernel commands proven END-TO-END on the composed surfaces: real receipts + draft ids + provenance) -> merged zero-drift gate 19/19 + J18 ABSENT-by-design identical + 5/5 safety + 6/6 walk + 92/92 pointers (6948b46) -> FINAL-REPORT + this registry closeout. Phase window ~18:40Z->21:02Z (~2h22m), inside the midnight deadline with ~3h margin. Standing gates unchanged NOT_AUTHORIZED. Issue #15 closed with the terminal evidence table. The live worker session has now delivered five lanes (W1-014, W2-015, W3-018, W1-016, W2-017)."
     }
   ]
 }
