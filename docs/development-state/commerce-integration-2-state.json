@@ -123,7 +123,7 @@
     "third_party_notices_generator_environmentally_blocked_on_this_pod_pre_existing"
   ],
   "closeout_rule": "Do not close issue #15 or report the phase complete while any gate is blocked or unproven. Preserve blockers and evidence history without changing denominators to manufacture green status.",
-  "last_reviewed_at": "2026-10-11T19:51:00Z",
+  "last_reviewed_at": "2026-10-11T20:10:00Z",
   "dispatch_log": [
     {
       "event": "PHASE ACTIVATION \u2014 Stage 2 authorized by the TL \u00a78 record; W1-016 + W2-017 derived",
@@ -159,6 +159,13 @@
       "recorded_by": "resident TL (Z.ai Code, commerce-integration-2 phase)",
       "type": "DISPATCH_LANDED",
       "detail": "The W2-017 order routed as a continuation on chat 309bcf10 after the W1-016 merge: cycle 1 EDGE405, cycle 2 RESP-None with the server-side truth confirming currentId -> 73f2d53f, n=20 -> 22 (new user record + NEW TURN RECORD). The session now generates the host-consumption lane (the proven sequential-session pattern: this one session has delivered W1-014, W2-015, W3-018, W1-016 and now W2-017). Branch watcher live on work/w2-017."
+    },
+    {
+      "event": "W2-017 TL REVIEW: changes requested \u2014 wire the kernel panels into the rendered surfaces",
+      "recorded_at": "2026-10-11T20:10:00Z",
+      "recorded_by": "resident TL (Z.ai Code, commerce-integration-2 phase)",
+      "type": "CHANGES_REQUESTED",
+      "detail": "Lane battery on e3cd13f all-green TL-observed (web 367/367 \u2014 356 + 11 net-new, lint 103w/0e, architecture 0/0/0, scoped tsc clean \u2014 the worker ran scoped tsc itself this round). VERDICT: changes requested \u2014 the runner + panels are built and tested but NOT WIRED into any composing component (no rendered surface reaches them; the report's honest gap \u00a75.2) and the peer-tradecycle leg affordance is undelivered. The composing components were outside the order's surface list (the TL's narrowing error, third occurrence of the pattern). Write surface EXTENDED: buyer-groupbuy/component.tsx + its formed-flow parts, merchant-groupbuy-review/formed-section.tsx, peer-tradecycle/leg-cards.tsx + wiring tests (composed-surface render, real command issuance through the human-confirmation gate, idempotent duplicate = original receipt, typed refusals verbatim, provenance + DEMO, Stage-1 prefill preserved, no-role block precedes). LANDED on the session cycle 1 at 20:08Z (RESP-None; currentId -> aecf9e0e, n=24)."
     }
   ]
 }
