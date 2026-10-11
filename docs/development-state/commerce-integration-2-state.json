@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "repository": "payswapdotorg/UniCom",
+  "program": "UNiCOM Commerce Plane Integration II \u2014 kernel-native draft linking (Stage 2)",
+  "status": "ACTIVE_W1_DISPATCHED",
+  "tracking_issue": 15,
+  "prior_phase_records_immutable": [
+    "docs/development-state/commerce-integration-state.json (Stage 0+1, PHASE_COMPLETE_ALL_GATES_PASSED, closeout dd7013c)",
+    "docs/development-state/product-completion-state.json",
+    "docs/development-state/rendered-commerce-ui-state.json",
+    "docs/development-state/runtime-integration-state.json",
+    "docs/development-state/v3-simulation-state.json",
+    "docs/development-state/post-v3-validation-state.json",
+    "docs/development-state/v2-work-order-state.json",
+    "docs/development-state/v1-work-order-state.json"
+  ],
+  "source_baseline": {
+    "baseline_commit": "dd7013c",
+    "code_lineage": "521001a",
+    "battery": "vitest 2,130 passed | 9 skipped (experience 739 + web 356 + commerce 476|9 + agent 559); lint 103w/0e; architecture 0; scoped tsc clean",
+    "browser_gate": "merged zero-drift on f280e18: journeys 19/19, interactions J18 ABSENT-by-design identical, safety 5/5, walk 6/6, 92/92 pointers"
+  },
+  "architecture": {
+    "baseline": "1.2-additive-runtime-browser-2026-10-11 (unchanged this phase)",
+    "delta_policy": "additive commands on the existing public @unicom/commerce contract + web module consumption; NO new packages, dependency edges, entrypoints or policy changes"
+  },
+  "operator_directive": "continuous resident watch: monitor \u2192 harvest \u2192 review \u2192 approve/require-changes \u2192 dispatch next until the roadmap is complete; no early returns; the GitHub repo is the roadmap guide; midnight-UTC deadline discipline; dispatch only from inside the replay",
+  "policy": {
+    "payments_reservations_recourse": "NEVER auto-created at any stage \u2014 separately-authorized commands against a linked draft only",
+    "standing_gates": {
+      "production_deployment": "NOT_AUTHORIZED",
+      "live_named_provider_credentials": "NOT_AUTHORIZED",
+      "human_research": "NOT_AUTHORIZED",
+      "live_payments": "NOT_AUTHORIZED"
+    },
+    "honest_evidence": "TL-observed numbers only; workers' reports are claims until re-run; never delete/skip failing tests; preserve limitations verbatim"
+  },
+  "work_orders": [
+    {
+      "id": "W1-016",
+      "path": "docs/work-orders/W1-016.md",
+      "lane": "kernel-native draft-linking commands (Stage 2)",
+      "owner": "worker-1",
+      "status": "DISPATCHED",
+      "write_surface": "commerce domain linking-draft.ts (new) + additive command registration + additive contract types + un-skip the 9 Stage-2 law blocks + net-new kernel tests + lane report",
+      "branch": "work/w1-016"
+    },
+    {
+      "id": "W2-017",
+      "path": "docs/work-orders/W2-017.md",
+      "lane": "host-side consumption of kernel-native drafts",
+      "owner": "worker-2",
+      "status": "READY_FOR_TL_DISPATCH",
+      "dependency": "Merges after W1-016 (consumes the kernel contract read-only).",
+      "write_surface": "web buyer-groupbuy + peer-tradecycle linking surfaces + tests + lane report",
+      "branch": "work/w2-017"
+    }
+  ],
+  "tl_owned_decision_packets": [],
+  "operator_decisions": {
+    "stage_2_authorization": "docs/operator-decisions/commerce-plane-linking-decision-brief-2026-10-11.md \u00a78 \u2014 the resident TL record gating Stage 2 (Stage 1 evidence reviewed: the closed phase's gates); authorized under the operator's standing delegation + continuous-watch directive"
+  },
+  "acceptance_gates": [
+    {
+      "id": "BASELINE",
+      "name": "dd7013c verified clean; phase registries valid",
+      "status": "PASSED",
+      "evidence": "closeout dd7013c = code lineage 521001a + registry/report deltas only; merged battery 2,130|9 recorded in commerce-integration-state.json"
+    },
+    {
+      "id": "LINKING_LAWS_STAGE2",
+      "name": "The 9 documented Stage-2 describe.skip blocks converted to real passing tests (the seven laws on the kernel-native surface)",
+      "status": "PENDING"
+    },
+    {
+      "id": "KERNEL_DRAFT_COMMANDS",
+      "name": "LINK_GROUPBUY_TO_ORDER_DRAFT + LINK_TRADECYCLE_LEG_TO_SETTLEMENT_DRAFT: draft-only, idempotent receipts, typed authorization, cancellation cascade, compensation-requires-own-authorization, UNKNOWN, per-leg isolation, kill-switch refusal, provenance",
+      "status": "PENDING"
+    },
+    {
+      "id": "HOST_KERNEL_DRAFTS",
+      "name": "Web affordance issues the real commands through the human-confirmation gate; kernel records + provenance + idempotent-duplicate + refusal rendered; Stage-1 prefill preserved",
+      "status": "PENDING"
+    },
+    {
+      "id": "REGRESSION",
+      "name": "Full merged battery: vitest all suites, lint baseline, architecture 0, scoped tsc clean",
+      "status": "PENDING"
+    },
+    {
+      "id": "BROWSER",
+      "name": "Merged real-Chromium zero-drift gate + lane extension evidence for the kernel-draft controls",
+      "status": "PENDING"
+    },
+    {
+      "id": "SAFETY",
+      "name": "Human-confirmed only; no auto payments/reservations/recourse; typed refusals rendered honestly; tripwires on the merged tree",
+      "status": "PENDING"
+    },
+    {
+      "id": "TL_ACCEPT",
+      "name": "Independent TL verification, final report, evidence manifests, registry + issue closeout",
+      "status": "PENDING"
+    }
+  ],
+  "active_work_orders": [
+    "W1-016"
+  ],
+  "frontier": [
+    "commerce_plane_linking_stage_2_in_flight (W1-016 dispatched; W2-017 queued on the W1-016 merge)",
+    "production_deployment_not_authorized",
+    "live_named_provider_credentials_not_authorized",
+    "human_research_not_authorized",
+    "third_party_notices_generator_environmentally_blocked_on_this_pod_pre_existing"
+  ],
+  "closeout_rule": "Do not close issue #15 or report the phase complete while any gate is blocked or unproven. Preserve blockers and evidence history without changing denominators to manufacture green status.",
+  "last_reviewed_at": "2026-10-11T18:55:00Z",
+  "dispatch_log": [
+    {
+      "event": "PHASE ACTIVATION \u2014 Stage 2 authorized by the TL \u00a78 record; W1-016 + W2-017 derived",
+      "recorded_at": "2026-10-11T18:55:00Z",
+      "recorded_by": "resident TL (Z.ai Code, web-6ddc0a59 session, commerce-integration-2 phase)",
+      "type": "PHASE_ACTIVATION",
+      "detail": "Roadmap derivation: the repo's phase chain + the closed phase's frontier named Stage 2 as the teed-up continuation; its precondition (Stage 1 evidence) was satisfied by the commerce-integration closeout (dd7013c, all gates green); \u00a78 records the authorization under the operator's standing delegation + continuous-watch directive. Standing gates unchanged. Dispatch from inside the replay per the operator directive."
+    }
+  ]
+}
