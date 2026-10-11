@@ -32,12 +32,19 @@ import {
   DEMO_FEED_ROWS,
 } from "./fixtures.js";
 import { loadConnectorsSpace } from "./runtime.js";
+import { useCommittedRuntimeFacts } from "./runtime-facts-fixture.js";
+import { LiveFactsPanel } from "./live-facts-panel.js";
 import { BoardRow, BrowserBoundaryPanel, RuntimeSpacePanel } from "./component-parts.js";
 
 export default function MerchantConnectorsComponent({ host }: CommerceModuleProps): JSX.Element {
   const { runtime: space, reset: resetSpace } = useSeededRuntime(loadConnectorsSpace);
   const [attemptCounts, setAttemptCounts] = useState<Readonly<Record<string, number>>>({});
   const [importRuns, setImportRuns] = useState(0);
+  // W3-018 Stage 1: the committed, test-pinned runtime facts fixture.
+  // When non-null, the live-facts panel renders (progressive enhancement on
+  // top of the committed SAFE_EXERCISE_RECORD). Kill switch:
+  // RUNTIME_FACTS_LIVE_ENABLED = false → null → no live-facts panel.
+  const runtimeFacts = useCommittedRuntimeFacts();
 
   const reset = (): void => {
     resetSpace();
@@ -97,6 +104,12 @@ export default function MerchantConnectorsComponent({ host }: CommerceModuleProp
         ) : (
           <BrowserBoundaryPanel reason={space.reason} />
         )}
+        {/* W3-018 Stage 1: the live-facts panel (progressive enhancement).
+            Renders when the facts provider is present (the committed,
+            test-pinned fixture produced BY the real Node runtime projection).
+            Kill switch: RUNTIME_FACTS_LIVE_ENABLED = false → null → no panel.
+            The honest boundary text is NEVER removed; this ADDS a section. */}
+        {runtimeFacts !== null ? <LiveFactsPanel facts={runtimeFacts} /> : null}
         <p className="cm-env-note">
           Exercised through <code>@unicom/experience/runtime</code>: the credential vault, the
           Shopify adapter, connector lifecycle, health observation, journey runner + telemetry
