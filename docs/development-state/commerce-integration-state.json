@@ -61,10 +61,16 @@
       "path": "docs/work-orders/W2-015.md",
       "lane": "commerce-plane-linking-stage-1-host-drafts",
       "owner": "worker-2",
-      "status": "READY_FOR_TL_DISPATCH",
+      "status": "COMPLETE",
       "dependency": "Complies with the same seven laws W1-014 specifies; merge after W1-014.",
       "write_surface": "web groupbuy/tradecycle/groupbuy-review modules + lane report only",
-      "branch": "work/w2-015"
+      "branch": "work/w2-015",
+      "merge_commit": "73d9f4c",
+      "lane_commits": [
+        "eafe7a7",
+        "62fa4ad",
+        "f73a26c"
+      ]
     },
     {
       "id": "W3-018",
@@ -123,7 +129,9 @@
     {
       "id": "LINKING_STAGE1",
       "name": "Human-confirmed linked order drafts on rendered GroupBuy/TradeCycle surfaces, seven-law compliant, permission-gated, kill-switchable (W2-015)",
-      "status": "PENDING"
+      "status": "PASSED",
+      "passed_at": "2026-10-11T16:15:00Z",
+      "evidence": "work/w2-015 (eafe7a7 impl + 62fa4ad report + f73a26c currency-constructor fix after the TL changes-requested) merged: GroupBuy formed + TradeCycle executed-leg human-confirmed 'create linked order draft' affordances with provenance, permission gating, kill switch, DEMO labelling; TL-observed battery: web 349/349 (323 baseline + 26 net-new), commerce 476|9 untouched-proof, lint 103w/0e baseline identical, architecture 0, scoped tsc clean; merged-tree re-verification identical; report docs/work-orders/reports/W2-015-completion-report.md"
     },
     {
       "id": "J15_RUNTIME_BROWSER",
@@ -160,7 +168,7 @@
     "third_party_notices_generator_environmentally_blocked_on_this_pod_pre_existing"
   ],
   "closeout_rule": "Do not close issue #14 or report the phase complete while any gate is blocked or unproven. Preserve blockers and evidence history without changing denominators to manufacture green status.",
-  "last_reviewed_at": "2026-10-11T15:15:00Z",
+  "last_reviewed_at": "2026-10-11T16:15:00Z",
   "dispatch_log": [
     {
       "event": "PHASE ACTIVATION \u2014 TL decisions recorded under operator delegation, three work orders derived",
@@ -175,6 +183,13 @@
       "recorded_by": "resident TL (Z.ai Code, commerce-integration phase)",
       "type": "MERGE",
       "detail": "Canary session (chat 309bcf10, glm-5.2 full-ladder landing after the platform-wall fight: dispatcher-ladder glm-5.3 edge-405 zombies voided; the account send-gate cured via the boot-prompt \u00a78 stop/continue pair on the queued turn) delivered work/w1-014 in ~30 min. TL battery on the lane tree + merged tree (numbers in the LINKING_LAWS gate evidence). Merge-prep: scan.test.tsx qrcode resolution made portable (5f5e6cf) \u2014 a pre-existing main defect (W3-017-era absolute worktree path) exposed by the sandbox recycle, disclosed by the worker's report \u00a74.2 and independently reproduced+fixed by the TL; web 306->323/323. W2-015/W3-018 landing machines continue fighting the capacity lottery."
+    },
+    {
+      "event": "W2-015 MERGED (changes-requested round worked on the live session)",
+      "recorded_at": "2026-10-11T16:15:00Z",
+      "recorded_by": "resident TL (Z.ai Code, commerce-integration phase)",
+      "type": "MERGE",
+      "detail": "W2 routed onto the canary session as a continuation (the fresh-send gate forensics: no-turn chats route to chats/new and never fire completions; live agent chats fire continuations). First delivery 62fa4ad in ~27 min; TL battery caught one scoped-tsc defect (string literal vs branded CurrencyCode); changes-requested sent on the live session; worker fixed in ~2 min (f73a26c, currency contract constructor). Merged-tree: web 349/349, commerce 476|9, lint 103w/0e, arch 0. W3-018 routing onto the same session next (sequential; the fresh lottery produced nothing in 45 min)."
     }
   ]
 }
