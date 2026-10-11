@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "repository": "payswapdotorg/UniCom",
   "program": "UNiCOM Commerce Plane Integration",
-  "status": "READY_FOR_TL_DISPATCH",
+  "status": "IN_PROGRESS_W2_W3_DISPATCHED",
   "tracking_issue": "https://github.com/payswapdotorg/UniCom/issues/14",
   "prior_phase_records_immutable": true,
   "source_baseline": {
@@ -15,7 +15,7 @@
   "architecture": {
     "baseline": "1.2-additive-runtime-browser-2026-10-11",
     "supersedes": "1.1-frozen-2026-10-05",
-    "baseline_delta_rationale": "TL decision 2026-10-11 under operator delegation (docs/operator-decisions/j15-browser-safe-runtime-boundary-2026-10-11.md §7): the ONLY delta is the additive ./runtime-browser exports-map entry of @unicom/experience + its new source directory. No existing entrypoint changes; no new package; no new dependency edge.",
+    "baseline_delta_rationale": "TL decision 2026-10-11 under operator delegation (docs/operator-decisions/j15-browser-safe-runtime-boundary-2026-10-11.md \u00a77): the ONLY delta is the additive ./runtime-browser exports-map entry of @unicom/experience + its new source directory. No existing entrypoint changes; no new package; no new dependency edge.",
     "permitted_dependency_paths": "web -> public @unicom/commerce contract.ts and web -> public @unicom/experience contract.ts/runtime/index.ts (and, from this phase, runtime-browser/index.ts). experience -> commerce remains forbidden; web -> @unicom/agent remains forbidden.",
     "production_deployment_authorized": false,
     "production_mutation_allowed": false,
@@ -46,10 +46,15 @@
       "path": "docs/work-orders/W1-014.md",
       "lane": "commerce-plane-linking-stage-0-law-specs",
       "owner": "worker-1",
-      "status": "READY_FOR_TL_DISPATCH",
+      "status": "COMPLETE",
       "dependency": null,
       "write_surface": "packages/commerce/src/test/** + lane report only",
-      "branch": "work/w1-014"
+      "branch": "work/w1-014",
+      "merge_commit": "4883315",
+      "lane_commits": [
+        "a468089",
+        "0c57e10"
+      ]
     },
     {
       "id": "W2-015",
@@ -74,21 +79,77 @@
   ],
   "tl_owned_decision_packets": [],
   "operator_decisions": [
-    { "id": "production_deployment", "status": "NOT_AUTHORIZED", "required": true },
-    { "id": "live_named_provider_credentials_and_connection", "status": "NOT_AUTHORIZED", "required": true },
-    { "id": "human_research", "status": "NOT_AUTHORIZED", "required": true },
-    { "id": "commerce_plane_linking_stage_2_kernel_native_commands", "status": "NOT_AUTHORIZED (deferred pending Stage 1 evidence)", "required": true },
-    { "id": "live_payments_of_any_kind", "status": "NOT_AUTHORIZED", "required": true }
+    {
+      "id": "production_deployment",
+      "status": "NOT_AUTHORIZED",
+      "required": true
+    },
+    {
+      "id": "live_named_provider_credentials_and_connection",
+      "status": "NOT_AUTHORIZED",
+      "required": true
+    },
+    {
+      "id": "human_research",
+      "status": "NOT_AUTHORIZED",
+      "required": true
+    },
+    {
+      "id": "commerce_plane_linking_stage_2_kernel_native_commands",
+      "status": "NOT_AUTHORIZED (deferred pending Stage 1 evidence)",
+      "required": true
+    },
+    {
+      "id": "live_payments_of_any_kind",
+      "status": "NOT_AUTHORIZED",
+      "required": true
+    }
   ],
   "acceptance_gates": [
-    { "id": "BASELINE", "name": "Current default-branch head, clean baseline, frozen-architecture boundary (1.2 delta) verified", "status": "PENDING" },
-    { "id": "LINKING_LAWS", "name": "Seven linking laws executable in kernel specs, passing against unchanged kernel (W1-014)", "status": "PENDING" },
-    { "id": "LINKING_STAGE1", "name": "Human-confirmed linked order drafts on rendered GroupBuy/TradeCycle surfaces, seven-law compliant, permission-gated, kill-switchable (W2-015)", "status": "PENDING" },
-    { "id": "J15_RUNTIME_BROWSER", "name": "Additive ./runtime-browser sub-entrypoint browser-clean + parity-tested + J15 progressive live facts with committed-record fallback (W3-018)", "status": "PENDING" },
-    { "id": "REGRESSION", "name": "Full merged battery: vitest all suites, lint baseline, architecture 0, scoped tsc clean", "status": "PENDING" },
-    { "id": "BROWSER", "name": "Merged real-Chromium gate zero-drift + lane extension evidence for the new controls", "status": "PENDING" },
-    { "id": "SAFETY", "name": "Consent, role authority, idempotency, UNKNOWN, demo labelling, no-live-side-effect tripwires on the merged tree", "status": "PENDING" },
-    { "id": "TL_ACCEPT", "name": "Independent TL verification, final report, evidence manifests, registry + issue closeout", "status": "PENDING" }
+    {
+      "id": "BASELINE",
+      "name": "Current default-branch head, clean baseline, frozen-architecture boundary (1.2 delta) verified",
+      "status": "PASSED",
+      "passed_at": "2026-10-11T14:15:00Z",
+      "evidence": "HEAD 64e69b2 verified clean; registry valid; baseline battery 2040/2040 (product-completion record)"
+    },
+    {
+      "id": "LINKING_LAWS",
+      "name": "Seven linking laws executable in kernel specs, passing against unchanged kernel (W1-014)",
+      "status": "PASSED",
+      "passed_at": "2026-10-11T15:15:00Z",
+      "evidence": "work/w1-014 (a468089 tests + 0c57e10 report) merged 4883315: 6 law-cluster test files, 46 passing + 9 documented Stage-2 future-surface skips; TL-observed battery: commerce 476 passed|9 skipped (430 baseline + 46 net-new), web 323/323 untouched-proof, lint 103w/0e baseline identical, architecture 0, scoped tsc clean (ring-up, 1600MB heap); merged-tree re-verification identical; report docs/work-orders/reports/W1-014-completion-report.md"
+    },
+    {
+      "id": "LINKING_STAGE1",
+      "name": "Human-confirmed linked order drafts on rendered GroupBuy/TradeCycle surfaces, seven-law compliant, permission-gated, kill-switchable (W2-015)",
+      "status": "PENDING"
+    },
+    {
+      "id": "J15_RUNTIME_BROWSER",
+      "name": "Additive ./runtime-browser sub-entrypoint browser-clean + parity-tested + J15 progressive live facts with committed-record fallback (W3-018)",
+      "status": "PENDING"
+    },
+    {
+      "id": "REGRESSION",
+      "name": "Full merged battery: vitest all suites, lint baseline, architecture 0, scoped tsc clean",
+      "status": "PENDING"
+    },
+    {
+      "id": "BROWSER",
+      "name": "Merged real-Chromium gate zero-drift + lane extension evidence for the new controls",
+      "status": "PENDING"
+    },
+    {
+      "id": "SAFETY",
+      "name": "Consent, role authority, idempotency, UNKNOWN, demo labelling, no-live-side-effect tripwires on the merged tree",
+      "status": "PENDING"
+    },
+    {
+      "id": "TL_ACCEPT",
+      "name": "Independent TL verification, final report, evidence manifests, registry + issue closeout",
+      "status": "PENDING"
+    }
   ],
   "active_work_orders": [],
   "frontier": [
@@ -99,14 +160,21 @@
     "third_party_notices_generator_environmentally_blocked_on_this_pod_pre_existing"
   ],
   "closeout_rule": "Do not close issue #14 or report the phase complete while any gate is blocked or unproven. Preserve blockers and evidence history without changing denominators to manufacture green status.",
-  "last_reviewed_at": "2026-10-11T14:15:00Z",
+  "last_reviewed_at": "2026-10-11T15:15:00Z",
   "dispatch_log": [
     {
-      "event": "PHASE ACTIVATION — TL decisions recorded under operator delegation, three work orders derived",
+      "event": "PHASE ACTIVATION \u2014 TL decisions recorded under operator delegation, three work orders derived",
       "recorded_at": "2026-10-11T14:15:00Z",
       "recorded_by": "resident TL (Z.ai Code, web-6ddc0a59 session, commerce-integration phase)",
       "type": "PHASE_ACTIVATION",
-      "detail": "Operator delegated the two PREPARED_AWAITING_OPERATOR_DECISION packets to the TL and directed fast progress to the 2026-10-12T00:00:00Z deadline, with workers dispatched only from inside the replay. TL decisions recorded in both packets §7: commerce-plane linking Stage 0 + Stage 1 APPROVED (Stage 2 deferred; payments/reservations/recourse never auto-created); J15 Option A (additive ./runtime-browser sub-entrypoint) APPROVED with baseline 1.1 -> 1.2 (single additive entry, all binding conditions from the packet). Three lanes derived with disjoint write surfaces: W1-014 (kernel linking-law specs), W2-015 (host-side human-confirmed linked order drafts), W3-018 (runtime-browser + J15 live facts). Standing gates unchanged: production deployment / live providers / human research / live payments all NOT_AUTHORIZED."
+      "detail": "Operator delegated the two PREPARED_AWAITING_OPERATOR_DECISION packets to the TL and directed fast progress to the 2026-10-12T00:00:00Z deadline, with workers dispatched only from inside the replay. TL decisions recorded in both packets \u00a77: commerce-plane linking Stage 0 + Stage 1 APPROVED (Stage 2 deferred; payments/reservations/recourse never auto-created); J15 Option A (additive ./runtime-browser sub-entrypoint) APPROVED with baseline 1.1 -> 1.2 (single additive entry, all binding conditions from the packet). Three lanes derived with disjoint write surfaces: W1-014 (kernel linking-law specs), W2-015 (host-side human-confirmed linked order drafts), W3-018 (runtime-browser + J15 live facts). Standing gates unchanged: production deployment / live providers / human research / live payments all NOT_AUTHORIZED."
+    },
+    {
+      "event": "W1-014 MERGED (first lane of the phase) + merge-prep environment repair",
+      "recorded_at": "2026-10-11T15:15:00Z",
+      "recorded_by": "resident TL (Z.ai Code, commerce-integration phase)",
+      "type": "MERGE",
+      "detail": "Canary session (chat 309bcf10, glm-5.2 full-ladder landing after the platform-wall fight: dispatcher-ladder glm-5.3 edge-405 zombies voided; the account send-gate cured via the boot-prompt \u00a78 stop/continue pair on the queued turn) delivered work/w1-014 in ~30 min. TL battery on the lane tree + merged tree (numbers in the LINKING_LAWS gate evidence). Merge-prep: scan.test.tsx qrcode resolution made portable (5f5e6cf) \u2014 a pre-existing main defect (W3-017-era absolute worktree path) exposed by the sandbox recycle, disclosed by the worker's report \u00a74.2 and independently reproduced+fixed by the TL; web 306->323/323. W2-015/W3-018 landing machines continue fighting the capacity lottery."
     }
   ]
 }
