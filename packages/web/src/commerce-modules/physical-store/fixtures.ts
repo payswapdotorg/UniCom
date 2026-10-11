@@ -3,17 +3,21 @@
  *
  * Committed, synthetic, single-currency (USD). The corner-shop demo (Harbor
  * Lane Market) runs WITHOUT RFID by construction: every count path below is
- * barcode, manual, weigh-station or CSV. Opening stock, the seeded offline
- * queue item and supplier delivery-note quantities are fixtures; every
- * promotion to canonical stock happens through the deterministic kernel.
+ * barcode, manual, weigh-station, CSV or camera/QR (local decode of a
+ * committed demo label). Opening stock, the seeded offline queue item,
+ * supplier delivery-note quantities and the QR shelf-tag aliases are fixtures;
+ * every promotion to canonical stock happens through the deterministic kernel.
  */
 
 import { makeId } from "@unicom/commerce";
 import type { CountReconciliationPolicy, InventoryCountObservation } from "@unicom/commerce";
 import { DEMO_MERCHANT_ACTOR } from "../merchant-shared/demo-runtime.js";
 
-/** Fixture identity (shown on the surface; bumps when fixtures change). */
-export const PHYSICAL_FIXTURES_ID = "w3-015-physical-fixtures@1";
+/**
+ * Fixture identity (shown on the surface; bumps when fixtures change).
+ * @2 (W3-017): the camera/QR scan-path aliases below were added.
+ */
+export const PHYSICAL_FIXTURES_ID = "w3-015-physical-fixtures@2";
 
 /** The demo corner-shop location. */
 export const MARKET_LOCATION = makeId<"LocationId">("loc-demo-market");
@@ -79,3 +83,32 @@ export function seededOfflineObservation(): InventoryCountObservation {
 
 /** The actor that performs store counting (demo store staff). */
 export const STORE_STAFF_ACTOR = DEMO_MERCHANT_ACTOR;
+
+/**
+ * The camera/QR scan-path label aliases (W3-017 — the registered J16 gap).
+ *
+ * The committed demo codes are SKU ids, not camera-readable symbols, so the
+ * scan path carries its OWN committed QR shelf-tag fixtures: each demo stock
+ * tag is a QR code whose payload names the SKU and the count written on the
+ * tag. Decoding one is purely LOCAL recognition of a committed DEMO label —
+ * a decoded payload is NOT provider-verified stock, consent, authorization
+ * or a commitment; it feeds the same count path as manual entry.
+ */
+export interface PhysicalScanCode {
+  /** The exact string the QR payload encodes (what the decoder returns). */
+  readonly payload: string;
+  readonly skuId: string;
+  /** The count printed on the demo tag (captured when the tag is scanned). */
+  readonly counted: number;
+}
+
+export const PHYSICAL_SCAN_CODES: readonly PhysicalScanCode[] = [
+  { payload: "unicom-demo-qr:sku-phys-bread:28", skuId: "sku-phys-bread", counted: 28 },
+  { payload: "unicom-demo-qr:sku-phys-coffee:15", skuId: "sku-phys-coffee", counted: 15 },
+  { payload: "unicom-demo-qr:sku-phys-oatmilk:23", skuId: "sku-phys-oatmilk", counted: 23 },
+];
+
+/** Pure lookup: which committed scan label (if any) a decoded/typed code is. */
+export function lookupScanCode(payload: string): PhysicalScanCode | null {
+  return PHYSICAL_SCAN_CODES.find((code) => code.payload === payload.trim()) ?? null;
+}
