@@ -1,0 +1,96 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module physical-store
+owner lane W3-015
+status ready
+J16 · Physical store — the no-RFID supermarket
+DEMO
+
+Harbor Lane Market (demo corner shop). Barcode scanning, manual entry, weighted goods and CSV imports — plus POS syncs and an offline observation queue with deterministic replay — built from committed fixtures w3-015-physical-fixtures@1. Canonical stock moves ONLY through reconciliation outcomes; an observation by itself never changes shelf truth.
+
+Reset demo data
+fixtures are synthetic — resettable, no credentials, no live POS or provider
+No-RFID capability (by construction)
+READY
+
+This supermarket runs entirely without RFID: barcode, manual, weigh-station and CSV paths cover every flow below. No RFID identifier or device is ever required, requested or assumed — including at receiving, counting and checkout.
+
+Count stock — four no-RFID paths
+ Simulate offline mode (captures queue locally — never promoted until replay)
+Scan barcode — sourdough loaf (count 28)
+Manual count — house blend coffee (15)
+Weigh-station count — apples, per kg (49)
+CSV import line — oat milk (23)
+Manual recount — sourdough loaf (29)
+
+EXECUTED receipt rcpt-6 · idempotency key idem-13 recorded — subjects: RECONCILIATION_RECORD:rec-2, INVENTORY_LEVEL:sku-phys-bread|loc-demo-market
+
+Offline observation queue (local, not canonical)
+
+The offline queue is empty — every captured count has been replayed.
+
+Conflict visibility: when two queued counts disagree for a SKU, both stay visible with a CONFLICTING_OBSERVATIONS marker — nothing is silently merged. Replay reconciles each in order; the journal records every disposition.
+
+POS sync — sold units leave stock deterministically
+Apply POS sync — sourdough loaves sold 6
+Try POS sync beyond stock (see the discrepancy)
+
+A POS delta that would drive canonical stock negative is a DISCREPANCY_NEGATIVE — never a negative level, never a silent clamp, never a silent failure.
+
+The four count truths, kept separate
+sku-phys-bread
+Sourdough loaf (sliced) · USD 6.40
+expected 28 · scanned 28 · supplier said 30 · DISCREPANCY_HOLDPROMOTED
+sku-phys-coffee
+House blend coffee, 500g · USD 11.50
+expected 18 · scanned — · supplier said 18 · reconciled: none yet
+sku-phys-apples
+Apples, loose (weighed at POS) · USD 4.55/KG (weighed)
+expected 50 · scanned — · supplier said 50 · reconciled: none yet
+sku-phys-oatmilk
+Oat milk, 1L · USD 2.89
+expected 24 · scanned — · supplier said 24 · reconciled: none yet
+
+Expected = canonical on-hand (kernel). Scanned/measured = the latest captured count (log on this screen). Supplier said = the delivery-note quantity (fixture observation). Reconciled = the kernel's recorded dispositions — until one exists, nothing is claimed.
+
+Reconciliation records (every observation, judged)
+rec-1
+DISCREPANCY_HOLD
+sku-phys-bread · observation obs-seeded-offline-bread · variance -3 · 2026-10-05T09:10:00.000Z
+rec-2
+PROMOTED
+sku-phys-bread · observation obs-barcode-bread-9 · variance -2 · 2026-10-05T09:12:00.000Z
+Canonical shelf stock (the demo market)
+sku-phys-coffee
+on hand 18
+reserved 0
+revision 1 · updated 2026-10-05T09:04:00.000Z
+sku-phys-apples
+on hand 50
+reserved 0
+revision 1 · updated 2026-10-05T09:06:00.000Z
+sku-phys-oatmilk
+on hand 24
+reserved 0
+revision 1 · updated 2026-10-05T09:08:00.000Z
+sku-phys-bread
+on hand 28
+reserved 0
+revision 2 · updated 2026-10-05T09:12:00.000Z
+Audit trail (append-only journal)
+INVENTORY_RECONCILED · sku-phys-bread|loc-demo-market · 2026-10-05T09:12:00.000Z
+RECONCILIATION_RECORDED · rec-2 · 2026-10-05T09:12:00.000Z
+RECONCILIATION_RECORDED · rec-1 · 2026-10-05T09:10:00.000Z
+INVENTORY_RECEIVED · sku-phys-oatmilk|loc-demo-market · 2026-10-05T09:08:00.000Z
+INVENTORY_RECEIVED · sku-phys-apples|loc-demo-market · 2026-10-05T09:06:00.000Z
+INVENTORY_RECEIVED · sku-phys-coffee|loc-demo-market · 2026-10-05T09:04:00.000Z
+INVENTORY_RECEIVED · sku-phys-bread|loc-demo-market · 2026-10-05T09:02:00.000Z
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

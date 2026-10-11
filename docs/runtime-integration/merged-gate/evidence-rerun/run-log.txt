@@ -1,0 +1,24 @@
+2026-10-11T03:30:57.924Z [env] pre-vite memory gate: freeMem=1222MB (target ≥1100MB)
+2026-10-11T03:30:57.927Z [env] vite dev server spawning on :5199 (heap cap 512MB, log /home/z/UniCom/docs/runtime-integration/merged-gate/evidence-rerun/vite-dev.log, pid 25170)
+2026-10-11T03:30:59.531Z [env] vite attempt 1/3: up=true (freeMem=1036MB)
+2026-10-11T03:30:59.592Z [browser] launching headless chromium (freeMem=1026MB)
+2026-10-11T03:30:59.916Z [browser] chromium 153.0.8010.12 (playwright 1.63.0 from import:playwright)
+2026-10-11T03:31:19.333Z [env] warm-up cold boot: painted=true in 19251ms (freeMem=260MB)
+2026-10-11T03:31:19.421Z [walk] LABELLED TARGETED PROBE (--only): first-discovery-entry-click, safety-j5-merchant-desk
+2026-10-11T03:31:39.423Z [walk] first-discovery-entry-click: ERROR (TimeoutError: locator.click: Timeout 20000ms exceeded.)
+2026-10-11T03:31:52.424Z [heal] first-discovery-entry-click: fresh context on the ordinary landing / (ordinary-flow retry)
+2026-10-11T03:31:52.426Z [walk] first-discovery-entry-click: environment healed — one retry
+2026-10-11T03:31:53.914Z [walk] first-discovery-entry-click: healing failed (Error: page.waitForURL: Navigation failed because page crashed!)
+2026-10-11T03:31:53.921Z [walk] first-discovery-entry-click: BLOCKED (34500ms, freeMem=565MB)
+2026-10-11T03:31:53.924Z [walk] safety-j5-merchant-desk: ERROR (Error: locator.click: Target crashed )
+2026-10-11T03:32:09.155Z [walk] safety-j5-merchant-desk: environment healed — one retry
+2026-10-11T03:32:16.483Z [walk] safety-j5-merchant-desk: healing failed (Error: page.goto: Page crashed)
+2026-10-11T03:32:16.486Z [walk] safety-j5-merchant-desk: BLOCKED (22565ms, freeMem=379MB)
+2026-10-11T03:32:18.998Z [env] browser closed, vite torn down (freeMem=1077MB)
+2026-10-11T03:32:19.001Z [manifest] /home/z/UniCom/docs/runtime-integration/merged-gate/commerce-merged-gate-rerun-manifest.json (valid=true)
+2026-10-11T03:32:19.001Z [evidence] 0 pointers checked, missing=0
+2026-10-11T03:32:19.001Z [totals] journeys planned = executed + blocked + skipped = ΣbyOutcome → 19 = 0 + 19 + 0 = 19 (zero drift)
+2026-10-11T03:32:19.001Z [totals] interactions planned = executed + blocked + skipped = ΣbyOutcome → 19 = 0 + 19 + 0 = 19 (zero drift)
+2026-10-11T03:32:19.001Z [totals] safety planned = executed + blocked + skipped = ΣbyOutcome → 5 = 0 + 5 + 0 = 5 (zero drift)
+2026-10-11T03:32:19.001Z [totals] walkSteps planned = executed + blocked + skipped = ΣbyOutcome → 1 = 0 + 1 + 0 = 1 (zero drift)
+2026-10-11T03:32:19.001Z [outcomes] journeys: 0 PASS / 0 FAIL / 0 ABSENT / 19 BLOCKED / 0 UNKNOWN / 0 SKIPPED | safety: 0 PASS / 0 FAIL / 0 ABSENT / 5 BLOCKED / 0 UNKNOWN / 0 SKIPPED

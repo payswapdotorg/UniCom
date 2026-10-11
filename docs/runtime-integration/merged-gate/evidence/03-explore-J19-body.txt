@@ -1,0 +1,126 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module reference-explore
+owner lane W1-011
+status ready
+Explore capabilities
+
+Grouped by what you want to achieve. Availability is derived from the module registry: a capability is Available when its journey family is rendered by a registered module; otherwise it is honestly Coming soon, with the lane that ships it. Host surfaces (roles, system) are always available.
+
+Current mode: demo — synthetic fixtures only.
+
+Buy — Get what you need, on your terms
+J1
+Buyer Intent Canvas
+available
+Open
+Describe what you need in your own words, add constraints (deadline, budget, quality, proof, recourse), and compare plans before buying.
+J2
+Offer sourcing and comparison
+available
+Open
+Compare offers across sellers with verified, stale and unknown freshness kept visibly separate — unknown is never shown as a price.
+J3
+Buy now vs wait, negotiation, substitution
+available
+Open
+Weigh buying now against waiting, negotiate with sellers, and allow substitutes when a similar item serves the need.
+J6
+Rent or borrow vs buy
+available
+Open
+Compare renting or borrowing against buying, with duration, availability, deposit, condition, return and damage terms visible.
+Sell — Run a store, online or in person
+J10
+Merchant commerce lifecycle
+available
+Open
+Run a store end to end: catalog, checkout, payments, orders, fulfillment, returns, exchanges, refunds and support.
+Operate — Run the day-to-day with less work
+J11
+Supplier procurement and receiving
+available
+Open
+From supplier quotes through approvals and purchase orders to partial receiving, substitution and reconciliation-gated stock updates.
+J12
+B2B and multi-location commerce
+available
+Open
+Coordinate business-to-business selling, negotiated price lists, terms and stock across locations and channels.
+J16
+Physical, no-RFID supermarket operations
+available
+Open
+Barcode, camera, QR, weighing and cycle-count capture that works offline and reconciles before touching canonical stock — no RFID required.
+Discover — Find deals and opportunities
+J4
+Group buying — discovery, join, leave
+available
+Open
+Team up with other buyers toward a group threshold; interest is never a commitment and joining needs your explicit consent.
+J5
+Latent-demand group buys (buyer + merchant sides)
+available
+Open
+Buyers propose group deals to sellers; merchants review, accept, counter or reject — no silent enrollment on either side.
+J7
+Resale, rental and consignment of owned items
+available
+Open
+Sell or rent out what you own, or hand items to a consignment partner — listing always requires your explicit action.
+J8
+Proactive economic opportunities
+available
+Open
+Suggestions beyond the current task — with why-suggested, provenance, expiry and a safe next action for each.
+J9
+Bounded multi-hop trades (TradeCycle)
+available
+Open
+Multi-person swap chains where every leg needs individual consent; a refusal re-plans without silent commitments.
+J19
+Feature discoverability (Explore)
+available
+Open
+Everything UNiCOM commerce can do, grouped by what you want to achieve, each capability with an honest availability state and a Try-it path.
+Automate — Let UNiCOM work within limits you set
+J13
+Autonomous store policies
+available
+Open
+Let UNiCOM run day-to-day selling inside limits you set — margins, spend, refund bands, stop conditions and an audit trail.
+J14
+Commerce Twin what-if
+available
+Open
+Test decisions on a safe copy of the business — predictions are clearly non-authoritative and never change real records.
+Connect — Link channels, devices and data
+J15
+Connected commerce channels and live commerce
+available
+Open
+Connect marketplaces, files, agent protocols and live-selling streams — with connected, demo and unavailable states kept distinct.
+Protect — Stay safe and prove what happened
+J17
+Trust, security and recourse
+available
+Open
+Separate trust kinds and proof levels, see threats and security evidence, and pursue controlled refunds, returns and disputes.
+J18
+Failure, unknown and recovery states
+available
+Open
+Preserved non-failure states — pending, attempted, overdue, settlement-unknown, not-promoted-unknown — never collapse into errors.
+Explore taxonomy provenance
+
+The seven groups above (Buy, Sell, Operate, Discover, Automate, Connect, Protect) are the canonical Explore taxonomy consumed from the @unicom/experience public entrypoint — the same taxonomy the encoded feature completeness matrix feeds, so a hidden capability is structurally impossible.
+
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

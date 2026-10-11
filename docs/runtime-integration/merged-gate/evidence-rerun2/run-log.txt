@@ -1,0 +1,20 @@
+2026-10-11T03:35:30.873Z [env] pre-vite memory gate: freeMem=1864MB (target ≥1100MB)
+2026-10-11T03:35:30.876Z [env] vite dev server spawning on :5199 (heap cap 512MB, log /home/z/UniCom/docs/runtime-integration/merged-gate/evidence-rerun2/vite-dev.log, pid 25861)
+2026-10-11T03:35:32.481Z [env] vite attempt 1/3: up=true (freeMem=1676MB)
+2026-10-11T03:35:32.581Z [browser] launching headless chromium (freeMem=1670MB)
+2026-10-11T03:35:32.936Z [browser] chromium 153.0.8010.12 (playwright 1.63.0 from import:playwright)
+2026-10-11T03:35:54.713Z [env] warm-up cold boot: painted=true in 21516ms (freeMem=1046MB)
+2026-10-11T03:35:54.883Z [walk] LABELLED TARGETED PROBE (--only): first-discovery-entry-click, safety-j5-merchant-desk
+2026-10-11T03:36:14.886Z [walk] first-discovery-entry-click: ERROR (TimeoutError: locator.click: Timeout 20000ms exceeded.)
+2026-10-11T03:36:27.044Z [heal] first-discovery-entry-click: fresh context on the ordinary landing / (ordinary-flow retry)
+2026-10-11T03:36:27.045Z [walk] first-discovery-entry-click: environment healed — one retry
+2026-10-11T03:36:43.787Z [walk] first-discovery-entry-click: FAIL (48904ms, freeMem=1344MB, retried after: TimeoutError: locator.click: Timeout 20000ms exceeded.)
+2026-10-11T03:36:54.348Z [walk] safety-j5-merchant-desk: PASS (10561ms, freeMem=665MB)
+2026-10-11T03:36:56.834Z [env] browser closed, vite torn down (freeMem=1658MB)
+2026-10-11T03:36:56.837Z [manifest] /home/z/UniCom/docs/runtime-integration/merged-gate/commerce-merged-gate-rerun2-manifest.json (valid=true)
+2026-10-11T03:36:56.837Z [evidence] 6 pointers checked, missing=0
+2026-10-11T03:36:56.837Z [totals] journeys planned = executed + blocked + skipped = ΣbyOutcome → 19 = 0 + 19 + 0 = 19 (zero drift)
+2026-10-11T03:36:56.837Z [totals] interactions planned = executed + blocked + skipped = ΣbyOutcome → 19 = 0 + 19 + 0 = 19 (zero drift)
+2026-10-11T03:36:56.837Z [totals] safety planned = executed + blocked + skipped = ΣbyOutcome → 5 = 1 + 4 + 0 = 5 (zero drift)
+2026-10-11T03:36:56.837Z [totals] walkSteps planned = executed + blocked + skipped = ΣbyOutcome → 1 = 1 + 0 + 0 = 1 (zero drift)
+2026-10-11T03:36:56.837Z [outcomes] journeys: 0 PASS / 0 FAIL / 0 ABSENT / 19 BLOCKED / 0 UNKNOWN / 0 SKIPPED | safety: 1 PASS / 0 FAIL / 0 ABSENT / 4 BLOCKED / 0 UNKNOWN / 0 SKIPPED

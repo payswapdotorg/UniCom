@@ -1,0 +1,160 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module procurement-supply
+owner lane W3-015
+status ready
+J11 · Procurement & supply — suppliers to reconciled stock
+DEMO
+
+Harbor Lane Print Studio (demo firm). Suppliers, quote comparison, approvals, purchase orders, partial receiving, substitutions, receipt/invoice evidence and reconciliation-gated stock updates — built from committed fixtures w3-015-procurement-fixtures@1. Purchase orders, receiving, over-receipt refusals, reconciliation dispositions and warehouse stock are REAL deterministic commerce-kernel state. Quote sheets, substitution records and document cards are DEMO fixtures: the kernel has no supplier-quote or substitution aggregate yet, and nothing here ever contacts a supplier.
+
+Reset demo data
+fixtures are synthetic — resettable, no credentials, no supplier contact
+Suppliers & quotes (DEMO fixture sheets)
+Riverstone Paper Co.
+DE
+terms NET_30
+sku-proc-a3-paper: USD 6.20 · lead 3d · sku-proc-envelopes: USD 14.50 · lead 5d · sku-proc-ink: USD 18.90 · lead 7d
+Apex Office Supply
+NL
+terms NET_15
+sku-proc-a3-paper: USD 6.55 · lead 2d · sku-proc-envelopes: USD 13.90 · lead 4d · sku-proc-ink: USD 20.50 · lead 9d
+BlueMagpie Wholesale
+PL
+terms PREPAID
+sku-proc-a3-paper: USD 6.10 · lead 6d · sku-proc-envelopes: USD 15.20 · lead 6d · sku-proc-ink: USD 19.90 · lead 4d
+Request fresh quotes (demo)
+No quote request sent yet — the sheets below are the committed fixture state.
+Best unit price per SKU (exact minor units)
+A3 uncoated paper (160gsm, ream of 250) — best USD 6.10 from BlueMagpie Wholesale · lead 6 days · OFFERED
+C6 kraft envelopes (box of 250) — best USD 13.90 from Apex Office Supply · lead 4 days · OFFERED
+Pigment ink, cyan (250ml) — best USD 18.90 from Riverstone Paper Co. · lead 7 days · OFFERED
+
+Comparison math is exact and deterministic (minor units; lead-time tiebreak). Quote data is fixture provenance — never a live offer.
+
+Purchase orders (real kernel state)
+po-demo-2
+DRAFT
+supplier sup-demo-apex · destination loc-demo-warehouse · revision 1
+sku-proc-ink: expected 15 · received 0
+
+Blocked: requires procurement.approve-po — held by approver. Take one of those roles on the Roles surface (role switching never changes your identity) and the action unlocks.
+
+po-demo-4
+DRAFT
+supplier sup-demo-riverstone · destination loc-demo-warehouse · revision 1
+sku-proc-a3-heavy: expected 10 · received 0
+
+Blocked: requires procurement.approve-po — held by approver. Take one of those roles on the Roles surface (role switching never changes your identity) and the action unlocks.
+
+po-demo-1
+PARTIALLY_RECEIVED
+supplier sup-demo-riverstone · destination loc-demo-warehouse · revision 4
+sku-proc-a3-paper: expected 40 · received 40 · sku-proc-envelopes: expected 20 · received 12
+Receive remaining units of po-demo-1
+Close PO with shortfall recorded
+po-demo-3
+PARTIALLY_RECEIVED
+supplier sup-demo-bluemagpie · destination loc-demo-warehouse · revision 4
+sku-proc-envelopes: expected 30 · received 18
+Receive remaining units of po-demo-3
+Close PO with shortfall recorded
+Try receiving the substitute SKU against po-demo-1 (see the refusal)
+Replay exact same receiving command (duplicate)
+
+A substitute SKU is never silently absorbed into the original line: the kernel refuses it deterministically (UNKNOWN_LINE) — the canonical route is the substitution's own purchase order (po-demo-4 below) through the same approval boundary.
+
+EXECUTED receipt rcpt-10 · idempotency key idem-recv-po-demo-3-partial recorded — subjects: PURCHASE_ORDER:po-demo-3, INVENTORY_LEVEL:sku-proc-envelopes|loc-demo-warehouse
+
+Quantity differences — the four truths, kept separate
+sku-proc-ink
+po-demo-2
+expected 15 · scanned 0 · supplier said — · reconciled: not yet (no reconciliation record)
+sku-proc-a3-heavy
+po-demo-4
+expected 10 · scanned 0 · supplier said — · reconciled: not yet (no reconciliation record)
+sku-proc-a3-paper
+po-demo-1
+expected 40 · scanned 40 · supplier said 40 · reconciled: not yet (no reconciliation record)
+sku-proc-envelopes
+po-demo-1
+expected 20 · scanned 12 · supplier said 20 · reconciled: not yet (no reconciliation record)
+sku-proc-envelopes
+po-demo-3
+expected 30 · scanned 18 · supplier said 0 · reconciled: not yet (no reconciliation record)
+
+Expected = the ordered line (kernel). Scanned = what the receiving path actually accepted (kernel). Supplier said = the supplier-reported observation (fixture — it never promotes on its own). Reconciled = the disposition of a reconciliation record (kernel); until one exists, nothing is claimed.
+
+Substitutions (DEMO records, full provenance)
+sub-demo-1
+APPROVED
+10 × A3 heavyweight paper (240gsm, ream of 250) (sku-proc-a3-heavy) instead of sku-proc-a3-paper on po-demo-1 — reason: supplier out of stock on 160gsm for part of the line
+requested by Riverstone Paper Co. (demo supplier) · decided by approver (demo, Harbor Lane) · follow-up PO: po-demo-4
+sub-demo-2
+PENDING
+8 × Pigment ink, cyan (2-litre) (sku-proc-ink-2l) instead of sku-proc-ink on po-demo-3 — reason: 2-litre bottles cheaper per ml; needs approval (volume commitment)
+requested by BlueMagpie Wholesale (demo supplier) · decided by — · follow-up PO: (not opened yet — needs an approver)
+
+Substitution decisions are DEMO records (no kernel aggregate): they never mutate PO lines. Stock for a substitute arrives only through its own PO and the deterministic receiving path — the refusal button above shows the kernel enforcing exactly that.
+
+Receipt & invoice evidence (DEMO documents, real journal)
+INV-2026-1188
+INVOICE
+PAID
+po-demo-1 · USD 304.00
+PS-7741
+PACKING_SLIP
+ATTACHED
+po-demo-1
+INV-2026-1201
+INVOICE
+PENDING
+po-demo-3 · USD 417.00
+
+Document cards are DEMO attachments. The kernel's own evidence — every PURCHASE_ORDER_OPENED / STATE_CHANGED / RECEIVED and INVENTORY_RECEIVED fact — is the append-only journal shown in the audit trail below; nothing on this screen can forge it.
+
+Reconciliation-gated stock updates (observations never silently promote)
+Reconcile barcode count — A3 paper (within tolerance)
+Reconcile barcode count — envelopes (beyond tolerance)
+Reconcile supplier report — ink (never promotes)
+Reconcile UNKNOWN offline observation — A3 paper
+
+No reconciliation records yet — nothing has been promoted.
+
+UNKNOWN observations stay NOT_PROMOTED_UNKNOWN — preserved verbatim, never rendered as failed, never silently promoted.
+
+Canonical stock at the demo warehouse
+sku-proc-a3-paper
+on hand 40
+reserved 0
+revision 1 · updated 2026-10-05T09:08:00.000Z
+sku-proc-envelopes
+on hand 30
+reserved 0
+revision 2 · updated 2026-10-05T09:20:00.000Z
+
+Canonical truth changes only through the deterministic paths above (receiving, reconciliation promotion) — an observation alone never moves these numbers.
+
+Audit trail (append-only journal)
+INVENTORY_RECEIVED · sku-proc-envelopes|loc-demo-warehouse · 2026-10-05T09:20:00.000Z
+PURCHASE_ORDER_RECEIVED · po-demo-3 · 2026-10-05T09:20:00.000Z
+PURCHASE_ORDER_OPENED · po-demo-4 · 2026-10-05T09:18:00.000Z
+PURCHASE_ORDER_STATE_CHANGED · po-demo-3 · 2026-10-05T09:16:00.000Z
+PURCHASE_ORDER_STATE_CHANGED · po-demo-3 · 2026-10-05T09:14:00.000Z
+PURCHASE_ORDER_OPENED · po-demo-3 · 2026-10-05T09:12:00.000Z
+PURCHASE_ORDER_OPENED · po-demo-2 · 2026-10-05T09:10:00.000Z
+INVENTORY_RECEIVED · sku-proc-envelopes|loc-demo-warehouse · 2026-10-05T09:08:00.000Z
+INVENTORY_RECEIVED · sku-proc-a3-paper|loc-demo-warehouse · 2026-10-05T09:08:00.000Z
+PURCHASE_ORDER_RECEIVED · po-demo-1 · 2026-10-05T09:08:00.000Z
+PURCHASE_ORDER_STATE_CHANGED · po-demo-1 · 2026-10-05T09:06:00.000Z
+PURCHASE_ORDER_STATE_CHANGED · po-demo-1 · 2026-10-05T09:04:00.000Z
+PURCHASE_ORDER_OPENED · po-demo-1 · 2026-10-05T09:02:00.000Z
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

@@ -1,0 +1,73 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module peer-resale
+owner lane W2-012
+status ready
+J7 · Recover value from what you own
+DEMO
+
+Resale, consignment or rental for gear you no longer use at full capacity. The law of this surface: nothing is ever listed or committed implicitly — every path shows its terms, consequence and evidence, then waits for your explicit confirm. Listing and consignment lifecycles run on the deterministic commerce runtime (advanceListing / advanceConsignment / consignmentPayout) with exact money math. Outcome estimates cite comparable sales with their freshness; when the comps are UNKNOWN the estimate is UNKNOWN too — never a made-up price.
+
+Your under-used assets
+Event tent, 6 m (frame + canvas)
+DEMO
+
+Condition: GOOD
+
+Original cost: 890.00 USD
+
+Outcome estimate (evidence-based): UNKNOWN — no confirmed comparable sale exists. This is not a lowball estimate; it is an honest unknown.
+
+UNKNOWN
+checked 2026-09-05T08:00:00Z
+Similar size, feed never answered sold at 450.00 USD
+Prepare a resale listing…
+Send to consignment…
+Rent it out instead (J6)
+Tracks you started
+Resale listing — Vinyl cutting plotter (24 in, like-new blades)
+DEMO
+ACTIVE
+
+Listing: demo-listing/w2s-01 · revision 2 (runtime-tracked)
+
+Asking price: 780.00 USD
+
+Marketplace fee on sale: 39.00 USD — 5% marketplace fee (500 bps) on a successful sale — exact math, no surprises
+
+Net to you if sold at ask: 741.00 USD
+
+A buyer reserves it (demo advance)
+A buyer pays the asking price (demo advance)
+End the listing (keep the item)
+Cancel the listing (keep the item)
+
+Demo boundary: these controls advance the runtime's state machine in local demo state only (demo mode). No live listing, reservation, sale or fee is ever created.
+
+Consignment — Overlock sewing machine (4-thread)
+DEMO
+PROPOSED
+
+Agreement: demo-consignment/w2s-02 · revision 1 (runtime-tracked)
+
+Your share of the sale: 6000 bps (60%) — agreed up front
+
+Partner: Ferry Road Consign (demo partner)
+
+Estimated sale price: 320.00 USD (from the comparable-sales evidence on the asset card)
+
+Payout preview at the estimate (exact math): you 192.00 USD · partner 128.00 USD — computed by the runtime's consignmentPayout, not a guess
+
+Hand over to consignment (with authorization)
+
+Demo boundary: these controls advance the runtime's state machine in local demo state only (demo mode). No live consignment, sale or payout is ever created.
+
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

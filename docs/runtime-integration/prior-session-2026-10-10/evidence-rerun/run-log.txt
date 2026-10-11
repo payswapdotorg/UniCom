@@ -1,0 +1,19 @@
+2026-10-10T22:33:29.239Z [env] pre-vite memory gate: freeMem=1938MB (target ≥1100MB)
+2026-10-10T22:33:29.241Z [env] vite dev server spawning on :5199 (heap cap 512MB, log /home/z/UniCom/docs/rendered-ui/runtime-integration/evidence-rerun/vite-dev.log, pid 1698)
+2026-10-10T22:33:30.820Z [env] vite attempt 1/3: up=true (freeMem=1756MB)
+2026-10-10T22:33:31.416Z [browser] launching headless chromium (freeMem=1650MB)
+2026-10-10T22:33:31.582Z [browser] chromium 153.0.8010.12 (playwright 1.63.0 from import:playwright)
+2026-10-10T22:33:46.578Z [env] warm-up cold boot: painted=true in 14935ms (freeMem=987MB)
+2026-10-10T22:33:46.650Z [walk] LABELLED TARGETED PROBE (--only): journey-J9, safety-j5-merchant-desk
+2026-10-10T22:34:06.653Z [walk] journey-J9: ERROR (TimeoutError: locator.click: Timeout 20000ms exceeded.)
+2026-10-10T22:34:17.784Z [walk] journey-J9: environment healed — one retry
+2026-10-10T22:34:19.038Z [walk] journey-J9: PASS (32388ms, freeMem=1288MB, retried after: TimeoutError: locator.click: Timeout 20000ms exceeded.)
+2026-10-10T22:34:29.978Z [walk] safety-j5-merchant-desk: PASS (10939ms, freeMem=917MB)
+2026-10-10T22:34:32.485Z [env] browser closed, vite torn down (freeMem=1812MB)
+2026-10-10T22:34:32.488Z [manifest] /home/z/UniCom/docs/rendered-ui/runtime-integration/commerce-runtime-integration-gate-rerun-manifest.json (valid=true)
+2026-10-10T22:34:32.488Z [evidence] 7 pointers checked, missing=0
+2026-10-10T22:34:32.488Z [totals] journeys planned = executed + blocked + skipped = ΣbyOutcome → 19 = 1 + 18 + 0 = 19 (zero drift)
+2026-10-10T22:34:32.488Z [totals] interactions planned = executed + blocked + skipped = ΣbyOutcome → 19 = 1 + 18 + 0 = 19 (zero drift)
+2026-10-10T22:34:32.488Z [totals] safety planned = executed + blocked + skipped = ΣbyOutcome → 5 = 1 + 4 + 0 = 5 (zero drift)
+2026-10-10T22:34:32.488Z [totals] walkSteps planned = executed + blocked + skipped = ΣbyOutcome → 0 = 0 + 0 + 0 = 0 (zero drift)
+2026-10-10T22:34:32.488Z [outcomes] journeys: 1 PASS / 0 FAIL / 0 ABSENT / 18 BLOCKED / 0 UNKNOWN / 0 SKIPPED | safety: 1 PASS / 0 FAIL / 0 ABSENT / 4 BLOCKED / 0 UNKNOWN / 0 SKIPPED

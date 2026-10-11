@@ -1,0 +1,141 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module host-states
+owner lane W1-011
+status ready
+J18 · States, kept honest
+
+Every commerce surface renders these shared state components. The law: pending, attempted, overdue, settlement-unknown and not-promoted-unknown are PRESERVED states — they are never collapsed into errors, and UNKNOWN never masquerades as success or failure. All records below are DEMO fixtures (demo mode, firm Harbor Lane Print Studio).
+
+Lifecycle states (DEMO records)
+Group-buy proposal to Meridian Office Supply
+OFFERED
+DEMO
+
+Proposal sent; the seller has it on their desk. No commitment exists yet.
+
+Sent and awaiting the other side — no commitment exists yet.
+
+Quote request, 40 boxes A3 card stock
+PENDING
+DEMO
+
+Waiting for the supplier's answer. Pending is not an error.
+
+Waiting for an answer. Pending is not an error.
+
+Payment retry, invoice 2291
+ATTEMPTED
+DEMO
+
+A retry was started after an interruption. The outcome is not known yet.
+
+An attempt is in flight after an interruption; outcome not known yet.
+
+Rental return, wide-format printer
+OVERDUE
+DEMO
+
+Past the agreed return date. Overdue is a preserved state, not a failure.
+
+Past an agreed date — a preserved state, not a failure.
+
+Settlement check, payout batch 88
+SETTLEMENT-UNKNOWN
+DEMO
+
+The provider state cannot be confirmed. UNKNOWN is never rendered as paid or failed.
+
+Settlement cannot be confirmed. UNKNOWN is never shown as paid or failed.
+
+Offline stock count, shelf B4 (queued)
+NOT-PROMOTED-UNKNOWN
+DEMO
+
+Counted while offline; queued for reconciliation. It has not changed canonical stock and may be superseded.
+
+Queued observation not yet reconciled — it has not changed canonical truth.
+
+Supplier feed import, deprecated-format file
+FAILED
+DEMO
+
+The import rejected the file. A failure — retry or pick another source.
+
+The action failed. Retry or choose another path.
+
+Refund above approval band
+DENIED
+DEMO
+
+Policy denied the action: the amount exceeds the automatic refund band.
+
+Policy or authority denied the action (not a failure).
+
+Delivered order 1183
+COMPLETED
+DEMO
+
+Delivered and reconciled. Completed, not silently promoted from unknown.
+
+Finished and reconciled.
+
+The vocabulary at a glance
+OFFERED
+PENDING
+ATTEMPTED
+OVERDUE
+SETTLEMENT-UNKNOWN
+NOT-PROMOTED-UNKNOWN
+FAILED
+DENIED
+COMPLETED
+Surface phases (typed views)
+
+The four degraded phases every registered surface implements, rendered from the typed view contracts of @unicom/experience — with failed and unknown visually distinct.
+
+Loading…
+
+Comparing offers across sellers…
+
+Freshness checks can take a few seconds on the first load.
+
+Nothing here yet
+
+No offers match your intent yet.
+
+Next step: A clearer intent (deadline, budget, quality) lets sellers answer precisely. — Describe what you need
+
+Empty states always propose the next action — they never dead-end.
+
+Something failed
+FAILED · medium
+
+The supplier feed import failed: the file format is no longer supported.
+
+You can retry this action.
+
+Outcome unknown
+UNKNOWN — not a failure
+
+The payment outcome cannot be confirmed right now. It was not recorded as a failure.
+
+You can retry this action.
+
+Offline
+OFFLINE
+observation queue active
+
+You are offline. Counts and observations queue locally.
+
+Still available: browsing loaded data, starting counts, queueing observations
+
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

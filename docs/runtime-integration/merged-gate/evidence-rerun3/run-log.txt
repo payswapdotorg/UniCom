@@ -1,0 +1,18 @@
+2026-10-11T03:38:34.743Z [env] pre-vite memory gate: freeMem=2003MB (target ≥1100MB)
+2026-10-11T03:38:34.746Z [env] vite dev server spawning on :5199 (heap cap 512MB, log /home/z/UniCom/docs/runtime-integration/merged-gate/evidence-rerun3/vite-dev.log, pid 26396)
+2026-10-11T03:38:36.339Z [env] vite attempt 1/3: up=true (freeMem=1819MB)
+2026-10-11T03:38:36.384Z [browser] launching headless chromium (freeMem=1812MB)
+2026-10-11T03:38:36.699Z [browser] chromium 153.0.8010.12 (playwright 1.63.0 from import:playwright)
+2026-10-11T03:38:57.338Z [env] warm-up cold boot: painted=true in 20419ms (freeMem=1084MB)
+2026-10-11T03:38:57.409Z [walk] LABELLED TARGETED PROBE (--only): landing-connect-wall, first-discovery-entry-click, safety-j5-merchant-desk
+2026-10-11T03:39:11.444Z [walk] landing-connect-wall: PASS (14035ms, freeMem=1389MB)
+2026-10-11T03:39:20.781Z [walk] first-discovery-entry-click: PASS (9337ms, freeMem=1003MB)
+2026-10-11T03:39:30.262Z [walk] safety-j5-merchant-desk: PASS (9481ms, freeMem=862MB)
+2026-10-11T03:39:32.754Z [env] browser closed, vite torn down (freeMem=1852MB)
+2026-10-11T03:39:32.756Z [manifest] /home/z/UniCom/docs/runtime-integration/merged-gate/commerce-merged-gate-rerun3-manifest.json (valid=true)
+2026-10-11T03:39:32.756Z [evidence] 9 pointers checked, missing=0
+2026-10-11T03:39:32.756Z [totals] journeys planned = executed + blocked + skipped = ΣbyOutcome → 19 = 0 + 19 + 0 = 19 (zero drift)
+2026-10-11T03:39:32.756Z [totals] interactions planned = executed + blocked + skipped = ΣbyOutcome → 19 = 0 + 19 + 0 = 19 (zero drift)
+2026-10-11T03:39:32.756Z [totals] safety planned = executed + blocked + skipped = ΣbyOutcome → 5 = 1 + 4 + 0 = 5 (zero drift)
+2026-10-11T03:39:32.756Z [totals] walkSteps planned = executed + blocked + skipped = ΣbyOutcome → 2 = 2 + 0 + 0 = 2 (zero drift)
+2026-10-11T03:39:32.756Z [outcomes] journeys: 0 PASS / 0 FAIL / 0 ABSENT / 19 BLOCKED / 0 UNKNOWN / 0 SKIPPED | safety: 1 PASS / 0 FAIL / 0 ABSENT / 4 BLOCKED / 0 UNKNOWN / 0 SKIPPED

@@ -1,0 +1,72 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module buyer-intent
+owner lane W2-012
+status ready
+J1 · Intent canvas
+DEMO
+
+Start from what you need, not from a product category. Everything you type stays on this screen (local demo state; fixtures w2-012-buyer-peer-fixtures@1). Plan guidance below is predictive — not a promise.
+
+What do you need?
+Constraints (the 17-facet catalog, rendered from the typed contract)
+
+Each facet comes from INTENT_CONSTRAINT_FIELDS — the frozen intent vocabulary. Leave anything blank to keep it open.
+
+Timing & budget
+Needed by (deadline)
+Time window (time-window)
+Total budget (max-total-cost)
+Quality, condition & trust
+Quality (min-quality)
+— leave open —
+any
+solid
+premium
+Condition (condition)
+— leave open —
+new
+like-new
+used-ok
+Seller trust (seller-credibility-threshold)
+— leave open —
+any
+verified
+top-rated
+Getting it
+Delivery or pickup (delivery-pickup-constraints)
+— leave open —
+delivery
+pickup
+either
+Location (location)
+Flexibility
+Alternatives (acceptable-substitutes)
+Buy or wait (buy-vs-wait-tolerance)
+Payment plan (financing-preference)
+Group deal (group-buy-willingness)
+Swap (trade-swap-willingness)
+Evidence & recourse (your protection terms)
+Privacy (privacy-requirements)
+Security (security-requirements)
+Proof needed (proof-requirements)
+— leave open —
+none
+receipt
+stronger
+Protection needed (recourse-requirements)
+— leave open —
+none
+refundable
+insured
+Review intent & compare plans
+0 of 17 constraint facets captured
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)
