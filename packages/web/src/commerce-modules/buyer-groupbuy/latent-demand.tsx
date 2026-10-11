@@ -32,6 +32,7 @@ import {
   SendProposalGate,
 } from "./latent-demand-parts.js";
 import { FormedDealPanel, LatentFormGate, LatentShareGate, YourLatentInterestItem } from "./latent-demand-pool.js";
+import { LinkedDraftLedger } from "./linking-draft.js";
 import {
   DEMO_GROUPBUY_BUYER,
   DEMO_GROUPBUY_PRINCIPALS,
@@ -51,12 +52,20 @@ import {
 } from "./groupbuy-data.js";
 import { GroupBuyKernel } from "./kernel.js";
 
+/** The DEMO merchant id the PLACE_ORDER prefill would carry (DEMO fixture). */
+const LINKING_DRAFT_MERCHANT_ID = "merchant-1";
+
 export function LatentDemandPanel({ host }: { readonly host: CommerceModuleProps["host"] }): JSX.Element {
   const [kernel, setKernel] = useState<GroupBuyKernel>(() => new GroupBuyKernel());
   const [merchant, setMerchant] = useState<string>(MERCHANT_TARGETS[0]!.name);
   const [gate, setGate] = useState<"send" | "share" | "withdraw" | "form" | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [lastOutcome, setLastOutcome] = useState<CommandExecution | null>(null);
+  // W2-015 Stage 1: the local DEMO ledger of linked-order drafts created on
+  // this surface. NOT kernel truth — the eventual PLACE_ORDER (if the human
+  // proceeds) travels through the existing kernel command path under its own
+  // idempotency key.
+  const [draftLedger] = useState<LinkedDraftLedger>(() => new LinkedDraftLedger());
 
   const aggregate = kernel.groupBuy(LATENT_DEMAND_PROPOSAL_ID);
   const sent = aggregate !== null;
@@ -400,10 +409,15 @@ export function LatentDemandPanel({ host }: { readonly host: CommerceModuleProps
 
           {formed && aggregate.formation ? (
             <FormedDealPanel
+              aggregate={aggregate}
               formation={aggregate.formation}
               roster={aggregate.participants}
               interests={interests}
               lastOutcome={lastOutcome}
+              host={host}
+              buyerPrincipal={DEMO_GROUPBUY_BUYER}
+              draftLedger={draftLedger}
+              merchantIdForPrefill={LINKING_DRAFT_MERCHANT_ID}
             />
           ) : null}
         </section>

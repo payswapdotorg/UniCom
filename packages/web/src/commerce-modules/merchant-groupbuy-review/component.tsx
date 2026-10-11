@@ -53,6 +53,7 @@ import {
   thresholdSummaryOf,
 } from "./seed.js";
 import type { SeededPool } from "./seed.js";
+import { LinkedDraftLedger } from "../buyer-groupbuy/linking-draft.js";
 import {
   HeldFormationPanel,
   PendingDecisions,
@@ -108,12 +109,18 @@ export default function MerchantGroupbuyReviewComponent({ host }: CommerceModule
   const [decisions, setDecisions] = useState<readonly DecisionLogEntry[]>([]);
   const [rejectReasons, setRejectReasons] = useState<Readonly<Record<string, string>>>({});
   const [refusal, setRefusal] = useState<MachineRefusal | null>(null);
+  // W2-015 Stage 1: the local DEMO ledger of linked-order drafts created on
+  // this surface. NOT kernel truth — the eventual PLACE_ORDER (if the human
+  // proceeds) travels through the existing kernel command path under its own
+  // idempotency key.
+  const [draftLedger] = useState<LinkedDraftLedger>(() => new LinkedDraftLedger());
 
   const reset = (): void => {
     setPools(seedGroupBuyReview());
     setDecisions([]);
     setRejectReasons({});
     setRefusal(null);
+    draftLedger.reset();
   };
 
   /** Apply a kernel outcome: replace the pool's aggregate on success. */
@@ -280,7 +287,7 @@ export default function MerchantGroupbuyReviewComponent({ host }: CommerceModule
                 {aggregate.state === "HELD" ? (
                   <HeldFormationPanel host={host} view={view} onForm={() => form(poolId)} />
                 ) : null}
-                <PoolStateDetail view={view} />
+                <PoolStateDetail view={view} host={host} draftLedger={draftLedger} />
               </div>
             );
           })}
