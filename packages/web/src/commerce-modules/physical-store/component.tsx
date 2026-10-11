@@ -11,8 +11,9 @@
  *
  * Split for the oxlint max-lines gate (pure code motion, zero behavior
  * change): the seed + queue types live in ./seed.ts, the count-capture /
- * offline-queue / POS-sync sections in ./component-parts.tsx. This file
- * remains the module's public surface (module.ts imports it).
+ * offline-queue / POS-sync sections in ./component-parts.tsx, and the J16
+ * camera/QR scan path (W3-017) in ./scan-section.tsx + ./use-camera-scan.ts.
+ * This file remains the module's public surface (module.ts imports it).
  */
 
 import type { JSX } from "react";
@@ -50,6 +51,7 @@ import {
   OfflineQueueSection,
   PosSyncSection,
 } from "./component-parts.js";
+import { CameraScanSection } from "./scan-section.js";
 
 export default function PhysicalStoreComponent({ host }: CommerceModuleProps): JSX.Element {
   const { runtime, reset } = useSeededRuntime(seedPhysicalStoreDemo);
@@ -206,6 +208,13 @@ export default function PhysicalStoreComponent({ host }: CommerceModuleProps): J
         capture={capture}
         buildObservation={buildObservation}
         lastOutcome={lastOutcome}
+      />
+
+      <CameraScanSection
+        host={host}
+        offline={offline}
+        capture={capture}
+        buildObservation={buildObservation}
       />
 
       <OfflineQueueSection
