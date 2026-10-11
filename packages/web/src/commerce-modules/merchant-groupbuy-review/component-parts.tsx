@@ -21,8 +21,9 @@ import {
   ConfirmableAction,
   DemoTag,
   PermissionBoundary,
-  StatusChip,
 } from "../merchant-shared/ui.js";
+import { LinkedDraftLedger } from "../buyer-groupbuy/linking-draft.js";
+import { FormedMerchantPanel } from "./formed-section.js";
 import {
   clockLabel,
   COUNTER_OPTIONS,
@@ -291,7 +292,15 @@ export function HeldFormationPanel({
 }
 
 /** State-detail panels for the non-pending, non-held lifecycle states. */
-export function PoolStateDetail({ view }: { readonly view: PoolView }): JSX.Element {
+export function PoolStateDetail({
+  view,
+  host,
+  draftLedger,
+}: {
+  readonly view: PoolView;
+  readonly host: CommerceHostServices;
+  readonly draftLedger: LinkedDraftLedger;
+}): JSX.Element {
   const aggregate = view.aggregate;
   const terms = aggregate.terms;
   if (aggregate.state === "MONITORING") {
@@ -347,38 +356,7 @@ export function PoolStateDetail({ view }: { readonly view: PoolView }): JSX.Elem
     );
   }
   if (aggregate.state === "FORMED" && aggregate.formation) {
-    const formation = aggregate.formation;
-    const roster = aggregate.participants;
-    return (
-      <div className="cm-stack">
-        <div className="cm-row">
-          <StatusChip status="FORMED" note="Final terms frozen by the formation machine" />
-          <span className="cm-env-note">formed {clockLabel(formation.formedAt)} · kernel revision {aggregate.revision}</span>
-        </div>
-        <div className="cm-journey-item">
-          <span className="cm-journey-name">Final group price</span>
-          <span className="cm-journey-summary">{fmtMoney(formation.groupPrice)} / box (frozen)</span>
-        </div>
-        <div className="cm-journey-item">
-          <span className="cm-journey-name">Final pool value</span>
-          <span className="cm-journey-summary">
-            {fmtMoney(formation.poolValue)} — exact ({formation.poolValue.amountMinor} minor units), computed by the formation machine
-          </span>
-        </div>
-        <div className="cm-journey-item">
-          <span className="cm-journey-name">Frozen roster (consenting-only)</span>
-          <span className="cm-journey-summary">
-            {roster
-              .map((share) => `${studioNameOf(participantIdOf(share.participantRef))} · ${share.quantity.units} boxes`)
-              .join(" · ")}
-          </span>
-        </div>
-        <p className="cm-state-item-detail">
-          Formation froze the final terms and the consenting-only roster. No commitment was created
-          — commitments exist only on the commerce planes — and withdrawn studios stay out forever.
-        </p>
-      </div>
-    );
+    return <FormedMerchantPanel view={view} host={host} draftLedger={draftLedger} />;
   }
   return <span />;
 }

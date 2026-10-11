@@ -16,12 +16,16 @@ import type {
   GroupBuyFormationTerms,
   GroupBuyInterestRecord,
   GroupBuyParticipantShare,
+  PrincipalRef,
 } from "@unicom/commerce";
-import { multiplyMoneyByInteger, poolUnitsOf } from "@unicom/commerce";
+import { multiplyMoneyByInteger, poolUnitsOf, principalRefEquals } from "@unicom/commerce";
+import type { CommerceModuleProps } from "../../commerce-host/contract/index.js";
 import { LifecycleStateChip } from "../../commerce-host/shared/index.js";
 import { moneyText } from "../buyer-support/demo-data.js";
 import { TermLine } from "../buyer-support/ui.js";
 import { KernelCommitmentGate } from "./gate.js";
+import { GroupBuyLinkedDraftAffordance } from "./linking-draft-panel.js";
+import { LinkedDraftLedger } from "./linking-draft.js";
 import {
   DEMO_GROUPBUY_PRINCIPALS,
   LATENT_DEMAND_TERMS,
@@ -208,16 +212,27 @@ export function LatentFormGate({
 
 /** The FORMED final-terms panel (kernel truth, frozen at formation). */
 export function FormedDealPanel({
+  aggregate,
   formation,
   roster,
   interests,
   lastOutcome,
+  host,
+  buyerPrincipal,
+  draftLedger,
+  merchantIdForPrefill,
 }: {
+  readonly aggregate: GroupBuyAggregate;
   readonly formation: GroupBuyFormationTerms;
   readonly roster: readonly GroupBuyParticipantShare[];
   readonly interests: readonly GroupBuyInterestRecord[];
   readonly lastOutcome: CommandExecution | null;
+  readonly host: CommerceModuleProps["host"];
+  readonly buyerPrincipal: PrincipalRef;
+  readonly draftLedger: LinkedDraftLedger;
+  readonly merchantIdForPrefill: string;
 }): JSX.Element {
+  const buyerShare = roster.find((share) => principalRefEquals(share.participantRef, buyerPrincipal));
   return (
     <div className="cm-state-item" data-testid="cm-groupbuy-formed" style={{ borderColor: "var(--cm-ok)" }}>
       <div className="cm-row">
@@ -247,6 +262,21 @@ export function FormedDealPanel({
         <TermLine
           label="Kernel receipt"
           value={`command ${lastOutcome.receipt.commandId} · idempotency key ${lastOutcome.receipt.idempotencyKey} · executed ${lastOutcome.receipt.executedAt} · resulting revision ${lastOutcome.receipt.resultingRevision}`}
+        />
+      ) : null}
+      {/* W2-015 Stage 1: the human-confirmed linked-order-draft affordance.
+          Renders ONLY for a FORMED aggregate (formation truth exists).
+          The buyer's share is in the frozen roster if they consented;
+          otherwise no share → no draft (the affordance is per-share). */}
+      {buyerShare ? (
+        <GroupBuyLinkedDraftAffordance
+          host={host}
+          aggregate={aggregate}
+          share={buyerShare}
+          actingPrincipal={buyerPrincipal}
+          ledger={draftLedger}
+          permission="groupbuy.express-interest"
+          merchantIdForPrefill={merchantIdForPrefill}
         />
       ) : null}
     </div>

@@ -16,6 +16,7 @@ import { LifecycleStateChip } from "../../commerce-host/shared/index.js";
 import { DemoTag, TermLine } from "../buyer-support/ui.js";
 import { KernelCommitmentGate } from "./gate.js";
 import { LegCard } from "./leg-cards.js";
+import { LinkedDraftLedger } from "../buyer-groupbuy/linking-draft.js";
 import {
   CYCLE_A,
   CYCLE_B,
@@ -49,6 +50,11 @@ export default function PeerTradecycleComponent({ host }: CommerceModuleProps): 
   const [lastOutcome, setLastOutcome] = useState<CommandExecution | null>(null);
   const [ownGateLeg, setOwnGateLeg] = useState<number | null>(null);
   const [executeGateOpen, setExecuteGateOpen] = useState(false);
+  // W2-015 Stage 1: the local DEMO ledger of linked-order drafts created on
+  // this surface. NOT kernel truth — the eventual PLACE_ORDER (if the human
+  // proceeds) travels through the existing kernel command path under its own
+  // idempotency key.
+  const [draftLedger] = useState<LinkedDraftLedger>(() => new LinkedDraftLedger());
 
   const cycle = kernel.cycle(cycleId);
   if (cycle === null) {
@@ -98,6 +104,7 @@ export default function PeerTradecycleComponent({ host }: CommerceModuleProps): 
     setLastOutcome(null);
     setOwnGateLeg(null);
     setExecuteGateOpen(false);
+    draftLedger.reset();
   };
 
   const stopped = cycle.state === "STOPPED_REFUSAL" || cycle.state === "STOPPED_WITHDRAWAL" || cycle.state === "STOPPED_EXPIRY";
@@ -195,6 +202,7 @@ export default function PeerTradecycleComponent({ host }: CommerceModuleProps): 
                 ownGateLeg={ownGateLeg}
                 setOwnGateLeg={setOwnGateLeg}
                 run={run}
+                draftLedger={draftLedger}
               />
             );
           })}
