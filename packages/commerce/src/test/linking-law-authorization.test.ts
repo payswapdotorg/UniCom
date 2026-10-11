@@ -38,6 +38,7 @@ import {
   makeId,
   money,
   principalRefKey,
+  linkGroupBuyToOrderDraft,
   type GroupBuyAggregate,
   type PrincipalRef,
   type TradeCycleExecution,
@@ -78,6 +79,22 @@ function proposal(id: string): GroupBuyAggregate {
     openedAt: NOW,
     participants: [],
     revision: 1,
+  };
+}
+
+/** A FORMED GroupBuy with ferry-road (16) + two-harbors (12) + quayside (8) + harbor-lane (6) in the roster. */
+function formedGroupBuy(): GroupBuyAggregate {
+  return {
+    ...proposal("w1gb-link-1"),
+    state: "FORMED",
+    formation: { groupPrice: money("1080", usd), poolValue: money("45360", usd), formedAt: NOW },
+    participants: [
+      { participantRef: ferryRoad, quantity: countQuantity(16) },
+      { participantRef: twoHarbors, quantity: countQuantity(12) },
+      { participantRef: quayside, quantity: countQuantity(8) },
+      { participantRef: harborLane, quantity: countQuantity(6) },
+    ],
+    revision: 5,
   };
 }
 
@@ -346,46 +363,33 @@ describe("W1-014 linking law 4 — actor authority derives from the aggregate's 
 });
 
 // ============================================================================
-// Stage 2+ future surface — precisely documented, NOT faked, kernel untouched.
+// Stage 2 — W1-016: kernel-native draft-linking commands now EXIST.
 // ============================================================================
-//
-// The decision packet §4 Stage 2 introduces kernel-native draft-linking
-// commands (LINK_GROUPBUY_TO_ORDER_DRAFT / LINK_TRADECYCLE_LEG_TO_SETTLEMENT_DRAFT)
-// with per-effect authorization records. At Stage 0 those commands do NOT
-// exist on the kernel command surface — there is no command whose payload
-// carries a "source GroupBuy id" or "source TradeCycle leg" that produces a
-// draft order/settlement record. The full linking-law-2/4 spec for the
-// LINK command (only the organizer may propose a linked draft; only the
-// consenting participant may consent to the draft; a non-consenting
-// participant's draft consent is refused) cannot be executed against the
-// current kernel because the LINK command itself is absent. The laws ARE
-// observable on the existing formation/execution surface (above) and on the
-// existing downstream surface (PLACE_ORDER's actor is independent); the
-// Stage-2-specific linking-authority law is recorded here as a skip with the
-// exact future stage that introduces it, per the work order's "never fake a
-// pass, never touch the kernel" rule.
-describe.skip("W1-014 linking law 2/4 — Stage 2 LINK_GROUPBUY_TO_ORDER_DRAFT authority (future surface)", () => {
-  // FUTURE STAGE: Stage 2 (decision packet §4, §7) introduces
-  //   LINK_GROUPBUY_TO_ORDER_DRAFT and LINK_TRADECYCLE_LEG_TO_SETTLEMENT_DRAFT
-  //   as additive kernel commands. When they exist, this block will specify:
-  //   - only the organizer may propose a linked order draft from a formed
-  //     GroupBuy (actor authority derives from the aggregate's organizer law);
-  //   - only a consenting participant may consent to a draft derived from
-  //     their group-buy share (per-side-effect authorization, law 2);
-  //   - a non-consenting participant (withdrawn before formation, or never
-  //     enrolled) cannot consent to a draft on their behalf (law 4);
-  //   - nobody else (stranger principal) may propose or consent (law 4).
-  // At Stage 0 the LINK command does not exist; running these specs would
-  // require either faking a pass (forbidden) or modifying the kernel
-  // (forbidden). The skip records the gap honestly; Stage 2 will replace it
-  // with executable specs.
-  it("FUTURE: only the organizer may propose a linked order draft from a formed GroupBuy", () => {
-    expect(true).toBe(true);
+describe("W1-016 linking law 2/4 — Stage 2 LINK_GROUPBUY_TO_ORDER_DRAFT authority", () => {
+  it("only the organizer may propose a linked order draft from a formed GroupBuy", () => {
+    const formed = formedGroupBuy();
+    const result = linkGroupBuyToOrderDraft(formed, ferryRoad, beaconHill, makeId<"LinkedDraftId">("draft-auth-1"), null, NOW);
+    expect(result).toMatchObject({ ok: false, error: { code: "UNAUTHORIZED_ACTOR", detail: "only the GroupBuy organizer may propose a linked order draft" } });
+    const ok1 = linkGroupBuyToOrderDraft(formed, ferryRoad, organizer, makeId<"LinkedDraftId">("draft-auth-2"), null, NOW);
+    expect(ok1).toMatchObject({ ok: true, value: { state: "DRAFT", kind: "GROUP_BUY_ORDER_DRAFT" } });
   });
-  it("FUTURE: only a consenting participant may consent to a draft derived from their share", () => {
-    expect(true).toBe(true);
+
+  it("only a consenting participant (in the frozen roster) may have a draft derived from their share", () => {
+    const formed = formedGroupBuy();
+    expect(linkGroupBuyToOrderDraft(formed, northlight, organizer, makeId<"LinkedDraftId">("draft-auth-3"), null, NOW))
+      .toMatchObject({ ok: false, error: { code: "PARTICIPANT_NOT_IN_ROSTER" } });
+    const ok1 = linkGroupBuyToOrderDraft(formed, ferryRoad, organizer, makeId<"LinkedDraftId">("draft-auth-4"), null, NOW);
+    expect(ok1).toMatchObject({ ok: true });
+    expect(ok1.value.provenance.sourceAggregateId).toBe(formed.groupBuyId);
+    expect(ok1.value.prefill.units).toBe(16);
   });
-  it("FUTURE: a withdrawn / never-enrolled participant cannot consent to a draft on their behalf", () => {
-    expect(true).toBe(true);
+
+  it("a withdrawn / never-enrolled participant cannot have a draft created on their behalf", () => {
+    const formed = formedGroupBuy();
+    const stranger = customer("total-stranger");
+    expect(linkGroupBuyToOrderDraft(formed, stranger, organizer, makeId<"LinkedDraftId">("draft-auth-5"), null, NOW))
+      .toMatchObject({ ok: false, error: { code: "PARTICIPANT_NOT_IN_ROSTER" } });
+    expect(linkGroupBuyToOrderDraft(formed, ferryRoad, twoHarbors, makeId<"LinkedDraftId">("draft-auth-6"), null, NOW))
+      .toMatchObject({ ok: false, error: { code: "UNAUTHORIZED_ACTOR" } });
   });
 });

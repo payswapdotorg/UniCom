@@ -36,6 +36,10 @@ import {
   currency,
   makeId,
   money,
+  cancelLinkedDraft,
+  cancelLinkedDraftsForAggregate,
+  linkGroupBuyToOrderDraft,
+  linkTradeCycleLegToSettlementDraft,
   type GroupBuyAggregate,
   type PrincipalRef,
   type TradeCycleExecution,
@@ -131,6 +135,20 @@ function authorize(cycleId: string, legIndex: number, giver: PrincipalRef, autho
     authorizingRef: giver,
     authorizationRef,
   };
+}
+
+/** A FORMED GroupBuy with participants in the roster. */
+function formedGroupBuy(): GroupBuyAggregate {
+  return { ...proposal("w1gb-comp-link-1"), state: "FORMED", formation: { groupPrice: money("1080", usd), poolValue: money("45360", usd), formedAt: NOW },
+    participants: [
+      { participantRef: ferryRoad, quantity: countQuantity(16) }, { participantRef: twoHarbors, quantity: countQuantity(12) },
+      { participantRef: quayside, quantity: countQuantity(8) }, { participantRef: harborLane, quantity: countQuantity(6) },
+    ], revision: 5 };
+}
+
+/** A COMMITTED TradeCycle. */
+function committedCycleA(): TradeCycleExecution {
+  return { ...cycleA("w1tc-comp-link-1"), state: "COMMITTED", legs: cycleA("w1tc-comp-link-1").legs.map((l) => ({ ...l, consentState: "COMMITTED" as const })), revision: 5 };
 }
 
 /** Place an order + capture the payment — returns the paymentId. */
@@ -354,38 +372,25 @@ describe("W1-014 linking law 5 — compensation is its own separately-authorized
 });
 
 // ============================================================================
-// Stage 2+ future surface — precisely documented, NOT faked, kernel untouched.
+// Stage 2 — W1-016: kernel-native draft-linking commands now EXIST.
 // ============================================================================
-//
-// The decision packet §5 acceptance sketch includes "canceling the upstream
-// aggregate marks downstream drafts cancelled-but-never-committed". At Stage 0
-// there is no LINK command and no draft aggregate — so the
-// "downstream-draft-marked-cancelled-on-upstream-cancel" sub-aspect cannot be
-// executed against the current kernel. The compensation-separation law IS
-// observable on the existing surface (above): cancelling an order does not
-// auto-refund; refusing a leg does not auto-rollback; closing a GroupBuy does
-// not auto-refund. The Stage-2-specific draft-cancellation cascade is
-// recorded here as a skip with the exact future stage that introduces it.
-describe.skip("W1-014 linking law 5 — Stage 2 linked-draft cancellation cascade (future surface)", () => {
-  // FUTURE STAGE: Stage 2 (decision packet §4, §7) introduces
-  //   LINK_GROUPBUY_TO_ORDER_DRAFT / LINK_TRADECYCLE_LEG_TO_SETTLEMENT_DRAFT
-  //   as additive kernel commands. When they exist, this block will specify:
-  //   - closing a formed GroupBuy marks its linked order DRAFTs cancelled —
-  //     the draft is cancelled (never committed), and NO refund/unreserve
-  //     happens (compensation is still its own separate command);
-  //   - a TradeCycle stop (REFUSAL/WITHDRAWAL/EXPIRY) marks its linked
-  //     settlement DRAFTs cancelled — never committed, never auto-compensated;
-  //   - the draft's cancellation is honest (CANCELLED, never FAILED) and the
-  //     downstream compensation paths (REFUND_PAYMENT, RELEASE_RESERVATION,
-  //     ROLLBACK_TRADE_CYCLE_LEG) remain separately-authorized commands.
-  // At Stage 0 the LINK command does not exist; running these specs would
-  // require either faking a pass (forbidden) or modifying the kernel
-  // (forbidden). The skip records the gap honestly; Stage 2 will replace it
-  // with executable specs.
-  it("FUTURE: closing a formed GroupBuy marks linked order drafts CANCELLED (never committed, never auto-refunded)", () => {
-    expect(true).toBe(true);
+describe("W1-016 linking law 5 — Stage 2 linked-draft cancellation cascade", () => {
+  it("closing a formed GroupBuy marks linked order drafts CANCELLED (never committed, never auto-refunded)", () => {
+    const formed = formedGroupBuy();
+    const r = linkGroupBuyToOrderDraft(formed, ferryRoad, organizer, makeId<"LinkedDraftId">("draft-comp-1"), null, NOW);
+    if (!r.ok) throw new Error("unreachable");
+    expect(r.value.state).toBe("DRAFT");
+    expect(cancelLinkedDraft(r.value, NOW)).toMatchObject({ ok: true, value: { state: "CANCELLED_BUT_NEVER_COMMITTED" } });
+    const cascaded = cancelLinkedDraftsForAggregate([r.value], formed.groupBuyId, NOW);
+    expect(cascaded[0]?.state).toBe("CANCELLED_BUT_NEVER_COMMITTED");
+    expect(cascaded[0]?.provenance.compensationRef).toBe(`comp-ref-gb-${formed.groupBuyId}`);
   });
-  it("FUTURE: a TradeCycle stop marks linked settlement drafts CANCELLED (never committed, never auto-compensated)", () => {
-    expect(true).toBe(true);
+  it("a TradeCycle stop marks linked settlement drafts CANCELLED (never committed, never auto-compensated)", () => {
+    const cycle = committedCycleA();
+    const r = linkTradeCycleLegToSettlementDraft(cycle, 0, twoHarbors, makeId<"LinkedDraftId">("draft-comp-2"), null, NOW);
+    if (!r.ok) throw new Error("unreachable");
+    const cascaded = cancelLinkedDraftsForAggregate([r.value], cycle.tradeCycleId, NOW);
+    expect(cascaded[0]?.state).toBe("CANCELLED_BUT_NEVER_COMMITTED");
+    expect(cascaded[0]?.provenance.compensationRef).toBe(`comp-ref-tc-${cycle.tradeCycleId}-leg-0`);
   });
 });

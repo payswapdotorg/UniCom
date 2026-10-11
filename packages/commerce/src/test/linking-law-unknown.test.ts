@@ -34,6 +34,10 @@ import {
   makeId,
   money,
   resolveAmbiguousPayment,
+  linkGroupBuyToOrderDraft,
+  markLinkedDraftUnknown,
+  resolveLinkedDraftUnknown,
+  type GroupBuyAggregate,
   type PaymentIntent,
   type PrincipalRef,
   type TradeCycleExecution,
@@ -43,6 +47,7 @@ import { ScriptedPaymentDouble } from "./runtime/support/payment-double.js";
 import { env, mustExecute } from "./runtime/support/envelopes.js";
 
 const usd = currency("USD");
+const NOW = "2026-10-12T09:00:00Z";
 const merchant = makeId<"MerchantId">("merchant-1");
 const sku = makeId<"SkuId">("sku-tote");
 const card = { methodKind: "CARD" as const, tokenRef: "tok-unknown-1" };
@@ -54,6 +59,23 @@ function customer(id: string): PrincipalRef {
 const harborLane = customer("harbor-lane");
 const northlight = customer("northlight");
 const twoHarbors = customer("two-harbors");
+const ferryRoad = customer("ferry-road");
+const quayside = customer("quayside");
+const organizer: PrincipalRef = { kind: "MERCHANT", merchantId: makeId<"MerchantId">("merchant-1") };
+
+/** A FORMED GroupBuy with participants in the roster. */
+function formedGroupBuy(): GroupBuyAggregate {
+  return {
+    groupBuyId: makeId<"GroupBuyId">("w1gb-unk-link-1"), initiatorRef: ferryRoad, organizerRef: organizer,
+    terms: { skuRef: sku, proposedUnitPrice: money("1080", usd), listUnitPrice: money("1200", usd), threshold: { minimumParticipants: 4, minimumUnits: 40 }, windowClosesAt: "2026-10-20T18:00:00Z" },
+    state: "FORMED", openedAt: NOW,
+    formation: { groupPrice: money("1080", usd), poolValue: money("45360", usd), formedAt: NOW },
+    participants: [
+      { participantRef: ferryRoad, quantity: countQuantity(16) }, { participantRef: twoHarbors, quantity: countQuantity(12) },
+      { participantRef: quayside, quantity: countQuantity(8) }, { participantRef: harborLane, quantity: countQuantity(6) },
+    ], revision: 5,
+  };
+}
 
 function newKernel() {
   return new CommerceKernel({ paymentBoundary: new ScriptedPaymentDouble() });
@@ -334,35 +356,23 @@ describe("W1-014 linking law 6 — UNKNOWN is not FAILED (pending downstream res
 });
 
 // ============================================================================
-// Stage 2+ future surface — precisely documented, NOT faked, kernel untouched.
+// Stage 2 — W1-016: kernel-native draft-linking commands now EXIST.
 // ============================================================================
-//
-// The decision packet §5 acceptance sketch includes "a pending downstream
-// result surfaces UNKNOWN". At Stage 0 the upstream payment/observation
-// surface already preserves UNKNOWN (above). The Stage-2-specific linked-
-// draft UNKNOWN recovery (a linked order draft whose placement result is
-// pending surfaces UNKNOWN, never FAILED; retry returns the original receipt
-// when the result resolves) requires the LINK command which does not yet
-// exist. The skip records the gap honestly.
-describe.skip("W1-014 linking law 6 — Stage 2 linked-draft UNKNOWN recovery (future surface)", () => {
-  // FUTURE STAGE: Stage 2 (decision packet §4, §7) introduces
-  //   LINK_GROUPBUY_TO_ORDER_DRAFT / LINK_TRADECYCLE_LEG_TO_SETTLEMENT_DRAFT
-  //   as additive kernel commands. When they exist, this block will specify:
-  //   - a linked order draft whose placement result is pending surfaces
-  //     UNKNOWN (never FAILED, never silently passed);
-  //   - retrying the draft's observation command when the result resolves
-  //     returns the original receipt and produces no second effect (law 3 +
-  //     law 6 interaction);
-  //   - a pending settlement draft surfaces UNKNOWN, the captured total is
-  //     preserved (law 5 + law 6 interaction).
-  // At Stage 0 the LINK command does not exist; running these specs would
-  // require either faking a pass (forbidden) or modifying the kernel
-  // (forbidden). The skip records the gap honestly; Stage 2 will replace it
-  // with executable specs.
-  it("FUTURE: a linked order draft with a pending placement result surfaces UNKNOWN (never FAILED)", () => {
-    expect(true).toBe(true);
+describe("W1-016 linking law 6 — Stage 2 linked-draft UNKNOWN recovery", () => {
+  it("a linked order draft with a pending placement result surfaces UNKNOWN (never FAILED)", () => {
+    const formed = formedGroupBuy();
+    const r = linkGroupBuyToOrderDraft(formed, ferryRoad, organizer, makeId<"LinkedDraftId">("draft-unk-1"), null, NOW);
+    if (!r.ok) throw new Error("unreachable");
+    const unknownResult = markLinkedDraftUnknown(r.value, NOW);
+    expect(unknownResult).toMatchObject({ ok: true, value: { state: "PLACEMENT_UNKNOWN" } });
   });
-  it("FUTURE: retrying a linked draft's observation when the result resolves returns the original receipt (zero new effects)", () => {
-    expect(true).toBe(true);
+  it("retrying a linked draft's observation when the result resolves returns the original receipt (zero new effects)", () => {
+    const formed = formedGroupBuy();
+    const r = linkGroupBuyToOrderDraft(formed, ferryRoad, organizer, makeId<"LinkedDraftId">("draft-unk-2"), null, NOW);
+    if (!r.ok) throw new Error("unreachable");
+    const unknownResult = markLinkedDraftUnknown(r.value, NOW);
+    if (!unknownResult.ok) throw new Error("unreachable");
+    const resolvedResult = resolveLinkedDraftUnknown(unknownResult.value, NOW);
+    expect(resolvedResult).toMatchObject({ ok: true, value: { state: "DRAFT" } });
   });
 });
