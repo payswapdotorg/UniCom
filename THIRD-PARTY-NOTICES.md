@@ -1484,6 +1484,18 @@ Original copyright, license and NOTICE text is retained below. Identical text is
 
 - js-yaml@4.1.1 — MIT
 
+- jsqr@1.4.0 — Apache-2.0
+
+  <!-- TL manual record (2026-10-11, product-completion phase): the generator
+       (`node scripts/licenses.mjs notices`) is environmentally blocked on this
+       x64 pod — it asserts on the arm64-musl canvas optional dependency
+       (pre-existing since v3.14.3, differentially identical before/after the
+       jsqr addition, zero new failures from it). Entry recorded manually from
+       the installed package metadata: packages/web/node_modules/jsqr/package.json
+       (license Apache-2.0, zero transitive runtime dependencies). The full
+       license text is retained below in the License and NOTICE texts section
+       under the shared Apache-2.0 text. -->
+
 - jsesc@3.1.0 — MIT
 
 - json-buffer@3.0.1 — MIT
