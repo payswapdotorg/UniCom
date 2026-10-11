@@ -41,16 +41,22 @@
       "path": "docs/work-orders/W1-016.md",
       "lane": "kernel-native draft-linking commands (Stage 2)",
       "owner": "worker-1",
-      "status": "DISPATCHED",
+      "status": "COMPLETE",
       "write_surface": "commerce domain linking-draft.ts (new) + additive command registration + additive contract types + un-skip the 9 Stage-2 law blocks + net-new kernel tests + lane report",
-      "branch": "work/w1-016"
+      "branch": "work/w1-016",
+      "merge_commit": "a8705ca",
+      "lane_commits": [
+        "f4b9eba",
+        "e9b4449",
+        "bfe921d"
+      ]
     },
     {
       "id": "W2-017",
       "path": "docs/work-orders/W2-017.md",
       "lane": "host-side consumption of kernel-native drafts",
       "owner": "worker-2",
-      "status": "READY_FOR_TL_DISPATCH",
+      "status": "DISPATCHED",
       "dependency": "Merges after W1-016 (consumes the kernel contract read-only).",
       "write_surface": "web buyer-groupbuy + peer-tradecycle linking surfaces + tests + lane report",
       "branch": "work/w2-017"
@@ -70,12 +76,14 @@
     {
       "id": "LINKING_LAWS_STAGE2",
       "name": "The 9 documented Stage-2 describe.skip blocks converted to real passing tests (the seven laws on the kernel-native surface)",
-      "status": "PENDING"
+      "status": "PASSED",
+      "evidence": "W1-016 merged a8705ca: the 9 documented Stage-2 describe.skip blocks CONVERTED to real passing tests (commerce suite 521/521 with 0 skipped \u2014 the 9 skips are gone, never deleted, converted against the real command surface); the seven laws enforced per-law on BOTH the pure domain functions and the kernel path (kernel-linking.test.ts: journaled receipts, replay persistence, kernel-level idempotency, kill-switch typed refusal LINKING_DISABLED, authorization refusals through CommerceKernel.execute)."
     },
     {
       "id": "KERNEL_DRAFT_COMMANDS",
       "name": "LINK_GROUPBUY_TO_ORDER_DRAFT + LINK_TRADECYCLE_LEG_TO_SETTLEMENT_DRAFT: draft-only, idempotent receipts, typed authorization, cancellation cascade, compensation-requires-own-authorization, UNKNOWN, per-leg isolation, kill-switch refusal, provenance",
-      "status": "PENDING"
+      "status": "PASSED",
+      "evidence": "W1-016 merged a8705ca: LINK_GROUPBUY_TO_ORDER_DRAFT + LINK_TRADECYCLE_LEG_TO_SETTLEMENT_DRAFT registered in the kernel HANDLERS map (runtime/kernel.ts) via runtime/handler-linking.ts with the kernel-state fold (drafts persist across journal replay) + the LINKED_DRAFT subject type (domain/ids.ts) \u2014 the commands are KERNEL-NATIVE: journaled, replayed, idempotent at the kernel level. Contract delta verified purely additive (the exports line-share is cosmetic; existing entries byte-identical). Two TL changes-requested rounds: (1) the kernel integration itself (the order's original surface was too narrow \u2014 TL-extended, worker-delivered e9b4449); (2) the scoped-tsc type defects (LinkedDraftId re-export + handler error-detail narrowing, bfe921d). Lane battery TL-observed: commerce 521/521, web 356/356 untouched-proof, lint 103w/0e zero lane warnings, architecture 0/0/0, scoped tsc clean."
     },
     {
       "id": "HOST_KERNEL_DRAFTS",
@@ -85,7 +93,8 @@
     {
       "id": "REGRESSION",
       "name": "Full merged battery: vitest all suites, lint baseline, architecture 0, scoped tsc clean",
-      "status": "PENDING"
+      "status": "PASSED",
+      "evidence": "Merged tree a8705ca: vitest 2,175 passed | 0 skipped = commerce 521/521 (77 files) + web 356/356 (33 files) + experience 739/739 (104 files) + agent 559/559 (57 files) \u2014 the 9 baseline skips are converted, zero remain; lint 103w/0e baseline identical; architecture:check 0 violations/baseline 0/new 0; scoped tsc (packages/web/tsconfig.scoped.json) clean exit 0. All TL-observed on the committed merged tree."
     },
     {
       "id": "BROWSER",
@@ -104,7 +113,7 @@
     }
   ],
   "active_work_orders": [
-    "W1-016"
+    "W2-017"
   ],
   "frontier": [
     "commerce_plane_linking_stage_2_in_flight (W1-016 dispatched; W2-017 queued on the W1-016 merge)",
@@ -114,7 +123,7 @@
     "third_party_notices_generator_environmentally_blocked_on_this_pod_pre_existing"
   ],
   "closeout_rule": "Do not close issue #15 or report the phase complete while any gate is blocked or unproven. Preserve blockers and evidence history without changing denominators to manufacture green status.",
-  "last_reviewed_at": "2026-10-11T19:26:00Z",
+  "last_reviewed_at": "2026-10-11T19:52:00Z",
   "dispatch_log": [
     {
       "event": "PHASE ACTIVATION \u2014 Stage 2 authorized by the TL \u00a78 record; W1-016 + W2-017 derived",
@@ -136,6 +145,13 @@
       "recorded_by": "resident TL (Z.ai Code, commerce-integration-2 phase)",
       "type": "CHANGES_REQUESTED",
       "detail": "Lane battery on f4b9eba all-green TL-observed (commerce 511/511 with 0 skipped \u2014 all 9 law blocks converted, web 356/356 untouched-proof, lint 103w/0e zero lane warnings, architecture 0/0/0, scoped tsc clean; the contract delta verified purely additive). VERDICT: changes requested \u2014 the commands are typed on the union but NOT dispatched by the kernel (no HANDLERS registration, no kernel-state fold, no LINKED_DRAFT subject type): not yet 'kernel-native' in Stage 2's meaning. The gap was the ORDER's write-surface narrowing error (the worker disclosed it honestly \u00a75.1-5.3). Write surface EXTENDED (TL authority): runtime/kernel.ts handlers with journaled idempotent receipts + runtime/kernel-state.ts + runtime/kernel-fold-execution.ts + domain/ids.ts (LINKED_DRAFT subject) + net-new kernel-execution tests (through CommerceKernel.execute: journaling, replay persistence, kernel-level idempotency, kill-switch typed refusal, authorization refusals). Changes-requested LANDED on the live session at 19:25Z (currentId -> c1561f62, n=18; the capacity lottery fought 4 cycles: CAPACITY/EDGE405/CAPACITY/RESP-None-landed)."
+    },
+    {
+      "event": "W1-016 MERGED (two changes-requested rounds worked on the live session) + LINKING_LAWS_STAGE2/KERNEL_DRAFT_COMMANDS/REGRESSION gates PASSED; W2-017 routing next",
+      "recorded_at": "2026-10-11T19:52:00Z",
+      "recorded_by": "resident TL (Z.ai Code, commerce-integration-2 phase)",
+      "type": "MERGE",
+      "detail": "Lane f4b9eba delivered in 31 min from landing; TL battery green but changes-requested for the kernel integration (the order's surface error, honestly disclosed); fix e9b4449 in ~7 min; round-2 scoped-tsc type defects found by the TL battery (the check was missing from the order's acceptance list \u2014 TL omission, now permanent in the gate); fix bfe921d in ~5 min. Merged no-ff a8705ca; merged-tree battery 2,175|0 (commerce 521 + web 356 + experience 739 + agent 559), lint baseline, architecture 0, scoped tsc clean; main pushed."
     }
   ]
 }
