@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0",
+  "repository": "payswapdotorg/UniCom",
+  "program": "UNiCOM Commerce Plane Integration",
+  "status": "READY_FOR_TL_DISPATCH",
+  "tracking_issue": "https://github.com/payswapdotorg/UniCom/issues/14",
+  "prior_phase_records_immutable": true,
+  "source_baseline": {
+    "product_completion_state": "docs/development-state/product-completion-state.json",
+    "product_completion_report": "docs/product-completion/FINAL-REPORT.md",
+    "baseline_commit": "bcbc716",
+    "baseline_verified_at": "2026-10-11T14:15:00Z",
+    "baseline_battery": "vitest 2040/2040 (web 323 + commerce 430 + agent 559 + experience 728); lint 103w/0e; architecture 0; scoped tsc clean; browser gate 19/19 journeys + 18 interactions + J18 ABSENT-by-design; canonical build CI-proved (run 38131004309, floor 10873 MB)"
+  },
+  "architecture": {
+    "baseline": "1.2-additive-runtime-browser-2026-10-11",
+    "supersedes": "1.1-frozen-2026-10-05",
+    "baseline_delta_rationale": "TL decision 2026-10-11 under operator delegation (docs/operator-decisions/j15-browser-safe-runtime-boundary-2026-10-11.md §7): the ONLY delta is the additive ./runtime-browser exports-map entry of @unicom/experience + its new source directory. No existing entrypoint changes; no new package; no new dependency edge.",
+    "permitted_dependency_paths": "web -> public @unicom/commerce contract.ts and web -> public @unicom/experience contract.ts/runtime/index.ts (and, from this phase, runtime-browser/index.ts). experience -> commerce remains forbidden; web -> @unicom/agent remains forbidden.",
+    "production_deployment_authorized": false,
+    "production_mutation_allowed": false,
+    "live_named_provider_connection_authorized": false,
+    "human_research_authorized": false
+  },
+  "operator_directive": {
+    "source": "Operator chat directive 2026-10-11 ~13:50Z: 'as the TL, make the right decisions keeping in mind the mission of Unicom (become the main interface for global commerce)' + 'progress fast (without losing quality) so we can meet the deadline of midnight today' + workers dispatched only from inside the replay; TL does not implement.",
+    "authorization_basis": "Operator delegation of the two PREPARED_AWAITING_OPERATOR_DECISION packets to the TL. Standing gates (production deployment, live provider connection, human research) remain operator-owned and NOT_AUTHORIZED.",
+    "scope": "Commerce-plane linking Stage 0 + Stage 1 (payments/reservations/recourse never auto-created; Stage 2 deferred pending Stage 1 evidence); J15 additive ./runtime-browser sub-entrypoint + progressive live-facts rendering."
+  },
+  "policy": {
+    "progress_authority": "docs/development-state/commerce-integration-state.json",
+    "maximum_workers": 3,
+    "tl_is_worker": false,
+    "dispatch_allowed": true,
+    "workers_dispatched_from_inside_replay_only": true,
+    "fixture_success_is_not_browser_success": true,
+    "synthetic_demo_data_must_be_labeled": true,
+    "no_live_commerce_side_effects": true,
+    "preserve_unknown_not_failed": true,
+    "prior_failed_or_blocked_evidence_is_immutable": true,
+    "deadline": "2026-10-12T00:00:00Z (operator directive)"
+  },
+  "work_orders": [
+    {
+      "id": "W1-014",
+      "path": "docs/work-orders/W1-014.md",
+      "lane": "commerce-plane-linking-stage-0-law-specs",
+      "owner": "worker-1",
+      "status": "READY_FOR_TL_DISPATCH",
+      "dependency": null,
+      "write_surface": "packages/commerce/src/test/** + lane report only",
+      "branch": "work/w1-014"
+    },
+    {
+      "id": "W2-015",
+      "path": "docs/work-orders/W2-015.md",
+      "lane": "commerce-plane-linking-stage-1-host-drafts",
+      "owner": "worker-2",
+      "status": "READY_FOR_TL_DISPATCH",
+      "dependency": "Complies with the same seven laws W1-014 specifies; merge after W1-014.",
+      "write_surface": "web groupbuy/tradecycle/groupbuy-review modules + lane report only",
+      "branch": "work/w2-015"
+    },
+    {
+      "id": "W3-018",
+      "path": "docs/work-orders/W3-018.md",
+      "lane": "j15-runtime-browser-live-facts",
+      "owner": "worker-3",
+      "status": "READY_FOR_TL_DISPATCH",
+      "dependency": "Architecture baseline 1.2 authorization recorded in the work order; frozen ./runtime barrel read-only.",
+      "write_surface": "experience package.json exports + src/runtime-browser/** + tests + web merchant-connectors module + lane report only",
+      "branch": "work/w3-018"
+    }
+  ],
+  "tl_owned_decision_packets": [],
+  "operator_decisions": [
+    { "id": "production_deployment", "status": "NOT_AUTHORIZED", "required": true },
+    { "id": "live_named_provider_credentials_and_connection", "status": "NOT_AUTHORIZED", "required": true },
+    { "id": "human_research", "status": "NOT_AUTHORIZED", "required": true },
+    { "id": "commerce_plane_linking_stage_2_kernel_native_commands", "status": "NOT_AUTHORIZED (deferred pending Stage 1 evidence)", "required": true },
+    { "id": "live_payments_of_any_kind", "status": "NOT_AUTHORIZED", "required": true }
+  ],
+  "acceptance_gates": [
+    { "id": "BASELINE", "name": "Current default-branch head, clean baseline, frozen-architecture boundary (1.2 delta) verified", "status": "PENDING" },
+    { "id": "LINKING_LAWS", "name": "Seven linking laws executable in kernel specs, passing against unchanged kernel (W1-014)", "status": "PENDING" },
+    { "id": "LINKING_STAGE1", "name": "Human-confirmed linked order drafts on rendered GroupBuy/TradeCycle surfaces, seven-law compliant, permission-gated, kill-switchable (W2-015)", "status": "PENDING" },
+    { "id": "J15_RUNTIME_BROWSER", "name": "Additive ./runtime-browser sub-entrypoint browser-clean + parity-tested + J15 progressive live facts with committed-record fallback (W3-018)", "status": "PENDING" },
+    { "id": "REGRESSION", "name": "Full merged battery: vitest all suites, lint baseline, architecture 0, scoped tsc clean", "status": "PENDING" },
+    { "id": "BROWSER", "name": "Merged real-Chromium gate zero-drift + lane extension evidence for the new controls", "status": "PENDING" },
+    { "id": "SAFETY", "name": "Consent, role authority, idempotency, UNKNOWN, demo labelling, no-live-side-effect tripwires on the merged tree", "status": "PENDING" },
+    { "id": "TL_ACCEPT", "name": "Independent TL verification, final report, evidence manifests, registry + issue closeout", "status": "PENDING" }
+  ],
+  "active_work_orders": [],
+  "frontier": [
+    "commerce_plane_linking_stage_2_deferred_pending_stage_1_evidence",
+    "production_deployment_not_authorized",
+    "live_named_provider_credentials_not_authorized",
+    "human_research_not_authorized",
+    "third_party_notices_generator_environmentally_blocked_on_this_pod_pre_existing"
+  ],
+  "closeout_rule": "Do not close issue #14 or report the phase complete while any gate is blocked or unproven. Preserve blockers and evidence history without changing denominators to manufacture green status.",
+  "last_reviewed_at": "2026-10-11T14:15:00Z",
+  "dispatch_log": [
+    {
+      "event": "PHASE ACTIVATION — TL decisions recorded under operator delegation, three work orders derived",
+      "recorded_at": "2026-10-11T14:15:00Z",
+      "recorded_by": "resident TL (Z.ai Code, web-6ddc0a59 session, commerce-integration phase)",
+      "type": "PHASE_ACTIVATION",
+      "detail": "Operator delegated the two PREPARED_AWAITING_OPERATOR_DECISION packets to the TL and directed fast progress to the 2026-10-12T00:00:00Z deadline, with workers dispatched only from inside the replay. TL decisions recorded in both packets §7: commerce-plane linking Stage 0 + Stage 1 APPROVED (Stage 2 deferred; payments/reservations/recourse never auto-created); J15 Option A (additive ./runtime-browser sub-entrypoint) APPROVED with baseline 1.1 -> 1.2 (single additive entry, all binding conditions from the packet). Three lanes derived with disjoint write surfaces: W1-014 (kernel linking-law specs), W2-015 (host-side human-confirmed linked order drafts), W3-018 (runtime-browser + J15 live facts). Standing gates unchanged: production deployment / live providers / human research / live payments all NOT_AUTHORIZED."
+    }
+  ]
+}

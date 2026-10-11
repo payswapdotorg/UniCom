@@ -47,3 +47,18 @@ Consequence today: a browser `import { … } from "@unicom/experience/runtime"` 
 3. Explicitly NOT requested: live provider connections, credentials in browser-reachable code, changes to `./runtime`'s signatures, production deployment.
 
 **Interfaces that would change (Option A):** `packages/experience/package.json` exports map (+1 entry), new `src/runtime-browser/` directory, J15 web module's guarded import gains a browser-safe path. No changes to any existing export.
+
+## 7. TL DECISION — recorded 2026-10-11 (operator delegation)
+
+**Authority:** the operator delegated the two pending TL-owned decisions to the TL on 2026-10-11 ("as the TL, make the right decisions keeping in mind the mission of Unicom (become the main interface for global commerce)") and directed fast roadmap progress. The standing gates (production deployment, live providers, human research) remain operator-owned and NOT_AUTHORIZED.
+
+**Decision: APPROVE Option A — the additive `./runtime-browser` sub-entrypoint.**
+
+- The architecture baseline advances **1.1-frozen-2026-10-05 → 1.2-additive-runtime-browser-2026-10-11**: the ONLY delta is the additive `"./runtime-browser"` exports-map entry of `@unicom/experience` plus its new source directory. No existing entrypoint changes; no new package; no new dependency edge (web → experience already permitted). All other baseline laws carry forward unchanged.
+- **Binding conditions (from §4-§5):** the sub-entrypoint's module graph must be statically browser-clean (module-graph purity test asserting zero `node:` specifiers and zero adapter/vault implementation imports); a parity test ensures every browser-renderable fact is produced by the same projection code the Node lane uses; browser code receives only serialized runtime facts (health snapshots, telemetry counters, capability declarations, journey outcomes) — no credential material, no secret refs; the real adapter/vault stay Node-only.
+- **J15 upgrade is progressive:** render live facts when a facts provider is present, else keep the committed SAFE_EXERCISE_RECORD (the honest boundary is never removed). Kill switch: the sub-entrypoint is additive; J15 falls back to the committed record if absent.
+- **No live provider connections result from this decision** (separately gated, unchanged).
+
+**Mission rationale:** "the main interface for global commerce" must be able to show real connector-runtime truth in the browser, not only a committed static record. Option A delivers that with zero risk to frozen consumers; Option B's frozen-barrel refactor was rejected for graph risk; Option C (status quo) rejected as static.
+
+**Implementation vehicle:** work order W3-018, dispatched to a worker; the TL integrates and independently verifies. Registry: `docs/development-state/commerce-integration-state.json`.

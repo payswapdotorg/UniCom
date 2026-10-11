@@ -51,3 +51,19 @@ Duplicate link command returns the original receipt; unauthorized actor (non-org
 4. Explicitly NOT requested: live providers, real payments, production deployment, human research (each remains separately gated).
 
 **Interfaces that would change:** Stage 1 — web module surfaces only (no contract change). Stage 2 — additive commands on the existing public `@unicom/commerce` contract (no new package, no new dependency edge).
+
+## 7. TL DECISION — recorded 2026-10-11 (operator delegation)
+
+**Authority:** the operator delegated the two pending TL-owned decisions to the TL on 2026-10-11 ("as the TL, make the right decisions keeping in mind the mission of Unicom (become the main interface for global commerce)") and directed fast roadmap progress. This section records the TL's decision under that delegation; the operator retains the standing gates (production deployment, live providers, human research) which remain NOT_AUTHORIZED.
+
+**Decision: APPROVE the staged rollout, Stage 0 + Stage 1 now; Stage 2 deferred.**
+
+- **Stage 0 approved** — executable linking-law specifications (the seven laws of §2) as kernel test-suite extensions against the current command surface. Test-only; no behavior change; no public-contract change.
+- **Stage 1 approved** — host-side, human-confirmed linking: the rendered GroupBuy and TradeCycle surfaces gain a "create a linked order draft" affordance that pre-fills the EXISTING order-placement command with the aggregate's facts, under the acting human's authority and role permissions; the receipt references the source aggregate id; nothing automatic; kill switch = remove the affordance.
+- **Stage 2 NOT yet authorized** — kernel-native draft-linking commands require Stage 1 evidence first (per §4). A future TL record will gate it.
+- **Payments, reservations and recourse are never auto-created at any stage** — they remain separately-authorized commands (live payment paths remain gated behind the standing operator gates).
+- **All seven laws of §2 are binding acceptance criteria** for every stage, and §5's acceptance-test sketch is the Stage 0 implementation basis.
+
+**Mission rationale:** a formed GroupBuy or an executed TradeCycle that can never become an order is a demonstration, not the main interface for global commerce. Stage 0+1 closes the loop while preserving consent, idempotency, actor authority, compensation, UNKNOWN and kill-switch laws exactly as written.
+
+**Implementation vehicle:** work orders W1-014 (Stage 0) and W2-015 (Stage 1), dispatched to workers; the TL integrates and independently verifies. Registry: `docs/development-state/commerce-integration-state.json`.
