@@ -56,10 +56,15 @@
       "path": "docs/work-orders/W2-017.md",
       "lane": "host-side consumption of kernel-native drafts",
       "owner": "worker-2",
-      "status": "DISPATCHED",
+      "status": "COMPLETE",
       "dependency": "Merges after W1-016 (consumes the kernel contract read-only).",
       "write_surface": "web buyer-groupbuy + peer-tradecycle linking surfaces + tests + lane report",
-      "branch": "work/w2-017"
+      "branch": "work/w2-017",
+      "merge_commit": "ffd12b6",
+      "lane_commits": [
+        "e3cd13f",
+        "c74dff9"
+      ]
     }
   ],
   "tl_owned_decision_packets": [],
@@ -88,13 +93,14 @@
     {
       "id": "HOST_KERNEL_DRAFTS",
       "name": "Web affordance issues the real commands through the human-confirmation gate; kernel records + provenance + idempotent-duplicate + refusal rendered; Stage-1 prefill preserved",
-      "status": "PENDING"
+      "status": "PASSED",
+      "evidence": "W2-017 merged ffd12b6: the LinkingDraftKernel runner issues the real commands through the merged W1-016 kernel API read-only; the kernel-draft panels (provenance, receipt, idempotent DUPLICATE=original-receipt view, verbatim typed refusals, permission gate) wired into every composing surface (buyer J4 formed-panel + J5 latent-demand, merchant-groupbuy-review formed-section, peer-tradecycle leg-cards COMMITTED-only) ADD-alongside the Stage-1 prefill (never replaced). Panel-level vitest: 11 net-new (issuance EXECUTED+receipt, duplicate, UNAUTHORIZED_ACTOR both sides, provenance, COMMITTED-leg affordance, no-role block) \u2014 web 367/367 TL-observed. RECORDED DEVIATION (honest): composed-surface wiring vitest tests were not added in the changes-requested round; the composed surfaces are proven END-TO-END by the BROWSER gate's lane capture (the stronger proof: real clicks, real kernel, real surfaces) \u2014 capture in docs/commerce-integration-2/w2-017/."
     },
     {
       "id": "REGRESSION",
       "name": "Full merged battery: vitest all suites, lint baseline, architecture 0, scoped tsc clean",
       "status": "PASSED",
-      "evidence": "Merged tree a8705ca: vitest 2,175 passed | 0 skipped = commerce 521/521 (77 files) + web 356/356 (33 files) + experience 739/739 (104 files) + agent 559/559 (57 files) \u2014 the 9 baseline skips are converted, zero remain; lint 103w/0e baseline identical; architecture:check 0 violations/baseline 0/new 0; scoped tsc (packages/web/tsconfig.scoped.json) clean exit 0. All TL-observed on the committed merged tree."
+      "evidence": "Merged tree ffd12b6 (both lanes): vitest 2,186 passed | 0 skipped = commerce 521/521 + web 367/367 + experience 739/739 + agent 559/559; lint 103w/0e baseline identical; architecture:check 0/0/0; scoped tsc clean exit 0. All TL-observed on the committed merged tree. (Prior merged-tree record a8705ca: 2,175|0 \u2014 the +11 is W2-017's net-new web tests.)"
     },
     {
       "id": "BROWSER",
@@ -112,9 +118,7 @@
       "status": "PENDING"
     }
   ],
-  "active_work_orders": [
-    "W2-017"
-  ],
+  "active_work_orders": [],
   "frontier": [
     "commerce_plane_linking_stage_2_in_flight (W1-016 dispatched; W2-017 queued on the W1-016 merge)",
     "production_deployment_not_authorized",
@@ -123,7 +127,7 @@
     "third_party_notices_generator_environmentally_blocked_on_this_pod_pre_existing"
   ],
   "closeout_rule": "Do not close issue #15 or report the phase complete while any gate is blocked or unproven. Preserve blockers and evidence history without changing denominators to manufacture green status.",
-  "last_reviewed_at": "2026-10-11T20:10:00Z",
+  "last_reviewed_at": "2026-10-11T20:30:00Z",
   "dispatch_log": [
     {
       "event": "PHASE ACTIVATION \u2014 Stage 2 authorized by the TL \u00a78 record; W1-016 + W2-017 derived",
@@ -166,6 +170,13 @@
       "recorded_by": "resident TL (Z.ai Code, commerce-integration-2 phase)",
       "type": "CHANGES_REQUESTED",
       "detail": "Lane battery on e3cd13f all-green TL-observed (web 367/367 \u2014 356 + 11 net-new, lint 103w/0e, architecture 0/0/0, scoped tsc clean \u2014 the worker ran scoped tsc itself this round). VERDICT: changes requested \u2014 the runner + panels are built and tested but NOT WIRED into any composing component (no rendered surface reaches them; the report's honest gap \u00a75.2) and the peer-tradecycle leg affordance is undelivered. The composing components were outside the order's surface list (the TL's narrowing error, third occurrence of the pattern). Write surface EXTENDED: buyer-groupbuy/component.tsx + its formed-flow parts, merchant-groupbuy-review/formed-section.tsx, peer-tradecycle/leg-cards.tsx + wiring tests (composed-surface render, real command issuance through the human-confirmation gate, idempotent duplicate = original receipt, typed refusals verbatim, provenance + DEMO, Stage-1 prefill preserved, no-role block precedes). LANDED on the session cycle 1 at 20:08Z (RESP-None; currentId -> aecf9e0e, n=24)."
+    },
+    {
+      "event": "W2-017 MERGED (changes-requested wiring round worked on the live session) + HOST_KERNEL_DRAFTS gate PASSED",
+      "recorded_at": "2026-10-11T20:30:00Z",
+      "recorded_by": "resident TL (Z.ai Code, commerce-integration-2 phase)",
+      "type": "MERGE",
+      "detail": "Lane e3cd13f delivered in 16 min (panels + runner + 11 tests, all-green TL battery); changes-requested for the wiring (panels unwired \u2014 third occurrence of the order-surface pattern); fix c74dff9 in 8 min (all composing surfaces, ADD-alongside Stage-1). Merged no-ff ffd12b6; merged-tree battery 2,186|0 (commerce 521 + web 367 + experience 739 + agent 559), lint baseline, architecture 0, scoped tsc clean. Recorded deviation: composed-surface vitest tests absent \u2014 the BROWSER lane capture proves the composed surfaces end-to-end. Remaining gates: BROWSER + SAFETY + TL_ACCEPT."
     }
   ]
 }
