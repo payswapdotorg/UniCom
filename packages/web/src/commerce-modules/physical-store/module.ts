@@ -14,7 +14,7 @@ export default defineCommerceModule({
   moduleId: "physical-store",
   title: "Physical store — the no-RFID supermarket",
   description:
-    "Count stock by barcode, manual entry, weighed goods and CSV import; queue observations offline and replay them deterministically; apply POS syncs; see conflicts and discrepancies before anything promotes — canonical stock moves only through reconciliation. No RFID identifier or device is ever required.",
+    "Count stock by barcode, manual entry, weighed goods, CSV import and a local camera/QR tag scan (user-initiated, browser-local decode, manual fallback); queue observations offline and replay them deterministically; apply POS syncs; see conflicts and discrepancies before anything promotes — canonical stock moves only through reconciliation. No RFID identifier or device is ever required.",
   owner: "W3-015",
   journeys: ["J16"],
   roles: ["store-operator", "receiving", "merchant"],
