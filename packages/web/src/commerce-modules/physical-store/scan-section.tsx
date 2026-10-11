@@ -6,7 +6,8 @@
  * max-lines gate); this file is the markup.
  *
  * On-surface honesty: the camera runs only while the user asks it to, frames
- * are decoded by the browser's native BarcodeDetector and never leave the
+ * are decoded LOCALLY — by the browser's native BarcodeDetector when present,
+ * otherwise by the bundled jsQR decoder (QR only) — and never leave the
  * page, all exit paths stop every media track, and a decoded DEMO tag is
  * local label recognition only — it feeds the same count path as manual
  * entry (offline queue + replay semantics untouched), never a provider call
@@ -70,11 +71,13 @@ export function CameraScanSection({
             </span>
           </div>
           <p className="cm-card-sub">
-            The camera runs only while you ask it to and decodes with this browser&apos;s
-            built-in BarcodeDetector — frames never leave this page (no upload, no
-            persistence, no telemetry, no remote decoding). A decoded DEMO tag is local
-            label recognition only — not provider-verified stock, consent, authorization
-            or a commitment — and feeds the same count path as manual entry.
+            The camera runs only while you ask it to and decodes locally: with this
+            browser&apos;s built-in BarcodeDetector when available, otherwise with
+            the bundled jsQR decoder (QR codes only) — either way frames never
+            leave this page (no upload, no persistence, no telemetry, no remote
+            decoding). A decoded DEMO tag is local label recognition only — not
+            provider-verified stock, consent, authorization or a commitment — and
+            feeds the same count path as manual entry.
           </p>
           <div className="cm-row">
             {scanState === "idle" ? (

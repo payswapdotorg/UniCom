@@ -9,8 +9,10 @@
  *   "Start scan" click — never on mount/load);
  * - ONE stopScan() stops every media track and is called from success, cancel,
  *   error and the unmount effect — the camera is never left silently running;
- * - decoding is the browser's NATIVE BarcodeDetector over in-memory frames
- *   only: no upload, no persistence, no logging, no remote decoding;
+ * - decoding is LOCAL over in-memory frames only — the browser's NATIVE
+ *   BarcodeDetector when present (QR + the common retail 1D formats),
+ *   otherwise the bundled jsQR decoder (QR only — the honest difference):
+ *   no upload, no persistence, no logging, no remote decoding either way;
  * - a decoded payload is LOCAL recognition of a committed DEMO shelf tag —
  *   never provider-verified stock, consent, authorization or a commitment —
  *   and feeds the same capture() path manual entry uses.
@@ -22,6 +24,7 @@ import type {
   InventoryCountObservation,
   ObservationSourceType,
 } from "@unicom/commerce";
+import jsQR from "jsqr";
 import { lookupScanCode, type PhysicalScanCode } from "./fixtures.js";
 
 /** Minimal local typings for the native BarcodeDetector API (not yet in lib.dom). */
@@ -100,6 +103,45 @@ function barcodeDetectorCtor(): BarcodeDetectorCtor | null {
   return ctor ?? null;
 }
 
+/**
+ * One local frame decoder: resolves the payload found in the current video
+ * frame, or null when the frame carries no code. Both implementations are
+ * PURE-LOCAL: pixels in, payload out — nothing ever leaves the page.
+ */
+type FrameDecoder = (video: HTMLVideoElement) => Promise<string | null>;
+
+/** Native path: the browser's BarcodeDetector (QR + retail 1D formats). */
+function makeNativeDecoder(detector: BarcodeDetectorLike): FrameDecoder {
+  return async (video) => {
+    const detected = await detector.detect(video);
+    const first = detected[0];
+    return first === undefined ? null : first.rawValue;
+  };
+}
+
+/**
+ * Bundled fallback (no native BarcodeDetector, e.g. Linux Chromium): jsQR
+ * over an in-memory canvas raster of each frame. QR ONLY — the honest
+ * difference vs the native detector. jsQR is a pure local function; the
+ * canvas is never appended to the DOM and holds only the current frame.
+ */
+function makeBundledQrDecoder(): FrameDecoder {
+  const canvas = document.createElement("canvas");
+  return async (video) => {
+    const width = video.videoWidth;
+    const height = video.videoHeight;
+    if (width <= 0 || height <= 0) return null; // no frame geometry yet
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    if (ctx === null) throw new Error("no 2D canvas context for local frame decoding");
+    ctx.drawImage(video, 0, 0);
+    const frame = ctx.getImageData(0, 0, width, height);
+    const code = jsQR(frame.data, frame.width, frame.height, { inversionAttempts: "dontInvert" });
+    return code === null ? null : code.data;
+  };
+}
+
 function describeError(err: unknown): string {
   if (err instanceof Error) return `${err.name}: ${err.message}`;
   return String(err);
@@ -154,7 +196,7 @@ export function useCameraScan({
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
-  const detectorRef = useRef<BarcodeDetectorLike | null>(null);
+  const decoderRef = useRef<FrameDecoder | null>(null);
   const pollRef = useRef<number | null>(null);
   const aliveRef = useRef(true);
   const emptyPollsRef = useRef(0);
@@ -166,7 +208,7 @@ export function useCameraScan({
       window.clearInterval(pollRef.current);
       pollRef.current = null;
     }
-    detectorRef.current = null;
+    decoderRef.current = null;
     const stream = streamRef.current;
     streamRef.current = null;
     if (stream) {
@@ -205,13 +247,13 @@ export function useCameraScan({
   }, []);
 
   const pollDetect = useCallback(async (): Promise<void> => {
-    const detector = detectorRef.current;
+    const decoder = decoderRef.current;
     const video = videoRef.current;
-    if (detector === null || video === null) return;
+    if (decoder === null || video === null) return;
     if (video.readyState < 2) return; // no frame available yet — keep scanning
-    let detected: readonly DetectedBarcode[];
+    let payload: string | null;
     try {
-      detected = await detector.detect(video);
+      payload = await decoder(video);
     } catch (err) {
       detectorFailuresRef.current += 1;
       if (detectorFailuresRef.current >= MAX_DETECTOR_FAILURES) {
@@ -222,7 +264,7 @@ export function useCameraScan({
       return;
     }
     detectorFailuresRef.current = 0;
-    if (detected.length === 0) {
+    if (payload === null) {
       emptyPollsRef.current += 1;
       if (emptyPollsRef.current >= MAX_EMPTY_POLLS) {
         stopScan();
@@ -233,9 +275,6 @@ export function useCameraScan({
       }
       return;
     }
-    const first = detected[0];
-    if (first === undefined) return; // length>0 without an element — keep scanning
-    const payload = first.rawValue;
     stopScan();
     applyDecodedPayload(payload);
   }, [applyDecodedPayload, stopScan]);
@@ -259,20 +298,21 @@ export function useCameraScan({
       return;
     }
     const ctor = barcodeDetectorCtor();
+    let decoder: FrameDecoder;
     if (ctor === null) {
-      setScanState("unsupported");
-      setNotice(
-        "This browser does not expose the native BarcodeDetector API, so there is no local decoder (this app never uses remote decoding).",
-      );
-      return;
-    }
-    let detector: BarcodeDetectorLike;
-    try {
-      detector = new ctor({ formats: SCAN_FORMATS });
-    } catch (err) {
-      setScanState("error");
-      setNotice(`The browser's decoder could not be constructed: ${describeError(err)}.`);
-      return;
+      // No native BarcodeDetector (e.g. Linux Chromium): the bundled local
+      // QR decoder takes over — QR only, still 100% on-page.
+      decoder = makeBundledQrDecoder();
+    } else {
+      let detector: BarcodeDetectorLike;
+      try {
+        detector = new ctor({ formats: SCAN_FORMATS });
+      } catch (err) {
+        setScanState("error");
+        setNotice(`The browser's decoder could not be constructed: ${describeError(err)}.`);
+        return;
+      }
+      decoder = makeNativeDecoder(detector);
     }
     setScanState("requesting");
     let stream: MediaStream;
@@ -311,7 +351,7 @@ export function useCameraScan({
       stopScan();
       return;
     }
-    detectorRef.current = detector;
+    decoderRef.current = decoder;
     emptyPollsRef.current = 0;
     detectorFailuresRef.current = 0;
     setScanState("scanning");

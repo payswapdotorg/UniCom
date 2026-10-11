@@ -9,6 +9,12 @@
  * - window.BarcodeDetector -> a controllable detector (known code / empty /
  *   throws), plus priming of the <video> element (readyState + play) so the
  *   decode loop polls deterministically;
+ * - canvas 2D contexts (the BUNDLED jsQR fallback path): jsdom ships no
+ *   canvas rasterizer, so the seam patches getContext("2d") with a fake
+ *   context whose drawImage(video) + getImageData() surface a REAL QR —
+ *   rasterized with the hoisted qrcode package (a TEST-ONLY import, never
+ *   from packages/web/src/**) — so jsQR performs genuine pixel decoding;
+ *   nothing about the decoded payload is stubbed;
  * - window.isSecureContext -> true by default (jsdom leaves it undefined).
  *
  * The network tripwire (whole suite): window.fetch, window.XMLHttpRequest and
@@ -17,6 +23,7 @@
  */
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { act } from "react";
+import { createRequire } from "node:module";
 import PhysicalStoreComponent from "./component.js";
 import { makeStubHost, waitForText } from "../merchant-shared/test-support.js";
 import {
@@ -28,6 +35,17 @@ import {
 } from "../../commerce-host/shell/test-utils.js";
 import type { RenderedUi } from "../../commerce-host/shell/test-utils.js";
 import type { CommerceRoleId } from "../../commerce-host/contract/index.js";
+
+// TEST-ONLY: the hoisted qrcode package rasterizes REAL QR shelf tags for
+// the bundled-decoder tests. Imported by absolute path (it is NOT a
+// dependency of @zcode/web) and NEVER from packages/web/src/**.
+const nodeRequire = createRequire(import.meta.url);
+const qrcode = nodeRequire("/home/z/battery/w3-017/node_modules/qrcode") as {
+  create: (
+    text: string,
+    options?: { readonly errorCorrectionLevel?: string },
+  ) => { readonly modules: { readonly size: number; readonly data: Uint8Array } };
+};
 
 const START = "Start scan (turn the camera ON)";
 const CANCEL = "Cancel scan (stop the camera)";
@@ -133,6 +151,124 @@ function primeScanVideo(container: HTMLElement): HTMLVideoElement {
   if (video === null) throw new Error("scan video element not found");
   Object.defineProperty(video, "readyState", { value: 2, configurable: true });
   Object.defineProperty(video, "play", { value: () => Promise.resolve(), configurable: true });
+  return video;
+}
+
+// ---------------------------------------------------------------------------
+// bundled-decoder seam: REAL QR pixels through a fake canvas 2D context
+// ---------------------------------------------------------------------------
+
+/** A rasterized REAL QR code (RGBA pixels) — the frame a camera would see. */
+interface QrFrame {
+  readonly data: Uint8ClampedArray;
+  readonly width: number;
+  readonly height: number;
+}
+
+const QR_MODULE_PX = 8; // rendered pixels per QR module (crisp, fast decode)
+const QR_QUIET_MODULES = 4; // the quiet zone the QR spec requires
+
+/** Rasterize a REAL QR for `payload` — white paper, black modules, RGBA. */
+function rasterizeQrFrame(payload: string): QrFrame {
+  const qr = qrcode.create(payload, { errorCorrectionLevel: "M" });
+  const moduleCount = qr.modules.size;
+  const bits = qr.modules.data;
+  const dim = (moduleCount + QR_QUIET_MODULES * 2) * QR_MODULE_PX;
+  const data = new Uint8ClampedArray(dim * dim * 4);
+  for (let i = 0; i < data.length; i += 4) {
+    data[i] = 255;
+    data[i + 1] = 255;
+    data[i + 2] = 255;
+    data[i + 3] = 255;
+  }
+  for (let row = 0; row < moduleCount; row += 1) {
+    for (let col = 0; col < moduleCount; col += 1) {
+      if (bits[row * moduleCount + col] === 0) continue;
+      for (let dy = 0; dy < QR_MODULE_PX; dy += 1) {
+        const y = (row + QR_QUIET_MODULES) * QR_MODULE_PX + dy;
+        for (let dx = 0; dx < QR_MODULE_PX; dx += 1) {
+          const x = (col + QR_QUIET_MODULES) * QR_MODULE_PX + dx;
+          const idx = (y * dim + x) * 4;
+          data[idx] = 0;
+          data[idx + 1] = 0;
+          data[idx + 2] = 0;
+          data[idx + 3] = 255;
+        }
+      }
+    }
+  }
+  return { data, width: dim, height: dim };
+}
+
+interface CanvasFrameSeam {
+  /** Attach a REAL rasterized QR to a video element (its "camera frames"). */
+  readonly attach: (video: HTMLVideoElement, frame: QrFrame) => void;
+  /** How many frames the bundled decoder pulled out of the canvas. */
+  readonly getImageDataCalls: () => number;
+}
+
+/**
+ * The bundled-decoder seam: jsdom ships no canvas rasterizer, so patch
+ * getContext("2d") with a fake context whose drawImage(video) records the
+ * source and whose getImageData() surfaces the REAL QR attached to it. The
+ * bundled jsQR decoder then decodes GENUINE pixels end-to-end.
+ */
+function installCanvasFrameSeam(): CanvasFrameSeam {
+  const frames = new WeakMap<HTMLVideoElement, QrFrame>();
+  let getImageDataCalls = 0;
+  const proto = HTMLCanvasElement.prototype as unknown as {
+    getContext: (type: string, options?: unknown) => unknown;
+  };
+  const originalGetContext = proto.getContext;
+  proto.getContext = function patchedGetContext(
+    this: HTMLCanvasElement,
+    type: string,
+    options?: unknown,
+  ): unknown {
+    if (type !== "2d") return originalGetContext.call(this, type, options);
+    let drawn: HTMLVideoElement | null = null;
+    return {
+      drawImage: (source: HTMLVideoElement): void => {
+        drawn = source;
+      },
+      getImageData: (sx: number, sy: number, sw: number, sh: number): QrFrame => {
+        getImageDataCalls += 1;
+        const video = drawn;
+        if (video === null) throw new Error("canvas frame seam: getImageData() before drawImage()");
+        const frame = frames.get(video);
+        if (frame === undefined) throw new Error("canvas frame seam: drawn video carries no attached QR frame");
+        if (sx !== 0 || sy !== 0 || sw !== frame.width || sh !== frame.height) {
+          throw new Error(`canvas frame seam: unexpected rect ${sw}x${sh} for a ${frame.width}x${frame.height} frame`);
+        }
+        return frame;
+      },
+    };
+  };
+  seamCleanups.push(() => {
+    proto.getContext = originalGetContext;
+  });
+  return {
+    attach: (video, frame) => {
+      frames.set(video, frame);
+    },
+    getImageDataCalls: () => getImageDataCalls,
+  };
+}
+
+/**
+ * Prime the <video> for the BUNDLED decoder path: frame ready + the geometry
+ * of a REAL rasterized QR attached through the canvas frame seam.
+ */
+function primeFallbackVideo(
+  container: HTMLElement,
+  canvasSeam: CanvasFrameSeam,
+  payload: string,
+): HTMLVideoElement {
+  const video = primeScanVideo(container);
+  const frame = rasterizeQrFrame(payload);
+  canvasSeam.attach(video, frame);
+  Object.defineProperty(video, "videoWidth", { value: frame.width, configurable: true });
+  Object.defineProperty(video, "videoHeight", { value: frame.height, configurable: true });
   return video;
 }
 
@@ -359,18 +495,60 @@ describe("physical-store (J16) — camera/QR scan: user-initiated, local-only", 
     await waitForText(rendered.container, "Capture looked-up count — Sourdough loaf (sliced) (28 on the tag)");
   });
 
-  it("unsupported (no BarcodeDetector): honest unsupported state and the hardware is NEVER requested", async () => {
+  it("no native BarcodeDetector: the bundled jsQR fallback decodes a REAL QR locally, decode → capture completes", async () => {
+    const seam = installCameraSeam({
+      detectBehavior: () => Promise.resolve([]), // the native stub is never installed
+      installDetector: false,
+    });
+    const canvasSeam = installCanvasFrameSeam();
+    rendered = await mount();
+    primeFallbackVideo(rendered.container, canvasSeam, COFFEE_PAYLOAD);
+    await clickScanButton(rendered.container, START);
+    await waitForScanState(rendered.container, "scanning");
+    // the honest surface copy: native when present, otherwise the bundled local decoder
+    expect(textOf(rendered.container)).toContain("bundled jsQR decoder");
+    // a local decoder IS available → the hardware is requested after the click
+    expect(seam.getUserMediaCalls()).toBe(1);
+    expect(seam.recordedConstraints).toEqual([{ video: { facingMode: "environment" } }]);
+    await waitForScanState(rendered.container, "decoded");
+    // jsQR genuinely decoded the drawn QR — the native detector was never consulted
+    expect(seam.detectCalls()).toBe(0);
+    expect(canvasSeam.getImageDataCalls()).toBeGreaterThan(0);
+    expect(textOf(rendered.container)).toContain(COFFEE_PAYLOAD);
+    // decode → capture completes through the SAME confirm-gated local workflow
+    clickButton(rendered.container, "Capture scanned count — House blend coffee, 500g (15 on the tag)");
+    await waitForText(rendered.container, "Before this commits");
+    clickButton(rendered.container, "Capture now");
+    // coffee 15 vs 18 on hand → variance -3 beyond ±2 → held, never a silent promotion
+    await waitForText(rendered.container, "variance -3");
+    expect(textOf(rendered.container)).toContain("DISCREPANCY_HOLD");
+    expect(textOf(rendered.container)).toContain("Counted 15 × sku-phys-coffee via camera QR scan (local decode)");
+    // the camera stopped the moment the code was read, then returned to idle
+    expect(seam.trackStopCalls()).toBe(1);
+    expect(scanStateOf(rendered.container)).toBe("idle");
+    // network tripwire: the bundled decode + capture emitted nothing
+    expect(tripwire?.counts()).toEqual({ fetch: 0, xhr: 0, beacon: 0 });
+  });
+
+  it("bundled fallback, foreign QR: honest not-recognized state, nothing captured, camera stopped", async () => {
     const seam = installCameraSeam({
       detectBehavior: () => Promise.resolve([]),
       installDetector: false,
     });
+    const canvasSeam = installCanvasFrameSeam();
     rendered = await mount();
+    primeFallbackVideo(rendered.container, canvasSeam, "foreign-label:not-in-the-demo:7");
     await clickScanButton(rendered.container, START);
-    await waitForScanState(rendered.container, "unsupported");
+    await waitForScanState(rendered.container, "not-recognized");
     const text = textOf(rendered.container);
-    expect(text).toContain("This browser does not expose the native BarcodeDetector API");
-    // no local decoder → no camera activation at all
-    expect(seam.getUserMediaCalls()).toBe(0);
+    expect(text).toContain('The decoded code "foreign-label:not-in-the-demo:7" is not one of this demo');
+    // the REAL foreign QR was decoded locally (then honestly rejected by the lookup)
+    expect(canvasSeam.getImageDataCalls()).toBeGreaterThan(0);
+    expect(seam.getUserMediaCalls()).toBe(1);
+    // nothing was captured and the camera is stopped
+    expect(seam.trackStopCalls()).toBe(1);
+    expect(text).toContain("on hand 30");
+    expect(rendered.container.querySelector('[data-testid="cm-store-scan-captured"]')).toBeNull();
     expect(text).toContain("Use manual code entry instead — no camera needed, fully keyboard-accessible.");
   });
 
