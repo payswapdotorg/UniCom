@@ -1,0 +1,109 @@
+{
+  "schema": "w3-018-lane-evidence/1",
+  "capturedAt": "2026-10-11T18:07:07.775Z",
+  "steps": [
+    {
+      "step": "01-roles-held",
+      "outcome": "PASS",
+      "label": "merchant role held + emphasized",
+      "checks": []
+    },
+    {
+      "step": "02-live-facts-panel",
+      "outcome": "PASS",
+      "label": "the live-facts panel renders on J15 (facts provider present)",
+      "checks": [
+        {
+          "label": "cm-live-facts-panel rendered: 1",
+          "ok": true
+        },
+        {
+          "label": "section title renders",
+          "ok": true
+        },
+        {
+          "label": "provenance labelled committed-fixture",
+          "ok": true
+        },
+        {
+          "label": "sub-entrypoint named on-surface",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "03-fact-rows",
+      "outcome": "PASS",
+      "label": "the serialized fact rows render (browser receives facts, never the runtime)",
+      "checks": [
+        {
+          "label": "connector row (Shopify)",
+          "ok": true
+        },
+        {
+          "label": "lifecycle row (registered)",
+          "ok": true
+        },
+        {
+          "label": "health row (status/last checked)",
+          "ok": true
+        },
+        {
+          "label": "safe journey row (correlation)",
+          "ok": true
+        },
+        {
+          "label": "mode telemetry row (unknown/failed-recoverable counters)",
+          "ok": true
+        },
+        {
+          "label": "capabilities row (PASS_THROUGH_NATIVE)",
+          "ok": true
+        },
+        {
+          "label": "vault audit row (0 credential(s) sealed)",
+          "ok": true
+        },
+        {
+          "label": "provider tripwire (0 provider HTTP call(s))",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "04-add-not-replace",
+      "outcome": "PASS",
+      "label": "ADD, not replace: the committed record + honest boundary + Node runtime section unchanged",
+      "checks": [
+        {
+          "label": "honest boundary text never removed (panel)",
+          "ok": true
+        },
+        {
+          "label": "the panel ADDS to the committed record (panel text)",
+          "ok": true
+        },
+        {
+          "label": "no credential material crosses the boundary (panel text)",
+          "ok": true
+        },
+        {
+          "label": "Node runtime section still renders (page)",
+          "ok": true
+        },
+        {
+          "label": "safe-exercise section still renders (page)",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "05-console-zero-errors",
+      "outcome": "PASS",
+      "label": "console zero-error check (0 errors)",
+      "checks": []
+    }
+  ],
+  "killSwitchNote": "The kill-switch disabled state (RUNTIME_FACTS_LIVE_ENABLED = false → useCommittedRuntimeFacts returns null → no panel, committed record unchanged) is covered by the module's vitest suite (live-facts.test.tsx: the hook's null-when-off contract + the gated render facts !== null ? <LiveFactsPanel/> : null) — the switch is a module-level constant, so a single build cannot render both states; recorded as a note per the honest-evidence law (the W2-015 precedent).",
+  "browserCleanNote": "The live render IS the browser-clean proof at runtime: the page bundles only serialized facts — the web graph imports @unicom/experience/runtime-browser TYPE-ONLY (erased at compile), the static module-graph purity test (experience/test/runtime-browser-purity.test.ts) proves zero node: specifiers + zero adapter/vault runtime imports in the sub-entrypoint graph, and this capture's zero-error console proves the served graph loads clean in a real Chromium."
+}

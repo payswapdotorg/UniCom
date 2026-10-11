@@ -1,0 +1,336 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+Roles & permissions
+
+One user, several roles. Holding a role grants its permissions; the emphasized role only changes what the surfaces put in front of you — it never switches your identity, and your scenario (Harbor Lane Print Studio, intent draft) is preserved across every switch.
+
+Emphasized role: none (all held roles weighted equally)
+
+Buying
+Buyer
+
+Shops for their own needs: describes intent, compares plans, joins group deals, rents, trades.
+
+✓ intent.create
+✓ intent.see-plan-options
+✓ offers.compare
+✓ groupbuy.express-interest
+· groupbuy.review-proposal
+✓ rental.request
+✓ resale.list-own-items
+✓ tradecycle.consent-leg
+✓ opportunities.view
+· storefront.manage
+· orders.process
+· procurement.request-quotes
+· procurement.approve-po
+· receiving.receive-delivery
+· receiving.count-stock
+· finance.view-settlements
+· finance.approve-refund
+· trust.review-disputes
+· support.handle-recourse
+✓ twin.run-what-if
+· connectors.manage
+✓ system.view-demo-fixtures
+Emphasize
+Requester
+
+Raises purchase requests for a team or firm without approval authority of their own.
+
+✓ intent.create
+✓ intent.see-plan-options
+✓ offers.compare
+· groupbuy.express-interest
+· groupbuy.review-proposal
+· rental.request
+· resale.list-own-items
+· tradecycle.consent-leg
+✓ opportunities.view
+· storefront.manage
+· orders.process
+· procurement.request-quotes
+· procurement.approve-po
+· receiving.receive-delivery
+· receiving.count-stock
+· finance.view-settlements
+· finance.approve-refund
+· trust.review-disputes
+· support.handle-recourse
+· twin.run-what-if
+· connectors.manage
+✓ system.view-demo-fixtures
+Emphasize
+Selling
+Merchant
+
+Runs the storefront: catalog, pricing, checkout, orders, channels and customer-facing group-buy proposals.
+
+· intent.create
+· intent.see-plan-options
+· offers.compare
+· groupbuy.express-interest
+✓ groupbuy.review-proposal
+· rental.request
+· resale.list-own-items
+· tradecycle.consent-leg
+✓ opportunities.view
+✓ storefront.manage
+✓ orders.process
+· procurement.request-quotes
+· procurement.approve-po
+· receiving.receive-delivery
+· receiving.count-stock
+· finance.view-settlements
+· finance.approve-refund
+· trust.review-disputes
+· support.handle-recourse
+✓ twin.run-what-if
+✓ connectors.manage
+✓ system.view-demo-fixtures
+Emphasize
+Store operator
+
+Operates day-to-day selling including in-person checkout and shelf workflows.
+
+· intent.create
+· intent.see-plan-options
+· offers.compare
+· groupbuy.express-interest
+· groupbuy.review-proposal
+· rental.request
+· resale.list-own-items
+· tradecycle.consent-leg
+· opportunities.view
+✓ storefront.manage
+✓ orders.process
+· procurement.request-quotes
+· procurement.approve-po
+· receiving.receive-delivery
+✓ receiving.count-stock
+· finance.view-settlements
+· finance.approve-refund
+· trust.review-disputes
+· support.handle-recourse
+· twin.run-what-if
+· connectors.manage
+✓ system.view-demo-fixtures
+Emphasize
+Supply
+Procurement
+
+Sources from suppliers: requests quotes and moves purchase orders through approvals.
+
+· intent.create
+· intent.see-plan-options
+✓ offers.compare
+· groupbuy.express-interest
+· groupbuy.review-proposal
+· rental.request
+· resale.list-own-items
+· tradecycle.consent-leg
+✓ opportunities.view
+· storefront.manage
+· orders.process
+✓ procurement.request-quotes
+· procurement.approve-po
+· receiving.receive-delivery
+· receiving.count-stock
+· finance.view-settlements
+· finance.approve-refund
+· trust.review-disputes
+· support.handle-recourse
+· twin.run-what-if
+· connectors.manage
+✓ system.view-demo-fixtures
+Emphasize
+Receiving
+
+Receives deliveries, counts stock and reconciles observations before canonical updates.
+
+· intent.create
+· intent.see-plan-options
+· offers.compare
+· groupbuy.express-interest
+· groupbuy.review-proposal
+· rental.request
+· resale.list-own-items
+· tradecycle.consent-leg
+· opportunities.view
+· storefront.manage
+· orders.process
+· procurement.request-quotes
+· procurement.approve-po
+✓ receiving.receive-delivery
+✓ receiving.count-stock
+· finance.view-settlements
+· finance.approve-refund
+· trust.review-disputes
+· support.handle-recourse
+· twin.run-what-if
+· connectors.manage
+✓ system.view-demo-fixtures
+Emphasize
+Finance
+Finance
+
+Sees settlements and payment states with unknowns preserved, and approves refunds within policy.
+
+· intent.create
+· intent.see-plan-options
+· offers.compare
+· groupbuy.express-interest
+· groupbuy.review-proposal
+· rental.request
+· resale.list-own-items
+· tradecycle.consent-leg
+· opportunities.view
+· storefront.manage
+· orders.process
+· procurement.request-quotes
+· procurement.approve-po
+· receiving.receive-delivery
+· receiving.count-stock
+✓ finance.view-settlements
+✓ finance.approve-refund
+· trust.review-disputes
+· support.handle-recourse
+· twin.run-what-if
+· connectors.manage
+✓ system.view-demo-fixtures
+Emphasize
+Approver
+
+Grants or denies approvals for purchase orders and material decisions.
+
+· intent.create
+· intent.see-plan-options
+· offers.compare
+· groupbuy.express-interest
+✓ groupbuy.review-proposal
+· rental.request
+· resale.list-own-items
+· tradecycle.consent-leg
+· opportunities.view
+· storefront.manage
+✓ orders.process
+· procurement.request-quotes
+✓ procurement.approve-po
+· receiving.receive-delivery
+· receiving.count-stock
+· finance.view-settlements
+· finance.approve-refund
+· trust.review-disputes
+· support.handle-recourse
+· twin.run-what-if
+· connectors.manage
+✓ system.view-demo-fixtures
+Emphasize
+Trust & support
+Trust & safety
+
+Reviews disputes, threat evidence and proof levels; keeps security decisions auditable.
+
+· intent.create
+· intent.see-plan-options
+· offers.compare
+· groupbuy.express-interest
+· groupbuy.review-proposal
+· rental.request
+· resale.list-own-items
+· tradecycle.consent-leg
+· opportunities.view
+· storefront.manage
+· orders.process
+· procurement.request-quotes
+· procurement.approve-po
+· receiving.receive-delivery
+· receiving.count-stock
+✓ finance.view-settlements
+· finance.approve-refund
+✓ trust.review-disputes
+· support.handle-recourse
+· twin.run-what-if
+· connectors.manage
+✓ system.view-demo-fixtures
+Emphasize
+Support
+
+Handles customer recourse: returns, refunds within bands, escalations.
+
+· intent.create
+· intent.see-plan-options
+· offers.compare
+· groupbuy.express-interest
+· groupbuy.review-proposal
+· rental.request
+· resale.list-own-items
+· tradecycle.consent-leg
+· opportunities.view
+· storefront.manage
+✓ orders.process
+· procurement.request-quotes
+· procurement.approve-po
+· receiving.receive-delivery
+· receiving.count-stock
+· finance.view-settlements
+· finance.approve-refund
+· trust.review-disputes
+✓ support.handle-recourse
+· twin.run-what-if
+· connectors.manage
+✓ system.view-demo-fixtures
+Emphasize
+Effective permissions (union of held roles)
+
+0 of 22 granted. Not granted are listed with the roles that would grant them.
+
+✗ intent.create — held by buyer, requester
+✗ intent.see-plan-options — held by buyer, requester
+✗ offers.compare — held by buyer, requester, procurement
+✗ groupbuy.express-interest — held by buyer
+✗ groupbuy.review-proposal — held by merchant, approver
+✗ rental.request — held by buyer
+✗ resale.list-own-items — held by buyer
+✗ tradecycle.consent-leg — held by buyer
+✗ opportunities.view — held by buyer, requester, merchant, procurement
+✗ storefront.manage — held by merchant, store-operator
+✗ orders.process — held by merchant, store-operator, approver, support
+✗ procurement.request-quotes — held by procurement
+✗ procurement.approve-po — held by approver
+✗ receiving.receive-delivery — held by receiving
+✗ receiving.count-stock — held by store-operator, receiving
+✗ finance.view-settlements — held by finance, trust
+✗ finance.approve-refund — held by finance
+✗ trust.review-disputes — held by trust
+✗ support.handle-recourse — held by support
+✗ twin.run-what-if — held by buyer, merchant
+✗ connectors.manage — held by merchant
+✗ system.view-demo-fixtures — held by buyer, requester, merchant, store-operator, procurement, receiving, finance, approver, trust, support
+Sample gated actions
+
+Try these: unauthorized actions are visibly blocked with the reason — they are never hidden, and never silently enabled.
+
+Approve a refund within policy
+Blocked: requires finance.approve-refund. Held by Finance. You currently hold: no role.
+Review a dispute with evidence
+Blocked: requires trust.review-disputes. Held by Trust & safety. You currently hold: no role.
+Approve a purchase order
+Blocked: requires procurement.approve-po. Held by Approver. You currently hold: no role.
+Connect a sales channel
+Blocked: requires connectors.manage. Held by Merchant. You currently hold: no role.
+Scenario preserved across switches
+
+Firm: Harbor Lane Print Studio (small, specialty printing). Intent draft: “Need 40 boxes of A3 recycled card stock within 2 weeks, budget around 480, seller must accept returns.”
+
+Switch roles above — this card keeps its values. Emphasis changes; identity and scenario do not.
+
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

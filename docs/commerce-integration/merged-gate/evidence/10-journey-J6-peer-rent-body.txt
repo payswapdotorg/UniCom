@@ -1,0 +1,121 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module peer-rent
+owner lane W2-012
+status ready
+J6 · Rent or borrow vs buy
+DEMO
+
+For gear you use occasionally, renting keeps cash free. Every offer below shows its duration terms, availability (with freshness), deposit, condition, return, damage and recourse terms BEFORE you request anything. The rental lifecycle panel runs on the deterministic commerce runtime (rentalTransition / depositReturn) — exact money, preserved states (OVERDUE is not a failure).
+
+Buy-vs-rent reference (the printer): buying costs 2400.00 USD once; renting at 95.00 USD/week breaks even after 25 weeks — you print twice a month (demo arithmetic).
+
+Rental & borrow offers
+Wide-format A1 printer (borrow-adjacent: includes 2 ink sets)
+DEMO
+selected
+
+Owner: Meridian Office Supply (equipment desk)
+
+Condition: LIKE_NEW
+
+Rate: 95.00 USD / week
+
+Deposit: 480.00 USD
+
+Availability: Available from Oct 14 for 2–6 weeks (owner calendar, demo). (from 2026-10-14T00:00:00Z)
+
+verified
+checked 2026-10-12T08:45:00Z
+
+Return: Return by the agreed end date, packaged as received; late returns become OVERDUE (a preserved state) and the weekly rate keeps accruing.
+
+Damage policy: Fair wear is covered; damage beyond wear is settled from the deposit with an itemized deduction you can dispute.
+
+Recourse: Disputes go to the support lane's recourse flow (trust & safety surfaces); demo mode never moves money.
+
+Selected for the flow below
+Studio paper cutter (heavy duty)
+DEMO
+
+Owner: Two Harbors Design (peer studio)
+
+Condition: GOOD
+
+Rate: 28.00 USD / week
+
+Deposit: 60.00 USD
+
+Availability: Available Oct 18 onward for 1–4 weeks (peer calendar, demo). (from 2026-10-18T00:00:00Z)
+
+stale
+checked 2026-10-10T13:20:00Z
+
+Return: Return in person at the studio; the peer checks condition with you present.
+
+Damage policy: Wear deduction agreed up front at 500 bps of the deposit for blade wear; anything above is itemized.
+
+Recourse: Peer-to-peer: mediated by the trust lane's dispute flow if condition disagrees.
+
+Select this offer
+Photography light kit (3 heads + stands)
+DEMO
+
+Owner: Northlight Atelier (peer studio)
+
+Condition: FAIR
+
+Rate: 18.00 USD / week
+
+Deposit: 90.00 USD
+
+Availability: Availability UNKNOWN — the atelier has not confirmed the return of a prior borrower (feed unanswered). (from 2026-10-13T00:00:00Z)
+
+UNKNOWN
+checked 2026-10-11T18:00:00Z
+
+Return: Return terms UNKNOWN until the owner confirms availability.
+
+Damage policy: Damage policy UNKNOWN — do not treat silence as 'no deposit kept'.
+
+Recourse: No recourse terms exist yet; this offer cannot be requested until the owner answers.
+
+Blocked: availability is UNKNOWN (the owner has not answered). Requesting a rental against an unknown calendar would fake a live outcome — pick another offer or wait for the owner's answer.
+
+Rental lifecycle — Wide-format A1 printer (borrow-adjacent: includes 2 ink sets)
+DEMO
+RETURNED
+
+This panel advances a REAL rental agreement through the deterministic commerce state machine. The states are the runtime's own (REQUESTED, ACTIVE, OVERDUE, RETURNED, COMPLETED, CANCELLED); OVERDUE is a preserved state — never a failure. Nothing here reaches a canonical ledger: demo controls only.
+
+Agreement: w2r-agreement-w2r-01 · revision 3 (runtime-tracked)
+
+State: RETURNED — the runtime's own state
+
+Rate / deposit: 95.00 USD per period · deposit 480.00 USD
+
+no wear — full deposit back
+fair wear — 500 bps deduction (agreed in the offer's damage policy)
+damage beyond wear — 2500 bps itemized deduction (disputable via recourse)
+Deposit settlement (depositReturn, exact math)
+DEMO
+
+Wear deduction: 500 bps — fair wear — 500 bps deduction (agreed in the offer's damage policy)
+
+Refunded to you: 456.00 USD
+
+Withheld by the owner: 24.00 USD
+
+Dispute path: You can dispute an itemized withholding via the trust lane's recourse surface — not wired in demo mode.
+
+Complete the rental (runtime COMPLETE)
+Reset the demo agreement
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

@@ -1,0 +1,153 @@
+apps/zcode-cli                           |  WARN  Unsupported engine: wanted: {"node":"24.14.0"} (current: {"node":"v24.21.0","pnpm":"10.33.2"})
+
+> @zcode/web@ dev /home/z/UniCom/packages/web
+> vite --port 5199 --strictPort
+
+
+  VITE v8.0.8  ready in 513 ms
+
+  ➜  Local:   http://localhost:5199/
+  ➜  Network: use --host to expose
+4:28:29 PM [vite] (client) [optimizer] scanning dependencies...
+4:28:32 PM [vite] (client) [optimizer] bundling dependencies...
+Killed
+/home/z/UniCom/packages/web:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @zcode/web@ dev: `vite --port 5199 --strictPort`
+Exit status 137
+apps/zcode-cli                           |  WARN  Unsupported engine: wanted: {"node":"24.14.0"} (current: {"node":"v24.21.0","pnpm":"10.33.2"})
+
+> @zcode/web@ dev /home/z/UniCom/packages/web
+> vite --port 5199 --strictPort
+
+
+  VITE v8.0.8  ready in 826 ms
+
+  ➜  Local:   http://localhost:5199/
+  ➜  Network: use --host to expose
+4:30:45 PM [vite] (client) [optimizer] scanning dependencies...
+4:30:50 PM [vite] (client) [optimizer] bundling dependencies...
+Killed
+/home/z/UniCom/packages/web:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @zcode/web@ dev: `vite --port 5199 --strictPort`
+Exit status 137
+apps/zcode-cli                           |  WARN  Unsupported engine: wanted: {"node":"24.14.0"} (current: {"node":"v24.21.0","pnpm":"10.33.2"})
+
+> @zcode/web@ dev /home/z/UniCom/packages/web
+> vite --port 5199 --strictPort
+
+
+  VITE v8.0.8  ready in 897 ms
+
+  ➜  Local:   http://localhost:5199/
+  ➜  Network: use --host to expose
+4:35:08 PM [vite] (client) [optimizer] scanning dependencies...
+4:35:14 PM [vite] (client) [optimizer] bundling dependencies...
+Killed
+/home/z/UniCom/packages/web:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @zcode/web@ dev: `vite --port 5199 --strictPort`
+Exit status 137
+apps/zcode-cli                           |  WARN  Unsupported engine: wanted: {"node":"24.14.0"} (current: {"node":"v24.21.0","pnpm":"10.33.2"})
+
+> @zcode/web@ dev /home/z/UniCom/packages/web
+> vite --port 5199 --strictPort
+
+
+  VITE v8.0.8  ready in 489 ms
+
+  ➜  Local:   http://localhost:5199/
+  ➜  Network: use --host to expose
+4:49:27 PM [vite] http proxy error: /api/server-info
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1430:18)
+    at afterConnectMultiple (node:net:2099:7)
+4:49:27 PM [vite] ws proxy error:
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1430:18)
+    at afterConnectMultiple (node:net:2099:7)
+/home/z/UniCom/packages/web:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @zcode/web@ dev: `vite --port 5199 --strictPort`
+Command failed with signal "SIGTERM"
+apps/zcode-cli                           |  WARN  Unsupported engine: wanted: {"node":"24.14.0"} (current: {"node":"v24.21.0","pnpm":"10.33.2"})
+
+> @zcode/web@ dev /home/z/UniCom/packages/web
+> vite --port 5199 --strictPort
+
+
+  VITE v8.0.8  ready in 572 ms
+
+  ➜  Local:   http://localhost:5199/
+  ➜  Network: use --host to expose
+4:50:15 PM [vite] http proxy error: /api/server-info
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1430:18)
+    at afterConnectMultiple (node:net:2099:7)
+4:50:15 PM [vite] ws proxy error:
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1430:18)
+    at afterConnectMultiple (node:net:2099:7)
+/home/z/UniCom/packages/web:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @zcode/web@ dev: `vite --port 5199 --strictPort`
+Command failed with signal "SIGTERM"
+apps/zcode-cli                           |  WARN  Unsupported engine: wanted: {"node":"24.14.0"} (current: {"node":"v24.21.0","pnpm":"10.33.2"})
+
+> @zcode/web@ dev /home/z/UniCom/packages/web
+> vite --port 5199 --strictPort
+
+
+  VITE v8.0.8  ready in 576 ms
+
+  ➜  Local:   http://localhost:5199/
+  ➜  Network: use --host to expose
+6:07:46 PM [vite] http proxy error: /api/server-info
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1430:18)
+    at afterConnectMultiple (node:net:2099:7)
+6:07:46 PM [vite] ws proxy error:
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1430:18)
+    at afterConnectMultiple (node:net:2099:7)
+/home/z/UniCom/packages/web:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @zcode/web@ dev: `vite --port 5199 --strictPort`
+Command failed with signal "SIGTERM"
+apps/zcode-cli                           |  WARN  Unsupported engine: wanted: {"node":"24.14.0"} (current: {"node":"v24.21.0","pnpm":"10.33.2"})
+
+> @zcode/web@ dev /home/z/UniCom/packages/web
+> vite --port 5199 --strictPort
+
+
+  VITE v8.0.8  ready in 616 ms
+
+  ➜  Local:   http://localhost:5199/
+  ➜  Network: use --host to expose
+6:10:26 PM [vite] http proxy error: /api/server-info
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1430:18)
+    at afterConnectMultiple (node:net:2099:7)
+6:10:26 PM [vite] ws proxy error:
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1430:18)
+    at afterConnectMultiple (node:net:2099:7)
+/home/z/UniCom/packages/web:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @zcode/web@ dev: `vite --port 5199 --strictPort`
+Command failed with signal "SIGTERM"
+apps/zcode-cli                           |  WARN  Unsupported engine: wanted: {"node":"24.14.0"} (current: {"node":"v24.21.0","pnpm":"10.33.2"})
+
+> @zcode/web@ dev /home/z/UniCom/packages/web
+> vite --port 5199 --strictPort
+
+
+  VITE v8.0.8  ready in 611 ms
+
+  ➜  Local:   http://localhost:5199/
+  ➜  Network: use --host to expose
+6:13:09 PM [vite] http proxy error: /api/server-info
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1430:18)
+    at afterConnectMultiple (node:net:2099:7)
+6:13:09 PM [vite] ws proxy error:
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1430:18)
+    at afterConnectMultiple (node:net:2099:7)
+/home/z/UniCom/packages/web:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @zcode/web@ dev: `vite --port 5199 --strictPort`
+Command failed with signal "SIGTERM"

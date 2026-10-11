@@ -1,0 +1,122 @@
+{
+  "schema": "w2-015-lane-evidence/2",
+  "capturedAt": "2026-10-11T18:14:14.487Z",
+  "steps": [
+    {
+      "step": "01-roles-held",
+      "outcome": "PASS",
+      "label": "merchant role held + emphasized",
+      "checks": []
+    },
+    {
+      "step": "02-j5-formed-affordance",
+      "outcome": "PASS",
+      "label": "FORMED pool renders the linked-order-draft affordance",
+      "checks": [
+        {
+          "label": "FORMED section rendered",
+          "ok": true
+        },
+        {
+          "label": "cm-linking-draft-panel rendered: 1",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "03-draft-gate",
+      "outcome": "PASS",
+      "label": "the commitment gate rendered (terms/consequence/evidence)",
+      "checks": [
+        {
+          "label": "gate rendered",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "04-draft-recorded",
+      "outcome": "PASS",
+      "label": "linked order draft recorded (DEMO, no command issued)",
+      "checks": [
+        {
+          "label": "cm-linking-draft-recorded rendered: 1",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "05-j9-leg-affordance",
+      "outcome": "PASS",
+      "label": "walked to COMMITTED; the executed leg renders the per-leg linked-order-draft affordance",
+      "checks": [
+        {
+          "label": "ALL_LEGS_AUTHORIZED reached",
+          "ok": true
+        },
+        {
+          "label": "Cycle COMMITTED rendered",
+          "ok": true
+        },
+        {
+          "label": "per-leg affordance panels: 3",
+          "ok": true
+        },
+        {
+          "label": "provenance (source aggregate w2tc-cycle-a)",
+          "ok": true
+        },
+        {
+          "label": "provenance (TRADECYCLE_LEG_EXECUTED)",
+          "ok": true
+        },
+        {
+          "label": "prefill (ADD_CART_LINE)",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "06a-roles-cleared",
+      "outcome": "PASS",
+      "label": "no roles held before the permission check (visible cleared state)",
+      "checks": [
+        {
+          "label": "buyer data-held: false",
+          "ok": true
+        },
+        {
+          "label": "merchant data-held: false",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "06-no-role-block",
+      "outcome": "PASS",
+      "label": "no-role actor sees the honest permission-blocked state (denial names the holders)",
+      "checks": [
+        {
+          "label": "cm-permission-blocked rendered: 1",
+          "ok": true
+        },
+        {
+          "label": "denial names groupbuy.express-interest",
+          "ok": true
+        },
+        {
+          "label": "denial names the holders (Buyer)",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "07-console-zero-errors",
+      "outcome": "PASS",
+      "label": "console zero-error check (0 errors)",
+      "checks": []
+    }
+  ],
+  "v2Note": "v2 (17:5xZ): steps 05/06 re-specified to the real surface flows (walkToCommitted + the review-gate block) exactly as the vitest suites prove them; the 16:51Z v1 capture's 05/06 FAILs were capture-script drift, not implementation defects (the vitest suites for both surfaces were green on the same tree).",
+  "killSwitchNote": "The kill-switch disabled state ('linking disabled') is covered by the module's vitest suite (linking-draft.test.tsx) — LINKING_DRAFT_ENABLED is a module-level constant, so a single build cannot render both states; recorded as a note per the honest-evidence law."
+}
