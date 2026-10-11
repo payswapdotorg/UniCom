@@ -155,6 +155,7 @@ export class KernelState {
         return;
       case "GROUP_BUY":
       case "TRADE_CYCLE":
+      case "LINKED_DRAFT":
         this.executionFold.apply(event);
         return;
       default:

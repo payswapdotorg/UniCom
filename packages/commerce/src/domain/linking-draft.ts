@@ -27,18 +27,13 @@
  * false, both LINK commands refuse with the typed "linking disabled" error
  * (never a silent no-op).
  */
-import type { Brand } from "./ids.js";
+import type { LinkedDraftId } from "./ids.js";
 import type { GroupBuyAggregate } from "./groupbuy.js";
 import type { TradeCycleExecution } from "./tradecycle.js";
 import type { PrincipalRef } from "./principals.js";
 import { principalRefEquals } from "./principals.js";
 import { nextRevision } from "./events.js";
 import { err, ok, type Result } from "./result.js";
-
-// --- Branded id ---
-
-/** The typed id of a linked draft (kernel-truth, never a live order). */
-export type LinkedDraftId = Brand<string, "LinkedDraftId">;
 
 // --- Draft vocabulary ---
 
