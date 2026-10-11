@@ -1,0 +1,26 @@
+workflow=canonical-web-build
+run_id=38123005280 attempt=1 event=pull_request
+ref=refs/pull/13/merge
+commit_sha=4d4b205b9e906e06a947fbdc6ef4f4feb41efc8c
+job_started_utc=2026-10-11T07:55:32Z
+node_version=v24.21.0
+pnpm_version=10.33.2
+os=PRETTY_NAME="Ubuntu 24.04.5 LTS" NAME="Ubuntu" 
+nproc=4
+runner=GitHub Actions 1000024310 image=ubuntu24/20261004.327.1
+mem_available_mb_before=14671
+vite_version_web=8.0.8
+typescript_version=6.0.2
+BUILD_START_UTC=2026-10-11T07:56:11Z
+CANONICAL_BUILD_EXIT_CODE=0
+BUILD_END_UTC=2026-10-11T07:56:27Z
+sampler_datapoints=28
+sampler_end_utc=2026-10-11T07:56:28Z
+MEASURED_MEMORY_FLOOR_KB=10879868
+MEASURED_MEMORY_FLOOR_MB=10624
+MEMORY_FLOOR_AT_LEAST_3GB=yes
+DIST_FILE_COUNT=6200
+DIST_TOTAL_BYTES=136479625
+DIST_MAP_FILE_COUNT=2277
+SOURCEMAP_URL_COMMENTS=absent (hidden sourcemap posture confirmed)
+DIST_DETERMINISTIC_SHA256=899c570c0f950885b85e5b9bdd62cd8adff99f7a003e24cfc0ba3bca141d4120

@@ -43,7 +43,8 @@ the primary path chosen — exactly as the TL's dispatch log anticipated — is 
 | Manifest / digest | 6,200-line per-file SHA-256 manifest retained; deterministic whole-output digest `ccd620a9fcda25b084ccf8edf2e6ac9cf07fd38fb9ee1c4e92151829f6a57551` (repo's own `scripts/deterministic-tar-archive.mjs`) |
 | Warnings | 5 non-fatal classes (node-builtin externalization from the Node-only experience-runtime adapters — the known J15 boundary; `INEFFECTIVE_DYNAMIC_IMPORT`; chunk-size >500 kB; `PLUGIN_TIMINGS`; a pre-existing pnpm engine WARN: `apps/zcode-cli` pins exactly `node 24.14.0` vs runner 24.21.0 — root `engines >=24.0.0` satisfied, install continued, build unaffected) |
 | Artifacts | `canonical-build-evidence` (id 11696235500, 335,133 B): evidence-summary, build.log, memfloor.log, dist-manifest (90-day retention); **`dist/` never uploaded/committed** |
-| Raw logs retained | `docs/product-completion/build/logs/run-38122630570-*` (full job log 446 KB, build log 312 KB, memfloor 27 samples, evidence summary, dist manifest 620 KB) |
+| Raw logs retained | `docs/product-completion/build/logs/run-38122630570-*` (full job log 446 KB, build log 312 KB, memfloor 27 samples, evidence summary, dist manifest 620 KB) + run-2 summary/memfloor + cross-run diff |
+| Second run (reproducibility) | Run [`38123005280`](https://github.com/payswapdotorg/UniCom/actions/runs/38123005280) on final lane head `dec078b` (merge ref `4d4b205`): **success**, exit 0, floor **10,624 MB**, same 6,200 files / 136,479,625 bytes / 2,277 maps — **6,196/6,200 files byte-identical** across the two independent runners (only 4 `.js.map` files differ; JS/CSS bytes + chunk names stable; whole-output digest differs cross-run: `899c570c…4120` vs `ccd620a9…7551`) |
 
 ## 3. Workflow self-audit (build-only laws — quoted facts)
 
@@ -62,9 +63,12 @@ the primary path chosen — exactly as the TL's dispatch log anticipated — is 
 
 ## 4. Attempt history + honest gaps / limitations
 
-1. **One workflow iteration, one run, first-try success** — no workflow fixes
-   or re-runs were needed, so the attempt table in the canonical record has a
-   single row. Nothing was retried-away or hidden.
+1. **Two workflow runs, zero workflow fixes** — both first-attempt successes
+   (run 1 on the workflow commit's merge ref, run 2 auto-fired by the evidence
+   push on the final lane head). The attempt table in the canonical record has
+   two rows, both SUCCESS; nothing was retried-away or hidden. Docs-only pushes
+   re-trigger the PR workflow by design — every run is observable on the run
+   page.
 2. **The run is on the PR merge ref** (`6765511` = `438c961` + the docs-only
    base `558a4f0`), not on a merged-main commit. The lane was forbidden from
    merging; the definitive gate run on the final merged commit is the TL's
@@ -75,10 +79,16 @@ the primary path chosen — exactly as the TL's dispatch log anticipated — is 
    2026-10-10): the prior record's lineage predates the runtime-integration
    merge and this run includes it. Disclosed as lineage difference; no
    mechanism claimed.
-4. **Determinism across CI runs** is asserted by construction (deterministic
-   digest over bytes+sorted paths; content-stable `__ZCODE_VERSION__`), not by
-   a second observed run — only one run was needed. The TL may re-run via
-   `workflow_dispatch` after merge if a repeatability datapoint is wanted.
+4. **Cross-run output reproducibility is observed, not just asserted**: two
+   independent runners produced identical path sets, identical total byte
+   count and 6,196/6,200 byte-identical files; exactly 4 `.js.map` sourcemaps
+   differ between runs (their `.js` twins are byte-identical), so the
+   whole-output deterministic digest is run-sensitive. The mechanism of the
+   map volatility is plausible-but-unverified and **no mechanism is claimed**;
+   the differing entries are preserved in
+   `docs/product-completion/build/logs/cross-run-manifest-diff.txt`. A digest
+   comparison across runs must therefore use the per-file manifest (stable)
+   rather than the whole-output digest.
 5. **The pod's canonical-build blocker stands as recorded** — this lane did
    not (and could not) run the canonical build locally; the 13-attempt
    immutable record remains the local truth and CI is the canonical

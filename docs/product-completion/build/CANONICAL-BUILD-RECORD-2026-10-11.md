@@ -14,6 +14,9 @@ i.e. `vite build` under `packages/web/vite.config.ts`'s production posture with
 the work order's ≥3,072 MB (3 GB) requirement by 3.4×. The full output
 inventory, per-file SHA-256 manifest and deterministic whole-output digest are
 retained below; nothing about the build or its configuration was changed.
+A second run (final lane head, §4a) reproduced the result with a floor of
+**10,624 MB**, exit 0, and a byte-identical path set — 6,196/6,200 files
+byte-identical across the two independent runs.
 
 ## 2. Exact command, commit and environment
 
@@ -82,6 +85,43 @@ taken on the 2026-10-10 rendered-UI lineage; the module graph has since grown
 (runtime-integration + product-completion commits), and this run is on the PR
 merge ref. No further mechanism is claimed.
 
+## 4a. Cross-run reproducibility (second run `38123005280`)
+
+Pushing the evidence commit to the PR branch fired the workflow a second time
+(`pull_request` synchronize). Run
+[`38123005280`](https://github.com/payswapdotorg/UniCom/actions/runs/38123005280)
+on the final lane head `dec078b12ba953a48480bc848588808324f7091d` (merge ref
+`4d4b205b9e906e06a947fbdc6ef4f4feb41efc8c`, checked out as `GITHUB_SHA`;
+run started 2026-10-11T07:55:19Z, completed 07:56:42Z, attempt 1, conclusion
+**success**, all steps green) — a second, fully independent runner (runner id
+1000024310 vs 1000024307, same image `ubuntu24/20261004.327.1`):
+
+- Same toolchain (node v24.21.0, pnpm 10.33.2, vite 8.0.8, TypeScript 6.0.2),
+  same runner image, **exit code 0**, `✓ built in` ~15 s.
+- **Measured memory floor 10,624 MB** (min `MemAvailable` 10,879,868 kB over 28
+  samples; ≥3,072 MB met at 3.5×).
+- Output inventory **identical in shape**: 6,200 files, 136,479,625 bytes total
+  (byte-for-byte the same total), 2,277 `.map` files, no `sourceMappingURL`
+  references.
+- Per-file cross-run comparison (both 6,200-line manifests joined on path):
+  **6,196 of 6,200 files byte-identical (99.94 %)**. Exactly **4 files differ**
+  — all four `.js.map` sourcemaps (`index-8QYfF3oL.js.map`,
+  `pdf-viewer-dTT1arnd.js.map`, `previewPaneOfficeLegacyDocContent-guzpWPlW.js.map`,
+  `previewPaneOfficeXlsxContent-DU4V7AUs.js.map`), whose emitted `.js` twins
+  are byte-identical under the same content-hashed filenames. The differing
+  entries are preserved in `logs/cross-run-manifest-diff.txt`.
+- Consequently the **whole-output deterministic digest differs across runs**
+  (run 1 `ccd620a9…7551`, run 2 `899c570c…4120`): the digest is reproducible
+  for identical output but is sensitive to those 4 volatile map files. The
+  mechanism of the map volatility (e.g. map-internal ordering in sourcemap
+  generation) is **plausible but unverified** — no mechanism is claimed. All
+  emitted JS/CSS bytes and chunk names are stable across runs.
+
+Run 2's evidence summary and sampler log are retained as
+`logs/run-38123005280-evidence-summary.txt` / `-memfloor.log`; its full
+artifacts are `canonical-build-evidence` id `11695208912` (334,953 bytes zip,
+90-day retention) on the run page.
+
 ## 5. Warnings (all non-fatal; exit 0)
 
 From `logs/run-38122630570-build.log` and the job log, exactly:
@@ -118,10 +158,14 @@ changed by anyone — the workflow runs the repository's build script verbatim.
 | # | When (UTC) | What | Outcome |
 |---|---|---|---|
 | 1 | 2026-10-11 07:48:44Z | Workflow iteration 1 (branch commit `438c961`, PR #13 merge ref `6765511`): checkout → node 24 → corepack pnpm 10.33.2 → identity → sampler → `pnpm install --frozen-lockfile` → **`pnpm --filter @zcode/web build`** → sampler stop/floor → inventory → artifact upload | **SUCCESS** — run `38122630570`, all steps green, exit 0, floor 10,372 MB |
+| 2 | 2026-10-11 07:55:19Z | Same workflow (no changes), re-fired by the evidence-docs push (`pull_request` synchronize; head `dec078b`, merge ref `4d4b205`) | **SUCCESS** — run `38123005280`, all steps green, exit 0, floor 10,624 MB, output shape identical (§4a) |
 
-There was exactly **one** workflow iteration and **one** CI run: no workflow
-fixes, no retries, no re-runs were needed. (The prior **local** attempt history
-— 13 OOM-killed pod attempts — is the immutable record
+There were exactly **two** workflow runs on this lane — same workflow file,
+zero fixes/retries — both first-attempt successes. (Docs-only pushes to the PR
+branch re-trigger the workflow by design; every future run is observable on
+the run page and the TL's merge of PR #13 will fire the definitive one on
+`main` — see §10.) (The prior **local** attempt history — 13 OOM-killed pod
+attempts — is the immutable record
 `docs/rendered-ui/vite-build/VITE-PRODUCTION-BUILD-RECORD-2026-10-10.md` and is
 incorporated by reference in §7, not duplicated or rewritten here.)
 

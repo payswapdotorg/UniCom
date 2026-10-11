@@ -1,0 +1,12 @@
+# Cross-run manifest diff — run 38122630570 (head 438c961) vs run 38123005280 (head dec078b)
+# Both runs: PR #13 merge refs, exit 0, 6,200 files, 136,479,625 bytes total.
+# Path sets identical (6,200/6,200). Files with differing SHA-256: 4 of 6,200 (0.06%).
+# All four are .js.map sourcemaps; their emitted .js twins are byte-identical with
+# the same content-hashed filenames. Whole-output deterministic digests therefore differ
+# cross-run: ccd620a9fcda25b084ccf8edf2e6ac9cf07fd38fb9ee1c4e92151829f6a57551 vs 899c570c0f950885b85e5b9bdd62cd8adff99f7a003e24cfc0ba3bca141d4120.
+# Format: path  run1-sha256  run2-sha256
+
+./assets/index-8QYfF3oL.js.map e1ca4b8ae2c1bd93c13111bb5069482e2c1e2c49670f7445e4fb8f946785abff ddca5af193353642a298aab6bd51260f482fd08f91850a6b084f4422731aaac7
+./assets/pdf-viewer-dTT1arnd.js.map 2255cfd5cb3e3e8a4e9cfad1bbb199b223aa1592596acc6ba8292257f5ae872e f9a161fff115d820361ed7d655edb60185884ed8aca5e8ee39cbe081ff397836
+./assets/previewPaneOfficeLegacyDocContent-guzpWPlW.js.map 0d60e25f9623c6fda73bf8d02e756b4c5e33a92b188de1e5f1125bafb1945113 5fadaf50c960e2542074fd4c9df77efe41d8e48f0db7161a2ab86a40e30c9c49
+./assets/previewPaneOfficeXlsxContent-DU4V7AUs.js.map 915713f83a9bdab518b48afd51d202915a4ad00a4de887e635b047fafa409440 2ca551256bc262c69402d999dfee68689292458d40c53844289c7972e911a7df
