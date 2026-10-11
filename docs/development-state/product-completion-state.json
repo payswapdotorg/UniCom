@@ -1,0 +1,171 @@
+{
+  "schema_version": "1.0",
+  "repository": "payswapdotorg/UniCom",
+  "program": "UNiCOM Product Completion & Build Readiness",
+  "status": "READY_FOR_TL_DISPATCH",
+  "tracking_issue": "https://github.com/payswapdotorg/UniCom/issues/12",
+  "tl_handoff": "docs/FINAL-TL-HANDOFF-PRODUCT-COMPLETION-2026-10-11.md",
+  "prior_phase_records_immutable": true,
+  "source_baseline": {
+    "runtime_integration_state": "docs/development-state/runtime-integration-state.json",
+    "runtime_integration_report": "docs/runtime-integration/FINAL-REPORT.md",
+    "inspected_runtime_baseline_commit": "1ae8bc0a228af7b5d2059c76be90a3d189e4cb76",
+    "note": "This is the inspected pre-handoff reference, not a claim that the repository HEAD has not advanced. TL must verify current HEAD before dispatch."
+  },
+  "architecture": {
+    "baseline": "1.1-frozen-2026-10-05",
+    "architecture_changes_authorized": false,
+    "implementation_within_frozen_architecture_authorized": true,
+    "permitted_dependency_paths": "web -> public @unicom/commerce contract.ts and web -> public @unicom/experience contract.ts/runtime/index.ts. experience -> commerce remains forbidden; web -> @unicom/agent remains forbidden.",
+    "production_deployment_authorized": false,
+    "production_mutation_allowed": false,
+    "live_named_provider_connection_authorized": false,
+    "human_research_authorized": false
+  },
+  "operator_directive": {
+    "source": "Operator request: 'what final handoff to the TL' (2026-10-11)",
+    "authorization_basis": "Prepare and hand off bounded, non-live product-completion work within the existing frozen architecture. This does not authorize architecture changes, commerce-plane linking, production deployment/mutation, live provider use or human research.",
+    "scope": "W1-013 canonical build evidence; W2-014 J12 B2B rendered-flow gaps; W3-017 J16 local camera/QR and accessible fallback; TL-owned decision packets only for gated integration questions."
+  },
+  "policy": {
+    "progress_authority": "docs/development-state/product-completion-state.json",
+    "maximum_workers": 3,
+    "tl_is_worker": false,
+    "dispatch_allowed": true,
+    "dispatch_gate": "Verify current default-branch HEAD and baseline before dispatch; no further chat authorization required for the three bounded non-live work orders in the handoff.",
+    "fixture_success_is_not_browser_success": true,
+    "synthetic_demo_data_must_be_labeled": true,
+    "no_live_commerce_side_effects": true,
+    "no_camera_media_transmission_or_persistence": true,
+    "preserve_unknown_not_failed": true,
+    "prior_failed_or_blocked_evidence_is_immutable": true,
+    "canonical_build_policy": "Canonical build PASS requires the unchanged canonical configuration to succeed with measured >=3 GB free memory. The prior --sourcemap false variant is not canonical-pass evidence."
+  },
+  "work_orders": [
+    {
+      "id": "W1-013",
+      "path": "docs/work-orders/W1-013.md",
+      "lane": "canonical-vite-production-build-evidence",
+      "owner": "worker-1",
+      "status": "READY_FOR_TL_DISPATCH",
+      "dependency": null,
+      "required_evidence": "Exact command/commit/tool versions, actual memory floor >=3 GB, runtime, duration, exit code, output inventory, hashes and immutable logs. Build-only workflow if needed; no deploy."
+    },
+    {
+      "id": "W2-014",
+      "path": "docs/work-orders/W2-014.md",
+      "lane": "j12-b2b-rendered-flow-completion",
+      "owner": "worker-2",
+      "status": "READY_FOR_TL_DISPATCH",
+      "dependency": "Existing public contracts; inspect gap map before editing; no shared-shell or kernel refactor.",
+      "required_evidence": "Contract-to-UI map; role/permission paths; lane tests; real-browser evidence of newly completed rendered interactions; visibly labeled demo/unavailable boundaries."
+    },
+    {
+      "id": "W3-017",
+      "path": "docs/work-orders/W3-017.md",
+      "lane": "j16-local-camera-qr-capture",
+      "owner": "worker-3",
+      "status": "READY_FOR_TL_DISPATCH",
+      "dependency": "Existing physical-store flow; any new QR-decoder dependency requires TL review; no new architecture edge.",
+      "required_evidence": "User-initiated camera flow; denied/unsupported/manual fallback; media-track cleanup; local decode; no image bytes over network or into storage/telemetry; browser evidence."
+    }
+  ],
+  "tl_owned_decision_packets": [
+    {
+      "id": "commerce_plane_linking",
+      "path": "docs/operator-decisions/commerce-plane-linking-decision-brief-2026-10-11.md",
+      "status": "PREPARE_OPTIONS_ONLY_OPERATOR_DECISION_REQUIRED",
+      "implementation_authorized": false,
+      "detail": "Consider safely linking formed GroupBuys/executed TradeCycles to downstream orders/payments/reservations/recourse. Preserve consent, actor authority, idempotency, rollback/compensation, UNKNOWN and explicit side-effect authorization."
+    },
+    {
+      "id": "j15_browser_safe_runtime_boundary",
+      "path": "docs/operator-decisions/j15-browser-safe-runtime-boundary-2026-10-11.md",
+      "status": "PREPARE_OPTIONS_ONLY_OPERATOR_DECISION_REQUIRED",
+      "implementation_authorized": false,
+      "detail": "Assess browser-safe connector runtime display while isolating Node-only code and respecting frozen public-entrypoint/module graph. No new sub-entrypoint/export until operator approval."
+    }
+  ],
+  "operator_decisions": [
+    {
+      "id": "production_deployment",
+      "status": "NOT_AUTHORIZED",
+      "required": true
+    },
+    {
+      "id": "live_named_provider_credentials_and_connection",
+      "status": "NOT_AUTHORIZED",
+      "required": true
+    },
+    {
+      "id": "human_research",
+      "status": "NOT_AUTHORIZED",
+      "required": true
+    },
+    {
+      "id": "commerce_plane_linking",
+      "status": "NOT_AUTHORIZED",
+      "required": true
+    },
+    {
+      "id": "j15_browser_safe_runtime_entrypoint",
+      "status": "NOT_AUTHORIZED",
+      "required": true
+    }
+  ],
+  "acceptance_gates": [
+    {
+      "id": "BASELINE",
+      "name": "Current default-branch head, clean baseline and frozen-architecture boundary verified",
+      "status": "PENDING"
+    },
+    {
+      "id": "BUILD",
+      "name": "Canonical production build succeeds with measured >=3 GB free memory and evidence",
+      "status": "PENDING"
+    },
+    {
+      "id": "J12_B2B",
+      "name": "Declared J12 interactive gaps closed within existing contracts and real-browser verified",
+      "status": "PENDING"
+    },
+    {
+      "id": "J16_CAMERA_QR",
+      "name": "Local camera/QR workflow and accessible fallback verified; no media transmission",
+      "status": "PENDING"
+    },
+    {
+      "id": "REGRESSION",
+      "name": "Relevant full test suite, lint, architecture check and scoped TypeScript checks pass",
+      "status": "PENDING"
+    },
+    {
+      "id": "BROWSER",
+      "name": "Merged real-Chromium gate passes with zero drift, full evidence pointers and valid manifest",
+      "status": "PENDING"
+    },
+    {
+      "id": "SAFETY",
+      "name": "Consent, role/actor authority, UNKNOWN semantics, idempotency, demo labeling and no-side-effect tripwires pass",
+      "status": "PENDING"
+    },
+    {
+      "id": "TL_ACCEPT",
+      "name": "Independent TL verification, final report, evidence manifests and current state updated",
+      "status": "PENDING"
+    }
+  ],
+  "active_work_orders": [],
+  "frontier": [
+    "canonical_vite_build_requires_suitable_environment_and_proof",
+    "j12_b2b_contract_only_or_demo_labelled_rendered_surfaces",
+    "j16_camera_qr_capture_registered_gap",
+    "commerce_plane_linking_requires_operator_decision",
+    "j15_browser_safe_runtime_sub_entrypoint_requires_operator_decision",
+    "live_named_provider_credentials_not_authorized",
+    "production_deployment_not_authorized",
+    "human_research_not_authorized"
+  ],
+  "closeout_rule": "Do not close issue #12 or report release readiness complete while the canonical build gate is blocked or unproven. Preserve blockers and evidence history without changing denominators to manufacture green status.",
+  "last_reviewed_at": "2026-10-11T07:09:53Z"
+}
