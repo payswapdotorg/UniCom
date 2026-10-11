@@ -40,7 +40,12 @@ import type { CommerceRoleId } from "../../commerce-host/contract/index.js";
 // the bundled-decoder tests. Imported by absolute path (it is NOT a
 // dependency of @zcode/web) and NEVER from packages/web/src/**.
 const nodeRequire = createRequire(import.meta.url);
-const qrcode = nodeRequire("/home/z/battery/w3-017/node_modules/qrcode") as {
+// 2026-10-11 merge-prep fix (TL, environment-repair class): the original
+// absolute worktree path (/home/z/battery/w3-017/node_modules/qrcode) only
+// resolved in the pre-recycle sandbox. Bare-specifier resolution through
+// createRequire walks up to the workspace root's hoisted tree at runtime
+// (qrcode remains NOT a declared dependency of @zcode/web).
+const qrcode = nodeRequire("qrcode") as {
   create: (
     text: string,
     options?: { readonly errorCorrectionLevel?: string },
