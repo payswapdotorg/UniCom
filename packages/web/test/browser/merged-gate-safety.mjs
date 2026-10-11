@@ -139,8 +139,8 @@ export function buildSafetyJ5MerchantStep(walkState, { outDir }) {
         rendered: body.includes("J5 · Merchant group-buy review") && body.includes("Incoming latent-demand proposals"),
         checks: [
           surfaceCheck(body, "accept/counter/reject desk rendered", "Incoming latent-demand proposals"),
-          surfaceCheck(body, "no-binding-effect label on the surface", "no binding effect"),
-          surfaceCheck(body, "decisions land in LOCAL DEMO STATE ONLY", "LOCAL DEMO STATE ONLY"),
+          surfaceCheck(body, "no-binding-effect label on the surface (runtime-integration phase: the desk creates no commitment, never overrides buyer consent)", "creates no commitment"),
+          surfaceCheck(body, "decisions are kernel-journaled (runtime-integration phase: local demo state superseded)", "kernel-journaled facts"),
           surfaceCheck(body, "counter option offered with full terms", "Counter at"),
           surfaceCheck(body, "rejection requires a recorded reason", "Reject with a recorded reason"),
           surfaceCheck(body, "threshold state visible before any decision", "below threshold — held in review"),

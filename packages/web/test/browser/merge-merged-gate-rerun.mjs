@@ -54,6 +54,18 @@ function intendedJourneys(manifest) {
   return ids;
 }
 
+/** Safety ids a re-run manifest actually targeted ("safety-<id>" tokens). */
+function intendedSafetyIds(manifest) {
+  const tokens = (manifest.selectedSteps ?? "").split(",").map((t) => t.trim()).filter(Boolean);
+  return tokens.filter((t) => /^safety-(.+)$/.test(t)).map((t) => t.slice("safety-".length));
+}
+
+/** Walk-step ids a re-run manifest actually targeted (non-journey/safety tokens). */
+function intendedWalkIds(manifest) {
+  const tokens = (manifest.selectedSteps ?? "").split(",").map((t) => t.trim()).filter(Boolean);
+  return tokens.filter((t) => !/^journey-/.test(t) && !/^safety-/.test(t) && t !== "explore-taxonomy-J19");
+}
+
 if ((original.selectedSteps ?? null) !== null) {
   console.error(`refusing to merge: the original manifest is itself a targeted probe (${original.selectedSteps})`);
   process.exit(2);
@@ -90,6 +102,72 @@ for (const { file, manifest } of reruns) {
     rerunLatest.set(journeyId, { attempt, record, manifest, manifestPath: file });
   }
 }
+
+// --- per-safety + per-walkStep merge (the same supersede law as journeys) --
+function mergeRerunTargets({ originalItems, key, intendedFor }) {
+  const attempts = new Map(); // key -> [attempt, ...]
+  const latest = new Map(); // key -> { attempt, record, manifest, manifestPath }
+  for (const { file, manifest } of reruns) {
+    for (const id of intendedFor(manifest)) {
+      const record = (manifest[key] ?? []).find((item) => item[key === "safetySlice" ? "safetyId" : "id"] === id);
+      if (!record) {
+        console.error(`re-run ${manifest.runId} intended ${id} but has no ${key} record for it`);
+        process.exit(2);
+      }
+      const attempt = {
+        runId: manifest.runId,
+        manifestPath: path.basename(file),
+        selectedSteps: manifest.selectedSteps,
+        startedAtUtc: manifest.timings?.startedAtUtc ?? null,
+        outcome: record.outcome,
+      };
+      if (!attempts.has(id)) attempts.set(id, []);
+      attempts.get(id).push(attempt);
+      latest.set(id, { attempt, record, manifest, manifestPath: file });
+    }
+  }
+  return (originalItems ?? []).map((originalRecord) => {
+    const id = originalRecord[key === "safetySlice" ? "safetyId" : "id"];
+    const rerun = latest.get(id);
+    if (!rerun) return { ...originalRecord, original: null, reRun: null, reRunHistory: [] };
+    const { record, manifest, manifestPath } = rerun;
+    return {
+      ...record,
+      original: {
+        outcome: originalRecord.outcome,
+        howReached: originalRecord.howReached,
+        screenshot: originalRecord.screenshot ?? null,
+        bodyEvidenceFile: originalRecord.bodyEvidenceFile ?? null,
+        consoleEvidenceFile: originalRecord.consoleEvidenceFile ?? null,
+        note: originalRecord.note ?? null,
+      },
+      reRun: {
+        runId: manifest.runId,
+        manifestPath: path.basename(manifestPath),
+        selectedSteps: manifest.selectedSteps,
+        startedAtUtc: manifest.timings?.startedAtUtc ?? null,
+        outcome: record.outcome,
+        supersededOutcome: originalRecord.outcome,
+        note:
+          "LABELLED targeted re-run (selectedSteps recorded in its manifest); this outcome supersedes the original, which stays recorded under .original",
+      },
+      reRunHistory: attempts.get(id) ?? [],
+      // The re-run record stands as-is (its own evidence pointers); the
+      // superseded original's pointers stay visible under .original above.
+    };
+  });
+}
+
+const safetyMerged = mergeRerunTargets({
+  originalItems: original.safetySlice,
+  key: "safetySlice",
+  intendedFor: intendedSafetyIds,
+});
+const walkMerged = mergeRerunTargets({
+  originalItems: original.walkSteps,
+  key: "walkSteps",
+  intendedFor: intendedWalkIds,
+});
 
 const journeys = JOURNEY_IDS.map((journeyId) => {
   const originalRecord = (original.journeys ?? []).find((j) => j.journeyId === journeyId);
@@ -147,8 +225,8 @@ const totalsFor = (outcomesList) => {
 const totals = {
   journeys: totalsFor(journeys.map((j) => j.outcome)),
   interactions: totalsFor(journeys.map((j) => j.interaction.outcome)),
-  safety: original.totals.safety,
-  walkSteps: original.totals.walkSteps,
+  safety: totalsFor(safetyMerged.map((s) => s.outcome)),
+  walkSteps: totalsFor(walkMerged.map((s) => s.outcome)),
   reRuns: reruns.map(({ file, manifest }) => ({
     runId: manifest.runId,
     manifestPath: path.basename(file),
@@ -159,9 +237,17 @@ const totals = {
   })),
 };
 
-const superseded = journeys
-  .filter((j) => j.reRun && j.reRun.supersededOutcome !== j.outcome)
-  .map((j) => `${j.journeyId}: ${j.reRun.supersededOutcome} → ${j.outcome}`);
+const superseded = [
+  ...journeys
+    .filter((j) => j.reRun && j.reRun.supersededOutcome !== j.outcome)
+    .map((j) => `journey ${j.journeyId}: ${j.reRun.supersededOutcome} → ${j.outcome}`),
+  ...safetyMerged
+    .filter((s) => s.reRun && s.reRun.supersededOutcome !== s.outcome)
+    .map((s) => `safety ${s.safetyId}: ${s.reRun.supersededOutcome} → ${s.outcome}`),
+  ...walkMerged
+    .filter((w) => w.reRun && w.reRun.supersededOutcome !== w.outcome)
+    .map((w) => `walk ${w.id}: ${w.reRun.supersededOutcome} → ${w.outcome}`),
+];
 
 const merged = {
   ...original,
@@ -169,10 +255,12 @@ const merged = {
   generatedAtUtc: new Date().toISOString(),
   runId: original.runId,
   selectedSteps: null,
+  safetySlice: safetyMerged,
+  walkSteps: walkMerged,
   gateRun: {
     runId: original.runId,
     manifestPath: "commerce-merged-gate-manifest.run1-partial.json",
-    note: "run 1 — the full-gate walk (all 30 planned steps) at harness commit 6d4ecc3; J1–J7 BLOCKED by the journeys-a factory bug, J9/J11/J17/J19 FAIL on four further harness defects. Archived unchanged.",
+    note: `run 1 — the full-gate walk (${(original.walkPlan ?? []).length} planned steps) at tree ${original.environment?.buildCommit ?? "unknown"}${original.environment?.buildTreeDirty ? " (dirty)" : ""}; outcomes journeys ${JSON.stringify(original.totals?.journeys?.byOutcome ?? {})} / safety ${JSON.stringify(original.totals?.safety?.byOutcome ?? {})} / walkSteps ${JSON.stringify(original.totals?.walkSteps?.byOutcome ?? {})}. Archived unchanged.`,
   },
   reRuns: reruns.map(({ file, manifest }) => ({
     runId: manifest.runId,
@@ -215,7 +303,7 @@ merged.evidenceIntegrity = {
   pointersChecked: pointers.length,
   missing: missing.map((ref) => ref.slice(0, 200)),
   allPointersResolve: missing.length === 0,
-  note: "every evidence pointer (run 1 + both re-runs) resolves to a file on disk relative to the merged manifest",
+  note: "every evidence pointer (run 1 + all re-runs) resolves to a file on disk relative to the merged manifest",
 };
 const validation = validateMergedManifest(merged, { journeyCount: 19, safetyCount: 5, outcomes: OUTCOMES });
 merged.manifestValidation = { valid: validation.valid, errors: validation.errors };
@@ -228,8 +316,12 @@ const green =
   t.walkSteps.byOutcome.FAIL === 0 && t.walkSteps.byOutcome.BLOCKED === 0;
 
 // Archive the ORIGINAL manifest unchanged, then write the merged one.
+// (Guard: re-merging FROM the already-archived run-1 file must not copy a
+// file onto itself — copyFileSync would truncate the source mid-read.)
 const archivePath = path.join(manifestDir, "commerce-merged-gate-manifest.run1-partial.json");
-copyFileSync(path.resolve(originalPath), archivePath);
+if (path.resolve(originalPath) !== path.resolve(archivePath)) {
+  copyFileSync(path.resolve(originalPath), archivePath);
+}
 writeFileSync(path.resolve(outPath), `${JSON.stringify(merged, null, 1)}\n`);
 
 console.log(`[merge] original: ${original.runId}`);

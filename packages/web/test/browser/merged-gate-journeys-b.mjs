@@ -130,7 +130,7 @@ export function buildJourneyStepsB(walkState, { outDir }) {
         rendered: body.includes("J9 · Trade cycles — multi-hop swaps") && body.includes("only the giving participant may authorize"),
         checks: [
           surfaceCheck(body, "per-leg consent authority stated", "only the giving participant may authorize this leg"),
-          surfaceCheck(body, "engine boundary honesty (not wired)", "Not wired (blocker)"),
+          surfaceCheck(body, "execution boundary honesty (runtime-integration phase: wired to the kernel, discovery demo-labelled)", "Executed by the commerce kernel"),
           surfaceCheck(body, "consent windows visible", "Consent window ends"),
         ],
         interaction,

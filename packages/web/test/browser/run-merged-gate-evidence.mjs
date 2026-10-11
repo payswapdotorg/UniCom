@@ -111,10 +111,16 @@ async function main() {
   const rawArgv = process.argv.slice(2);
   const onlyIdx = rawArgv.indexOf("--only");
   let only = null;
+  const lineageIdx = rawArgv.indexOf("--lineage");
+  let lineageLabel = null;
   const argv = [...rawArgv];
   if (onlyIdx !== -1) {
     only = argv[onlyIdx + 1] ?? null;
     argv.splice(onlyIdx, 2);
+  }
+  if (lineageIdx !== -1) {
+    lineageLabel = argv[lineageIdx + 1] ?? null;
+    argv.splice(lineageIdx, 2);
   }
   const args = parseArgs(argv);
   if (args.help) {
@@ -396,6 +402,7 @@ async function main() {
     recoveryDeepLinks: state.recoveryDeepLinks,
     walkPlan: planned.map((s) => ({ id: s.id, kind: s.kind, journeyId: s.journeyId ?? null, safetyId: s.safetyId ?? null })),
     selectedSteps: only,
+    lineageLabel,
     manifestPath,
     outDir,
   });

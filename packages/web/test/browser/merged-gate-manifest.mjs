@@ -108,6 +108,7 @@ export function buildMergedManifest(raw) {
     recoveryDeepLinks = [],
     walkPlan = [],
     selectedSteps = null,
+    lineageLabel = null,
     manifestPath,
     outDir,
   } = raw;
@@ -205,7 +206,10 @@ export function buildMergedManifest(raw) {
     runId,
     generatedBy: "packages/web/test/browser/run-merged-gate-evidence.mjs",
     generatedAtUtc: completedAtUtc,
-    lineage: "merged (W1-011 host + W2-012 buyer/peer + W3-015 merchant/procurement/physical/trust)",
+    // Lineage is carried from the run's build identity when provided (the
+    // runner passes --lineage); the constant is the rendered-UI-phase default
+    // kept only for backwards compatibility with the 2026-10-10 manifests.
+    lineage: lineageLabel ?? "merged (W1-011 host + W2-012 buyer/peer + W3-015 merchant/procurement/physical/trust)",
     selectedSteps,
     environment: {
       ...identity,
