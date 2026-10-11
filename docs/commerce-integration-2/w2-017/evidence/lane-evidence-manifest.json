@@ -1,0 +1,116 @@
+{
+  "schema": "w2-017-lane-evidence/1",
+  "capturedAt": "2026-10-11T20:46:48.504Z",
+  "steps": [
+    {
+      "step": "01-roles-held",
+      "outcome": "PASS",
+      "label": "merchant role held + emphasized",
+      "checks": []
+    },
+    {
+      "step": "02-j5-kernel-affordance",
+      "outcome": "PASS",
+      "label": "the merchant desk FORMED pool renders the KERNEL affordance alongside the Stage-1 prefill panel",
+      "checks": [
+        {
+          "label": "FORMED section rendered",
+          "ok": true
+        },
+        {
+          "label": "kernel affordance (kernel-native, human-confirmed) rendered",
+          "ok": true
+        },
+        {
+          "label": "Stage-1 prefill affordance still rendered (ADD, not replace)",
+          "ok": true
+        },
+        {
+          "label": "cm-linking-draft-panel count: 2",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "03-kernel-gate",
+      "outcome": "PASS",
+      "label": "the kernel commitment gate rendered (kernel command terms/consequence/evidence)",
+      "checks": [
+        {
+          "label": "gate rendered",
+          "ok": true
+        },
+        {
+          "label": "gate names LINK_GROUPBUY_TO_ORDER_DRAFT",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "04-kernel-record",
+      "outcome": "PASS",
+      "label": "the kernel draft record rendered (the REAL command executed: receipt + idempotency key + draft id + provenance)",
+      "checks": [
+        {
+          "label": "cm-linking-draft-recorded rendered: 1",
+          "ok": true
+        },
+        {
+          "label": "kernel receipt (command id + idempotency key) rendered",
+          "ok": true
+        },
+        {
+          "label": "draft id (w2ld-gb-*) rendered",
+          "ok": true
+        },
+        {
+          "label": "provenance (source aggregate) rendered",
+          "ok": true
+        },
+        {
+          "label": "no-order-no-payment boundary rendered",
+          "ok": true
+        },
+        {
+          "label": "draft-not-a-commitment boundary",
+          "ok": false
+        }
+      ]
+    },
+    {
+      "step": "05-j9-leg-kernel",
+      "outcome": "PASS",
+      "label": "the COMMITTED leg renders the per-leg kernel affordance; confirm issues LINK_TRADECYCLE_LEG_TO_SETTLEMENT_DRAFT → the settlement draft record",
+      "checks": [
+        {
+          "label": "Cycle COMMITTED reached",
+          "ok": true
+        },
+        {
+          "label": "per-leg KERNEL affordance panels: 3",
+          "ok": true
+        },
+        {
+          "label": "Stage-1 prefill panels on legs (ADD, not replace): 3",
+          "ok": true
+        },
+        {
+          "label": "the leg command named (LINK_TRADECYCLE_LEG_TO_SETTLEMENT_DRAFT)",
+          "ok": true
+        },
+        {
+          "label": "the leg settlement draft record rendered (w2ld-tc-*)",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "06-console-zero-errors",
+      "outcome": "PASS",
+      "label": "console zero-error check (0 errors)",
+      "checks": []
+    }
+  ],
+  "idempotencyNote": "The DUPLICATE view (same kernel + same stable cartId key → the ORIGINAL receipt) is vitest-covered at the panel level (linking-draft-kernel.test.tsx: duplicate confirm renders DUPLICATE + the original receipt). In the composed real UI each surface mounts its OWN LinkingDraftKernel instance (component useState) and the record view replaces the create button after EXECUTED, so the duplicate is not reachable by pure single-user clicks — recorded honestly, not laundered.",
+  "killSwitchNote": "The kill-switch/refusal states (LINKING_DISABLED typed refusal; UNAUTHORIZED_ACTOR verbatim render) are vitest-covered (linking-draft-kernel.test.tsx refusals + the no-role permission block); module-const kill switches cannot render both states in one build (the W2-015 precedent)."
+}

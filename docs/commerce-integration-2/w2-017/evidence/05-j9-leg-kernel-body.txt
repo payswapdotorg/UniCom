@@ -1,0 +1,212 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module peer-tradecycle
+owner lane W2-012
+status partial
+J9 · Trade cycles — multi-hop swaps
+DEMO
+
+A trade cycle chains gives-and-wants across several participants so everyone both gives and receives. The law of this surface: every leg needs its own consent from the giving participant — a refusal, a dropout or an expired consent window stops or re-plans the whole cycle. Other legs are never silently committed: a stop is a stop.
+
+What is real here, and what is not
+
+Real (kernel-driven): Execution. Per-leg consent, refusal, withdrawal, window expiry and the atomic commit run through the commerce kernel's TradeCycle execution aggregate, imported from @unicom/commerce: every state and chip below is kernel truth.
+
+Demo-only: The candidate cycles and the participant identities. Discovery (bounded search over the offer graph) remains the agent lane's, which the web host cannot import — candidates arrive as committed demo fixtures and are validated by the kernel's cycle-shape laws when they open.
+
+Wired (new this phase): Executed by the commerce kernel. Each consent travels as an AUTHORIZE_TRADE_CYCLE_LEG command carrying its per-leg authorization reference; with every leg authorized, EXECUTE_TRADE_CYCLE commits all legs atomically — all or none. Attribution by anyone other than the giver holds the leg UNKNOWN, never fails it.
+
+Cycle A — 3 hops (Harbor Lane ⇄ Two Harbors ⇄ Northlight)
+DEMO
+COMMITTED — executed by the commerce kernel
+
+Cycle: w2tc-cycle-a · 3 hops · 3 participants · mode ATOMIC
+
+Status (kernel): COMMITTED — executed by the commerce kernel
+
+Kernel revision: revision 6 · commands journaled with idempotency receipts
+
+Leg 1 · Two Harbors Design (peer studio) → Harbor Lane Print Studio (you, demo buyer)
+COMMITTED
+DEMO
+
+Item moving on this leg: Overlock sewing machine (4-thread)
+
+Consent authority: Two Harbors Design (peer studio) — only the giving participant may authorize this leg
+
+Proof level: P2 — provider-signed
+
+Privacy: Only the immediate counterpart learns your identity on this leg — no participant sees the whole graph.
+
+Consent window ends: 2026-10-13T18:00:00Z (demo clock)
+
+Kernel authorization record: authorized by Two Harbors Design (peer studio) · reference w2tc-authz-two-harbors-leg-0 (DEMO) · recorded 2026-10-12T09:02:00.000Z
+
+Create a linked order draft (human-confirmed, never automatic)
+draft — not a commitment
+DEMO
+
+Provenance — source aggregate: w2tc-cycle-a (TRADECYCLE_LEG_EXECUTED) — rendered on-surface; the existing typed command carries no metadata field for this
+
+Provenance — acting principal: customer:w2tc-harbor-lane
+
+Provenance — consent basis: Leg 0 of w2tc-cycle-a committed (the giver authorized, the cycle executed atomically). The item moved from its giver to its receiver; placement requires a separate PLACE_ORDER under the acting principal's own authority. The price is the acting human's to set (the trade-cycle aggregate carries no money).
+
+Prefill — ADD_CART_LINE (the existing command, pre-filled): ADD_CART_LINE · cart cart-link-tc-w2tc-cycle-a-leg-0 · sku w2tc-item:Overlock sewing machine (4-thread) × 1 @ 0 USD
+
+Prefill — PLACE_ORDER (the existing command, pre-filled): PLACE_ORDER · cart cart-link-tc-w2tc-cycle-a-leg-0 · merchant merchant-1
+
+The draft is a draft: placing the order still requires the existing confirmation flow unchanged (a draft is not a commitment; the existing PLACE_ORDER consent is the commitment step). The receipt/order references the source aggregate id on-surface (the existing typed command carries no metadata field, so the reference renders here and in the eventual receipt's subject line, honestly — never extends the kernel contract).
+
+Create a linked order draft (human-confirmed, never automatic)
+Create a linked order draft (kernel-native, human-confirmed)
+draft — not a commitment
+DEMO
+
+Provenance — source aggregate: w2tc-cycle-a (TRADECYCLE_LEG_EXECUTED)
+
+Provenance — acting principal: customer:w2tc-harbor-lane
+
+Provenance — consent basis: Leg 0 of w2tc-cycle-a committed (the giver authorized, the cycle executed atomically). The item moved from its giver to its receiver; placement requires a separate PLACE_ORDER under the acting principal's own authority. The price is the acting human's to set (the trade-cycle aggregate carries no money).
+
+Kernel command: LINK_TRADECYCLE_LEG_TO_SETTLEMENT_DRAFT
+
+The confirm gate issues the REAL kernel-native LINK command through the @unicom/commerce contract. The kernel creates a DRAFT (journaled, idempotent receipt); the draft is NOT an order/payment/reservation. A duplicate confirm (same idempotency key) returns the ORIGINAL receipt — never a second draft.
+
+Kernel draft created — journaled receipt
+DRAFT
+DEMO
+
+Draft id (kernel): w2ld-tc-w2tc-cycle-a-leg-0-1
+
+Kernel receipt: command w2ld-cmd-2 · idempotency key cart-link-tc-w2tc-cycle-a-leg-0 · executed 2026-10-11T20:46:20.932Z
+
+Source aggregate: w2tc-cycle-a
+
+Source kind: TRADECYCLE_LEG_SETTLEMENT_DRAFT
+
+Acting principal: customer:w2tc-harbor-lane
+
+Consent basis: Leg 0 of w2tc-cycle-a committed (the giver authorized, the cycle executed atomically). The draft is a DRAFT — settlement requires a separate authorized command. The trade-cycle aggregate carries no money; the price is the acting human's to set.
+
+Compensation ref: comp-ref-tc-w2tc-cycle-a-leg-0
+
+Leg index: 0
+
+Next step (separately authorized): Placing the order is a SEPARATE step: the existing ADD_CART_LINE → PLACE_ORDER confirmation flow, unchanged, under the acting human's own authority and idempotency key. The kernel draft created NO order, NO payment, NO reservation, NO recourse case.
+
+Leg 2 · Northlight Atelier (peer studio) → Two Harbors Design (peer studio)
+COMMITTED
+DEMO
+
+Item moving on this leg: Photography light kit (3 heads)
+
+Consent authority: Northlight Atelier (peer studio) — only the giving participant may authorize this leg
+
+Proof level: P1 — receipt
+
+Privacy: Only the immediate counterpart learns your identity on this leg — no participant sees the whole graph.
+
+Consent window ends: 2026-10-13T18:00:00Z (demo clock)
+
+Kernel authorization record: authorized by Northlight Atelier (peer studio) · reference w2tc-authz-northlight-leg-2 (DEMO) · recorded 2026-10-12T09:03:00.000Z
+
+Create a linked order draft (human-confirmed, never automatic)
+draft — not a commitment
+DEMO
+
+Provenance — source aggregate: w2tc-cycle-a (TRADECYCLE_LEG_EXECUTED) — rendered on-surface; the existing typed command carries no metadata field for this
+
+Provenance — acting principal: customer:w2tc-two-harbors
+
+Provenance — consent basis: Leg 2 of w2tc-cycle-a committed (the giver authorized, the cycle executed atomically). The item moved from its giver to its receiver; placement requires a separate PLACE_ORDER under the acting principal's own authority. The price is the acting human's to set (the trade-cycle aggregate carries no money).
+
+Prefill — ADD_CART_LINE (the existing command, pre-filled): ADD_CART_LINE · cart cart-link-tc-w2tc-cycle-a-leg-2 · sku w2tc-item:Photography light kit (3 heads) × 1 @ 0 USD
+
+Prefill — PLACE_ORDER (the existing command, pre-filled): PLACE_ORDER · cart cart-link-tc-w2tc-cycle-a-leg-2 · merchant merchant-1
+
+The draft is a draft: placing the order still requires the existing confirmation flow unchanged (a draft is not a commitment; the existing PLACE_ORDER consent is the commitment step). The receipt/order references the source aggregate id on-surface (the existing typed command carries no metadata field, so the reference renders here and in the eventual receipt's subject line, honestly — never extends the kernel contract).
+
+Create a linked order draft (human-confirmed, never automatic)
+Create a linked order draft (kernel-native, human-confirmed)
+draft — not a commitment
+DEMO
+
+Provenance — source aggregate: w2tc-cycle-a (TRADECYCLE_LEG_EXECUTED)
+
+Provenance — acting principal: customer:w2tc-two-harbors
+
+Provenance — consent basis: Leg 2 of w2tc-cycle-a committed (the giver authorized, the cycle executed atomically). The item moved from its giver to its receiver; placement requires a separate PLACE_ORDER under the acting principal's own authority. The price is the acting human's to set (the trade-cycle aggregate carries no money).
+
+Kernel command: LINK_TRADECYCLE_LEG_TO_SETTLEMENT_DRAFT
+
+The confirm gate issues the REAL kernel-native LINK command through the @unicom/commerce contract. The kernel creates a DRAFT (journaled, idempotent receipt); the draft is NOT an order/payment/reservation. A duplicate confirm (same idempotency key) returns the ORIGINAL receipt — never a second draft.
+
+Create a linked order draft (kernel-native, human-confirmed)
+Leg 3 · Harbor Lane Print Studio (you, demo buyer) → Northlight Atelier (peer studio)
+COMMITTED
+DEMO
+
+Item moving on this leg: Wide-format A1 printer
+
+Consent authority: Harbor Lane Print Studio (you, demo buyer) — only the giving participant may authorize this leg
+
+Proof level: P2 — provider-signed
+
+Privacy: Only the immediate counterpart learns your identity on this leg — no participant sees the whole graph.
+
+Consent window ends: 2026-10-13T18:00:00Z (demo clock)
+
+Kernel authorization record: authorized by Harbor Lane Print Studio (you, demo buyer) · reference w2tc-authz-harbor-lane-leg-1 (DEMO) · recorded 2026-10-12T09:01:00.000Z
+
+Create a linked order draft (human-confirmed, never automatic)
+draft — not a commitment
+DEMO
+
+Provenance — source aggregate: w2tc-cycle-a (TRADECYCLE_LEG_EXECUTED) — rendered on-surface; the existing typed command carries no metadata field for this
+
+Provenance — acting principal: customer:w2tc-northlight
+
+Provenance — consent basis: Leg 1 of w2tc-cycle-a committed (the giver authorized, the cycle executed atomically). The item moved from its giver to its receiver; placement requires a separate PLACE_ORDER under the acting principal's own authority. The price is the acting human's to set (the trade-cycle aggregate carries no money).
+
+Prefill — ADD_CART_LINE (the existing command, pre-filled): ADD_CART_LINE · cart cart-link-tc-w2tc-cycle-a-leg-1 · sku w2tc-item:Wide-format A1 printer × 1 @ 0 USD
+
+Prefill — PLACE_ORDER (the existing command, pre-filled): PLACE_ORDER · cart cart-link-tc-w2tc-cycle-a-leg-1 · merchant merchant-1
+
+The draft is a draft: placing the order still requires the existing confirmation flow unchanged (a draft is not a commitment; the existing PLACE_ORDER consent is the commitment step). The receipt/order references the source aggregate id on-surface (the existing typed command carries no metadata field, so the reference renders here and in the eventual receipt's subject line, honestly — never extends the kernel contract).
+
+Create a linked order draft (human-confirmed, never automatic)
+Create a linked order draft (kernel-native, human-confirmed)
+draft — not a commitment
+DEMO
+
+Provenance — source aggregate: w2tc-cycle-a (TRADECYCLE_LEG_EXECUTED)
+
+Provenance — acting principal: customer:w2tc-northlight
+
+Provenance — consent basis: Leg 1 of w2tc-cycle-a committed (the giver authorized, the cycle executed atomically). The item moved from its giver to its receiver; placement requires a separate PLACE_ORDER under the acting principal's own authority. The price is the acting human's to set (the trade-cycle aggregate carries no money).
+
+Kernel command: LINK_TRADECYCLE_LEG_TO_SETTLEMENT_DRAFT
+
+The confirm gate issues the REAL kernel-native LINK command through the @unicom/commerce contract. The kernel creates a DRAFT (journaled, idempotent receipt); the draft is NOT an order/payment/reservation. A duplicate confirm (same idempotency key) returns the ORIGINAL receipt — never a second draft.
+
+Create a linked order draft (kernel-native, human-confirmed)
+Reset the demo kernel (fresh Cycle A)
+Cycle COMMITTED — executed by the commerce kernel
+COMMITTED
+
+The kernel executed the ATOMIC commit: every leg is COMMITTED and each item moves from its giver to its receiver. The per-leg authorization records above are the kernel's own evidence (who authorized, under which reference, when).
+
+Kernel receipt: command w2tc-cmd-10 · idempotency key w2tc-idem-9 · executed 2026-10-12T09:03:00.000Z · resulting revision 6
+
+Demo boundary: The execution is deterministic in-memory kernel truth — participants and items are DEMO fixtures and no live provider, payment or shipment was contacted.
+
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)
