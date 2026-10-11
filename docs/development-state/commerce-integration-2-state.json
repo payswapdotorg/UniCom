@@ -114,7 +114,7 @@
     "third_party_notices_generator_environmentally_blocked_on_this_pod_pre_existing"
   ],
   "closeout_rule": "Do not close issue #15 or report the phase complete while any gate is blocked or unproven. Preserve blockers and evidence history without changing denominators to manufacture green status.",
-  "last_reviewed_at": "2026-10-11T18:43:00Z",
+  "last_reviewed_at": "2026-10-11T19:26:00Z",
   "dispatch_log": [
     {
       "event": "PHASE ACTIVATION \u2014 Stage 2 authorized by the TL \u00a78 record; W1-016 + W2-017 derived",
@@ -129,6 +129,13 @@
       "recorded_by": "resident TL (Z.ai Code, commerce-integration-2 phase)",
       "type": "DISPATCH_LANDED",
       "detail": "The full W1-016 order (5,953 chars) landed as a continuation on chat 309bcf10 (the session that delivered W1-014/W2-015/W3-018): the ESA edge 405'd the first browser ladders, the \u00a78 stop/continue cure closed the W3-018-era stuck turn cleanly (stop 200 + continue 410), cycle 2 passed the edge and hit MODEL_CONCURRENCY_LIMIT (the capacity lottery), cycle 3's send reported NO-REQUEST (the RESP-None capture-read law) but the SERVER-SIDE truth confirms: currentId moved 74a5ff25 -> 36d80e7b, thread n=14 -> 16 (new user record + NEW TURN RECORD), updated_at 18:42:25Z. Generation armed; the branch watcher (120s rounds on work/w1-016) is the delivery signal; the TL battery pipeline is warm."
+    },
+    {
+      "event": "W1-016 TL REVIEW: changes requested \u2014 kernel integration completion (write surface EXTENDED by the TL)",
+      "recorded_at": "2026-10-11T19:26:00Z",
+      "recorded_by": "resident TL (Z.ai Code, commerce-integration-2 phase)",
+      "type": "CHANGES_REQUESTED",
+      "detail": "Lane battery on f4b9eba all-green TL-observed (commerce 511/511 with 0 skipped \u2014 all 9 law blocks converted, web 356/356 untouched-proof, lint 103w/0e zero lane warnings, architecture 0/0/0, scoped tsc clean; the contract delta verified purely additive). VERDICT: changes requested \u2014 the commands are typed on the union but NOT dispatched by the kernel (no HANDLERS registration, no kernel-state fold, no LINKED_DRAFT subject type): not yet 'kernel-native' in Stage 2's meaning. The gap was the ORDER's write-surface narrowing error (the worker disclosed it honestly \u00a75.1-5.3). Write surface EXTENDED (TL authority): runtime/kernel.ts handlers with journaled idempotent receipts + runtime/kernel-state.ts + runtime/kernel-fold-execution.ts + domain/ids.ts (LINKED_DRAFT subject) + net-new kernel-execution tests (through CommerceKernel.execute: journaling, replay persistence, kernel-level idempotency, kill-switch typed refusal, authorization refusals). Changes-requested LANDED on the live session at 19:25Z (currentId -> c1561f62, n=18; the capacity lottery fought 4 cycles: CAPACITY/EDGE405/CAPACITY/RESP-None-landed)."
     }
   ]
 }
