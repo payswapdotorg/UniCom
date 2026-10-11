@@ -1,6 +1,7 @@
 /**
- * W1-012 kernel-side fold for the execution aggregates: GroupBuy formation
- * (aggregates + per-participant interest records) and TradeCycle execution.
+ * W1-012 + W1-016 kernel-side fold for the execution aggregates: GroupBuy
+ * formation (aggregates + per-participant interest records), TradeCycle
+ * execution, and linked drafts (Stage 2).
  *
  * Extracted from KernelState (mirrors the KernelRecourseFold / KernelStoreOpsFold
  * / KernelAutonomousStoreFold / KernelMerchantFold pattern) to keep KernelState
@@ -19,16 +20,21 @@
  *   TRADE_CYCLE_LEG_WITHDRAWAL_UNKNOWN, TRADE_CYCLE_LEG_LAPSED,
  *   TRADE_CYCLE_COMMITTED, TRADE_CYCLE_LEG_COMMITTED,
  *   TRADE_CYCLE_LEG_ROLLED_BACK (every payload carries the resulting cycle).
+ * - LINKED_DRAFT: LINKED_DRAFT_CREATED, LINKED_DRAFT_CANCELLED,
+ *   LINKED_DRAFT_MARKED_UNKNOWN, LINKED_DRAFT_RESOLVED_UNKNOWN (every payload
+ *   carries the resulting draft — W1-016 Stage 2).
  */
 import type { AnyCommerceEvent } from "../domain/events.js";
 import type { GroupBuyAggregate, GroupBuyInterestRecord } from "../domain/groupbuy.js";
 import type { TradeCycleExecution } from "../domain/tradecycle.js";
+import type { LinkedDraftAggregate } from "../domain/linking-draft.js";
 import { principalRefKey } from "../domain/principals.js";
 
 export class KernelExecutionFold {
   private readonly groupBuys = new Map<string, GroupBuyAggregate>();
   private readonly interests = new Map<string, GroupBuyInterestRecord>();
   private readonly tradeCycles = new Map<string, TradeCycleExecution>();
+  private readonly linkedDrafts = new Map<string, LinkedDraftAggregate>();
 
   /** Interest records are keyed per (group buy, participant) — one record per participant, latest state wins. */
   static interestKey(groupBuyId: string, participantKey: string): string {
@@ -51,6 +57,11 @@ export class KernelExecutionFold {
       case "TRADE_CYCLE": {
         const payload = event.payload as { cycle?: TradeCycleExecution };
         if (payload.cycle) this.tradeCycles.set(payload.cycle.tradeCycleId, payload.cycle);
+        return;
+      }
+      case "LINKED_DRAFT": {
+        const payload = event.payload as { draft?: LinkedDraftAggregate };
+        if (payload.draft) this.linkedDrafts.set(payload.draft.draftId, payload.draft);
         return;
       }
       default:
@@ -87,6 +98,16 @@ export class KernelExecutionFold {
 
   allTradeCycles(): readonly TradeCycleExecution[] {
     return [...this.tradeCycles.values()].sort(byRevision);
+  }
+
+  // --- W1-016 (additive): linked-draft accessors ---
+
+  linkedDraft(draftId: string): LinkedDraftAggregate | undefined {
+    return this.linkedDrafts.get(draftId);
+  }
+
+  allLinkedDrafts(): readonly LinkedDraftAggregate[] {
+    return [...this.linkedDrafts.values()].sort(byRevision);
   }
 }
 

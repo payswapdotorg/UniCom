@@ -34,6 +34,9 @@ import {
   makeId,
   money,
   principalRefKey,
+  cancelLinkedDraft,
+  draftsForLeg,
+  linkTradeCycleLegToSettlementDraft,
   type GroupBuyAggregate,
   type PrincipalRef,
   type TradeCycleExecution,
@@ -129,6 +132,11 @@ function authorize(cycleId: string, legIndex: number, giver: PrincipalRef, autho
     authorizingRef: giver,
     authorizationRef,
   };
+}
+
+/** A COMMITTED TradeCycle. */
+function committedCycleA(): TradeCycleExecution {
+  return { ...cycleA("w1tc-iso-link-1"), state: "COMMITTED", legs: cycleA("w1tc-iso-link-1").legs.map((l) => ({ ...l, consentState: "COMMITTED" as const })), revision: 5 };
 }
 
 describe("W1-014 linking law 7 — refusal must not commit other legs (refusal/withdrawal isolates the refusing party only)", () => {
@@ -363,37 +371,27 @@ describe("W1-014 linking law 7 — refusal must not commit other legs (refusal/w
 });
 
 // ============================================================================
-// Stage 2+ future surface — precisely documented, NOT faked, kernel untouched.
+// Stage 2 — W1-016: kernel-native draft-linking commands now EXIST.
 // ============================================================================
-//
-// The decision packet §5 acceptance sketch includes "refusing to link one leg
-// never links others". At Stage 0 the LINK_TRADECYCLE_LEG_TO_SETTLEMENT_DRAFT
-// command does not exist — so the link-isolation sub-aspect (refusing to LINK
-// leg N's settlement draft leaves legs N+1, N+2, ... unlinked) cannot be
-// executed against the current kernel. The refusal-isolation law IS observable
-// on the existing TradeCycle surface (above): ATOMIC refusal commits nothing;
-// STAGED refusal preserves committed legs without auto-committing others;
-// withdrawal isolates the withdrawing leg only. The Stage-2-specific link-
-// isolation is recorded here as a skip with the exact future stage.
-describe.skip("W1-014 linking law 7 — Stage 2 LINK leg isolation (future surface)", () => {
-  // FUTURE STAGE: Stage 2 (decision packet §4, §7) introduces
-  //   LINK_TRADECYCLE_LEG_TO_SETTLEMENT_DRAFT
-  //   as an additive kernel command. When it exists, this block will specify:
-  //   - refusing to LINK one leg's settlement draft leaves the other legs'
-  //     drafts unlinked (refusing link for leg N never links leg N+1);
-  //   - a leg's draft link state is INDEPENDENT of the other legs' draft
-  //     link states (each leg's link is its own separately-authorized
-  //     command, per law 2);
-  //   - cancelling one leg's linked draft does NOT cancel the other legs'
-  //     linked drafts (compensation is per-draft, per law 5).
-  // At Stage 0 the LINK command does not exist; running these specs would
-  // require either faking a pass (forbidden) or modifying the kernel
-  // (forbidden). The skip records the gap honestly; Stage 2 will replace it
-  // with executable specs.
-  it("FUTURE: refusing to LINK one leg's settlement draft leaves the other legs' drafts unlinked", () => {
-    expect(true).toBe(true);
+describe("W1-016 linking law 7 — Stage 2 LINK leg isolation", () => {
+  it("refusing to LINK one leg's settlement draft leaves the other legs' drafts unlinked", () => {
+    const cycle = committedCycleA();
+    const draft0 = linkTradeCycleLegToSettlementDraft(cycle, 0, twoHarbors, makeId<"LinkedDraftId">("draft-iso-1"), null, NOW);
+    expect(draft0.ok).toBe(true);
+    expect(draftsForLeg(draft0.ok ? [draft0.value] : [], cycle.tradeCycleId, 1)).toHaveLength(0);
+    const draft1 = linkTradeCycleLegToSettlementDraft(cycle, 1, harborLane, makeId<"LinkedDraftId">("draft-iso-2"), null, NOW);
+    expect(draft1.ok).toBe(true);
+    const allDrafts = [draft0.value, draft1.value];
+    expect(draftsForLeg(allDrafts, cycle.tradeCycleId, 0)).toHaveLength(1);
+    expect(draftsForLeg(allDrafts, cycle.tradeCycleId, 1)).toHaveLength(1);
   });
-  it("FUTURE: cancelling one leg's linked draft does NOT cancel the other legs' linked drafts (per-draft compensation)", () => {
-    expect(true).toBe(true);
+  it("cancelling one leg's linked draft does NOT cancel the other legs' linked drafts (per-draft compensation)", () => {
+    const cycle = committedCycleA();
+    const draft0 = linkTradeCycleLegToSettlementDraft(cycle, 0, twoHarbors, makeId<"LinkedDraftId">("draft-iso-3"), null, NOW);
+    const draft1 = linkTradeCycleLegToSettlementDraft(cycle, 1, harborLane, makeId<"LinkedDraftId">("draft-iso-4"), null, NOW);
+    if (!draft0.ok || !draft1.ok) throw new Error("unreachable");
+    const cancelled0 = cancelLinkedDraft(draft0.value, NOW);
+    expect(cancelled0).toMatchObject({ ok: true, value: { state: "CANCELLED_BUT_NEVER_COMMITTED" } });
+    expect(draft1.value.state).toBe("DRAFT");
   });
 });

@@ -99,7 +99,11 @@ export type CommerceSubjectType =
   // and TradeCycle execution are kernel-owned aggregates (their typed
   // contracts live in domain/groupbuy.ts and domain/tradecycle.ts). ---
   | "GROUP_BUY"
-  | "TRADE_CYCLE";
+  | "TRADE_CYCLE"
+  // --- W1-016 (additive): linked-draft subjects. Draft-linking commands
+  // (LINK_GROUPBUY_TO_ORDER_DRAFT / LINK_TRADECYCLE_LEG_TO_SETTLEMENT_DRAFT)
+  // create kernel-truth draft aggregates journaled under this subject type. ---
+  | "LINKED_DRAFT";
 
 // --- Principals ---
 export type MerchantId = Brand<string, "MerchantId">;
@@ -170,6 +174,7 @@ export type ConsignmentId = Brand<string, "ConsignmentId">;
 export type OpportunityId = Brand<string, "OpportunityId">;
 export type GroupBuyId = Brand<string, "GroupBuyId">;
 export type TradeCycleId = Brand<string, "TradeCycleId">;
+export type LinkedDraftId = Brand<string, "LinkedDraftId">;
 
 // --- Events / commands ---
 export type CommerceEventId = Brand<string, "CommerceEventId">;

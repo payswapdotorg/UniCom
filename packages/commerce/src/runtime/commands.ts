@@ -79,6 +79,7 @@ import type {
 } from "../domain/ids.js";
 import type { GroupBuyCommandPayload } from "../domain/groupbuy.js";
 import type { TradeCycleCommandPayload } from "../domain/tradecycle.js";
+import type { LinkingDraftCommandPayload } from "../domain/linking-draft.js";
 
 /** Supply-side flows: multi-location transfers and supplier purchase orders. */
 export type SupplyCommandPayload =
@@ -275,7 +276,8 @@ export type RuntimeCommandPayload =
   | CrmCommandPayload
   | ForecastingCommandPayload
   | GroupBuyCommandPayload
-  | TradeCycleCommandPayload;
+  | TradeCycleCommandPayload
+  | LinkingDraftCommandPayload;
 
 /**
  * W1-007 marketing campaign commands. Campaigns are journaled lifecycle

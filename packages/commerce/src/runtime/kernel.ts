@@ -47,6 +47,7 @@ import { handleAccrueLoyalty, handleAdjustLoyalty, handleExpireLoyalty, handleOp
 import { handleAdvanceReorderProposal, handleProposeReorder, handleRecordDemandSignal } from "./handler-forecasting.js";
 import { handleCloseGroupBuy, handleDecideGroupBuyProposal, handleExpireGroupBuy, handleFormGroupBuy, handleOpenGroupBuyProposal, handleRecordGroupBuyInterest, handleWithdrawGroupBuyInterest } from "./handler-groupbuy.js";
 import { handleAuthorizeTradeCycleLeg, handleExecuteTradeCycle, handleExecuteTradeCycleLeg, handleLapseTradeCycleLeg, handleOpenTradeCycle, handleRefuseTradeCycleLeg, handleRollbackTradeCycleLeg, handleWithdrawTradeCycleLeg } from "./handler-tradecycle.js";
+import { handleLinkGroupBuyToOrderDraft, handleLinkTradeCycleLegToSettlementDraft } from "./handler-linking.js";
 import { policySubject } from "./subjects.js";
 import { authorityTargetStore, gateAuthorityCommand } from "./policy-gate.js";
 
@@ -144,6 +145,9 @@ const HANDLERS: Readonly<Record<string, RuntimeCommandHandler>> = Object.freeze(
   EXECUTE_TRADE_CYCLE: handleExecuteTradeCycle,
   EXECUTE_TRADE_CYCLE_LEG: handleExecuteTradeCycleLeg,
   ROLLBACK_TRADE_CYCLE_LEG: handleRollbackTradeCycleLeg,
+  // --- W1-016 (additive): linked-draft commands (Stage 2) ---
+  LINK_GROUPBUY_TO_ORDER_DRAFT: handleLinkGroupBuyToOrderDraft,
+  LINK_TRADECYCLE_LEG_TO_SETTLEMENT_DRAFT: handleLinkTradeCycleLegToSettlementDraft,
 });
 
 export class CommerceKernel {
