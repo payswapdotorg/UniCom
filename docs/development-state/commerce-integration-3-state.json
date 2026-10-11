@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "repository": "payswapdotorg/UniCom",
+  "program": "UNiCOM Commerce Plane Integration III \u2014 linking observation completeness (draft ledger + UNKNOWN recovery)",
+  "status": "ACTIVE_W1_DISPATCHED",
+  "tracking_issue": 16,
+  "prior_phase_records_immutable": [
+    "docs/development-state/commerce-integration-2-state.json (Stage 2 kernel-native linking, PHASE_COMPLETE_ALL_GATES_PASSED, closeout a0fe845)",
+    "docs/development-state/commerce-integration-state.json",
+    "docs/development-state/product-completion-state.json"
+  ],
+  "source_baseline": {
+    "baseline_commit": "a0fe845",
+    "code_lineage": "ffd12b6",
+    "battery": "vitest 2,186 passed | 0 skipped (commerce 521 + web 367 + experience 739 + agent 559); lint 103w/0e; architecture 0; scoped tsc clean",
+    "browser_gate": "merged zero-drift on c5d4371: journeys 19/19, J18 ABSENT-by-design identical, safety 5/5, walk 6/6, 92/92 pointers"
+  },
+  "architecture": {
+    "baseline": "1.2-additive-runtime-browser-2026-10-11 (unchanged this phase)",
+    "delta_policy": "web-module + shell-surface changes only; NO commerce changes (the kernel API is complete); J18's ABSENT-by-design classification is load-bearing and untouched"
+  },
+  "operator_directive": "continuous resident watch: monitor \u2192 harvest \u2192 review \u2192 approve/require-changes \u2192 dispatch next until the roadmap is complete; no early returns; the GitHub repo is the roadmap guide; midnight-UTC deadline discipline; dispatch only from inside the replay",
+  "policy": {
+    "payments_reservations_recourse": "NEVER auto-created \u2014 separately-authorized commands only",
+    "standing_gates": {
+      "production_deployment": "NOT_AUTHORIZED",
+      "live_named_provider_credentials": "NOT_AUTHORIZED",
+      "human_research": "NOT_AUTHORIZED",
+      "live_payments": "NOT_AUTHORIZED"
+    },
+    "honest_evidence": "TL-observed numbers only; scoped tsc MANDATORY in every lane acceptance list (the phase-6 lesson); never delete/skip failing tests; preserve limitations verbatim"
+  },
+  "work_orders": [
+    {
+      "id": "W1-018",
+      "path": "docs/work-orders/W1-018.md",
+      "lane": "linking observation completeness (shared singleton + System-surface ledger + UNKNOWN recovery)",
+      "owner": "worker-1",
+      "status": "DISPATCHED",
+      "write_surface": "linking-draft-kernel.ts (singleton) + kernel-panel (UNKNOWN affordances) + the composing components (singleton swap) + SystemSurface ledger + tests + report",
+      "branch": "work/w1-018"
+    }
+  ],
+  "tl_owned_decision_packets": [],
+  "operator_decisions": {
+    "phase_iii_derivation": "the resident TL under the continuous-watch directive: the closed phase's frontier named the linking observation completeness as the natural small continuation (the kernel states exist from W1-016; the UI observation plane completes the feature) \u2014 the midnight-fit scope; the deployment-coverage layer is the next BIG phase after"
+  },
+  "acceptance_gates": [
+    {
+      "id": "BASELINE",
+      "name": "a0fe845 verified clean; registries valid",
+      "status": "PASSED",
+      "evidence": "phase II closeout a0fe845 = code lineage ffd12b6 + registry/report deltas; merged battery 2,186|0 recorded in commerce-integration-2-state.json"
+    },
+    {
+      "id": "SHARED_KERNEL_SINGLETON",
+      "name": "One LinkingDraftKernel instance serves all surfaces (the ledger is truthful, not per-module fragments)",
+      "status": "PENDING"
+    },
+    {
+      "id": "DRAFT_LEDGER",
+      "name": "System-surface ledger: every draft with provenance + state chips + receipts + honest empty state; J18 ABSENT untouched",
+      "status": "PENDING"
+    },
+    {
+      "id": "UNKNOWN_RECOVERY",
+      "name": "PLACEMENT_UNKNOWN renders UNKNOWN-never-FAILED + the human resolve + cancel; the DEMO-labelled mark-UNKNOWN trigger honest",
+      "status": "PENDING"
+    },
+    {
+      "id": "REGRESSION",
+      "name": "Full merged battery: vitest all suites, lint baseline, architecture 0, scoped tsc clean",
+      "status": "PENDING"
+    },
+    {
+      "id": "BROWSER",
+      "name": "Merged real-Chromium zero-drift gate + lane extension evidence (ledger + UNKNOWN flow end-to-end)",
+      "status": "PENDING"
+    },
+    {
+      "id": "SAFETY",
+      "name": "No auto-fire anywhere; UNKNOWN never laundered to FAILED; DEMO labelling honest; tripwires on the merged tree",
+      "status": "PENDING"
+    },
+    {
+      "id": "TL_ACCEPT",
+      "name": "Independent TL verification, final report, evidence manifests, registry + issue closeout",
+      "status": "PENDING"
+    }
+  ],
+  "active_work_orders": [
+    "W1-018"
+  ],
+  "frontier": [
+    "linking_observation_completeness_in_flight (W1-018 dispatched)",
+    "deployment_coverage_layer_next_big_phase (edge API, durable workflows, queues, realtime, Postgres \u2014 the make-it-real program's next major step)",
+    "production_deployment_not_authorized",
+    "live_named_provider_credentials_not_authorized",
+    "human_research_not_authorized",
+    "third_party_notices_generator_environmentally_blocked_on_this_pod_pre_existing"
+  ],
+  "closeout_rule": "Do not close issue #16 or report the phase complete while any gate is blocked or unproven. Preserve blockers and evidence history without changing denominators to manufacture green status.",
+  "last_reviewed_at": "2026-10-11T21:12:00Z",
+  "dispatch_log": [
+    {
+      "event": "PHASE ACTIVATION \u2014 linking observation completeness derived from the closed phase's frontier",
+      "recorded_at": "2026-10-11T21:12:00Z",
+      "recorded_by": "resident TL (Z.ai Code, commerce-integration-3 phase)",
+      "type": "PHASE_ACTIVATION",
+      "detail": "Phase II closed PHASE_COMPLETE_ALL_GATES_PASSED at a0fe845 (~2h22m window, issue #15 closed). The frontier's natural small continuation: the draft ledger + UNKNOWN-recovery surfaces (the kernel states exist; the UI plane completes the feature) \u2014 the midnight-fit scope. The order template carries the phase-6 lessons: scoped tsc mandatory in acceptance; the write surface derived from the full integration path (the singleton swap touches every composing component). J18 ABSENT-by-design is protected (host-states out of scope; the ledger lives on the SystemSurface)."
+    }
+  ]
+}
