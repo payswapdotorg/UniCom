@@ -77,10 +77,15 @@
       "path": "docs/work-orders/W3-018.md",
       "lane": "j15-runtime-browser-live-facts",
       "owner": "worker-3",
-      "status": "READY_FOR_TL_DISPATCH",
+      "status": "COMPLETE",
       "dependency": "Architecture baseline 1.2 authorization recorded in the work order; frozen ./runtime barrel read-only.",
       "write_surface": "experience package.json exports + src/runtime-browser/** + tests + web merchant-connectors module + lane report only",
-      "branch": "work/w3-018"
+      "branch": "work/w3-018",
+      "merge_commit": "521001a",
+      "lane_commits": [
+        "66cfcfe",
+        "d2becc2"
+      ]
     }
   ],
   "tl_owned_decision_packets": [],
@@ -136,12 +141,14 @@
     {
       "id": "J15_RUNTIME_BROWSER",
       "name": "Additive ./runtime-browser sub-entrypoint browser-clean + parity-tested + J15 progressive live facts with committed-record fallback (W3-018)",
-      "status": "PENDING"
+      "status": "PASSED",
+      "evidence": "work/w3-018 (66cfcfe impl + d2becc2 timestamp/branded-ref contract-type fix after TL changes-requested) merged 521001a: additive ./runtime-browser exports entry ONLY (existing entrypoints byte-identical, architecture policy untouched, checker 0/0/0); module-graph purity test (static transitive walk: zero node: specifiers, zero adapter/vault runtime imports) + parity test (Node-fixture equivalence, JSON-safe facts, regex-proven zero credential material) + J15 merchant-connectors live-facts panel (committed test-pinned fixture, provenance-labelled, Stage-2 seam useCommittedRuntimeFacts); TL-observed lane battery: experience 739/739 (728 baseline + 11 net-new), web 356/356 (349 + 7 net-new), commerce 476|9 untouched-proof, lint 103w/0e zero lane warnings, scoped tsc clean post-fix. Browser lane evidence to be captured TL-side in the BROWSER gate (worker sandbox has no browser \u2014 disclosed in the W3-018 report \u00a74)."
     },
     {
       "id": "REGRESSION",
       "name": "Full merged battery: vitest all suites, lint baseline, architecture 0, scoped tsc clean",
-      "status": "PENDING"
+      "status": "PASSED",
+      "evidence": "Merged tree 521001a (all three lanes): vitest 2,130 passed | 9 skipped = experience 739/739 (104 files) + web 356/356 (33 files) + commerce 476|9 (75 files) + agent 559/559 (57 files); lint 103w/0e on committed content (baseline identical; the transient 104th was the TL's own untracked evidence script, fixed before commit); architecture:check 0 violations/baseline 0/new 0; scoped tsc (packages/web/tsconfig.scoped.json, the banked method) clean exit 0. Kernel build prerequisite re-established post-recycle: turbo 6/6 successful from apps/zcode-cli (pnpm shim accommodation, ~/.local/bin/pnpm -> corepack). All numbers TL-observed on the committed merged tree."
     },
     {
       "id": "BROWSER",
@@ -168,7 +175,7 @@
     "third_party_notices_generator_environmentally_blocked_on_this_pod_pre_existing"
   ],
   "closeout_rule": "Do not close issue #14 or report the phase complete while any gate is blocked or unproven. Preserve blockers and evidence history without changing denominators to manufacture green status.",
-  "last_reviewed_at": "2026-10-11T16:15:00Z",
+  "last_reviewed_at": "2026-10-11T17:55:00Z",
   "dispatch_log": [
     {
       "event": "PHASE ACTIVATION \u2014 TL decisions recorded under operator delegation, three work orders derived",
@@ -190,6 +197,13 @@
       "recorded_by": "resident TL (Z.ai Code, commerce-integration phase)",
       "type": "MERGE",
       "detail": "W2 routed onto the canary session as a continuation (the fresh-send gate forensics: no-turn chats route to chats/new and never fire completions; live agent chats fire continuations). First delivery 62fa4ad in ~27 min; TL battery caught one scoped-tsc defect (string literal vs branded CurrencyCode); changes-requested sent on the live session; worker fixed in ~2 min (f73a26c, currency contract constructor). Merged-tree: web 349/349, commerce 476|9, lint 103w/0e, arch 0. W3-018 routing onto the same session next (sequential; the fresh lottery produced nothing in 45 min)."
+    },
+    {
+      "event": "W3-018 MERGED (changes-requested round worked on the live session) + REGRESSION gate PASSED",
+      "recorded_at": "2026-10-11T17:55:00Z",
+      "recorded_by": "resident TL (Z.ai Code, web-6ddc0a59 session, commerce-integration phase)",
+      "type": "MERGE",
+      "detail": "W3-018 delivered on work/w3-018 (66cfcfe + d2becc2 fix); TL battery all-green on the lane tree (739/739, 356/356, 476|9, 103w/0e, arch 0, scoped tsc clean); merged no-ff 521001a + merged-tree re-verification: full battery 2,130|9 across all four suites, lint baseline, architecture 0, scoped tsc clean; main pushed 81bb91c..521001a. J15_RUNTIME_BROWSER + REGRESSION gates PASSED. Remaining: BROWSER (merged zero-drift + W2-015/W3-018 lane evidence), SAFETY, TL_ACCEPT."
     }
   ]
 }
