@@ -1,0 +1,7 @@
+[navigate] http://localhost:5201/commerce
+[debug] [vite] connecting...
+[debug] [vite] connected.
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[navigate] http://localhost:5201/commerce/roles
+[navigate] http://localhost:5201/commerce
+[navigate] http://localhost:5201/commerce/b2b

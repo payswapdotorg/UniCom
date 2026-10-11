@@ -1,0 +1,63 @@
+[navigate] http://localhost:5200/
+[debug] [vite] connecting...
+[debug] [vite] connected.
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[error] Failed to load resource: the server responded with a status of 502 (Bad Gateway)
+[error] WebSocket connection to 'ws://localhost:5200/ws' failed: Connection closed before receiving a handshake response
+[navigate] http://localhost:5200/commerce
+[debug] [vite] connecting...
+[debug] [vite] connected.
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[navigate] http://localhost:5200/commerce/explore
+[navigate] http://localhost:5200/commerce/buyer/intent
+[navigate] http://localhost:5200/commerce/roles
+[navigate] http://localhost:5200/commerce
+[navigate] http://localhost:5200/commerce/buyer/intent
+[navigate] http://localhost:5200/commerce
+[navigate] http://localhost:5200/commerce/buyer/compare
+[navigate] http://localhost:5200/commerce
+[navigate] http://localhost:5200/commerce/buyer/decide
+[navigate] http://localhost:5200/commerce
+[navigate] http://localhost:5200/commerce/buyer/group-buy
+[navigate] http://localhost:5200/commerce
+[navigate] http://localhost:5200/commerce/buyer/group-buy/latent-demand
+[navigate] http://localhost:5200/commerce
+[navigate] http://localhost:5200/commerce/rent
+[navigate] http://localhost:5200/commerce
+[navigate] http://localhost:5200/commerce/resale
+[navigate] http://localhost:5200/commerce/roles
+[navigate] http://localhost:5200/commerce
+[navigate] http://localhost:5200/commerce/opportunities
+[navigate] http://localhost:5200/commerce
+[navigate] http://localhost:5200/commerce/trade-cycle
+[navigate] http://localhost:5200/commerce/roles
+[navigate] http://localhost:5200/commerce
+[navigate] http://localhost:5200/commerce/merchant/storefront
+[navigate] http://localhost:5200/commerce
+[navigate] http://localhost:5200/commerce/procurement/supply
+[navigate] http://localhost:5200/commerce
+[navigate] http://localhost:5200/commerce/b2b
+[navigate] http://localhost:5200/commerce
+[navigate] http://localhost:5200/commerce/autonomous/store
+[navigate] http://localhost:5200/commerce
+[navigate] http://localhost:5200/commerce/twin
+[navigate] http://localhost:5200/commerce
+[navigate] http://localhost:5200/commerce/connectors
+[navigate] http://localhost:5200/commerce/roles
+[navigate] http://localhost:5200/commerce
+[navigate] http://localhost:5200/commerce/physical/store
+[navigate] http://localhost:5200/commerce
+[navigate] http://localhost:5200/commerce/trust/recourse
+[navigate] http://localhost:5200/commerce
+[navigate] http://localhost:5200/commerce/states
+[navigate] http://localhost:5200/commerce
+[navigate] http://localhost:5200/commerce/states
+[navigate] http://localhost:5200/commerce
+[navigate] http://localhost:5200/commerce/buyer/compare
+[navigate] http://localhost:5200/commerce/roles
+[navigate] http://localhost:5200/commerce/merchant/group-buy-review
+[debug] [vite] connecting...
+[debug] [vite] connected.
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[navigate] http://localhost:5200/commerce/system
+[navigate] http://localhost:5200/commerce/roles

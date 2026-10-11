@@ -1,0 +1,2 @@
+[navigate] http://localhost:5200/commerce
+[navigate] http://localhost:5200/commerce/procurement/supply

@@ -1,0 +1,206 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module merchant-storefront
+owner lane W3-015
+status ready
+J10 · Merchant storefront — the full lifecycle
+DEMO
+
+Harbor Lane Print Studio (demo firm). Catalog, pricing, promotions, inventory, checkout, orders, fulfillment, returns, exchanges, refunds and support — every state below is real deterministic commerce-kernel state built from committed fixtures w3-015-storefront-fixtures@1. Money is exact; unknown is never shown as paid or failed; duplicate submissions return the original receipt.
+
+Reset demo data
+fixtures are synthetic — resettable, no credentials, no live payments
+Catalog, pricing & promotions
+A3 Recycled Print — Unframed
+ACTIVE
+unit
+USD 18.50sale USD 16.65
+SKU sku-demo-a3print · barcode 1234567890123
+On hand at the studio: 120 · reserved 0 (operational truth, revision 1)
+Studio Greeting Card Set (8 cards)
+ACTIVE
+unit
+USD 12.00
+SKU sku-demo-cards · barcode 1234567890124
+On hand at the studio: 80 · reserved 0 (operational truth, revision 1)
+Large-Format Poster Print
+ACTIVE
+unit
+USD 34.00sale USD 30.60
+SKU sku-demo-poster · barcode 1234567890125
+On hand at the studio: 40 · reserved 0 (operational truth, revision 1)
+Custom Fabric Banner (per metre)
+DRAFT
+per metre
+USD 9.00
+SKU sku-demo-banner · barcode 1234567890126
+No stock record at the studio location.
+Autumn studio sale — 10% off prints · ACTIVE
+Winter preview — USD 5 off card sets · PAUSED — visible, not applied
+coupon WELCOME10 · 37/100 redeemed
+
+Promotions apply deterministically at order placement (kernel totals); the paused promotion stays visible but never discounts.
+
+Inventory (three truths, kept separate)
+sku-demo-a3print
+operational · on hand 120
+reserved 0
+revision 1 · updated 2026-10-05T09:02:00.000Z
+sku-demo-cards
+operational · on hand 80
+reserved 0
+revision 1 · updated 2026-10-05T09:04:00.000Z
+sku-demo-poster
+operational · on hand 40
+reserved 0
+revision 1 · updated 2026-10-05T09:06:00.000Z
+Shelf count, print rack (offline queue)
+NOT-PROMOTED-UNKNOWN
+DEMO
+
+A count captured while offline sits in the observation queue. It has NOT changed canonical stock and may be superseded — see the Physical store surface (J16) for the queue and its replay.
+
+Queued observation not yet reconciled — it has not changed canonical truth.
+
+Checkout — build a cart, complete, resubmit
+Add 1 × sku-demo-a3print
+Add 1 × sku-demo-cards
+Add 1 × sku-demo-poster
+Live demo cart (cart-live-1)
+sku-demo-a3print × 1 @ USD 18.50
+
+Subtotal USD 18.50 · discount USD 1.85 · grand total USD 16.65 (kernel cart math, promotions applied)
+
+Payment rail simulation:
+normal — authorization succeeds
+ambiguous — outcome resolves UNKNOWN
+Open checkout for this cart
+Resubmit exact same command (duplicate)
+
+EXECUTED receipt rcpt-32 · idempotency key idem-62 recorded — subjects: PAYMENT:pay-demo-1, ORDER:order-2
+
+Orders
+order-7
+PENDING
+UNKNOWN
+UNFULFILLED
+The payment outcome is UNKNOWN — not a failure, and not a success. Preserved verbatim (J18 law: never rendered as paid, never as failed).
+placed 2026-10-05T09:32:00.000Z
+sku-demo-poster ×1 @ USD 34.00 → grand total USD 30.60 (subtotal USD 34.00, discount USD 3.40)
+order-15
+PENDING
+AUTHORIZED
+UNFULFILLED
+placed 2026-10-05T10:02:00.000Z
+sku-demo-a3print ×1 @ USD 18.50 → grand total USD 16.65 (subtotal USD 18.50, discount USD 1.85)
+order-9
+PAID
+REFUNDED
+UNFULFILLED
+placed 2026-10-05T09:38:00.000Z
+sku-demo-cards ×2 @ USD 12.00 → grand total USD 24.00 (subtotal USD 24.00, discount USD 0.00)
+order-2
+FULFILLED
+REFUNDED
+FULFILLED
+placed 2026-10-05T09:14:00.000Z
+sku-demo-a3print ×2 @ USD 18.50 · sku-demo-cards ×1 @ USD 12.00 → grand total USD 44.10 (subtotal USD 49.00, discount USD 4.90)
+Fulfillment & delivery
+ff-4
+order order-2
+DELIVERED
+Shipment ship-5 · revision 4. Invalid triggers are refused deterministically with a reason — never a silent no-op.
+PACK
+TENDER
+CONFIRM_DELIVERY
+FAIL_DELIVERY
+RETURN_TO_SENDER
+Returns, exchanges & refunds
+ret-13
+REQUESTED
+EXCHANGE
+order order-2
+sku-demo-a3print ×1 (WRONG_ITEM)
+AUTHORIZE
+REJECT
+ret-11
+RESOLVED
+REFUND
+order order-9
+sku-demo-cards ×2 (CUSTOMER_REMORSE)
+Refunds (bounded by captured funds)
+COMPLETED refund-12 · USD 24.00 · POLICY_REFUND
+COMPLETED refund-16 · USD 44.10 · POLICY_REFUNDabove auto band — finance review
+pay-demo-1: captured 4410, refunded 4410 minor units
+Try refund above captured (see the refusal)
+pay-demo-3: captured 2400, refunded 2400 minor units
+Try refund above captured (see the refusal)
+Payments & settlement (unknown preserved)
+pay-demo-4
+AUTHORIZED
+USD 16.65 · captured USD 0.00 · refunded USD 0.00
+settlement not yet observed
+Observe settlement
+pay-demo-2
+UNKNOWN
+USD 30.60 · captured USD 0.00 · refunded USD 0.00
+settlement not yet observed
+Observe settlement
+pay-demo-1
+REFUNDED
+USD 44.10 · captured USD 44.10 · refunded USD 44.10
+SETTLED
+Observe settlement
+pay-demo-3
+REFUNDED
+USD 24.00 · captured USD 24.00 · refunded USD 24.00
+settlement not yet observed
+Observe settlement
+Payout check, demo rail
+SETTLEMENT-UNKNOWN
+DEMO
+
+The rail cannot confirm the payout. UNKNOWN is preserved verbatim — it is never rendered as paid, and never as failed.
+
+Settlement cannot be confirmed. UNKNOWN is never shown as paid or failed.
+
+Support — refund bands & escalation
+
+Demo policy: refunds at or above USD 25.00 require finance review before money moves (deterministic refundNeedsReview check). Refunds are always bounded by what was actually captured — a refund above the captured total is refused with a reason and a recovery path, never silently clamped. Wrong-item, counterfeit and dispute escalation live on the Trust & recourse surface.
+
+Open Trust & recourse (J17)
+
+Audit trail (append-only journal)
+ORDER_PAYMENT_STATUS_CHANGED · order-2 · 2026-10-05T10:04:00.000Z
+REFUND_RECORDED · pay-demo-1 · 2026-10-05T10:04:00.000Z
+PAYMENT_INTENT_RECORDED · pay-demo-1 · 2026-10-05T10:04:00.000Z
+CHECKOUT_STATE_CHANGED · cs-14 · 2026-10-05T10:02:00.000Z
+ORDER_PAYMENT_STATUS_CHANGED · order-15 · 2026-10-05T10:02:00.000Z
+PAYMENT_INTENT_RECORDED · pay-demo-4 · 2026-10-05T10:02:00.000Z
+ORDER_PLACED · order-15 · 2026-10-05T10:02:00.000Z
+CHECKOUT_STATE_CHANGED · cs-14 · 2026-10-05T10:02:00.000Z
+CHECKOUT_OPENED · cs-14 · 2026-10-05T10:00:00.000Z
+CART_LINE_ADDED · cart-live-1 · 2026-10-05T09:58:00.000Z
+RETURN_REQUESTED · ret-13 · 2026-10-05T09:56:00.000Z
+ORDER_PAYMENT_STATUS_CHANGED · order-9 · 2026-10-05T09:54:00.000Z
+REFUND_RECORDED · pay-demo-3 · 2026-10-05T09:54:00.000Z
+PAYMENT_INTENT_RECORDED · pay-demo-3 · 2026-10-05T09:54:00.000Z
+RETURN_STATE_CHANGED · ret-11 · 2026-10-05T09:52:00.000Z
+RETURN_STATE_CHANGED · ret-11 · 2026-10-05T09:50:00.000Z
+RETURN_STATE_CHANGED · ret-11 · 2026-10-05T09:48:00.000Z
+RETURN_STATE_CHANGED · ret-11 · 2026-10-05T09:46:00.000Z
+RETURN_STATE_CHANGED · ret-11 · 2026-10-05T09:44:00.000Z
+RETURN_REQUESTED · ret-11 · 2026-10-05T09:42:00.000Z
+ORDER_STATE_CHANGED · order-9 · 2026-10-05T09:40:00.000Z
+ORDER_PAYMENT_STATUS_CHANGED · order-9 · 2026-10-05T09:40:00.000Z
+PAYMENT_CAPTURE_RECORDED · pay-demo-3 · 2026-10-05T09:40:00.000Z
+PAYMENT_INTENT_RECORDED · pay-demo-3 · 2026-10-05T09:40:00.000Z
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)
