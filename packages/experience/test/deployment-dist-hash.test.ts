@@ -10,8 +10,8 @@
  * - the committed fixture provenance
  */
 import { describe, expect, it } from "vitest";
-import { readFileSync } from "node:fs";
-import { resolve, dirname } from "node:path";
+import { readFileSync, readdirSync, statSync } from "node:fs";
+import { resolve, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   classifyDistFile,
@@ -21,6 +21,7 @@ import {
   parseManifestLine,
   parseDistManifest,
   assembleFromDistManifest,
+  assembleFromDistRoot,
   verifyDist,
   sourceOnlyDistSection,
 } from "../src/deployment/rehearsal.js";
@@ -275,5 +276,154 @@ describe("W3-023 real-dist regression fixture — the REAL-CI-evidence class cov
     const fails = checks.filter((c) => c.result === "FAIL");
     expect(fails, `failing: ${fails.map((f) => f.check).join(", ")}`).toEqual([]);
     expect(checks.length).toBe(3);
+  });
+});
+
+// --- W1-025: the three W1-021 runner deviations closed ---
+
+describe("W1-025 deviation #1 — the two-parse determinism (assembleFromDistManifest)", () => {
+  it("two independent assemblies of the same manifest text produce the identical digest", () => {
+    const text = readFileSync(fixturePath, "utf-8");
+    const first = assembleFromDistManifest(text);
+    const second = assembleFromDistManifest(text);
+    // The honest proof: two independent parses (not a re-hash of the same array).
+    expect(first.inventory.distDigest).toBe(second.inventory.distDigest);
+  });
+  it("the dist digest is stable across multiple independent assemblies (not tautological)", () => {
+    const text = readFileSync(fixturePath, "utf-8");
+    const digests = new Set<string>();
+    for (let i = 0; i < 5; i++) {
+      digests.add(assembleFromDistManifest(text).inventory.distDigest);
+    }
+    expect(digests.size).toBe(1);
+  });
+});
+
+describe("W1-025 deviation #2 — the parse integrity (unparseable lines counted + named)", () => {
+  it("assembleFromDistManifest returns unparseable lines (never silently dropped)", () => {
+    const manifestText = "this is not a valid sha256sum line\na1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2  ./index.html";
+    const { inventory, unparseable, unclassifiable } = assembleFromDistManifest(manifestText);
+    expect(unparseable).toEqual(["this is not a valid sha256sum line"]);
+    expect(unclassifiable).toEqual([]);
+    expect(inventory.entries).toHaveLength(1);
+  });
+  it("verifyDist FAILs completeness when unparseable lines are present (the detail names them)", () => {
+    const manifestText = "corrupt line here\na1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2  ./index.html";
+    const { inventory, unparseable } = assembleFromDistManifest(manifestText);
+    const sourceInventory: BundleInventory = { entries: [], inventoryDigest: "sha256:test" };
+    const checks = verifyDist(inventory, inventory.distDigest, sourceInventory, [], unparseable);
+    const completeness = checks.find((c) => c.check === "dist-manifest-completeness");
+    expect(completeness?.result).toBe("FAIL");
+    expect(completeness?.detail).toContain("unparseable: corrupt line here");
+  });
+  it("verifyDist FAILs completeness when BOTH unparseable and unclassifiable are present (the detail names both)", () => {
+    const manifestText = "corrupt line\na1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2  ./unknown.xyz";
+    const { inventory, unclassifiable, unparseable } = assembleFromDistManifest(manifestText);
+    const sourceInventory: BundleInventory = { entries: [], inventoryDigest: "sha256:test" };
+    const checks = verifyDist(inventory, inventory.distDigest, sourceInventory, unclassifiable, unparseable);
+    const completeness = checks.find((c) => c.check === "dist-manifest-completeness");
+    expect(completeness?.result).toBe("FAIL");
+    expect(completeness?.detail).toContain("unparseable: corrupt line");
+    expect(completeness?.detail).toContain("unclassifiable: unknown.xyz");
+  });
+  it("the committed fixture has ZERO unparseable lines (the pure sha256sum format)", () => {
+    const text = readFileSync(fixturePath, "utf-8");
+    const { unparseable } = assembleFromDistManifest(text);
+    expect(unparseable).toEqual([]);
+  });
+  it("the regression fixture has ZERO unparseable lines (comments removed in W1-025)", () => {
+    const text = readFileSync(regressionFixturePath, "utf-8");
+    const { unparseable } = assembleFromDistManifest(text);
+    expect(unparseable).toEqual([]);
+  });
+});
+
+describe("W1-025 deviation #3 — the honest dist-root walk (assembleFromDistRoot)", () => {
+  it("assembleFromDistRoot classifies every file and collects unclassifiable", () => {
+    const files = [
+      { path: "index.html", digest: "abc123" },
+      { path: "assets/app.js", digest: "def456" },
+      { path: "assets/app.css", digest: "ghi789" },
+      { path: "assets/app.js.map", digest: "jkl012" },
+      { path: "assets/unknown.xyz", digest: "mno345" },
+    ];
+    const { inventory, unclassifiable } = assembleFromDistRoot(files);
+    expect(inventory.entries).toHaveLength(4);
+    expect(unclassifiable).toEqual(["assets/unknown.xyz"]);
+    expect(inventory.distDigest).toMatch(/^sha256:/);
+  });
+  it("two independent walks of the same file-list produce the identical digest (determinism)", () => {
+    const files = [
+      { path: "index.html", digest: "abc123" },
+      { path: "assets/app.js", digest: "def456" },
+    ];
+    const first = assembleFromDistRoot(files);
+    const second = assembleFromDistRoot(files);
+    expect(first.inventory.distDigest).toBe(second.inventory.distDigest);
+  });
+  it("assembleFromDistRoot with zero unclassifiable passes completeness", () => {
+    const files = [
+      { path: "index.html", digest: "abc123" },
+      { path: "assets/app.js", digest: "def456" },
+    ];
+    const { inventory, unclassifiable } = assembleFromDistRoot(files);
+    const sourceInventory: BundleInventory = {
+      entries: [
+        { fileClass: "entrypoint", path: "packages/web/src/index.ts", digest: "sha256:abc" },
+        { fileClass: "contract-barrel", path: "packages/commerce/src/contract.ts", digest: "sha256:def" },
+        { fileClass: "runtime-module", path: "packages/commerce/src/runtime/index.ts", digest: "sha256:ghi" },
+        { fileClass: "projection-module", path: "packages/commerce/src/projection/index.ts", digest: "sha256:jkl" },
+      ],
+      inventoryDigest: "sha256:test",
+    };
+    const checks = verifyDist(inventory, inventory.distDigest, sourceInventory, unclassifiable);
+    const fails = checks.filter((c) => c.result === "FAIL");
+    expect(fails).toEqual([]);
+    expect(checks.length).toBe(3);
+  });
+  it("assembleFromDistRoot with unclassifiable FAILs completeness naming the file", () => {
+    const files = [
+      { path: "index.html", digest: "abc123" },
+      { path: "assets/app.js", digest: "def456" },
+      { path: "assets/unknown.xyz", digest: "mno345" },
+    ];
+    const { inventory, unclassifiable } = assembleFromDistRoot(files);
+    const sourceInventory: BundleInventory = { entries: [], inventoryDigest: "sha256:test" };
+    const checks = verifyDist(inventory, inventory.distDigest, sourceInventory, unclassifiable);
+    const completeness = checks.find((c) => c.check === "dist-manifest-completeness");
+    expect(completeness?.result).toBe("FAIL");
+    expect(completeness?.detail).toContain("unclassifiable: assets/unknown.xyz");
+  });
+});
+
+describe("W1-025 dist-dir fixtures — the committed fake dist directories", () => {
+  const cleanDir = resolve(__dirname, "deployment", "dist-dir-clean-fixture");
+  const unclassifiableDir = resolve(__dirname, "deployment", "dist-dir-fixture");
+
+  it("the clean dist-dir fixture exists with 5 classifiable files (html/js/css/map/svg)", () => {
+    const files = readdirSync(cleanDir, { recursive: true }).filter((f) => typeof f === "string" && statSync(join(cleanDir, f as string)).isFile());
+    expect(files.length).toBe(5);
+  });
+
+  it("the dist-dir fixture with unclassifiable exists with 6 files (5 classifiable + 1 .xyz)", () => {
+    const files = readdirSync(unclassifiableDir, { recursive: true }).filter((f) => typeof f === "string" && statSync(join(unclassifiableDir, f as string)).isFile());
+    expect(files.length).toBe(6);
+  });
+
+  it("the dist-dir fixture contains the deliberately unclassifiable file (assets/unknown.xyz)", () => {
+    const files = readdirSync(unclassifiableDir, { recursive: true }).filter((f) => typeof f === "string");
+    const hasUnclassifiable = files.some((f) => (f as string).endsWith("unknown.xyz"));
+    expect(hasUnclassifiable).toBe(true);
+  });
+});
+
+describe("W1-025 the schema-unchanged invariant — the artifact stays at 11 checks", () => {
+  it("verifyDist still produces exactly 3 dist checks (no new check added)", () => {
+    const manifestText = readFileSync(fixturePath, "utf-8");
+    const { inventory, unclassifiable, unparseable } = assembleFromDistManifest(manifestText);
+    const sourceInventory: BundleInventory = { entries: [], inventoryDigest: "sha256:test" };
+    const checks = verifyDist(inventory, inventory.distDigest, sourceInventory, unclassifiable, unparseable);
+    expect(checks.length).toBe(3);
+    expect(checks.map((c) => c.check)).toEqual(["dist-manifest-completeness", "dist-digest-deterministic", "source-dist-cross-check"]);
   });
 });
