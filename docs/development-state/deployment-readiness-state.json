@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "repository": "payswapdotorg/UniCom",
+  "program": "UNiCOM Deployment Readiness — the deployment-coverage layer (non-live)",
+  "status": "ACTIVE_W1_DISPATCHED",
+  "tracking_issue": 17,
+  "prior_phase_records_immutable": [
+    "docs/development-state/commerce-integration-3-state.json (linking observation completeness, PHASE_COMPLETE_ALL_GATES_PASSED, closeout 5fec940)",
+    "docs/development-state/commerce-integration-2-state.json",
+    "docs/development-state/commerce-integration-state.json",
+    "docs/development-state/product-completion-state.json"
+  ],
+  "source_baseline": {
+    "baseline_commit": "5fec940",
+    "code_lineage": "63f6ba7 (W1-018 merge) + 6b3037d (evidence) + 5fec940 (closeout)",
+    "battery": "vitest 2,197 passed | 0 skipped (commerce 521 + web 378 + experience 739 + agent 559); lint 103w/0e; architecture 0; scoped tsc clean",
+    "browser_gate": "merged zero-drift on 63f6ba7: journeys 19/19, J18 ABSENT-by-design identical to the accepted baseline, safety 5/5, walk 6/6, 92/92 pointers"
+  },
+  "architecture": {
+    "baseline": "1.2-additive-runtime-browser-2026-10-11 (unchanged this phase)",
+    "delta_policy": "additive deployment-plane modules (experience) + one ADD-alongside System-surface section (web); NO commerce changes; NO host-states changes (J18's ABSENT-by-design classification is load-bearing and untouched); INVARIANTS 51/52 (provider names only in deployment configuration, never in domain contracts)"
+  },
+  "operator_directive": "continuous resident watch: monitor → harvest → review → approve/require-changes → dispatch next until the roadmap is complete; no early returns; the GitHub repo is the roadmap guide; dispatch only from inside the replay",
+  "policy": {
+    "non_live_only": "this phase deploys NOTHING, connects to NO provider, reads NO credential — the standing gates bind absolutely",
+    "standing_gates": {
+      "production_deployment": "NOT_AUTHORIZED",
+      "live_named_provider_credentials": "NOT_AUTHORIZED",
+      "human_research": "NOT_AUTHORIZED",
+      "live_payments": "NOT_AUTHORIZED"
+    },
+    "honest_evidence": "TL-observed numbers only; scoped tsc MANDATORY in every web lane's acceptance list (the phase-6 lesson); the experience lane runs its package typecheck; never delete/skip failing tests; preserve limitations verbatim; committed artifacts carry real values only, fixture-derived values labelled"
+  },
+  "work_orders": [
+    {
+      "id": "W1-019",
+      "path": "docs/work-orders/W1-019.md",
+      "lane": "deployable-bundle manifest + the non-live rehearsal harness + the committed artifact",
+      "owner": "worker-1",
+      "status": "DISPATCHED",
+      "write_surface": "packages/experience/src/deployment/bundle-definition.ts + rehearsal.ts (NEW) + scripts/deployment-rehearsal.mjs (NEW) + reports/deployment/deployment-readiness.json (NEW) + the deployment plane's tests + the report",
+      "branch": "work/w1-019"
+    },
+    {
+      "id": "W2-020",
+      "path": "docs/work-orders/W2-020.md",
+      "lane": "the operator surface: the System-surface Deployment-Readiness section (the committed-fixture mirror, the J15 pattern)",
+      "owner": "worker-2",
+      "status": "QUEUED_BEHIND_W1",
+      "write_surface": "packages/web/src/commerce-host/shell/fixtures/deployment-readiness-fixture.ts (NEW) + SystemSurface.tsx (ADD-alongside section) + net-new tests + the report",
+      "branch": "work/w2-020"
+    }
+  ],
+  "tl_owned_decision_packets": [
+    "the operator deployment decision brief (Tier A/B/C choices, evidence, risks, the exact approvals needed) — TL-authored at phase closeout from the rehearsal artifact; the UX-DEPLOYMENT.md tiers are the operator's decision space, this phase only makes it decision-ready"
+  ],
+  "operator_decisions": {
+    "phase_iv_derivation": "the resident TL under the continuous-watch directive: the repo's frontier statements name the deployment-coverage layer as the next BIG phase in three places (the phase-II FINAL-REPORT §frontier, the phase-III activation record, the phase-III FINAL-REPORT §5); the matrix's deployment rows are contract-closed (W3-008, 44/44 pointer-green) — the make-it-real program's next step for the plane is the deterministic bundle manifest + the non-live rehearsal + the discoverable operator surface, all inside the standing gates (no deployment, no credentials)"
+  },
+  "acceptance_gates": [
+    {
+      "id": "BASELINE",
+      "name": "5fec940 verified clean; registries valid",
+      "status": "PASSED",
+      "evidence": "phase III closeout 5fec940 = code lineage 63f6ba7 + evidence 6b3037d + registry/report deltas; merged battery 2,197|0 recorded in commerce-integration-3-state.json"
+    },
+    {
+      "id": "BUNDLE_MANIFEST",
+      "name": "The deterministic deployable-bundle definition: inventory + capability declarations (all kinds, adapter-resolvable) + lineage identity",
+      "status": "PENDING"
+    },
+    {
+      "id": "REHEARSAL",
+      "name": "The non-live rehearsal: assemble twice → identical digests; every check verified; exit 0; the committed artifact with real values",
+      "status": "PENDING"
+    },
+    {
+      "id": "CONFIG_SURFACE",
+      "name": "The configuration-surface inventory: every key classified demo | live-gated | neutral — the secrets boundary explicit",
+      "status": "PENDING"
+    },
+    {
+      "id": "OPERATOR_SURFACE",
+      "name": "The System-surface Deployment-Readiness section: fixture-provenance, capability coverage, config classification, verification results, the honest standing-gates status; J18 ABSENT untouched",
+      "status": "PENDING"
+    },
+    {
+      "id": "REGRESSION",
+      "name": "Full merged battery: vitest all suites, lint baseline, architecture 0, the touched packages' typechecks clean",
+      "status": "PENDING"
+    },
+    {
+      "id": "BROWSER",
+      "name": "Merged real-Chromium zero-drift gate + lane extension evidence (the readiness section end-to-end)",
+      "status": "PENDING"
+    },
+    {
+      "id": "TL_ACCEPT",
+      "name": "Independent TL verification, final report with the TL-authored operator deployment decision brief, evidence manifests, registry closeout",
+      "status": "PENDING"
+    }
+  ],
+  "recording_law": "every gate transition cites TL-observed evidence (exact commands, numbers, commits); worker-reported numbers are never sufficient; deviations are recorded, never laundered",
+  "prior_phase_lessons_binding": [
+    "the scoped-tsc lesson: the order template's acceptance list always includes the touched package's typecheck",
+    "the write-surface lesson: derive the surface from the deliverable's FULL integration path (typing ≠ dispatch ≠ render)",
+    "the memory-war law: browser gates run under the pause/restore class with the platform dark-window disclosed",
+    "the honest-artifact law: committed artifacts carry real values; fixture-derived values are labelled"
+  ]
+}
