@@ -1,0 +1,159 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module merchant-autonomous
+owner lane W3-015
+status ready
+J13 · Autonomous store controls
+DEMO
+
+Harbor 24 autonomous kiosk (demo kiosk). The policy in force, its approval gates and stop conditions, the human override path, and the audit trail — all real kernel state driven from committed fixtures w3-015-autonomous-fixtures@1. Autonomy here is deterministic policy application: the store can only do what the registered policy allows, and every decision is journaled.
+
+Reset demo data
+fixtures are synthetic — resettable, no credentials, no live store
+Policy in force
+pol-demo-harbor24
+HALTED
+revision 2 · USD
+Autonomy is HALTED — a stop condition holds
+
+The observed reconciliation-discrepancy rate (6200 bps) crossed the stop threshold (5000 bps). Every autonomous action is denied at the kernel boundary with STOP_CONDITION_TRIGGERED until a human intervenes — the human override below is the recorded recovery path, never a silent bypass.
+
+Spend limit USD 200.00 per day · promotion budget USD 80.00 per day · margin floor 1500 bps over cost · refunds at/above USD 50.00 REQUIRE_APPROVAL · price deltas at/above USD 5.00 REQUIRE_APPROVAL
+
+RECONCILIATION_DISCREPANCY_RATE
+STOP_CONDITION_TRIGGERED
+observed 6200 bps · threshold 5000 bps
+NEGATIVE_MARGIN_OBSERVED
+WITHIN_BOUNDS
+observed 0 bps · threshold 10000 bps
+
+Stop conditions are hard: when an observed rate/level crosses its threshold, autonomy halts pending human intervention — no model preference can override it. Revision 1 seeded the healthy history; revision 2 (the halt) is journaled the same way, never a silent mutation.
+
+Harbor 24 autonomous kiosk
+AUTONOMOUS
+owner MERCHANT · controlling principal AUTONOMOUS_STORE · registered 2026-10-05T09:03:00.000Z · revision 1
+store-control commands (price book, overrides, escalation handling) are authority-gated: only the registered owner or the current controlling principal may exercise them — enforced at the kernel boundary.
+What the policy says before anything commits
+Price change below the margin floor
+DENY
+
+Set the kettle to USD 33.00 while cost basis is USD 30.00 and the margin floor is 15% over cost (floor price USD 34.50) — below the floor, the policy can never allow it.
+
+Decision DENY · reasons BELOW_MARGIN_FLOOR · evaluated against the revision-1 (healthy) policy — a preview only; nothing has committed.
+
+Refund at the approval threshold
+REQUIRE_APPROVAL
+
+A USD 50.00 refund at the refund-approval threshold (USD 50.00): the policy does not deny it — a human must approve it first. Auto-refund never happens silently.
+
+Decision REQUIRE_APPROVAL · reasons APPROVAL_THRESHOLD · evaluated against the revision-1 (healthy) policy — a preview only; nothing has committed.
+
+Restock spend beyond the daily limit
+DENY
+
+A USD 90.00 restock on top of USD 120.00 already spent today against the USD 200.00 daily spend limit — over the limit, denied outright.
+
+Decision DENY · reasons EXCEEDS_SPEND_LIMIT · evaluated against the revision-1 (healthy) policy — a preview only; nothing has committed.
+
+Any action while the stop condition holds
+DENY
+DEMO
+
+A routine USD 10.00 order under the HALTED policy revision: with the discrepancy rate over the stop threshold, autonomy halts EVERY action — even one that would otherwise be allowed.
+
+Decision DENY · reasons STOP_CONDITION_TRIGGERED · evaluated against the revision-2 (halted) policy — a preview only; nothing has committed.
+
+These previews call the same pure evaluator the kernel uses — before any action commits. ALLOW never skips the kernel gate; REQUIRE_APPROVAL actions are blocked at the boundary until a human override is recorded; DENY is a hard limit.
+
+Autonomous actions and the human override path
+Try an autonomous price adjustment (in-band) while halted
+Human override — set the kettle price to USD 46.00 (journaled)
+Human override — force a 2-unit kettle restock (journaled)
+
+EXECUTED receipt rcpt-8 · idempotency key idem-18 recorded — subjects: AUTONOMOUS_STORE:store-demo-harbor-24, POLICY_APPLICATION:polapp-13, SKU_PRICE:store-demo-harbor-24|sku-auto-kettle, PRICE_ADJUSTMENT:padj-12
+
+Escalations (stop-the-line anomalies)
+esc-10
+OPEN
+CASH_VARIANCE · raised 2026-10-05T09:15:00.000Z
+
+Cash variance at close: expected USD 25.00, counted USD 8.00 — variance USD 17.00 (SHORT), beyond the escalation threshold.
+
+Acknowledge the cash-variance escalation
+
+Escalations are journaled states, never swallowed anomalies: the cash variance above the threshold raised this one at till close; acknowledging and resolving are authority-gated commands an owner exercises.
+
+Price book and adjustment trail
+sku-auto-kettle
+unit price USD 46.00
+cost basis USD 30.00 · revision 3
+padj-6
+APPLIED
+ALLOW
+
+sku-auto-kettle: USD 42.00 → USD 44.00 · cost basis USD 30.00 · no denial reasons · weekend demand
+
+padj-12
+APPLIED
+OVERRIDE
+
+sku-auto-kettle: USD 44.00 → USD 46.00 · cost basis USD 30.00 · no denial reasons · override ovr-11 · competitor price match
+
+An out-of-policy adjustment is a JOURNALED refusal (applied: false with the policy reasons) — never a silent drop, never a collapsed error.
+
+Restock orders and spend against the limit
+restock-4
+POLICY
+sku-auto-kettle · units 4 · planned value USD 120.00 · PO po-3 · period 2026-10-05
+Spend today
+USD 120.00 of the USD 200.00 daily limit (sum of journaled restock order values)
+policy restocks are spend-checked before ordering; human-override restocks replace that evaluation with the recorded human authority (journaled either way)
+Audit trail — every policy application
+polapp-2
+ALLOW
+TILL_OPEN · no reasons · effect STORE_CASH_SESSION:till-1 · 2026-10-05T09:09:00.000Z
+polapp-5
+ALLOW
+RESTOCK · no reasons · effect RESTOCK_ORDER:restock-4 · 2026-10-05T09:11:00.000Z
+polapp-7
+ALLOW
+PRICE_ADJUSTMENT · no reasons · effect SKU_PRICE:store-demo-harbor-24|sku-auto-kettle · 2026-10-05T09:13:00.000Z
+polapp-9
+ALLOW
+TILL_CLOSE · no reasons · effect STORE_CASH_SESSION:till-1 · 2026-10-05T09:15:00.000Z
+polapp-13
+OVERRIDE
+PRICE_ADJUSTMENT · no reasons · effect SKU_PRICE:store-demo-harbor-24|sku-auto-kettle · override ovr-11 · 2026-10-05T09:19:00.000Z
+
+One journaled fact per decision — the append-only record an auditor replays.
+
+Journal (append-only, deterministic)
+SKU_PRICE_ADJUSTMENT_RECORDED · padj-12 · 2026-10-05T09:19:00.000Z
+SKU_PRICE_ADJUSTED · store-demo-harbor-24|sku-auto-kettle · 2026-10-05T09:19:00.000Z
+POLICY_APPLIED · polapp-13 · 2026-10-05T09:19:00.000Z
+AUTONOMOUS_OVERRIDE_RECORDED · store-demo-harbor-24 · 2026-10-05T09:19:00.000Z
+POLICY_REVISED · pol-demo-harbor24 · 2026-10-05T09:16:00.000Z
+STORE_ESCALATION_RECORDED · esc-10 · 2026-10-05T09:15:00.000Z
+CASH_VARIANCE_RECORDED · var-8 · 2026-10-05T09:15:00.000Z
+STORE_SESSION_STATE_CHANGED · till-1 · 2026-10-05T09:15:00.000Z
+POLICY_APPLIED · polapp-9 · 2026-10-05T09:15:00.000Z
+SKU_PRICE_ADJUSTMENT_RECORDED · padj-6 · 2026-10-05T09:13:00.000Z
+SKU_PRICE_ADJUSTED · store-demo-harbor-24|sku-auto-kettle · 2026-10-05T09:13:00.000Z
+POLICY_APPLIED · polapp-7 · 2026-10-05T09:13:00.000Z
+PURCHASE_ORDER_STATE_CHANGED · po-3 · 2026-10-05T09:11:00.000Z
+PURCHASE_ORDER_OPENED · po-3 · 2026-10-05T09:11:00.000Z
+RESTOCK_ORDERED · restock-4 · 2026-10-05T09:11:00.000Z
+POLICY_APPLIED · polapp-5 · 2026-10-05T09:11:00.000Z
+STORE_SESSION_OPENED · till-1 · 2026-10-05T09:09:00.000Z
+POLICY_APPLIED · polapp-2 · 2026-10-05T09:09:00.000Z
+SKU_PRICE_SET · store-demo-harbor-24|sku-auto-kettle · 2026-10-05T09:07:00.000Z
+INVENTORY_RECEIVED · sku-auto-kettle|loc-demo-harbor24 · 2026-10-05T09:05:00.000Z
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

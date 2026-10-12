@@ -2,7 +2,7 @@
   "schema_version": 1,
   "repository": "payswapdotorg/UniCom",
   "program": "UNiCOM Verification Hardening \u2014 the recorded-debt closure (the runner's honesty + the agent fresh-build)",
-  "status": "PHASE_ACTIVE_BASELINE_PASSED",
+  "status": "PHASE_COMPLETE_ALL_GATES_PASSED",
   "tracking_issue": 19,
   "prior_phase_records_immutable": [
     "docs/development-state/deployment-integrity-state.json (PHASE_COMPLETE_ALL_GATES_PASSED, closeout 7984b20)",
@@ -46,7 +46,7 @@
       "status": "COMPLETE",
       "write_surface": "packages/experience/src/deployment/rehearsal.ts (EXTEND) + scripts/deployment-rehearsal.mjs (the three honesty fixes) + the dist-dir fixture (NEW) + the tests + the regenerated artifact (schema unchanged) + the report",
       "branch": "work/w1-025",
-      "dispatch_record": "landed 2026-10-12 15:25:18Z on the proven canary session (13th lane on chat 309bcf10) after the s8 pre-flight: cycle 0; n 44->46, leaf ea56c194",
+      "dispatch_record": "landed 2026-10-12 15:25:18Z on the proven canary session (13th lane on chat 309bcf10) after the s8 pre-flight: cycle 0; n 44->46, leaf ea56c194 | landed cycle 0 15:25:18Z (13th lane)",
       "merge": "fa4650c (lane 03ac0f7; one commit; ZERO deviations \u2014 the honest-gaps record exemplary: the artifact NOT regenerated [the order regeneration clause was internally contradictory \u2014 any regeneration changes the inventoryDigest; the real-dist evidence record stays intact, the TL regenerates post-merge] + the regression-fixture comments moved to .provenance.md [the parse-integrity consequence])"
     },
     {
@@ -54,11 +54,11 @@
       "path": "docs/work-orders/W2-026.md",
       "lane": "the agent package's fresh-environment clean build: the test-support TS2339 debt closed with minimal type fixes + the fresh-worktree proof",
       "owner": "worker-2",
-      "status": "DISPATCHED_GENERATING",
+      "status": "COMPLETE",
       "write_surface": "packages/agent/test/runtime/support/scripted-model.ts + the same-class test-support siblings + the report",
       "branch": "work/w2-026",
-      "dispatch_record": "dispatched 2026-10-12 ~15:46Z after the s8 pre-flight (stop the completed W1-025 turn ab1300c4 -> 200 true -> 410 verify)",
-      "merge": ""
+      "dispatch_record": "landed 2026-10-12 15:47:18Z cycle 0 (14th lane) after the s8 pre-flight; n 46->48, leaf 6bbc1a1f",
+      "merge": "7dd8fb8 (lane 68c3b8f; one commit; ZERO deviations \u2014 the honest root-cause record + the ONE minimal type fix + the out-of-surface debt disclosed per the STOP-AND-REPORT rule)"
     }
   ],
   "gates": {
@@ -67,32 +67,32 @@
       "evidence": "main 7984b20 == origin/main, tree clean, the phase-V battery re-derived from the registry: vitest 2,255|0, lint 103w/0e, architecture 0, both scoped typechecks clean, the real-dist run 11/11"
     },
     "RUNNER_INTEGRITY": {
-      "status": "PENDING",
-      "definition": "the three W1-021 deviations closed + test-proven: the two-parse determinism (the runner's own path), the parse integrity (unparseable lines fail loudly, folded into dist-manifest-completeness), the honest dist-root walk (the committed dist-dir fixture + the failure-path variant)"
+      "status": "PASSED",
+      "evidence": "the three deviations closed in code + tests (the deviation-closure table); TL-verified: all four modes + BOTH failure paths (the corrupt-line exit 1 unparseable named; the dist-dir unclassifiable exit 1 naming the file); experience 798/798 (783 + 15 net-new)"
     },
     "AGENT_CLEAN_BUILD": {
-      "status": "PENDING",
-      "definition": "the fresh-worktree proof: tsc -p packages/agent exit 0 from a REAL fresh clone + the agent battery identical (559|0) + zero behavior changes"
+      "status": "PASSED",
+      "evidence": "the TL re-ran the fresh-worktree proof: the dep chain built (shared-types 0, contracts 0, unicom/agent-kernel 0; core/dynamic-workflow emit despite their own pre-existing errors \u2014 the disclosed out-of-surface debt) -> the agent tsc EXIT 0 ZERO errors; the battery 559/559 identical on the main checkout with the fix applied (the worktree turbo-setup failure isolated as a worktree-class artifact)"
     },
     "REGRESSION": {
-      "status": "PENDING",
-      "definition": "the merged-tree battery: all four packages, zero skipped, lint/arch/typechecks green (\u2265 2,255 + net-new); the artifact schema unchanged (11 checks) + the committed artifact byte-identical except generatedAt"
+      "status": "PASSED",
+      "evidence": "merged battery 2,270 passed | 0 skipped (web 392 + experience 798 + commerce 521 + agent 559) \u2014 the program largest; lint 103w/0e; architecture 0/0/0"
     },
     "ARTIFACT_CONSISTENCY": {
-      "status": "PENDING",
-      "definition": "the runner's three modes re-verified on the merged tree (source-only 8/8; both fixtures 11/11; the dist-dir fixture green + its failure-path variant exits non-zero) + the REAL CI manifest re-run 11/11 (the TL-owned evidence step) + the web fixture/surface still valid (no web changes \u2014 the surface renders the same 11 checks)"
+      "status": "PASSED",
+      "evidence": "the four runner modes re-verified on the merged tree (source-only 8/8; both fixtures 11/11; the dist-root clean 10/10; the failure paths non-zero) + the REAL CI manifest re-run 11/11 (zero unclassifiable, zero unparseable, the dist digest unchanged sha256:0508acfe8e87a989 \u2014 the determinism across the runner rewrite) + the artifact regenerated at d09504f (invDigest sha256:18a52157007574ed \u2014 the worker exact prediction); the W4-024 fixture a labelled snapshot of 210b8b9 (the disclosed relationship)"
     },
     "BROWSER": {
-      "status": "PENDING",
-      "definition": "the merged zero-drift gate (journeys/interactions/safety/walk/pointers, J18 ABSENT-by-design identical to the accepted baseline) \u2014 the surface is unchanged this phase; the gate proves no drift"
+      "status": "PASSED",
+      "evidence": "the merged zero-drift gate on d09504f: journeys 19/19, interactions 19/19 (J18 ABSENT-by-design identical: 18 PASS + 1 ABSENT, the HONEST ABSENT note), safety 5/5, walk 6/6, 92/92 pointers, denominators 19/19/5/6/30 zero-drift. The first run had 2 environment-class BLOCKED steps (page crashes at 142-285MB free \u2014 the platform was live; the memory-war law re-applied) -> the pause + the re-run CLEAN (the gate of record); the platform restored (console 200 + ring 200)"
     },
     "SAFETY": {
-      "status": "PENDING",
-      "definition": "the standing gates untouched; zero .github changes; INVARIANTS 51/52; no provider names in domain contracts; no credential values; no local dist builds"
+      "status": "PASSED",
+      "evidence": "zero .github changes; the artifact no-live-credentials + no-provider-names PASS; nonLive true; zero credential values in the phase diff; the phase files all within the ordered surfaces (experience deployment + agent test-support + the reports); the standing gates NOT_AUTHORIZED unchanged"
     },
     "TL_ACCEPT": {
-      "status": "PENDING",
-      "definition": "the TL-authored phase record: the deviation-closure verification, the fresh-build proof re-run by the TL, the honest limitations, the closeout"
+      "status": "PASSED",
+      "evidence": "the FINAL-REPORT (docs/verification-hardening/FINAL-REPORT.md) with the honest limitations: the order regeneration-clause contradiction + the correct sequence, the fixture provenance move, the out-of-surface zcode-cli debt disclosed, the first-gate-run blocks + the re-run, the dispatch record, the fixture-snapshot advance"
     }
   }
 }

@@ -222015,7 +222015,7 @@
   "throughput": {
     "totalProjects": 84,
     "totalJourneyRuns": 1148,
-    "totalDurationMs": 26,
+    "totalDurationMs": 28,
     "avgJourneyDurationMs": 0
   }
 }
