@@ -52,6 +52,7 @@ export interface DraftMutationResult {
 export class LinkingDraftKernel {
   private readonly receipts = new Map<string, CommandReceipt>();
   private readonly drafts = new Map<string, LinkedDraftAggregate>();
+  private readonly draftIdToKey = new Map<string, string>();
   private counter = 0;
 
   async linkGroupBuyToOrderDraft(
@@ -97,6 +98,7 @@ export class LinkingDraftKernel {
     };
     this.receipts.set(idempotencyKey, receipt);
     this.drafts.set(draft.draftId as string, draft);
+    this.draftIdToKey.set(draft.draftId as string, idempotencyKey);
     return { status: "EXECUTED", receipt, draft };
   }
 
@@ -133,8 +135,13 @@ export class LinkingDraftKernel {
   allDrafts(): readonly LinkedDraftAggregate[] { return [...this.drafts.values()]; }
   draftFor(draftId: string): LinkedDraftAggregate | undefined { return this.drafts.get(draftId); }
   receiptFor(idempotencyKey: string): CommandReceipt | undefined { return this.receipts.get(idempotencyKey); }
+  /** The receipt for a draft (by draft id) — for the System-surface ledger. */
+  receiptForDraft(draftId: string): CommandReceipt | undefined {
+    const key = this.draftIdToKey.get(draftId);
+    return key ? this.receipts.get(key) : undefined;
+  }
 
-  reset(): void { this.receipts.clear(); this.drafts.clear(); this.counter = 0; }
+  reset(): void { this.receipts.clear(); this.drafts.clear(); this.draftIdToKey.clear(); this.counter = 0; }
 }
 
 /** The shared singleton — ONE instance for all surfaces. */

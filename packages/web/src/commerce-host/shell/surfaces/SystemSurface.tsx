@@ -102,7 +102,9 @@ export function SystemSurface(): JSX.Element {
           </p>
         ) : (
           <div className="cm-stack" data-testid="cm-linked-drafts-list">
-            {drafts.map((draft) => (
+            {drafts.map((draft) => {
+              const receipt = sharedLinkingDraftKernel.receiptForDraft(draft.draftId as string);
+              return (
               <div key={draft.draftId as string} className="cm-journey-item">
                 <code style={{ fontSize: 12.5 }}>{draft.draftId as string}</code>
                 <DraftStateChip state={draft.state} />
@@ -110,8 +112,10 @@ export function SystemSurface(): JSX.Element {
                 {draft.provenance.legIndex !== undefined ? <span className="cm-chip cm-chip-muted">leg {draft.provenance.legIndex}</span> : null}
                 <span className="cm-journey-summary">actor: {principalLabel(draft.provenance.actingPrincipal)} · {draft.provenance.consentBasis}</span>
                 <span className="cm-journey-summary">compensation ref: {draft.provenance.compensationRef}</span>
+                {receipt ? <span className="cm-journey-summary" data-testid="cm-linked-draft-receipt">receipt {receipt.receiptId} · command {receipt.commandId} · idem-key {receipt.idempotencyKey} · executed {receipt.executedAt}</span> : null}
               </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </section>

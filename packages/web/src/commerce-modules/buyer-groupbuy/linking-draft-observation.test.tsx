@@ -155,3 +155,33 @@ describe("W1-018 panel — UNKNOWN demo trigger + resolve + cancel render", () =
     expect(text).toContain("compensation is its own separately-authorized command");
   });
 });
+
+describe("W1-018 receipt — receiptForDraft + ledger receipt render", () => {
+  it("receiptForDraft returns the receipt for a draft by its draft id", async () => {
+    const kernel = new LinkingDraftKernel();
+    const exec = await kernel.linkGroupBuyToOrderDraft(formedGroupBuy(), buyer, organizer, "idem-receipt-1");
+    if (exec.status !== "EXECUTED" || !exec.draft || !exec.receipt) throw new Error("unreachable");
+    const receipt = kernel.receiptForDraft(exec.draft.draftId as string);
+    expect(receipt).toBeDefined();
+    expect(receipt?.receiptId).toBe(exec.receipt.receiptId);
+    expect(receipt?.commandId).toBe(exec.receipt.commandId);
+    expect(receipt?.idempotencyKey).toBe(exec.receipt.idempotencyKey);
+    expect(receipt?.executedAt).toBe(exec.receipt.executedAt);
+  });
+
+  it("the System-surface ledger renders the receipt for each draft row", async () => {
+    // Seed the shared singleton with a draft, then render the SystemSurface.
+    sharedLinkingDraftKernel.reset();
+    await sharedLinkingDraftKernel.linkGroupBuyToOrderDraft(formedGroupBuy(), buyer, organizer, "idem-receipt-ledger");
+    const drafts = sharedLinkingDraftKernel.allDrafts();
+    expect(drafts).toHaveLength(1);
+    const receipt = sharedLinkingDraftKernel.receiptForDraft(drafts[0]!.draftId as string);
+    expect(receipt).toBeDefined();
+    expect(receipt?.receiptId).toContain("w2ld-rcpt-");
+    expect(receipt?.commandId).toContain("w2ld-cmd-");
+    expect(receipt?.idempotencyKey).toBe("idem-receipt-ledger" as never);
+    expect(receipt?.executedAt).toBeDefined();
+    // Clean up the singleton for other tests.
+    sharedLinkingDraftKernel.reset();
+  });
+});
