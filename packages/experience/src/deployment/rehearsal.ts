@@ -206,28 +206,66 @@ export function parseDistManifest(manifestText: string): readonly DistManifestLi
     .filter((l): l is DistManifestLine => l !== null);
 }
 
-/** Assemble a DistInventory from a sha256sum manifest text. */
-export function assembleFromDistManifest(manifestText: string): { inventory: DistInventory; unclassifiable: string[] } {
-  const lines = parseDistManifest(manifestText);
+/** Assemble a DistInventory from a sha256sum manifest text.
+ *
+ * W1-025 (additive): the return record now carries `unparseable: string[]` —
+ * the raw lines that did NOT match the sha256sum format (never silently
+ * dropped). The completeness check (verifyDist) folds unparseable ∪
+ * unclassifiable into its failure surface.
+ */
+export function assembleFromDistManifest(manifestText: string): { inventory: DistInventory; unclassifiable: string[]; unparseable: string[] } {
+  const rawLines = manifestText
+    .split("\n")
+    .map((l) => l.trim())
+    .filter((l) => l.length > 0);
   const entries: DistInventoryEntry[] = [];
   const unclassifiable: string[] = [];
-  for (const line of lines) {
-    const fileClass = classifyDistFile(line.path);
+  const unparseable: string[] = [];
+  for (const raw of rawLines) {
+    const parsed = parseManifestLine(raw);
+    if (parsed === null) {
+      unparseable.push(raw);
+      continue;
+    }
+    const fileClass = classifyDistFile(parsed.path);
     if (fileClass === null) {
-      unclassifiable.push(line.path);
+      unclassifiable.push(parsed.path);
     } else {
-      entries.push({ fileClass, path: line.path, digest: line.digest });
+      entries.push({ fileClass, path: parsed.path, digest: parsed.digest });
     }
   }
   const distDigest = computeInventoryDigest(entries.map((e) => ({ path: e.path, digest: e.digest })));
-  return { inventory: { entries, distDigest }, unclassifiable };
+  return { inventory: { entries, distDigest }, unclassifiable, unparseable };
 }
 
-/** Verify the dist assembly: completeness, determinism, source↔dist cross-check. */
-export function verifyDist(inventory: DistInventory, secondDigest: string, sourceInventory: BundleInventory): readonly VerificationCheck[] {
+/** Verify the dist assembly: completeness, determinism, source↔dist cross-check.
+ *
+ * W1-025 (additive): the completeness check now folds unparseable ∪
+ * unclassifiable into its failure surface (the detail names both classes
+ * separately). The unparseable/unclassifiable arrays are optional — if
+ * absent, the check falls back to the original field-completeness test
+ * (the existing test-proven semantics preserved for callers that don't
+ * supply them). No new check — still exactly 3 dist checks.
+ */
+export function verifyDist(
+  inventory: DistInventory,
+  secondDigest: string,
+  sourceInventory: BundleInventory,
+  unclassifiable: string[] = [],
+  unparseable: string[] = [],
+): readonly VerificationCheck[] {
   const checks: VerificationCheck[] = [];
-  const distComplete = inventory.entries.every((e) => e.fileClass && e.path && e.digest);
-  checks.push({ check: "dist-manifest-completeness", result: distComplete ? "PASS" : "FAIL", detail: distComplete ? `all ${inventory.entries.length} dist entries classified` : "one or more dist entries missing fields" });
+  // Completeness: every entry has fields AND no unclassifiable/unparseable.
+  // The honest failure surface = unclassifiable ∪ unparseable (both named).
+  const fieldsComplete = inventory.entries.every((e) => e.fileClass && e.path && e.digest);
+  const noUnclassifiable = unclassifiable.length === 0;
+  const noUnparseable = unparseable.length === 0;
+  const distComplete = fieldsComplete && noUnclassifiable && noUnparseable;
+  const problems: string[] = [];
+  if (!noUnparseable) problems.push(`unparseable: ${unparseable.join(", ")}`);
+  if (!noUnclassifiable) problems.push(`unclassifiable: ${unclassifiable.join(", ")}`);
+  if (!fieldsComplete) problems.push("one or more dist entries missing fields");
+  checks.push({ check: "dist-manifest-completeness", result: distComplete ? "PASS" : "FAIL", detail: distComplete ? `all ${inventory.entries.length} dist entries classified` : problems.join("; ") });
   const distDeterminism = inventory.distDigest === secondDigest;
   checks.push({ check: "dist-digest-deterministic", result: distDeterminism ? "PASS" : "FAIL", detail: distDeterminism ? `dist digest ${inventory.distDigest} matches across assemblies` : `digest mismatch: ${inventory.distDigest} vs ${secondDigest}` });
   const distClassesPresent = new Set(inventory.entries.map((e) => e.fileClass));
@@ -252,4 +290,44 @@ export function sourceOnlyDistSection(): DistSection {
       reason: "The dist build requires the CI memory class (13 documented local OOM kills). The sandbox cannot build the dist. The source-tree inventory is verified; the dist contract is declared but not assembled.",
     },
   };
+}
+
+// --- W1-025 (additive): the honest dist-root walk ---
+
+/** One walked dist-root file (path + sha256 hex digest). */
+export interface DistRootFile {
+  readonly path: string;
+  readonly digest: string;
+}
+
+/** The result of walking a dist directory (entries + unclassifiable paths). */
+export interface DistRootWalkResult {
+  readonly inventory: DistInventory;
+  readonly unclassifiable: string[];
+}
+
+/**
+ * Walk a real dist directory with the same classification + hashing
+ * discipline as the manifest mode. Classifies EVERY file; unclassifiable
+ * files are collected (never silently dropped). The completeness check
+ * (verifyDist) fails on non-empty unclassifiable.
+ *
+ * Pure: takes a file-list (the caller walks the filesystem — this is the
+ * testable core; the runner's .mjs path does the actual fs walk with the
+ * same discipline). This matches the engine's pure-data design (the runner
+ * injects the built output).
+ */
+export function assembleFromDistRoot(files: readonly DistRootFile[]): DistRootWalkResult {
+  const entries: DistInventoryEntry[] = [];
+  const unclassifiable: string[] = [];
+  for (const file of files) {
+    const fileClass = classifyDistFile(file.path);
+    if (fileClass === null) {
+      unclassifiable.push(file.path);
+    } else {
+      entries.push({ fileClass, path: file.path, digest: file.digest });
+    }
+  }
+  const distDigest = computeInventoryDigest(entries.map((e) => ({ path: e.path, digest: e.digest })));
+  return { inventory: { entries, distDigest }, unclassifiable };
 }

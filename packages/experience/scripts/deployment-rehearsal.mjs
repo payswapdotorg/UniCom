@@ -168,6 +168,64 @@ function classifyDistFile(path) {
   return null;
 }
 
+// --- W1-025: the honest manifest assembly + the dist-root walk (inlined, mirroring the engine) ---
+
+// Assemble a manifest text into entries + unclassifiable + unparseable + distDigest.
+// (W1-021 deviation #2 closed: unparseable lines are counted + named, never silently dropped.)
+function assembleManifest(manifestText) {
+  const rawLines = manifestText.split("\n").map(l => l.trim()).filter(l => l.length > 0);
+  const entries = [];
+  const unclassifiable = [];
+  const unparseable = [];
+  for (const raw of rawLines) {
+    const match = raw.match(/^([a-f0-9]{64})\s+\*?\.?\/?(.+)$/);
+    if (!match) {
+      unparseable.push(raw);
+      continue;
+    }
+    const digest = match[1];
+    const path = match[2];
+    const fileClass = classifyDistFile(path);
+    if (fileClass === null) {
+      unclassifiable.push(path);
+    } else {
+      entries.push({ fileClass, path, digest });
+    }
+  }
+  const sorted = [...entries].sort((a, b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0);
+  const distDigest = `sha256:${createHash("sha256").update(sorted.map(e => `${e.path}:${e.digest}`).join("\n")).digest("hex").slice(0, 16)}`;
+  return { entries, unclassifiable, unparseable, distDigest };
+}
+
+// Walk a dist directory: classify EVERY file, collect unclassifiable (never silently dropped).
+// (W1-021 deviation #3 closed: the completeness check is computed from the walk result, never hardcoded.)
+function walkDistRoot(root) {
+  const entries = [];
+  const unclassifiable = [];
+  function walkDir(dir, prefix = "") {
+    for (const name of readdirSync(dir)) {
+      const full = join(dir, name);
+      const rel = prefix ? `${prefix}/${name}` : name;
+      if (statSync(full).isDirectory()) {
+        walkDir(full, rel);
+      } else {
+        const content = readFileSync(full);
+        const digest = createHash("sha256").update(content).digest("hex");
+        const fileClass = classifyDistFile(rel);
+        if (fileClass === null) {
+          unclassifiable.push(rel);
+        } else {
+          entries.push({ fileClass, path: rel, digest });
+        }
+      }
+    }
+  }
+  walkDir(root);
+  const sorted = [...entries].sort((a, b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0);
+  const distDigest = `sha256:${createHash("sha256").update(sorted.map(e => `${e.path}:${e.digest}`).join("\n")).digest("hex").slice(0, 16)}`;
+  return { entries, unclassifiable, distDigest };
+}
+
 // Parse CLI args
 const args = process.argv.slice(2);
 let distManifestPath = null;
@@ -181,27 +239,28 @@ let distSection = null;
 let distChecks = [];
 
 if (distManifestPath) {
-  // CI evidence manifest mode
+  // CI evidence manifest mode — W1-025: the honest two-parse determinism + the unparseable-line report
   const manifestText = readFileSync(distManifestPath, "utf-8");
-  const lines = manifestText.split("\n").map(l => l.trim()).filter(l => l.length > 0);
-  const distEntries = [];
-  const unclassifiable = [];
-  for (const line of lines) {
-    const match = line.match(/^([a-f0-9]{64})\s+\*?\.?\/?(.+)$/);
-    if (!match) continue;
-    const digest = match[1];
-    const path = match[2];
-    const fileClass = classifyDistFile(path);
-    if (fileClass === null) unclassifiable.push(path);
-    else distEntries.push({ fileClass, path, digest });
-  }
-  // Compute dist digest (same discipline as source)
-  const sorted = [...distEntries].sort((a, b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0);
-  const distDigest = `sha256:${createHash("sha256").update(sorted.map(e => `${e.path}:${e.digest}`).join("\n")).digest("hex").slice(0, 16)}`;
-  // Verify determinism (re-parse)
-  const secondDigest = `sha256:${createHash("sha256").update(sorted.map(e => `${e.path}:${e.digest}`).join("\n")).digest("hex").slice(0, 16)}`;
-  distChecks.push({ check: "dist-manifest-completeness", result: unclassifiable.length === 0 ? "PASS" : "FAIL", detail: unclassifiable.length === 0 ? `all ${distEntries.length} dist entries classified` : `unclassifiable: ${unclassifiable.join(", ")}` });
-  distChecks.push({ check: "dist-digest-deterministic", result: distDigest === secondDigest ? "PASS" : "FAIL", detail: distDigest === secondDigest ? `dist digest ${distDigest} matches across assemblies` : `digest mismatch` });
+  // The first assembly (parse + classify + hash).
+  const firstResult = assembleManifest(manifestText);
+  // The second assembly: RE-PARSE the manifest TEXT (an independent assembly —
+  // closing W1-021 deviation #1: the old code re-hashed the same in-memory array,
+  // which was tautological; the honest proof is two independent parses).
+  const secondResult = assembleManifest(manifestText);
+  const distDigest = firstResult.distDigest;
+  const distEntries = firstResult.entries;
+  const unclassifiable = firstResult.unclassifiable;
+  const unparseable = firstResult.unparseable;
+  // Completeness: the honest failure surface = unclassifiable ∪ unparseable (both named).
+  // (closing W1-021 deviation #2: unparseable lines were silently dropped.)
+  const completenessPass = unclassifiable.length === 0 && unparseable.length === 0;
+  const problems = [];
+  if (unparseable.length > 0) problems.push(`unparseable: ${unparseable.join(", ")}`);
+  if (unclassifiable.length > 0) problems.push(`unclassifiable: ${unclassifiable.join(", ")}`);
+  distChecks.push({ check: "dist-manifest-completeness", result: completenessPass ? "PASS" : "FAIL", detail: completenessPass ? `all ${distEntries.length} dist entries classified` : problems.join("; ") });
+  // Determinism: the two independent assemblies agree.
+  const determinismPass = distDigest === secondResult.distDigest;
+  distChecks.push({ check: "dist-digest-deterministic", result: determinismPass ? "PASS" : "FAIL", detail: determinismPass ? `dist digest ${distDigest} matches across two independent assemblies` : `digest mismatch: ${distDigest} vs ${secondResult.distDigest}` });
   // Source↔dist cross-check
   const sourceClasses = new Set(inventoryEntries.map(e => e.fileClass));
   const distClasses = new Set(distEntries.map(e => e.fileClass));
@@ -210,26 +269,20 @@ if (distManifestPath) {
   distChecks.push({ check: "source-dist-cross-check", result: missing.length === 0 ? "PASS" : "FAIL", detail: missing.length === 0 ? "every entrypoint-class source entry maps to >=1 dist artifact" : `missing: ${missing.map(m => m.s).join(", ")}` });
   distSection = { mode: "ci-evidence-manifest", digest: distDigest, fileCount: distEntries.length, provenance: { source: distManifestPath.includes("fixture") ? "committed-fixture" : "ci-evidence", lineage: commit } };
 } else if (distRootPath) {
-  // Dist root walk mode
-  const distEntries = [];
-  function walkDir(dir, prefix = "") {
-    for (const name of readdirSync(dir)) {
-      const full = join(dir, name);
-      const rel = prefix ? `${prefix}/${name}` : name;
-      if (statSync(full).isDirectory()) walkDir(full, rel);
-      else {
-        const content = readFileSync(full);
-        const digest = createHash("sha256").update(content).digest("hex");
-        const fileClass = classifyDistFile(rel);
-        if (fileClass) distEntries.push({ fileClass, path: rel, digest });
-      }
-    }
-  }
-  walkDir(distRootPath);
-  const sorted = [...distEntries].sort((a, b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0);
-  const distDigest = `sha256:${createHash("sha256").update(sorted.map(e => `${e.path}:${e.digest}`).join("\n")).digest("hex").slice(0, 16)}`;
-  distChecks.push({ check: "dist-manifest-completeness", result: "PASS", detail: `all ${distEntries.length} dist entries classified (dist-root walk)` });
-  distChecks.push({ check: "dist-digest-deterministic", result: "PASS", detail: `dist digest ${distDigest} (single walk)` });
+  // Dist root walk mode — W1-025: the honest walk (classify EVERY file, collect
+  // unclassifiable, completeness from the walk result — never a hardcoded PASS;
+  // closing W1-021 deviation #3. Determinism via two independent walks.)
+  const firstWalk = walkDistRoot(distRootPath);
+  const secondWalk = walkDistRoot(distRootPath);
+  const distEntries = firstWalk.entries;
+  const unclassifiable = firstWalk.unclassifiable;
+  const distDigest = firstWalk.distDigest;
+  // Completeness: the honest failure surface = unclassifiable (named).
+  const completenessPass = unclassifiable.length === 0;
+  distChecks.push({ check: "dist-manifest-completeness", result: completenessPass ? "PASS" : "FAIL", detail: completenessPass ? `all ${distEntries.length} dist entries classified (dist-root walk)` : `unclassifiable: ${unclassifiable.join(", ")}` });
+  // Determinism: two independent walks agree.
+  const determinismPass = distDigest === secondWalk.distDigest;
+  distChecks.push({ check: "dist-digest-deterministic", result: determinismPass ? "PASS" : "FAIL", detail: determinismPass ? `dist digest ${distDigest} matches across two independent walks` : `digest mismatch: ${distDigest} vs ${secondWalk.distDigest}` });
   distSection = { mode: "dist-root", digest: distDigest, fileCount: distEntries.length, provenance: { source: "dist-root-walk", lineage: commit } };
 } else {
   // Source-only mode (honest)
