@@ -3,16 +3,18 @@
  *
  * Shows: environment mode (DEMO vs connected — connected integrations: none
  * today, stated honestly), the committed demo fixtures (resettable), the
- * discovered module registry with its warnings, and the journey coverage
- * summary. Nothing here fabricates a connected or live state.
+ * discovered module registry with its warnings, the journey coverage
+ * summary, and the Linked Drafts ledger (W1-018 — every kernel-native draft
+ * across all surfaces, with provenance, state chips and receipts). Nothing
+ * here fabricates a connected or live state.
  */
 import type { JSX } from "react";
-
 
 import { commerceModuleRegistry, resolveJourneyCoverage } from "../../module-registry.js";
 import { DEMO_CONNECTED_INTEGRATIONS, DEMO_FIXTURES_ID } from "../../demo/demo-fixtures.js";
 import { EnvironmentBadge } from "../CommerceHostApp.js";
 import { useCommerceHost } from "../CommerceHostContext.js";
+import { sharedLinkingDraftKernel } from "../../../commerce-modules/buyer-groupbuy/linking-draft-kernel.js";
 
 function StatusChip({ kind }: { readonly kind: string }): JSX.Element {
   const cls =
@@ -26,11 +28,24 @@ function StatusChip({ kind }: { readonly kind: string }): JSX.Element {
   return <span className={cls}>{kind}</span>;
 }
 
+function DraftStateChip({ state }: { readonly state: string }): JSX.Element {
+  const cls = state === "DRAFT" ? "cm-chip cm-chip-ok" : state === "PLACEMENT_UNKNOWN" ? "cm-chip cm-chip-unknown" : "cm-chip cm-chip-muted";
+  return <span className={cls}>{state}</span>;
+}
+
+function principalLabel(principal: { readonly kind: string; readonly customerId?: string; readonly merchantId?: string; readonly systemPrincipalId?: string; readonly autonomousStoreId?: string }): string {
+  if (principal.kind === "CUSTOMER") return `customer:${principal.customerId}`;
+  if (principal.kind === "MERCHANT") return `merchant:${principal.merchantId}`;
+  if (principal.kind === "SYSTEM") return `system:${principal.systemPrincipalId}`;
+  return `autonomous-store:${principal.autonomousStoreId}`;
+}
+
 export function SystemSurface(): JSX.Element {
   const { state, dispatch } = useCommerceHost();
   const registry = commerceModuleRegistry;
   const coverage = resolveJourneyCoverage(registry);
   const readyCount = coverage.filter((entry) => entry.state.kind === "ready").length;
+  const drafts = sharedLinkingDraftKernel.allDrafts();
 
   return (
     <div className="cm-stack">
@@ -60,16 +75,45 @@ export function SystemSurface(): JSX.Element {
           <button
             type="button"
             className="cm-button cm-button-primary"
-            onClick={() => dispatch({ type: "reset-demo" })}
+            onClick={() => { sharedLinkingDraftKernel.reset(); dispatch({ type: "reset-demo" }); }}
             data-testid="cm-reset-demo"
           >
             Reset demo fixtures
           </button>
           <span className="cm-env-note">
-            resets scenario, roles and intent draft to the committed defaults (revision{" "}
+            resets scenario, roles, intent draft and the shared linking-draft kernel to the committed defaults (revision{" "}
             {state.demoRevision})
           </span>
         </div>
+      </section>
+
+      <section className="cm-card" aria-label="Linked Drafts ledger">
+        <h2 className="cm-card-title">Linked Drafts ledger <span className="cm-demo-tag">DEMO</span></h2>
+        <p className="cm-card-sub">
+          Every kernel-native linked draft across all surfaces (the shared singleton makes this
+          truthful — not per-module fragments). Each entry shows the draft id, the state chip
+          (DRAFT / PLACEMENT_UNKNOWN / CANCELLED_BUT_NEVER_COMMITTED), the provenance (source
+          aggregate, kind, acting principal, consent basis), the idempotency receipt, and the leg
+          index for TradeCycle drafts.
+        </p>
+        {drafts.length === 0 ? (
+          <p className="cm-card-sub" data-testid="cm-linked-drafts-empty">
+            No linked drafts yet — create one from a formed GroupBuy or a committed TradeCycle leg.
+          </p>
+        ) : (
+          <div className="cm-stack" data-testid="cm-linked-drafts-list">
+            {drafts.map((draft) => (
+              <div key={draft.draftId as string} className="cm-journey-item">
+                <code style={{ fontSize: 12.5 }}>{draft.draftId as string}</code>
+                <DraftStateChip state={draft.state} />
+                <span className="cm-journey-name">{draft.provenance.sourceAggregateId} ({draft.provenance.sourceKind})</span>
+                {draft.provenance.legIndex !== undefined ? <span className="cm-chip cm-chip-muted">leg {draft.provenance.legIndex}</span> : null}
+                <span className="cm-journey-summary">actor: {principalLabel(draft.provenance.actingPrincipal)} · {draft.provenance.consentBasis}</span>
+                <span className="cm-journey-summary">compensation ref: {draft.provenance.compensationRef}</span>
+              </div>
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="cm-card" aria-label="Module registry">
