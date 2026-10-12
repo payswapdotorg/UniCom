@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-12T14:48:35.647Z",
+  "generatedAt": "2026-10-12T14:53:38.280Z",
   "lineage": {
-    "commit": "1701f0c3f5341af036f29f788e784b212312fa19",
+    "commit": "b7ab4c07f3edd6a039fe8964e0c176ad32e58b98",
     "toolchain": "node v24.21.0"
   },
   "bundle": {
@@ -189,11 +189,11 @@
   ],
   "dist": {
     "mode": "ci-evidence-manifest",
-    "digest": "sha256:f62800d578e95ff5",
-    "fileCount": 8,
+    "digest": "sha256:0508acfe8e87a989",
+    "fileCount": 6204,
     "provenance": {
-      "source": "committed-fixture",
-      "lineage": "1701f0c3f5341af036f29f788e784b212312fa19"
+      "source": "ci-evidence",
+      "lineage": "b7ab4c07f3edd6a039fe8964e0c176ad32e58b98"
     }
   },
   "nonLive": true,
