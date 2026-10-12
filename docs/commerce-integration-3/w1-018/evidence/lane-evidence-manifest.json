@@ -1,0 +1,146 @@
+{
+  "schema": "w1-018-lane-evidence/1",
+  "capturedAt": "2026-10-12T05:27:22.226Z",
+  "steps": [
+    {
+      "step": "01-roles-held",
+      "outcome": "PASS",
+      "label": "merchant role held + emphasized",
+      "checks": []
+    },
+    {
+      "step": "02-system-ledger-empty",
+      "outcome": "PASS",
+      "label": "the System-surface ledger renders with the honest empty state (never a fake population)",
+      "checks": [
+        {
+          "label": "cm-linked-drafts-empty rendered",
+          "ok": true
+        },
+        {
+          "label": "honest empty copy rendered",
+          "ok": true
+        },
+        {
+          "label": "ledger section rendered",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "03-j5-kernel-draft",
+      "outcome": "PASS",
+      "label": "the merchant desk kernel affordance → the gate → the REAL LINK command → the draft record (receipt + draft id + provenance + boundary)",
+      "checks": [
+        {
+          "label": "FORMED section rendered",
+          "ok": true
+        },
+        {
+          "label": "kernel affordance rendered",
+          "ok": true
+        },
+        {
+          "label": "gate rendered",
+          "ok": true
+        },
+        {
+          "label": "record rendered (Draft id kernel + w2ld-gb-*)",
+          "ok": true
+        },
+        {
+          "label": "idempotency key rendered",
+          "ok": true
+        },
+        {
+          "label": "no-order-no-payment boundary rendered",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "04-system-ledger-singleton",
+      "outcome": "PASS",
+      "label": "the draft created on the MERCHANT surface appears in the SYSTEM ledger after pure client-side nav (one shared singleton) with the DRAFT chip and the receipt line",
+      "checks": [
+        {
+          "label": "ledger list rendered (cm-linked-drafts-list)",
+          "ok": true
+        },
+        {
+          "label": "the merchant-surface draft (w2ld-gb-*) listed",
+          "ok": true
+        },
+        {
+          "label": "DRAFT state chip rendered",
+          "ok": true
+        },
+        {
+          "label": "receipt line rendered (cm-linked-draft-receipt): 1",
+          "ok": true
+        },
+        {
+          "label": "receipt carries receipt+command+idem-key+executed",
+          "ok": true
+        },
+        {
+          "label": "provenance row (actor + consent + compensation ref)",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "05-unknown-flow",
+      "outcome": "PASS",
+      "label": "the DEMO-labelled mark-UNKNOWN trigger → PLACEMENT_UNKNOWN (UNKNOWN — never FAILED, never guessed); the ledger chip follows",
+      "checks": [
+        {
+          "label": "the deterministic re-create (lifetime-2) succeeded",
+          "ok": true
+        },
+        {
+          "label": "PLACEMENT_UNKNOWN + honest copy on the desk",
+          "ok": true
+        },
+        {
+          "label": "the ledger chip flips to PLACEMENT_UNKNOWN",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "06-resolve-cancel",
+      "outcome": "PASS",
+      "label": "resolve UNKNOWN → DRAFT (retry affordance); cancel → CANCELLED_BUT_NEVER_COMMITTED (never committed; compensation is its own command); the ledger chip follows",
+      "checks": [
+        {
+          "label": "the deterministic re-create (lifetime-3) succeeded",
+          "ok": true
+        },
+        {
+          "label": "resolve affordance → DRAFT (the mark-UNKNOWN trigger reappears)",
+          "ok": true
+        },
+        {
+          "label": "cancel affordance → CANCELLED_BUT_NEVER_COMMITTED + honest copy",
+          "ok": true
+        },
+        {
+          "label": "the ledger chip: CANCELLED_BUT_NEVER_COMMITTED",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "07-console-zero-errors",
+      "outcome": "PASS",
+      "label": "console zero-error check (0 errors)",
+      "checks": []
+    }
+  ],
+  "singletonNote": "The singleton proof is end-to-end in the real UI: the draft created on the MERCHANT surface is listed by the SYSTEM-surface ledger after pure CLIENT-SIDE navigation (the shell's in-memory System link — a page reload re-evaluates the module and would reset the singleton). Each page lifetime re-creates the SAME deterministic draft (stable demo fixtures + the singleton's counter restarting at 1) — every cross-surface observation is per-lifetime-real, never fabricated.",
+  "deepLinkNote": "The merchant desk is reached by the LABELLED targeted deep link (/commerce/merchant/group-buy-review) — the recorded UX gap (no ordinary shell nav entry reaches the merchant J5 side; the J5 home row deterministically renders the buyer side). The merged-gate SAFETY step (safety-j5-merchant-desk) uses the same labelled route; the lane capture follows that precedent.",
+  "idempotencyNote": "The DUPLICATE view (same singleton + same stable cartId idem key → the ORIGINAL receipt) is vitest-covered at the panel level (linking-draft-kernel.test.tsx + linking-draft-observation.test.tsx); in the real UI the record view replaces the create button once a draft exists for the cart (the panel rehydrates from the singleton), so the duplicate is not reachable by pure single-user clicks — recorded honestly, not laundered.",
+  "killSwitchNote": "The kill-switch/refusal states (LINKING_DISABLED typed refusal; UNAUTHORIZED_ACTOR verbatim render) are vitest-covered; a module-const kill switch cannot render both states in one build (the W2-015 precedent).",
+  "unknownDemoNote": "The mark-UNKNOWN trigger is the DEMO-labelled control ('Simulate an unknown placement outcome (DEMO)') — the honest trigger for observing the UNKNOWN state machine; the real unknown-arrival path is future placement-plane work (per the work order)."
+}

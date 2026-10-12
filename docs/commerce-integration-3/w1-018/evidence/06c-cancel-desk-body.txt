@@ -1,0 +1,415 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+module merchant-groupbuy-review
+owner lane W3-015
+status ready
+J5 · Merchant group-buy review
+DEMO
+
+Buyer pools propose group deals for things you don't currently offer as a group buy — this is your review desk, wired to the REAL GroupBuy formation machine of the commerce kernel (W1-012 seam, through @unicom/commerce; fixtures w3-016-groupbuy-review-fixtures@1, demo clock Oct 12, 09:00 UTC). Participant counts vs thresholds, proposed terms, consent terms and deadlines render from the kernel aggregate before any decision; accept, counter, reject and the explicit formation of a HELD pool each run as a real, revisioned kernel transition — kernel-journaled facts, no longer local demo state. The desk remains a review surface: it never overrides buyer consent, enrolls nobody, charges nobody, reserves no stock, and creates no commitment — commitments exist only on the commerce planes. The seeded history (interests, the recorded counter, the withdrawal in w3gr-prop-8) is a deterministic fixture script; the desk itself never simulates a buyer. The buyer side of this same synthetic scenario space is W2's surface (buyer-groupbuy, w2ld- fixtures) — mirrored read-only, never edited here.
+
+Reset demo data
+fixtures are synthetic — resettable, no credentials, no live buyers or pools
+Incoming latent-demand proposals (2 awaiting review)
+w3gr-prop-1
+PENDING review
+on your desk since Oct 10, 08:20 UTC · kernel revision 4
+DEMO
+Product
+Studio Greeting Card Set (8 cards) — sku-demo-cards
+Proposed group price
+USD 10.80 / box (vs USD 12.00 list — buyers save USD 1.20 / box)
+Pool
+36 boxes from 3 consenting studios
+Pool value at the proposed price
+USD 388.80 — 36 × USD 10.80, exact math via the commerce kernel
+Threshold
+3 studios vs threshold 4 · 36 boxes vs threshold 40
+Pool closes
+Oct 20, 18:00 UTC (demo clock)
+below threshold — held in review
+a below-threshold pool can be countered or accepted into threshold MONITORING — never auto-committed
+Ferry Road Press
+consented · 16 boxes
+recorded Oct 10, 08:25 UTC
+DEMO
+Two Harbors Design
+consented · 12 boxes
+recorded Oct 10, 09:10 UTC
+DEMO
+Quayside Studio
+consented · 8 boxes
+recorded Oct 10, 11:45 UTC
+DEMO
+
+Only consenting studios are listed — enrollment without consent never happens (Northlight Atelier declined to join this pool and was excluded when it formed — only consenting studios are ever listed.). Consent terms are on record per participant (kernel interest records): “Explicitly agreed (demo fixture) to appear in this pool with a 16-box share — interest is not commitment.”.
+
+Mirrors the w2ld- buyer-side fixture space (buyer-groupbuy, W2's lane): the same three consenting studios and the same Oct 20, 18:00 pool close, this round addressed to your storefront — buyer-side fixtures are W2's and are never edited here.
+
+PENDING review — the buyers see "offered, awaiting merchant review" on their side (W2's surface). Accept, counter or reject; each runs as an explicit kernel transition of the formation aggregate with the terms shown before it commits.
+
+Accept w3gr-prop-1 at the proposed terms
+
+Counter options (each shows the full terms before sending):
+
+Counter at USD 11.60 / box (min 36 boxes)
+Counter at USD 11.20 / box (min 40 boxes)
+
+Reject with a recorded reason (the buyers see the reason on their side):
+
+Below our minimum margin at the proposed price
+Capacity is full for this production cycle
+Terms outside our group-buy policy
+w3gr-prop-2
+PENDING review
+on your desk since Oct 11, 10:05 UTC · kernel revision 6
+DEMO
+Product
+Large-Format Poster Print — sku-demo-poster
+Proposed group price
+USD 29.50 / box (vs USD 34.00 list — buyers save USD 4.50 / box)
+Pool
+48 boxes from 5 consenting studios
+Pool value at the proposed price
+USD 1416.00 — 48 × USD 29.50, exact math via the commerce kernel
+Threshold
+5 studios vs threshold 4 · 48 boxes vs threshold 40
+Pool closes
+Oct 22, 17:00 UTC (demo clock)
+threshold met
+Beacon Hill Framers
+consented · 12 boxes
+recorded Oct 11, 10:30 UTC
+DEMO
+Old Mill Interiors
+consented · 10 boxes
+recorded Oct 11, 11:15 UTC
+DEMO
+Juniper Gallery
+consented · 10 boxes
+recorded Oct 11, 12:40 UTC
+DEMO
+Copperline Studios
+consented · 9 boxes
+recorded Oct 11, 14:05 UTC
+DEMO
+Saltmarsh Press
+consented · 7 boxes
+recorded Oct 11, 15:20 UTC
+DEMO
+
+Only consenting studios are listed — enrollment without consent never happens. Consent terms are on record per participant (kernel interest records): “Explicitly agreed (demo fixture) to appear in this pool with a 12-box share — interest is not commitment.”.
+
+PENDING review — the buyers see "offered, awaiting merchant review" on their side (W2's surface). Accept, counter or reject; each runs as an explicit kernel transition of the formation aggregate with the terms shown before it commits.
+
+Accept w3gr-prop-2 at the proposed terms
+
+Reject with a recorded reason (the buyers see the reason on their side):
+
+Below our minimum margin at the proposed price
+Capacity is full for this production cycle
+Terms outside our group-buy policy
+w3gr-prop-3
+COUNTERED — awaiting buyer response
+on your desk since Oct 8, 09:40 UTC · kernel revision 5
+DEMO
+Product
+A3 Recycled Print — Unframed — sku-demo-a3print
+Proposed group price
+USD 15.50 / box (vs USD 18.50 list — buyers save USD 3.00 / box)
+Pool
+30 boxes from 3 consenting studios
+Pool value at the proposed price
+USD 465.00 — 30 × USD 15.50, exact math via the commerce kernel
+Threshold
+3 studios vs threshold 3 · 30 boxes vs threshold 30
+Pool closes
+Oct 18, 18:00 UTC (demo clock)
+threshold met
+Ridgeline Co-op
+consented · 12 boxes
+recorded Oct 8, 10:05 UTC
+DEMO
+Alder & Ash Press
+consented · 10 boxes
+recorded Oct 8, 11:30 UTC
+DEMO
+Lantern Row Studios
+consented · 8 boxes
+recorded Oct 8, 13:15 UTC
+DEMO
+
+Only consenting studios are listed — enrollment without consent never happens. Consent terms are on record per participant (kernel interest records): “Explicitly agreed (demo fixture) to appear in this pool with a 12-box share — interest is not commitment.”.
+
+Counter terms on record (kernel revision 5): USD 16.90 / box, 24-box minimum — Counter sent Oct 9: USD 16.90 per print at a 24-print minimum, delivered.
+
+Awaiting buyer response — pending is not an error and not an acceptance: the initiator may accept the counter on record (ACCEPT_COUNTER, buyer side), decline it, or send a new round. No simulated buyer response exists on this desk, and nothing commits while you wait.
+
+w3gr-prop-4
+EXPIRED — window closed
+on your desk since Oct 5, 11:15 UTC · kernel revision 4
+DEMO
+Product
+Studio Greeting Card Set (8 cards) — sku-demo-cards
+Proposed group price
+USD 10.60 / box (vs USD 12.00 list — buyers save USD 1.40 / box)
+Pool
+20 boxes from 2 consenting studios
+Pool value at the proposed price
+USD 212.00 — 20 × USD 10.60, exact math via the commerce kernel
+Threshold
+2 studios vs threshold 3 · 20 boxes vs threshold 24
+Pool closes
+Oct 11, 18:00 UTC (demo clock)
+below threshold — held in review
+a below-threshold pool can be countered or accepted into threshold MONITORING — never auto-committed
+Riverside Makers
+consented · 12 boxes
+recorded Oct 5, 11:40 UTC
+DEMO
+Foxglove Press
+consented · 8 boxes
+recorded Oct 5, 13:20 UTC
+DEMO
+
+Only consenting studios are listed — enrollment without consent never happens. Consent terms are on record per participant (kernel interest records): “Explicitly agreed (demo fixture) to appear in this pool with a 12-box share — interest is not commitment.”.
+
+The pool's window closed Oct 11, 18:00 UTC — before a decision was recorded (kernel EXPIRE, revision 4). EXPIRED is a time fact, not a failure; nothing was committed, and no decision is available now. The buyers can open a new round.
+
+w3gr-prop-5
+REJECTED — with reason
+on your desk since Oct 6, 13:50 UTC · kernel revision 6
+DEMO
+Product
+Large-Format Poster Print — sku-demo-poster
+Proposed group price
+USD 26.00 / box (vs USD 34.00 list — buyers save USD 8.00 / box)
+Pool
+44 boxes from 4 consenting studios
+Pool value at the proposed price
+USD 1144.00 — 44 × USD 26.00, exact math via the commerce kernel
+Threshold
+4 studios vs threshold 4 · 44 boxes vs threshold 40
+Pool closes
+Oct 25, 17:00 UTC (demo clock)
+threshold met
+Granite Yard Arts
+consented · 14 boxes
+recorded Oct 6, 14:10 UTC
+DEMO
+Willowbrook Guild
+consented · 12 boxes
+recorded Oct 6, 15:00 UTC
+DEMO
+Tidewater Print Lab
+consented · 10 boxes
+recorded Oct 6, 16:25 UTC
+DEMO
+Cedar Coast Collective
+consented · 8 boxes
+recorded Oct 6, 17:05 UTC
+DEMO
+
+Only consenting studios are listed — enrollment without consent never happens. Consent terms are on record per participant (kernel interest records): “Explicitly agreed (demo fixture) to appear in this pool with a 14-box share — interest is not commitment.”.
+
+Kernel state REJECTED (revision 6) — reason on record: Terms outside our group-buy policy. A rejected proposal ends here; nothing was ever committed. The pool can re-propose next round with new terms.
+
+w3gr-prop-6
+ACCEPTED — threshold monitoring
+on your desk since Oct 7, 10:25 UTC · kernel revision 5
+DEMO
+Product
+A3 Recycled Print — Unframed — sku-demo-a3print
+Proposed group price
+USD 16.50 / box (vs USD 18.50 list — buyers save USD 2.00 / box)
+Pool
+33 boxes from 3 consenting studios
+Pool value at the proposed price
+USD 544.50 — 33 × USD 16.50, exact math via the commerce kernel
+Threshold
+3 studios vs threshold 5 · 33 boxes vs threshold 50
+Pool closes
+Oct 24, 18:00 UTC (demo clock)
+below threshold — held in review
+a below-threshold pool can be countered or accepted into threshold MONITORING — never auto-committed
+Fog Harbor Studios
+consented · 12 boxes
+recorded Oct 7, 11:00 UTC
+DEMO
+Marigold Press
+consented · 11 boxes
+recorded Oct 7, 12:30 UTC
+DEMO
+Ironworks Artists
+consented · 10 boxes
+recorded Oct 9, 10:20 UTC
+DEMO
+
+Only consenting studios are listed — enrollment without consent never happens. Consent terms are on record per participant (kernel interest records): “Explicitly agreed (demo fixture) to appear in this pool with a 12-box share — interest is not commitment.”.
+
+Kernel state MONITORING (accepted; revision 5): 3 studios vs threshold 5 · 33 boxes vs threshold 50 — still below threshold; monitoring continues and nothing can commit until the pool reaches 5 studios / 50 boxes.
+
+Buyer-side interests can still arrive (each is a consenting participant's own act) — this desk never simulates a buyer and never overrides buyer consent.
+
+w3gr-prop-7
+HELD — threshold met, awaiting your formation
+on your desk since Oct 8, 08:15 UTC · kernel revision 6
+DEMO
+Product
+A3 Recycled Print — Unframed — sku-demo-a3print
+Proposed group price
+USD 16.50 / box (vs USD 18.50 list — buyers save USD 2.00 / box)
+Pool
+41 boxes from 4 consenting studios
+Pool value at the proposed price
+USD 676.50 — 41 × USD 16.50, exact math via the commerce kernel
+Threshold
+4 studios vs threshold 4 · 41 boxes vs threshold 40
+Pool closes
+Oct 24, 18:00 UTC (demo clock)
+threshold met
+Beacon Hill Framers
+consented · 12 boxes
+recorded Oct 8, 09:00 UTC
+DEMO
+Old Mill Interiors
+consented · 10 boxes
+recorded Oct 8, 10:30 UTC
+DEMO
+Juniper Gallery
+consented · 10 boxes
+recorded Oct 9, 11:05 UTC
+DEMO
+Copperline Studios
+consented · 9 boxes
+recorded Oct 10, 09:40 UTC
+DEMO
+
+Only consenting studios are listed — enrollment without consent never happens. Consent terms are on record per participant (kernel interest records): “Explicitly agreed (demo fixture) to appear in this pool with a 12-box share — interest is not commitment.”.
+
+Threshold met (4 studios vs threshold 4 · 41 boxes vs threshold 40) — the machine moved this pool MONITORING → HELD on its own derived THRESHOLD_MET trigger. HELD means the pool waits on YOUR explicit formation step; formation never happens automatically, and a HELD pool that honestly falls back below the threshold returns to MONITORING (the machine's own THRESHOLD_LOST).
+
+Form w3gr-prop-7 — freeze the final terms
+w3gr-prop-8
+FORMED — final terms frozen
+on your desk since Oct 6, 09:00 UTC · kernel revision 9
+DEMO
+Product
+Studio Greeting Card Set (8 cards) — sku-demo-cards
+Proposed group price
+USD 10.80 / box (vs USD 12.00 list — buyers save USD 1.20 / box)
+Pool
+42 boxes from 4 consenting studios
+Pool value at the proposed price
+USD 453.60 — 42 × USD 10.80, exact math via the commerce kernel
+Threshold
+4 studios vs threshold 4 · 42 boxes vs threshold 40
+Pool closes
+Oct 20, 18:00 UTC (demo clock)
+threshold met
+Cedar Coast Collective
+consented · 12 boxes
+recorded Oct 6, 09:10 UTC
+DEMO
+Tidewater Print Lab
+consented · 10 boxes
+recorded Oct 6, 10:00 UTC
+DEMO
+Granite Yard Arts
+consented · 10 boxes
+recorded Oct 7, 15:20 UTC
+DEMO
+Saltmarsh Press
+consented · 10 boxes
+recorded Oct 10, 09:15 UTC
+DEMO
+Willowbrook Guild
+WITHDRAWN before formation
+withdrawal recorded Oct 9, 16:00 UTC — honored, never re-enrolled
+
+Only consenting studios are listed — enrollment without consent never happens. Consent terms are on record per participant (kernel interest records): “Explicitly agreed (demo fixture) to appear in this pool with a 12-box share — interest is not commitment.”.
+
+Willowbrook Guild withdrew before formation (withdrawal is permitted any time before the second confirmation); the pool honestly fell back below threshold to MONITORING on the machine's own THRESHOLD_LOST, reached HELD again when Saltmarsh Press joined, and the final roster froze WITHOUT Willowbrook — consenting-only, never re-enrolled.
+
+FORMED
+formed Oct 10, 17:45 UTC · kernel revision 9
+Final group price
+USD 10.80 / box (frozen)
+Final pool value
+USD 453.60 — exact (45360 minor units), computed by the formation machine
+Frozen roster (consenting-only)
+Cedar Coast Collective · 12 boxes · Tidewater Print Lab · 10 boxes · Granite Yard Arts · 10 boxes · Saltmarsh Press · 10 boxes
+
+Formation froze the final terms and the consenting-only roster. No commitment was created — commitments exist only on the commerce planes — and withdrawn studios stay out forever.
+
+Create a linked order draft (human-confirmed, never automatic)
+draft — not a commitment
+DEMO
+
+Provenance — source aggregate: w3gr-prop-8 (GROUP_BUY_FORMED) — rendered on-surface; the existing typed command carries no metadata field for this
+
+Provenance — acting principal: merchant:demo-merchant-harbor-lane
+
+Provenance — consent basis: Consented to appear in w3gr-prop-8 with a 12-unit share (formation truth, not a commitment). Placement requires a separate PLACE_ORDER under the acting principal's own authority.
+
+Prefill — ADD_CART_LINE (the existing command, pre-filled): ADD_CART_LINE · cart cart-link-gb-w3gr-prop-8 · sku sku-demo-cards × 12 @ 1080 USD
+
+Prefill — PLACE_ORDER (the existing command, pre-filled): PLACE_ORDER · cart cart-link-gb-w3gr-prop-8 · merchant demo-merchant-harbor-lane
+
+The draft is a draft: placing the order still requires the existing confirmation flow unchanged (a draft is not a commitment; the existing PLACE_ORDER consent is the commitment step). The receipt/order references the source aggregate id on-surface (the existing typed command carries no metadata field, so the reference renders here and in the eventual receipt's subject line, honestly — never extends the kernel contract).
+
+Create a linked order draft (human-confirmed, never automatic)
+Create a linked order draft (kernel-native, human-confirmed)
+draft — not a commitment
+DEMO
+
+Provenance — source aggregate: w3gr-prop-8 (GROUP_BUY_FORMED)
+
+Provenance — acting principal: merchant:demo-merchant-harbor-lane
+
+Provenance — consent basis: Consented to appear in w3gr-prop-8 with a 12-unit share (formation truth, not a commitment). Placement requires a separate PLACE_ORDER under the acting principal's own authority.
+
+Kernel command: LINK_GROUPBUY_TO_ORDER_DRAFT
+
+The confirm gate issues the REAL kernel-native LINK command through the @unicom/commerce contract. The kernel creates a DRAFT (journaled, idempotent receipt); the draft is NOT an order/payment/reservation. A duplicate confirm (same idempotency key) returns the ORIGINAL receipt — never a second draft.
+
+Kernel draft created — journaled receipt
+CANCELLED_BUT_NEVER_COMMITTED
+DEMO
+
+Draft id (kernel): w2ld-gb-w3gr-prop-8-1
+
+Kernel receipt: command w2ld-cmd-2 · idempotency key cart-link-gb-w3gr-prop-8 · executed 2026-10-12T05:26:54.186Z
+
+Source aggregate: w3gr-prop-8
+
+Source kind: GROUP_BUY_ORDER_DRAFT
+
+Acting principal: merchant:demo-merchant-harbor-lane
+
+Consent basis: Consented to appear in w3gr-prop-8 with a 12-unit share (formation truth). The draft is a DRAFT — placing requires a separate PLACE_ORDER under the acting principal's own authority.
+
+Compensation ref: comp-ref-gb-w3gr-prop-8
+
+This draft is CANCELLED_BUT_NEVER_COMMITTED — it was never committed, and no refund/unreserve happened (compensation is its own separately-authorized command — law 5).
+
+Next step (separately authorized): Placing the order is a SEPARATE step: the existing ADD_CART_LINE → PLACE_ORDER confirmation flow, unchanged, under the acting human's own authority and idempotency key. The kernel draft created NO order, NO payment, NO reservation, NO recourse case.
+
+Kernel decision log — formation-machine transitions
+
+No decisions recorded yet — the queue above is exactly the seeded kernel aggregates (every pool's history was driven by the same formation machine).
+
+The W1-012 command-envelope journal (typed GroupBuyCommandPayload handlers) is the kernel lane's concurrent work; this desk drives the published formation aggregate directly — every entry above is a real machine transition with its resulting kernel revision, never a fabricated state.
+
+What this surface will never do
+
+It will never override buyer consent (only consenting studios are ever listed or frozen into a roster; withdrawals before formation are honored and visible), never simulate a buyer response, never enroll anyone, charge anyone or reserve stock — and no purchase, payment, refund or order is created anywhere on it. Formation is the organizer's second confirmation: it freezes final terms and the consenting-only roster, and a commitment would exist only on the commerce planes after it — nothing here creates one. Live pools and buyers do not exist: everything renders from deterministic fixtures through the real formation machine.
+
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)
