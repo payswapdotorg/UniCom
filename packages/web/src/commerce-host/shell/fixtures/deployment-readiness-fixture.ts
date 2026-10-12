@@ -9,25 +9,28 @@
  * Kill switch: DEPLOYMENT_READINESS_SECTION_ENABLED. When false, the section
  * does not render (honest absence, no fake population).
  *
- * Provenance: this fixture mirrors the artifact produced by
- * `node packages/experience/scripts/deployment-rehearsal.mjs --dist-manifest
- * packages/experience/test/deployment/dist-manifest-fixture.txt` at commit
- * ed72c34 (W1-021's lineage). The values are real (never fabricated) — copied
- * verbatim from packages/experience/reports/deployment/deployment-readiness.json
- * (the content-based discipline: identical files → identical digest). The dist
- * section's provenance.source is "committed-fixture" — the TL will re-run
- * with the real CI evidence post-merge.
+ * Provenance: this fixture mirrors the artifact at commit 210b8b9 (the TL-owned
+ * REAL-dist evidence commit) — the rehearsal re-run on the FULL REAL
+ * canonical-build CI manifest (run 38259561304, commit 29f037d — 6,204 files,
+ * DIST_DETERMINISTIC_SHA256 71b03964e485824ad9881bfdf433d572dca35ba01b404d5327804653879798c7).
+ * The values are real (never fabricated) — copied verbatim from
+ * packages/experience/reports/deployment/deployment-readiness.json on the
+ * tree at 210b8b9 (lineage b7ab4c0). The dist section's provenance.source
+ * is now "ci-evidence" (the REAL CI evidence, not the fixture-labelled
+ * snapshot). The dist digest is the manifest-derived digest
+ * (sha256:0508acfe8e87a989); the CI's whole-output tar-discipline identity
+ * (71b03964...) is recorded in the registry's real_ci_evidence.
  */
 export const DEPLOYMENT_READINESS_FIXTURE = {
-  generatedAt: "2026-10-12T13:41:45.317Z",
+  generatedAt: "2026-10-12T14:53:38.280Z",
   lineage: {
-    commit: "ed72c34a99027ef7840ab9a34ebb1a11dc03e9ad",
+    commit: "b7ab4c07f3edd6a039fe8964e0c176ad32e58b98",
     toolchain: "node v24.21.0",
   },
   bundle: {
     inventorySummary: {
       entryCount: 12,
-      inventoryDigest: "sha256:356ec58646abc037",
+      inventoryDigest: "sha256:3a8de191d6972b87",
       fileClasses: ["entrypoint", "contract-barrel", "runtime-module", "projection-module", "deployment-contract"],
     },
   },
@@ -74,11 +77,11 @@ export const DEPLOYMENT_READINESS_FIXTURE = {
   ],
   dist: {
     mode: "ci-evidence-manifest",
-    digest: "sha256:e5d8cf3122659271",
-    fileCount: 10,
+    digest: "sha256:0508acfe8e87a989",
+    fileCount: 6204,
     provenance: {
-      source: "committed-fixture",
-      lineage: "ed72c34a99027ef7840ab9a34ebb1a11dc03e9ad",
+      source: "ci-evidence" as "ci-evidence" | "dist-root-walk" | "committed-fixture" | "source-only",
+      lineage: "b7ab4c07f3edd6a039fe8964e0c176ad32e58b98",
     },
   },
   nonLive: true,
