@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "repository": "payswapdotorg/UniCom",
+  "program": "UNiCOM Deployment Integrity — the deployment plane's hash-chain completion (dist-hash integration, non-live)",
+  "status": "PHASE_ACTIVE_BASELINE_PASSED",
+  "tracking_issue": 18,
+  "prior_phase_records_immutable": [
+    "docs/development-state/deployment-readiness-state.json (PHASE_COMPLETE_ALL_GATES_PASSED, closeout 5d2391b + 1c003ec)",
+    "docs/development-state/commerce-integration-3-state.json",
+    "docs/development-state/commerce-integration-2-state.json",
+    "docs/development-state/commerce-integration-state.json",
+    "docs/development-state/product-completion-state.json"
+  ],
+  "source_baseline": {
+    "baseline_commit": "1c003ec",
+    "code_lineage": "c546d7a (W1-019 merge) + 7113b0a (W2-020 merge) + d93f068 (evidence) + 1c003ec (closeout)",
+    "battery": "vitest 2,219 passed | 0 skipped (web 386 + experience 753 + agent 559 + commerce 521); lint 103w/0e; architecture 0; scoped tsc clean; experience typecheck clean (the banked TS6305 accommodation)",
+    "browser_gate": "merged zero-drift on 7113b0a: journeys 19/19, interactions 19/19 (J18 ABSENT-by-design identical to the accepted baseline, manifest-compared), safety 5/5, walk 6/6, 92/92 pointers, denominators 19/19/5/6/30"
+  },
+  "architecture": {
+    "baseline": "1.2-additive-runtime-browser-2026-10-11 (unchanged this phase)",
+    "delta_policy": "additive extensions to the deployment plane (experience: the dist contract + the manifest-assembly engine + the runner modes) + one ADD-alongside System-surface extension (web: the dist identity + hash-chain rows); NO commerce changes; NO host-states changes (J18's ABSENT-by-design classification is load-bearing and untouched); NO CI/workflow changes (the BUILD-ONLY law holds verbatim — dist is never uploaded or committed by CI); INVARIANTS 51/52 (provider names only in deployment configuration, never in domain contracts)"
+  },
+  "operator_directive": "continuous resident watch: monitor → harvest → review → approve/require-changes → dispatch next until the roadmap is complete; no early returns; the GitHub repo is the roadmap guide; dispatch only from inside the replay; always fix the replay. The 2026-10-12 'continue (fix the replay)' message is recorded as the spend-cap dispatch confirmation; the Tier A authorization checkboxes in the deployment decision brief remain UNCHECKED (not authorized)",
+  "policy": {
+    "non_live_only": "this phase deploys NOTHING, connects to NO provider, reads NO credential, builds NO dist locally (the memory law: the canonical build is the CI class — 13 documented local OOM kills; the sandbox consumes CI's small-text evidence only) — the standing gates bind absolutely",
+    "standing_gates": {
+      "production_deployment": "NOT_AUTHORIZED",
+      "live_named_provider_credentials": "NOT_AUTHORIZED",
+      "human_research": "NOT_AUTHORIZED",
+      "live_payments": "NOT_AUTHORIZED"
+    },
+    "honest_evidence": "TL-observed numbers only; scoped tsc MANDATORY in every web lane's acceptance list (the phase-6 lesson); the experience lane runs its package typecheck with the banked TS6305 accommodation; never delete/skip failing tests; preserve limitations verbatim; committed artifacts carry real values only, fixture-derived values labelled with their provenance; the dist digest is never fabricated — source-only mode is honest"
+  },
+  "phase_derivation": {
+    "source": "the repo's own frontier naming, durability-law derived (never memory): the deployment-readiness FINAL-REPORT §5 frontier (b) names the dist-hash integration lane; the W1-019 disclosed deviation ('the contract is dist-shaped, the assembly input is source') is the gap; the deployment decision brief §4.4 recommends the dist-hash integration land BEFORE or WITH any Tier A authorization; the canonical-web-build workflow already emits the small-text evidence (dist-manifest-sha256.txt + DIST_DETERMINISTIC_SHA256) the rehearsal can consume WITHOUT breaking the BUILD-ONLY law (dist never uploaded)",
+    "operator_authority_note": "Tier A (non-commercial staging deployment) remains UNAUTHORIZED — the decision brief's approval checkboxes are unchecked; this phase is entirely repo-internal (build/evidence pipeline integration) and touches no standing gate"
+  },
+  "work_orders": [
+    {
+      "id": "W1-021",
+      "path": "docs/work-orders/W1-021.md",
+      "lane": "the dist-hash integration: the dist inventory contract + the manifest-assembly/verification engine (CI evidence consumed, never the dist files) + the runner modes + the artifact's dist section + the committed dist fixture tests",
+      "owner": "worker-1",
+      "status": "READY_FOR_TL_DISPATCH",
+      "write_surface": "packages/experience/src/deployment/bundle-definition.ts + rehearsal.ts (EXTEND additive) + scripts/deployment-rehearsal.mjs (EXTEND) + reports/deployment/deployment-readiness.json (REGENERATED) + packages/experience/test/deployment/ (the dist fixture + net-new tests) + the report",
+      "branch": "work/w1-021",
+      "dispatch_record": "",
+      "merge": ""
+    },
+    {
+      "id": "W2-022",
+      "path": "docs/work-orders/W2-022.md",
+      "lane": "the operator surface hash-chain rows: the fixture mirror extension + the DIST IDENTITY row + the END-TO-END HASH CHAIN row (the W2-020 ADD-alongside pattern, kill switch unchanged)",
+      "owner": "worker-2",
+      "status": "QUEUED_BEHIND_W1_021",
+      "write_surface": "packages/web/src/commerce-host/shell/fixtures/deployment-readiness-fixture.ts (EXTEND) + SystemSurface.tsx (ADD-alongside rows) + net-new tests + the report",
+      "branch": "work/w2-022",
+      "dispatch_record": "",
+      "merge": ""
+    }
+  ],
+  "gates": {
+    "BASELINE": {
+      "status": "PASSED",
+      "evidence": "main 1c003ec == origin/main, tree clean, the phase-IV battery re-derived from the registry: vitest 2,219|0, lint 103w/0e, architecture 0, scoped tsc clean, the phase-IV closeout record"
+    },
+    "DIST_CONTRACT": {
+      "status": "PENDING",
+      "definition": "the dist inventory contract exists + is pure data/types + the file classes + manifest discipline + hash-chain identity rule (W1-021 required behavior #1)"
+    },
+    "MANIFEST_VERIFICATION": {
+      "status": "PENDING",
+      "definition": "the manifest assembly + classification + completeness + two-parse determinism + the source↔dist cross-check all machine-verified (the committed fixture tests + the runner's fixture-mode run; the REAL CI evidence digest recorded by the TL post-merge via workflow_dispatch + the evidence-artifact download + the runner re-run — the TL-owned evidence commit)"
+    },
+    "REGRESSION": {
+      "status": "PENDING",
+      "definition": "the merged-tree battery: all four packages, zero skipped, lint/arch/typechecks green (the merged battery must be ≥ 2,219 + net-new)"
+    },
+    "OPERATOR_SURFACE": {
+      "status": "PENDING",
+      "definition": "W2-022's section renders the dist identity + the hash chain truthfully per the fixture mirror; the kill switch + every existing row unchanged (W2-022 required behavior #4)"
+    },
+    "BROWSER": {
+      "status": "PENDING",
+      "definition": "the merged zero-drift gate (journeys/interactions/safety/walk/pointers, J18 ABSENT-by-design identical to the accepted baseline, manifest-compared) + the W2-022 lane capture (the new rows end-to-end, the mode chips honest per mode, zero console errors)"
+    },
+    "SAFETY": {
+      "status": "PENDING",
+      "definition": "the standing gates untouched (no deploy, no provider, no credential, no human research, no local dist build); INVARIANTS 51/52 held (zero provider names in domain contracts); the BUILD-ONLY CI law verbatim (no workflow changes, dist never uploaded); payments/reservations/recourse never auto-created"
+    },
+    "TL_ACCEPT": {
+      "status": "PENDING",
+      "definition": "the TL-authored phase record: the semantic review verdict, the real-CI-evidence dist digest recorded in the registry + the artifact (the TL-owned evidence commit), the honest limitations preserved, the closeout"
+    }
+  }
+}
