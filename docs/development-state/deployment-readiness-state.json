@@ -2,7 +2,7 @@
   "schema_version": 1,
   "repository": "payswapdotorg/UniCom",
   "program": "UNiCOM Deployment Readiness — the deployment-coverage layer (non-live)",
-  "status": "ACTIVE_W1_DISPATCHED",
+  "status": "PHASE_COMPLETE_ALL_GATES_PASSED",
   "tracking_issue": 17,
   "prior_phase_records_immutable": [
     "docs/development-state/commerce-integration-3-state.json (linking observation completeness, PHASE_COMPLETE_ALL_GATES_PASSED, closeout 5fec940)",
@@ -48,10 +48,11 @@
       "path": "docs/work-orders/W2-020.md",
       "lane": "the operator surface: the System-surface Deployment-Readiness section (the committed-fixture mirror, the J15 pattern)",
       "owner": "worker-2",
-      "status": "DISPATCHED_LANDED",
+      "status": "COMPLETE",
       "write_surface": "packages/web/src/commerce-host/shell/fixtures/deployment-readiness-fixture.ts (NEW) + SystemSurface.tsx (ADD-alongside section) + net-new tests + the report",
       "branch": "work/w2-020",
-      "dispatch_record": "landed 2026-10-12 06:36:47Z on the proven canary session (8th lane on chat 309bcf10; turn 975b62b0, n=34) on cycle 0 — the §8 pre-flight cure (stop the completed W1-019 turn 0c1bfa95 + 410-verify + fresh tab) made the window clean (vs the 4-cycle fight when skipped — the law banked)"
+      "dispatch_record": "landed 2026-10-12 06:36:47Z on the proven canary session (8th lane on chat 309bcf10; turn 975b62b0, n=34) on cycle 0 — the §8 pre-flight cure (stop the completed W1-019 turn 0c1bfa95 + 410-verify + fresh tab) made the window clean (vs the 4-cycle fight when skipped — the law banked)",
+      "merge": "7113b0a (lane 236784a; one commit; zero deviations)"
     }
   ],
   "tl_owned_decision_packets": [
@@ -88,7 +89,8 @@
     {
       "id": "OPERATOR_SURFACE",
       "name": "The System-surface Deployment-Readiness section: fixture-provenance, capability coverage, config classification, verification results, the honest standing-gates status; J18 ABSENT untouched",
-      "status": "PENDING"
+      "status": "PASSED",
+      "evidence": "diff-level + browser lane capture 5/5: the kill-switched ADD-alongside section renders from the committed fixture — the bundle identity + 12 replaceable capabilities + the 12-key config surface with the 6 live-gated credentials warn-chipped + the honest ALL-CHECKS-PASS/HAS-FAILURES chip + the four standing gates NOT_AUTHORIZED + the DEMO tag + the fixture-provenance note; TL battery web 386/386 (378+8) + scoped tsc CLEAN"
     },
     {
       "id": "REGRESSION",
@@ -99,12 +101,14 @@
     {
       "id": "BROWSER",
       "name": "Merged real-Chromium zero-drift gate + lane extension evidence (the readiness section end-to-end)",
-      "status": "PENDING"
+      "status": "PASSED",
+      "evidence": "merged zero-drift gate on 7113b0a: journeys 19/19, interactions 19/19 (J18 ABSENT-by-design IDENTICAL to the phase-III baseline, manifest-compared), safety 5/5, walk 6/6, 92/92 pointers, denominators 19/19/5/6/30 zero-drift; W2-020 lane capture 5/5 (manifest docs/deployment-readiness/w2-020/evidence/lane-evidence-manifest.json)"
     },
     {
       "id": "TL_ACCEPT",
       "name": "Independent TL verification, final report with the TL-authored operator deployment decision brief, evidence manifests, registry closeout",
-      "status": "PENDING"
+      "status": "PASSED",
+      "evidence": "TL-observed numbers only; three W1-019 deviations + the two dispatch-fight records + the tool-window incidents honestly recorded in FINAL-REPORT §3; the TL-authored operator deployment decision brief (Tier A/B/C, recommendation, exact approvals, safe plan — no action taken, standing gates unchanged); evidence + FINAL-REPORT committed; this registry closeout"
     }
   ],
   "recording_law": "every gate transition cites TL-observed evidence (exact commands, numbers, commits); worker-reported numbers are never sufficient; deviations are recorded, never laundered",
