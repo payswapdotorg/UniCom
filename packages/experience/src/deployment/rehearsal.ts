@@ -13,6 +13,8 @@
  */
 import type { DeployableBundleDefinition, BundleInventory, BundleLineage } from "./bundle-definition.js";
 import { CAPABILITY_DECLARATIONS, CONFIG_SURFACE_ENTRIES } from "./bundle-definition.js";
+import type { DistInventory, DistInventoryEntry, DistManifestLine, DistSection } from "./bundle-definition.js";
+import { classifyDistFile, SOURCE_TO_DIST_CLASS_MAP } from "./bundle-definition.js";
 import { DEPLOYMENT_CAPABILITIES } from "./provider-adapter.js";
 
 /** One verification check result. */
@@ -182,5 +184,72 @@ export function rehearseBundle(
     allPassed,
     nonLive: true,
     standingGatesNote: "Standing gates bind: production deployment NOT_AUTHORIZED, live credentials NOT_AUTHORIZED, live providers NOT_AUTHORIZED. This rehearsal deploys NOTHING, connects NOTHING, reads NO credential.",
+  };
+}
+
+// --- W1-021 (additive): the dist manifest assembly + verification ---
+
+/** Parse a sha256sum-format manifest line: `<sha256hex>  ./<path>` or `<sha256hex>  <path>`. */
+export function parseManifestLine(line: string): DistManifestLine | null {
+  const match = line.match(/^([a-f0-9]{64})\s+\*?\.?\/?(.+)$/);
+  if (!match) return null;
+  return { digest: match[1]!, path: match[2]! };
+}
+
+/** Parse a full sha256sum manifest text into lines. */
+export function parseDistManifest(manifestText: string): readonly DistManifestLine[] {
+  return manifestText
+    .split("\n")
+    .map((l) => l.trim())
+    .filter((l) => l.length > 0)
+    .map(parseManifestLine)
+    .filter((l): l is DistManifestLine => l !== null);
+}
+
+/** Assemble a DistInventory from a sha256sum manifest text. */
+export function assembleFromDistManifest(manifestText: string): { inventory: DistInventory; unclassifiable: string[] } {
+  const lines = parseDistManifest(manifestText);
+  const entries: DistInventoryEntry[] = [];
+  const unclassifiable: string[] = [];
+  for (const line of lines) {
+    const fileClass = classifyDistFile(line.path);
+    if (fileClass === null) {
+      unclassifiable.push(line.path);
+    } else {
+      entries.push({ fileClass, path: line.path, digest: line.digest });
+    }
+  }
+  const distDigest = computeInventoryDigest(entries.map((e) => ({ path: e.path, digest: e.digest })));
+  return { inventory: { entries, distDigest }, unclassifiable };
+}
+
+/** Verify the dist assembly: completeness, determinism, source↔dist cross-check. */
+export function verifyDist(inventory: DistInventory, secondDigest: string, sourceInventory: BundleInventory): readonly VerificationCheck[] {
+  const checks: VerificationCheck[] = [];
+  const distComplete = inventory.entries.every((e) => e.fileClass && e.path && e.digest);
+  checks.push({ check: "dist-manifest-completeness", result: distComplete ? "PASS" : "FAIL", detail: distComplete ? `all ${inventory.entries.length} dist entries classified` : "one or more dist entries missing fields" });
+  const distDeterminism = inventory.distDigest === secondDigest;
+  checks.push({ check: "dist-digest-deterministic", result: distDeterminism ? "PASS" : "FAIL", detail: distDeterminism ? `dist digest ${inventory.distDigest} matches across assemblies` : `digest mismatch: ${inventory.distDigest} vs ${secondDigest}` });
+  const distClassesPresent = new Set(inventory.entries.map((e) => e.fileClass));
+  const missingMappings: string[] = [];
+  for (const mapping of SOURCE_TO_DIST_CLASS_MAP) {
+    const sourceHasClass = sourceInventory.entries.some((e) => e.fileClass === mapping.sourceClass);
+    if (sourceHasClass) {
+      const hasDist = mapping.distClasses.some((dc) => distClassesPresent.has(dc));
+      if (!hasDist) missingMappings.push(mapping.sourceClass);
+    }
+  }
+  checks.push({ check: "source-dist-cross-check", result: missingMappings.length === 0 ? "PASS" : "FAIL", detail: missingMappings.length === 0 ? "every entrypoint-class source entry maps to >=1 dist artifact" : `missing dist classes for source classes: ${missingMappings.join(", ")}` });
+  return checks;
+}
+
+/** The source-only dist section (the honest mode — no dist available). */
+export function sourceOnlyDistSection(): DistSection {
+  return {
+    mode: "source-only",
+    provenance: {
+      source: "source-only",
+      reason: "The dist build requires the CI memory class (13 documented local OOM kills). The sandbox cannot build the dist. The source-tree inventory is verified; the dist contract is declared but not assembled.",
+    },
   };
 }

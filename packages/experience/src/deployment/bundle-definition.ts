@@ -126,3 +126,68 @@ export const CONFIG_SURFACE_ENTRIES: readonly ConfigSurfaceEntry[] = [
   { key: "DEMO_FIXTURES_ID", classification: "demo", notes: "The committed demo fixtures identifier (DEMO-labelled on-surface)" },
   { key: "JOURNAL_BACKUP_PATH", classification: "neutral", notes: "Path for journal backup/restore (filesystem path, no credential)" },
 ];
+
+// --- W1-021 (additive): the DIST inventory contract ---
+
+/** Dist file classes (the canonical build's output categories). */
+export type DistFileClass =
+  | "html-entrypoint"
+  | "js-entrypoint"
+  | "css-asset"
+  | "static-asset"
+  | "map-artifact";
+
+/** One dist inventory entry (classified file + sha256 digest). */
+export interface DistInventoryEntry {
+  readonly fileClass: DistFileClass;
+  readonly path: string;
+  /** sha256 hex digest (exactly as sha256sum emits). */
+  readonly digest: string;
+}
+
+/** The dist inventory (classified entries + the deterministic dist digest). */
+export interface DistInventory {
+  readonly entries: readonly DistInventoryEntry[];
+  /** The deterministic digest of the whole dist (hash of sorted path:digest lines). */
+  readonly distDigest: string;
+}
+
+/** The manifest line format: `<sha256hex>  ./<relative-path>` (exactly as `sha256sum` + `sort -k2` emits). */
+export interface DistManifestLine {
+  readonly digest: string;
+  readonly path: string;
+}
+
+/** The dist assembly mode (how the dist inventory was gathered). */
+export type DistAssemblyMode = "ci-evidence-manifest" | "dist-root" | "source-only";
+
+/** The dist section of the artifact (additive — absent in W1-019's artifact). */
+export interface DistSection {
+  readonly mode: DistAssemblyMode;
+  readonly digest?: string;
+  readonly fileCount?: number;
+  readonly provenance: {
+    readonly source: "ci-evidence" | "dist-root-walk" | "committed-fixture" | "source-only";
+    readonly reason?: string;
+    readonly lineage?: string;
+  };
+}
+
+/** The source→dist class mapping (every entrypoint-class source entry maps to ≥1 dist class). */
+export const SOURCE_TO_DIST_CLASS_MAP: readonly { readonly sourceClass: BundleFileClass; readonly distClasses: readonly DistFileClass[] }[] = [
+  { sourceClass: "entrypoint", distClasses: ["html-entrypoint", "js-entrypoint"] },
+  { sourceClass: "contract-barrel", distClasses: ["js-entrypoint"] },
+  { sourceClass: "runtime-module", distClasses: ["js-entrypoint"] },
+  { sourceClass: "projection-module", distClasses: ["js-entrypoint"] },
+];
+
+/** Classify a dist file path into a DistFileClass (returns null if unclassifiable). */
+export function classifyDistFile(path: string): DistFileClass | null {
+  if (path.endsWith(".html") || path.endsWith(".htm")) return "html-entrypoint";
+  if (path.endsWith(".js") || path.endsWith(".mjs")) return "js-entrypoint";
+  if (path.endsWith(".css")) return "css-asset";
+  if (path.endsWith(".map")) return "map-artifact";
+  // Static assets: images, fonts, icons, etc.
+  if (/\.(png|jpg|jpeg|gif|svg|webp|ico|woff|woff2|ttf|eot|otf|json|txt|webmanifest)$/.test(path)) return "static-asset";
+  return null;
+}
