@@ -64,10 +64,21 @@
       "path": "docs/work-orders/W3-023.md",
       "lane": "the dist-contract completeness fix: the 4 new file classes (wasm-module, audio-asset, data-asset, text-asset) + the extended fixture + the real-dist regression fixture distilled from the REAL CI manifest finding",
       "owner": "worker-3",
-      "status": "DISPATCHED_GENERATING",
+      "status": "COMPLETE",
       "write_surface": "bundle-definition.ts (EXTEND) + the inlined classifier mirror + the fixtures + the tests + the regenerated artifact + the report",
       "branch": "work/w3-023",
       "dispatch_record": "landed 2026-10-12 14:41:25Z on the proven canary session (11th lane on chat 309bcf10) after the s8 pre-flight (stop the completed W2-022 fix turn 22a66be2 -> 200 true -> 410 verify): cycle 0 of the landing machine; server-truth n 40->42, new leaf 72ad97db; the order carries the 7 REAL digest lines extracted by the TL from the CI evidence",
+      "merge": "b7ab4c0 (lane f05e72c; one commit; ZERO deviations \u2014 the honest-provenance fixture with the one non-verbatim line explicitly disclosed)"
+    },
+    {
+      "id": "W4-024",
+      "path": "docs/work-orders/W4-024.md",
+      "lane": "the fixture-mirror update: the web surface mirrors the REAL-dist artifact (the operator sees the real CI evidence on System)",
+      "owner": "worker-4",
+      "status": "READY_FOR_TL_DISPATCH",
+      "write_surface": "the fixture mirror values only + the tests + the report",
+      "branch": "work/w4-024",
+      "dispatch_record": "",
       "merge": ""
     }
   ],
@@ -77,12 +88,12 @@
       "evidence": "main 1c003ec == origin/main, tree clean, the phase-IV battery re-derived from the registry: vitest 2,219|0, lint 103w/0e, architecture 0, scoped tsc clean, the phase-IV closeout record"
     },
     "DIST_CONTRACT": {
-      "status": "PARTIAL",
-      "evidence": "the 5-class contract delivered + test-proven (W1-021); the REAL manifest surfaced 4 missing classes -> W3-023 (the activation-order under-derivation, honestly attributed)"
+      "status": "PASSED",
+      "evidence": "the 9-class contract (5 original + wasm-module, audio-asset, data-asset, text-asset) \u2014 the REAL manifest fully classified (6,204/6,204); the regression fixture carries the real evidence lines with the honest provenance"
     },
     "MANIFEST_VERIFICATION": {
-      "status": "PARTIAL",
-      "evidence": "the ENGINE proven on the committed fixture (11/11, exit 0, the honest two-assembly determinism + the unclassifiable flagging, TL-verified); the REAL CI manifest run (the TL-owned TL_ACCEPT step: workflow run 38259561304 on the merged 29f037d, the evidence artifact downloaded, the runner --dist-manifest on the REAL 6,204-file manifest) FAILED dist-manifest-completeness HONESTLY: 172 unclassifiable files (168 .bcmap + 2 .wasm + 1 .mp3 + 1 .md) \u2014 the honest-failure law demonstrated on real data (exit 1, named, nothing laundered); the gap = the activation order under-derived the file classes; W3-023 closes it; the real-dist artifact commit follows the W3-023 merge + the re-run",
+      "status": "PASSED",
+      "evidence": "THE FULL REAL MANIFEST RUN on the W3-023-merged tree (b7ab4c0, the TL-owned evidence commit 210b8b9): 11/11 PASS, exit 0, ZERO unclassifiable \u2014 6,204 files classified, dist digest sha256:0508acfe8e87a989 (manifest-derived), provenance ci-evidence. The engine proven on the committed fixtures (W1-021) + the REAL evidence (the finding -> the fix -> the re-run PASS). Both dist identities recorded: the manifest-derived digest (the artifact) + the CI whole-output tar-discipline 71b03964... (the BUILD gate identity)",
       "real_ci_evidence": {
         "run": 38259561304,
         "commit": "29f037d",
@@ -90,7 +101,9 @@
         "bytes": 137303600,
         "memory_floor_mb": 10831,
         "dist_deterministic_sha256": "71b03964e485824ad9881bfdf433d572dca35ba01b404d5327804653879798c7",
-        "exit_code": 0
+        "manifest_derived_digest": "sha256:0508acfe8e87a989",
+        "exit_code": 0,
+        "verification": "11/11 PASS"
       }
     },
     "REGRESSION": {
