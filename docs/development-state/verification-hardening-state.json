@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "repository": "payswapdotorg/UniCom",
+  "program": "UNiCOM Verification Hardening — the recorded-debt closure (the runner's honesty + the agent fresh-build)",
+  "status": "PHASE_ACTIVE_BASELINE_PASSED",
+  "tracking_issue": 19,
+  "prior_phase_records_immutable": [
+    "docs/development-state/deployment-integrity-state.json (PHASE_COMPLETE_ALL_GATES_PASSED, closeout 7984b20)",
+    "docs/development-state/deployment-readiness-state.json",
+    "docs/development-state/commerce-integration-3-state.json",
+    "docs/development-state/commerce-integration-2-state.json",
+    "docs/development-state/commerce-integration-state.json",
+    "docs/development-state/product-completion-state.json"
+  ],
+  "source_baseline": {
+    "baseline_commit": "7984b20",
+    "code_lineage": "29f037d (W1-021) + 1701f0c (W2-022) + b7ab4c0 (W3-023) + c48edb5 (W4-024) + 210b8b9 (the real-dist artifact) + 7984b20 (the phase-V closeout)",
+    "battery": "vitest 2,255 passed | 0 skipped (web 392 + experience 783 + agent 559 + commerce 521); lint 103w/0e; architecture 0; both scoped typechecks clean; the real-dist run 11/11 on the full CI manifest",
+    "browser_gate": "merged zero-drift on c48edb5: journeys 19/19, interactions 19/19 (J18 ABSENT-by-design identical to the accepted baseline), safety 5/5, walk 6/6, 92/92 pointers; the W4-024 lane capture 5/5 (the REAL CI evidence on the operator surface)"
+  },
+  "architecture": {
+    "baseline": "1.2-additive-runtime-browser-2026-10-11 (unchanged this phase)",
+    "delta_policy": "the runner + engine honesty extensions (experience: additive return-shape + the honest failure surface) + the agent test-support type fixes (minimal, behavior-preserving); NO web changes (the artifact schema UNCHANGED — still 11 checks, the fixture stays valid); NO commerce changes; NO host-states changes; NO CI/workflow changes"
+  },
+  "operator_directive": "continuous resident watch: monitor → harvest → review → approve/require-changes → dispatch next until the roadmap is complete; no early returns; the GitHub repo is the roadmap guide; dispatch only from inside the replay; always fix the replay. The 2026-10-12 continue message = the spend-cap dispatch confirmation; Tier A remains UNAUTHORIZED",
+  "policy": {
+    "non_live_only": "this phase deploys NOTHING, connects to NO provider, reads NO credential, builds NO dist locally — the standing gates bind absolutely",
+    "standing_gates": {
+      "production_deployment": "NOT_AUTHORIZED",
+      "live_named_provider_credentials": "NOT_AUTHORIZED",
+      "human_research": "NOT_AUTHORIZED",
+      "live_payments": "NOT_AUTHORIZED"
+    },
+    "honest_evidence": "TL-observed numbers only; scoped tsc MANDATORY in every web lane (this phase has NO web lane — the artifact schema is unchanged by design); the experience lane runs its package typecheck with the banked TS6305 accommodation; the agent lane's fresh-worktree proof must be a REAL fresh clone; never delete/skip failing tests; preserve limitations verbatim"
+  },
+  "phase_derivation": {
+    "source": "the repo's frontier survey (the durability law): EVERY within-gates frontier item in the registries is CLOSED (the runtime-integration frontier's j12/j16/canonical-build/linking/j15 all closed by the subsequent phases) or standing-gated (production_deployment/human_research/live_credentials — the operator's). The honest remaining within-gates work = the program's OWN recorded debt: the three W1-021 runner deviations (the phase-V merge message + FINAL-REPORT §4.1) + the agent package's environment-conditional fresh-build debt (the TS2339 class, W2-002-era, verified present in fresh worktree installs [40 errors] while the main checkout's cached state passes — the durability law says everything rebuilds clean from git)",
+    "operator_authority_note": "Tier A remains UNAUTHORIZED; this phase is entirely repo-internal (verification honesty + type debt) and touches no standing gate"
+  },
+  "work_orders": [
+    {
+      "id": "W1-025",
+      "path": "docs/work-orders/W1-025.md",
+      "lane": "the runner's honest determinism (the two-parse second digest) + the parse integrity (unparseable lines fail loudly, folding into dist-manifest-completeness) + the honest dist-root walk (never hardcoded PASS) + the committed dist-dir fixture + the net-new tests",
+      "owner": "worker-1",
+      "status": "READY_FOR_TL_DISPATCH",
+      "write_surface": "packages/experience/src/deployment/rehearsal.ts (EXTEND) + scripts/deployment-rehearsal.mjs (the three honesty fixes) + the dist-dir fixture (NEW) + the tests + the regenerated artifact (schema unchanged) + the report",
+      "branch": "work/w1-025",
+      "dispatch_record": "",
+      "merge": ""
+    },
+    {
+      "id": "W2-026",
+      "path": "docs/work-orders/W2-026.md",
+      "lane": "the agent package's fresh-environment clean build: the test-support TS2339 debt closed with minimal type fixes + the fresh-worktree proof",
+      "owner": "worker-2",
+      "status": "READY_FOR_TL_DISPATCH",
+      "write_surface": "packages/agent/test/runtime/support/scripted-model.ts + the same-class test-support siblings + the report",
+      "branch": "work/w2-026",
+      "dispatch_record": "",
+      "merge": ""
+    }
+  ],
+  "gates": {
+    "BASELINE": {
+      "status": "PASSED",
+      "evidence": "main 7984b20 == origin/main, tree clean, the phase-V battery re-derived from the registry: vitest 2,255|0, lint 103w/0e, architecture 0, both scoped typechecks clean, the real-dist run 11/11"
+    },
+    "RUNNER_INTEGRITY": {
+      "status": "PENDING",
+      "definition": "the three W1-021 deviations closed + test-proven: the two-parse determinism (the runner's own path), the parse integrity (unparseable lines fail loudly, folded into dist-manifest-completeness), the honest dist-root walk (the committed dist-dir fixture + the failure-path variant)"
+    },
+    "AGENT_CLEAN_BUILD": {
+      "status": "PENDING",
+      "definition": "the fresh-worktree proof: tsc -p packages/agent exit 0 from a REAL fresh clone + the agent battery identical (559|0) + zero behavior changes"
+    },
+    "REGRESSION": {
+      "status": "PENDING",
+      "definition": "the merged-tree battery: all four packages, zero skipped, lint/arch/typechecks green (≥ 2,255 + net-new); the artifact schema unchanged (11 checks) + the committed artifact byte-identical except generatedAt"
+    },
+    "ARTIFACT_CONSISTENCY": {
+      "status": "PENDING",
+      "definition": "the runner's three modes re-verified on the merged tree (source-only 8/8; both fixtures 11/11; the dist-dir fixture green + its failure-path variant exits non-zero) + the REAL CI manifest re-run 11/11 (the TL-owned evidence step) + the web fixture/surface still valid (no web changes — the surface renders the same 11 checks)"
+    },
+    "BROWSER": {
+      "status": "PENDING",
+      "definition": "the merged zero-drift gate (journeys/interactions/safety/walk/pointers, J18 ABSENT-by-design identical to the accepted baseline) — the surface is unchanged this phase; the gate proves no drift"
+    },
+    "SAFETY": {
+      "status": "PENDING",
+      "definition": "the standing gates untouched; zero .github changes; INVARIANTS 51/52; no provider names in domain contracts; no credential values; no local dist builds"
+    },
+    "TL_ACCEPT": {
+      "status": "PENDING",
+      "definition": "the TL-authored phase record: the deviation-closure verification, the fresh-build proof re-run by the TL, the honest limitations, the closeout"
+    }
+  }
+}
