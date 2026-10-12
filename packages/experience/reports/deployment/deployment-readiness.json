@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-10-12T14:53:38.280Z",
+  "generatedAt": "2026-10-12T16:11:54.976Z",
   "lineage": {
-    "commit": "b7ab4c07f3edd6a039fe8964e0c176ad32e58b98",
+    "commit": "7dd8fb8ee62e6762b49f0cb8de04294babd825d4",
     "toolchain": "node v24.21.0"
   },
   "bundle": {
     "inventorySummary": {
       "entryCount": 12,
-      "inventoryDigest": "sha256:3a8de191d6972b87",
+      "inventoryDigest": "sha256:18a52157007574ed",
       "fileClasses": [
         "entrypoint",
         "contract-barrel",
@@ -193,7 +193,7 @@
     "fileCount": 6204,
     "provenance": {
       "source": "ci-evidence",
-      "lineage": "b7ab4c07f3edd6a039fe8964e0c176ad32e58b98"
+      "lineage": "7dd8fb8ee62e6762b49f0cb8de04294babd825d4"
     }
   },
   "nonLive": true,
