@@ -50,8 +50,36 @@ describe("W1-021 dist contract — file classification", () => {
     expect(classifyDistFile("fonts/inter.woff2")).toBe("static-asset");
   });
   it("classifyDistFile returns null for unclassifiable files", () => {
-    expect(classifyDistFile("unknown.bin")).toBeNull();
+    expect(classifyDistFile("unknown.xyz")).toBeNull();
     expect(classifyDistFile("README")).toBeNull();
+  });
+
+  // W3-023: the four new dist-only artifact classes (the REAL-CI-evidence finding)
+  it("classifyDistFile classifies .wasm as wasm-module", () => {
+    expect(classifyDistFile("assets/docx_wasm_bg-HWnIvdMf.wasm")).toBe("wasm-module");
+    expect(classifyDistFile("assets/duke_sheets_wasm_bg-BCCK9PkU.wasm")).toBe("wasm-module");
+  });
+  it("classifyDistFile classifies .mp3/.wav/.ogg as audio-asset", () => {
+    expect(classifyDistFile("assets/task-notification-pop-qiQ1Ge3C.mp3")).toBe("audio-asset");
+    expect(classifyDistFile("assets/chime.wav")).toBe("audio-asset");
+    expect(classifyDistFile("assets/alert.ogg")).toBe("audio-asset");
+  });
+  it("classifyDistFile classifies .bcmap/.dat/.bin as data-asset", () => {
+    expect(classifyDistFile("pdfjs/cmaps/Adobe-Japan1-0.bcmap")).toBe("data-asset");
+    expect(classifyDistFile("assets/lookup.dat")).toBe("data-asset");
+    expect(classifyDistFile("assets/packed.bin")).toBe("data-asset");
+  });
+  it("classifyDistFile classifies .md/.txt as text-asset", () => {
+    expect(classifyDistFile("THIRD-PARTY-NOTICES.md")).toBe("text-asset");
+    expect(classifyDistFile("assets/license.txt")).toBe("text-asset");
+  });
+  it("the four new classes are the REAL-CI-evidence paths from the finding", () => {
+    // The 4 real unclassifiable paths from the canonical build CI manifest
+    expect(classifyDistFile("THIRD-PARTY-NOTICES.md")).toBe("text-asset");
+    expect(classifyDistFile("assets/docx_wasm_bg-HWnIvdMf.wasm")).toBe("wasm-module");
+    expect(classifyDistFile("assets/duke_sheets_wasm_bg-BCCK9PkU.wasm")).toBe("wasm-module");
+    expect(classifyDistFile("assets/task-notification-pop-qiQ1Ge3C.mp3")).toBe("audio-asset");
+    expect(classifyDistFile("pdfjs/cmaps/Adobe-Japan1-0.bcmap")).toBe("data-asset");
   });
 });
 
@@ -80,7 +108,7 @@ describe("W1-021 assembleFromDistManifest — classification + completeness", ()
     const manifestText = readFileSync(fixturePath, "utf-8");
     const { inventory, unclassifiable } = assembleFromDistManifest(manifestText);
     expect(unclassifiable).toEqual([]);
-    expect(inventory.entries.length).toBe(10);
+    expect(inventory.entries.length).toBe(14);
     expect(inventory.distDigest).toMatch(/^sha256:/);
   });
   it("two independent assemblies produce the identical digest (determinism)", () => {
@@ -90,9 +118,9 @@ describe("W1-021 assembleFromDistManifest — classification + completeness", ()
     expect(first.inventory.distDigest).toBe(second.inventory.distDigest);
   });
   it("reports unclassifiable files honestly", () => {
-    const manifestText = "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2  ./unknown.bin";
+    const manifestText = "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2  ./unknown.xyz";
     const { inventory, unclassifiable } = assembleFromDistManifest(manifestText);
-    expect(unclassifiable).toEqual(["unknown.bin"]);
+    expect(unclassifiable).toEqual(["unknown.xyz"]);
     expect(inventory.entries).toHaveLength(0);
   });
 });
@@ -139,15 +167,15 @@ describe("W1-021 source-only mode — honest", () => {
 });
 
 describe("W1-021 fixture provenance — the committed fixture", () => {
-  it("the fixture file exists and has 10 lines (sha256sum format)", () => {
+  it("the fixture file exists and has 14 lines (sha256sum format)", () => {
     const text = readFileSync(fixturePath, "utf-8");
     const lines = text.split("\n").filter((l) => l.trim().length > 0);
-    expect(lines.length).toBe(10);
+    expect(lines.length).toBe(14);
     for (const line of lines) {
       expect(line).toMatch(/^[a-f0-9]{64}\s+\*?\.?\/?.+$/);
     }
   });
-  it("the fixture contains the expected file classes (html/js/css/map/static)", () => {
+  it("the fixture contains the expected file classes (html/js/css/map/static + the 4 W3-023 classes)", () => {
     const text = readFileSync(fixturePath, "utf-8");
     const { inventory } = assembleFromDistManifest(text);
     const classes = new Set(inventory.entries.map((e) => e.fileClass));
@@ -156,6 +184,11 @@ describe("W1-021 fixture provenance — the committed fixture", () => {
     expect(classes.has("css-asset")).toBe(true);
     expect(classes.has("map-artifact")).toBe(true);
     expect(classes.has("static-asset")).toBe(true);
+    // W3-023 additive classes
+    expect(classes.has("wasm-module")).toBe(true);
+    expect(classes.has("audio-asset")).toBe(true);
+    expect(classes.has("data-asset")).toBe(true);
+    expect(classes.has("text-asset")).toBe(true);
   });
 });
 
@@ -166,5 +199,81 @@ describe("W1-021 source→dist class mapping", () => {
     expect(sourceClasses).toContain("contract-barrel");
     expect(sourceClasses).toContain("runtime-module");
     expect(sourceClasses).toContain("projection-module");
+  });
+});
+
+// --- W3-023: the REAL-dist regression fixture (the canonical build's CI evidence) ---
+
+const regressionFixturePath = resolve(__dirname, "deployment", "real-dist-regression-fixture.txt");
+
+describe("W3-023 real-dist regression fixture — the REAL-CI-evidence class coverage", () => {
+  it("the regression fixture exists and has 8 manifest lines (5 real-evidence + 3 representative classifiable)", () => {
+    const text = readFileSync(regressionFixturePath, "utf-8");
+    const lines = text.split("\n").filter((l) => l.trim().length > 0 && !l.startsWith("#"));
+    expect(lines.length).toBe(8);
+    for (const line of lines) {
+      expect(line).toMatch(/^[a-f0-9]{64}\s+\*?\.?\/?.+$/);
+    }
+  });
+
+  it("assembles the regression fixture with ZERO unclassifiable files (the completeness gap is closed)", () => {
+    const text = readFileSync(regressionFixturePath, "utf-8");
+    const { inventory, unclassifiable } = assembleFromDistManifest(text);
+    expect(unclassifiable).toEqual([]);
+    expect(inventory.entries.length).toBe(8);
+    expect(inventory.distDigest).toMatch(/^sha256:/);
+  });
+
+  it("two independent assemblies of the regression fixture produce the identical digest (determinism)", () => {
+    const text = readFileSync(regressionFixturePath, "utf-8");
+    const first = assembleFromDistManifest(text);
+    const second = assembleFromDistManifest(text);
+    expect(first.inventory.distDigest).toBe(second.inventory.distDigest);
+  });
+
+  it("the regression fixture covers all 4 new W3-023 classes (the real unclassifiable paths from the finding)", () => {
+    const text = readFileSync(regressionFixturePath, "utf-8");
+    const { inventory } = assembleFromDistManifest(text);
+    const classes = new Set(inventory.entries.map((e) => e.fileClass));
+    expect(classes.has("text-asset")).toBe(true);   // THIRD-PARTY-NOTICES.md
+    expect(classes.has("wasm-module")).toBe(true);  // docx_wasm_bg + duke_sheets_wasm_bg
+    expect(classes.has("audio-asset")).toBe(true);   // task-notification-pop.mp3
+    expect(classes.has("data-asset")).toBe(true);    // Adobe-Japan1-0.bcmap (represents the 168-file class)
+  });
+
+  it("the regression fixture carries the REAL CI digests verbatim (the 5 real-evidence lines)", () => {
+    const text = readFileSync(regressionFixturePath, "utf-8");
+    const lines = text.split("\n").filter((l) => l.trim().length > 0 && !l.startsWith("#"));
+    // The 5 real-evidence digests from the canonical build CI manifest (run 38259561304, commit 29f037d)
+    const realDigests = [
+      "4376c92862ab13f7b1bc8d0facc9622110caada8b1bd8612b3f707d00ea0c552", // THIRD-PARTY-NOTICES.md
+      "470d3bc418174d8c276c93ccf8b29622edceef13e0cb407d0797341d4fa86197", // docx_wasm_bg.wasm
+      "ab475856ab69ce1c29866d8961952578c488804bc4ca6bc13a6db13eb09e20de", // duke_sheets_wasm_bg.wasm
+      "bd95332236b7435be42002aed75335dbaac6e896a1650d16b8e2f49183d5cfce", // task-notification-pop.mp3
+      "464f08905236f5703b1f5cf8358767c8b18e6bcc808840d081f1de2c7ab38134", // Adobe-Japan1-0.bcmap
+    ];
+    for (const digest of realDigests) {
+      const found = lines.some((l) => l.startsWith(digest));
+      expect(found, `real CI digest ${digest.slice(0, 16)}... not found in regression fixture`).toBe(true);
+    }
+  });
+
+  it("verifyDist PASSes all 3 dist checks on the regression fixture", () => {
+    const text = readFileSync(regressionFixturePath, "utf-8");
+    const { inventory } = assembleFromDistManifest(text);
+    const secondDigest = assembleFromDistManifest(text).inventory.distDigest;
+    const sourceInventory: BundleInventory = {
+      entries: [
+        { fileClass: "entrypoint", path: "packages/web/src/index.ts", digest: "sha256:abc" },
+        { fileClass: "contract-barrel", path: "packages/commerce/src/contract.ts", digest: "sha256:def" },
+        { fileClass: "runtime-module", path: "packages/commerce/src/runtime/index.ts", digest: "sha256:ghi" },
+        { fileClass: "projection-module", path: "packages/commerce/src/projection/index.ts", digest: "sha256:jkl" },
+      ],
+      inventoryDigest: "sha256:test",
+    };
+    const checks = verifyDist(inventory, secondDigest, sourceInventory);
+    const fails = checks.filter((c) => c.result === "FAIL");
+    expect(fails, `failing: ${fails.map((f) => f.check).join(", ")}`).toEqual([]);
+    expect(checks.length).toBe(3);
   });
 });

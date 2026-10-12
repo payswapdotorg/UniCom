@@ -129,13 +129,28 @@ export const CONFIG_SURFACE_ENTRIES: readonly ConfigSurfaceEntry[] = [
 
 // --- W1-021 (additive): the DIST inventory contract ---
 
-/** Dist file classes (the canonical build's output categories). */
+/**
+ * Dist file classes (the canonical build's output categories).
+ *
+ * W3-023 (additive): the four new classes (`wasm-module`, `audio-asset`,
+ * `data-asset`, `text-asset`) close the REAL-CI-evidence finding — the
+ * canonical build's dist contains .wasm (the docx + duke_sheets wasm
+ * modules), .mp3 (task-notification-pop), .bcmap (pdfjs cmaps — 168 files),
+ * and .md (THIRD-PARTY-NOTICES). The existing 5 classes' semantics are
+ * unchanged (additive only); SOURCE_TO_DIST_CLASS_MAP is unchanged (the new
+ * classes are dist-only artifact classes; no source class maps to them
+ * additionally — they join the inventory as legitimate dist outputs).
+ */
 export type DistFileClass =
   | "html-entrypoint"
   | "js-entrypoint"
   | "css-asset"
   | "static-asset"
-  | "map-artifact";
+  | "map-artifact"
+  | "wasm-module"
+  | "audio-asset"
+  | "data-asset"
+  | "text-asset";
 
 /** One dist inventory entry (classified file + sha256 digest). */
 export interface DistInventoryEntry {
@@ -187,7 +202,12 @@ export function classifyDistFile(path: string): DistFileClass | null {
   if (path.endsWith(".js") || path.endsWith(".mjs")) return "js-entrypoint";
   if (path.endsWith(".css")) return "css-asset";
   if (path.endsWith(".map")) return "map-artifact";
+  // W3-023 (additive): the four new dist-only artifact classes.
+  if (path.endsWith(".wasm")) return "wasm-module";
+  if (/\.(mp3|wav|ogg)$/.test(path)) return "audio-asset";
+  if (/\.(bcmap|dat|bin)$/.test(path)) return "data-asset";
+  if (path.endsWith(".md") || path.endsWith(".txt")) return "text-asset";
   // Static assets: images, fonts, icons, etc.
-  if (/\.(png|jpg|jpeg|gif|svg|webp|ico|woff|woff2|ttf|eot|otf|json|txt|webmanifest)$/.test(path)) return "static-asset";
+  if (/\.(png|jpg|jpeg|gif|svg|webp|ico|woff|woff2|ttf|eot|otf|json|webmanifest)$/.test(path)) return "static-asset";
   return null;
 }

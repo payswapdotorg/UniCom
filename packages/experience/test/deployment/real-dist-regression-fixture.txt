@@ -1,0 +1,31 @@
+# W3-023 — the REAL-dist regression fixture (the canonical build's CI evidence, distilled).
+#
+# Provenance: the 5 unclassifiable-path lines below carry digests verbatim
+# from the canonical build CI evidence (run 38259561304, commit 29f037d,
+# 6,204 files; extracted by the TL from dist-manifest-sha256.txt). The
+# .bcmap line represents the 168-file class (pdfjs/cmaps/*.bcmap — one
+# real line stands for the class). The index.html + CommerceHostApp CSS
+# lines are also verbatim from the same manifest (representative
+# classifiable lines).
+#
+# The index-Dy7vK8jN.js line is a representative classifiable line from
+# the committed dist-manifest-fixture.txt (NOT a real CI digest — it
+# exists to satisfy the source→dist cross-check, which requires ≥1
+# js-entrypoint artifact so the contract-barrel/runtime-module/
+# projection-module source classes map to a dist class). It is the
+# only non-CI-verbatim line in this fixture; all 5 real-evidence lines
+# carry their real digests.
+#
+# This fixture asserts the real-world class coverage: the four file
+# classes that the REAL manifest surfaced as unclassifiable under
+# the W1-021 contract (.wasm, .mp3, .bcmap, .md) now classify under
+# the W3-023 additive classes. Zero unclassifiable = the completeness
+# gap is closed.
+4376c92862ab13f7b1bc8d0facc9622110caada8b1bd8612b3f707d00ea0c552  ./THIRD-PARTY-NOTICES.md
+470d3bc418174d8c276c93ccf8b29622edceef13e0cb407d0797341d4fa86197  ./assets/docx_wasm_bg-HWnIvdMf.wasm
+ab475856ab69ce1c29866d8961952578c488804bc4ca6bc13a6db13eb09e20de  ./assets/duke_sheets_wasm_bg-BCCK9PkU.wasm
+bd95332236b7435be42002aed75335dbaac6e896a1650d16b8e2f49183d5cfce  ./assets/task-notification-pop-qiQ1Ge3C.mp3
+464f08905236f5703b1f5cf8358767c8b18e6bcc808840d081f1de2c7ab38134  ./pdfjs/cmaps/Adobe-Japan1-0.bcmap
+d4d78b736146c77e637a359cdb6c5ceec2f49fe059d52bec13f362d9bcace53b  ./index.html
+a64c080a290970fa5598e0ab580318a77c5eec8cb68f7922a398df02f9da209e  ./assets/CommerceHostApp-IroIIy6D.css
+b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3  ./assets/index-Dy7vK8jN.js

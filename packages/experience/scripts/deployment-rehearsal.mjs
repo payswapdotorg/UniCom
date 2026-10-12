@@ -153,13 +153,18 @@ checks.push({ check: "no-provider-names-in-contract", result: foundProviders.len
 
 // --- W1-021: dist manifest assembly + verification ---
 
-// Dist file classification (inlined from bundle-definition.ts)
+// Dist file classification (inlined from bundle-definition.ts — W3-023 additive: 4 new classes)
 function classifyDistFile(path) {
   if (path.endsWith(".html") || path.endsWith(".htm")) return "html-entrypoint";
   if (path.endsWith(".js") || path.endsWith(".mjs")) return "js-entrypoint";
   if (path.endsWith(".css")) return "css-asset";
   if (path.endsWith(".map")) return "map-artifact";
-  if (/\.(png|jpg|jpeg|gif|svg|webp|ico|woff|woff2|ttf|eot|otf|json|txt|webmanifest)$/.test(path)) return "static-asset";
+  // W3-023 (additive): the four new dist-only artifact classes.
+  if (path.endsWith(".wasm")) return "wasm-module";
+  if (/\.(mp3|wav|ogg)$/.test(path)) return "audio-asset";
+  if (/\.(bcmap|dat|bin)$/.test(path)) return "data-asset";
+  if (path.endsWith(".md") || path.endsWith(".txt")) return "text-asset";
+  if (/\.(png|jpg|jpeg|gif|svg|webp|ico|woff|woff2|ttf|eot|otf|json|webmanifest)$/.test(path)) return "static-asset";
   return null;
 }
 
