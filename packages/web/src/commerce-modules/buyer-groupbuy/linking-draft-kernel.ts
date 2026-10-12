@@ -1,26 +1,24 @@
 /**
- * W2-017 Stage 2 — the kernel-native draft-linking command runner.
+ * W1-018 — the shared-singleton linking-draft kernel.
  *
- * Consumes the merged W1-016 kernel API (`@unicom/commerce`'s domain functions:
- * `linkGroupBuyToOrderDraft`, `linkTradeCycleLegToSettlementDraft` +
- `LINKING_DRAFT_ENABLED`) read-only through the public contract. The runner
- * executes the LINK commands against the lane-local GroupBuy/TradeCycle kernels'
- * authoritative state, producing a kernel-truth receipt + draft record that the
- * host surface renders (id, idempotency receipt, provenance, draft state).
+ * W2-017 created per-component instances; W1-018 refactors to ONE shared
+ * singleton so the System-surface ledger is truthful (every surface
+ * observes the same drafts + receipts).
  *
- * The runner is idempotent at the application level: a duplicate call with the
- * same idempotency key returns the ORIGINAL receipt (never a second draft) —
- * the same law the kernel's own receipt ledger enforces. If the kernel refuses
- * (linking disabled / authorization / any typed refusal), the runner returns
- * the refusal verbatim — the surface renders it honestly, never swallows it.
+ * Consumes the merged W1-016 kernel API (`@unicom/commerce`'s domain functions)
+ * read-only. The runner executes LINK commands, marks drafts UNKNOWN, resolves
+ * them back to DRAFT, and cancels them — all through the kernel's own domain
+ * functions (markLinkedDraftUnknown, resolveLinkedDraftUnknown, cancelLinkedDraft).
  *
- * NO payments/reservations/recourse of any kind — the runner creates a DRAFT
- * only (a draft is not a commitment).
+ * NO payments/reservations/recourse of any kind.
  */
 import {
   makeId,
   linkGroupBuyToOrderDraft,
   linkTradeCycleLegToSettlementDraft,
+  markLinkedDraftUnknown,
+  resolveLinkedDraftUnknown,
+  cancelLinkedDraft,
   LINKING_DRAFT_ENABLED,
   type CommandReceipt,
   type GroupBuyAggregate,
@@ -39,18 +37,26 @@ export interface LinkingDraftExecution {
   readonly originalReceipt?: CommandReceipt;
 }
 
-/** The lane-local linked-draft kernel runner (idempotent, journaled). */
+/** The result of an UNKNOWN/cancel operation. */
+export interface DraftMutationResult {
+  readonly ok: boolean;
+  readonly draft?: LinkedDraftAggregate;
+  readonly error?: { readonly code: string; readonly detail?: string };
+}
+
+/**
+ * The shared linked-draft kernel runner. ONE module-level singleton
+ * (`sharedLinkingDraftKernel`) serves all composing surfaces so the
+ * System-surface ledger is truthful.
+ */
 export class LinkingDraftKernel {
   private readonly receipts = new Map<string, CommandReceipt>();
   private readonly drafts = new Map<string, LinkedDraftAggregate>();
+  private readonly draftIdToKey = new Map<string, string>();
   private counter = 0;
 
-  /** Execute LINK_GROUPBUY_TO_ORDER_DRAFT against a FORMED GroupBuy. */
   async linkGroupBuyToOrderDraft(
-    groupBuy: GroupBuyAggregate,
-    participantRef: PrincipalRef,
-    actingPrincipal: PrincipalRef,
-    idempotencyKey: string,
+    groupBuy: GroupBuyAggregate, participantRef: PrincipalRef, actingPrincipal: PrincipalRef, idempotencyKey: string,
   ): Promise<LinkingDraftExecution> {
     return this.execute(() => {
       const draftId = makeId<"LinkedDraftId">(`w2ld-gb-${groupBuy.groupBuyId}-${++this.counter}`);
@@ -61,12 +67,8 @@ export class LinkingDraftKernel {
     }, idempotencyKey);
   }
 
-  /** Execute LINK_TRADECYCLE_LEG_TO_SETTLEMENT_DRAFT against a COMMITTED leg. */
   async linkTradeCycleLegToSettlementDraft(
-    cycle: TradeCycleExecution,
-    legIndex: number,
-    actingPrincipal: PrincipalRef,
-    idempotencyKey: string,
+    cycle: TradeCycleExecution, legIndex: number, actingPrincipal: PrincipalRef, idempotencyKey: string,
   ): Promise<LinkingDraftExecution> {
     return this.execute(() => {
       const draftId = makeId<"LinkedDraftId">(`w2ld-tc-${cycle.tradeCycleId}-leg-${legIndex}-${++this.counter}`);
@@ -77,22 +79,15 @@ export class LinkingDraftKernel {
     }, idempotencyKey);
   }
 
-  /** The kernel's own idempotency law: duplicate key = the original receipt. */
   private async execute(
     run: () => { readonly ok: true; readonly value: LinkedDraftAggregate } | { readonly ok: false; readonly error: { readonly code: string; readonly detail?: string } },
     idempotencyKey: string,
   ): Promise<LinkingDraftExecution> {
     const existing = this.receipts.get(idempotencyKey);
-    if (existing) {
-      return { status: "DUPLICATE", originalReceipt: existing };
-    }
-    if (!LINKING_DRAFT_ENABLED) {
-      return { status: "REJECTED", rejectionCode: "LINKING_DISABLED", rejectionDetail: "linking is disabled (kill switch OFF)" };
-    }
+    if (existing) return { status: "DUPLICATE", originalReceipt: existing };
+    if (!LINKING_DRAFT_ENABLED) return { status: "REJECTED", rejectionCode: "LINKING_DISABLED", rejectionDetail: "linking is disabled (kill switch OFF)" };
     const outcome = run();
-    if (!outcome.ok) {
-      return { status: "REJECTED", rejectionCode: outcome.error.code, rejectionDetail: outcome.error.detail };
-    }
+    if (!outcome.ok) return { status: "REJECTED", rejectionCode: outcome.error.code, rejectionDetail: outcome.error.detail };
     const draft = outcome.value;
     const receipt: CommandReceipt = {
       receiptId: makeId<"CommandReceiptId">(`w2ld-rcpt-${++this.counter}`),
@@ -103,28 +98,53 @@ export class LinkingDraftKernel {
     };
     this.receipts.set(idempotencyKey, receipt);
     this.drafts.set(draft.draftId as string, draft);
+    this.draftIdToKey.set(draft.draftId as string, idempotencyKey);
     return { status: "EXECUTED", receipt, draft };
   }
 
-  /** All executed drafts (kernel-truth, for rendering). */
-  allDrafts(): readonly LinkedDraftAggregate[] {
-    return [...this.drafts.values()];
+  /** Mark a draft's placement result as UNKNOWN (law 6: UNKNOWN ≠ FAILED). */
+  markUnknown(draftId: string): DraftMutationResult {
+    const existing = this.drafts.get(draftId);
+    if (!existing) return { ok: false, error: { code: "DRAFT_NOT_FOUND" } };
+    const result = markLinkedDraftUnknown(existing, new Date().toISOString());
+    if (!result.ok) return { ok: false, error: { code: result.error.code, detail: "state" in result.error ? result.error.state : undefined } };
+    this.drafts.set(draftId, result.value);
+    return { ok: true, draft: result.value };
   }
 
-  /** The draft for one id, or undefined. */
-  draftFor(draftId: string): LinkedDraftAggregate | undefined {
-    return this.drafts.get(draftId);
+  /** Resolve a PLACEMENT_UNKNOWN draft back to DRAFT (retry — law 6). */
+  resolveUnknown(draftId: string): DraftMutationResult {
+    const existing = this.drafts.get(draftId);
+    if (!existing) return { ok: false, error: { code: "DRAFT_NOT_FOUND" } };
+    const result = resolveLinkedDraftUnknown(existing, new Date().toISOString());
+    if (!result.ok) return { ok: false, error: { code: result.error.code, detail: "state" in result.error ? result.error.state : undefined } };
+    this.drafts.set(draftId, result.value);
+    return { ok: true, draft: result.value };
   }
 
-  /** Reset (the demo reset path). */
-  reset(): void {
-    this.receipts.clear();
-    this.drafts.clear();
-    this.counter = 0;
+  /** Cancel a draft → CANCELLED_BUT_NEVER_COMMITTED (law 5: compensation separation). */
+  cancelDraft(draftId: string): DraftMutationResult {
+    const existing = this.drafts.get(draftId);
+    if (!existing) return { ok: false, error: { code: "DRAFT_NOT_FOUND" } };
+    const result = cancelLinkedDraft(existing, new Date().toISOString());
+    if (!result.ok) return { ok: false, error: { code: result.error.code, detail: "state" in result.error ? result.error.state : undefined } };
+    this.drafts.set(draftId, result.value);
+    return { ok: true, draft: result.value };
   }
+
+  allDrafts(): readonly LinkedDraftAggregate[] { return [...this.drafts.values()]; }
+  draftFor(draftId: string): LinkedDraftAggregate | undefined { return this.drafts.get(draftId); }
+  receiptFor(idempotencyKey: string): CommandReceipt | undefined { return this.receipts.get(idempotencyKey); }
+  /** The receipt for a draft (by draft id) — for the System-surface ledger. */
+  receiptForDraft(draftId: string): CommandReceipt | undefined {
+    const key = this.draftIdToKey.get(draftId);
+    return key ? this.receipts.get(key) : undefined;
+  }
+
+  reset(): void { this.receipts.clear(); this.drafts.clear(); this.draftIdToKey.clear(); this.counter = 0; }
 }
 
-/** Whether linking is enabled (the kill switch from the kernel contract). */
-export function isLinkingKernelEnabled(): boolean {
-  return LINKING_DRAFT_ENABLED;
-}
+/** The shared singleton — ONE instance for all surfaces. */
+export const sharedLinkingDraftKernel = new LinkingDraftKernel();
+
+export function isLinkingKernelEnabled(): boolean { return LINKING_DRAFT_ENABLED; }
