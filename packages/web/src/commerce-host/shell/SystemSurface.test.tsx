@@ -127,11 +127,11 @@ describe("W2-022 dist identity + hash chain rows — rendered from the fixture",
     expect(text).toContain(DEPLOYMENT_READINESS_FIXTURE.dist.provenance.source);
   });
 
-  it("the dist mode chip renders as FIXTURE (committed-fixture provenance)", async () => {
+  it("the dist mode chip renders as CI-EVIDENCE (ci-evidence provenance)", async () => {
     rendered = await navigateToSystem();
     const chip = rendered.container.querySelector('[data-testid="cm-dist-mode-chip"]');
     expect(chip).not.toBeNull();
-    expect(chip?.textContent).toBe("FIXTURE");
+    expect(chip?.textContent).toBe("CI-EVIDENCE");
   });
 
   it("the end-to-end hash chain row renders (source digest → dist digest → bundle verification)", async () => {
@@ -161,8 +161,8 @@ describe("W2-022 dist identity + hash chain rows — rendered from the fixture",
 
   it("the fixture mirrors the real artifact's dist section (mode, digest, fileCount, provenance.source)", () => {
     expect(DEPLOYMENT_READINESS_FIXTURE.dist.mode).toBe("ci-evidence-manifest");
-    expect(DEPLOYMENT_READINESS_FIXTURE.dist.digest).toBe("sha256:e5d8cf3122659271");
-    expect(DEPLOYMENT_READINESS_FIXTURE.dist.fileCount).toBe(10);
-    expect(DEPLOYMENT_READINESS_FIXTURE.dist.provenance.source).toBe("committed-fixture");
+    expect(DEPLOYMENT_READINESS_FIXTURE.dist.digest).toBe("sha256:0508acfe8e87a989");
+    expect(DEPLOYMENT_READINESS_FIXTURE.dist.fileCount).toBe(6204);
+    expect(DEPLOYMENT_READINESS_FIXTURE.dist.provenance.source).toBe("ci-evidence");
   });
 });
