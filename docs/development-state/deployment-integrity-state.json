@@ -53,21 +53,21 @@
       "path": "docs/work-orders/W2-022.md",
       "lane": "the operator surface hash-chain rows: the fixture mirror extension + the DIST IDENTITY row + the END-TO-END HASH CHAIN row (the W2-020 ADD-alongside pattern, kill switch unchanged)",
       "owner": "worker-2",
-      "status": "DISPATCHED_GENERATING",
+      "status": "COMPLETE",
       "write_surface": "packages/web/src/commerce-host/shell/fixtures/deployment-readiness-fixture.ts (EXTEND) + SystemSurface.tsx (ADD-alongside rows) + net-new tests + the report",
       "branch": "work/w2-022",
-      "dispatch_record": "landed 2026-10-12 14:02:43Z on the proven canary session (10th lane on chat 309bcf10) after the s8 pre-flight (stop the completed W1-021 turn f4818197 -> 200 true -> 410 verify -> fresh tab 89B47CDF): cycle 1 of the landing machine; server-truth n 36->38, new leaf 27f06e91",
-      "merge": ""
+      "dispatch_record": "landed 2026-10-12 14:02:43Z on the proven canary session (10th lane on chat 309bcf10) after the s8 pre-flight (stop the completed W1-021 turn f4818197 -> 200 true -> 410 verify -> fresh tab 89B47CDF): cycle 1 of the landing machine; server-truth n 36->38, new leaf 27f06e91 | CHANGES-REQUESTED round: the first delivery 0e1fa69 carried a non-reproducing fixture inventoryDigest (087a65de \u2014 claimed real, matched no artifact state) + a stale generatedAt; the fix request landed 14:28:36Z (cycle 0 of the machine after a 5-round capacity-popup edge wall); the fix 72487ac delivered in 9 min (both values mirrored verbatim \u2014 TL-verified programmatically: ALL VERBATIM)",
+      "merge": "1701f0c (lane 72487ac after one changes-requested round; web 392/392, scoped tsc EXIT 0, lint 103w/0e, architecture 0/0/0, mirror fidelity ALL VERBATIM)"
     },
     {
       "id": "W3-023",
       "path": "docs/work-orders/W3-023.md",
       "lane": "the dist-contract completeness fix: the 4 new file classes (wasm-module, audio-asset, data-asset, text-asset) + the extended fixture + the real-dist regression fixture distilled from the REAL CI manifest finding",
       "owner": "worker-3",
-      "status": "QUEUED_BEHIND_W2_022",
+      "status": "DISPATCHED_GENERATING",
       "write_surface": "bundle-definition.ts (EXTEND) + the inlined classifier mirror + the fixtures + the tests + the regenerated artifact + the report",
       "branch": "work/w3-023",
-      "dispatch_record": "",
+      "dispatch_record": "landed 2026-10-12 14:41:25Z on the proven canary session (11th lane on chat 309bcf10) after the s8 pre-flight (stop the completed W2-022 fix turn 22a66be2 -> 200 true -> 410 verify): cycle 0 of the landing machine; server-truth n 40->42, new leaf 72ad97db; the order carries the 7 REAL digest lines extracted by the TL from the CI evidence",
       "merge": ""
     }
   ],
