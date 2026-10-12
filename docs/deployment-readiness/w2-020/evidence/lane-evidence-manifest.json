@@ -1,0 +1,102 @@
+{
+  "schema": "w2-020-lane-evidence/1",
+  "capturedAt": "2026-10-12T07:03:01.170Z",
+  "steps": [
+    {
+      "step": "01-section-renders",
+      "outcome": "PASS",
+      "label": "the System-surface Deployment-Readiness section renders kill-switched from the committed fixture with the honest chips",
+      "checks": [
+        {
+          "label": "cm-deployment-readiness rendered",
+          "ok": true
+        },
+        {
+          "label": "ALL CHECKS PASS chip",
+          "ok": true
+        },
+        {
+          "label": "DEMO tag",
+          "ok": true
+        },
+        {
+          "label": "fixture-provenance note",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "02-capability-coverage",
+      "outcome": "PASS",
+      "label": "every capability kind renders with its adapter + the replaceable guarantee",
+      "checks": [
+        {
+          "label": "capability rows: 12/12",
+          "ok": true
+        },
+        {
+          "label": "replaceable chips: 12/12",
+          "ok": true
+        },
+        {
+          "label": "all replaceable",
+          "ok": true
+        },
+        {
+          "label": "all 12 kinds named on-surface",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "03-config-surface",
+      "outcome": "PASS",
+      "label": "the config surface renders the classification with every credential-like key visibly LIVE-GATED",
+      "checks": [
+        {
+          "label": "config rows: 12/12",
+          "ok": true
+        },
+        {
+          "label": "live-gated chips: 6/6",
+          "ok": true
+        },
+        {
+          "label": "all 6 credential keys named",
+          "ok": true
+        },
+        {
+          "label": "warn chips present: 8",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "04-standing-gates",
+      "outcome": "PASS",
+      "label": "the standing gates render their true NOT_AUTHORIZED status; the non-live note renders",
+      "checks": [
+        {
+          "label": "all four gate names rendered",
+          "ok": true
+        },
+        {
+          "label": "NOT_AUTHORIZED renders: 7x",
+          "ok": true
+        },
+        {
+          "label": "the non-live note (deploys NOTHING, connects NOTHING, reads NO credential)",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "05-console-zero-errors",
+      "outcome": "PASS",
+      "label": "console zero-error check (0 errors)",
+      "checks": []
+    }
+  ],
+  "fixtureNote": "The section renders ONLY from the committed fixture (the J15 pattern; the web graph never imports @unicom/experience). The fixture mirrors the artifact W1-019 committed (lineage 6461a41) — the provenance note is on-surface.",
+  "killSwitchNote": "DEPLOYMENT_READINESS_SECTION_ENABLED gates the section; absent fixture = the section does not render (honest absence)."
+}
