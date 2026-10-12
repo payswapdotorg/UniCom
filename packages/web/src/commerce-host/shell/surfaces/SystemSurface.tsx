@@ -230,6 +230,61 @@ export function SystemSurface(): JSX.Element {
               </div>
             ))}
           </div>
+          {/* W2-022: the DIST IDENTITY row — the dist digest + the mode chip */}
+          {DEPLOYMENT_READINESS_FIXTURE.dist ? (
+            <div className="cm-journey-item" data-testid="cm-deployment-dist-identity">
+              <span className="cm-journey-name">Dist identity</span>
+              <span className="cm-journey-summary">
+                mode {DEPLOYMENT_READINESS_FIXTURE.dist.mode}
+                {DEPLOYMENT_READINESS_FIXTURE.dist.digest ? ` · digest ${DEPLOYMENT_READINESS_FIXTURE.dist.digest}` : ""}
+                {DEPLOYMENT_READINESS_FIXTURE.dist.fileCount !== undefined ? ` · ${DEPLOYMENT_READINESS_FIXTURE.dist.fileCount} files` : ""}
+                {" · provenance " + DEPLOYMENT_READINESS_FIXTURE.dist.provenance.source}
+              </span>
+              <span className={
+                DEPLOYMENT_READINESS_FIXTURE.dist.mode === "ci-evidence-manifest" ? "cm-chip cm-chip-ok"
+                : DEPLOYMENT_READINESS_FIXTURE.dist.mode === "dist-root" ? "cm-chip cm-chip-ok"
+                : DEPLOYMENT_READINESS_FIXTURE.dist.mode === "source-only" ? "cm-chip cm-chip-warn"
+                : "cm-chip cm-chip-unknown"
+              } data-testid="cm-dist-mode-chip">
+                {DEPLOYMENT_READINESS_FIXTURE.dist.provenance.source === "committed-fixture" ? "FIXTURE"
+                : DEPLOYMENT_READINESS_FIXTURE.dist.mode === "ci-evidence-manifest" ? "CI-EVIDENCE"
+                : DEPLOYMENT_READINESS_FIXTURE.dist.mode === "dist-root" ? "DIST-ROOT"
+                : "SOURCE-ONLY"}
+              </span>
+            </div>
+          ) : (
+            <div className="cm-journey-item" data-testid="cm-deployment-dist-identity">
+              <span className="cm-journey-name">Dist identity</span>
+              <span className="cm-journey-summary">dist section absent — the rehearsal ran in source-only mode (no dist manifest provided)</span>
+              <span className="cm-chip cm-chip-warn" data-testid="cm-dist-mode-chip">SOURCE-ONLY</span>
+            </div>
+          )}
+          {/* W2-022: the END-TO-END HASH CHAIN row — source → dist → bundle */}
+          <div className="cm-journey-item" data-testid="cm-deployment-hash-chain">
+            <span className="cm-journey-name">End-to-end hash chain</span>
+            <span className="cm-journey-summary">
+              source {DEPLOYMENT_READINESS_FIXTURE.bundle.inventorySummary.inventoryDigest}
+              {" → "}
+              {DEPLOYMENT_READINESS_FIXTURE.dist?.digest ?? "(dist absent)"}
+              {" → "}
+              bundle verification {DEPLOYMENT_READINESS_FIXTURE.verification.filter((v) => v.result === "PASS").length}/{DEPLOYMENT_READINESS_FIXTURE.verification.length} checks PASS
+            </span>
+            <span className={
+              DEPLOYMENT_READINESS_FIXTURE.dist
+                ? DEPLOYMENT_READINESS_FIXTURE.verification.find((v) => v.check === "dist-manifest-completeness")?.result === "PASS"
+                  && DEPLOYMENT_READINESS_FIXTURE.verification.find((v) => v.check === "dist-digest-deterministic")?.result === "PASS"
+                  && DEPLOYMENT_READINESS_FIXTURE.verification.find((v) => v.check === "source-dist-cross-check")?.result === "PASS"
+                  ? "cm-chip cm-chip-ok" : "cm-chip cm-chip-err"
+                : "cm-chip cm-chip-warn"
+            } data-testid="cm-hash-chain-chip">
+              {DEPLOYMENT_READINESS_FIXTURE.dist
+                ? DEPLOYMENT_READINESS_FIXTURE.verification.find((v) => v.check === "dist-manifest-completeness")?.result === "PASS"
+                  && DEPLOYMENT_READINESS_FIXTURE.verification.find((v) => v.check === "dist-digest-deterministic")?.result === "PASS"
+                  && DEPLOYMENT_READINESS_FIXTURE.verification.find((v) => v.check === "source-dist-cross-check")?.result === "PASS"
+                  ? "CHAIN VERIFIED" : "CHAIN BROKEN"
+                : "SOURCE-ONLY (no dist link)"}
+            </span>
+          </div>
           <h3 className="cm-card-title" style={{ marginTop: 10 }}>Standing gates</h3>
           <ul className="cm-perm-list" data-testid="cm-standing-gates">
             {STANDING_GATES.map((g) => (
