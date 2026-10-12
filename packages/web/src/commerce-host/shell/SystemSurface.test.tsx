@@ -29,7 +29,6 @@ afterEach(() => {
 async function navigateToSystem(): Promise<RenderedUi> {
   window.history.replaceState({}, "", "/commerce/system");
   rendered = renderUi(<CommerceHostApp />);
-  // Wait for lazy modules to resolve
   await new Promise((r) => setTimeout(r, 200));
   return rendered;
 }
@@ -113,5 +112,57 @@ describe("W2-020 Deployment readiness section — renders from the fixture", () 
     expect(note?.textContent).toContain("deploys NOTHING");
     expect(note?.textContent).toContain("connects NOTHING");
     expect(note?.textContent).toContain("reads NO credential");
+  });
+});
+
+describe("W2-022 dist identity + hash chain rows — rendered from the fixture", () => {
+  it("the dist identity row renders with the digest + mode + file count + provenance", async () => {
+    rendered = await navigateToSystem();
+    const distRow = rendered.container.querySelector('[data-testid="cm-deployment-dist-identity"]');
+    expect(distRow).not.toBeNull();
+    const text = textOf(distRow as HTMLElement);
+    expect(text).toContain(DEPLOYMENT_READINESS_FIXTURE.dist.mode);
+    expect(text).toContain(DEPLOYMENT_READINESS_FIXTURE.dist.digest);
+    expect(text).toContain(String(DEPLOYMENT_READINESS_FIXTURE.dist.fileCount));
+    expect(text).toContain(DEPLOYMENT_READINESS_FIXTURE.dist.provenance.source);
+  });
+
+  it("the dist mode chip renders as FIXTURE (committed-fixture provenance)", async () => {
+    rendered = await navigateToSystem();
+    const chip = rendered.container.querySelector('[data-testid="cm-dist-mode-chip"]');
+    expect(chip).not.toBeNull();
+    expect(chip?.textContent).toBe("FIXTURE");
+  });
+
+  it("the end-to-end hash chain row renders (source digest → dist digest → bundle verification)", async () => {
+    rendered = await navigateToSystem();
+    const chainRow = rendered.container.querySelector('[data-testid="cm-deployment-hash-chain"]');
+    expect(chainRow).not.toBeNull();
+    const text = textOf(chainRow as HTMLElement);
+    expect(text).toContain(DEPLOYMENT_READINESS_FIXTURE.bundle.inventorySummary.inventoryDigest);
+    expect(text).toContain(DEPLOYMENT_READINESS_FIXTURE.dist.digest);
+    expect(text).toContain("checks PASS");
+  });
+
+  it("the hash chain chip renders CHAIN VERIFIED (all 3 dist checks PASS)", async () => {
+    rendered = await navigateToSystem();
+    const chip = rendered.container.querySelector('[data-testid="cm-hash-chain-chip"]');
+    expect(chip).not.toBeNull();
+    expect(chip?.textContent).toBe("CHAIN VERIFIED");
+  });
+
+  it("the 3 new verification entries (dist-manifest-completeness, dist-digest-deterministic, source-dist-cross-check) render", async () => {
+    rendered = await navigateToSystem();
+    const text = textOf(rendered.container);
+    expect(text).toContain("dist-manifest-completeness");
+    expect(text).toContain("dist-digest-deterministic");
+    expect(text).toContain("source-dist-cross-check");
+  });
+
+  it("the fixture mirrors the real artifact's dist section (mode, digest, fileCount, provenance.source)", () => {
+    expect(DEPLOYMENT_READINESS_FIXTURE.dist.mode).toBe("ci-evidence-manifest");
+    expect(DEPLOYMENT_READINESS_FIXTURE.dist.digest).toBe("sha256:e5d8cf3122659271");
+    expect(DEPLOYMENT_READINESS_FIXTURE.dist.fileCount).toBe(10);
+    expect(DEPLOYMENT_READINESS_FIXTURE.dist.provenance.source).toBe("committed-fixture");
   });
 });

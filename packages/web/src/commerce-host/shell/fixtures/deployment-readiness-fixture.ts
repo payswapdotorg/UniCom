@@ -1,28 +1,33 @@
 /**
- * W2-020 — the committed deployment-readiness fixture.
+ * W2-020 + W2-022 — the committed deployment-readiness fixture.
  *
- * A frozen, committed MIRROR of W1-019's deployment-readiness.json artifact.
- * The browser never reads the filesystem at runtime; this fixture is the
- * data source for the System-surface "Deployment readiness" section (the
- * J15 `runtime-facts-fixture.ts` precedent).
+ * A frozen, committed MIRROR of the deployment-readiness.json artifact (W1-019
+ * + W1-021). The browser never reads the filesystem at runtime; this fixture
+ * is the data source for the System-surface "Deployment readiness" section
+ * (the J15 `runtime-facts-fixture.ts` precedent).
  *
  * Kill switch: DEPLOYMENT_READINESS_SECTION_ENABLED. When false, the section
  * does not render (honest absence, no fake population).
  *
  * Provenance: this fixture mirrors the artifact produced by
- * `node packages/experience/scripts/deployment-rehearsal.mjs` at commit
- * 6461a41 (W1-019's lineage). The values are real (never fabricated).
+ * `node packages/experience/scripts/deployment-rehearsal.mjs --dist-manifest
+ * packages/experience/test/deployment/dist-manifest-fixture.txt` at commit
+ * ed72c34 (W1-021's lineage). The values are real (never fabricated) — copied
+ * verbatim from packages/experience/reports/deployment/deployment-readiness.json
+ * (the content-based discipline: identical files → identical digest). The dist
+ * section's provenance.source is "committed-fixture" — the TL will re-run
+ * with the real CI evidence post-merge.
  */
 export const DEPLOYMENT_READINESS_FIXTURE = {
-  generatedAt: "2026-10-12T06:14:54.730Z",
+  generatedAt: "2026-10-12T13:41:45.317Z",
   lineage: {
-    commit: "6461a41d32f2e097155fc0b3484696ad851009d3",
+    commit: "ed72c34a99027ef7840ab9a34ebb1a11dc03e9ad",
     toolchain: "node v24.21.0",
   },
   bundle: {
     inventorySummary: {
       entryCount: 12,
-      inventoryDigest: "sha256:0a995049b259d00f",
+      inventoryDigest: "sha256:356ec58646abc037",
       fileClasses: ["entrypoint", "contract-barrel", "runtime-module", "projection-module", "deployment-contract"],
     },
   },
@@ -63,7 +68,19 @@ export const DEPLOYMENT_READINESS_FIXTURE = {
     { check: "no-live-credentials", result: "PASS" },
     { check: "boot-smoke-contract", result: "PASS" },
     { check: "no-provider-names-in-contract", result: "PASS" },
+    { check: "dist-manifest-completeness", result: "PASS" },
+    { check: "dist-digest-deterministic", result: "PASS" },
+    { check: "source-dist-cross-check", result: "PASS" },
   ],
+  dist: {
+    mode: "ci-evidence-manifest",
+    digest: "sha256:e5d8cf3122659271",
+    fileCount: 10,
+    provenance: {
+      source: "committed-fixture",
+      lineage: "ed72c34a99027ef7840ab9a34ebb1a11dc03e9ad",
+    },
+  },
   nonLive: true,
   standingGatesNote: "Standing gates bind: production deployment NOT_AUTHORIZED, live credentials NOT_AUTHORIZED, live providers NOT_AUTHORIZED. This rehearsal deploys NOTHING, connects NOTHING, reads NO credential.",
 } as const;
