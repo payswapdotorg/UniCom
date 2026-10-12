@@ -42,20 +42,31 @@
       "path": "docs/work-orders/W1-021.md",
       "lane": "the dist-hash integration: the dist inventory contract + the manifest-assembly/verification engine (CI evidence consumed, never the dist files) + the runner modes + the artifact's dist section + the committed dist fixture tests",
       "owner": "worker-1",
-      "status": "DISPATCHED_GENERATING",
+      "status": "COMPLETE",
       "write_surface": "packages/experience/src/deployment/bundle-definition.ts + rehearsal.ts (EXTEND additive) + scripts/deployment-rehearsal.mjs (EXTEND) + reports/deployment/deployment-readiness.json (REGENERATED) + packages/experience/test/deployment/ (the dist fixture + net-new tests) + the report",
       "branch": "work/w1-021",
       "dispatch_record": "landed 2026-10-12 13:31:06Z on the proven canary session (9th lane on chat 309bcf10) after the s8 pre-flight (stop the completed W2-020 turn 975b62b0 -> 200 true -> 410 verify -> fresh tab 5E2251A2): cycle 1 of the landing machine (13:30:59Z send, the RESP-None signature on cycle 0-1; server-truth: n 34->36, new leaf assistant turn f4818197) \u2014 the s8 pre-flight law holds (cycle-1 landing vs the 4-cycle fight when skipped)",
-      "merge": ""
+      "merge": "29f037d (lane 4d3a9bd; one commit; four recorded deviations: the tautological runner determinism echo [the engine+tests carry the honest proof], the silently-dropped unparseable lines, the dist-root hardcoded PASS, the manifest-digest vs the CI tar-digest discipline)"
     },
     {
       "id": "W2-022",
       "path": "docs/work-orders/W2-022.md",
       "lane": "the operator surface hash-chain rows: the fixture mirror extension + the DIST IDENTITY row + the END-TO-END HASH CHAIN row (the W2-020 ADD-alongside pattern, kill switch unchanged)",
       "owner": "worker-2",
-      "status": "QUEUED_BEHIND_W1_021",
+      "status": "DISPATCHED_GENERATING",
       "write_surface": "packages/web/src/commerce-host/shell/fixtures/deployment-readiness-fixture.ts (EXTEND) + SystemSurface.tsx (ADD-alongside rows) + net-new tests + the report",
       "branch": "work/w2-022",
+      "dispatch_record": "landed 2026-10-12 14:02:43Z on the proven canary session (10th lane on chat 309bcf10) after the s8 pre-flight (stop the completed W1-021 turn f4818197 -> 200 true -> 410 verify -> fresh tab 89B47CDF): cycle 1 of the landing machine; server-truth n 36->38, new leaf 27f06e91",
+      "merge": ""
+    },
+    {
+      "id": "W3-023",
+      "path": "docs/work-orders/W3-023.md",
+      "lane": "the dist-contract completeness fix: the 4 new file classes (wasm-module, audio-asset, data-asset, text-asset) + the extended fixture + the real-dist regression fixture distilled from the REAL CI manifest finding",
+      "owner": "worker-3",
+      "status": "QUEUED_BEHIND_W2_022",
+      "write_surface": "bundle-definition.ts (EXTEND) + the inlined classifier mirror + the fixtures + the tests + the regenerated artifact + the report",
+      "branch": "work/w3-023",
       "dispatch_record": "",
       "merge": ""
     }
@@ -66,16 +77,25 @@
       "evidence": "main 1c003ec == origin/main, tree clean, the phase-IV battery re-derived from the registry: vitest 2,219|0, lint 103w/0e, architecture 0, scoped tsc clean, the phase-IV closeout record"
     },
     "DIST_CONTRACT": {
-      "status": "PENDING",
-      "definition": "the dist inventory contract exists + is pure data/types + the file classes + manifest discipline + hash-chain identity rule (W1-021 required behavior #1)"
+      "status": "PARTIAL",
+      "evidence": "the 5-class contract delivered + test-proven (W1-021); the REAL manifest surfaced 4 missing classes -> W3-023 (the activation-order under-derivation, honestly attributed)"
     },
     "MANIFEST_VERIFICATION": {
-      "status": "PENDING",
-      "definition": "the manifest assembly + classification + completeness + two-parse determinism + the source\u2194dist cross-check all machine-verified (the committed fixture tests + the runner's fixture-mode run; the REAL CI evidence digest recorded by the TL post-merge via workflow_dispatch + the evidence-artifact download + the runner re-run \u2014 the TL-owned evidence commit)"
+      "status": "PARTIAL",
+      "evidence": "the ENGINE proven on the committed fixture (11/11, exit 0, the honest two-assembly determinism + the unclassifiable flagging, TL-verified); the REAL CI manifest run (the TL-owned TL_ACCEPT step: workflow run 38259561304 on the merged 29f037d, the evidence artifact downloaded, the runner --dist-manifest on the REAL 6,204-file manifest) FAILED dist-manifest-completeness HONESTLY: 172 unclassifiable files (168 .bcmap + 2 .wasm + 1 .mp3 + 1 .md) \u2014 the honest-failure law demonstrated on real data (exit 1, named, nothing laundered); the gap = the activation order under-derived the file classes; W3-023 closes it; the real-dist artifact commit follows the W3-023 merge + the re-run",
+      "real_ci_evidence": {
+        "run": 38259561304,
+        "commit": "29f037d",
+        "files": 6204,
+        "bytes": 137303600,
+        "memory_floor_mb": 10831,
+        "dist_deterministic_sha256": "71b03964e485824ad9881bfdf433d572dca35ba01b404d5327804653879798c7",
+        "exit_code": 0
+      }
     },
     "REGRESSION": {
-      "status": "PENDING",
-      "definition": "the merged-tree battery: all four packages, zero skipped, lint/arch/typechecks green (the merged battery must be \u2265 2,219 + net-new)"
+      "status": "PASSED",
+      "evidence": "merged-tree battery on 29f037d: experience 772 + web 386 + commerce 521 + agent 559 = 2,238 passed | 0 skipped; lint 103w/0e; architecture 0/0/0; the TS6305 accommodation applied"
     },
     "OPERATOR_SURFACE": {
       "status": "PENDING",
