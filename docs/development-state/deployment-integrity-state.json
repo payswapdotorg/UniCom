@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "repository": "payswapdotorg/UniCom",
-  "program": "UNiCOM Deployment Integrity — the deployment plane's hash-chain completion (dist-hash integration, non-live)",
+  "program": "UNiCOM Deployment Integrity \u2014 the deployment plane's hash-chain completion (dist-hash integration, non-live)",
   "status": "PHASE_ACTIVE_BASELINE_PASSED",
   "tracking_issue": 18,
   "prior_phase_records_immutable": [
@@ -19,22 +19,22 @@
   },
   "architecture": {
     "baseline": "1.2-additive-runtime-browser-2026-10-11 (unchanged this phase)",
-    "delta_policy": "additive extensions to the deployment plane (experience: the dist contract + the manifest-assembly engine + the runner modes) + one ADD-alongside System-surface extension (web: the dist identity + hash-chain rows); NO commerce changes; NO host-states changes (J18's ABSENT-by-design classification is load-bearing and untouched); NO CI/workflow changes (the BUILD-ONLY law holds verbatim — dist is never uploaded or committed by CI); INVARIANTS 51/52 (provider names only in deployment configuration, never in domain contracts)"
+    "delta_policy": "additive extensions to the deployment plane (experience: the dist contract + the manifest-assembly engine + the runner modes) + one ADD-alongside System-surface extension (web: the dist identity + hash-chain rows); NO commerce changes; NO host-states changes (J18's ABSENT-by-design classification is load-bearing and untouched); NO CI/workflow changes (the BUILD-ONLY law holds verbatim \u2014 dist is never uploaded or committed by CI); INVARIANTS 51/52 (provider names only in deployment configuration, never in domain contracts)"
   },
-  "operator_directive": "continuous resident watch: monitor → harvest → review → approve/require-changes → dispatch next until the roadmap is complete; no early returns; the GitHub repo is the roadmap guide; dispatch only from inside the replay; always fix the replay. The 2026-10-12 'continue (fix the replay)' message is recorded as the spend-cap dispatch confirmation; the Tier A authorization checkboxes in the deployment decision brief remain UNCHECKED (not authorized)",
+  "operator_directive": "continuous resident watch: monitor \u2192 harvest \u2192 review \u2192 approve/require-changes \u2192 dispatch next until the roadmap is complete; no early returns; the GitHub repo is the roadmap guide; dispatch only from inside the replay; always fix the replay. The 2026-10-12 'continue (fix the replay)' message is recorded as the spend-cap dispatch confirmation; the Tier A authorization checkboxes in the deployment decision brief remain UNCHECKED (not authorized)",
   "policy": {
-    "non_live_only": "this phase deploys NOTHING, connects to NO provider, reads NO credential, builds NO dist locally (the memory law: the canonical build is the CI class — 13 documented local OOM kills; the sandbox consumes CI's small-text evidence only) — the standing gates bind absolutely",
+    "non_live_only": "this phase deploys NOTHING, connects to NO provider, reads NO credential, builds NO dist locally (the memory law: the canonical build is the CI class \u2014 13 documented local OOM kills; the sandbox consumes CI's small-text evidence only) \u2014 the standing gates bind absolutely",
     "standing_gates": {
       "production_deployment": "NOT_AUTHORIZED",
       "live_named_provider_credentials": "NOT_AUTHORIZED",
       "human_research": "NOT_AUTHORIZED",
       "live_payments": "NOT_AUTHORIZED"
     },
-    "honest_evidence": "TL-observed numbers only; scoped tsc MANDATORY in every web lane's acceptance list (the phase-6 lesson); the experience lane runs its package typecheck with the banked TS6305 accommodation; never delete/skip failing tests; preserve limitations verbatim; committed artifacts carry real values only, fixture-derived values labelled with their provenance; the dist digest is never fabricated — source-only mode is honest"
+    "honest_evidence": "TL-observed numbers only; scoped tsc MANDATORY in every web lane's acceptance list (the phase-6 lesson); the experience lane runs its package typecheck with the banked TS6305 accommodation; never delete/skip failing tests; preserve limitations verbatim; committed artifacts carry real values only, fixture-derived values labelled with their provenance; the dist digest is never fabricated \u2014 source-only mode is honest"
   },
   "phase_derivation": {
-    "source": "the repo's own frontier naming, durability-law derived (never memory): the deployment-readiness FINAL-REPORT §5 frontier (b) names the dist-hash integration lane; the W1-019 disclosed deviation ('the contract is dist-shaped, the assembly input is source') is the gap; the deployment decision brief §4.4 recommends the dist-hash integration land BEFORE or WITH any Tier A authorization; the canonical-web-build workflow already emits the small-text evidence (dist-manifest-sha256.txt + DIST_DETERMINISTIC_SHA256) the rehearsal can consume WITHOUT breaking the BUILD-ONLY law (dist never uploaded)",
-    "operator_authority_note": "Tier A (non-commercial staging deployment) remains UNAUTHORIZED — the decision brief's approval checkboxes are unchecked; this phase is entirely repo-internal (build/evidence pipeline integration) and touches no standing gate"
+    "source": "the repo's own frontier naming, durability-law derived (never memory): the deployment-readiness FINAL-REPORT \u00a75 frontier (b) names the dist-hash integration lane; the W1-019 disclosed deviation ('the contract is dist-shaped, the assembly input is source') is the gap; the deployment decision brief \u00a74.4 recommends the dist-hash integration land BEFORE or WITH any Tier A authorization; the canonical-web-build workflow already emits the small-text evidence (dist-manifest-sha256.txt + DIST_DETERMINISTIC_SHA256) the rehearsal can consume WITHOUT breaking the BUILD-ONLY law (dist never uploaded)",
+    "operator_authority_note": "Tier A (non-commercial staging deployment) remains UNAUTHORIZED \u2014 the decision brief's approval checkboxes are unchecked; this phase is entirely repo-internal (build/evidence pipeline integration) and touches no standing gate"
   },
   "work_orders": [
     {
@@ -42,10 +42,10 @@
       "path": "docs/work-orders/W1-021.md",
       "lane": "the dist-hash integration: the dist inventory contract + the manifest-assembly/verification engine (CI evidence consumed, never the dist files) + the runner modes + the artifact's dist section + the committed dist fixture tests",
       "owner": "worker-1",
-      "status": "READY_FOR_TL_DISPATCH",
+      "status": "DISPATCHED_GENERATING",
       "write_surface": "packages/experience/src/deployment/bundle-definition.ts + rehearsal.ts (EXTEND additive) + scripts/deployment-rehearsal.mjs (EXTEND) + reports/deployment/deployment-readiness.json (REGENERATED) + packages/experience/test/deployment/ (the dist fixture + net-new tests) + the report",
       "branch": "work/w1-021",
-      "dispatch_record": "",
+      "dispatch_record": "landed 2026-10-12 13:31:06Z on the proven canary session (9th lane on chat 309bcf10) after the s8 pre-flight (stop the completed W2-020 turn 975b62b0 -> 200 true -> 410 verify -> fresh tab 5E2251A2): cycle 1 of the landing machine (13:30:59Z send, the RESP-None signature on cycle 0-1; server-truth: n 34->36, new leaf assistant turn f4818197) \u2014 the s8 pre-flight law holds (cycle-1 landing vs the 4-cycle fight when skipped)",
       "merge": ""
     },
     {
@@ -71,11 +71,11 @@
     },
     "MANIFEST_VERIFICATION": {
       "status": "PENDING",
-      "definition": "the manifest assembly + classification + completeness + two-parse determinism + the source↔dist cross-check all machine-verified (the committed fixture tests + the runner's fixture-mode run; the REAL CI evidence digest recorded by the TL post-merge via workflow_dispatch + the evidence-artifact download + the runner re-run — the TL-owned evidence commit)"
+      "definition": "the manifest assembly + classification + completeness + two-parse determinism + the source\u2194dist cross-check all machine-verified (the committed fixture tests + the runner's fixture-mode run; the REAL CI evidence digest recorded by the TL post-merge via workflow_dispatch + the evidence-artifact download + the runner re-run \u2014 the TL-owned evidence commit)"
     },
     "REGRESSION": {
       "status": "PENDING",
-      "definition": "the merged-tree battery: all four packages, zero skipped, lint/arch/typechecks green (the merged battery must be ≥ 2,219 + net-new)"
+      "definition": "the merged-tree battery: all four packages, zero skipped, lint/arch/typechecks green (the merged battery must be \u2265 2,219 + net-new)"
     },
     "OPERATOR_SURFACE": {
       "status": "PENDING",
