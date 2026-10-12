@@ -2,7 +2,7 @@
   "schema_version": 1,
   "repository": "payswapdotorg/UniCom",
   "program": "UNiCOM Commerce Plane Integration III \u2014 linking observation completeness (draft ledger + UNKNOWN recovery)",
-  "status": "ACTIVE_W1_DISPATCHED",
+  "status": "PHASE_COMPLETE_ALL_GATES_PASSED",
   "tracking_issue": 16,
   "prior_phase_records_immutable": [
     "docs/development-state/commerce-integration-2-state.json (Stage 2 kernel-native linking, PHASE_COMPLETE_ALL_GATES_PASSED, closeout a0fe845)",
@@ -36,9 +36,10 @@
       "path": "docs/work-orders/W1-018.md",
       "lane": "linking observation completeness (shared singleton + System-surface ledger + UNKNOWN recovery)",
       "owner": "worker-1",
-      "status": "DISPATCHED",
+      "status": "COMPLETE",
       "write_surface": "linking-draft-kernel.ts (singleton) + kernel-panel (UNKNOWN affordances) + the composing components (singleton swap) + SystemSurface ledger + tests + report",
-      "branch": "work/w1-018"
+      "branch": "work/w1-018",
+      "merge": "63f6ba7 (lane lineage: 979c9ba + the changes-requested fix a30ca62)"
     }
   ],
   "tl_owned_decision_packets": [],
@@ -55,37 +56,44 @@
     {
       "id": "SHARED_KERNEL_SINGLETON",
       "name": "One LinkingDraftKernel instance serves all surfaces (the ledger is truthful, not per-module fragments)",
-      "status": "PENDING"
+      "status": "PASSED",
+      "evidence": "lane diff-level: sharedLinkingDraftKernel exported at linking-draft-kernel.ts:141, consumed by all four composing components + SystemSurface; browser lane capture step 04 (the merchant-surface draft listed by the System ledger after pure client-side nav)"
     },
     {
       "id": "DRAFT_LEDGER",
       "name": "System-surface ledger: every draft with provenance + state chips + receipts + honest empty state; J18 ABSENT untouched",
-      "status": "PENDING"
+      "status": "PASSED",
+      "evidence": "browser lane capture steps 02+04: honest empty state; the row (draft id + DRAFT chip + source+kind + actor + consent + compensation ref) + the receipt line (receipt w2ld-rcpt-* \u00b7 command w2ld-cmd-* \u00b7 idem-key \u00b7 executed) via the additive receiptForDraft API (the changes-requested round: the initial delivery omitted the receipt render \u2014 fixed a30ca62 in 4m50s)"
     },
     {
       "id": "UNKNOWN_RECOVERY",
       "name": "PLACEMENT_UNKNOWN renders UNKNOWN-never-FAILED + the human resolve + cancel; the DEMO-labelled mark-UNKNOWN trigger honest",
-      "status": "PENDING"
+      "status": "PASSED",
+      "evidence": "browser lane capture steps 05+06: the DEMO-labelled mark-UNKNOWN trigger \u2192 PLACEMENT_UNKNOWN + never-FAILED copy \u2192 the ledger chip flips; resolve \u2192 DRAFT (the trigger reappears); cancel \u2192 CANCELLED_BUT_NEVER_COMMITTED; vitest 9 net-new observation tests + 2 receipt tests"
     },
     {
       "id": "REGRESSION",
       "name": "Full merged battery: vitest all suites, lint baseline, architecture 0, scoped tsc clean",
-      "status": "PENDING"
+      "status": "PASSED",
+      "evidence": "TL-run on the merged tree 63f6ba7: web 378/378 + commerce 521/521 + experience 739/739 + agent 559/559 = 2,197 passed | 0 skipped; lint 103w/0e; architecture 0/0/0; scoped tsc clean exit 0"
     },
     {
       "id": "BROWSER",
       "name": "Merged real-Chromium zero-drift gate + lane extension evidence (ledger + UNKNOWN flow end-to-end)",
-      "status": "PENDING"
+      "status": "PASSED",
+      "evidence": "merged zero-drift gate on 63f6ba7 (evidence 6b3037d): journeys 19/19, interactions 19/19 with J18 ABSENT-by-design IDENTICAL to the accepted phase-II baseline (manifest-compared), safety 5/5, walk 6/6, 92/92 pointers, denominators 19/19/5/6/30 zero-drift; W1-018 lane capture 7/7 (manifest docs/commerce-integration-3/w1-018/evidence/lane-evidence-manifest.json)"
     },
     {
       "id": "SAFETY",
       "name": "No auto-fire anywhere; UNKNOWN never laundered to FAILED; DEMO labelling honest; tripwires on the merged tree",
-      "status": "PENDING"
+      "status": "PASSED",
+      "evidence": "zero auto-fire anywhere (the singleton adds NO new firing paths \u2014 it only shares the instance); UNKNOWN never laundered to FAILED (the lane capture proves the copy + the chips); DEMO labelling on the mark-UNKNOWN trigger + the ledger section; safety slice 5/5 in the merged gate; payments/reservations/recourse NEVER created (the boundary copy proven in the record)"
     },
     {
       "id": "TL_ACCEPT",
       "name": "Independent TL verification, final report, evidence manifests, registry + issue closeout",
-      "status": "PENDING"
+      "status": "PASSED",
+      "evidence": "TL-observed numbers only (never worker-reported); one changes-requested round honestly recorded; the receipt-test deviation recorded (the data-path test vs a mounted render \u2014 the render proven by the row JSX + the browser capture); FINAL-REPORT.md + evidence committed 6b3037d; this registry closeout"
     }
   ],
   "active_work_orders": [
