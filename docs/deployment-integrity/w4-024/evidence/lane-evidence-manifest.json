@@ -1,0 +1,126 @@
+{
+  "schema": "w4-024-lane-evidence/1",
+  "capturedAt": "2026-10-12T15:13:35.414Z",
+  "steps": [
+    {
+      "step": "01-dist-identity",
+      "outcome": "PASS",
+      "label": "the Dist identity row renders the REAL canonical-build CI evidence (mode, digest, file count, provenance) with the CI-EVIDENCE chip",
+      "checks": [
+        {
+          "label": "dist identity row rendered",
+          "ok": true
+        },
+        {
+          "label": "mode ci-evidence-manifest",
+          "ok": true
+        },
+        {
+          "label": "digest sha256:0508acfe8e87a989 (the real manifest-derived digest)",
+          "ok": true
+        },
+        {
+          "label": "6204 files (the real CI manifest file count)",
+          "ok": true
+        },
+        {
+          "label": "provenance ci-evidence",
+          "ok": true
+        },
+        {
+          "label": "mode chip = CI-EVIDENCE (got \"CI-EVIDENCE\")",
+          "ok": true
+        },
+        {
+          "label": "mode chip class ok",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "02-hash-chain",
+      "outcome": "PASS",
+      "label": "the hash chain row renders the three links (source inventory digest → dist digest → bundle verification) with the CHAIN VERIFIED chip",
+      "checks": [
+        {
+          "label": "hash chain row rendered",
+          "ok": true
+        },
+        {
+          "label": "source link sha256:3a8de191d6972b87 (the b7ab4c0 source inventory)",
+          "ok": true
+        },
+        {
+          "label": "dist link sha256:0508acfe8e87a989",
+          "ok": true
+        },
+        {
+          "label": "bundle verification 11/11 checks PASS",
+          "ok": true
+        },
+        {
+          "label": "chain chip = CHAIN VERIFIED (got \"CHAIN VERIFIED\")",
+          "ok": true
+        },
+        {
+          "label": "chain chip class ok",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "03-verification-array",
+      "outcome": "PASS",
+      "label": "the verification array renders all 11 checks (8 original + 3 dist) all PASS",
+      "checks": [
+        {
+          "label": "verification rows: 11/11",
+          "ok": true
+        },
+        {
+          "label": "PASS chips: 11/11",
+          "ok": true
+        },
+        {
+          "label": "all 11 check names on-surface (incl. the 3 dist checks)",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "04-provenance-and-gates",
+      "outcome": "PASS",
+      "label": "the fixture-provenance note names the REAL-dist artifact's lineage commit (b7ab4c07f3ed — the W3-023-merged tree, not the stale W1-021 snapshot); the standing gates render their true NOT_AUTHORIZED status",
+      "checks": [
+        {
+          "label": "the provenance note names the real-artifact lineage (b7ab4c07f3ed)",
+          "ok": true
+        },
+        {
+          "label": "the stale W1-021-snapshot note (ed72c34a9902) is gone",
+          "ok": true
+        },
+        {
+          "label": "all four standing gates rendered",
+          "ok": true
+        },
+        {
+          "label": "NOT_AUTHORIZED renders: 7x",
+          "ok": true
+        },
+        {
+          "label": "the non-live note",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "05-console-zero-errors",
+      "outcome": "PASS",
+      "label": "console zero-error check (0 errors)",
+      "checks": []
+    }
+  ],
+  "fixtureNote": "The section renders ONLY from the committed fixture (the J15 pattern; the web graph never imports @unicom/experience). The fixture mirrors the REAL-dist artifact at 210b8b9 (the TL-owned evidence commit): the canonical build CI evidence run 38259561304, commit 29f037d, 6,204 files — the manifest-derived dist digest sha256:0508acfe8e87a989; the CI's whole-output identity 71b03964... recorded in the registry's real_ci_evidence.",
+  "killSwitchNote": "DEPLOYMENT_READINESS_SECTION_ENABLED gates the section; absent fixture = the section does not render (honest absence)."
+}
