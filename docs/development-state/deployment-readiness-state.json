@@ -48,9 +48,10 @@
       "path": "docs/work-orders/W2-020.md",
       "lane": "the operator surface: the System-surface Deployment-Readiness section (the committed-fixture mirror, the J15 pattern)",
       "owner": "worker-2",
-      "status": "DISPATCHED",
+      "status": "DISPATCHED_LANDED",
       "write_surface": "packages/web/src/commerce-host/shell/fixtures/deployment-readiness-fixture.ts (NEW) + SystemSurface.tsx (ADD-alongside section) + net-new tests + the report",
-      "branch": "work/w2-020"
+      "branch": "work/w2-020",
+      "dispatch_record": "landed 2026-10-12 06:36:47Z on the proven canary session (8th lane on chat 309bcf10; turn 975b62b0, n=34) on cycle 0 — the §8 pre-flight cure (stop the completed W1-019 turn 0c1bfa95 + 410-verify + fresh tab) made the window clean (vs the 4-cycle fight when skipped — the law banked)"
     }
   ],
   "tl_owned_decision_packets": [
