@@ -12,12 +12,14 @@
  * Provenance: this fixture mirrors the artifact produced by
  * `node packages/experience/scripts/deployment-rehearsal.mjs --dist-manifest
  * packages/experience/test/deployment/dist-manifest-fixture.txt` at commit
- * ed72c34 (W1-021's lineage). The values are real (never fabricated). The dist
+ * ed72c34 (W1-021's lineage). The values are real (never fabricated) — copied
+ * verbatim from packages/experience/reports/deployment/deployment-readiness.json
+ * (the content-based discipline: identical files → identical digest). The dist
  * section's provenance.source is "committed-fixture" — the TL will re-run
  * with the real CI evidence post-merge.
  */
 export const DEPLOYMENT_READINESS_FIXTURE = {
-  generatedAt: "2026-10-12T06:14:54.730Z",
+  generatedAt: "2026-10-12T13:41:45.317Z",
   lineage: {
     commit: "ed72c34a99027ef7840ab9a34ebb1a11dc03e9ad",
     toolchain: "node v24.21.0",
@@ -25,7 +27,7 @@ export const DEPLOYMENT_READINESS_FIXTURE = {
   bundle: {
     inventorySummary: {
       entryCount: 12,
-      inventoryDigest: "sha256:087a65dee062d1ec",
+      inventoryDigest: "sha256:356ec58646abc037",
       fileClasses: ["entrypoint", "contract-barrel", "runtime-module", "projection-module", "deployment-contract"],
     },
   },
