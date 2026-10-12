@@ -27,7 +27,13 @@ import {
   type ModelSelection,
   type SessionId,
 } from "@zcode/contracts";
-import type { AgentRuntime, ToolRegistry } from "@zcode/core";
+// W2-026: AgentRuntime + ToolRegistry are imported from @zcode/core, which is
+// not buildable on a fresh install (its own src TS7006 errors — out of this
+// lane's surface). The types are used ONLY as annotations on RuntimeHarness
+// (lines 157, 159); the actual values come from UnicomInstalledRuntime (from
+// @unicom/agent-kernel, which IS buildable). Deriving the types from
+// UnicomInstalledRuntime preserves the exact runtime contract without depending
+// on @zcode/core's dist — a type-level fix, zero behavior change.
 import {
   COMMERCE_COMMAND_CAPABILITY_ID,
   UnicomAgentPlane,
@@ -40,6 +46,14 @@ import {
   type ScriptedModel,
   type ScriptedStep,
 } from "./scripted-model.js";
+
+// W2-026: derive AgentRuntime + ToolRegistry from UnicomInstalledRuntime
+// (the source of the actual values at runtime). This avoids importing from
+// @zcode/core (which is not buildable on a fresh install) while preserving
+// the exact runtime type contract — the values assigned to RuntimeHarness
+// come from `installed.runtime` and `installed.registry`.
+type AgentRuntime = UnicomInstalledRuntime["runtime"];
+type ToolRegistry = UnicomInstalledRuntime["registry"];
 
 export interface RecordedCommerceSubmission {
   readonly submission: CommerceCommandSubmission;
