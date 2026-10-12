@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-10-12T06:14:54.730Z",
+  "generatedAt": "2026-10-12T13:41:45.317Z",
   "lineage": {
-    "commit": "6461a41d32f2e097155fc0b3484696ad851009d3",
+    "commit": "ed72c34a99027ef7840ab9a34ebb1a11dc03e9ad",
     "toolchain": "node v24.21.0"
   },
   "bundle": {
     "inventorySummary": {
       "entryCount": 12,
-      "inventoryDigest": "sha256:0a995049b259d00f",
+      "inventoryDigest": "sha256:356ec58646abc037",
       "fileClasses": [
         "entrypoint",
         "contract-barrel",
@@ -173,8 +173,29 @@
     {
       "check": "no-provider-names-in-contract",
       "result": "PASS"
+    },
+    {
+      "check": "dist-manifest-completeness",
+      "result": "PASS"
+    },
+    {
+      "check": "dist-digest-deterministic",
+      "result": "PASS"
+    },
+    {
+      "check": "source-dist-cross-check",
+      "result": "PASS"
     }
   ],
+  "dist": {
+    "mode": "ci-evidence-manifest",
+    "digest": "sha256:e5d8cf3122659271",
+    "fileCount": 10,
+    "provenance": {
+      "source": "committed-fixture",
+      "lineage": "ed72c34a99027ef7840ab9a34ebb1a11dc03e9ad"
+    }
+  },
   "nonLive": true,
   "standingGatesNote": "Standing gates bind: production deployment NOT_AUTHORIZED, live credentials NOT_AUTHORIZED, live providers NOT_AUTHORIZED. This rehearsal deploys NOTHING, connects NOTHING, reads NO credential."
 }

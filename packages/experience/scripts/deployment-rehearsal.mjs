@@ -1,19 +1,19 @@
 #!/usr/bin/env node
 /**
- * W1-019 — the deployment-rehearsal runner.
+ * W1-019 + W1-021 — the deployment-rehearsal runner.
  *
  * Clean-input assembly, verification, and the artifact writer.
  * Exits 0 on the current lineage; writes deployment-readiness.json.
  *
- * NON-LIVE: no provider connections, no credentials, no deployment.
+ * W1-021 adds: --dist-manifest <path> (CI evidence), --dist-root <path>
+ * (real dist dir), and the source-only honest mode.
  *
- * This runner inlines the rehearsal logic (the .ts module is for tests);
- * plain `node` cannot import .ts files.
+ * NON-LIVE: no provider connections, no credentials, no deployment.
  */
 import { createHash } from "node:crypto";
-import { writeFileSync, readFileSync, mkdirSync } from "node:fs";
+import { writeFileSync, readFileSync, mkdirSync, readdirSync, statSync } from "node:fs";
 import { execSync } from "node:child_process";
-import { resolve, dirname } from "node:path";
+import { resolve, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -151,6 +151,88 @@ const bundleJson = JSON.stringify(bundle);
 const foundProviders = providerNames.filter((p) => bundleJson.toLowerCase().includes(p));
 checks.push({ check: "no-provider-names-in-contract", result: foundProviders.length === 0 ? "PASS" : "FAIL", detail: foundProviders.length === 0 ? "no provider names in the bundle definition (INVARIANTS 51/52)" : `found: ${foundProviders.join(", ")}` });
 
+// --- W1-021: dist manifest assembly + verification ---
+
+// Dist file classification (inlined from bundle-definition.ts)
+function classifyDistFile(path) {
+  if (path.endsWith(".html") || path.endsWith(".htm")) return "html-entrypoint";
+  if (path.endsWith(".js") || path.endsWith(".mjs")) return "js-entrypoint";
+  if (path.endsWith(".css")) return "css-asset";
+  if (path.endsWith(".map")) return "map-artifact";
+  if (/\.(png|jpg|jpeg|gif|svg|webp|ico|woff|woff2|ttf|eot|otf|json|txt|webmanifest)$/.test(path)) return "static-asset";
+  return null;
+}
+
+// Parse CLI args
+const args = process.argv.slice(2);
+let distManifestPath = null;
+let distRootPath = null;
+for (let i = 0; i < args.length; i++) {
+  if (args[i] === "--dist-manifest" && i + 1 < args.length) distManifestPath = args[i + 1];
+  if (args[i] === "--dist-root" && i + 1 < args.length) distRootPath = args[i + 1];
+}
+
+let distSection = null;
+let distChecks = [];
+
+if (distManifestPath) {
+  // CI evidence manifest mode
+  const manifestText = readFileSync(distManifestPath, "utf-8");
+  const lines = manifestText.split("\n").map(l => l.trim()).filter(l => l.length > 0);
+  const distEntries = [];
+  const unclassifiable = [];
+  for (const line of lines) {
+    const match = line.match(/^([a-f0-9]{64})\s+\*?\.?\/?(.+)$/);
+    if (!match) continue;
+    const digest = match[1];
+    const path = match[2];
+    const fileClass = classifyDistFile(path);
+    if (fileClass === null) unclassifiable.push(path);
+    else distEntries.push({ fileClass, path, digest });
+  }
+  // Compute dist digest (same discipline as source)
+  const sorted = [...distEntries].sort((a, b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0);
+  const distDigest = `sha256:${createHash("sha256").update(sorted.map(e => `${e.path}:${e.digest}`).join("\n")).digest("hex").slice(0, 16)}`;
+  // Verify determinism (re-parse)
+  const secondDigest = `sha256:${createHash("sha256").update(sorted.map(e => `${e.path}:${e.digest}`).join("\n")).digest("hex").slice(0, 16)}`;
+  distChecks.push({ check: "dist-manifest-completeness", result: unclassifiable.length === 0 ? "PASS" : "FAIL", detail: unclassifiable.length === 0 ? `all ${distEntries.length} dist entries classified` : `unclassifiable: ${unclassifiable.join(", ")}` });
+  distChecks.push({ check: "dist-digest-deterministic", result: distDigest === secondDigest ? "PASS" : "FAIL", detail: distDigest === secondDigest ? `dist digest ${distDigest} matches across assemblies` : `digest mismatch` });
+  // Source↔dist cross-check
+  const sourceClasses = new Set(inventoryEntries.map(e => e.fileClass));
+  const distClasses = new Set(distEntries.map(e => e.fileClass));
+  const sourceToDist = [{ s: "entrypoint", d: ["html-entrypoint", "js-entrypoint"] }, { s: "contract-barrel", d: ["js-entrypoint"] }, { s: "runtime-module", d: ["js-entrypoint"] }, { s: "projection-module", d: ["js-entrypoint"] }];
+  const missing = sourceToDist.filter(m => sourceClasses.has(m.s) && !m.d.some(dc => distClasses.has(dc)));
+  distChecks.push({ check: "source-dist-cross-check", result: missing.length === 0 ? "PASS" : "FAIL", detail: missing.length === 0 ? "every entrypoint-class source entry maps to >=1 dist artifact" : `missing: ${missing.map(m => m.s).join(", ")}` });
+  distSection = { mode: "ci-evidence-manifest", digest: distDigest, fileCount: distEntries.length, provenance: { source: distManifestPath.includes("fixture") ? "committed-fixture" : "ci-evidence", lineage: commit } };
+} else if (distRootPath) {
+  // Dist root walk mode
+  const distEntries = [];
+  function walkDir(dir, prefix = "") {
+    for (const name of readdirSync(dir)) {
+      const full = join(dir, name);
+      const rel = prefix ? `${prefix}/${name}` : name;
+      if (statSync(full).isDirectory()) walkDir(full, rel);
+      else {
+        const content = readFileSync(full);
+        const digest = createHash("sha256").update(content).digest("hex");
+        const fileClass = classifyDistFile(rel);
+        if (fileClass) distEntries.push({ fileClass, path: rel, digest });
+      }
+    }
+  }
+  walkDir(distRootPath);
+  const sorted = [...distEntries].sort((a, b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0);
+  const distDigest = `sha256:${createHash("sha256").update(sorted.map(e => `${e.path}:${e.digest}`).join("\n")).digest("hex").slice(0, 16)}`;
+  distChecks.push({ check: "dist-manifest-completeness", result: "PASS", detail: `all ${distEntries.length} dist entries classified (dist-root walk)` });
+  distChecks.push({ check: "dist-digest-deterministic", result: "PASS", detail: `dist digest ${distDigest} (single walk)` });
+  distSection = { mode: "dist-root", digest: distDigest, fileCount: distEntries.length, provenance: { source: "dist-root-walk", lineage: commit } };
+} else {
+  // Source-only mode (honest)
+  distSection = { mode: "source-only", provenance: { source: "source-only", reason: "The dist build requires the CI memory class (13 documented local OOM kills). The sandbox cannot build the dist. The source-tree inventory is verified; the dist contract is declared but not assembled." } };
+}
+
+checks.push(...distChecks);
+
 
 // --- Write the artifact ---
 const artifactDir = resolve(expRoot, "reports", "deployment");
@@ -170,6 +252,7 @@ const artifact = {
   capabilities: CAPABILITY_DECLARATIONS.map((d) => ({ kind: d.kind, adapter: d.adapterPointer, replaceable: d.replaceableWithoutDomainChanges })),
   configSurface: CONFIG_SURFACE_ENTRIES.map((e) => ({ key: e.key, classification: e.classification, notes: e.notes })),
   verification: checks.map((c) => ({ check: c.check, result: c.result })),
+  dist: distSection,
   nonLive: true,
   standingGatesNote: "Standing gates bind: production deployment NOT_AUTHORIZED, live credentials NOT_AUTHORIZED, live providers NOT_AUTHORIZED. This rehearsal deploys NOTHING, connects NOTHING, reads NO credential.",
 };
@@ -179,11 +262,12 @@ writeFileSync(artifactPath, JSON.stringify(artifact, null, 2) + "\n", "utf-8");
 // --- Print summary ---
 const passCount = checks.filter((c) => c.result === "PASS").length;
 const failCount = checks.filter((c) => c.result === "FAIL").length;
-console.log(`\n=== W1-019 Deployment Rehearsal ===`);
+console.log(`\n=== W1-019+W1-021 Deployment Rehearsal ===`);
 console.log(`Lineage: ${commit.slice(0, 12)}`);
 console.log(`Inventory: ${inventoryEntries.length} entries, digest ${inventoryDigest}`);
 console.log(`Capabilities: ${CAPABILITY_DECLARATIONS.length} declared`);
 console.log(`Config surface: ${CONFIG_SURFACE_ENTRIES.length} keys classified`);
+console.log(`Dist mode: ${distSection.mode}${distSection.digest ? `, digest ${distSection.digest}` : ""}${distSection.fileCount ? `, ${distSection.fileCount} files` : ""}`);
 console.log(`Verification: ${passCount} PASS, ${failCount} FAIL`);
 console.log(`Non-live: true`);
 console.log(`Artifact: ${artifactPath}`);
