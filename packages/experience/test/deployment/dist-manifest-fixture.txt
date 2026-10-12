@@ -8,3 +8,7 @@ a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2  ./assets/logo-
 b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3  ./favicon.ico
 c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4  ./manifest.webmanifest
 d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5  ./assets/fonts/inter-var.woff2
+969dedb1f4263b90615f53dd706fb19804aa64d6b15901b326b75eff9a29ab01  ./assets/docx_wasm_bg-HWnIvdMf.wasm
+fa306b09822b6b7c455141baa2fb4e2879f3ebca81db430f2c7ce37a344edbaa  ./assets/task-notification-pop-qiQ1Ge3C.mp3
+3d6c91a022ddb8a0541149055d4e8208b7c53dbadbda122e98382389ca6d10ef  ./pdfjs/cmaps/Adobe-Japan1-0.bcmap
+b29b3969107ba1ddb041b9557c81865ead7a9441d12feeba765f34223df922e9  ./THIRD-PARTY-NOTICES.md
