@@ -15,6 +15,7 @@ import { DEMO_CONNECTED_INTEGRATIONS, DEMO_FIXTURES_ID } from "../../demo/demo-f
 import { EnvironmentBadge } from "../CommerceHostApp.js";
 import { useCommerceHost } from "../CommerceHostContext.js";
 import { sharedLinkingDraftKernel } from "../../../commerce-modules/buyer-groupbuy/linking-draft-kernel.js";
+import { DEPLOYMENT_READINESS_FIXTURE, DEPLOYMENT_READINESS_SECTION_ENABLED, STANDING_GATES } from "../fixtures/deployment-readiness-fixture.js";
 
 function StatusChip({ kind }: { readonly kind: string }): JSX.Element {
   const cls =
@@ -181,6 +182,63 @@ export function SystemSurface(): JSX.Element {
           ))}
         </ul>
       </section>
+
+      {DEPLOYMENT_READINESS_SECTION_ENABLED && DEPLOYMENT_READINESS_FIXTURE ? (
+        <section className="cm-card" aria-label="Deployment readiness" data-testid="cm-deployment-readiness">
+          <div className="cm-row">
+            <h2 className="cm-card-title">Deployment readiness</h2>
+            <span className="cm-demo-tag">DEMO</span>
+            <span className="cm-chip cm-chip-ok">{DEPLOYMENT_READINESS_FIXTURE.verification.every((v) => v.result === "PASS") ? "ALL CHECKS PASS" : "HAS FAILURES"}</span>
+          </div>
+          <p className="cm-card-sub">
+            The deployable-bundle manifest + the non-live rehearsal (W1-019). The bundle assembles and verifies
+            cleanly — this is the &quot;you could deploy this tomorrow (upon operator authorization)&quot; evidence.
+            The rehearsal deploys NOTHING, connects NOTHING, reads NO credential.{" "}
+            <span className="cm-env-note">Fixture mirrors artifact at commit {DEPLOYMENT_READINESS_FIXTURE.lineage.commit.slice(0, 12)}.</span>
+          </p>
+          <div className="cm-journey-item">
+            <span className="cm-journey-name">Bundle identity</span>
+            <span className="cm-journey-summary">lineage commit {DEPLOYMENT_READINESS_FIXTURE.lineage.commit.slice(0, 12)} · toolchain {DEPLOYMENT_READINESS_FIXTURE.lineage.toolchain} · generated {DEPLOYMENT_READINESS_FIXTURE.generatedAt}</span>
+            <span className="cm-journey-summary">inventory: {DEPLOYMENT_READINESS_FIXTURE.bundle.inventorySummary.entryCount} entries · digest {DEPLOYMENT_READINESS_FIXTURE.bundle.inventorySummary.inventoryDigest} · classes {DEPLOYMENT_READINESS_FIXTURE.bundle.inventorySummary.fileClasses.join(", ")}</span>
+          </div>
+          <h3 className="cm-card-title" style={{ marginTop: 10 }}>Capability coverage ({DEPLOYMENT_READINESS_FIXTURE.capabilities.length})</h3>
+          <div className="cm-stack" data-testid="cm-deployment-capabilities">
+            {DEPLOYMENT_READINESS_FIXTURE.capabilities.map((cap) => (
+              <div key={cap.kind} className="cm-journey-item">
+                <code style={{ fontSize: 12.5 }}>{cap.kind}</code>
+                <span className="cm-journey-summary">{cap.adapter}</span>
+                <span className="cm-chip cm-chip-ok" data-testid="cm-capability-replaceable">{cap.replaceable ? "replaceable" : "NOT replaceable"}</span>
+              </div>
+            ))}
+          </div>
+          <h3 className="cm-card-title" style={{ marginTop: 10 }}>Configuration surface ({DEPLOYMENT_READINESS_FIXTURE.configSurface.length} keys)</h3>
+          <div className="cm-stack" data-testid="cm-deployment-config-surface">
+            {DEPLOYMENT_READINESS_FIXTURE.configSurface.map((entry) => (
+              <div key={entry.key} className="cm-journey-item">
+                <code style={{ fontSize: 12.5 }}>{entry.key}</code>
+                <span className={entry.classification === "live-gated" ? "cm-chip cm-chip-warn" : entry.classification === "demo" ? "cm-chip cm-chip-unknown" : "cm-chip cm-chip-muted"} data-testid="cm-config-classification">{entry.classification}</span>
+                <span className="cm-journey-summary">{entry.notes}</span>
+              </div>
+            ))}
+          </div>
+          <h3 className="cm-card-title" style={{ marginTop: 10 }}>Rehearsal verification ({DEPLOYMENT_READINESS_FIXTURE.verification.length} checks)</h3>
+          <div className="cm-stack" data-testid="cm-deployment-verification">
+            {DEPLOYMENT_READINESS_FIXTURE.verification.map((v) => (
+              <div key={v.check} className="cm-journey-item">
+                <span className="cm-journey-name">{v.check}</span>
+                <span className={v.result === "PASS" ? "cm-chip cm-chip-ok" : "cm-chip cm-chip-err"}>{v.result}</span>
+              </div>
+            ))}
+          </div>
+          <h3 className="cm-card-title" style={{ marginTop: 10 }}>Standing gates</h3>
+          <ul className="cm-perm-list" data-testid="cm-standing-gates">
+            {STANDING_GATES.map((g) => (
+              <li key={g.gate}><strong>{g.gate}</strong>: {g.status}</li>
+            ))}
+          </ul>
+          <p className="cm-env-note" data-testid="cm-non-live-note">{DEPLOYMENT_READINESS_FIXTURE.standingGatesNote}</p>
+        </section>
+      ) : null}
 
       <section className="cm-card" aria-label="For feature-module developers">
         <h2 className="cm-card-title">For W2-012 / W3-015 module developers</h2>
