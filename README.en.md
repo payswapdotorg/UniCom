@@ -143,6 +143,12 @@ Install Node.js 24+ and pnpm 10.33.2, then:
 pnpm bootstrap
 ```
 
+The zcode-cli subtree checks and the `packages/agent` project of the root `pnpm typecheck` consume the built `dist/` outputs of the zcode-cli workspace packages (including the generated compiler libs, which are gitignored). On a fresh clone, build the dependency-ordered chain first — this removes the missing-output error cascades from those paths:
+
+```bash
+pnpm build:zcode:chain
+```
+
 Common commands:
 
 ```bash
