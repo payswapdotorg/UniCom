@@ -2,7 +2,7 @@
   "schema_version": 1,
   "repository": "payswapdotorg/UniCom",
   "program": "UNiCOM zcode-cli Subtree Chain Closure — the recorded-debt finalization",
-  "status": "ACTIVE",
+  "status": "PHASE_COMPLETE_ALL_GATES_PASSED",
   "tracking_issue": 20,
   "prior_phase_records_immutable": [
     "docs/development-state/verification-hardening-state.json (PHASE_COMPLETE_ALL_GATES_PASSED, closeout 4f84cc3)",
@@ -32,7 +32,7 @@
     "honest_evidence": "TL-observed numbers only; the fresh-worktree proof must be a REAL fresh clone (never a cached checkout); never delete/skip failing tests; preserve limitations verbatim"
   },
   "phase_derivation": {
-    "source": "the repo's frontier survey (the durability law): the verification-hardening FINAL-REPORT \u00a75 names the remaining within-gates items — (a) Tier A (the operator's, standing-gated, decision-complete), (b) the zcode-cli subtree's own debt ('@zcode/core + dynamic-workflow's own pre-existing src errors', the W2-026 STOP-AND-REPORT disclosure). The 2026-10-13 TL survey re-derived the debt's true class: orchestration (the codegen gap in the raw reference path), not src type errors. The operator's live roadmap push directs this lane now"
+    "source": "the repo's frontier survey (the durability law): the verification-hardening FINAL-REPORT §5 names the remaining within-gates items — (a) Tier A (the operator's, standing-gated, decision-complete), (b) the zcode-cli subtree's own debt ('@zcode/core + dynamic-workflow's own pre-existing src errors', the W2-026 STOP-AND-REPORT disclosure). The 2026-10-13 TL survey re-derived the debt's true class: orchestration (the codegen gap in the raw reference path), not src type errors. The operator's live roadmap push directs this lane now"
   },
   "work_orders": [
     {
@@ -40,36 +40,45 @@
       "path": "docs/work-orders/W2-027.md",
       "lane": "the zcode-cli subtree fresh-clone clean chain: the canonical dependency-ordered build entry point + the fresh-worktree zero-misleading-errors proof",
       "owner": "worker-2",
-      "status": "ACTIVE",
+      "status": "DELIVERED_MERGED",
       "write_surface": "the build-orchestration surface (per the repo's own conventions) + contributor docs + the completion report",
       "branch": "work/w2-027",
-      "dispatch_record": "dispatched 2026-10-13 from inside the replay (the post-recycle #11 recovery deployment, console prod, login ali6 live)"
+      "dispatch_record": "dispatched 2026-10-13 from inside the replay (the post-recycle #11 recovery deployment, console prod, login ali6 live)",
+      "merge_record": "merged d5d42aa 2026-10-13; completion report docs/work-orders/reports/W2-027-completion-report.md"
     }
   ],
   "gates": {
     "BASELINE": {
-      "status": "PENDING",
-      "evidence": "main 4f84cc3 == origin/main, tree clean; the phase-VI record battery 2,270|0 re-derived as the regression target"
+      "status": "PASSED",
+      "evidence": "main e18afc4 == origin/main, tree clean; battery 2,270|0 re-derived as the regression target"
     },
     "CHAIN_CLEAN": {
-      "status": "PENDING",
-      "evidence": "the canonical chain entry point exits 0 at every node; afterwards BOTH tsc -b packages/agent AND apps/zcode-cli turbo typecheck exit 0"
+      "status": "PASSED",
+      "evidence": "TL fresh clone: pnpm build:zcode:chain exit 0 (5 chain builds in order, codegen 57 libs, turbo bridge, both typecheck paths self-verified: tsc -b packages/agent EXIT 0 + turbo 28/28 EXIT 0)"
     },
     "FRESH_CLONE_PROOF": {
-      "status": "PENDING",
-      "evidence": "a REAL fresh clone -> frozen-lockfile install -> canonical entry point -> both typecheck paths: every command + exit code recorded in the completion report"
+      "status": "PASSED",
+      "evidence": "TL: REAL fresh clone at the branch -> frozen install exit 0 -> entry point exit 0 -> both paths exit 0; the worker report §4.2 records the same with the before-inventory (39 errors + turbo-not-found -> 0/0)"
     },
     "REGRESSION": {
-      "status": "PENDING",
-      "evidence": "the merged battery identical (2,270 passed | 0 skipped); lint 0 errors (103-warning baseline); architecture 0 violations"
+      "status": "PASSED",
+      "evidence": "TL: web 392 + experience 798 + commerce 521 + agent 559 = 2,270 passed | 0 skipped (identical denominators); lint 103w/0e; architecture 0 violations"
     },
     "SAFETY": {
-      "status": "PENDING",
-      "evidence": "zero .github changes; zero credential values in the phase diff; zero committed generated artifacts; no live surfaces; the standing gates NOT_AUTHORIZED unchanged"
+      "status": "PASSED",
+      "evidence": "write surface exactly 5 files (script + package.json +1 + mise task + READMEs + report); zero src/.github/lockfile changes; libs.generated.ts still gitignored; zero credentials in the diff; standing gates NOT_AUTHORIZED unchanged"
     },
     "TL_ACCEPT": {
-      "status": "PENDING",
-      "evidence": "the completion report reviewed + every claimed gate re-run by the TL at the exact pushed branch tip (never trusted reported numbers)"
+      "status": "PASSED",
+      "evidence": "the completion report reviewed + every claimed gate independently re-run by the TL at the pushed tree (the fresh-clone battery above); zero deviations between the worker report and the TL re-run"
     }
+  },
+  "closeout": {
+    "merge_commit": "d5d42aa",
+    "merged_at": "2026-10-13T10:0xZ",
+    "lane": "W2-027 (branch work/w2-027 @ 82d99e1; implementation 8e0f114; final commit docs-only)",
+    "delivery_record": "dispatched 08:36Z from the ali26 replay (the takeover of the 03:45Z ali6 dispatch orphaned by recycle #11 — coordination on issue #20 comment 6141570721, first-artifact-wins); turn-death mid-work recovered by a TL continuation send 09:26Z; branch landed 09:23Z (implementation) + 09:51Z (report); TL review + merge 10:0xZ — the midnight-UTC deadline honored with ~10h to spare",
+    "tl_battery": "the REAL fresh clone /home/z/w2027-tl-fresh at 82d99e1-equivalent tree: install exit 0 + build:zcode:chain exit 0 (28/28) + tsc -b packages/agent EXIT 0 + turbo typecheck EXIT 0 + battery 2,270|0 identical denominators + lint 103w/0e + architecture 0 — never worker-reported",
+    "honest_gaps": "the pre-existing chain-independent 212-error root-typecheck profile (byte-identical pre/post; packages/agent 0 errors post-chain; out of surface, disclosed in the report §5.1); the OOM incidents + interrupted-run record (§5.3)"
   }
 }
