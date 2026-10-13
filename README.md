@@ -146,6 +146,12 @@ Install Node.js 24+ and pnpm 10.33.2, then:
 pnpm bootstrap
 ```
 
+The root `pnpm typecheck` path and the zcode-cli subtree checks consume the built `dist/` outputs of the zcode-cli workspace packages (including the generated compiler libs, which are gitignored). On a fresh clone, build the dependency-ordered chain first:
+
+```bash
+pnpm build:zcode:chain
+```
+
 Common commands:
 
 ```bash

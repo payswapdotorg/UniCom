@@ -32,6 +32,10 @@ run = "mise exec -- node scripts/mise-run.mjs pnpm dev:web"
 description = "Run the root TypeScript project references check."
 run = "mise exec -- node scripts/mise-run.mjs pnpm typecheck"
 
+[tasks.build-zcode-chain]
+description = "Build the zcode-cli dependency chain (shared-types -> contracts -> dynamic-workflow -> core -> agent-kernel) so the raw tsc -b typecheck paths are clean."
+run = "mise exec -- node scripts/mise-run.mjs pnpm build:zcode:chain"
+
 [tasks.lint]
 description = "Run the root linter."
 run = "mise exec -- node scripts/mise-run.mjs pnpm lint"
