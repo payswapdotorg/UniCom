@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "repository": "payswapdotorg/UniCom",
+  "program": "UNiCOM zcode-cli Subtree Chain Closure — the recorded-debt finalization",
+  "status": "ACTIVE",
+  "tracking_issue": 20,
+  "prior_phase_records_immutable": [
+    "docs/development-state/verification-hardening-state.json (PHASE_COMPLETE_ALL_GATES_PASSED, closeout 4f84cc3)",
+    "docs/development-state/deployment-integrity-state.json",
+    "docs/development-state/deployment-readiness-state.json",
+    "docs/development-state/v1-work-order-state.json"
+  ],
+  "source_baseline": {
+    "baseline_commit": "4f84cc3",
+    "battery": "vitest 2,270 passed | 0 skipped (web 392 + experience 798 + commerce 521 + agent 559); lint 103w/0e; architecture 0; both scoped typechecks clean; the real-dist run 11/11",
+    "browser_gate": "the merged zero-drift gate on d09504f (the phase-VI record): journeys 19/19, interactions 19/19 (J18 ABSENT-by-design identical), safety 5/5, walk 6/6, 92/92 pointers",
+    "tl_chain_survey": "2026-10-13 03:4xZ (post-recycle #11 recovery, main 4f84cc3, tree clean): the proper-order chain exits 0 at EVERY node — shared-types 0 -> contracts 0 -> dynamic-workflow (own script: generate-libs + tsc) 0 -> core 0 -> unicom 0 -> packages/agent tsc -b 0. The fresh-clone raw tsc -b path (no codegen, no pre-built dists) surfaces the disclosed 'core + dynamic-workflow own src errors': ALL orchestration-class cascades (the gitignored src/compiler/libs.generated.ts — 485KB, produced only by @zcode/dynamic-workflow's own package scripts, never by the project-reference tsc -b path — plus the missing sibling dists); zero real src type errors found anywhere in the subtree"
+  },
+  "architecture": {
+    "baseline": "1.2-additive-runtime-browser-2026-10-11 (unchanged this phase)",
+    "delta_policy": "build-orchestration + documentation only (a canonical dependency-ordered chain entry point wired to the repo's existing conventions: mise / bootstrap.mjs / apps-zcode-cli turbo / per-package scripts); NO src changes (the subtree is type-clean in the proper-order chain — a real residual would be STOP-AND-REPORT, not fixed); NO web changes; NO commerce changes; NO host-states changes; NO CI/workflow changes; NO dependency or lockfile changes"
+  },
+  "operator_directive": "continuous resident watch: monitor -> harvest -> review -> approve/require-changes -> dispatch next until the roadmap is complete; no early returns; the GitHub repo is the roadmap guide; dispatch only from inside the replay; always fix the replay. The 2026-10-13 live operator push: 'make sure you progress fast (without losing quality) so we can meet the deadline of midnight today'. Tier A remains UNAUTHORIZED",
+  "policy": {
+    "non_live_only": "this phase deploys NOTHING, connects to NO provider, reads NO credential, commits NO generated artifact — the standing gates bind absolutely",
+    "standing_gates": {
+      "production_deployment": "NOT_AUTHORIZED",
+      "live_named_provider_credentials": "NOT_AUTHORIZED",
+      "human_research": "NOT_AUTHORIZED",
+      "live_payments": "NOT_AUTHORIZED"
+    },
+    "honest_evidence": "TL-observed numbers only; the fresh-worktree proof must be a REAL fresh clone (never a cached checkout); never delete/skip failing tests; preserve limitations verbatim"
+  },
+  "phase_derivation": {
+    "source": "the repo's frontier survey (the durability law): the verification-hardening FINAL-REPORT \u00a75 names the remaining within-gates items — (a) Tier A (the operator's, standing-gated, decision-complete), (b) the zcode-cli subtree's own debt ('@zcode/core + dynamic-workflow's own pre-existing src errors', the W2-026 STOP-AND-REPORT disclosure). The 2026-10-13 TL survey re-derived the debt's true class: orchestration (the codegen gap in the raw reference path), not src type errors. The operator's live roadmap push directs this lane now"
+  },
+  "work_orders": [
+    {
+      "id": "W2-027",
+      "path": "docs/work-orders/W2-027.md",
+      "lane": "the zcode-cli subtree fresh-clone clean chain: the canonical dependency-ordered build entry point + the fresh-worktree zero-misleading-errors proof",
+      "owner": "worker-2",
+      "status": "ACTIVE",
+      "write_surface": "the build-orchestration surface (per the repo's own conventions) + contributor docs + the completion report",
+      "branch": "work/w2-027",
+      "dispatch_record": "dispatched 2026-10-13 from inside the replay (the post-recycle #11 recovery deployment, console prod, login ali6 live)"
+    }
+  ],
+  "gates": {
+    "BASELINE": {
+      "status": "PENDING",
+      "evidence": "main 4f84cc3 == origin/main, tree clean; the phase-VI record battery 2,270|0 re-derived as the regression target"
+    },
+    "CHAIN_CLEAN": {
+      "status": "PENDING",
+      "evidence": "the canonical chain entry point exits 0 at every node; afterwards BOTH tsc -b packages/agent AND apps/zcode-cli turbo typecheck exit 0"
+    },
+    "FRESH_CLONE_PROOF": {
+      "status": "PENDING",
+      "evidence": "a REAL fresh clone -> frozen-lockfile install -> canonical entry point -> both typecheck paths: every command + exit code recorded in the completion report"
+    },
+    "REGRESSION": {
+      "status": "PENDING",
+      "evidence": "the merged battery identical (2,270 passed | 0 skipped); lint 0 errors (103-warning baseline); architecture 0 violations"
+    },
+    "SAFETY": {
+      "status": "PENDING",
+      "evidence": "zero .github changes; zero credential values in the phase diff; zero committed generated artifacts; no live surfaces; the standing gates NOT_AUTHORIZED unchanged"
+    },
+    "TL_ACCEPT": {
+      "status": "PENDING",
+      "evidence": "the completion report reviewed + every claimed gate re-run by the TL at the exact pushed branch tip (never trusted reported numbers)"
+    }
+  }
+}
