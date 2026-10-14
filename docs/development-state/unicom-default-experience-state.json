@@ -1,210 +1,214 @@
 {
-  "schema_version": "1.0",
-  "repository": "payswapdotorg/UniCom",
-  "program": "UNiCOM Default Application Experience — Web + Ubuntu Desktop",
-  "phase_issue": "https://github.com/payswapdotorg/UniCom/issues/22",
-  "tl_handoff": "docs/FINAL-TL-HANDOFF-UNICOM-DEFAULT-EXPERIENCE-2026-10-14.md",
-  "status": "IN_PROGRESS",
-  "progress_authority": "docs/development-state/unicom-default-experience-state.json",
-  "prior_phase_records_immutable": true,
-  "operator_authorization": {
-    "decision": "APPROVED_IMPLEMENTATION_WITHIN_FROZEN_ARCHITECTURE",
-    "source": "Issue #22 created from explicit operator instruction on 2026-10-14",
-    "architecture_changes_authorized": false,
-    "production_deployment_authorized": false,
-    "live_named_provider_connection_or_credentials_authorized": false,
-    "production_commerce_mutation_authorized": false,
-    "live_payments_authorized": false,
-    "human_research_authorized": false,
-    "scope": "Transform the existing ZCode-derived web and Ubuntu desktop first-run experience into UNiCOM, preserve runtime continuity, implement and test locally/package only."
-  },
-  "policy": {
-    "max_concurrent_workers": 3,
-    "tl_is_worker": false,
-    "dispatch_allowed": true,
-    "dispatch_gate": "TL must verify current main HEAD and current worker activity before dispatch, then record actual branch/session/base SHA for every lane. Do not report workers as active until assignments exist.",
-    "fixture_success_is_not_browser_success": true,
-    "packaged_app_must_be_launched_for_desktop_acceptance": true,
-    "synthetic_demo_data_must_be_labeled": true,
-    "no_live_commerce_side_effects": true,
-    "preserve_unknown_not_failed": true,
-    "architecture_graph_is_frozen": true,
-    "browser_evidence_required_for_ui": true,
-    "worker_report_is_not_tl_acceptance": true
-  },
-  "source_baseline": {
-    "inspected_source_commit": "16bd4680073fed0a3c36ef61a39d270b95872d17",
-    "inspected_at": "2026-10-14",
-    "known_findings": [
-      "packages/web/src/commerceEntry.tsx mounts the rendered commerce host at /commerce and exposes an overlay; the ordinary ZCode workspace remains the root landing.",
-      "packages/web/index.html still names the page ZCode.",
-      "packages/desktop/src/renderer/src/main.tsx boots the ZCode Root after desktop startup admission.",
-      "packages/desktop/scripts/desktop-product-identity.mjs and packages/desktop/electron-builder.config.js still use ZCode/ZCode Preview identity.",
-      "The rendered commerce host, role model, module registry and 19-jouney catalog already exist; use docs/development-state/rendered-commerce-ui-state.json and docs/rendered-ui/FINAL-REPORT.md as immutable prior evidence.",
-      "Operator-provided local report showed the packaged ZCode executable rendered a visible 1200x800 ZCode window; it did not prove the app launched into UNiCOM, a DEB was installed, or the normal AppImage path was usable."
-    ],
-    "last_known_main_before_registry_commit": "c95f8652c8383d17b9a04a8edff6be3f195e93b9",
-    "mandatory_reverification": "Re-fetch the default-branch HEAD after all planning artifacts were written; verify current package/toolchain scripts, latest relevant CI, baseline tests and current active work before lane dispatch. The inspected source SHA is not presumed to remain current."
-  },
-  "architecture": {
-    "baseline": "1.1-frozen-2026-10-05 unless the repository proves a later accepted baseline",
-    "changes_authorized": false,
-    "permitted_existing_ui": "packages/web/src/commerce-host/** and packages/web/src/commerce-modules/** using existing public contracts",
-    "forbidden_without_new_operator_decision": [
-      "new desktop-to-web implementation dependency if absent from the dependency graph",
-      "new public package export or dependency edge",
-      "rewriting or duplicating the commerce host to evade architecture boundaries",
-      "production deployment or commerce-plane mutation"
-    ],
-    "decision_rule": "If desktop integration cannot reuse the host within the frozen graph, continue independent web work and prepare an option/impact decision packet for the operator; do not quietly waive the architecture checker."
-  },
-  "work_orders": [
-    {
-      "id": "W1-026",
-      "path": "docs/work-orders/W1-026.md",
-      "owner": "worker-1",
-      "lane": "product-home-buyer-intent-and-merchant-storefront",
-      "status": "DELIVERED_MERGED",
-      "dependencies": [
-        "existing frozen commerce and experience contracts"
-      ],
-      "write_surface": [
-        "packages/web/src/commerce-host/shell/surfaces/HomeSurface.tsx",
-        "packages/web/src/commerce-modules/buyer-intent/**",
-        "packages/web/src/commerce-modules/buyer-compare/**",
-        "packages/web/src/commerce-modules/merchant-storefront/**"
-      ],
-      "branch": "work/w1-026",
-      "session": "https://chat.z.ai/c/b328e018-104d-4427-8fce-4fac6c047808",
-      "base_sha": "82d2d68ec465c19bd177a7567ba5b676843b5ece",
-      "evidence": {
-        "dispatched_at": "2026-10-14T16:31:26Z",
-        "delivered_branch_tip": "5d9193e5cd631ab860801a6bb1b121afe8137334",
-        "merged_as": "a3e135d (--no-ff, TL battery in the message)",
-        "tl_acceptance": "2026-10-14 ~19:2xZ — every gate independently re-run and matched exactly: web battery 413/413 (37 files; was 392/392 at base), scoped tsc exit 0 clean, lint 103w/0e identical baseline, architecture 0/0/0, browser evidence 8/8 steps PASS with all pointers resolving (buyer Intent Canvas first journey, merchant Command Center first journey, role switching with identity/authority unchanged, explicit UNKNOWN/DEMO states); write-surface audit zero files outside",
-        "completion_report": "docs/work-orders/reports/W1-026-completion-report.md"
-      }
-    },
-    {
-      "id": "W2-029",
-      "path": "docs/work-orders/W2-029.md",
-      "owner": "worker-2",
-      "lane": "main-agent-autonomy-decision-trust-and-recourse-ux",
-      "status": "DELIVERED_MERGED",
-      "dependencies": [
-        "existing frozen agent/commerce/experience contracts"
-      ],
-      "write_surface": [
-        "packages/web/src/commerce-modules/buyer-twin/**",
-        "packages/web/src/commerce-modules/merchant-autonomous/**",
-        "packages/web/src/commerce-modules/trust-recourse/**",
-        "packages/web/src/commerce-host/shell/surfaces/SystemSurface.tsx"
-      ],
-      "branch": "work/w2-029",
-      "session": "https://chat.z.ai/c/5d0e428b-78e7-4372-a212-80afa6617ffb",
-      "base_sha": "82d2d68ec465c19bd177a7567ba5b676843b5ece",
-      "evidence": {
-        "dispatched_at": "2026-10-14T16:39:43Z",
-        "delivered_branch_tip": "1605ea628ac538d1e4217a8ba2e436a31c61b99b",
-        "merged_as": "e440cd1 (--no-ff, TL battery in the message)",
-        "tl_acceptance": "2026-10-14 ~19:5xZ — every gate independently re-run and matched: web battery 414/414 (36 files; was 392/392), lint 103w/0e + scoped lane lint 0/0 (22 files), scoped web typecheck base↔tip BYTE-IDENTICAL zero-new zero-touching-lane (environment note: TL box denominator 235 vs worker sandbox 206 — the pre-existing experience-barrel TS2835 class; the lane's report flags the barrel as a spec gap), architecture 0/0/0, browser lane evidence 9/9 PASS with 0 console errors (warm-cache run; the cold-optimizer burst noise was environmental, all 8 functional steps passed in every run); write-surface audit zero files outside (SystemSurface.test.tsx verified pre-existing authorized)",
-        "completion_report": "docs/work-orders/reports/W2-029-completion-report.md"
-      }
-    },
-    {
-      "id": "W3-024",
-      "path": "docs/work-orders/W3-024.md",
-      "owner": "worker-3",
-      "lane": "default-web-ubuntu-launch-and-product-identity",
-      "status": "DISPATCH_IN_PROGRESS_CAPACITY_FIGHT",
-      "dependencies": [
-        "frozen dependency graph",
-        "current rendered commerce host"
-      ],
-      "write_surface": [
-        "packages/web/src/main.tsx",
-        "packages/web/src/commerceEntry.tsx",
-        "packages/web/index.html",
-        "desktop renderer entrypoints",
-        "desktop product identity and packaging metadata",
-        "focused browser/desktop tests and evidence"
-      ],
-      "branch": "work/w3-024",
-      "session": null,
-      "base_sha": "82d2d68ec465c19bd177a7567ba5b676843b5ece",
-      "evidence": {
-        "dispatch_started": "2026-10-14T16:40:55Z",
-        "state": "The worker session is being dispatched under the operator's never-wait capacity protocol: GLM-5.3 is at global capacity (the ecosystem's parallel lanes). 12+ full assault ladders exhausted; the supervisor-guarded recover_capacity loop re-arms unattended and continues (aggressive ladders + 600s gentle-mode single-send probes awaiting the quota reset window). No session exists yet — this entry will carry the actual session URL the moment it lands. The prompt (work-order verbatim + the mandatory architecture-gate-first operational contract) is staged and inject-ready.",
-        "prompt_chars": 13180,
-        "insert_verified_pct": 100
-      }
-    }
+ "schema_version": "1.0",
+ "repository": "payswapdotorg/UniCom",
+ "program": "UNiCOM Default Application Experience — Web + Ubuntu Desktop",
+ "phase_issue": "https://github.com/payswapdotorg/UniCom/issues/22",
+ "tl_handoff": "docs/FINAL-TL-HANDOFF-UNICOM-DEFAULT-EXPERIENCE-2026-10-14.md",
+ "status": "IN_PROGRESS",
+ "progress_authority": "docs/development-state/unicom-default-experience-state.json",
+ "prior_phase_records_immutable": true,
+ "operator_authorization": {
+  "decision": "APPROVED_IMPLEMENTATION_WITHIN_FROZEN_ARCHITECTURE",
+  "source": "Issue #22 created from explicit operator instruction on 2026-10-14",
+  "architecture_changes_authorized": false,
+  "production_deployment_authorized": false,
+  "live_named_provider_connection_or_credentials_authorized": false,
+  "production_commerce_mutation_authorized": false,
+  "live_payments_authorized": false,
+  "human_research_authorized": false,
+  "scope": "Transform the existing ZCode-derived web and Ubuntu desktop first-run experience into UNiCOM, preserve runtime continuity, implement and test locally/package only."
+ },
+ "policy": {
+  "max_concurrent_workers": 3,
+  "tl_is_worker": false,
+  "dispatch_allowed": true,
+  "dispatch_gate": "TL must verify current main HEAD and current worker activity before dispatch, then record actual branch/session/base SHA for every lane. Do not report workers as active until assignments exist.",
+  "fixture_success_is_not_browser_success": true,
+  "packaged_app_must_be_launched_for_desktop_acceptance": true,
+  "synthetic_demo_data_must_be_labeled": true,
+  "no_live_commerce_side_effects": true,
+  "preserve_unknown_not_failed": true,
+  "architecture_graph_is_frozen": true,
+  "browser_evidence_required_for_ui": true,
+  "worker_report_is_not_tl_acceptance": true
+ },
+ "source_baseline": {
+  "inspected_source_commit": "16bd4680073fed0a3c36ef61a39d270b95872d17",
+  "inspected_at": "2026-10-14",
+  "known_findings": [
+   "packages/web/src/commerceEntry.tsx mounts the rendered commerce host at /commerce and exposes an overlay; the ordinary ZCode workspace remains the root landing.",
+   "packages/web/index.html still names the page ZCode.",
+   "packages/desktop/src/renderer/src/main.tsx boots the ZCode Root after desktop startup admission.",
+   "packages/desktop/scripts/desktop-product-identity.mjs and packages/desktop/electron-builder.config.js still use ZCode/ZCode Preview identity.",
+   "The rendered commerce host, role model, module registry and 19-jouney catalog already exist; use docs/development-state/rendered-commerce-ui-state.json and docs/rendered-ui/FINAL-REPORT.md as immutable prior evidence.",
+   "Operator-provided local report showed the packaged ZCode executable rendered a visible 1200x800 ZCode window; it did not prove the app launched into UNiCOM, a DEB was installed, or the normal AppImage path was usable."
   ],
-  "active_work_orders": [
-    "W3-024"
+  "last_known_main_before_registry_commit": "c95f8652c8383d17b9a04a8edff6be3f195e93b9",
+  "mandatory_reverification": "Re-fetch the default-branch HEAD after all planning artifacts were written; verify current package/toolchain scripts, latest relevant CI, baseline tests and current active work before lane dispatch. The inspected source SHA is not presumed to remain current."
+ },
+ "architecture": {
+  "baseline": "1.1-frozen-2026-10-05 unless the repository proves a later accepted baseline",
+  "changes_authorized": false,
+  "permitted_existing_ui": "packages/web/src/commerce-host/** and packages/web/src/commerce-modules/** using existing public contracts",
+  "forbidden_without_new_operator_decision": [
+   "new desktop-to-web implementation dependency if absent from the dependency graph",
+   "new public package export or dependency edge",
+   "rewriting or duplicating the commerce host to evade architecture boundaries",
+   "production deployment or commerce-plane mutation"
   ],
-  "frontier": [
-    {
-      "id": "TL-BASELINE-VERIFY",
-      "status": "COMPLETE",
-      "detail": "2026-10-14 ~16:20Z: main HEAD re-fetched = 82d2d68 (docs-only planning delta over the TL-verified battery baseline 16bd468); canonical-web-build CI green; zero live worker sessions; zero branch collisions; write surfaces disjoint. W1-026 + W2-029 dispatched 16:31/16:39Z from inside the replay; W3-024 dispatch fighting capacity since 16:40Z."
-    },
-    {
-      "id": "W1-026",
-      "status": "DELIVERED_MERGED (a3e135d)"
-    },
-    {
-      "id": "W2-029",
-      "status": "DELIVERED_MERGED (e440cd1)"
-    },
-    {
-      "id": "W3-024",
-      "status": "DISPATCH_IN_PROGRESS (capacity fight — no session yet)"
-    }
-  ],
-  "acceptance_gates": [
-    {
-      "id": "WEB_DEFAULT",
-      "name": "Web root launches into the UNiCOM experience without overlay discovery",
-      "status": "PENDING"
-    },
-    {
-      "id": "DESKTOP_DEFAULT",
-      "name": "Current packaged Ubuntu app launches into the UNiCOM experience",
-      "status": "PENDING"
-    },
-    {
-      "id": "RUNTIME_CONTINUITY",
-      "name": "ZCode agent runtime, startup safety, auth/callback/share and a permitted workspace route remain functional",
-      "status": "PENDING"
-    },
-    {
-      "id": "BUYER_MERCHANT_JOURNEYS",
-      "name": "Buyer Intent Canvas, merchant Command Center/store journey and role switching have real-browser evidence",
-      "status": "PENDING"
-    },
-    {
-      "id": "AUTHORITY_TRUST_SAFETY",
-      "name": "Authority refusal/approval, demo labelling, trust/proof separation and UNKNOWN semantics remain intact",
-      "status": "PENDING"
-    },
-    {
-      "id": "REGRESSION",
-      "name": "Affected tests, scoped typecheck, lint, architecture, build and merged browser gate pass without baseline drift",
-      "status": "PENDING"
-    },
-    {
-      "id": "TL_ACCEPT",
-      "name": "Independent TL review, package launch, immutable evidence, report and state reconciliation complete",
-      "status": "PENDING"
-    }
-  ],
-  "standing_gates_unchanged": {
-    "production_deployment": "NOT_AUTHORIZED",
-    "live_named_provider_credentials_or_connections": "NOT_AUTHORIZED",
-    "live_commerce_mutation_or_payments": "NOT_AUTHORIZED",
-    "human_research": "NOT_AUTHORIZED"
+  "decision_rule": "If desktop integration cannot reuse the host within the frozen graph, continue independent web work and prepare an option/impact decision packet for the operator; do not quietly waive the architecture checker."
+ },
+ "work_orders": [
+  {
+   "id": "W1-026",
+   "path": "docs/work-orders/W1-026.md",
+   "owner": "worker-1",
+   "lane": "product-home-buyer-intent-and-merchant-storefront",
+   "status": "DELIVERED_MERGED",
+   "dependencies": [
+    "existing frozen commerce and experience contracts"
+   ],
+   "write_surface": [
+    "packages/web/src/commerce-host/shell/surfaces/HomeSurface.tsx",
+    "packages/web/src/commerce-modules/buyer-intent/**",
+    "packages/web/src/commerce-modules/buyer-compare/**",
+    "packages/web/src/commerce-modules/merchant-storefront/**"
+   ],
+   "branch": "work/w1-026",
+   "session": "https://chat.z.ai/c/b328e018-104d-4427-8fce-4fac6c047808",
+   "base_sha": "82d2d68ec465c19bd177a7567ba5b676843b5ece",
+   "evidence": {
+    "dispatched_at": "2026-10-14T16:31:26Z",
+    "delivered_branch_tip": "5d9193e5cd631ab860801a6bb1b121afe8137334",
+    "merged_as": "a3e135d (--no-ff, TL battery in the message)",
+    "tl_acceptance": "2026-10-14 ~19:2xZ — every gate independently re-run and matched exactly: web battery 413/413 (37 files; was 392/392 at base), scoped tsc exit 0 clean, lint 103w/0e identical baseline, architecture 0/0/0, browser evidence 8/8 steps PASS with all pointers resolving (buyer Intent Canvas first journey, merchant Command Center first journey, role switching with identity/authority unchanged, explicit UNKNOWN/DEMO states); write-surface audit zero files outside",
+    "completion_report": "docs/work-orders/reports/W1-026-completion-report.md"
+   }
   },
-  "tl_loop": "W1-026 + W2-029: delivered → independently TL-verified (every gate re-run, every number matched) → merged → retired. W3-024: the dispatch fights GLM-5.3 global capacity under the operator's never-wait protocol (recover loop persistent, unattended re-arm). On its landing: session recorded here, worker executes the architecture-gate-first contract, TL review on delivery. Phase gates stay PENDING until the phase-level acceptance; lane-level evidence is recorded per work order above.",
-  "updated_at": "2026-10-14T20:17:22Z"
+  {
+   "id": "W2-029",
+   "path": "docs/work-orders/W2-029.md",
+   "owner": "worker-2",
+   "lane": "main-agent-autonomy-decision-trust-and-recourse-ux",
+   "status": "DELIVERED_MERGED",
+   "dependencies": [
+    "existing frozen agent/commerce/experience contracts"
+   ],
+   "write_surface": [
+    "packages/web/src/commerce-modules/buyer-twin/**",
+    "packages/web/src/commerce-modules/merchant-autonomous/**",
+    "packages/web/src/commerce-modules/trust-recourse/**",
+    "packages/web/src/commerce-host/shell/surfaces/SystemSurface.tsx"
+   ],
+   "branch": "work/w2-029",
+   "session": "https://chat.z.ai/c/5d0e428b-78e7-4372-a212-80afa6617ffb",
+   "base_sha": "82d2d68ec465c19bd177a7567ba5b676843b5ece",
+   "evidence": {
+    "dispatched_at": "2026-10-14T16:39:43Z",
+    "delivered_branch_tip": "1605ea628ac538d1e4217a8ba2e436a31c61b99b",
+    "merged_as": "e440cd1 (--no-ff, TL battery in the message)",
+    "tl_acceptance": "2026-10-14 ~19:5xZ — every gate independently re-run and matched: web battery 414/414 (36 files; was 392/392), lint 103w/0e + scoped lane lint 0/0 (22 files), scoped web typecheck base↔tip BYTE-IDENTICAL zero-new zero-touching-lane (environment note: TL box denominator 235 vs worker sandbox 206 — the pre-existing experience-barrel TS2835 class; the lane's report flags the barrel as a spec gap), architecture 0/0/0, browser lane evidence 9/9 PASS with 0 console errors (warm-cache run; the cold-optimizer burst noise was environmental, all 8 functional steps passed in every run); write-surface audit zero files outside (SystemSurface.test.tsx verified pre-existing authorized)",
+    "completion_report": "docs/work-orders/reports/W2-029-completion-report.md"
+   }
+  },
+  {
+   "id": "W3-024",
+   "path": "docs/work-orders/W3-024.md",
+   "owner": "worker-3",
+   "lane": "default-web-ubuntu-launch-and-product-identity",
+   "status": "DISPATCHED",
+   "dependencies": [
+    "frozen dependency graph",
+    "current rendered commerce host"
+   ],
+   "write_surface": [
+    "packages/web/src/main.tsx",
+    "packages/web/src/commerceEntry.tsx",
+    "packages/web/index.html",
+    "desktop renderer entrypoints",
+    "desktop product identity and packaging metadata",
+    "focused browser/desktop tests and evidence"
+   ],
+   "branch": "work/w3-024",
+   "session": "https://chat.z.ai/c/4ec699ac-de8a-4c76-a817-25e702c0a1e6",
+   "base_sha": "82d2d68ec465c19bd177a7567ba5b676843b5ece",
+   "evidence": {
+    "dispatch_started": "2026-10-14T16:40:55Z",
+    "landed_at": "2026-10-14T21:56:52Z",
+    "dispatch_rounds": "original fight 16:40Z-21:42Z (12+ assault ladders, no session) -> sandbox recycle ~21:42Z wiped the staged prompt + fight flag (worker-prompts/ is wipe-vulnerable, the known class) -> TL re-arm 21:54Z: pre-dispatch gate re-verified (main 6c8685c unchanged, zero live workers, zero branch collisions), prompt rebuilt from the work order verbatim + the standard operational contract (13,829 chars, [REDACTED:github_token] placeholder, PAT send-time substitution), vault copy at browser-profile/vault-w3-024-prompt.md -> round-1 model revert (GLM-5.2 shown) -> round-2 capacity -> round-3 LANDED: insert 100%, send VERIFIED, agents-tab + GLM-5.3 + Full-Stack all re-verified",
+    "prompt_chars": 13829,
+    "insert_verified_pct": 100,
+    "session_tab": "D372E1FD",
+    "session_title_at_landing": "New Chat (sandbox provisioning)",
+    "note": "the capacity window opened ~21:55Z; the supervisor-guarded fight re-armed by the TL after recycle #15; lane_watch live (state queued, n=1)"
+   }
+  }
+ ],
+ "active_work_orders": [
+  "W3-024"
+ ],
+ "frontier": [
+  {
+   "id": "TL-BASELINE-VERIFY",
+   "status": "COMPLETE",
+   "detail": "2026-10-14 ~16:20Z: main HEAD re-fetched = 82d2d68 (docs-only planning delta over the TL-verified battery baseline 16bd468); canonical-web-build CI green; zero live worker sessions; zero branch collisions; write surfaces disjoint. W1-026 + W2-029 dispatched 16:31/16:39Z from inside the replay; W3-024 dispatch fighting capacity since 16:40Z."
+  },
+  {
+   "id": "W1-026",
+   "status": "DELIVERED_MERGED (a3e135d)"
+  },
+  {
+   "id": "W2-029",
+   "status": "DELIVERED_MERGED (e440cd1)"
+  },
+  {
+   "id": "W3-024",
+   "status": "DISPATCHED (session 4ec699ac landed 21:56:52Z; lane_watch live)"
+  }
+ ],
+ "acceptance_gates": [
+  {
+   "id": "WEB_DEFAULT",
+   "name": "Web root launches into the UNiCOM experience without overlay discovery",
+   "status": "PENDING"
+  },
+  {
+   "id": "DESKTOP_DEFAULT",
+   "name": "Current packaged Ubuntu app launches into the UNiCOM experience",
+   "status": "PENDING"
+  },
+  {
+   "id": "RUNTIME_CONTINUITY",
+   "name": "ZCode agent runtime, startup safety, auth/callback/share and a permitted workspace route remain functional",
+   "status": "PENDING"
+  },
+  {
+   "id": "BUYER_MERCHANT_JOURNEYS",
+   "name": "Buyer Intent Canvas, merchant Command Center/store journey and role switching have real-browser evidence",
+   "status": "PENDING"
+  },
+  {
+   "id": "AUTHORITY_TRUST_SAFETY",
+   "name": "Authority refusal/approval, demo labelling, trust/proof separation and UNKNOWN semantics remain intact",
+   "status": "PENDING"
+  },
+  {
+   "id": "REGRESSION",
+   "name": "Affected tests, scoped typecheck, lint, architecture, build and merged browser gate pass without baseline drift",
+   "status": "PENDING"
+  },
+  {
+   "id": "TL_ACCEPT",
+   "name": "Independent TL review, package launch, immutable evidence, report and state reconciliation complete",
+   "status": "PENDING"
+  }
+ ],
+ "standing_gates_unchanged": {
+  "production_deployment": "NOT_AUTHORIZED",
+  "live_named_provider_credentials_or_connections": "NOT_AUTHORIZED",
+  "live_commerce_mutation_or_payments": "NOT_AUTHORIZED",
+  "human_research": "NOT_AUTHORIZED"
+ },
+ "tl_loop": "W1-026 + W2-029: delivered -> independently TL-verified -> merged -> retired. W3-024: the capacity fight survived recycle #15 (TL re-arm 21:54Z, prompt rebuilt from the in-repo work order, pre-dispatch gate re-verified) and the session LANDED 21:56:52Z — agents-tab + GLM-5.3 + Full-Stack + 100% insert all verified. The worker executes the architecture-gate-first contract; lane_watch + queue_watch hold the watch; TL review on delivery. Phase gates stay PENDING until the phase-level acceptance; lane-level evidence is recorded per work order.",
+ "updated_at": "2026-10-14T21:59:39Z"
 }
