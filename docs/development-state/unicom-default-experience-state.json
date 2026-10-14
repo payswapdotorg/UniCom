@@ -1,0 +1,184 @@
+{
+  "schema_version": "1.0",
+  "repository": "payswapdotorg/UniCom",
+  "program": "UNiCOM Default Application Experience — Web + Ubuntu Desktop",
+  "phase_issue": "https://github.com/payswapdotorg/UniCom/issues/22",
+  "tl_handoff": "docs/FINAL-TL-HANDOFF-UNICOM-DEFAULT-EXPERIENCE-2026-10-14.md",
+  "status": "READY_FOR_TL_DISPATCH",
+  "progress_authority": "docs/development-state/unicom-default-experience-state.json",
+  "prior_phase_records_immutable": true,
+  "operator_authorization": {
+    "decision": "APPROVED_IMPLEMENTATION_WITHIN_FROZEN_ARCHITECTURE",
+    "source": "Issue #22 created from explicit operator instruction on 2026-10-14",
+    "architecture_changes_authorized": false,
+    "production_deployment_authorized": false,
+    "live_named_provider_connection_or_credentials_authorized": false,
+    "production_commerce_mutation_authorized": false,
+    "live_payments_authorized": false,
+    "human_research_authorized": false,
+    "scope": "Transform the existing ZCode-derived web and Ubuntu desktop first-run experience into UNiCOM, preserve runtime continuity, implement and test locally/package only."
+  },
+  "policy": {
+    "max_concurrent_workers": 3,
+    "tl_is_worker": false,
+    "dispatch_allowed": true,
+    "dispatch_gate": "TL must verify current main HEAD and current worker activity before dispatch, then record actual branch/session/base SHA for every lane. Do not report workers as active until assignments exist.",
+    "fixture_success_is_not_browser_success": true,
+    "packaged_app_must_be_launched_for_desktop_acceptance": true,
+    "synthetic_demo_data_must_be_labeled": true,
+    "no_live_commerce_side_effects": true,
+    "preserve_unknown_not_failed": true,
+    "architecture_graph_is_frozen": true,
+    "browser_evidence_required_for_ui": true,
+    "worker_report_is_not_tl_acceptance": true
+  },
+  "source_baseline": {
+    "inspected_source_commit": "16bd4680073fed0a3c36ef61a39d270b95872d17",
+    "inspected_at": "2026-10-14",
+    "known_findings": [
+      "packages/web/src/commerceEntry.tsx mounts the rendered commerce host at /commerce and exposes an overlay; the ordinary ZCode workspace remains the root landing.",
+      "packages/web/index.html still names the page ZCode.",
+      "packages/desktop/src/renderer/src/main.tsx boots the ZCode Root after desktop startup admission.",
+      "packages/desktop/scripts/desktop-product-identity.mjs and packages/desktop/electron-builder.config.js still use ZCode/ZCode Preview identity.",
+      "The rendered commerce host, role model, module registry and 19-jouney catalog already exist; use docs/development-state/rendered-commerce-ui-state.json and docs/rendered-ui/FINAL-REPORT.md as immutable prior evidence.",
+      "Operator-provided local report showed the packaged ZCode executable rendered a visible 1200x800 ZCode window; it did not prove the app launched into UNiCOM, a DEB was installed, or the normal AppImage path was usable."
+    ],
+    "last_known_main_before_registry_commit": "c95f8652c8383d17b9a04a8edff6be3f195e93b9",
+    "mandatory_reverification": "Re-fetch the default-branch HEAD after all planning artifacts were written; verify current package/toolchain scripts, latest relevant CI, baseline tests and current active work before lane dispatch. The inspected source SHA is not presumed to remain current."
+  },
+  "architecture": {
+    "baseline": "1.1-frozen-2026-10-05 unless the repository proves a later accepted baseline",
+    "changes_authorized": false,
+    "permitted_existing_ui": "packages/web/src/commerce-host/** and packages/web/src/commerce-modules/** using existing public contracts",
+    "forbidden_without_new_operator_decision": [
+      "new desktop-to-web implementation dependency if absent from the dependency graph",
+      "new public package export or dependency edge",
+      "rewriting or duplicating the commerce host to evade architecture boundaries",
+      "production deployment or commerce-plane mutation"
+    ],
+    "decision_rule": "If desktop integration cannot reuse the host within the frozen graph, continue independent web work and prepare an option/impact decision packet for the operator; do not quietly waive the architecture checker."
+  },
+  "work_orders": [
+    {
+      "id": "W1-026",
+      "path": "docs/work-orders/W1-026.md",
+      "owner": "worker-1",
+      "lane": "product-home-buyer-intent-and-merchant-storefront",
+      "status": "READY_FOR_TL_DISPATCH",
+      "dependencies": ["existing frozen commerce and experience contracts"],
+      "write_surface": [
+        "packages/web/src/commerce-host/shell/surfaces/HomeSurface.tsx",
+        "packages/web/src/commerce-modules/buyer-intent/**",
+        "packages/web/src/commerce-modules/buyer-compare/**",
+        "packages/web/src/commerce-modules/merchant-storefront/**"
+      ],
+      "branch": null,
+      "session": null,
+      "base_sha": null,
+      "evidence": null
+    },
+    {
+      "id": "W2-029",
+      "path": "docs/work-orders/W2-029.md",
+      "owner": "worker-2",
+      "lane": "main-agent-autonomy-decision-trust-and-recourse-ux",
+      "status": "READY_FOR_TL_DISPATCH",
+      "dependencies": ["existing frozen agent/commerce/experience contracts"],
+      "write_surface": [
+        "packages/web/src/commerce-modules/buyer-twin/**",
+        "packages/web/src/commerce-modules/merchant-autonomous/**",
+        "packages/web/src/commerce-modules/trust-recourse/**",
+        "packages/web/src/commerce-host/shell/surfaces/SystemSurface.tsx"
+      ],
+      "branch": null,
+      "session": null,
+      "base_sha": null,
+      "evidence": null
+    },
+    {
+      "id": "W3-024",
+      "path": "docs/work-orders/W3-024.md",
+      "owner": "worker-3",
+      "lane": "default-web-ubuntu-launch-and-product-identity",
+      "status": "READY_FOR_TL_DISPATCH",
+      "dependencies": ["frozen dependency graph", "current rendered commerce host"],
+      "write_surface": [
+        "packages/web/src/main.tsx",
+        "packages/web/src/commerceEntry.tsx",
+        "packages/web/index.html",
+        "desktop renderer entrypoints",
+        "desktop product identity and packaging metadata",
+        "focused browser/desktop tests and evidence"
+      ],
+      "branch": null,
+      "session": null,
+      "base_sha": null,
+      "evidence": null
+    }
+  ],
+  "active_work_orders": [],
+  "frontier": [
+    {
+      "id": "TL-BASELINE-VERIFY",
+      "status": "REQUIRED_BEFORE_DISPATCH",
+      "detail": "Check current main SHA, working source/dependency/toolchain state, relevant CI and no active overlapping worker sessions."
+    },
+    {
+      "id": "W1-026",
+      "status": "READY_FOR_TL_DISPATCH"
+    },
+    {
+      "id": "W2-029",
+      "status": "READY_FOR_TL_DISPATCH"
+    },
+    {
+      "id": "W3-024",
+      "status": "READY_FOR_TL_DISPATCH"
+    }
+  ],
+  "acceptance_gates": [
+    {
+      "id": "WEB_DEFAULT",
+      "name": "Web root launches into the UNiCOM experience without overlay discovery",
+      "status": "PENDING"
+    },
+    {
+      "id": "DESKTOP_DEFAULT",
+      "name": "Current packaged Ubuntu app launches into the UNiCOM experience",
+      "status": "PENDING"
+    },
+    {
+      "id": "RUNTIME_CONTINUITY",
+      "name": "ZCode agent runtime, startup safety, auth/callback/share and a permitted workspace route remain functional",
+      "status": "PENDING"
+    },
+    {
+      "id": "BUYER_MERCHANT_JOURNEYS",
+      "name": "Buyer Intent Canvas, merchant Command Center/store journey and role switching have real-browser evidence",
+      "status": "PENDING"
+    },
+    {
+      "id": "AUTHORITY_TRUST_SAFETY",
+      "name": "Authority refusal/approval, demo labelling, trust/proof separation and UNKNOWN semantics remain intact",
+      "status": "PENDING"
+    },
+    {
+      "id": "REGRESSION",
+      "name": "Affected tests, scoped typecheck, lint, architecture, build and merged browser gate pass without baseline drift",
+      "status": "PENDING"
+    },
+    {
+      "id": "TL_ACCEPT",
+      "name": "Independent TL review, package launch, immutable evidence, report and state reconciliation complete",
+      "status": "PENDING"
+    }
+  ],
+  "standing_gates_unchanged": {
+    "production_deployment": "NOT_AUTHORIZED",
+    "live_named_provider_credentials_or_connections": "NOT_AUTHORIZED",
+    "live_commerce_mutation_or_payments": "NOT_AUTHORIZED",
+    "human_research": "NOT_AUTHORIZED"
+  },
+  "tl_loop": "READY FOR TL BASELINE RE-VERIFICATION AND THREE-LANE DISPATCH. No worker is marked active until branch/session/base SHA are recorded.",
+  "updated_at": "2026-10-14T16:15:00Z"
+}
