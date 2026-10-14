@@ -2,11 +2,11 @@
   "manifestKind": "w1-026-first-journey-evidence",
   "schemaVersion": 1,
   "workOrderId": "W1-026",
-  "generatedAtUtc": "2026-10-14T17:11:11.301Z",
+  "generatedAtUtc": "2026-10-14T17:13:30.069Z",
   "identity": {
-    "buildCommit": "80c0ccdf7f24538a2f2fd0f80d66be539e487e30",
+    "buildCommit": "31840f25071f785b10f7814f9b313a9c84b05040",
     "gitBranch": "work/w1-026",
-    "buildTreeDirty": false,
+    "buildTreeDirty": true,
     "nodeVersion": "v24.21.0",
     "pnpmVersion": "10.33.2"
   },
@@ -44,7 +44,7 @@
       "bodyEvidenceFile": "01-landing-connect-wall-body.txt",
       "consoleEvidenceFile": "01-landing-connect-wall-console.txt",
       "extraScreenshots": [],
-      "timingsMs": 14441,
+      "timingsMs": 14284,
       "note": null
     },
     {
@@ -72,7 +72,7 @@
       "bodyEvidenceFile": "02-commerce-front-door-body.txt",
       "consoleEvidenceFile": "02-commerce-front-door-console.txt",
       "extraScreenshots": [],
-      "timingsMs": 5907,
+      "timingsMs": 5925,
       "note": null
     },
     {
@@ -163,7 +163,7 @@
       "bodyEvidenceFile": "04-buyer-intent-canvas-body.txt",
       "consoleEvidenceFile": "04-buyer-intent-canvas-console.txt",
       "extraScreenshots": [],
-      "timingsMs": 1653,
+      "timingsMs": 1673,
       "note": null
     },
     {
@@ -211,7 +211,7 @@
       "bodyEvidenceFile": "05-role-switch-merchant-body.txt",
       "consoleEvidenceFile": "05-role-switch-merchant-console.txt",
       "extraScreenshots": [],
-      "timingsMs": 1208,
+      "timingsMs": 1204,
       "note": null
     },
     {
@@ -259,7 +259,7 @@
       "bodyEvidenceFile": "06-merchant-command-center-body.txt",
       "consoleEvidenceFile": "06-merchant-command-center-console.txt",
       "extraScreenshots": [],
-      "timingsMs": 1662,
+      "timingsMs": 1660,
       "note": null
     },
     {
@@ -287,7 +287,7 @@
       "bodyEvidenceFile": "07-role-switch-no-emphasis-body.txt",
       "consoleEvidenceFile": "07-role-switch-no-emphasis-console.txt",
       "extraScreenshots": [],
-      "timingsMs": 1207,
+      "timingsMs": 1211,
       "note": null
     },
     {
@@ -312,7 +312,7 @@
       "extraScreenshots": [
         "08b-explore-one-click.png"
       ],
-      "timingsMs": 2329,
+      "timingsMs": 2331,
       "note": null
     }
   ],
