@@ -2,6 +2,11 @@
  * buyer-intent component — the J1 surface (lazily loaded). Everything is a
  * deterministic DEMO fixture except the buyer's own draft/constraint input,
  * which lives in local component state only (never sent anywhere).
+ *
+ * W1-026 first-journey upgrade: a first-time explainer up top, a
+ * plain-language help line under every facet (field-help.ts — the typed
+ * catalog stays the contract), an essentials marker on the facets a
+ * first-time buyer usually starts with, and the home-canvas draft carry-over.
  */
 import type { JSX } from "react";
 
@@ -19,6 +24,7 @@ import type { CommerceModuleProps } from "../../commerce-host/contract/index.js"
 import { EmptyStatePanel } from "../../commerce-host/shared/index.js";
 import { DEMO_NOW, W2_DEMO_FIXTURES_ID, demoRef } from "../buyer-support/demo-data.js";
 import { DemoTag, FieldRow, PermissionGate, TermLine } from "../buyer-support/ui.js";
+import { ESSENTIAL_FIELD_IDS, FIELD_HELP } from "./field-help.js";
 
 type FieldValue = string | boolean;
 type FieldValues = Partial<Record<IntentConstraintFieldId, FieldValue>>;
@@ -119,6 +125,28 @@ export default function BuyerIntentComponent({ host }: CommerceModuleProps): JSX
         </p>
       </section>
 
+      <section className="cm-card" aria-label="First time on the intent canvas">
+        <h2 className="cm-card-title">First time here? Three things to know</h2>
+        <ol className="cm-perm-list" style={{ margin: "6px 0 0", paddingLeft: 20, listStyle: "decimal" }}>
+          <li style={{ color: "var(--cm-fg-subtle)", fontSize: 12.5, marginBottom: 4 }}>
+            <strong style={{ color: "var(--cm-fg)" }}>Your words become the brief.</strong> Say what
+            you need in plain language below — quantity, deadline, budget. The constraint editor
+            then refines it facet by facet; every facet is optional, so leaving one open keeps that
+            choice open.
+          </li>
+          <li style={{ color: "var(--cm-fg-subtle)", fontSize: 12.5, marginBottom: 4 }}>
+            <strong style={{ color: "var(--cm-fg)" }}>Plans are compared, not pushed.</strong> On
+            review you see plan options (buy now, wait, group with others, rent, swap…) with their
+            trade-offs — anything predictive is labelled, never promised.
+          </li>
+          <li style={{ color: "var(--cm-fg-subtle)", fontSize: 12.5 }}>
+            <strong style={{ color: "var(--cm-fg)" }}>Nothing commits you.</strong> This canvas is
+            capture, not purchase: no order, payment, group commitment or trade leg can happen
+            from here.
+          </li>
+        </ol>
+      </section>
+
       {!hasDraft && filledHints.length === 0 ? (
         <EmptyStatePanel
           view={{
@@ -138,6 +166,10 @@ export default function BuyerIntentComponent({ host }: CommerceModuleProps): JSX
 
       <section className="cm-card" aria-label="Intent draft">
         <h2 className="cm-card-title">What do you need?</h2>
+        <p className="cm-card-sub">
+          Seeded from your home canvas draft — kept while you switch roles; edits here stay local
+          to this demo.
+        </p>
         <textarea
           className="cm-intent-draft"
           aria-label="Your intent in your own words"
@@ -151,7 +183,9 @@ export default function BuyerIntentComponent({ host }: CommerceModuleProps): JSX
           <h2 className="cm-card-title">Constraints (the 17-facet catalog, rendered from the typed contract)</h2>
           <p className="cm-card-sub">
             Each facet comes from <code>INTENT_CONSTRAINT_FIELDS</code> — the frozen intent
-            vocabulary. Leave anything blank to keep it open.
+            vocabulary. Leave anything blank to keep it open. Fields marked{" "}
+            <span className="cm-chip cm-chip-ok">essential</span> are the ones most buyers start
+            with, and every field carries a one-line explanation of what it does for you.
           </p>
           {FIELD_GROUPS.map((group) => (
             <div key={group.title} style={{ marginTop: 12 }}>
@@ -162,13 +196,23 @@ export default function BuyerIntentComponent({ host }: CommerceModuleProps): JSX
                   if (!field) return null;
                   return (
                     <div key={fieldId} className="cm-card" style={{ padding: 10 }}>
-                      <FieldRow label={`${field.userLabel} (${field.fieldId})`}>
-                        <ConstraintInput
-                          field={field}
-                          value={values[fieldId]}
-                          onChange={(value) => setValues((prior) => ({ ...prior, [fieldId]: value }))}
-                        />
-                      </FieldRow>
+                      <div className="cm-row" style={{ gap: 6 }}>
+                        <FieldRow label={`${field.userLabel} (${field.fieldId})`}>
+                          <ConstraintInput
+                            field={field}
+                            value={values[fieldId]}
+                            onChange={(value) => setValues((prior) => ({ ...prior, [fieldId]: value }))}
+                          />
+                        </FieldRow>
+                        {ESSENTIAL_FIELD_IDS.includes(fieldId) ? (
+                          <span className="cm-chip cm-chip-ok" title="One of the facets most buyers start with">
+                            essential
+                          </span>
+                        ) : null}
+                      </div>
+                      <p className="cm-env-note" style={{ margin: "6px 0 0" }}>
+                        {FIELD_HELP[fieldId]}
+                      </p>
                     </div>
                   );
                 })}

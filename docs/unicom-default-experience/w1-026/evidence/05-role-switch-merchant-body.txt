@@ -1,0 +1,144 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+UNiCOM Commerce
+
+Buy with your own words and audit everything; sell with every state honest. Describe what you need — deadline, budget, quality, trust — and let agents compare real options with verified, stale and UNKNOWN freshness kept separate. Or run your store end to end, from catalog and pricing to fulfillment, returns and refunds.
+
+This host runs on deterministic synthetic fixtures in DEMO mode — no credentials, no live purchases, payments, group-buy commitments or trade legs. Connected integrations: 0. Nothing pretends otherwise.
+
+Explore capabilities
+Switch role
+System & demo fixtures
+Emphasis:
+Buyer
+Merchant
+No emphasis
+Hold or drop roles →
+
+Emphasized role: Merchant. Emphasis only decides which path leads this page. It never changes your identity, never grants a permission, and never touches your data — roles are held and reviewed on the Roles surface.
+
+Run your store — command center
+merchant & operator path
+matches your emphasis
+
+One command center for the whole commerce lifecycle: catalog, pricing and promotions, inventory, checkout, orders, fulfillment, returns, refunds and support — every state deterministic, every unknown preserved, every action authority-checked.
+
+Current business state DEMO
+
+Store: Harbor Lane Print Studio — specialty printing, small studio. Connected integrations: 0 — no channel, feed or payment provider is connected, and nothing on this host claims otherwise.
+
+Active work & proposals (observed demo state)
+Payment retry, invoice 2291
+ATTEMPTED
+DEMO
+
+A retry was started after an interruption. The outcome is not known yet.
+
+An attempt is in flight after an interruption; outcome not known yet.
+
+Settlement check, payout batch 88
+SETTLEMENT-UNKNOWN
+DEMO
+
+The provider state cannot be confirmed. UNKNOWN is never rendered as paid or failed.
+
+Settlement cannot be confirmed. UNKNOWN is never shown as paid or failed.
+
+Offline stock count, shelf B4 (queued)
+NOT-PROMOTED-UNKNOWN
+DEMO
+
+Counted while offline; queued for reconciliation. It has not changed canonical stock and may be superseded.
+
+Queued observation not yet reconciled — it has not changed canonical truth.
+
+Refund above approval band
+DENIED
+DEMO
+
+Policy denied the action: the amount exceeds the automatic refund band.
+
+Policy or authority denied the action (not a failure).
+
+Open the merchant command center
+
+Inside: live deterministic demo-kernel state — seeded orders with delivered, unknown-payment and refunded outcomes, an exchange return in flight, exact money, and a resettable demo. It renders observed kernel state only: it never claims live orders, inventory or connectivity that were not observed, and it shows no predictions (those live on the Commerce Twin, labelled predictive).
+
+High-value next actions
+Review the group-buy proposal on your desk
+Count and reconcile shelf stock
+Restock through procurement
+Handle disputes and recourse
+Start with what you need
+buyer path
+
+The Buyer Intent Canvas turns your own words into a working brief. Type the need here — the draft is kept while you switch roles — then open the canvas for the full 17-facet constraint editor, plan options and buy-or-wait guidance.
+
+What do you need? (your own words — kept while you switch roles)
+
+The essentials the canvas understands (all optional — leave anything open):
+
+Needed by (deadline) — The last date this still works for you. Plans are checked against it before anything else.
+Total budget (max-total-cost) — The all-in ceiling — price, delivery and fees together — not a starting point to negotiate up.
+Quality (min-quality) — The floor you can accept: any, solid or premium. Options below your floor never reach you.
+Trust & privacy (seller trust, privacy) — How much you need to trust the seller (verified, top-rated) and what they may do with your data.
+Delivery or pickup (delivery-pickup-constraints) — How it must reach you: delivery, pickup, or either — timing you cannot accept is filtered out.
+Alternatives (acceptable-substitutes) — What you would happily take instead. Substitutes widen your options; you decide what counts.
+Open the Intent canvas
+Compare offers with honest freshness
+
+Honest limits: plan guidance is predictive — never a promise; an UNKNOWN offer never shows a price; interest in a group deal is never a commitment.
+
+Your buying work in flight DEMO
+Group-buy proposal to Meridian Office Supply
+OFFERED
+DEMO
+
+Proposal sent; the seller has it on their desk. No commitment exists yet.
+
+Sent and awaiting the other side — no commitment exists yet.
+
+Quote request, 40 boxes A3 card stock
+PENDING
+DEMO
+
+Waiting for the supplier's answer. Pending is not an error.
+
+Waiting for an answer. Pending is not an error.
+
+What you can rely on — three kinds of truth, never mixed
+truth class
+Authoritative operational state
+
+What the system knows is true now — orders, stock and money as deterministic state. Exact, auditable, and never silently changed by a model.
+
+truth class
+Provider & physical observations
+
+What sellers, feeds and physical counts report, always with source timestamps: verified, stale, UNKNOWN or unavailable. Observations never auto-promote to truth.
+
+truth class
+Model predictions
+
+What the twin expects may happen — buy-or-wait guidance and what-ifs. Always labelled predictive; they become truth only through execution with evidence.
+
+Your scenario
+DEMO
+synthetic fixtures — deterministic, resettable, no credentials
+
+Harbor Lane Print Studio · small firm · specialty printing
+
+Two-person studio; buys paper and inks, sells custom prints locally.
+
+You hold: Buyer, Merchant. Multiple roles are allowed; set the emphasis above, hold or drop roles on the Roles surface. Role families: Buying, Selling, Supply, Finance, Trust & support.
+
+All 19 journey families: 19 of the 19 journey families are rendered right now.
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

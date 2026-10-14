@@ -1,0 +1,137 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module buyer-intent
+owner lane W2-012
+status ready
+J1 · Intent canvas
+DEMO
+
+Start from what you need, not from a product category. Everything you type stays on this screen (local demo state; fixtures w2-012-buyer-peer-fixtures@1). Plan guidance below is predictive — not a promise.
+
+First time here? Three things to know
+Your words become the brief. Say what you need in plain language below — quantity, deadline, budget. The constraint editor then refines it facet by facet; every facet is optional, so leaving one open keeps that choice open.
+Plans are compared, not pushed. On review you see plan options (buy now, wait, group with others, rent, swap…) with their trade-offs — anything predictive is labelled, never promised.
+Nothing commits you. This canvas is capture, not purchase: no order, payment, group commitment or trade leg can happen from here.
+What do you need?
+
+Seeded from your home canvas draft — kept while you switch roles; edits here stay local to this demo.
+
+Constraints (the 17-facet catalog, rendered from the typed contract)
+
+Each facet comes from INTENT_CONSTRAINT_FIELDS — the frozen intent vocabulary. Leave anything blank to keep it open. Fields marked essential are the ones most buyers start with, and every field carries a one-line explanation of what it does for you.
+
+Timing & budget
+Needed by (deadline)
+essential
+
+The last date this still works for you. Every plan is checked against it before anything else — a cheap offer that arrives late is not a win.
+
+Time window (time-window)
+
+When it may arrive or happen (weekday evenings, before the 15th…). Sellers and plans work around the window you give.
+
+Total budget (max-total-cost)
+essential
+
+The all-in ceiling: price + delivery + fees together. A plan above your ceiling never reaches you as an option.
+
+Quality, condition & trust
+Quality (min-quality)
+— leave open —
+any
+solid
+premium
+essential
+
+The floor you can accept: any, solid or premium. Anything below your floor is filtered out before you see it.
+
+Condition (condition)
+— leave open —
+new
+like-new
+used-ok
+
+The state of the item you accept: new, like-new, or used-ok. Widening this can widen your options.
+
+Seller trust (seller-credibility-threshold)
+— leave open —
+any
+verified
+top-rated
+essential
+
+How much you need to trust the seller: any, verified, or top-rated. Verified sellers carry checked identity and history.
+
+Getting it
+Delivery or pickup (delivery-pickup-constraints)
+— leave open —
+delivery
+pickup
+either
+essential
+
+How it must reach you: delivered, pickup, or either. Plans with timing you cannot accept are filtered out.
+
+Location (location)
+
+Where you are or where it must go — used for local pickup, nearby stock and delivery zones.
+
+Flexibility
+Alternatives (acceptable-substitutes)
+essential
+
+What you would happily take instead (similar models, other brands, a different finish). Substitutes widen your options — you decide what counts as instead.
+
+Buy or wait (buy-vs-wait-tolerance)
+
+Whether waiting for a likely lower price is acceptable for you. Guidance about waiting is predictive — never a promise.
+
+Payment plan (financing-preference)
+
+Whether paying over time (installments) is acceptable, and any terms you need.
+
+Group deal (group-buy-willingness)
+
+Whether teaming up with other buyers for a group discount is acceptable. Interest is never a commitment — you confirm before anything binds.
+
+Swap (trade-swap-willingness)
+
+Whether trading something you own counts as a path. Every leg needs your explicit consent; nothing is committed silently.
+
+Evidence & recourse (your protection terms)
+Privacy (privacy-requirements)
+essential
+
+What sellers may do with your data (e.g. no data resale, no third-party sharing). Your term travels with the intent.
+
+Security (security-requirements)
+
+Protection you require in transit and at hand-off (e.g. proof of delivery, signature).
+
+Proof needed (proof-requirements)
+— leave open —
+none
+receipt
+stronger
+
+The evidence you want for what happened: none, a receipt, or stronger proof (signed/carried receipts).
+
+Protection needed (recourse-requirements)
+— leave open —
+none
+refundable
+insured
+
+Your protection if something goes wrong: none, refundable, or insured. Stronger recourse can rule some cheap offers out.
+
+Review intent & compare plans
+0 of 17 constraint facets captured
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

@@ -114,3 +114,56 @@ describe("buyer-intent (J1)", () => {
     expect(rendered.container.querySelector('select[aria-label="Quality (min-quality)"]')).toBeNull();
   });
 });
+
+describe("buyer-intent (J1) — W1-026 first-journey upgrades", () => {
+  it("explains the canvas to a first-time buyer before asking for input", () => {
+    rendered = renderComponent(["buyer"]);
+    const text = textOf(rendered.container);
+    expect(text).toContain("First time here? Three things to know");
+    expect(text).toContain("Your words become the brief.");
+    expect(text).toContain("Plans are compared, not pushed.");
+    expect(text).toContain("Nothing commits you.");
+    expect(text).toContain("no order, payment, group commitment or trade leg");
+  });
+
+  it("carries the home-canvas draft over and says so", () => {
+    const host = makeTestHost({
+      roles: ["buyer"],
+      scenario: { intentDraft: "Need 12 archival ink cartridges by Friday, budget 300" },
+    });
+    rendered = renderUi(<BuyerIntentComponent moduleId="buyer-intent" journey="J1" host={host} />);
+    const text = textOf(rendered.container);
+    expect(text).toContain("Seeded from your home canvas draft");
+    const area = rendered.container.querySelector<HTMLTextAreaElement>("textarea.cm-intent-draft");
+    expect(area?.value).toContain("12 archival ink cartridges");
+  });
+
+  it("makes the six W1-026 essentials understandable with a plain-language help line each", () => {
+    rendered = renderComponent(["buyer"]);
+    const text = textOf(rendered.container);
+    // Each essential facet carries its explanation (deadline, total-cost,
+    // quality, seller trust, privacy, delivery/pickup, substitutes).
+    expect(text).toContain("The last date this still works for you");
+    expect(text).toContain("The all-in ceiling: price + delivery + fees together");
+    expect(text).toContain("The floor you can accept: any, solid or premium");
+    expect(text).toContain("How much you need to trust the seller");
+    expect(text).toContain("What sellers may do with your data");
+    expect(text).toContain("How it must reach you: delivered, pickup, or either");
+    expect(text).toContain("What you would happily take instead");
+    // The seven essentials are visually marked (the intro legend chip is not
+    // a field mark — count only the constraint field cards).
+    const fieldCards = [...rendered.container.querySelectorAll(".cm-grid .cm-card")];
+    const essentialFields = fieldCards.filter((card) =>
+      [...card.querySelectorAll(".cm-chip-ok")].some((chip) => chip.textContent === "essential"),
+    );
+    expect(essentialFields.length).toBe(7);
+    expect(text).toContain("0 of 17 constraint facets captured");
+  });
+
+  it("keeps every facet optional and explains that leaving one open keeps the choice open", () => {
+    rendered = renderComponent(["buyer"]);
+    const text = textOf(rendered.container);
+    expect(text).toContain("every facet is optional, so leaving one open keeps that choice open");
+    expect(text).toContain("Leave anything blank to keep it open");
+  });
+});

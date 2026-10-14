@@ -35,6 +35,7 @@ import {
   useRefresh,
   useSeededRuntime,
 } from "../merchant-shared/ui.js";
+import { CommandCenterSection } from "./command-center.js";
 import {
   DEMO_AMBIGUOUS_CARD,
   DEMO_CARD,
@@ -163,6 +164,8 @@ export default function MerchantStorefrontComponent({ host }: CommerceModuleProp
           </span>
         </div>
       </section>
+
+      <CommandCenterSection view={view} host={host} />
 
       <CatalogSection view={view} />
 

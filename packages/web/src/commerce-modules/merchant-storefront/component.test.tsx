@@ -40,6 +40,18 @@ async function mount(roles: readonly CommerceRoleId[] = ["merchant", "buyer"]): 
   return ui;
 }
 
+/** Mount variant that also exposes the recorded navigation spy. */
+async function mountWithNav(
+  roles: readonly CommerceRoleId[] = ["merchant", "buyer"],
+): Promise<{ readonly ui: RenderedUi; readonly navigatedTo: string[] }> {
+  const { host, navigatedTo } = makeStubHost(roles);
+  const ui = await renderUiAsync(
+    <MerchantStorefrontComponent moduleId="merchant-storefront" journey="J10" host={host} />,
+  );
+  await waitForText(ui.container, "the full lifecycle");
+  return { ui, navigatedTo };
+}
+
 describe("merchant-storefront (J10) — seeded lifecycle", () => {
   it("renders the catalog, pricing, promotions and DEMO labelling", async () => {
     rendered = await mount();
@@ -205,3 +217,54 @@ async function waitForTextGoneCount(container: HTMLElement, expectedCount: numbe
     });
   }
 }
+
+describe("merchant-storefront (J10) — command center (W1-026)", () => {
+  it("renders first, with honest business state derived from the live seeded kernel", async () => {
+    rendered = await mount();
+    const text = textOf(rendered.container);
+    expect(text).toContain("Command center — where your store stands right now");
+    // Every stat is kernel-derived (seeded: 3 orders, 1 UNKNOWN payment, 1
+    // open exchange return, 3 stocked SKUs) and labelled operational.
+    const stats = rendered.container.querySelector('[data-testid="cm-command-center-stats"]');
+    expect(stats).not.toBeNull();
+    expect(text).toContain("3 orders");
+    expect(text).toContain("1 payment UNKNOWN");
+    expect(text).toContain("1 open return");
+    expect(text).toContain("3 SKUs");
+    expect(text).toContain("on hand");
+    // Connectivity is stated honestly — zero, never implied live.
+    expect(text).toContain("Connected integrations: 0");
+    expect(text).toContain("no channel, feed or payment provider is connected");
+    expect(text).toContain("nothing here claims a live order, live stock or live connectivity");
+    // No predictions on this surface.
+    expect(text).toContain("This surface shows no predictions");
+  });
+
+  it("shows work in flight with what each item is waiting for (UNKNOWN preserved, not failed)", async () => {
+    rendered = await mount();
+    const text = textOf(rendered.container);
+    expect(text).toContain("Work in flight (and what it is waiting for)");
+    // The seeded exchange return is mid-flight with its deterministic next step.
+    expect(text).toContain("next step: AUTHORIZE / REJECT");
+    // The UNKNOWN payment is preserved verbatim — never paid, never failed.
+    expect(text).toContain("SETTLEMENT-UNKNOWN");
+    expect(text).toContain("not a failure, and not a success");
+    // The queued offline count stays an observation, not canonical stock.
+    expect(text).toContain("NOT-PROMOTED-UNKNOWN");
+    expect(text).toContain("It has NOT changed canonical stock");
+  });
+
+  it("hands high-value next actions off to the real merchant surfaces through the host", async () => {
+    const { ui, navigatedTo } = await mountWithNav();
+    rendered = ui;
+    clickButton(ui.container, "Review the group-buy proposal on your desk");
+    expect(navigatedTo).toContain("/commerce/merchant/group-buy-review");
+    clickButton(ui.container, "Count and reconcile shelf stock");
+    expect(navigatedTo).toContain("/commerce/physical/store");
+    clickButton(ui.container, "See model forecasts on the Commerce Twin");
+    expect(navigatedTo).toContain("/commerce/twin");
+    // The Twin link is labelled predictive — never operational truth.
+    const text = textOf(ui.container);
+    expect(text).toContain("labelled predictive — never operational truth");
+  });
+});
