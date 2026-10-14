@@ -1,0 +1,144 @@
+{
+  "schema": "w2-029-lane-evidence/1",
+  "capturedAt": "2026-10-14T18:00:47.695Z",
+  "steps": [
+    {
+      "step": "01-roles-held",
+      "outcome": "PASS",
+      "label": "merchant role held + emphasized",
+      "checks": []
+    },
+    {
+      "step": "02-system-agent-state",
+      "outcome": "PASS",
+      "label": "the System surface renders the truthful agent/autonomy/trust state summary",
+      "checks": [
+        {
+          "label": "three surfaces listed (J14/J13/J17)",
+          "ok": true
+        },
+        {
+          "label": "honesty statements render (proposals never canonical / trust-signal-never-proof / no live runtime)",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "02b-system-deeplink",
+      "outcome": "PASS",
+      "label": "the System-surface deep link opened the Main Agent surface (J14)",
+      "checks": []
+    },
+    {
+      "step": "03-twin-main-agent",
+      "outcome": "PASS",
+      "label": "the Main Agent decision/simulation path rendered",
+      "checks": [
+        {
+          "label": "all eight loop phases + current step + unwired-phase honesty",
+          "ok": true
+        },
+        {
+          "label": "evidence truth classes + freshness (verified/stale/UNKNOWN) separate",
+          "ok": true
+        },
+        {
+          "label": "plan rendered as proposals (never commitments)",
+          "ok": true
+        },
+        {
+          "label": "simulation-only predictions (predictive + twin-computed numbers)",
+          "ok": true
+        },
+        {
+          "label": "pending AND denied approvals with reason + safe next option",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "03b-twin-what-if-recompute",
+      "outcome": "PASS",
+      "label": "the counterfactual recomputed deterministically on input change (simulation only)",
+      "checks": [
+        {
+          "label": "busy-season projection rendered (64.00 USD/4w delta)",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "04a-autonomous-status",
+      "outcome": "PASS",
+      "label": "autonomy status + honest control availability rendered",
+      "checks": [
+        {
+          "label": "run presentation STOPPED (derived from journaled kernel state)",
+          "ok": true
+        },
+        {
+          "label": "objectives honestly NOT REPRESENTED (no objective type in contracts)",
+          "ok": true
+        },
+        {
+          "label": "override points: 1 wired / 5 not wired (expect 1/5)",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "04b-autonomous-denied",
+      "outcome": "PASS",
+      "label": "the denied/approval-boundary path: the kernel refused with the reason and the safe next option",
+      "checks": [
+        {
+          "label": "Command refused: POLICY_DENIED rendered",
+          "ok": true
+        },
+        {
+          "label": "reason rendered (STOP_CONDITION_TRIGGERED)",
+          "ok": true
+        },
+        {
+          "label": "safe next option rendered (review the policy bounds on this surface)",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "05-trust-proof",
+      "outcome": "PASS",
+      "label": "the trust/proof explanation rendered",
+      "checks": [
+        {
+          "label": "four separate planes rendered (4)",
+          "ok": true
+        },
+        {
+          "label": "every plane carries the signal → risk → policy → evidence → mitigation chain",
+          "ok": true
+        },
+        {
+          "label": "P0–P5 proof legend + the not-proof warning",
+          "ok": true
+        },
+        {
+          "label": "security BLOCK final + deterministic (no override affordance)",
+          "ok": true
+        },
+        {
+          "label": "the trust-signal-is-never-proof law stated",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "step": "06-console-zero-errors",
+      "outcome": "PASS",
+      "label": "console zero-error check (0 errors)",
+      "checks": []
+    }
+  ],
+  "demoNote": "All surfaces run on committed DEMO fixtures with the deterministic commerce kernel (no live provider, no credentials, no orders/payments/refunds/commitments executed from the agent surface; the J13 refusal is the kernel's own POLICY_DENIED gate).",
+  "unknownNotFailedNote": "UNKNOWN states (settlement, forecast, freshness) are preserved and rendered as UNKNOWN — never as failure or success; verified vs stale freshness stay visibly distinct on the J14 evidence panel."
+}

@@ -1,0 +1,310 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+Environment & mode
+DEMO
+
+Mode: demo — deterministic synthetic fixtures (w1-011-demo-fixtures@1). No provider account or credential is required or present. No purchases, payments, refunds, rentals, group-buy commitments or trade legs can be made from this host. Every fixture-derived value is DEMO-labelled where it is rendered.
+
+Connected integrations: none. When a real connector integration lands, it will appear here with its honest state — this surface will not invent one.
+
+Reset demo fixtures
+resets scenario, roles, intent draft and the shared linking-draft kernel to the committed defaults (revision 0)
+Agent, autonomy & trust state
+DEMO
+
+The truth about this host's agent, autonomy and trust surfaces, in one place: one Main Agent per task works toward your goal — its plans and simulations are proposals that never change canonical commerce state; the autonomous store runs only inside its registered policy (spend limits, margin floor, approval thresholds, stop conditions) with unwired owner controls marked unavailable, never simulated; and trust is four separate planes — UserTrust, AgentTrust, Capability/ProviderTrust and TransactionProof — where a trust signal is never transaction proof. No live agent runtime is connected in demo mode, and UNKNOWN states are preserved (never rendered as failure or success).
+
+Main Agent & Commerce Twin (J14)
+PREDICTIVE — never canonical
+Objective, evidence with truth classes and freshness, a proposed plan, simulation before authorization, and the exact approvals consequential steps need — including denied authority with its safe next option.
+Open the Main Agent surface
+Autonomous store controls (J13)
+KERNEL-BACKED (demo kiosk)
+The policy in force with budget/margin boundaries, approval thresholds and stop conditions from real journaled kernel state; the override-point availability list states which owner controls are actually wired.
+Open the autonomy surface
+Trust & recourse (J17)
+KERNEL-BACKED + labelled fixtures
+The four-plane trust ledger with the signal → risk → policy outcome → evidence → mitigation chain, the P0–P5 proof legend, and the security pipeline where BLOCK is final and deterministic — no override exists, none is offered.
+Open the trust surface
+Linked Drafts ledger DEMO
+
+Every kernel-native linked draft across all surfaces (the shared singleton makes this truthful — not per-module fragments). Each entry shows the draft id, the state chip (DRAFT / PLACEMENT_UNKNOWN / CANCELLED_BUT_NEVER_COMMITTED), the provenance (source aggregate, kind, acting principal, consent basis), the idempotency receipt, and the leg index for TradeCycle drafts.
+
+No linked drafts yet — create one from a formed GroupBuy or a committed TradeCycle leg.
+
+Registered modules (19)
+buyer-compare
+Compare offers
+ready
+lane W2-012
+journeys J2
+J2 — compare seller offers with verified, stale, UNKNOWN and unavailable freshness kept visibly separate; source timestamps are always shown and UNKNOWN never poses as a price.
+buyer-decide
+Buy now vs wait
+ready
+lane W2-012
+journeys J3
+J3 — a complete decision card (buy now / wait / substitute with trade-offs), price-timing guidance labeled predictive, multi-merchant negotiation with accept/counter/reject outcomes, and substitution paths across sellers.
+buyer-groupbuy
+Group buys
+ready
+lane W2-012
+journeys J4, J5
+J4 — discover group buys with threshold, deadline, eligibility and commitment terms visible; interest is never a commitment and joining/leaving needs explicit authorization. J5 — propose a latent-demand group deal to a merchant with only consenting participants, then watch accept/counter/reject states.
+buyer-intent
+Intent canvas
+ready
+lane W2-012
+journeys J1
+J1 — describe what you need, add constraints (deadline, budget, quality, trust, delivery, substitutions, proof and recourse), and compare plan options before buying. Plan guidance is predictive, never a promise.
+buyer-opportunities
+Opportunity inbox
+ready
+lane W2-012
+journeys J8
+J8 — proactive economic opportunities: price timing, group deals, resale, warranty recovery, shared logistics, unused subscriptions. Every suggestion shows why it was suggested, its evidence and provenance, its expiry, and a safe next action that never commits you.
+buyer-twin
+Main Agent & Commerce Twin
+ready
+lane W2-012
+journeys J14
+J14 — one Main Agent works your goal: visible plan and decisions, simulation before any authorization, exact approval requirements (denied authority shown honestly), and what-if counterfactuals computed by the deterministic advisory runtime — every number labelled predictive-never-canonical, with a structural write-block to commerce truth.
+host-states
+States: pending, unknown, failed — kept honest
+ready
+lane W1-011
+journeys J18
+The shared state components every commerce surface uses: loading, empty, error (failed ≠ unknown), offline, and the preserved non-failure lifecycle states (offered, pending, attempted, overdue, settlement-unknown, not-promoted-unknown) — never collapsed into errors.
+merchant-autonomous
+Autonomous store controls — policy, gates and audit trail
+ready
+lane W3-015
+journeys J13
+See the autonomous-store policy in force (spend limits, margin floor, approval thresholds, stop conditions), preview what the policy says BEFORE anything commits, watch halted autonomy recover through journaled human overrides, audit every decision in the append-only policy-application trail — and see exactly which owner override points are wired versus honestly unavailable.
+merchant-b2b
+B2B & multi-location — channels, transfers, wholesale terms
+partial
+lane W3-015
+journeys J12
+Run multi-location commerce: dispatch and receive real inter-location stock transfers; resolve per-account wholesale price breaks with the real B2B contract and place kernel orders on net terms (demo state, honestly labelled); review B2B quote requests (accept/counter/reject, local demo state); and age net-terms invoices at the fixed demo date — with the honest boundary that live credit checks and AR collection are unavailable, never simulated.
+Reason: Multi-location transfers, per-location stock, wholesale orders (negotiated pricing + minimum-order gate + net-terms mandate) and the AR aging view are real demo-kernel / contract-computed state; the quote-decision queue and channel entities have no kernel aggregate yet — rendered as committed DEMO fixtures with local review state, and live credit/AR actions are honestly unavailable.
+merchant-connectors
+Connectors — the honest integration manager
+ready
+lane W3-015
+journeys J15
+See exactly what is connected (nothing today — runtime-verified), what is registered-but-not-connected (the real Shopify adapter, exercised safely through non-live surfaces: health observation, capability declaration, journey evidence), what is disconnected (needs live credentials — disabled in demo), demo (local deterministic file feed) and unavailable (no provider exists — never simulated). Attempt connections and see honest ATTEMPTED → DISCONNECTED outcomes; never a fabricated success.
+merchant-groupbuy-review
+Merchant group-buy review
+ready
+lane W3-015
+journeys J5
+J5 merchant side — review latent-demand group-buy proposals on the real W1-012 GroupBuy formation machine: participant count vs threshold, proposed terms and consent terms render from the kernel aggregate; accept / counter / reject and the explicit formation of a HELD pool run as revisioned kernel transitions. Buyer-consent primacy preserved — no commitment, purchase, payment or order is ever created.
+merchant-storefront
+Merchant storefront — the full commerce lifecycle
+ready
+lane W3-015
+journeys J10
+Run the studio store end to end: catalog and pricing with promotions, inventory, checkout, orders, fulfillment and delivery, returns, exchanges, refunds and support — every state rendered from the deterministic commerce kernel, with pending, unknown and duplicate states kept honest.
+peer-rent
+Rent or borrow
+ready
+lane W2-012
+journeys J6
+J6 — rent/borrow vs buy with duration, availability, deposit, condition, return, damage and recourse terms; the rental lifecycle runs on the deterministic commerce runtime and OVERDUE stays a preserved state, never a failure.
+peer-resale
+Resale & consignment
+ready
+lane W2-012
+journeys J7
+J7 — recover value from under-used assets: list for resale, hand to a consignment partner, or rent out. Explicit owner action before any listing; evidence-backed outcome estimates; exact payout math from the deterministic commerce runtime.
+peer-tradecycle
+Trade cycles (multi-hop swaps)
+partial
+lane W2-012
+journeys J9
+J9 — bounded multi-hop trade cycles with at least three synthetic participants: per-leg terms, per-leg individual consent, privacy/proof and recourse; refusal, dropout or expiry stops or re-plans the cycle without silently committing other legs. Consent and execution run through the commerce kernel's TradeCycle aggregate.
+Reason: Execution is kernel-driven (per-leg consent, refusal/dropout/expiry stops, re-plan and the ATOMIC commit all run through the commerce kernel's TradeCycle execution aggregate). The discovery/validation engine itself (agent lane) is not importable by the web host — candidates and identities are committed demo fixtures.
+physical-store
+Physical store — the no-RFID supermarket
+ready
+lane W3-015
+journeys J16
+Count stock by barcode, manual entry, weighed goods, CSV import and a local camera/QR tag scan (user-initiated, browser-local decode, manual fallback); queue observations offline and replay them deterministically; apply POS syncs; see conflicts and discrepancies before anything promotes — canonical stock moves only through reconciliation. No RFID identifier or device is ever required.
+procurement-supply
+Procurement & supply — suppliers to reconciled stock
+ready
+lane W3-015
+journeys J11
+Request and compare supplier quotes, approve purchase orders, receive partially, handle substitutions, attach receipt/invoice evidence, and promote counts to canonical stock only through reconciliation — with expected, scanned, supplier-reported and reconciled quantities kept visibly separate.
+reference-explore
+Explore capabilities
+ready
+lane W1-011
+journeys J19
+Everything UNiCOM commerce can do, grouped by what you want to achieve — the reference module proving the feature-module contract end-to-end (discovery, typing, lazy load, host services).
+trust-recourse
+Trust & recourse — evidence, decisions, appeals, controlled refunds
+ready
+lane W3-015
+journeys J17
+Work trust and safety cases end to end: review threat signals and proof levels, see the four trust planes kept separate (UserTrust, AgentTrust, CapabilityTrust, TransactionProof — never one score), watch one security case run the full pipeline where BLOCK is final, submit evidence into disputes, resolve with journaled decisions and policy reasons, watch provider escalations land as chargebacks (with the no-double-refund guard), and execute controlled refunds and returns bounded by captured funds — UNKNOWN settlement states preserved, never collapsed.
+Registry warnings (0)
+
+None — every discovered module file validated against the published contract.
+
+Journey coverage
+
+19 of 19 journey families are rendered by a registered, non-unavailable module. The remaining 0 render honest in-development states naming their owning lane.
+
+J1 · Buyer Intent Canvas — ready
+J2 · Offer sourcing and comparison — ready
+J3 · Buy now vs wait, negotiation, substitution — ready
+J4 · Group buying — discovery, join, leave — ready
+J5 · Latent-demand group buys (buyer + merchant sides) — ready
+J6 · Rent or borrow vs buy — ready
+J7 · Resale, rental and consignment of owned items — ready
+J8 · Proactive economic opportunities — ready
+J9 · Bounded multi-hop trades (TradeCycle) — partial (Execution is kernel-driven (per-leg consent, refusal/dropout/expiry stops, re-plan and the ATOMIC commit all run through the commerce kernel's TradeCycle execution aggregate). The discovery/validation engine itself (agent lane) is not importable by the web host — candidates and identities are committed demo fixtures.)
+J10 · Merchant commerce lifecycle — ready
+J11 · Supplier procurement and receiving — ready
+J12 · B2B and multi-location commerce — partial (Multi-location transfers, per-location stock, wholesale orders (negotiated pricing + minimum-order gate + net-terms mandate) and the AR aging view are real demo-kernel / contract-computed state; the quote-decision queue and channel entities have no kernel aggregate yet — rendered as committed DEMO fixtures with local review state, and live credit/AR actions are honestly unavailable.)
+J13 · Autonomous store policies — ready
+J14 · Commerce Twin what-if — ready
+J15 · Connected commerce channels and live commerce — ready
+J16 · Physical, no-RFID supermarket operations — ready
+J17 · Trust, security and recourse — ready
+J18 · Failure, unknown and recovery states — ready
+J19 · Feature discoverability (Explore) — ready
+Deployment readiness
+DEMO
+ALL CHECKS PASS
+
+The deployable-bundle manifest + the non-live rehearsal (W1-019). The bundle assembles and verifies cleanly — this is the "you could deploy this tomorrow (upon operator authorization)" evidence. The rehearsal deploys NOTHING, connects NOTHING, reads NO credential. Fixture mirrors artifact at commit b7ab4c07f3ed.
+
+Bundle identity
+lineage commit b7ab4c07f3ed · toolchain node v24.21.0 · generated 2026-10-12T14:53:38.280Z
+inventory: 12 entries · digest sha256:3a8de191d6972b87 · classes entrypoint, contract-barrel, runtime-module, projection-module, deployment-contract
+Capability coverage (12)
+edge-api
+./runtime/index.js -> CommerceKernel + api/server
+replaceable
+durable-workflow
+./edge/local-commerce-edge.js
+replaceable
+async-queue
+./edge/offline-queue-runtime.js
+replaceable
+realtime-coordination
+./deployment/realtime.js
+replaceable
+relational-store
+./runtime/kernel-state.js -> KernelState fold
+replaceable
+object-evidence-storage
+./deployment/observability.js
+replaceable
+cache
+./runtime-browser/index.js -> projection cache
+replaceable
+browser-runtime
+./runtime-browser/index.js
+replaceable
+local-merchant-edge
+./edge/local-commerce-edge.js
+replaceable
+model-gateway
+./runtime/model-context-gate.js
+replaceable
+observability
+./deployment/observability.js + rc-evidence.js
+replaceable
+replaceable-compute
+./deployment/target-adapter.js
+replaceable
+Configuration surface (12 keys)
+NODE_ENV
+neutral
+Standard Node.js environment selector (production/development/test)
+PORT
+neutral
+HTTP listen port for the edge API server
+COMMERCE_KERNEL_CLOCK_SOURCE
+demo
+Deterministic clock source for the commerce kernel (DEMO: stepped clock; live: wall clock)
+PAYMENT_BOUNDARY_PROVIDER_TOKEN
+live-gated
+Provider credential for the payment boundary — LIVE-GATED: never present in demo or rehearsal
+CONNECTOR_PROVIDER_TOKEN
+live-gated
+Provider credential for connector adapters — LIVE-GATED: never present in demo or rehearsal
+DATABASE_URL
+live-gated
+Relational store connection string — LIVE-GATED: the rehearsal uses in-memory state
+OBJECT_STORAGE_ENDPOINT
+live-gated
+Object storage endpoint for evidence artifacts — LIVE-GATED
+MODEL_GATEWAY_API_KEY
+live-gated
+API key for the model gateway — LIVE-GATED: the rehearsal does not call any model provider
+REALTIME_COORDINATION_ENDPOINT
+live-gated
+Realtime coordination service endpoint — LIVE-GATED
+BROWSER_RUNTIME_HEADLESS
+demo
+Whether the browser runtime runs headless (DEMO: true in test; configurable in deployment)
+DEMO_FIXTURES_ID
+demo
+The committed demo fixtures identifier (DEMO-labelled on-surface)
+JOURNAL_BACKUP_PATH
+neutral
+Path for journal backup/restore (filesystem path, no credential)
+Rehearsal verification (11 checks)
+inventory-completeness
+PASS
+hash-determinism
+PASS
+capability-coverage
+PASS
+capability-replaceability
+PASS
+config-surface-classification
+PASS
+no-live-credentials
+PASS
+boot-smoke-contract
+PASS
+no-provider-names-in-contract
+PASS
+dist-manifest-completeness
+PASS
+dist-digest-deterministic
+PASS
+source-dist-cross-check
+PASS
+Dist identity
+mode ci-evidence-manifest · digest sha256:0508acfe8e87a989 · 6204 files · provenance ci-evidence
+CI-EVIDENCE
+End-to-end hash chain
+source sha256:3a8de191d6972b87 → sha256:0508acfe8e87a989 → bundle verification 11/11 checks PASS
+CHAIN VERIFIED
+Standing gates
+Production deployment: 🔒 NOT_AUTHORIZED
+Live named-provider credentials: 🔒 NOT_AUTHORIZED
+Human research: 🔒 NOT_AUTHORIZED
+Live payments: 🔒 NOT_AUTHORIZED
+
+Standing gates bind: production deployment NOT_AUTHORIZED, live credentials NOT_AUTHORIZED, live providers NOT_AUTHORIZED. This rehearsal deploys NOTHING, connects NOTHING, reads NO credential.
+
+For W2-012 / W3-015 module developers
+
+Create src/commerce-modules/<moduleId>/module.ts default-exporting defineCommerceModule({…}) from commerce-host/contract/index.js; use a module id with your lane's reserved prefix (buyer-/peer- for W2-012, merchant-/procurement-/physical-/trust- for W3-015). The registry discovers it automatically — no host files are edited by feature workers. The shared honest-state components live in commerce-host/shared/index.js.
+
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

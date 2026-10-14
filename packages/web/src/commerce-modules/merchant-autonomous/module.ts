@@ -6,7 +6,9 @@
  * audit trail — all REAL deterministic commerce-kernel state: the policy is
  * registered on the kernel, autonomous actions are typed command envelopes
  * judged by the kernel's own policy gate, and every decision lands as a
- * journaled policy application.
+ * journaled policy application. W2-029 adds the autonomy status view and the
+ * override-point availability surface: every owner control states whether it
+ * is actually wired; missing controls render unavailable, never simulated.
  */
 
 import { defineCommerceModule } from "../../commerce-host/contract/index.js";
@@ -15,7 +17,7 @@ export default defineCommerceModule({
   moduleId: "merchant-autonomous",
   title: "Autonomous store controls — policy, gates and audit trail",
   description:
-    "See the autonomous-store policy in force (spend limits, margin floor, approval thresholds, stop conditions), preview what the policy says BEFORE anything commits, watch halted autonomy recover through journaled human overrides, and audit every decision in the append-only policy-application trail.",
+    "See the autonomous-store policy in force (spend limits, margin floor, approval thresholds, stop conditions), preview what the policy says BEFORE anything commits, watch halted autonomy recover through journaled human overrides, audit every decision in the append-only policy-application trail — and see exactly which owner override points are wired versus honestly unavailable.",
   owner: "W3-015",
   journeys: ["J13"],
   roles: ["merchant", "store-operator", "approver"],

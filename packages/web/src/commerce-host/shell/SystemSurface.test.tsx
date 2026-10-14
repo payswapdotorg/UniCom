@@ -12,7 +12,7 @@
  */
 import { afterEach, describe, expect, it } from "vitest";
 import { CommerceHostApp } from "./CommerceHostApp.js";
-import { renderUi, textOf } from "./test-utils.js";
+import { clickButton, renderUi, textOf } from "./test-utils.js";
 import type { RenderedUi } from "./test-utils.js";
 import { DEPLOYMENT_READINESS_FIXTURE, STANDING_GATES } from "./fixtures/deployment-readiness-fixture.js";
 
@@ -164,5 +164,48 @@ describe("W2-022 dist identity + hash chain rows — rendered from the fixture",
     expect(DEPLOYMENT_READINESS_FIXTURE.dist.digest).toBe("sha256:0508acfe8e87a989");
     expect(DEPLOYMENT_READINESS_FIXTURE.dist.fileCount).toBe(6204);
     expect(DEPLOYMENT_READINESS_FIXTURE.dist.provenance.source).toBe("ci-evidence");
+  });
+});
+
+describe("W2-029 Agent, autonomy & trust state section — truthful summary + deep links", () => {
+  it("renders the three surfaces with their honesty statements", async () => {
+    rendered = await navigateToSystem();
+    const section = rendered.container.querySelector('[data-testid="cm-agent-state"]');
+    expect(section).not.toBeNull();
+    const text = textOf(section as HTMLElement);
+    expect(text).toContain("Main Agent & Commerce Twin (J14)");
+    expect(text).toContain("Autonomous store controls (J13)");
+    expect(text).toContain("Trust & recourse (J17)");
+    expect(text).toContain("PREDICTIVE — never canonical");
+    expect(text).toContain("KERNEL-BACKED (demo kiosk)");
+    expect(text).toContain("states which owner controls are actually wired");
+    // The honesty laws are stated on the surface itself.
+    const all = textOf(rendered.container);
+    expect(all).toContain("plans and simulations are proposals that never change canonical commerce state");
+    expect(all).toContain("a trust signal is never transaction proof");
+    expect(all).toContain("No live agent runtime is connected in demo mode");
+    expect(all).toContain("UNKNOWN states are preserved");
+    expect(all).toContain("unwired owner controls marked unavailable, never simulated");
+  });
+
+  it("navigates to the Main Agent surface (J14) from the section", async () => {
+    rendered = await navigateToSystem();
+    clickButton(rendered.container, "Open the Main Agent surface");
+    await new Promise((r) => setTimeout(r, 300));
+    expect(window.location.pathname).toBe("/commerce/twin");
+  });
+
+  it("navigates to the autonomy surface (J13) from the section", async () => {
+    rendered = await navigateToSystem();
+    clickButton(rendered.container, "Open the autonomy surface");
+    await new Promise((r) => setTimeout(r, 300));
+    expect(window.location.pathname).toBe("/commerce/autonomous/store");
+  });
+
+  it("navigates to the trust surface (J17) from the section", async () => {
+    rendered = await navigateToSystem();
+    clickButton(rendered.container, "Open the trust surface");
+    await new Promise((r) => setTimeout(r, 300));
+    expect(window.location.pathname).toBe("/commerce/trust/recourse");
   });
 });

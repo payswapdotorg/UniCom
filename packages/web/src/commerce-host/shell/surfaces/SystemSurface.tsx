@@ -88,6 +88,76 @@ export function SystemSurface(): JSX.Element {
         </div>
       </section>
 
+      <section className="cm-card" aria-label="Agent, autonomy and trust state">
+        <div className="cm-row">
+          <h2 className="cm-card-title">Agent, autonomy &amp; trust state</h2>
+          <span className="cm-demo-tag">DEMO</span>
+        </div>
+        <p className="cm-card-sub">
+          The truth about this host&apos;s agent, autonomy and trust surfaces, in one place: one
+          Main Agent per task works toward your goal — its plans and simulations are proposals
+          that never change canonical commerce state; the autonomous store runs only inside its
+          registered policy (spend limits, margin floor, approval thresholds, stop conditions)
+          with unwired owner controls marked unavailable, never simulated; and trust is four
+          separate planes — UserTrust, AgentTrust, Capability/ProviderTrust and TransactionProof —
+          where a trust signal is never transaction proof. No live agent runtime is connected in
+          demo mode, and UNKNOWN states are preserved (never rendered as failure or success).
+        </p>
+        <div className="cm-stack" data-testid="cm-agent-state">
+          <div className="cm-journey-item">
+            <span className="cm-journey-name">Main Agent &amp; Commerce Twin (J14)</span>
+            <span className="cm-chip cm-chip-unknown">PREDICTIVE — never canonical</span>
+            <span className="cm-journey-summary">
+              Objective, evidence with truth classes and freshness, a proposed plan, simulation
+              before authorization, and the exact approvals consequential steps need — including
+              denied authority with its safe next option.
+            </span>
+            <button
+              type="button"
+              className="cm-button"
+              data-testid="cm-agent-state-twin"
+              onClick={() => dispatch({ type: "navigate", path: "/commerce/twin" })}
+            >
+              Open the Main Agent surface
+            </button>
+          </div>
+          <div className="cm-journey-item">
+            <span className="cm-journey-name">Autonomous store controls (J13)</span>
+            <span className="cm-chip cm-chip-ok">KERNEL-BACKED (demo kiosk)</span>
+            <span className="cm-journey-summary">
+              The policy in force with budget/margin boundaries, approval thresholds and stop
+              conditions from real journaled kernel state; the override-point availability list
+              states which owner controls are actually wired.
+            </span>
+            <button
+              type="button"
+              className="cm-button"
+              data-testid="cm-agent-state-autonomous"
+              onClick={() => dispatch({ type: "navigate", path: "/commerce/autonomous/store" })}
+            >
+              Open the autonomy surface
+            </button>
+          </div>
+          <div className="cm-journey-item">
+            <span className="cm-journey-name">Trust &amp; recourse (J17)</span>
+            <span className="cm-chip cm-chip-ok">KERNEL-BACKED + labelled fixtures</span>
+            <span className="cm-journey-summary">
+              The four-plane trust ledger with the signal → risk → policy outcome → evidence →
+              mitigation chain, the P0–P5 proof legend, and the security pipeline where BLOCK is
+              final and deterministic — no override exists, none is offered.
+            </span>
+            <button
+              type="button"
+              className="cm-button"
+              data-testid="cm-agent-state-trust"
+              onClick={() => dispatch({ type: "navigate", path: "/commerce/trust/recourse" })}
+            >
+              Open the trust surface
+            </button>
+          </div>
+        </div>
+      </section>
+
       <section className="cm-card" aria-label="Linked Drafts ledger">
         <h2 className="cm-card-title">Linked Drafts ledger <span className="cm-demo-tag">DEMO</span></h2>
         <p className="cm-card-sub">
