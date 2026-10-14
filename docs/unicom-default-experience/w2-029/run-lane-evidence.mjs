@@ -206,7 +206,6 @@ async function main() {
       ]);
     } else {
     const statusText = (await page.locator('[data-testid="cm-autonomy-status"]').textContent({ timeout: 15000 })) ?? "";
-    const overridesText = (await page.locator('[data-testid="cm-autonomy-overrides"]').textContent({ timeout: 15000 })) ?? "";
     const objectivesText = (await page.locator('[data-testid="cm-autonomy-objectives"]').textContent({ timeout: 15000 })) ?? "";
     const chips = await page.locator('[data-testid="cm-autonomy-overrides"] .cm-chip').allTextContents();
     const wiredCount = chips.filter((c) => c === "WIRED").length;
