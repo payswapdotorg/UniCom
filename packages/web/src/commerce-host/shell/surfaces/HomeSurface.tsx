@@ -133,12 +133,12 @@ export function HomeSurface(): JSX.Element {
         aria-label="All journey families and implementation status"
       >
         <summary style={{ cursor: "pointer", fontSize: 14, fontWeight: 600 }}>
-          All 19 journey families — implementation status (kept one click away, off the front
-          page)
+          All 19 journey families: {readyCount} of the 19 journey families are rendered right now.
         </summary>
         <p className="cm-card-sub" style={{ marginTop: 10 }}>
-          Every family is reachable from here and from Explore — no deep links required.{" "}
-          <strong>{readyCount}</strong> of the 19 journey families are rendered right now.
+          Kept one click away, off the front page. Every family is reachable from here and from
+          Explore — no deep links required; open this section for per-family implementation
+          status and the owning lane of anything still shipping.
         </p>
         <div className="cm-stack" style={{ marginTop: 8 }}>
           {coverage.map((entry) => {
