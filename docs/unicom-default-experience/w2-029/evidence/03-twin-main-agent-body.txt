@@ -1,0 +1,245 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module buyer-twin
+owner lane W2-012
+status ready
+J14 · Your Main Agent & Commerce Twin
+DEMO
+PREDICTIVE — never canonical
+
+One Main Agent works toward your goal — it observes, plans and simulates on a safe copy of your situation, and asks for your approval before anything consequential. The what-if numbers are forecasts: deterministic arithmetic over committed demo facts, labelled predictive on every panel. Forecasts from the advisory runtime (computeDemandForecast) are never auto-applied — and this surface has no path that writes commerce facts: no order, price change, listing or commitment can be created from here.
+
+Your Main Agent — working the goal
+DEMO
+fixtures w2-029-agent-views@1
+
+One Main Agent works toward your goal — planning, simulating and asking for approval — and nothing it shows here executes: every value is a proposal, a simulation or an observation, all from committed demo fixtures. When a step would commit you to anything, the exact approval it needs is named below.
+
+Goal: Keep the studio supplied: pay less than list for ink without breaking the print schedule, and stop paying for an idle plotter.
+
+In your words: Spend less on consumables while every job stays on schedule — echoed from your intent draft (demo fixture).
+
+The loop — where your agent is now
+Goal
+presentation only
+Your objective, in your words (above). The agent-plane goal object is an opaque reference in the frozen contracts — no structural goal type exists yet, so none is simulated here.
+Observe
+presentation only
+The evidence panel below: verified, stale and UNKNOWN observations kept visibly separate — operational, observed and historical truth never blended.
+Plan
+planning
+Three proposed steps (below) — a plan is a proposal, never a commitment.
+Simulate
+idle
+The what-if panels below run the counterfactuals through the deterministic advisory runtime — simulation only, nothing executes.
+Approve
+awaiting-approval
+One approval pending, one denied at the authority boundary (below) — consequential steps name the exact approval they need.
+Execute
+presentation only
+Not wired on this surface — the structural write-block below means no plan or simulation can execute from here. Execution belongs to the owning surfaces (J1/J4/J6/J7), each with its own confirmation gates.
+Verify
+presentation only
+Nothing to verify yet: verification applies to executed commands, and nothing has executed. Shown rather than hidden.
+Learn
+presentation only
+Presentation only: learning is an agent-plane Lab concept — candidates promote only with replay/evaluation evidence, and nothing on this surface learns.
+
+The loop vocabulary is presentation: the frozen contracts define the underlying node statuses (planning / awaiting-approval / idle / unknown), and phases without a wired runtime say so instead of simulating progress. Current step: Simulate — the counterfactual panels below.
+
+Evidence the agent is using
+w2j14-ev-intent
+OPERATIONAL
+verified
+checked 2026-10-12T08:55:00Z · 5 min ago
+P1
+
+Your intent draft on this host: shift ink purchasing toward the co-op pool when the price advantage is real (operational demo state).
+
+w2j14-ev-list-price
+OBSERVED
+verified
+checked 2026-10-12T08:52:00Z · 8 min ago
+P2
+
+Verified list price USD 49.00/set from the committed demo feed — the OPERATIONAL baseline the counterfactual runs against.
+
+w2j14-ev-pool-threshold
+OBSERVED
+stale
+checked 2026-10-11T14:30:00Z · 18 h ago
+P2
+
+Pool threshold price USD 41.00/set — applies only if the pool forms; the live formation state lives on the J4 surface. This observation is from yesterday (stale — a guide, not a promise).
+
+w2j14-ev-history
+HISTORICAL
+verified
+checked 2026-10-01T00:00:00Z · 11 d ago
+P1
+
+Six weeks of committed purchase history [3, 4, 2, 3, 5, 3] — the forecast basis (immutable demo fixture).
+
+w2j14-ev-alt-seller
+OBSERVED
+UNKNOWN
+source time unknown
+P0
+
+The alternative seller's stock level could not be confirmed — freshness UNKNOWN. UNKNOWN is never rendered as a price, and it is not a failure: the agent simply does not rely on it.
+
+Operational, observed, historical and predictive truth stay visibly separate; verified, stale and UNKNOWN freshness stay distinct — UNKNOWN is not failure, and a stale observation is labelled as a guide, not a promise.
+
+Proposed plan — nothing committed
+w2j14-step-pool
+PROPOSED — not committed
+Shift half of ink purchasing to the co-op pool (what-if panels below simulate exactly this).
+J4 · group-buy surface owns the real action
+w2j14-step-baseline
+PROPOSED — not committed
+Keep buying the remainder at the verified list price so the print schedule is never at risk.
+J1 · buyer-intent surface owns the real action
+w2j14-step-plotter
+PROPOSED — not committed
+Revisit selling the idle plotter and renting during busy seasons (rent-vs-own panel below).
+J6/J7 · rent and resale surfaces own the real actions
+
+A plan is a proposal. No step has executed and no step can execute from this surface — the owning surfaces (J1 / J4 / J6 / J7) hold the real actions, each behind its own terms and confirmation gates.
+
+Simulation — before any authorization
+Predicted outcome
+PREDICTIVE — simulation only
+
+Shifting half your ink purchasing to the pool projects 48.00 USD lower spend per 4 weeks (a full shift: 96.00 USD) — assumes the pool forms at its threshold price, which it may not.
+
+Confidence: Medium — deterministic arithmetic over committed fixtures; the pool forming is the assumption that can fail (the threshold observation is stale). Horizon: Next 4 weeks.
+
+Predicted outcome
+PREDICTIVE — simulation only
+
+Selling the idle plotter nets USD 741.00 today; renting stays under that net only at 7 weeks of use per year or fewer — at your projected 12 weeks, holding costs less.
+
+Confidence: Medium — the break-even is exact fixture math; the weeks-of-use figure is your projection, not a fact. Horizon: Next 12 months.
+
+These predictions are computed by the same deterministic advisory runtime as the counterfactual panels below — simulation only, nothing executed. The exact approval any consequential version of these steps needs is listed next.
+
+Approvals — the authority boundary
+w2j14-appr-pool
+AUTHORIZATION PENDING
+
+What needs approval: Joining the group-buy pool (would commit you to pool terms on formation).
+
+Who approves: You (the buyer) — the agent never commits on your behalf
+
+Why this state: Consequential action: pool participation is a commitment. The Main Agent holds no authority to commit you; approval is required before anything executes.
+
+Safe next option: Open the J4 group-buy surface from Explore, review the live threshold state and terms, and confirm there — nothing commits from this screen.
+
+w2j14-appr-autopurchase
+AUTHORIZATION DENIED
+
+What needs approval: Purchasing ink autonomously on your behalf (agent-initiated spend).
+
+Who approves: You (the buyer) — and the platform authority layer
+
+Why this state: Denied at the authority boundary: the Main Agent holds no purchasing authority here, and the web plane exposes no command path that spends. A denial is not a failure — it is the boundary working exactly as the frozen contracts require.
+
+Safe next option: Act yourself from the J1 intent surface or the J4 pool surface, each with its own terms and confirmation gates — or grant nothing and keep the agent read-only.
+
+The agent asks; you decide. A denied authority is shown as denied — never retried silently, never worked around — and each state names the safe next option.
+
+Execution progress (work graph)
+Studio supply goal (demo)
+idle
+goal
+Recorded from your intent draft; the agent-plane goal is an opaque ref — no runtime goal engine is wired.
+Three-step supply plan
+planning
+task
+Assembled and shown as proposals — nothing committed.
+Ink-shift + rent-vs-own counterfactuals
+idle
+simulation
+Runs deterministically on demand below; no runtime dispatch, no side effects.
+Pool participation approval
+awaiting-approval
+approval
+Pending with you; autonomous purchase is DENIED at the boundary (by design).
+
+Node statuses use the frozen contract vocabulary. No node claims runtime execution or verification — because nothing has executed.
+
+What-if · shift ink purchasing to the co-op pool
+DEMO
+PREDICTIVE — never canonical
+Purchasing shift
+Keep buying at list (0%)
+Shift a quarter to the pool (25%)
+Shift half to the pool (50%)
+Shift three quarters (75%)
+Shift everything to the pool (100%)
+Demand scenario
+Steady demand (×1.0)
+Busy season (×1.25)
+Quiet season (×0.75)
+Brand-new SKU (no history)
+Counterfactual result
+PREDICTIVE — never canonical
+
+Forecast basis: SIMPLE_MOVING_AVERAGE (4-week window) over your committed demo history, scaled by the demand scenario — computed by the commerce runtime's advisory forecasting (pure function).
+
+Projected demand: 3 sets/week (12 per 4 weeks)
+
+Blended price per set in the what-if: 45.00 USD
+
+Current-plan spend (4 weeks): 588.00 USD — OPERATIONAL fact: the verified list price times the same projected units
+
+What-if spend (4 weeks): 540.00 USD — PREDICTIVE: assumes the pool forms at its threshold price, which it may not
+
+Projected difference: 48.00 USD per 4 weeks — a forecast, not savings booked
+
+Canonical facts this counterfactual ran against
+OPERATIONAL
+
+Verified list price: 49.00 USD per set (committed demo fixture, verified feed)
+
+Pool threshold price: 41.00 USD per set (applies only if the pool forms — J4 surface shows the live threshold state)
+
+Your purchase history: weekly units [3, 4, 2, 3, 5, 3] (committed demo fixture)
+
+What-if · sell the plotter, rent one when needed
+DEMO
+PREDICTIVE — never canonical
+
+Counterfactual: you sell the idle plotter at the evidence-backed ask and rent at the verified weekly rate when work demands it. All numbers below are projections over committed demo fixtures — nothing is listed, sold or rented by viewing them.
+
+Projected weeks of use per year
+4 weeks
+12 weeks
+26 weeks
+
+Rent spend at the projection: 1140.00 USD for 12 weeks at the verified rate (plus 480.00 USD deposit held during each rental)
+
+Buy price you would avoid: 2400.00 USD
+
+Resale net if you sold today: 741.00 USD — evidence-backed estimate from the J7 surface (listing there takes your explicit action)
+
+These projections do not decide for you: the J6 (rent) and J7 (resale) surfaces own the real actions, each with its own terms and confirmation gates.
+
+Write-block — this Twin cannot change real records
+STRUCTURAL
+
+Why nothing can be applied from here: Predictions never mutate canonical truth (architecture invariant). The forecasting runtime is advisory-only; the Commerce Twin is a read-side projection over committed demo facts. This surface exposes no order, price, listing, rental or commitment command — there is nothing to click that would write commerce facts.
+
+What acting on a projection looks like: You take the idea to the owning surface — J4 for the pool, J6 for renting, J7 for resale — where every action shows terms, consequence and evidence and requires your explicit confirmation.
+
+Audit: The Twin's outputs are recomputed deterministically from committed fixtures on every render — no hidden state, no side effects, nothing to roll back.
+
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)

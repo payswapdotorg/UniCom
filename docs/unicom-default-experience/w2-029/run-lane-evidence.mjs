@@ -65,6 +65,16 @@ async function waitForUrl(url, timeoutMs) {
   return false;
 }
 
+/** Deep-link + wait for a post-render marker, one retry (vite reloads on first-boot optimizer runs). */
+async function gotoAndWait(page, url, marker, timeout = 45000) {
+  for (let attempt = 0; attempt < 2; attempt++) {
+    await page.goto(url, { waitUntil: "domcontentloaded", timeout: 90000 });
+    await waitPainted(page, 60000);
+    if (await waitBodyText(page, marker, timeout)) return true;
+  }
+  return false;
+}
+
 async function main() {
   const port = await pickFreePort([5241, 5243, 5245, 5247, 5249]);
   if (!port) throw new Error("no free port");
@@ -85,9 +95,12 @@ async function main() {
   page.on("pageerror", (e) => consoleLines.push(`[pageerror] ${e.message}`));
 
   try {
-    // 01 — roles held (merchant)
+    // 01 — roles held (merchant) — this page load ALSO serves as the warm-up
+    // cold boot (vite's dependency optimizer full-reloads on first boot; the
+    // settle below lets it finish BEFORE any numbered assertion runs).
     await page.goto(`${baseUrl}/commerce`, { waitUntil: "domcontentloaded", timeout: 90000 });
     await waitPainted(page, 60000);
+    await page.waitForTimeout(8000);
     await page.getByRole("link", { name: "Roles" }).click({ timeout: 20000 });
     await page.locator("h1", { hasText: "Roles & permissions" }).waitFor({ timeout: 45000 });
     const merchantCard = page.locator('[data-testid="cm-role-merchant"]');
@@ -100,10 +113,14 @@ async function main() {
     note("01-roles-held", "PASS", "merchant role held + emphasized");
 
     // 02 — the System surface agent/autonomy/trust state + the deep link
-    await page.goto(`${baseUrl}/commerce/system`, { waitUntil: "domcontentloaded", timeout: 90000 });
-    await waitPainted(page, 60000);
-    await waitBodyText(page, "Agent, autonomy & trust state", 45000);
-    const systemText = (await page.locator('[data-testid="cm-agent-state"]').textContent()) ?? "";
+    const systemReady = await gotoAndWait(page, `${baseUrl}/commerce/system`, "Agent, autonomy & trust state");
+    if (!systemReady) {
+      await snapStep(page, cap, OUT, "02-system-agent-state", "the System surface did not render the agent-state section");
+      note("02-system-agent-state", "FAIL", "the System surface did not render the agent/autonomy/trust state section", [
+        { label: "section marker never appeared", ok: false },
+      ]);
+    } else {
+    const systemText = (await page.locator('[data-testid="cm-agent-state"]').textContent({ timeout: 15000 })) ?? "";
     const systemOk = systemText.includes("Main Agent & Commerce Twin (J14)")
       && systemText.includes("Autonomous store controls (J13)")
       && systemText.includes("Trust & recourse (J17)");
@@ -121,15 +138,29 @@ async function main() {
     const navigated = await waitBodyText(page, "Your Main Agent — working the goal", 45000).catch(() => false);
     note("02b-system-deeplink", navigated ? "PASS" : "FAIL",
       "the System-surface deep link opened the Main Agent surface (J14)");
+    }
 
-    // 03 — the Main Agent decision/simulation path (J14)
-    await page.goto(`${baseUrl}/commerce/twin`, { waitUntil: "domcontentloaded", timeout: 90000 });
-    await waitBodyText(page, "Your Main Agent — working the goal", 45000);
-    const loopText = (await page.locator('[data-testid="cm-agent-loop"]').textContent()) ?? "";
-    const evidenceText = (await page.locator('[data-testid="cm-agent-evidence"]').textContent()) ?? "";
-    const planText = (await page.locator('[data-testid="cm-agent-plan"]').textContent()) ?? "";
-    const simText = (await page.locator('[data-testid="cm-agent-simulation"]').textContent()) ?? "";
-    const approvalsText = (await page.locator('[data-testid="cm-agent-approvals"]').textContent()) ?? "";
+    // 03 — the Main Agent decision/simulation path (J14). 02b navigated here
+    // through the app's own link (SPA — no fresh page load: each full reload
+    // re-requests the ~300-module dev graph, and this sandbox's chromium
+    // exhausts its socket pool after ~5 loads). Fall back to a deep link only
+    // if the deep-link click failed.
+    const twinReady = (await waitBodyText(page, "Your Main Agent — working the goal", 15000).catch(() => false))
+      || (await gotoAndWait(page, `${baseUrl}/commerce/twin`, "Your Main Agent — working the goal"));
+    if (!twinReady) {
+      await snapStep(page, cap, OUT, "03-twin-main-agent", "the Main Agent surface did not render");
+      note("03-twin-main-agent", "FAIL", "the Main Agent surface did not render", [
+        { label: "surface marker never appeared", ok: false },
+      ]);
+      note("03b-twin-what-if-recompute", "FAIL", "skipped — the Main Agent surface did not render", [
+        { label: "skipped", ok: false },
+      ]);
+    } else {
+    const loopText = (await page.locator('[data-testid="cm-agent-loop"]').textContent({ timeout: 15000 })) ?? "";
+    const evidenceText = (await page.locator('[data-testid="cm-agent-evidence"]').textContent({ timeout: 15000 })) ?? "";
+    const planText = (await page.locator('[data-testid="cm-agent-plan"]').textContent({ timeout: 15000 })) ?? "";
+    const simText = (await page.locator('[data-testid="cm-agent-simulation"]').textContent({ timeout: 15000 })) ?? "";
+    const approvalsText = (await page.locator('[data-testid="cm-agent-approvals"]').textContent({ timeout: 15000 })) ?? "";
     const loopOk = ["Goal", "Observe", "Plan", "Simulate", "Approve", "Execute", "Verify", "Learn"]
       .every((label) => loopText.includes(label))
       && loopText.includes("Current step: Simulate")
@@ -158,14 +189,25 @@ async function main() {
       "the counterfactual recomputed deterministically on input change (simulation only)", [
         { label: "busy-season projection rendered (64.00 USD/4w delta)", ok: !!recomputeOk },
       ]);
+    }
 
-    // 04 — the J13 denied/approval-boundary path (halted autonomy)
-    await page.goto(`${baseUrl}/commerce/autonomous/store`, { waitUntil: "domcontentloaded", timeout: 90000 });
-    await waitBodyText(page, "J13 · Autonomous store controls", 45000);
-    await waitBodyText(page, "Autonomy status & control availability", 45000);
-    const statusText = (await page.locator('[data-testid="cm-autonomy-status"]').textContent()) ?? "";
-    const overridesText = (await page.locator('[data-testid="cm-autonomy-overrides"]').textContent()) ?? "";
-    const objectivesText = (await page.locator('[data-testid="cm-autonomy-objectives"]').textContent()) ?? "";
+    // 04 — the J13 denied/approval-boundary path (halted autonomy). A short
+    // settle first lets the previous page's keep-alive sockets drain before
+    // the full page load re-requests the dev-graph.
+    await page.waitForTimeout(2000);
+    const autonomousReady = await gotoAndWait(page, `${baseUrl}/commerce/autonomous/store`, "Autonomy status & control availability");
+    if (!autonomousReady) {
+      await snapStep(page, cap, OUT, "04a-autonomous-status", "the autonomy surface did not render");
+      note("04a-autonomous-status", "FAIL", "the autonomy surface did not render", [
+        { label: "surface marker never appeared", ok: false },
+      ]);
+      note("04b-autonomous-denied", "FAIL", "skipped — the autonomy surface did not render", [
+        { label: "skipped", ok: false },
+      ]);
+    } else {
+    const statusText = (await page.locator('[data-testid="cm-autonomy-status"]').textContent({ timeout: 15000 })) ?? "";
+    const overridesText = (await page.locator('[data-testid="cm-autonomy-overrides"]').textContent({ timeout: 15000 })) ?? "";
+    const objectivesText = (await page.locator('[data-testid="cm-autonomy-objectives"]').textContent({ timeout: 15000 })) ?? "";
     const chips = await page.locator('[data-testid="cm-autonomy-overrides"] .cm-chip').allTextContents();
     const wiredCount = chips.filter((c) => c === "WIRED").length;
     const notWiredCount = chips.filter((c) => c === "NOT WIRED").length;
@@ -183,7 +225,7 @@ async function main() {
       "Try an autonomous price adjustment (in-band) while halted",
       "Attempt the adjustment", 25000);
     const deniedOk = await waitBodyText(page, "Command refused: POLICY_DENIED", 25000).catch(() => false);
-    const refusalText = (await page.locator("body").textContent()) ?? "";
+    const refusalText = (await page.locator("body").textContent({ timeout: 15000 })) ?? "";
     const reasonOk = refusalText.includes("STOP_CONDITION_TRIGGERED");
     const safeNextOk = refusalText.includes("Review the policy bounds on this surface");
     await snapStep(page, cap, OUT, "04b-autonomous-denied", "the denied boundary: POLICY_DENIED + reason + safe next option");
@@ -193,15 +235,23 @@ async function main() {
         { label: "reason rendered (STOP_CONDITION_TRIGGERED)", ok: reasonOk },
         { label: "safe next option rendered (review the policy bounds on this surface)", ok: safeNextOk },
       ]);
+    }
 
-    // 05 — the J17 trust/proof explanation
-    await page.goto(`${baseUrl}/commerce/trust/recourse`, { waitUntil: "domcontentloaded", timeout: 90000 });
-    await waitBodyText(page, "Trust ledger — four separate planes, never one score", 45000);
+    // 05 — the J17 trust/proof explanation (same socket-drain settle).
+    await page.waitForTimeout(2000);
+    const trustReady = await gotoAndWait(page, `${baseUrl}/commerce/trust/recourse`, "Trust ledger — four separate planes, never one score");
+    if (!trustReady) {
+      await snapStep(page, cap, OUT, "05-trust-proof", "the trust surface did not render");
+      note("05-trust-proof", "FAIL", "the trust surface did not render", [
+        { label: "surface marker never appeared", ok: false },
+      ]);
+    } else {
     const planes = await page.locator('[data-testid="cm-trust-plane"]').allTextContents();
     const planesText = planes.join("\n");
-    const legendText = (await page.locator('[data-testid="cm-proof-legend"]').textContent()) ?? "";
-    const incidentText = (await page.locator('[data-testid="cm-security-block"]').textContent()) ?? "";
-    const pipelineText = (await page.locator('[data-testid="cm-security-pipeline"]').textContent()) ?? "";
+    const fullBodyText = (await page.locator("body").textContent({ timeout: 15000 })) ?? "";
+    const legendText = (await page.locator('[data-testid="cm-proof-legend"]').textContent({ timeout: 15000 })) ?? "";
+    const incidentText = (await page.locator('[data-testid="cm-security-block"]').textContent({ timeout: 15000 })) ?? "";
+    const pipelineText = (await page.locator('[data-testid="cm-security-pipeline"]').textContent({ timeout: 15000 })) ?? "";
     const fourPlanesOk = planes.length === 4
       && planesText.includes("USER_TRUST") && planesText.includes("AGENT_TRUST")
       && planesText.includes("CAPABILITY_TRUST") && planesText.includes("TRANSACTION_PROOF");
@@ -211,7 +261,7 @@ async function main() {
       .every((level) => legendText.includes(level)) && legendText.includes("What proof is NOT: any trust signal");
     const blockOk = incidentText.includes("BLOCKED") && pipelineText.includes("BLOCK — final")
       && pipelineText.includes("BLOCK_IS_FINAL_DETERMINISTIC") && pipelineText.includes("no override affordance");
-    const neverProofOk = planesText.includes("a trust signal is never transaction proof");
+    const neverProofOk = fullBodyText.toLowerCase().includes("a trust signal is never transaction proof");
     await snapStep(page, cap, OUT, "05-trust-proof", "the four trust planes, the proof legend and the security pipeline (BLOCK final)");
     note("05-trust-proof", fourPlanesOk && chainOk && legendOk && blockOk && neverProofOk ? "PASS" : "FAIL",
       "the trust/proof explanation rendered", [
@@ -221,6 +271,7 @@ async function main() {
         { label: "security BLOCK final + deterministic (no override affordance)", ok: blockOk },
         { label: "the trust-signal-is-never-proof law stated", ok: neverProofOk },
       ]);
+    }
 
     // 06 — console zero-error proof
     writeFileSync(path.join(OUT, "lane-console.txt"), consoleLines.join("\n") + "\n");

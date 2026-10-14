@@ -1,0 +1,270 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+module trust-recourse
+owner lane W3-015
+status ready
+J17 · Trust & recourse
+DEMO
+
+The trust back-office (demo). Disputes, evidence, journaled decisions, provider escalations and controlled refunds are REAL deterministic kernel state; the threat-signal queue is committed evidence fixtures w3-015-trust-fixtures@1. The trust ledger below keeps UserTrust, AgentTrust, Capability/ProviderTrust and TransactionProof as four separate planes — never one score, and a trust signal is never transaction proof. Decisions never move money by themselves — refunds execute separately, each bounded by what was actually captured, and provider-native statuses are preserved verbatim.
+
+Reset demo data
+fixtures are synthetic — resettable, no credentials, no live provider or payment rail
+Threat signals (evidence queue)
+WRONG_ITEM
+CORROBORATED
+DEMO
+
+order with two enamel pin sets — Buyer photos show candle wicks in one pin slot; the carrier weight record (48g vs 96g expected) independently corroborates. One unit wrong, one correct.
+
+Dispute opened — work the case below.
+
+COUNTERFEIT
+SINGLE_SOURCE
+DEMO
+
+sterling silver pendant listing — Hallmark close-up does not match the maker's registered punch; two other marketplace listings reuse the same photos. One source only — hallmark registry pending.
+
+Dispute opened — the corroboration bar decides the outcome.
+
+REVIEW_MANIPULATION
+CORROBORATED
+DEMO
+
+pour-over mug listing reviews — 17 five-star reviews within 40 minutes from accounts created the same day; 14 share a device fingerprint. No verified purchases among them.
+
+Listing under review — reviews withheld from the storefront average.
+
+RETURN_ABUSE
+SINGLE_SOURCE
+DEMO
+
+customer 114 return history — 9 returns in 30 days (account rate 61% against a 10% baseline); 3 returned boxes arrived empty. Single-source report from the returns dock.
+
+Watch-listed — future returns require inspection before refund.
+
+Signals are evidence DATA, never instructions: they open cases for humans to decide. UNVERIFIABLE would be shown as exactly that — an unprovable claim is not a denial.
+
+Trust ledger — four separate planes, never one score
+
+UserTrust (who the counterparty is), AgentTrust (how reliable the agent worker is), Capability/ProviderTrust (how reliable a capability or provider implementation is) and TransactionProof (what actually proves a transaction) are four DIFFERENT planes. They are never compressed into a single score — the trust view contract has no score field — and a trust signal is never transaction proof. All values are committed demo fixtures w2-029-trust-planes@1 in the frozen field vocabulary.
+
+UserTrust — the buyer as a counterparty
+USER_TRUST
+DEMO
+
+Who the buyer is and how they have transacted: verification level, verified-purchase count, dispute rate. A DEMO fixture in the frozen field vocabulary — the canonical UserTrust records live in the agent plane, which this surface never imports.
+
+Signal: Identity verification STRONG · 34 verified purchases · dispute rate 290 bps (2.9%) · assessed 2026-10-12, valid 30 days (demo clock).
+
+Risk: A rising dispute rate or weak verification raises counterparty risk for manual trust decisions (concessions, holds, watch-lists).
+
+Policy outcome: Feeds human trust decisions only — it never gates a payment automatically, never settles anything, and is never proof of a transaction.
+
+Evidence: 34 receipted purchases (P1-class receipts) · account history since 2023-04 (P1).
+
+Mitigation / next step: If the dispute rate crosses the operator threshold, support reviews before any manual concession — a human decision, journaled like every decision on this surface.
+
+AgentTrust — the Main Agent as a worker
+AGENT_TRUST
+DEMO
+
+How reliable the agent is at what it does: task success rate and policy compliance. Agent trust is about the worker, never about money — it is not transaction finality and never will be.
+
+Signal: Task success rate 0.94 (demo) · policy compliance CLEAN · assessed 2026-10-12 (demo clock) · evaluation lineage is an opaque ref in the frozen contract.
+
+Risk: A non-compliant or low-success agent is a reliability risk for the work it prepares — not a payment risk.
+
+Policy outcome: Gates what the agent may prepare (plans, comparisons, simulations). It never authorizes spending, never moves money, and never substitutes for an approval.
+
+Evidence: Lab evaluation lineage (opaque evaluationEvidenceRefs in the frozen agent contract — not importable from the web plane; values labelled demo).
+
+Mitigation / next step: On MINOR_VIOLATIONS the agent is demoted to supervised proposals; on SUSPENDED it stops acting entirely. Compliance is re-assessed on a fixed schedule.
+
+Capability/ProviderTrust — the capability as an observer and executor
+CAPABILITY_TRUST
+DEMO
+
+How reliable a capability/provider implementation is: observation reliability and execution success. The frozen taxonomy has no separate ProviderTrust kind — provider standing lives here, on the capability, and today nothing is connected.
+
+Signal: Observation reliability 9800 bps over the last 200 observations (demo) · execution success rate: not connected — no ConnectedCapabilityInstance exists (connected integrations: none).
+
+Risk: A degraded observer yields UNKNOWN observations (held as UNKNOWN, never rendered as failure or success); an unconnected capability cannot execute anything at all.
+
+Policy outcome: Catalogue presence never implies executable authority — the connectors surface (J15) states honestly that nothing is connected, so no execution path is simulated here.
+
+Evidence: 200 demo observations in the independent-observation pattern (P3-class).
+
+Mitigation / next step: Connect a provider implementation on the connectors surface (J15); until then every execution path renders honestly unavailable rather than pretending.
+
+TransactionProof — what actually proves a transaction
+TRANSACTION_PROOF
+DEMO
+
+Proof is evidence-backed verification at a pinned level (P0–P5), selected BEFORE consequential execution. It is a distinct plane, constructible only from evidence — no trust signal can create, upgrade or stand in for it. A trust signal is never transaction proof.
+
+Signal: On this surface: the kernel's journaled command receipts (EXECUTED with idempotency keys) are the P1-class facts; settlement observations carry provider-native statuses verbatim (P2-class when the rail signs).
+
+Risk: Treating a trust signal (or an UNKNOWN settlement) as proof would invent money that was never verified — the exact failure the four-plane separation exists to prevent.
+
+Policy outcome: Money-in derives ONLY from OBSERVED SETTLED; refunds are bounded by captured totals; UNKNOWN settlements stay UNKNOWN until observed or the window closes.
+
+Evidence: The receipts, dispute records, chargebacks and settlement records on this surface — each journaled, each replayable in the audit trail below.
+
+Mitigation / next step: When a fact matters, demand its level: check the receipt (P1), the provider-signed state (P2) or an independent observation (P3) — never a trust score, because none exists.
+
+Proof legend — the only levels that exist
+P0–P5
+
+P0 — assertion: Stated without independent backing
+
+P1 — receipt: Authenticated artifact or receipt
+
+P2 — provider-signed: Provider-signed evidence
+
+P3 — independent: Independent observation
+
+P4 — protected: Corroboration plus economic protection
+
+P5 — final: Native rail/ledger finality
+
+Proof levels are selected BEFORE consequential execution and pinned to it. What proof is NOT: any trust signal. No UserTrust, AgentTrust or CapabilityTrust value can construct, upgrade or stand in for a TransactionProof — the planes stay separate on every surface.
+
+Security — the immune system, one blocked case end-to-end
+incident w2j17-incident-reviews-88
+BLOCKED
+severity high
+DEMO
+
+Signal: 17 five-star reviews within 40 minutes on the pour-over mug listing (queue row signal-reviews-88).
+
+Reason: Review ring: same-day accounts, 14 of 17 sharing a device fingerprint, zero verified purchases.
+
+Effect: The manipulated reviews would have inflated the listing's average — withheld before that happened.
+
+Mitigation: The 17 reviews are withheld from the storefront average and the listing stays under review.
+
+Next action: A human reviews the listing; the defensive broadcast below tells other merchants what to watch for.
+
+Defensive broadcast: prepared — the broadcast carries indicators and mitigations only, never weaponized payloads.
+
+signal
+stage
+Review timestamps + device fingerprints + absence of verified purchases — the evidence queue row above is this stage, verbatim.
+classification
+stage
+Threat class REVIEW_RING. The signature carries defensive indicators and mitigations only — never weaponized payloads (invariant law).
+policy-decision
+BLOCK — final
+BLOCK — final and deterministic. No model preference, no configuration and no human request can lift it: the override API answers granted: false with BLOCK_IS_FINAL_DETERMINISTIC. There is no override affordance on this surface, and none may exist.
+mitigation
+stage
+Reviews withheld from the average; listing held under review. Containment happened before exposure.
+evidence
+stage
+CORROBORATED — three independent sources (timestamps, fingerprints, purchase records). The evidence stays attached to the incident for audit.
+defensive-broadcast
+stage
+Prepared: the broadcast to other merchants carries indicators and mitigations only — defensive content, never the exploit mechanics.
+learning
+stage
+A Lab candidate: promotion to a detection rule requires replay/evaluation evidence — CONFIRMED_THREAT status is earned, never automatic.
+
+The queue above is the signal stage; this is the whole pipeline for one case. BLOCK is final and deterministic — the override request answers granted: false with BLOCK_IS_FINAL_DETERMINISTIC — so this surface offers no override affordance, and none may exist. Learning is a Lab promotion: candidates graduate to detection rules only with replay/evaluation evidence.
+
+Case 1 · wrong item — dispute, return, controlled refund
+dispute disp-4
+OPEN
+MERCHANT_PROCESSING
+USD 48.00 · provider says PROVIDER_DISPUTE_OPEN (verbatim)
+
+Evidence in record: none yet — the buyer's photos and the carrier weight record are held by support.
+
+Blocked: requires trust.review-disputes — held by trust. Take one of those roles on the Roles surface (role switching never changes your identity) and the action unlocks.
+
+return ret-5
+AUTHORIZED
+resolution REFUND · sku-trust-pins ×1 (WRONG_ITEM)
+
+One pin set comes back (the wrong one). The return authorizes the goods flow; the money executes only through the refund path.
+
+Blocked: requires support.handle-recourse — held by support. Take one of those roles on the Roles surface (role switching never changes your identity) and the action unlocks.
+
+Controlled refunds (bounded by captured funds)
+captured USD 48.00 · refunded USD 0.00
+
+Blocked: requires finance.approve-refund — held by finance. Take one of those roles on the Roles surface (role switching never changes your identity) and the action unlocks.
+
+Case 2 · counterfeit claim — decision, appeal, no double refund
+dispute disp-9
+OPEN
+ESCALATED_TO_PROVIDER
+USD 99.00 · provider says PROVIDER_DISPUTE_UNDER_REVIEW (verbatim)
+
+The hallmark check is single-source — below the corroboration bar. The provider ALREADY forced a full USD 99.00 chargeback refund (see chargebacks below); the merchant still records the dispute decision.
+
+Blocked: requires trust.review-disputes — held by trust. Take one of those roles on the Roles surface (role switching never changes your identity) and the action unlocks.
+
+Appeal/escalation ladder: merchant decision → buyer appeal → provider arbitration → chargeback forcing. Every rung is a journaled fact; the money can never refund twice.
+
+Settlement observations — UNKNOWN stays UNKNOWN
+pay-demo-1
+PENDING
+payment CAPTURED · captured USD 48.00 · refunded USD 0.00
+pay-demo-3
+UNKNOWN
+payment CAPTURED · captured USD 32.00 · refunded USD 0.00 · provider says SETTLEMENT_PENDING (verbatim)
+pay-demo-2
+PENDING
+payment REFUNDED · captured USD 99.00 · refunded USD 99.00
+
+Blocked: requires finance.view-settlements — held by finance, trust. Take one of those roles on the Roles surface (role switching never changes your identity) and the action unlocks.
+
+The case-3 payment (mug order) is seeded with an UNKNOWN settlement observation — an ambiguous rail answer, preserved verbatim until a later observation or the window close resolves it.
+
+Records — disputes, chargebacks, refunds, returns
+disp-4
+OPEN
+WRONG_ITEM · USD 48.00 · payment pay-demo-1 · order order-2 · provider PROVIDER_DISPUTE_OPEN
+disp-9
+OPEN
+COUNTERFEIT_CLAIM · USD 99.00 · payment pay-demo-2 · order order-7 · provider PROVIDER_DISPUTE_UNDER_REVIEW
+cb-10
+FORCED_REFUND
+claimed USD 99.00 · forced USD 99.00 · payment pay-demo-2 · provider PROVIDER_ARBITRATION_WON
+refund-11
+COMPLETED
+CHARGEBACK_FORCED_REFUND
+USD 99.00 · payment pay-demo-2 · chargeback PROVIDER_ARBITRATION_WON
+ret-5
+AUTHORIZED
+order order-2 · resolution REFUND · sku-trust-pins ×1 (WRONG_ITEM)
+Journal (append-only, deterministic)
+ORDER_PAYMENT_STATUS_CHANGED · order-13 · 2026-10-05T09:42:00.000Z
+SETTLEMENT_OBSERVED · pay-demo-3 · 2026-10-05T09:42:00.000Z
+ORDER_STATE_CHANGED · order-13 · 2026-10-05T09:40:00.000Z
+ORDER_PAYMENT_STATUS_CHANGED · order-13 · 2026-10-05T09:40:00.000Z
+PAYMENT_CAPTURE_RECORDED · pay-demo-3 · 2026-10-05T09:40:00.000Z
+PAYMENT_INTENT_RECORDED · pay-demo-3 · 2026-10-05T09:40:00.000Z
+CHECKOUT_STATE_CHANGED · cs-12 · 2026-10-05T09:38:00.000Z
+ORDER_PAYMENT_STATUS_CHANGED · order-13 · 2026-10-05T09:38:00.000Z
+PAYMENT_INTENT_RECORDED · pay-demo-3 · 2026-10-05T09:38:00.000Z
+ORDER_PLACED · order-13 · 2026-10-05T09:38:00.000Z
+CHECKOUT_STATE_CHANGED · cs-12 · 2026-10-05T09:38:00.000Z
+CHECKOUT_OPENED · cs-12 · 2026-10-05T09:36:00.000Z
+CART_LINE_ADDED · cart-trust-d3 · 2026-10-05T09:34:00.000Z
+ORDER_PAYMENT_STATUS_CHANGED · order-7 · 2026-10-05T09:32:00.000Z
+CHARGEBACK_RECORDED · cb-10 · 2026-10-05T09:32:00.000Z
+REFUND_RECORDED · pay-demo-2 · 2026-10-05T09:32:00.000Z
+PAYMENT_INTENT_RECORDED · pay-demo-2 · 2026-10-05T09:32:00.000Z
+DISPUTE_OPENED · disp-9 · 2026-10-05T09:30:00.000Z
+ORDER_STATE_CHANGED · order-7 · 2026-10-05T09:28:00.000Z
+ORDER_PAYMENT_STATUS_CHANGED · order-7 · 2026-10-05T09:28:00.000Z
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)
