@@ -4,7 +4,7 @@
   "program": "UNiCOM Default Application Experience — Web + Ubuntu Desktop",
   "phase_issue": "https://github.com/payswapdotorg/UniCom/issues/22",
   "tl_handoff": "docs/FINAL-TL-HANDOFF-UNICOM-DEFAULT-EXPERIENCE-2026-10-14.md",
-  "status": "READY_FOR_TL_DISPATCH",
+  "status": "IN_PROGRESS",
   "progress_authority": "docs/development-state/unicom-default-experience-state.json",
   "prior_phase_records_immutable": true,
   "operator_authorization": {
@@ -64,44 +64,63 @@
       "path": "docs/work-orders/W1-026.md",
       "owner": "worker-1",
       "lane": "product-home-buyer-intent-and-merchant-storefront",
-      "status": "READY_FOR_TL_DISPATCH",
-      "dependencies": ["existing frozen commerce and experience contracts"],
+      "status": "DELIVERED_MERGED",
+      "dependencies": [
+        "existing frozen commerce and experience contracts"
+      ],
       "write_surface": [
         "packages/web/src/commerce-host/shell/surfaces/HomeSurface.tsx",
         "packages/web/src/commerce-modules/buyer-intent/**",
         "packages/web/src/commerce-modules/buyer-compare/**",
         "packages/web/src/commerce-modules/merchant-storefront/**"
       ],
-      "branch": null,
-      "session": null,
-      "base_sha": null,
-      "evidence": null
+      "branch": "work/w1-026",
+      "session": "https://chat.z.ai/c/b328e018-104d-4427-8fce-4fac6c047808",
+      "base_sha": "82d2d68ec465c19bd177a7567ba5b676843b5ece",
+      "evidence": {
+        "dispatched_at": "2026-10-14T16:31:26Z",
+        "delivered_branch_tip": "5d9193e5cd631ab860801a6bb1b121afe8137334",
+        "merged_as": "a3e135d (--no-ff, TL battery in the message)",
+        "tl_acceptance": "2026-10-14 ~19:2xZ — every gate independently re-run and matched exactly: web battery 413/413 (37 files; was 392/392 at base), scoped tsc exit 0 clean, lint 103w/0e identical baseline, architecture 0/0/0, browser evidence 8/8 steps PASS with all pointers resolving (buyer Intent Canvas first journey, merchant Command Center first journey, role switching with identity/authority unchanged, explicit UNKNOWN/DEMO states); write-surface audit zero files outside",
+        "completion_report": "docs/work-orders/reports/W1-026-completion-report.md"
+      }
     },
     {
       "id": "W2-029",
       "path": "docs/work-orders/W2-029.md",
       "owner": "worker-2",
       "lane": "main-agent-autonomy-decision-trust-and-recourse-ux",
-      "status": "READY_FOR_TL_DISPATCH",
-      "dependencies": ["existing frozen agent/commerce/experience contracts"],
+      "status": "DELIVERED_MERGED",
+      "dependencies": [
+        "existing frozen agent/commerce/experience contracts"
+      ],
       "write_surface": [
         "packages/web/src/commerce-modules/buyer-twin/**",
         "packages/web/src/commerce-modules/merchant-autonomous/**",
         "packages/web/src/commerce-modules/trust-recourse/**",
         "packages/web/src/commerce-host/shell/surfaces/SystemSurface.tsx"
       ],
-      "branch": null,
-      "session": null,
-      "base_sha": null,
-      "evidence": null
+      "branch": "work/w2-029",
+      "session": "https://chat.z.ai/c/5d0e428b-78e7-4372-a212-80afa6617ffb",
+      "base_sha": "82d2d68ec465c19bd177a7567ba5b676843b5ece",
+      "evidence": {
+        "dispatched_at": "2026-10-14T16:39:43Z",
+        "delivered_branch_tip": "1605ea628ac538d1e4217a8ba2e436a31c61b99b",
+        "merged_as": "e440cd1 (--no-ff, TL battery in the message)",
+        "tl_acceptance": "2026-10-14 ~19:5xZ — every gate independently re-run and matched: web battery 414/414 (36 files; was 392/392), lint 103w/0e + scoped lane lint 0/0 (22 files), scoped web typecheck base↔tip BYTE-IDENTICAL zero-new zero-touching-lane (environment note: TL box denominator 235 vs worker sandbox 206 — the pre-existing experience-barrel TS2835 class; the lane's report flags the barrel as a spec gap), architecture 0/0/0, browser lane evidence 9/9 PASS with 0 console errors (warm-cache run; the cold-optimizer burst noise was environmental, all 8 functional steps passed in every run); write-surface audit zero files outside (SystemSurface.test.tsx verified pre-existing authorized)",
+        "completion_report": "docs/work-orders/reports/W2-029-completion-report.md"
+      }
     },
     {
       "id": "W3-024",
       "path": "docs/work-orders/W3-024.md",
       "owner": "worker-3",
       "lane": "default-web-ubuntu-launch-and-product-identity",
-      "status": "READY_FOR_TL_DISPATCH",
-      "dependencies": ["frozen dependency graph", "current rendered commerce host"],
+      "status": "DISPATCH_IN_PROGRESS_CAPACITY_FIGHT",
+      "dependencies": [
+        "frozen dependency graph",
+        "current rendered commerce host"
+      ],
       "write_surface": [
         "packages/web/src/main.tsx",
         "packages/web/src/commerceEntry.tsx",
@@ -110,30 +129,37 @@
         "desktop product identity and packaging metadata",
         "focused browser/desktop tests and evidence"
       ],
-      "branch": null,
+      "branch": "work/w3-024",
       "session": null,
-      "base_sha": null,
-      "evidence": null
+      "base_sha": "82d2d68ec465c19bd177a7567ba5b676843b5ece",
+      "evidence": {
+        "dispatch_started": "2026-10-14T16:40:55Z",
+        "state": "The worker session is being dispatched under the operator's never-wait capacity protocol: GLM-5.3 is at global capacity (the ecosystem's parallel lanes). 12+ full assault ladders exhausted; the supervisor-guarded recover_capacity loop re-arms unattended and continues (aggressive ladders + 600s gentle-mode single-send probes awaiting the quota reset window). No session exists yet — this entry will carry the actual session URL the moment it lands. The prompt (work-order verbatim + the mandatory architecture-gate-first operational contract) is staged and inject-ready.",
+        "prompt_chars": 13180,
+        "insert_verified_pct": 100
+      }
     }
   ],
-  "active_work_orders": [],
+  "active_work_orders": [
+    "W3-024"
+  ],
   "frontier": [
     {
       "id": "TL-BASELINE-VERIFY",
-      "status": "REQUIRED_BEFORE_DISPATCH",
-      "detail": "Check current main SHA, working source/dependency/toolchain state, relevant CI and no active overlapping worker sessions."
+      "status": "COMPLETE",
+      "detail": "2026-10-14 ~16:20Z: main HEAD re-fetched = 82d2d68 (docs-only planning delta over the TL-verified battery baseline 16bd468); canonical-web-build CI green; zero live worker sessions; zero branch collisions; write surfaces disjoint. W1-026 + W2-029 dispatched 16:31/16:39Z from inside the replay; W3-024 dispatch fighting capacity since 16:40Z."
     },
     {
       "id": "W1-026",
-      "status": "READY_FOR_TL_DISPATCH"
+      "status": "DELIVERED_MERGED (a3e135d)"
     },
     {
       "id": "W2-029",
-      "status": "READY_FOR_TL_DISPATCH"
+      "status": "DELIVERED_MERGED (e440cd1)"
     },
     {
       "id": "W3-024",
-      "status": "READY_FOR_TL_DISPATCH"
+      "status": "DISPATCH_IN_PROGRESS (capacity fight — no session yet)"
     }
   ],
   "acceptance_gates": [
@@ -179,6 +205,6 @@
     "live_commerce_mutation_or_payments": "NOT_AUTHORIZED",
     "human_research": "NOT_AUTHORIZED"
   },
-  "tl_loop": "READY FOR TL BASELINE RE-VERIFICATION AND THREE-LANE DISPATCH. No worker is marked active until branch/session/base SHA are recorded.",
-  "updated_at": "2026-10-14T16:15:00Z"
+  "tl_loop": "W1-026 + W2-029: delivered → independently TL-verified (every gate re-run, every number matched) → merged → retired. W3-024: the dispatch fights GLM-5.3 global capacity under the operator's never-wait protocol (recover loop persistent, unattended re-arm). On its landing: session recorded here, worker executes the architecture-gate-first contract, TL review on delivery. Phase gates stay PENDING until the phase-level acceptance; lane-level evidence is recorded per work order above.",
+  "updated_at": "2026-10-14T20:17:22Z"
 }
