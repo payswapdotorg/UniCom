@@ -1,0 +1,45 @@
+W2-028 evidence — Leg 4b (the required mode): the rehearsal engine, --dist-manifest
+against the canonical-web-build CI evidence at head 8aae797.
+
+Command (run at repo root, tree f4a651e, branch work/w2-028):
+  node packages/experience/scripts/deployment-rehearsal.mjs --dist-manifest /tmp/w2028-ci/evidence/dist-manifest-sha256.txt
+
+where /tmp/w2028-ci/evidence/dist-manifest-sha256.txt is the dist-manifest-sha256.txt
+from the canonical-build-evidence artifact of GitHub Actions run 38380254425
+(canonical-web-build at head 8aae79750868fe07be5aa6dd5b677a9b5ff0b0e1, created
+2026-10-13T09:59:31Z, conclusion success), fetched via
+GET /repos/payswapdotorg/UniCom/actions/runs/38380254425/artifacts (artifact id
+11802653002, 335,355 bytes zip) and extracted verbatim.
+
+Evidence-file integrity (for the TL's independent re-fetch):
+  sha256(dist-manifest-sha256.txt) = 4422e744b701e0761009a970aab60f5f4a9d6f980ef83f319d40cbeea781f55a
+  size = 621,011 bytes, 6,204 manifest lines
+
+Exit code: 0
+
+Console output (verbatim):
+
+=== W1-019+W1-021 Deployment Rehearsal ===
+Lineage: f4a651e88716
+Inventory: 12 entries, digest sha256:18a52157007574ed
+Capabilities: 12 declared
+Config surface: 12 keys classified
+Dist mode: ci-evidence-manifest, digest sha256:e77f66a2fe8213bc, 6204 files
+Verification: 11 PASS, 0 FAIL
+Non-live: true
+Artifact: /home/z/work/UniCom/packages/experience/reports/deployment/deployment-readiness.json
+
+All checks PASS. Artifact written.
+
+Notes:
+- All 11 checks PASS at the current tip against the REAL 8aae797 CI evidence:
+  dist-manifest-completeness PASS (all 6,204 dist entries classified, zero
+  unclassifiable, zero unparseable), dist-digest-deterministic PASS (two
+  independent assemblies agree), source-dist-cross-check PASS.
+- The re-derived dist identity is sha256:e77f66a2fe8213bc / 6,204 files.
+  The recorded RC manifest row (the committed artifact + the registry's
+  real_ci_evidence, derived from the 29f037d CI build, run 38259561304) is
+  sha256:0508acfe8e87a989 / 6,204 files. THE DIST IDENTITY DRIFTED — the
+  honest-delta record is in the lane manifest and the completion report.
+- This run's artifact is the one committed by this lane (the regenerated
+  deployment evidence fixture).

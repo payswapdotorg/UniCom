@@ -1,0 +1,30 @@
+W2-028 evidence — Leg 4a: the rehearsal engine, source-only mode (the default).
+
+Command (run at repo root, tree f4a651e, branch work/w2-028):
+  node packages/experience/scripts/deployment-rehearsal.mjs
+
+Exit code: 0
+
+Console output (verbatim):
+
+=== W1-019+W1-021 Deployment Rehearsal ===
+Lineage: f4a651e88716
+Inventory: 12 entries, digest sha256:18a52157007574ed
+Capabilities: 12 declared
+Config surface: 12 keys classified
+Dist mode: source-only
+Verification: 8 PASS, 0 FAIL
+Non-live: true
+Artifact: /home/z/work/UniCom/packages/experience/reports/deployment/deployment-readiness.json
+
+All checks PASS. Artifact written.
+
+Notes:
+- The source inventory digest sha256:18a52157007574ed is IDENTICAL to the
+  committed artifact's recorded value (the artifact regenerated at 7dd8fb8,
+  commit d09504f) — the 12-entry source inventory is byte-identical at the
+  current tip.
+- The source-only dist section carries the honest reason (the dist build
+  requires the CI memory class — 13 documented local OOM kills), never a
+  fabricated value; this run's artifact was subsequently overwritten by the
+  --dist-root and --dist-manifest runs (see the sibling captures).
