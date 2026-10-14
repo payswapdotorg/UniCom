@@ -10,6 +10,10 @@ UNiCOM supports both merchants and buyers, and spans digital and physical commer
 
 ## Source of truth
 
+## Current operator-directed phase
+
+The active handoff is [Make UNiCOM the Default App Experience](docs/FINAL-TL-HANDOFF-UNICOM-DEFAULT-EXPERIENCE-2026-10-14.md), tracked by [issue #22](https://github.com/payswapdotorg/UniCom/issues/22). Its dispatch/progress authority is [docs/development-state/unicom-default-experience-state.json](docs/development-state/unicom-default-experience-state.json). The browser commerce host already exists at `/commerce`; this phase makes UNiCOM the ordinary launch experience on web and Ubuntu desktop.
+
 The repository is the only implementation authority. Chat, screenshots, agent reports and claimed completion are non-authoritative unless the repository records the evidence.
 
 Start here:
