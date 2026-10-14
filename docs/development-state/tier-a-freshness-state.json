@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "repository": "payswapdotorg/UniCom",
+  "program": "UNiCOM Tier A Freshness — the v2 RC inheritance currency at the current tip",
+  "status": "ACTIVE",
+  "tracking_issue": 21,
+  "prior_phase_records_immutable": [
+    "docs/development-state/zcode-chain-state.json (PHASE_COMPLETE_ALL_GATES_PASSED, closeout 8aae797)",
+    "docs/development-state/verification-hardening-state.json",
+    "docs/development-state/deployment-integrity-state.json",
+    "docs/development-state/deployment-readiness-state.json",
+    "docs/development-state/v2-work-order-state.json",
+    "docs/development-state/product-completion-state.json"
+  ],
+  "source_baseline": {
+    "baseline_commit": "8aae797",
+    "battery": "vitest 2,270 passed | 0 skipped (web 392 + experience 798 + commerce 521 + agent 559); lint 103w/0e; architecture 0; pnpm build:zcode:chain exit 0 — the TL battery on the REAL fresh clone, recorded in the d5d42aa merge message",
+    "ci_canonical_build": "canonical-web-build SUCCESS at head 8aae797 (created 2026-10-13T09:59:31Z) — the prior recorded deterministic_sha256 5f5e5248bdc9953e1455f80905e1d92470638ff6a0200d1a051de0d803768deb belongs to 29c7ae7; the 8aae797 row is this phase's to record",
+    "the_freshness_gap": "the Tier A decision brief's inheritance rests on artifacts recorded at PRE-zcode-chain tips: the v2 release gate at baseSha f2c08a4f (Oct 8), the deployment-plane hash chain at the 29f037d-era merge (Oct 12). Main is now 8aae797 (docs+tooling delta, no src). Expected ≠ proven: this phase proves the inheritance at the current tip"
+  },
+  "architecture": {
+    "baseline": "1.2-additive-runtime-browser-2026-10-11 (unchanged this phase)",
+    "delta_policy": "verification-only: a completion report + the regenerated evidence fixtures where the repo's own engine commands produce them; NO src changes, NO workflow changes, NO dependency or lockfile changes, NO registry mutations by the worker (the TL writes the registries at closeout)"
+  },
+  "operator_directive": "continuous resident watch: monitor -> harvest -> review -> approve/require-changes -> dispatch next until the roadmap is complete; no early returns; the GitHub repo is the roadmap guide; dispatch only from inside the replay; always fix the replay. The 2026-10-14 operator push: 'I'm not seeing any progress on the roadmap, make sure you progress fast (without losing quality) so we can meet the deadline of midnight today'. Tier A (the production push itself) remains UNAUTHORIZED — this phase readies its evidence, it does not execute it",
+  "policy": {
+    "non_live_only": "this phase deploys NOTHING, connects to NO provider, reads NO credential, pushes NO artifact — the standing gates bind absolutely",
+    "standing_gates": {
+      "production_deployment": "NOT_AUTHORIZED",
+      "live_named_provider_credentials": "NOT_AUTHORIZED",
+      "human_research": "NOT_AUTHORIZED",
+      "live_payments": "NOT_AUTHORIZED"
+    },
+    "honest_evidence": "TL-observed numbers only; every freshness claim carries its command + exit code; identical-or-honestly-delta'd, never asserted; preserve limitations verbatim; the closeout rule: do not manufacture green status"
+  },
+  "phase_derivation": {
+    "source": "the 2026-10-14 TL survey (post-recycle-#13 recovery, main 8aae797, zero open issues): every within-gates program COMPLETE; the frontier operator-gated (Tier A / research / live credentials — multiple registries affirm deadline pushes are NOT production authorization). The one within-gates gap the survey found: the Tier A brief's verification inheritance is stale relative to 8aae797 (the release gate at f2c08a4f, the hash chain at 29f037d, while the zcode-chain closeout changed build tooling). The operator's live deadline push directs this lane now: the freshness verification is real, within-gates, non-live, and directly serves the Tier A decision the operator will make"
+  },
+  "work_orders": [
+    {
+      "id": "W2-028",
+      "path": "docs/work-orders/W2-028.md",
+      "lane": "the Tier A freshness verification at 8aae797: the CI proof citation + the battery/gate re-derivation + the deployment-plane hash-chain rows at the current tip",
+      "owner": "worker-2",
+      "status": "READY_FOR_TL_DISPATCH",
+      "delivery_branch": "work/w2-028",
+      "dispatched_at": null,
+      "note": "dispatch from inside the replay per the operator's binding directive"
+    }
+  ],
+  "max_concurrent_workers": 3,
+  "tl_is_worker": false,
+  "active_work_orders": ["W2-028"],
+  "frontier_note": "on completion, the Tier A decision brief carries CURRENT verification (the staging lane inherits for free, per the FRONTIER-TIER-A packet); the production push itself still awaits the operator's explicit word",
+  "deadline": "midnight UTC 2026-10-15 (the operator's 2026-10-14 push)"
+}
