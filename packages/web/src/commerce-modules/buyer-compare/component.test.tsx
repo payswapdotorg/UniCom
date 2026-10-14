@@ -117,3 +117,39 @@ describe("buyer-compare (J2)", () => {
     expect(textOf(rendered.container)).toContain("Held by Buyer, Requester, Procurement");
   });
 });
+
+describe("buyer-compare (J2) — W1-026 first-journey upgrades", () => {
+  it("answers YOUR intent: shows the draft excerpt and hands back to the canvas", () => {
+    const navigated: string[] = [];
+    const host = makeTestHost({ roles: ["buyer"], onNavigate: (path) => navigated.push(path) });
+    rendered = renderUi(
+      <BuyerCompareComponent moduleId="buyer-compare" journey="J2" host={host} />,
+    );
+    const context = rendered.container.querySelector('[data-testid="cm-intent-context"]');
+    expect(context).not.toBeNull();
+    const text = textOf(rendered.container);
+    expect(text).toContain("Answering your intent");
+    expect(text).toContain("40 boxes of A3 recycled card stock");
+    expect(text).toContain("the same one you typed on the home canvas");
+    clickButton(rendered.container, "Adjust your intent on the canvas");
+    expect(navigated).toEqual(["/commerce/buyer/intent"]);
+  });
+
+  it("teaches the three truth classes before the offers are read", () => {
+    rendered = renderComponent();
+    const text = textOf(rendered.container);
+    expect(text).toContain("How to read this surface — three kinds of truth, never mixed");
+    expect(text).toContain("Prices (verified, stale) — authoritative");
+    expect(text).toContain("Stock, delivery, protection — provider observations");
+    expect(text).toContain("Buy-now-vs-wait guidance — model prediction");
+    expect(text).toContain("never inside a price");
+  });
+
+  it("hides the intent context card when no intent exists (honest empty, no fake context)", () => {
+    const host = makeTestHost({ roles: ["buyer"], scenario: { intentDraft: "" } });
+    rendered = renderUi(
+      <BuyerCompareComponent moduleId="buyer-compare" journey={null} host={host} />,
+    );
+    expect(rendered.container.querySelector('[data-testid="cm-intent-context"]')).toBeNull();
+  });
+});

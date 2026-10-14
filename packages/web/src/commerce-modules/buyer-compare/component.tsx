@@ -3,6 +3,11 @@
  * four demo sellers; freshness classes are computed against the fixed demo
  * clock, verified prices are looked up through the REAL commerce runtime
  * (lookupPrice), and UNKNOWN offers never render a number.
+ *
+ * W1-026 first-journey upgrade: the comparison now answers YOUR intent
+ * (draft excerpt + one click back to the canvas to adjust it) and teaches
+ * the three truth classes it separates (authoritative prices vs provider
+ * observations vs model predictions) before the offers are read.
  */
 import type { JSX } from "react";
 
@@ -134,6 +139,45 @@ export default function BuyerCompareComponent({ host }: CommerceModuleProps): JS
             {showAll ? "Hide unavailable & UNKNOWN" : "Show every seller honestly"}
           </button>
         </div>
+      </section>
+
+      {hasIntent ? (
+        <section className="cm-card" aria-label="Your intent for this comparison" data-testid="cm-intent-context">
+          <div className="cm-row">
+            <h2 className="cm-card-title">Answering your intent</h2>
+            <DemoTag />
+          </div>
+          <p className="cm-card-sub">“{host.scenario.intentDraft.trim()}”</p>
+          <div className="cm-row" style={{ marginTop: 8 }}>
+            <button
+              type="button"
+              className="cm-button"
+              onClick={() => host.navigate("/commerce/buyer/intent")}
+            >
+              Adjust your intent on the canvas
+            </button>
+            <span className="cm-env-note">
+              the draft is the same one you typed on the home canvas and the Intent canvas — kept
+              while you switch roles
+            </span>
+          </div>
+        </section>
+      ) : null}
+
+      <section className="cm-card" aria-label="How to read this surface">
+        <h2 className="cm-card-title">How to read this surface — three kinds of truth, never mixed</h2>
+        <TermLine
+          label="Prices (verified, stale) — authoritative"
+          value="Computed by the deterministic commerce runtime from committed demo price lists. Exact money, not estimates; a verified price is what it says it is."
+        />
+        <TermLine
+          label="Stock, delivery, protection — provider observations"
+          value="Reported by seller feeds with source timestamps and ages: verified, stale, UNKNOWN or unavailable. They describe what the feed said, never what the kernel knows."
+        />
+        <TermLine
+          label="Buy-now-vs-wait guidance — model prediction"
+          value="Produced by the model, always labelled predictive and never a promise. It lives on the Intent canvas and the Decide surface — never inside a price."
+        />
       </section>
 
       {!hasIntent ? (
