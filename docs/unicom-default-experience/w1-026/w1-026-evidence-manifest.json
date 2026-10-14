@@ -1,0 +1,347 @@
+{
+  "manifestKind": "w1-026-first-journey-evidence",
+  "schemaVersion": 1,
+  "workOrderId": "W1-026",
+  "generatedAtUtc": "2026-10-14T17:11:11.301Z",
+  "identity": {
+    "buildCommit": "80c0ccdf7f24538a2f2fd0f80d66be539e487e30",
+    "gitBranch": "work/w1-026",
+    "buildTreeDirty": false,
+    "nodeVersion": "v24.21.0",
+    "pnpmVersion": "10.33.2"
+  },
+  "environment": {
+    "server": "vite dev (heap-capped, GOMEMLIMIT) — @zcode/web only, no ZCode server",
+    "baseUrl": "http://localhost:5199",
+    "playwright": {
+      "version": "1.57.0",
+      "from": "import:playwright"
+    },
+    "mode": "demo — deterministic synthetic fixtures, no credentials, no live commerce"
+  },
+  "firstDiscovery": {
+    "deepLinkUsedForDiscovery": false,
+    "note": "landing / → visible UNiCOM Commerce entry button → /commerce"
+  },
+  "steps": [
+    {
+      "id": "01-landing-connect-wall",
+      "howReached": "browser lands on the ordinary app surface / (no ZCode server)",
+      "outcome": "PASS",
+      "checks": [
+        {
+          "name": "painted with visible content",
+          "ok": true,
+          "detail": "bodyText 154 chars"
+        },
+        {
+          "name": "visible UNiCOM Commerce entry button on the ordinary wall",
+          "ok": true,
+          "detail": "UNiCOM Commerce → (demo, no connection needed)"
+        }
+      ],
+      "screenshot": "01-landing-connect-wall.png",
+      "bodyEvidenceFile": "01-landing-connect-wall-body.txt",
+      "consoleEvidenceFile": "01-landing-connect-wall-console.txt",
+      "extraScreenshots": [],
+      "timingsMs": 14441,
+      "note": null
+    },
+    {
+      "id": "02-first-discovery-entry-click",
+      "howReached": "click the visible UNiCOM Commerce entry button (ordinary flow)",
+      "outcome": "PASS",
+      "checks": [
+        {
+          "name": "browser URL is /commerce",
+          "ok": true,
+          "detail": "/commerce"
+        },
+        {
+          "name": "commerce host title",
+          "ok": true,
+          "detail": "UNiCOM Commerce — Demo"
+        },
+        {
+          "name": "DEMO badge always visible",
+          "ok": true,
+          "detail": "cm-env-badge"
+        }
+      ],
+      "screenshot": "02-commerce-front-door.png",
+      "bodyEvidenceFile": "02-commerce-front-door-body.txt",
+      "consoleEvidenceFile": "02-commerce-front-door-console.txt",
+      "extraScreenshots": [],
+      "timingsMs": 5907,
+      "note": null
+    },
+    {
+      "id": "03-home-buyer-front-door",
+      "howReached": "the front door at /commerce with the default buyer emphasis",
+      "outcome": "PASS",
+      "checks": [
+        {
+          "name": "buyer path leads by default",
+          "ok": true,
+          "detail": "cm-buyer-path first in DOM"
+        },
+        {
+          "name": "mini intent canvas seeded from the scenario draft",
+          "ok": true,
+          "detail": "Need 40 boxes of A3 recycled card stock within 2 weeks, budget around 480, seller must accept returns."
+        },
+        {
+          "name": "the six essentials explained",
+          "ok": true,
+          "detail": "six essentials present"
+        },
+        {
+          "name": "three truth classes visible",
+          "ok": true,
+          "detail": "truth strip rendered"
+        },
+        {
+          "name": "19-journey registry collapsed by default",
+          "ok": true,
+          "detail": "open=true rows=19"
+        },
+        {
+          "name": "honest registry count sentence",
+          "ok": true,
+          "detail": "count copy present"
+        },
+        {
+          "name": "Explore one click away",
+          "ok": true,
+          "detail": "hero button present"
+        },
+        {
+          "name": "held roles unchanged (identity)",
+          "ok": true,
+          "detail": "multiple roles held"
+        }
+      ],
+      "screenshot": "03-home-buyer-front-door.png",
+      "bodyEvidenceFile": "03-home-buyer-front-door-body.txt",
+      "consoleEvidenceFile": "03-home-buyer-front-door-console.txt",
+      "extraScreenshots": [],
+      "timingsMs": 693,
+      "note": null
+    },
+    {
+      "id": "04-buyer-intent-canvas",
+      "howReached": "one click: 'Open the Intent canvas' → the J1 module renders",
+      "outcome": "PASS",
+      "checks": [
+        {
+          "name": "J1 · Intent canvas rendered",
+          "ok": true,
+          "detail": "module heading"
+        },
+        {
+          "name": "first-time explainer present",
+          "ok": true,
+          "detail": "explainer card"
+        },
+        {
+          "name": "plain-language field help rendered",
+          "ok": true,
+          "detail": "max-total-cost help"
+        },
+        {
+          "name": "home draft carried over",
+          "ok": true,
+          "detail": "draft seeded"
+        },
+        {
+          "name": "DEMO labelling",
+          "ok": true,
+          "detail": "fixture marker"
+        }
+      ],
+      "screenshot": "04-buyer-intent-canvas.png",
+      "bodyEvidenceFile": "04-buyer-intent-canvas-body.txt",
+      "consoleEvidenceFile": "04-buyer-intent-canvas-console.txt",
+      "extraScreenshots": [],
+      "timingsMs": 1653,
+      "note": null
+    },
+    {
+      "id": "05-role-switch-merchant",
+      "howReached": "emphasis switch: click 'Merchant' on the home emphasis bar",
+      "outcome": "PASS",
+      "checks": [
+        {
+          "name": "merchant path now leads",
+          "ok": true,
+          "detail": "cm-merchant-path first in DOM"
+        },
+        {
+          "name": "emphasis stated",
+          "ok": true,
+          "detail": "emphasis line"
+        },
+        {
+          "name": "identity/authority unchanged (held roles still Buyer + Merchant)",
+          "ok": true,
+          "detail": "roles line unchanged"
+        },
+        {
+          "name": "emphasis-never-grants-authority note visible",
+          "ok": true,
+          "detail": "honesty note"
+        },
+        {
+          "name": "merchant card: zero connected integrations",
+          "ok": true,
+          "detail": "connectivity honest"
+        },
+        {
+          "name": "UNKNOWN state preserved on the home card",
+          "ok": true,
+          "detail": "SETTLEMENT-UNKNOWN record"
+        },
+        {
+          "name": "offline observation preserved (not canonical)",
+          "ok": true,
+          "detail": "queued count record"
+        }
+      ],
+      "screenshot": "05-role-switch-merchant.png",
+      "bodyEvidenceFile": "05-role-switch-merchant-body.txt",
+      "consoleEvidenceFile": "05-role-switch-merchant-console.txt",
+      "extraScreenshots": [],
+      "timingsMs": 1208,
+      "note": null
+    },
+    {
+      "id": "06-merchant-command-center",
+      "howReached": "one click: 'Open the merchant command center' → the J10 module renders",
+      "outcome": "PASS",
+      "checks": [
+        {
+          "name": "command center rendered as the module's first screen",
+          "ok": true,
+          "detail": "heading found"
+        },
+        {
+          "name": "business state derived from the seeded kernel",
+          "ok": true,
+          "detail": "kernel-derived stats"
+        },
+        {
+          "name": "work in flight with next step",
+          "ok": true,
+          "detail": "exchange return in flight"
+        },
+        {
+          "name": "zero connected integrations stated",
+          "ok": true,
+          "detail": "connectivity honest"
+        },
+        {
+          "name": "no predictions claimed on this surface",
+          "ok": true,
+          "detail": "truth boundary"
+        },
+        {
+          "name": "UNKNOWN payment preserved (never paid/failed)",
+          "ok": true,
+          "detail": "J18 law"
+        },
+        {
+          "name": "DEMO labelling",
+          "ok": true,
+          "detail": "fixture marker"
+        }
+      ],
+      "screenshot": "06-merchant-command-center.png",
+      "bodyEvidenceFile": "06-merchant-command-center-body.txt",
+      "consoleEvidenceFile": "06-merchant-command-center-console.txt",
+      "extraScreenshots": [],
+      "timingsMs": 1662,
+      "note": null
+    },
+    {
+      "id": "07-role-switch-no-emphasis",
+      "howReached": "emphasis switch: click 'No emphasis' on the home emphasis bar",
+      "outcome": "PASS",
+      "checks": [
+        {
+          "name": "neutral emphasis stated",
+          "ok": true,
+          "detail": "emphasis line"
+        },
+        {
+          "name": "no emphasis chips",
+          "ok": true,
+          "detail": "no card marked"
+        },
+        {
+          "name": "identity/authority unchanged",
+          "ok": true,
+          "detail": "roles line unchanged"
+        }
+      ],
+      "screenshot": "07-role-switch-no-emphasis.png",
+      "bodyEvidenceFile": "07-role-switch-no-emphasis-body.txt",
+      "consoleEvidenceFile": "07-role-switch-no-emphasis-console.txt",
+      "extraScreenshots": [],
+      "timingsMs": 1207,
+      "note": null
+    },
+    {
+      "id": "08-registry-and-explore",
+      "howReached": "expand the collapsed journey registry, then open Explore (one click each)",
+      "outcome": "PASS",
+      "checks": [
+        {
+          "name": "registry expands on one click with all 19 rows",
+          "ok": true,
+          "detail": "open=true rows=19"
+        },
+        {
+          "name": "Explore reaches the J19 surface in one click",
+          "ok": true,
+          "detail": "taxonomy rendered"
+        }
+      ],
+      "screenshot": "08-journey-registry-expanded.png",
+      "bodyEvidenceFile": "08-journey-registry-expanded-body.txt",
+      "consoleEvidenceFile": "08-journey-registry-expanded-console.txt",
+      "extraScreenshots": [
+        "08b-explore-one-click.png"
+      ],
+      "timingsMs": 2329,
+      "note": null
+    }
+  ],
+  "requirements": {
+    "buyerIntentCanvasFirstJourney": "PASS",
+    "merchantCommandCenterFirstJourney": "PASS",
+    "roleSwitching": "PASS",
+    "unknownAndDemoStates": "PASS"
+  },
+  "totals": {
+    "steps": {
+      "total": 8,
+      "PASS": 8,
+      "FAIL": 0,
+      "BLOCKED": 0,
+      "zeroDrift": true
+    },
+    "outcomesVocabulary": [
+      "PASS",
+      "FAIL",
+      "BLOCKED"
+    ]
+  },
+  "evidenceIntegrity": {
+    "pointers": 25,
+    "allPointersResolve": true
+  },
+  "reproduction": {
+    "warmup": "node packages/web/test/browser/warm-vite-deps.mjs --port 5199",
+    "run": "node docs/unicom-default-experience/w1-026/run-browser-evidence.mjs --start-env --port 5199 --out docs/unicom-default-experience/w1-026/evidence --manifest docs/unicom-default-experience/w1-026/w1-026-evidence-manifest.json"
+  }
+}
