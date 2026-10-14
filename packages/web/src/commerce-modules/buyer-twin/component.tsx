@@ -1,10 +1,14 @@
 /**
- * buyer-twin component — the J14 Commerce Twin what-if surface. The Twin
- * runs counterfactuals ONLY: every number it produces wears a PREDICTIVE
- * chip and the write-block panel states the structural truth — there is no
- * path from this screen to any canonical commerce command (predictions
- * never mutate canonical truth). Canonical facts are shown side-by-side
- * with OPERATIONAL chips for the contrast the law demands.
+ * buyer-twin component — the J14 surface: the Main Agent + Commerce Twin
+ * what-if. The Twin runs counterfactuals ONLY: every number it produces wears
+ * a PREDICTIVE chip and the write-block panel states the structural truth —
+ * there is no path from this screen to any canonical commerce command
+ * (predictions never mutate canonical truth). Canonical facts are shown
+ * side-by-side with OPERATIONAL chips for the contrast the law demands.
+ * The Main Agent panel (W2-029) above makes the goal → observe → plan →
+ * simulate → approve loop legible with the same honesty: proposals never
+ * shown as commitments, approvals named exactly, denied authority shown as
+ * denied with its safe next option.
  */
 import type { JSX } from "react";
 
@@ -12,6 +16,7 @@ import { useState } from "react";
 import type { CommerceModuleProps } from "../../commerce-host/contract/index.js";
 import { moneyText, usdMinor } from "../buyer-support/demo-data.js";
 import { DemoTag, PermissionGate, TermLine } from "../buyer-support/ui.js";
+import { MainAgentPanel } from "./main-agent-panel.js";
 import {
   CANONICAL_FACTS,
   DEMAND_OPTIONS,
@@ -27,13 +32,14 @@ export default function BuyerTwinComponent({ host }: CommerceModuleProps): JSX.E
     <div className="cm-stack">
       <section className="cm-card">
         <div className="cm-row">
-          <h1 className="cm-card-title">J14 · Commerce Twin — what-if</h1>
+          <h1 className="cm-card-title">J14 · Your Main Agent &amp; Commerce Twin</h1>
           <DemoTag />
           <span className="cm-chip cm-chip-unknown">PREDICTIVE — never canonical</span>
         </div>
         <p className="cm-card-sub">
-          The Commerce Twin tests decisions on a safe copy of your situation. Everything it
-          produces is a <strong>forecast</strong>: deterministic arithmetic over committed demo
+          One Main Agent works toward your goal — it observes, plans and simulates on a safe
+          copy of your situation, and asks for your approval before anything consequential. The
+          what-if numbers are <strong>forecasts</strong>: deterministic arithmetic over committed demo
           facts, labelled predictive on every panel. Forecasts from the advisory runtime
           (computeDemandForecast) are never auto-applied — and this surface has{" "}
           <strong>no path that writes commerce facts</strong>: no order, price change, listing or
@@ -42,6 +48,7 @@ export default function BuyerTwinComponent({ host }: CommerceModuleProps): JSX.E
       </section>
 
       <PermissionGate host={host} permission="twin.run-what-if">
+        <MainAgentPanel />
         <InkWhatIf />
         <RentVsOwnWhatIf />
         <WriteBlockPanel />

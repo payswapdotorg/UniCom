@@ -154,3 +154,102 @@ describe("buyer-twin J14 (Commerce Twin what-if)", () => {
     expect(rent.rentTotal.amountMinor).toBe("247000");
   });
 });
+
+describe("buyer-twin J14 — the Main Agent loop view (W2-029)", () => {
+  it("renders the goal and all eight loop phases with the current step named", () => {
+    rendered = renderAt();
+    const panel = rendered.container.querySelector('[data-testid="cm-agent-panel"]');
+    expect(panel).not.toBeNull();
+    const text = panel?.textContent ?? "";
+    for (const label of ["Goal", "Observe", "Plan", "Simulate", "Approve", "Execute", "Verify", "Learn"]) {
+      expect(text).toContain(label);
+    }
+    expect(text).toContain("Keep the studio supplied");
+    expect(text).toContain("Current step: Simulate — the counterfactual panels below");
+    // The surface names the Main Agent — not swarm chat, not internal architecture.
+    expect(textOf(rendered.container)).toContain("Your Main Agent — working the goal");
+  });
+
+  it("marks unwired phases honestly (execute not wired, verify has nothing to verify, learn is presentation)", () => {
+    rendered = renderAt();
+    const loop = rendered.container.querySelector('[data-testid="cm-agent-loop"]');
+    const text = loop?.textContent ?? "";
+    expect(text).toContain("Not wired on this surface");
+    expect(text).toContain("Nothing to verify yet");
+    expect(text).toContain("learning is an agent-plane Lab concept");
+    expect(text).toContain("phases without a wired runtime say so instead of simulating progress");
+    // No phase row claims execution.
+    expect(text).not.toContain("executing");
+  });
+
+  it("keeps evidence truth classes and freshness visibly separate (verified vs stale vs UNKNOWN)", () => {
+    rendered = renderAt();
+    const evidence = rendered.container.querySelector('[data-testid="cm-agent-evidence"]');
+    const text = evidence?.textContent ?? "";
+    expect(text).toContain("OPERATIONAL");
+    expect(text).toContain("OBSERVED");
+    expect(text).toContain("HISTORICAL");
+    expect(text).toContain("verified");
+    expect(text).toContain("stale");
+    expect(text).toContain("UNKNOWN");
+    // The stale observation carries its deterministic age label against the demo clock.
+    expect(text).toContain("18 h ago");
+    expect(text).toContain("UNKNOWN is never rendered as a price");
+    expect(text).toContain("not a failure");
+    // Truth classes are explained, never blended.
+    expect(text).toContain("stay visibly separate");
+  });
+
+  it("shows the plan as proposals — never commitments, no execution claims", () => {
+    rendered = renderAt();
+    const plan = rendered.container.querySelector('[data-testid="cm-agent-plan"]');
+    const text = plan?.textContent ?? "";
+    expect((text.match(/PROPOSED — not committed/g) ?? []).length).toBe(3);
+    expect(text).toContain("A plan is a proposal. No step has executed");
+    expect(text).toContain("J4 · group-buy surface owns the real action");
+    expect(text).not.toContain("COMMITTED");
+    expect(text).not.toContain("EXECUTED");
+  });
+
+  it("labels the agent's predictions predictive/simulation-only with twin-computed numbers", () => {
+    rendered = renderAt();
+    const simulation = rendered.container.querySelector('[data-testid="cm-agent-simulation"]');
+    const text = simulation?.textContent ?? "";
+    expect((text.match(/PREDICTIVE — simulation only/g) ?? []).length).toBe(2);
+    // The numbers are the advisory runtime's own (48.00 / 96.00 per 4 weeks).
+    expect(text).toContain("48.00 USD");
+    expect(text).toContain("96.00 USD");
+    expect(text).toContain("assumes the pool forms at its threshold price, which it may not");
+    expect(text).toContain("Confidence:");
+    expect(text).toContain("simulation only, nothing executed");
+  });
+
+  it("shows the pending approval AND the denied authority with reason + safe next option", () => {
+    rendered = renderAt();
+    const approvals = rendered.container.querySelector('[data-testid="cm-agent-approvals"]');
+    const text = approvals?.textContent ?? "";
+    expect(text).toContain("AUTHORIZATION PENDING");
+    expect(text).toContain("AUTHORIZATION DENIED");
+    expect(text).toContain("holds no purchasing authority");
+    expect(text).toContain("A denial is not a failure");
+    expect(text).toContain("Safe next option");
+    expect(text).toContain("Open the J4 group-buy surface");
+    expect(text).toContain("the agent never commits on your behalf");
+    // No override/retry/approve affordance anywhere on the twin.
+    expect(findButton(rendered.container, "Override")).toBeNull();
+    expect(findButton(rendered.container, "Retry")).toBeNull();
+    expect(findButton(rendered.container, "Approve")).toBeNull();
+  });
+
+  it("renders the work graph with contract statuses and no executing/verifying nodes", () => {
+    rendered = renderAt();
+    const graph = rendered.container.querySelector('[data-testid="cm-agent-workgraph"]');
+    const text = graph?.textContent ?? "";
+    expect(text).toContain("planning");
+    expect(text).toContain("awaiting-approval");
+    expect(text).toContain("idle");
+    expect(text).toContain("No node claims runtime execution or verification");
+    expect(text).not.toContain("executing");
+    expect(text).not.toContain("verifying");
+  });
+});

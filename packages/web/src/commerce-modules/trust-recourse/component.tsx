@@ -48,6 +48,7 @@ import {
   WRONG_ITEM_EVIDENCE,
 } from "./fixtures.js";
 import { seedTrustDemo, RETURN_NEXT_TRIGGER, type KernelRun } from "./seed.js";
+import { SecurityPipelineSection, TrustPlanesSection } from "./trust-planes.js";
 import {
   CounterfeitCaseSection,
   ThreatSignalsSection,
@@ -119,9 +120,11 @@ export default function TrustRecourseComponent({ host }: CommerceModuleProps): J
         <p className="cm-card-sub">
           The trust back-office (demo). Disputes, evidence, journaled decisions, provider
           escalations and controlled refunds are REAL deterministic kernel state; the threat-signal
-          queue is committed evidence fixtures <code>{TRUST_FIXTURES_ID}</code>. Decisions never
-          move money by themselves — refunds execute separately, each bounded by what was actually
-          captured, and provider-native statuses are preserved verbatim.
+          queue is committed evidence fixtures <code>{TRUST_FIXTURES_ID}</code>. The trust ledger
+          below keeps UserTrust, AgentTrust, Capability/ProviderTrust and TransactionProof as four
+          separate planes — never one score, and a trust signal is never transaction proof. Decisions
+          never move money by themselves — refunds execute separately, each bounded by what was
+          actually captured, and provider-native statuses are preserved verbatim.
         </p>
         <div className="cm-row">
           <button
@@ -141,6 +144,10 @@ export default function TrustRecourseComponent({ host }: CommerceModuleProps): J
       </section>
 
       <ThreatSignalsSection />
+
+      <TrustPlanesSection />
+
+      <SecurityPipelineSection />
 
       <WrongItemCaseSection
         host={host}

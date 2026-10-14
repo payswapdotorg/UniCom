@@ -50,6 +50,7 @@ import {
   DEMO_STORE_NAME,
 } from "./fixtures.js";
 import { seedAutonomousDemo, type KernelRun } from "./seed.js";
+import { AutonomyControlsSection } from "./autonomy-controls.js";
 import {
   EscalationsSection,
   PolicyInForceSection,
@@ -114,7 +115,9 @@ export default function MerchantAutonomousComponent({ host }: CommerceModuleProp
           conditions, the human override path, and the audit trail — all real kernel state
           driven from committed fixtures <code>{AUTONOMOUS_FIXTURES_ID}</code>. Autonomy here
           is deterministic policy application: the store can only do what the registered
-          policy allows, and every decision is journaled.
+          policy allows, and every decision is journaled. The autonomy status and control
+          availability section states exactly which owner controls are wired — missing
+          controls are marked unavailable, never simulated.
         </p>
         <div className="cm-row">
           <button
@@ -134,6 +137,8 @@ export default function MerchantAutonomousComponent({ host }: CommerceModuleProp
       </section>
 
       <PolicyInForceSection policy={policy} halted={halted} control={control} />
+
+      <AutonomyControlsSection policy={policy} control={control} halted={halted} />
 
       <PolicyPreviewSection />
 

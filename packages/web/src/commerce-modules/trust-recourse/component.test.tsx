@@ -24,7 +24,7 @@
 import { afterEach, describe, expect, it } from "vitest";
 import TrustRecourseComponent from "./component.js";
 import { makeStubHost, waitForText } from "../merchant-shared/test-support.js";
-import { clickButton, renderUiAsync, textOf } from "../../commerce-host/shell/test-utils.js";
+import { clickButton, findButton, renderUi, renderUiAsync, textOf } from "../../commerce-host/shell/test-utils.js";
 import type { RenderedUi } from "../../commerce-host/shell/test-utils.js";
 import type { CommerceRoleId } from "../../commerce-host/contract/index.js";
 
@@ -226,5 +226,110 @@ describe("trust-recourse (J17) — the return lifecycle", () => {
     expect(text).toContain("Blocked: requires support.handle-recourse");
     expect(text).toContain("held by support");
     expect(text).not.toContain("Advance the return (next: SHIP_BACK)");
+  });
+});
+
+describe("trust-recourse (J17) — loading state (W2-029)", () => {
+  it("renders the honest loading card while the demo kernel seeds, then the surface", async () => {
+    const { host } = makeStubHost(["trust"]);
+    rendered = renderUi(
+      <TrustRecourseComponent moduleId="trust-recourse" journey="J17" host={host} />,
+    );
+    expect(textOf(rendered.container)).toContain("Seeding the deterministic demo kernel");
+    // The loading card shares its title with the loaded surface — wait for a
+    // post-seed-only marker (the threat-signal section header).
+    await waitForText(rendered.container, "Threat signals (evidence queue)");
+    expect(textOf(rendered.container)).toContain("Trust ledger");
+  });
+});
+
+describe("trust-recourse (J17) — the four trust planes (W2-029)", () => {
+  it("renders four separate planes, each with the full signal → risk → policy → evidence → mitigation chain", async () => {
+    rendered = await mount();
+    const planes = rendered.container.querySelectorAll('[data-testid="cm-trust-plane"]');
+    expect(planes.length).toBe(4);
+    const text = textOf(rendered.container);
+    expect(text).toContain("USER_TRUST");
+    expect(text).toContain("AGENT_TRUST");
+    expect(text).toContain("CAPABILITY_TRUST");
+    expect(text).toContain("TRANSACTION_PROOF");
+    for (const plane of planes) {
+      const planeText = plane.textContent ?? "";
+      expect(planeText).toContain("Signal:");
+      expect(planeText).toContain("Risk:");
+      expect(planeText).toContain("Policy outcome:");
+      expect(planeText).toContain("Evidence:");
+      expect(planeText).toContain("Mitigation / next step:");
+    }
+  });
+
+  it("never compresses trust into one score and states the trust-signal-is-never-proof law", async () => {
+    rendered = await mount();
+    const text = textOf(rendered.container);
+    expect(text).toContain("never one score");
+    expect(text).toContain("a trust signal is never transaction proof");
+    expect(text).toContain("the trust view contract has no score field");
+    expect(text).not.toContain("Trust score");
+    expect(text).not.toContain("trust score:");
+  });
+
+  it("renders the P0–P5 proof legend with the not-proof warning", async () => {
+    rendered = await mount();
+    const legend = rendered.container.querySelector('[data-testid="cm-proof-legend"]');
+    expect(legend).not.toBeNull();
+    const text = legend?.textContent ?? "";
+    for (const level of [
+      "P0 — assertion",
+      "P1 — receipt",
+      "P2 — provider-signed",
+      "P3 — independent",
+      "P4 — protected",
+      "P5 — final",
+    ]) {
+      expect(text).toContain(level);
+    }
+    expect(text).toContain("What proof is NOT: any trust signal");
+    expect(text).toContain("selected BEFORE consequential execution");
+  });
+});
+
+describe("trust-recourse (J17) — the security pipeline (W2-029)", () => {
+  it("renders the blocked incident with signal, reason, effect, mitigation and next action", async () => {
+    rendered = await mount();
+    const incident = rendered.container.querySelector('[data-testid="cm-security-block"]');
+    expect(incident).not.toBeNull();
+    const text = incident?.textContent ?? "";
+    expect(text).toContain("BLOCKED");
+    expect(text).toContain("Review ring");
+    expect(text).toContain("withheld from the storefront average");
+    expect(text).toContain("Next action:");
+    expect(text).toContain("never weaponized payloads");
+  });
+
+  it("shows every pipeline stage in order, BLOCK final, and NO override affordance", async () => {
+    rendered = await mount();
+    const pipeline = rendered.container.querySelector('[data-testid="cm-security-pipeline"]');
+    expect(pipeline).not.toBeNull();
+    const text = pipeline?.textContent ?? "";
+    for (const stage of [
+      "signal",
+      "classification",
+      "policy-decision",
+      "mitigation",
+      "evidence",
+      "defensive-broadcast",
+      "learning",
+    ]) {
+      expect(text).toContain(stage);
+    }
+    expect(text).toContain("BLOCK — final");
+    expect(text).toContain("BLOCK_IS_FINAL_DETERMINISTIC");
+    expect(text).toContain("no override affordance");
+    expect(text).toContain("defensive content, never the exploit mechanics");
+    // BLOCK can never be lifted from the UI — no override/unblock button exists.
+    expect(findButton(rendered.container, "Override")).toBeNull();
+    expect(findButton(rendered.container, "Unblock")).toBeNull();
+    expect(findButton(rendered.container, "Request override")).toBeNull();
+    expect(findButton(rendered.container, "Lift the block")).toBeNull();
   });
 });
