@@ -30,7 +30,7 @@
 //     --manifest docs/unicom-default-experience/w1-026/w1-026-evidence-manifest.json
 //   (run packages/web/test/browser/warm-vite-deps.mjs first on a cold cache)
 
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
