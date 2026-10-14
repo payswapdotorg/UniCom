@@ -1,0 +1,70 @@
+{
+  "schema": "w2-028-lane-evidence/1",
+  "capturedAt": "2026-10-14T06:10:00Z",
+  "lane": "W2-028 — the Tier A freshness verification at main 8aae797 (the v2 RC inheritance currency)",
+  "verification_base": {
+    "work_order_cites": "8aae797",
+    "executed_at": "f4a651e887166b492db4a3ee694d9da9e9d16cec (f4a651e)",
+    "delta_vs_8aae797": "docs only: docs/development-state/tier-a-freshness-state.json + docs/work-orders/W2-028.md (verified: git diff --stat 8aae797 f4a651e = 2 files, 92 insertions, zero src/tooling deltas)"
+  },
+  "ci_citation": {
+    "run_id": 38380254425,
+    "url": "https://github.com/payswapdotorg/UniCom/actions/runs/38380254425",
+    "workflow": "canonical-web-build (.github/workflows/canonical-web-build.yml)",
+    "head_sha": "8aae79750868fe07be5aa6dd5b677a9b5ff0b0e1",
+    "created_at": "2026-10-13T09:59:31Z",
+    "event": "push",
+    "status": "completed",
+    "conclusion": "success",
+    "artifact": { "id": 11802653002, "name": "canonical-build-evidence", "size_bytes": 335355, "expired": false },
+    "evidence_summary": {
+      "canonical_build_exit_code": 0,
+      "dist_file_count": 6204,
+      "dist_total_bytes": 137313334,
+      "dist_map_file_count": 2279,
+      "measured_memory_floor_mb": 9677,
+      "sourcemap_url_comments": "absent (hidden sourcemap posture confirmed)",
+      "dist_deterministic_sha256": "ad4821e76a5b199ae171dba4ccfe3710d5eab3be41a0e09fc9ad94f88d05a890",
+      "node_version": "v24.21.0",
+      "vite_version_web": "8.0.8",
+      "typescript_version": "6.0.2"
+    },
+    "evidence_summary_file": "ci-evidence-summary-8aae797.txt (verbatim copy of the run's evidence-summary.txt)",
+    "manifest_integrity": {
+      "file": "dist-manifest-sha256.txt (from the artifact zip; not committed — the BUILD-ONLY small-text law; the TL re-fetches via the API)",
+      "sha256": "4422e744b701e0761009a970aab60f5f4a9d6f980ef83f319d40cbeea781f55a",
+      "bytes": 621011,
+      "lines": 6204
+    }
+  },
+  "hash_chain_row_comparison": {
+    "recorded_rows_source": "the committed fixtures at 8aae797: packages/experience/reports/deployment/deployment-readiness.json (regenerated at 7dd8fb8, commit d09504f) + docs/development-state/deployment-integrity-state.json gates.MANIFEST_VERIFICATION.real_ci_evidence (the 29f037d CI run 38259561304) + packages/web/src/commerce-host/shell/fixtures/deployment-readiness-fixture.ts (the operator-surface mirror, snapshot of the 210b8b9 artifact)",
+    "rederived_rows_source": "the W1-021 engine run at f4a651e against the 8aae797 CI evidence (run 38380254425) — 03-dist-manifest-console.txt",
+    "rows": [
+      { "row": "dist.mode", "recorded": "ci-evidence-manifest", "rederived_at_8aae797": "ci-evidence-manifest", "comparison": "IDENTICAL" },
+      { "row": "dist.digest (manifest-derived)", "recorded": "sha256:0508acfe8e87a989", "rederived_at_8aae797": "sha256:e77f66a2fe8213bc", "comparison": "DELTA" },
+      { "row": "dist.fileCount", "recorded": 6204, "rederived_at_8aae797": 6204, "comparison": "IDENTICAL" },
+      { "row": "dist.provenance.source", "recorded": "ci-evidence", "rederived_at_8aae797": "ci-evidence", "comparison": "IDENTICAL" },
+      { "row": "check: dist-manifest-completeness", "recorded": "PASS (6,204 classified, zero unclassifiable)", "rederived_at_8aae797": "PASS (6,204 classified, zero unclassifiable, zero unparseable)", "comparison": "IDENTICAL" },
+      { "row": "check: dist-digest-deterministic", "recorded": "PASS", "rederived_at_8aae797": "PASS", "comparison": "IDENTICAL" },
+      { "row": "check: source-dist-cross-check", "recorded": "PASS", "rederived_at_8aae797": "PASS", "comparison": "IDENTICAL" },
+      { "row": "source inventory digest (12 entries)", "recorded": "sha256:18a52157007574ed", "rederived_at_8aae797": "sha256:18a52157007574ed", "comparison": "IDENTICAL" },
+      { "row": "bundle verification total", "recorded": "11/11 PASS", "rederived_at_8aae797": "11/11 PASS", "comparison": "IDENTICAL" }
+    ],
+    "ci_digest_lineage": [
+      { "commit": "29c7ae7 (product-completion final lineage, run 38131004309)", "deterministic_sha256": "5f5e5248bdc9953e1455f80905e1d92470638ff6a0200d1a051de0d803768deb", "files": 6200, "bytes": 137124002 },
+      { "commit": "29f037d (W1-021 merge, run 38259561304)", "deterministic_sha256": "71b03964e485824ad9881bfdf433d572dca35ba01b404d5327804653879798c7", "files": 6204, "bytes": 137303600 },
+      { "commit": "8aae797 (zcode-chain closeout, run 38380254425 — THIS LANE'S ROW)", "deterministic_sha256": "ad4821e76a5b199ae171dba4ccfe3710d5eab3be41a0e09fc9ad94f88d05a890", "files": 6204, "bytes": 137313334 }
+    ],
+    "delta_diagnosis": {
+      "finding": "The dist identity at 8aae797 is NOT byte-identical to the recorded RC rows. Per-file comparison of the two CI manifests (29f037d run 38259561304 vs 8aae797 run 38380254425): 5,980 of 6,204 files identical (path + sha256); 220 paths present only in the prior (218 .js + 2 .map — content-hash-named assets renamed) with 220 corresponding new paths in the 8aae797 manifest (218 .js + 2 .map); 4 same-path changed digests (assets/pdf-viewer-dTT1arnd.js.map, assets/previewPaneOfficeLegacyDocContent-guzpWPlW.js.map, assets/previewPaneOfficeXlsxContent-DU4V7AUs.js.map, index.html). Net: 224 of 6,204 dist files changed (3.6%).",
+      "attribution": "git log 29f037d..8aae797 -- packages/web/src shows exactly the W2-022 and W4-024 operator-surface lanes: 0e1fa69 + 72487ac (merged 1701f0c — the SystemSurface.tsx DIST IDENTITY + END-TO-END HASH CHAIN rows, +55 lines) and 2f069fa (merged c48edb5 — the deployment-readiness-fixture.ts mirror values, +42/−12). Three web src files changed in total: surfaces/SystemSurface.tsx, fixtures/deployment-readiness-fixture.ts, SystemSurface.test.tsx (+138/−12). These are inside the web build surface, so the dist legitimately changed. pnpm-lock.yaml is UNCHANGED in the range and both CI runs used the identical toolchain (node v24.21.0, vite 8.0.8, typescript 6.0.2, runner image ubuntu24/20261004.327.1) — the drift is src-driven, not toolchain-driven.",
+      "interpretation": "The work order's byte-identity expectation rested on 'the delta was docs+tooling only', which holds for the zcode-chain commits relative to the verification-hardening closeout (4f84cc3) but NOT for the full span from the recorded rows' CI build (29f037d): the deployment-integrity phase's own W2-022/W4-024 operator-surface work (merged between 29f037d and 7dd8fb8) is in the dist. The freshness gap this lane exists to detect is REAL: the recorded RC dist rows are stale relative to the current tip's dist; the staging lane's inheritance must carry the re-derived rows (sha256:e77f66a2fe8213bc / 6,204 files / run 38380254425), which this lane's regenerated artifact now records. All of the engine's own verification checks (11/11) PASS on the current evidence — the chain is verified end-to-end at the current tip; the delta is the dist identity, not a verification failure."
+    }
+  },
+  "steps": [
+    { "step": "01-source-only", "outcome": "PASS", "exit_code": 0, "checks": "8 PASS, 0 FAIL", "evidence": "01-source-only-console.txt" },
+    { "step": "02-dist-root (optional third mode, committed clean fixture)", "outcome": "PASS", "exit_code": 0, "checks": "10 PASS, 0 FAIL", "dist_digest": "sha256:58507d0516a47d1f (fixture-derived)", "evidence": "02-dist-root-console.txt" },
+    { "step": "03-dist-manifest (the required mode, the 8aae797 CI evidence)", "outcome": "PASS", "exit_code": 0, "checks": "11 PASS, 0 FAIL", "dist_digest": "sha256:e77f66a2fe8213bc", "file_count": 6204, "evidence": "03-dist-manifest-console.txt" }
+  ]
+}

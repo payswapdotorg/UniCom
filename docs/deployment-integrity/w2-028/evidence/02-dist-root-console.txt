@@ -1,0 +1,30 @@
+W2-028 evidence — Leg 4c (the optional third mode): the rehearsal engine, --dist-root
+against the committed clean fixture.
+
+Command (run at repo root, tree f4a651e, branch work/w2-028):
+  node packages/experience/scripts/deployment-rehearsal.mjs --dist-root packages/experience/test/deployment/dist-dir-clean-fixture
+
+Exit code: 0
+
+Console output (verbatim):
+
+=== W1-019+W1-021 Deployment Rehearsal ===
+Lineage: f4a651e88716
+Inventory: 12 entries, digest sha256:18a52157007574ed
+Capabilities: 12 declared
+Config surface: 12 keys classified
+Dist mode: dist-root, digest sha256:58507d0516a47d1f, 5 files
+Verification: 10 PASS, 0 FAIL
+Non-live: true
+Artifact: /home/z/work/UniCom/packages/experience/reports/deployment/deployment-readiness.json
+
+All checks PASS. Artifact written.
+
+Notes:
+- The dist-root walk mode exercised on the committed clean fixture
+  (5 files, zero unclassifiable) — the W1-025 honest-walk contract holds at
+  the current tip. The dist digest sha256:58507d0516a47d1d is
+  fixture-derived (provenance dist-root-walk), NOT CI evidence.
+- This run's artifact was subsequently overwritten by the final
+  --dist-manifest run (see 03-dist-manifest-console.txt), which is the
+  artifact committed by this lane.
