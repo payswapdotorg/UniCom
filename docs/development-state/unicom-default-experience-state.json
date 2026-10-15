@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "repository": "payswapdotorg/UniCom",
-  "program": "UNiCOM Default Application Experience — Web + Ubuntu Desktop",
+  "program": "UNiCOM Default Application Experience \u2014 Web + Ubuntu Desktop",
   "phase_issue": "https://github.com/payswapdotorg/UniCom/issues/22",
   "tl_handoff": "docs/FINAL-TL-HANDOFF-UNICOM-DEFAULT-EXPERIENCE-2026-10-14.md",
   "status": "IN_PROGRESS",
@@ -81,7 +81,7 @@
         "dispatched_at": "2026-10-14T16:31:26Z",
         "delivered_branch_tip": "5d9193e5cd631ab860801a6bb1b121afe8137334",
         "merged_as": "a3e135d (--no-ff, TL battery in the message)",
-        "tl_acceptance": "2026-10-14 ~19:2xZ — every gate independently re-run and matched exactly: web battery 413/413 (37 files; was 392/392 at base), scoped tsc exit 0 clean, lint 103w/0e identical baseline, architecture 0/0/0, browser evidence 8/8 steps PASS with all pointers resolving (buyer Intent Canvas first journey, merchant Command Center first journey, role switching with identity/authority unchanged, explicit UNKNOWN/DEMO states); write-surface audit zero files outside",
+        "tl_acceptance": "2026-10-14 ~19:2xZ \u2014 every gate independently re-run and matched exactly: web battery 413/413 (37 files; was 392/392 at base), scoped tsc exit 0 clean, lint 103w/0e identical baseline, architecture 0/0/0, browser evidence 8/8 steps PASS with all pointers resolving (buyer Intent Canvas first journey, merchant Command Center first journey, role switching with identity/authority unchanged, explicit UNKNOWN/DEMO states); write-surface audit zero files outside",
         "completion_report": "docs/work-orders/reports/W1-026-completion-report.md"
       }
     },
@@ -107,7 +107,7 @@
         "dispatched_at": "2026-10-14T16:39:43Z",
         "delivered_branch_tip": "1605ea628ac538d1e4217a8ba2e436a31c61b99b",
         "merged_as": "e440cd1 (--no-ff, TL battery in the message)",
-        "tl_acceptance": "2026-10-14 ~19:5xZ — every gate independently re-run and matched: web battery 414/414 (36 files; was 392/392), lint 103w/0e + scoped lane lint 0/0 (22 files), scoped web typecheck base↔tip BYTE-IDENTICAL zero-new zero-touching-lane (environment note: TL box denominator 235 vs worker sandbox 206 — the pre-existing experience-barrel TS2835 class; the lane's report flags the barrel as a spec gap), architecture 0/0/0, browser lane evidence 9/9 PASS with 0 console errors (warm-cache run; the cold-optimizer burst noise was environmental, all 8 functional steps passed in every run); write-surface audit zero files outside (SystemSurface.test.tsx verified pre-existing authorized)",
+        "tl_acceptance": "2026-10-14 ~19:5xZ \u2014 every gate independently re-run and matched: web battery 414/414 (36 files; was 392/392), lint 103w/0e + scoped lane lint 0/0 (22 files), scoped web typecheck base\u2194tip BYTE-IDENTICAL zero-new zero-touching-lane (environment note: TL box denominator 235 vs worker sandbox 206 \u2014 the pre-existing experience-barrel TS2835 class; the lane's report flags the barrel as a spec gap), architecture 0/0/0, browser lane evidence 9/9 PASS with 0 console errors (warm-cache run; the cold-optimizer burst noise was environmental, all 8 functional steps passed in every run); write-surface audit zero files outside (SystemSurface.test.tsx verified pre-existing authorized)",
         "completion_report": "docs/work-orders/reports/W2-029-completion-report.md"
       }
     },
@@ -130,7 +130,7 @@
         "focused browser/desktop tests and evidence"
       ],
       "branch": "work/w3-024",
-      "session": "https://chat.z.ai/c/a096556f-6813-4a1b-9a35-a5e7dd77be8e",
+      "session": "https://chat.z.ai/c/82290725-b4a5-4034-a708-b31dcddf37b5",
       "base_sha": "82d2d68ec465c19bd177a7567ba5b676843b5ece",
       "evidence": {
         "dispatch_started": "2026-10-14T16:40:55Z",
@@ -140,27 +140,45 @@
             "session": "https://chat.z.ai/c/4ec699ac-de8a-4c76-a817-25e702c0a1e6",
             "landed_at": "2026-10-14T21:56:52Z",
             "voided_at": "2026-10-15T00:09:20Z",
-            "fate": "send landed but the turn NEVER spawned: account sandbox slots were FULL 3/3 (§11d spawn wall — two stale holders from merged lanes W2-028/W2-029 + the dead lost-era W3-024 attempt eef3a9b4). TL released all three stale holders 00:03Z (tl_delete_ws 200x3) but the queued packet never self-spawned; the §12b kick_queued attempt was captcha-rejected and WEDGED the record server-side (http-500 forever, vanished from the chat list — the 2026-10-03 hazard law); zero work lost (no pod, no assistant turn, prompt vaulted). NOTE: its void was executed by the ladder at 01:20Z."
+            "fate": "send landed but the turn NEVER spawned: account sandbox slots were FULL 3/3 (\u00a711d spawn wall \u2014 two stale holders from merged lanes W2-028/W2-029 + the dead lost-era W3-024 attempt eef3a9b4). TL released all three stale holders 00:03Z (tl_delete_ws 200x3) but the queued packet never self-spawned; the \u00a712b kick_queued attempt was captcha-rejected and WEDGED the record server-side (http-500 forever, vanished from the chat list \u2014 the 2026-10-03 hazard law); zero work lost (no pod, no assistant turn, prompt vaulted). NOTE: its void was executed by the ladder at 01:20Z."
           },
           {
             "session": "https://chat.z.ai/c/97b04846-44b0-439b-b924-a48f8d673e4d",
             "landed_at": "2026-10-15T01:20:42Z",
             "voided_at": "2026-10-15T01:24:00Z",
-            "fate": "queue_watch's autonomous ladder fired 01:20:17Z (queued-static past threshold; s8 stop/continue cure rc-failed on the never-opened turn per §12a, fell through to void+re-dispatch) — but the 22:00Z queue_watch launch had never sourced .payswap-env, so its dispatch subprocess sent the LITERAL [REDACTED:github_token] placeholder (verified in the 13,778-char echo: REDACTED-literal True). Born broken — a worker could clone but never push. Voided 6 min after landing; zero work existed (batch 0, no pod activity)."
+            "fate": "queue_watch's autonomous ladder fired 01:20:17Z (queued-static past threshold; s8 stop/continue cure rc-failed on the never-opened turn per \u00a712a, fell through to void+re-dispatch) \u2014 but the 22:00Z queue_watch launch had never sourced .payswap-env, so its dispatch subprocess sent the LITERAL [REDACTED:github_token] placeholder (verified in the 13,778-char echo: REDACTED-literal True). Born broken \u2014 a worker could clone but never push. Voided 6 min after landing; zero work existed (batch 0, no pod activity)."
           },
           {
             "session": "https://chat.z.ai/c/464db9b1-c718-40ae-99c7-b146e59b3905",
             "landed_at": "2026-10-15T01:25:50Z",
             "voided_at": "2026-10-15T04:31:53Z",
-            "fate": "round-4 (the TL's PAT-carrying re-dispatch after the lineage fix): prompt forensically verified (REDACTED-literal False, 40-hex present), generation queued in the closed overnight window. queue_watch extended lesson-185 patience twice (02:31Z, 03:31Z probes: alive msgs=1, bchars=0) then the 7200s zombie ceiling fired 04:31:53Z — the s8 stop/continue cure rc-failed as §12a predicts (stop accepted on the user-msg id, continue 404s) and the coded fall-through voided + re-dispatched. The §11d pool check at 01:52Z had caught the wall reforming (3/3 stale pods from the voided sessions) and the TL released them pre-emptively — round-4 never sat spawn-blocked."
+            "fate": "round-4 (the TL's PAT-carrying re-dispatch after the lineage fix): prompt forensically verified (REDACTED-literal False, 40-hex present), generation queued in the closed overnight window. queue_watch extended lesson-185 patience twice (02:31Z, 03:31Z probes: alive msgs=1, bchars=0) then the 7200s zombie ceiling fired 04:31:53Z \u2014 the s8 stop/continue cure rc-failed as \u00a712a predicts (stop accepted on the user-msg id, continue 404s) and the coded fall-through voided + re-dispatched. The \u00a711d pool check at 01:52Z had caught the wall reforming (3/3 stale pods from the voided sessions) and the TL released them pre-emptively \u2014 round-4 never sat spawn-blocked."
+          },
+          {
+            "session": "https://chat.z.ai/c/a096556f-6813-4a1b-9a35-a5e7dd77be8e",
+            "landed_at": "2026-10-15T04:40:04Z",
+            "voided_at": "2026-10-15T10:04:03Z",
+            "fate": "round-5 (the ladder's autonomous zombie-ceiling re-dispatch, PAT verified, pod bound): sat queued-static through the admission drought (platform window); killed at 10:04:03Z by the queue_watch WRONG-ASSAULT \u2014 the TL's post-recycle-#23 registry reconstruction had written the create row WITHOUT mode=agents-tab, so the lesson-185 server-truth gate never engaged and a home-tab state (the \u00a711d bounce signature) read as 'session destroyed'. Zero work existed (msgs=1, batch empty, no generation). TL-owned fix + lesson recorded: reconstructed registry rows MUST carry the full dispatch_worker shape."
+          },
+          {
+            "session": "https://chat.z.ai/c/9b81e577-ccd3-434d-8ebe-0d73a8b59241",
+            "landed_at": "2026-10-15T10:06:17Z",
+            "voided_at": "2026-10-15T10:07:50Z",
+            "fate": "round-6 (the assault's re-dispatch): BORN BROKEN \u2014 the ladder read the registry create row's prompt_file, which the TL's reconstruction had pointed at the 928-char provenance STUB instead of the real packet (no work order, no PAT placeholders). Caught in minutes; voided zero-work-loss (queued-static)."
           }
         ],
-        "dispatch_rounds": "original fight 16:40Z-21:42Z (12+ assault ladders, no session) -> sandbox recycle ~21:42Z wiped the staged prompt -> TL re-arm 21:54Z landed 4ec699ac 21:56:52Z (insert 100%, send VERIFIED, agents-tab + GLM-5.3 + Full-Stack) -> 2h queued-static (§11d spawn wall, slots full) -> TL released 3 stale holders 00:03Z -> kick attempt wedged 4ec699ac (captcha-reject, hazard law) -> voided 00:09Z -> RE-DISPATCH round-3 (the ladder's own, PAT-less env lineage — voided) -> ROUND-4 (the TL, env fixed: queue_watch relaunched from a PAT-carrying shell, then void+create): landed 01:25:50Z, [pat] send-time substitution VERIFIED (2 placeholders -> live token), echo REDACTED-literal FALSE + 40-hex present (chats_http forensic), agents-tab + GLM-5.3 + Full-Stack re-verified, insert 100%, prompt sent VERIFIED. The queue_watch env-lineage law now stands: EVERY dispatching process must inherit the sourced .payswap-env -> ROUND-5 (the ladder, autonomous, 04:31-04:40Z): zombie ceiling -> s8 cure rc-fail (§12a) -> void+create -> a096556f landed 04:40:04Z, PAT verified, pod bound",
+        "dispatch_rounds": "original fight 16:40Z-21:42Z (12+ assault ladders, no session) -> sandbox recycle ~21:42Z wiped the staged prompt -> TL re-arm 21:54Z landed 4ec699ac 21:56:52Z (insert 100%, send VERIFIED, agents-tab + GLM-5.3 + Full-Stack) -> 2h queued-static (\u00a711d spawn wall, slots full) -> TL released 3 stale holders 00:03Z -> kick attempt wedged 4ec699ac (captcha-reject, hazard law) -> voided 00:09Z -> RE-DISPATCH round-3 (the ladder's own, PAT-less env lineage \u2014 voided) -> ROUND-4 (the TL, env fixed: queue_watch relaunched from a PAT-carrying shell, then void+create): landed 01:25:50Z, [pat] send-time substitution VERIFIED (2 placeholders -> live token), echo REDACTED-literal FALSE + 40-hex present (chats_http forensic), agents-tab + GLM-5.3 + Full-Stack re-verified, insert 100%, prompt sent VERIFIED. The queue_watch env-lineage law now stands: EVERY dispatching process must inherit the sourced .payswap-env -> ROUND-5 (the ladder, autonomous, 04:31-04:40Z): zombie ceiling -> s8 cure rc-fail (\u00a712a) -> void+create -> a096556f landed 04:40:04Z, PAT verified, pod bound -> ROUND-6 (the assault's, stub-prompt, voided 90s later) -> ROUND-7 (the TL's, the REAL packet 82290725, 10:08:38Z; the watch: lane_watch + queue_watch + drought_sentinel + branch_watch)",
         "prompt_chars": 13829,
         "insert_verified_pct": 100,
         "session_tab": "5761DF65",
         "session_title_at_landing": "New Chat (sandbox pod Running)",
-        "note": "round-5 = the ladder's SECOND autonomous re-dispatch, this time PAT-carrying (the lineage fix held: [pat] send-time substitution verified + echo REDACTED-literal False + 40-hex present). Pod bound at dispatch (pool 2/3 free). The overnight completions window (§10i) has gated every generation since ~22:04Z; the ladder's patience loop (3600s probe / 7200s zombie ceiling) owns the overnight cadence: assault budget 1/4 used on this process."
+        "note": "round-5 = the ladder's SECOND autonomous re-dispatch, this time PAT-carrying (the lineage fix held: [pat] send-time substitution verified + echo REDACTED-literal False + 40-hex present). Pod bound at dispatch (pool 2/3 free). The overnight completions window (\u00a710i) has gated every generation since ~22:04Z; the ladder's patience loop (3600s probe / 7200s zombie ceiling) owns the overnight cadence: assault budget 1/4 used on this process.",
+        "round_7": {
+          "session": "https://chat.z.ai/c/82290725-b4a5-4034-a708-b31dcddf37b5",
+          "dispatched_at": "2026-10-15T10:08:38Z",
+          "packet": "the REAL prompt \u2014 extracted from the round-5 chat record (the exact 13,812 chars the 5-round fight had verified), the 2 live-PAT occurrences redacted back to [REDACTED:github_token] (zero raw tokens in the staged file), send-time substitution verified arithmetically (13,778 staged + 2\u00d717 = 13,812 sent)",
+          "stage": "queued in the platform admission drought (no generation on this account since ~19:2xZ Oct 14); drought_sentinel canary-probing every 20 min (recover on PROVEN admission); queue_watch ladder + branch_watch armed"
+        }
       }
     }
   ],
@@ -229,6 +247,6 @@
     "live_commerce_mutation_or_payments": "NOT_AUTHORIZED",
     "human_research": "NOT_AUTHORIZED"
   },
-  "tl_loop": "W1-026 + W2-029: delivered -> independently TL-verified -> merged -> retired. W3-024: after the 2h queued-static spawn wall (§11d — account slots full 3/3 of stale holders), the TL released the stale holders, survived the kick-wedge hazard (4ec699ac voided, zero work lost), and re-dispatched from the recycle-proof vault — the lane is now on round-5 (a096556f, landed 04:40:04Z by the ladder's autonomous zombie-ceiling cycle — PAT verified, pod bound): the overnight completions window has gated every generation since ~22:04Z and the ladder's patience loop owns the cadence (assault budget 1/4). The worker executes the architecture-gate-first contract; lane_watch + queue_watch hold the watch; TL review on delivery. Phase gates stay PENDING until the phase-level acceptance; lane-level evidence is recorded per work order.",
-  "updated_at": "2026-10-15T04:44:00Z"
+  "tl_loop": "W1-026 + W2-029: delivered -> independently TL-verified -> merged -> retired. W3-024: the capacity fight survived recycles #15-#23; round-7 (82290725) carries the byte-verified real packet and sits queued in the platform admission drought \u2014 the drought_sentinel owns break-detection (canary-probed: recover only on PROVEN admission), queue_watch's ladder owns stale-queue refresh, branch_watch owns the delivery; TL review on delivery (every gate independently re-run at the pushed tip). The 2026-10-15 wrong-assault incident (round-5 voided + round-6 born on a stub prompt, both zero-work-loss) is recorded above \u2014 the registry-reconstruction lesson: reconstructed rows MUST carry the full dispatch_worker shape (mode=agents-tab gates the lesson-185 server-truth protection).",
+  "updated_at": "2026-10-15T10:18:00Z"
 }
