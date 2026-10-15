@@ -130,11 +130,11 @@
         "focused browser/desktop tests and evidence"
       ],
       "branch": "work/w3-024",
-      "session": "https://chat.z.ai/c/464db9b1-c718-40ae-99c7-b146e59b3905",
+      "session": "https://chat.z.ai/c/a096556f-6813-4a1b-9a35-a5e7dd77be8e",
       "base_sha": "82d2d68ec465c19bd177a7567ba5b676843b5ece",
       "evidence": {
         "dispatch_started": "2026-10-14T16:40:55Z",
-        "landed_at": "2026-10-15T01:25:50Z",
+        "landed_at": "2026-10-15T04:40:04Z",
         "prior_sessions": [
           {
             "session": "https://chat.z.ai/c/4ec699ac-de8a-4c76-a817-25e702c0a1e6",
@@ -147,14 +147,20 @@
             "landed_at": "2026-10-15T01:20:42Z",
             "voided_at": "2026-10-15T01:24:00Z",
             "fate": "queue_watch's autonomous ladder fired 01:20:17Z (queued-static past threshold; s8 stop/continue cure rc-failed on the never-opened turn per §12a, fell through to void+re-dispatch) — but the 22:00Z queue_watch launch had never sourced .payswap-env, so its dispatch subprocess sent the LITERAL [REDACTED:github_token] placeholder (verified in the 13,778-char echo: REDACTED-literal True). Born broken — a worker could clone but never push. Voided 6 min after landing; zero work existed (batch 0, no pod activity)."
+          },
+          {
+            "session": "https://chat.z.ai/c/464db9b1-c718-40ae-99c7-b146e59b3905",
+            "landed_at": "2026-10-15T01:25:50Z",
+            "voided_at": "2026-10-15T04:31:53Z",
+            "fate": "round-4 (the TL's PAT-carrying re-dispatch after the lineage fix): prompt forensically verified (REDACTED-literal False, 40-hex present), generation queued in the closed overnight window. queue_watch extended lesson-185 patience twice (02:31Z, 03:31Z probes: alive msgs=1, bchars=0) then the 7200s zombie ceiling fired 04:31:53Z — the s8 stop/continue cure rc-failed as §12a predicts (stop accepted on the user-msg id, continue 404s) and the coded fall-through voided + re-dispatched. The §11d pool check at 01:52Z had caught the wall reforming (3/3 stale pods from the voided sessions) and the TL released them pre-emptively — round-4 never sat spawn-blocked."
           }
         ],
-        "dispatch_rounds": "original fight 16:40Z-21:42Z (12+ assault ladders, no session) -> sandbox recycle ~21:42Z wiped the staged prompt -> TL re-arm 21:54Z landed 4ec699ac 21:56:52Z (insert 100%, send VERIFIED, agents-tab + GLM-5.3 + Full-Stack) -> 2h queued-static (§11d spawn wall, slots full) -> TL released 3 stale holders 00:03Z -> kick attempt wedged 4ec699ac (captcha-reject, hazard law) -> voided 00:09Z -> RE-DISPATCH round-3 (the ladder's own, PAT-less env lineage — voided) -> ROUND-4 (the TL, env fixed: queue_watch relaunched from a PAT-carrying shell, then void+create): landed 01:25:50Z, [pat] send-time substitution VERIFIED (2 placeholders -> live token), echo REDACTED-literal FALSE + 40-hex present (chats_http forensic), agents-tab + GLM-5.3 + Full-Stack re-verified, insert 100%, prompt sent VERIFIED. The queue_watch env-lineage law now stands: EVERY dispatching process must inherit the sourced .payswap-env",
+        "dispatch_rounds": "original fight 16:40Z-21:42Z (12+ assault ladders, no session) -> sandbox recycle ~21:42Z wiped the staged prompt -> TL re-arm 21:54Z landed 4ec699ac 21:56:52Z (insert 100%, send VERIFIED, agents-tab + GLM-5.3 + Full-Stack) -> 2h queued-static (§11d spawn wall, slots full) -> TL released 3 stale holders 00:03Z -> kick attempt wedged 4ec699ac (captcha-reject, hazard law) -> voided 00:09Z -> RE-DISPATCH round-3 (the ladder's own, PAT-less env lineage — voided) -> ROUND-4 (the TL, env fixed: queue_watch relaunched from a PAT-carrying shell, then void+create): landed 01:25:50Z, [pat] send-time substitution VERIFIED (2 placeholders -> live token), echo REDACTED-literal FALSE + 40-hex present (chats_http forensic), agents-tab + GLM-5.3 + Full-Stack re-verified, insert 100%, prompt sent VERIFIED. The queue_watch env-lineage law now stands: EVERY dispatching process must inherit the sourced .payswap-env -> ROUND-5 (the ladder, autonomous, 04:31-04:40Z): zombie ceiling -> s8 cure rc-fail (§12a) -> void+create -> a096556f landed 04:40:04Z, PAT verified, pod bound",
         "prompt_chars": 13829,
         "insert_verified_pct": 100,
-        "session_tab": "72C51319",
+        "session_tab": "5761DF65",
         "session_title_at_landing": "New Chat (sandbox pod Running)",
-        "note": "queue_watch pid 14544 (PAT-carrying lineage, fresh clocks: 3600s probe ~02:27Z, 7200s zombie ~03:27Z); lane_watch on 464db9b1; the overnight completions window (§10i) gates the generation start — every send tonight lands server-side but no generation has admitted since ~22:04Z"
+        "note": "round-5 = the ladder's SECOND autonomous re-dispatch, this time PAT-carrying (the lineage fix held: [pat] send-time substitution verified + echo REDACTED-literal False + 40-hex present). Pod bound at dispatch (pool 2/3 free). The overnight completions window (§10i) has gated every generation since ~22:04Z; the ladder's patience loop (3600s probe / 7200s zombie ceiling) owns the overnight cadence: assault budget 1/4 used on this process."
       }
     }
   ],
@@ -177,7 +183,7 @@
     },
     {
       "id": "W3-024",
-      "status": "DISPATCHED (session 464db9b1 landed 01:25:50Z, round-4, PAT verified in echo; generation queued in the overnight window)"
+      "status": "DISPATCHED (session a096556f landed 04:40:04Z, round-5 via the PAT-carrying ladder; generation queued in the overnight window)"
     }
   ],
   "acceptance_gates": [
@@ -223,6 +229,6 @@
     "live_commerce_mutation_or_payments": "NOT_AUTHORIZED",
     "human_research": "NOT_AUTHORIZED"
   },
-  "tl_loop": "W1-026 + W2-029: delivered -> independently TL-verified -> merged -> retired. W3-024: after the 2h queued-static spawn wall (§11d — account slots full 3/3 of stale holders), the TL released the stale holders, survived the kick-wedge hazard (4ec699ac voided, zero work lost), and re-dispatched from the recycle-proof vault — session 464db9b1 LANDED 01:25:50Z (round-4; the ladder's autonomous PAT-less re-dispatch at 01:20Z was caught and voided within 6 minutes — the env-lineage law recorded) with the PAT substitution forensically verified in the echo. The worker executes the architecture-gate-first contract; lane_watch + queue_watch hold the watch; TL review on delivery. Phase gates stay PENDING until the phase-level acceptance; lane-level evidence is recorded per work order.",
-  "updated_at": "2026-10-15T01:29:00Z"
+  "tl_loop": "W1-026 + W2-029: delivered -> independently TL-verified -> merged -> retired. W3-024: after the 2h queued-static spawn wall (§11d — account slots full 3/3 of stale holders), the TL released the stale holders, survived the kick-wedge hazard (4ec699ac voided, zero work lost), and re-dispatched from the recycle-proof vault — the lane is now on round-5 (a096556f, landed 04:40:04Z by the ladder's autonomous zombie-ceiling cycle — PAT verified, pod bound): the overnight completions window has gated every generation since ~22:04Z and the ladder's patience loop owns the cadence (assault budget 1/4). The worker executes the architecture-gate-first contract; lane_watch + queue_watch hold the watch; TL review on delivery. Phase gates stay PENDING until the phase-level acceptance; lane-level evidence is recorded per work order.",
+  "updated_at": "2026-10-15T04:44:00Z"
 }
