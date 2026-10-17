@@ -196,11 +196,37 @@ export function WorkspaceEntryOverlay({
  * bootstrapping (the commerce host needs neither in demo mode). The same
  * rendered host (W1-011 shell + module registry + 19 journey families) is
  * reused; the staged desktop bundle embeds this exact page.
+ *
+ * URL law (W3-024, without touching the W1-owned shell):
+ * - top-level landing on a non-/commerce URL (the root default route):
+ *   canonicalize the address to "/commerce" via replaceState BEFORE mounting,
+ *   so the shell's UrlSync shareable-links law is already satisfied and the
+ *   host performs no same-document pushState — a push here would strand the
+ *   browser Back button (back → "/" → popstate → push "/commerce" loop).
+ * - embedded frame (the packaged desktop app stages this build under a
+ *   file:// URL): history.pushState to "/commerce" is a cross-document URL
+ *   under the opaque file:// origin and throws SecurityError (verified on
+ *   Chromium), which would crash the host mount. The embedder owns the frame
+ *   URL, so URL rewriting is neutralized for the embedded mount; in-host
+ *   navigation is state-based and unaffected.
  */
 export async function renderCommerceHostPage(
   root: { render: (node: ReactNode) => void },
 ): Promise<void> {
   document.title = "UNiCOM Commerce — Demo";
+  const embedded = resolveUnicomWorkspaceOpenTarget(window) === "embedded-parent";
+  if (embedded) {
+    const frameHistory = window.history as History & {
+      pushState: (data: unknown, unused: string, url?: string | null) => void;
+      __unicomEmbeddedUrlRewriteNeutralized?: boolean;
+    };
+    if (!frameHistory.__unicomEmbeddedUrlRewriteNeutralized) {
+      frameHistory.pushState = () => {};
+      frameHistory.__unicomEmbeddedUrlRewriteNeutralized = true;
+    }
+  } else if (!isCommerceHostPath(window.location.pathname) && window.history?.replaceState) {
+    window.history.replaceState(null, "", "/commerce");
+  }
   const { CommerceHostApp } = await import("./commerce-host/shell/CommerceHostApp.js");
   root.render(
     <>

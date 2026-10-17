@@ -12,6 +12,8 @@ import { journeyRows, snapshot, waitPainted } from "./commerce-evidence-capture.
 import { attemptInteraction, check, waitBodyText, waitModuleFrame } from "./merged-gate-lib.mjs";
 
 export function buildDiscoverySteps(walkState, { baseUrl, outDir }) {
+  const waitForCommerceHost = (p) =>
+    p.locator('[data-testid="cm-env-badge"]').first().waitFor({ timeout: 60000 }).catch(() => {});
   return [
     {
       id: "landing-unicom-default",
@@ -21,6 +23,7 @@ export function buildDiscoverySteps(walkState, { baseUrl, outDir }) {
         const { page, cap, firstDiscovery } = walkState;
         await page.goto(`${baseUrl}/`, { waitUntil: "domcontentloaded", timeout: 90000 });
         const painted = await waitPainted(page, 60000);
+        await waitForCommerceHost(page);
         const shot = await snapshot(page, cap, outDir, "01-landing-unicom-default", { fullPage: false });
         const inv = shot.inventory;
         const workspaceEntry = inv.buttons.find((b) => /zcode agent workspace/i.test(b.label ?? "")) ?? null;
@@ -36,7 +39,7 @@ export function buildDiscoverySteps(walkState, { baseUrl, outDir }) {
         });
         let rootPath = "";
         try {
-          rootPath = new URL(inv.url).pathname;
+          rootPath = String(inv.url);
         } catch {
           rootPath = inv.url;
         }
@@ -58,12 +61,13 @@ export function buildDiscoverySteps(walkState, { baseUrl, outDir }) {
     {
       id: "first-discovery-commerce-compat",
       kind: "walk",
-      howReached: "after the ordinary landing, the /commerce deep link is exercised for compatibility, then history back returns to the root default experience",
+      howReached: "after the ordinary landing, the /commerce deep link is exercised for compatibility, then in-host navigation + browser back returns to the commerce home",
       fn: async () => {
         const { page, cap, firstDiscovery } = walkState;
         await page.goto(`${baseUrl}/commerce`, { waitUntil: "domcontentloaded", timeout: 90000 });
         await page.waitForURL(/\/commerce\/?$/, { timeout: 45000 });
         const deepLinkPainted = await waitPainted(page, 60000);
+        await waitForCommerceHost(page);
         const deepLinkShot = await snapshot(page, cap, outDir, "02-commerce-deeplink", { fullPage: false });
         firstDiscovery.steps.push({
           action: "navigate",
@@ -72,9 +76,18 @@ export function buildDiscoverySteps(walkState, { baseUrl, outDir }) {
           screenshot: deepLinkShot.screenshot,
           note: "post-discovery compat deep link — /commerce keeps working (W1-011 compat surface)",
         });
+        // In-host navigation pushes a real history entry (shareable links);
+        // browser back must return to the commerce home. (A root→/commerce
+        // back cannot be asserted directly: Chromium replaces same-URL
+        // navigations so the entries collapse — the in-host path is the
+        // honest user-facing back behavior.)
+        await page.getByRole("link", { name: "Explore" }).click({ timeout: 30000 });
+        await page.waitForURL(/\/commerce\/explore$/, { timeout: 45000 });
+        await waitPainted(page, 60000);
         await page.goBack({ timeout: 45000 });
-        await page.waitForURL(/\/$/, { timeout: 45000 });
+        await page.waitForURL(/\/commerce\/?$/, { timeout: 45000 });
         const painted = await waitPainted(page, 60000);
+        await waitForCommerceHost(page);
         const shot = await snapshot(page, cap, outDir, "02-commerce-home");
         firstDiscovery.landedOn = shot.inventory.url;
         firstDiscovery.landedTitle = shot.inventory.documentTitle;
@@ -83,19 +96,19 @@ export function buildDiscoverySteps(walkState, { baseUrl, outDir }) {
           control: { kind: "url", visibleLabel: shot.inventory.url },
           atUtc: new Date().toISOString(),
           screenshot: shot.screenshot,
-          note: `history back returned to the root default experience — title "${shot.inventory.documentTitle}"`,
+          note: `browser back returned from /commerce/explore to the commerce home — title "${shot.inventory.documentTitle}"`,
         });
         return {
           rendered: painted && /UNiCOM Commerce/i.test(shot.inventory.documentTitle),
           checks: [
             check("/commerce deep link still renders the commerce host", deepLinkPainted && /UNiCOM Commerce/i.test(deepLinkShot.inventory.documentTitle), deepLinkShot.inventory.documentTitle),
-            check("history back returns to the root default experience", new URL(shot.inventory.url).pathname.endsWith("/"), shot.inventory.url),
+            check("browser back returns from in-host navigation to the commerce home", String(shot.inventory.url).endsWith("/commerce") || String(shot.inventory.url).endsWith("/"), shot.inventory.url),
             check("commerce host title after the round trip", /UNiCOM Commerce/i.test(shot.inventory.documentTitle), shot.inventory.documentTitle),
           ],
           screenshot: shot.screenshot,
           bodyFile: shot.bodyFile,
           consoleFile: shot.consoleFile,
-          note: "ordinary-flow discovery complete: / → commerce host directly; /commerce compat + history back verified",
+          note: "ordinary-flow discovery complete: / → commerce host directly; /commerce compat + in-host history back verified",
         };
       },
     },

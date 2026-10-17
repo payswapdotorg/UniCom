@@ -1,0 +1,4 @@
+[navigate] http://localhost:5199/share/callback?state=eyJub25jZSI6InczMDI0In0&code=w3-024-proof-code
+[debug] [vite] connecting...
+[debug] [vite] connected.
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold

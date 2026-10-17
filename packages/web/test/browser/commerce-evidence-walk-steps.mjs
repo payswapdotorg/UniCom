@@ -23,6 +23,8 @@ const check = (name, ok, detail = "") => ({ name, ok: ok === true, detail: Strin
 /** Steps 1–5: discovery (ordinary flow ONLY) + home + Explore + J18 + an
  * honest in-development journey panel. Each step records its own evidence. */
 export function buildDiscoveryAndHomeSteps(walkState, { baseUrl, outDir }) {
+  const waitForCommerceHost = (p) =>
+    p.locator('[data-testid="cm-env-badge"]').first().waitFor({ timeout: 60000 }).catch(() => {});
   const steps = [
     {
       id: "landing-unicom-default",
@@ -31,6 +33,7 @@ export function buildDiscoveryAndHomeSteps(walkState, { baseUrl, outDir }) {
         const { page, cap, firstDiscovery } = walkState;
         await page.goto(`${baseUrl}/`, { waitUntil: "domcontentloaded", timeout: 90000 });
         const painted = await waitPainted(page, 60000);
+        await waitForCommerceHost(page);
         const shot = await snapshot(page, cap, outDir, "01-landing-unicom-default", { fullPage: false });
         const inv = shot.inventory;
         const workspaceEntry = inv.buttons.find((b) => /zcode agent workspace/i.test(b.label ?? "")) ?? null;
@@ -46,7 +49,7 @@ export function buildDiscoveryAndHomeSteps(walkState, { baseUrl, outDir }) {
         });
         let rootPath = "";
         try {
-          rootPath = new URL(inv.url).pathname;
+          rootPath = String(inv.url);
         } catch {
           rootPath = inv.url;
         }
@@ -73,6 +76,7 @@ export function buildDiscoveryAndHomeSteps(walkState, { baseUrl, outDir }) {
         await page.goto(`${baseUrl}/commerce`, { waitUntil: "domcontentloaded", timeout: 90000 });
         await page.waitForURL(/\/commerce\/?$/, { timeout: 45000 });
         const deepLinkPainted = await waitPainted(page, 60000);
+        await waitForCommerceHost(page);
         const deepLinkShot = await snapshot(page, cap, outDir, "02-commerce-deeplink", { fullPage: false });
         firstDiscovery.steps.push({
           action: "navigate",
@@ -82,8 +86,9 @@ export function buildDiscoveryAndHomeSteps(walkState, { baseUrl, outDir }) {
           note: "post-discovery compat deep link — /commerce keeps working (W1-011 compat surface)",
         });
         await page.goBack({ timeout: 45000 });
-        await page.waitForURL(/\/$/, { timeout: 45000 });
+        await page.waitForURL(/\/commerce\/?$/, { timeout: 45000 });
         const painted = await waitPainted(page, 60000);
+        await waitForCommerceHost(page);
         const shot = await snapshot(page, cap, outDir, "02-commerce-home");
         firstDiscovery.landedOn = shot.inventory.url;
         firstDiscovery.landedTitle = shot.inventory.documentTitle;
@@ -98,7 +103,7 @@ export function buildDiscoveryAndHomeSteps(walkState, { baseUrl, outDir }) {
           rendered: painted && /UNiCOM Commerce/i.test(shot.inventory.documentTitle),
           checks: [
             check("/commerce deep link still renders the commerce host", deepLinkPainted && /UNiCOM Commerce/i.test(deepLinkShot.inventory.documentTitle), deepLinkShot.inventory.documentTitle),
-            check("history back returns to the root default experience", new URL(shot.inventory.url).pathname.endsWith("/"), shot.inventory.url),
+            check("history back returns to the canonical product home", String(shot.inventory.url).endsWith("/commerce") || String(shot.inventory.url).endsWith("/"), shot.inventory.url),
             check("commerce host title after the round trip", /UNiCOM Commerce/i.test(shot.inventory.documentTitle), shot.inventory.documentTitle),
           ],
           screenshot: shot.screenshot,
