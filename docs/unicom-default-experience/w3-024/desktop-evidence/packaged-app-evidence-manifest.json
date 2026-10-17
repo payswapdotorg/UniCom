@@ -1,7 +1,7 @@
 {
   "schema": "w3-024-packaged-app-evidence-manifest",
   "schemaVersion": 1,
-  "generatedAtUtc": "2026-10-17T11:30:26.168Z",
+  "generatedAtUtc": "2026-10-17T11:51:11.110Z",
   "artifact": {
     "appImageExtractedAt": "/home/z/my-project/UniCom/packages/desktop/dist/squashfs-root",
     "launchCommand": "DISPLAY=:97 ./squashfs-root/unicom-preview --no-sandbox --disable-gpu --disable-dev-shm-usage --remote-debugging-port=9333 (Xvfb :97 1600x1000x24; xvfb-run unavailable: xauth missing; AppRun needs the AppImage runtime’s $APPDIR, the extracted tree launches the binary directly)",
@@ -9,7 +9,7 @@
     "debInstalled": false,
     "note": "AppImage launched from the extracted tree (no /dev/fuse in this sandbox); the DEB was verified by dpkg-deb -I/-c/-x extraction (no root password for dpkg -i)"
   },
-  "timingsMs": 11306,
+  "timingsMs": 12013,
   "denominators": {
     "checks": 13,
     "passed": 13,
@@ -29,7 +29,7 @@
     {
       "name": "startup admission passed and the commerce surface rendered (first surface)",
       "status": "PASS",
-      "detail": "7459ms after launch"
+      "detail": "7276ms after launch"
     },
     {
       "name": "staged web-dist commerce frame present",
