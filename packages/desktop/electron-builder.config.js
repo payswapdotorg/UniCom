@@ -459,10 +459,13 @@ export default {
   extraMetadata: {
     version: buildMetadata.appVersion,
     zcodeProductFlavor: desktopProductIdentity.flavor,
-    homepage: "https://zcode.z.ai",
+    // W3-024：UNiCOM 产品元数据。仓库真实归属是 payswapdotorg/UniCom fork；
+    // 上游 zcode.z.ai 主页/邮箱不再描述本产品。maintainer 邮箱用 GitHub noreply
+    // 地址，不虚构可收件邮箱（上游署名保留在 THIRD-PARTY-NOTICES 与 notices 资源里）。
+    homepage: "https://github.com/payswapdotorg/UniCom",
     author: {
-      name: "ZCode",
-      email: "dev@zcode.z.ai",
+      name: "UNiCOM",
+      email: "payswapdotorg@users.noreply.github.com",
     },
   },
   // macOS 签名阶段会对 Electron Framework 下每个语言包逐个 codesign。
@@ -594,15 +597,16 @@ export default {
       to: "config/provider/zcode-builtin.json",
     },
     {
-      // 应用图标：打包后放入 resources 目录，主进程通过 process.resourcesPath 加载
-      from: "build/icon.png",
+      // 应用图标：打包后放入 resources 目录，主进程通过 process.resourcesPath 加载。
+      // W3-024：UNiCOM launcher 图标（build/unicom/，launcher/icon 新增文件授权面）。
+      from: "build/unicom/icon.png",
       to: "icon.png",
     },
     ...(targetPlatform.os === "linux"
       ? [
           {
             // AppImage 用户级 hicolor 图标安装使用真实 512x512 资源，避免目录标称尺寸和 PNG IHDR 不一致。
-            from: "build/icons/512x512.png",
+            from: "build/unicom/icon.png",
             to: "icon_512x512.png",
           },
         ]
@@ -629,6 +633,18 @@ export default {
       // 不再随包内置独立 Node 二进制。远端 SSH/WSL 仍走原生二进制（无 Electron）。
       from: `bundled-agents/${targetPlatform.key}/glm`,
       to: "glm",
+      filter: ["**/*", "!**/*.map"],
+    },
+    {
+      // W3-024：UNiCOM 默认体验的 commerce 主机 bundle。
+      // 打包前必须先完成 `corepack pnpm --filter @zcode/web exec vite build --base ./ --sourcemap false`
+      // （相对 base 是 file:// 加载的前提；sourcemap 会被下方 filter 剪掉，不生成以省内存）。
+      // renderer 在启动准入后于同进程 iframe 中加载该产物（见
+      // packages/desktop/src/renderer/src/unicomDefaultExperience.ts），不引入任何
+      // desktop → web 源码级依赖边；缺少该目录时 electron-builder 直接失败（fail-fast），
+      // 不会产出静默降级为空体验的安装包。
+      from: resolve(workspaceRoot, "packages/web/dist"),
+      to: "web-dist",
       filter: ["**/*", "!**/*.map"],
     },
     {
@@ -699,11 +715,15 @@ export default {
     artifactName: buildDesktopArtifactName("linux"),
     // desktop 包名是 scoped package（@zcode/desktop），electron-builder 默认会把
     // Linux executable/Icon 推成 @zcodedesktop。部分桌面环境无法按这个 icon name 命中
-    // hicolor 图标，最终回退成系统齿轮。这里固定成稳定的小写名称，让 Icon=zcode
-    // 与 /usr/share/icons/hicolor/*/apps/zcode.png 保持一致。
+    // hicolor 图标，最终回退成系统齿轮。这里固定成稳定的小写名称，让 Icon=unicom
+    // 与 /usr/share/icons/hicolor/*/apps/unicom.png 保持一致。
     executableName: desktopProductIdentity.linuxExecutableName,
-    category: "Development",
-    maintainer: "ZCode <dev@zcode.z.ai>",
+    // W3-024：UNiCOM launcher 图标（512x512，electron-builder 自动派生 hicolor 尺寸）。
+    icon: "build/unicom/icon.png",
+    // UNiCOM 是 commerce 操作系统产品（agent workspace 是其内核工作台），
+    // 桌面分类从开发工具改为 Office；Development 分类描述的是上游 ZCode 产品。
+    category: "Office",
+    maintainer: "UNiCOM <payswapdotorg@users.noreply.github.com>",
   },
   deb: {
     // 生产版与 Preview 必须是两个 dpkg package；只改可执行名仍会让安装器把另一版本当成升级替换。

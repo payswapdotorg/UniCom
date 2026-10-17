@@ -37,9 +37,8 @@ export async function runHostWalk({ cap: initialCap, baseUrl, outDir, log, heal 
     firstDiscovery: {
       routeOrigin: "ordinary-landing:/",
       landingRendered: null,
-      entryButtonLabel: null,
-      entryButtonFound: null,
-      clicked: false,
+      workspaceEntryLabel: null,
+      workspaceEntryFound: null,
       landedOn: null,
       landedTitle: null,
       deepLinkUsedForDiscovery: false,

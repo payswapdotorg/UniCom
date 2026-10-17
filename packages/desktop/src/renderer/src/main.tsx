@@ -39,6 +39,8 @@ import {
   parseRemoteWorkspaceServicePortMessage,
   type RemoteWorkspaceServicePortRegistration,
 } from "./remoteWorkspaceServicePortBridge.js";
+import { UnicomCommerceSurface } from "./unicomCommerceSurface.js";
+import { shouldOpenWorkspaceFirst } from "./unicomDefaultExperience.js";
 
 type DesktopRendererImportMetaEnv = {
   VITE_ZCODE_E2E_STORE_BRIDGE?: string;
@@ -258,6 +260,45 @@ function StartupReadyNotifier() {
   return null;
 }
 
+/**
+ * W3-024：workspace 表面上常驻的 UNiCOM 返回入口——产品是默认体验，
+ * ZCode workspace 是从产品可达的二级表面，也要能一键回到产品。
+ * Inline styles：不依赖 workspace 页面加载哪套样式表，与 Web 端 overlay 同一视觉模式。
+ */
+function UnicomWorkspaceReturnEntry({ onReturn }: { onReturn: () => void }) {
+  return (
+    <div
+      style={{
+        position: "fixed",
+        right: 16,
+        bottom: 16,
+        zIndex: 2147483000,
+        fontFamily: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+      }}
+    >
+      <button
+        type="button"
+        onClick={onReturn}
+        title="Back to the UNiCOM commerce experience (demo — synthetic fixtures, no live integrations)"
+        data-testid="unicom-workspace-return-entry"
+        style={{
+          fontSize: 13,
+          fontWeight: 600,
+          color: "#ffffff",
+          background: "#4c8dff",
+          border: "none",
+          borderRadius: 999,
+          padding: "9px 16px",
+          cursor: "pointer",
+          boxShadow: "0 4px 14px rgba(0, 0, 0, 0.35)",
+        }}
+      >
+        UNiCOM Commerce →
+      </button>
+    </div>
+  );
+}
+
 function handleServicePortMessage(event: MessageEvent): void {
   if (event.source === window && event.data?.type === InternalChannels.DatabaseStartupState) {
     const result = databaseStartupStateSchema.safeParse(event.data.state);
@@ -306,7 +347,6 @@ function initializeBusinessRoot(port: MessagePort): void {
   baseServicesForRemoteSessions = services;
   registerBaseWorkspaceServices(services);
   flushPendingRemoteWorkspaceServicePorts();
-  const settingService = supportsSettings ? services.settingService : undefined;
 
   syncAppTelemetryContext({
     bridge: {
@@ -323,6 +363,28 @@ function initializeBusinessRoot(port: MessagePort): void {
   // 渲染崩溃，若依赖 Root 的 effect 注入，则 Root 首帧就崩时上报会丢失。
   setReactErrorArmsReporter(desktopPlatform);
 
+  // W3-024：启动准入通过后，普通启动进入 UNiCOM 商业体验（同一个被渲染的
+  // commerce host，打包时由 electron-builder 从 packages/web 构建产物 staging 到
+  // resources/web-dist）；带显式 workspace 上下文（打开目录/会话用途/失效恢复）的
+  // 窗口直接进入保留的 ZCode workspace。消息端口、telemetry、远程 workspace
+  // 注册等 host 桥接在上面全部保留，两个表面切换时复用同一 services 实例。
+  if (
+    shouldOpenWorkspaceFirst({
+      initialWorkspaceAbsPath,
+      initialWorkspacePurpose,
+      unavailableWorkspacePath,
+    })
+  ) {
+    renderWorkspaceSurface();
+  } else {
+    renderUnicomCommerceSurface();
+  }
+}
+
+/** W3-024：保留的 ZCode agent workspace（原 Root 树，行为不变）+ 常驻 UNiCOM 返回入口。 */
+function renderWorkspaceSurface(): void {
+  const services = baseServicesForRemoteSessions!;
+  const settingService = supportsSettings ? services.settingService : undefined;
   appRoot?.render(
     <AppErrorBoundary isDesktop isMacDesktop={isMacDesktop} isWindowsDesktop={isWindowsDesktop}>
       <ZCodeIntlProvider
@@ -346,7 +408,24 @@ function initializeBusinessRoot(port: MessagePort): void {
           }
           unavailableWorkspacePath={unavailableWorkspacePath}
         />
+        <UnicomWorkspaceReturnEntry onReturn={renderUnicomCommerceSurface} />
       </ZCodeIntlProvider>
+    </AppErrorBoundary>,
+  );
+}
+
+/** W3-024：默认体验——准入后的 UNiCOM commerce 表面（staged bundle 或诚实的 dev 回退）。 */
+function renderUnicomCommerceSurface(): void {
+  appRoot?.render(
+    <AppErrorBoundary isDesktop isMacDesktop={isMacDesktop} isWindowsDesktop={isWindowsDesktop}>
+      <StartupReadyNotifier />
+      <UnicomCommerceSurface
+        localDevelopmentRuntime={isLocalDevelopmentRuntime}
+        isMacDesktop={isMacDesktop}
+        isWindowsDesktop={isWindowsDesktop}
+        platform={desktopPlatform}
+        onOpenWorkspace={renderWorkspaceSurface}
+      />
     </AppErrorBoundary>,
   );
 }

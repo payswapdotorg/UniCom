@@ -325,9 +325,8 @@ async function main() {
     firstDiscovery: {
       routeOrigin: "ordinary-landing:/",
       landingRendered: walk.firstDiscovery?.landingRendered ?? null,
-      entryButtonLabel: walk.firstDiscovery?.entryButtonLabel ?? null,
-      entryButtonFound: walk.firstDiscovery?.entryButtonFound ?? null,
-      clicked: walk.firstDiscovery?.clicked ?? false,
+      workspaceEntryLabel: walk.firstDiscovery?.workspaceEntryLabel ?? null,
+      workspaceEntryFound: walk.firstDiscovery?.workspaceEntryFound ?? null,
       landedOn: walk.firstDiscovery?.landedOn ?? null,
       landedTitle: walk.firstDiscovery?.landedTitle ?? null,
       deepLinkUsedForDiscovery: false,

@@ -193,7 +193,7 @@ async function main() {
     cap: null,
     live: {},
     baseUrl,
-    firstDiscovery: { landingRendered: null, entryButtonLabel: null, entryButtonFound: null, clicked: false, landedOn: null, landedTitle: null, deepLinkUsedForDiscovery: false, steps: [] },
+    firstDiscovery: { landingRendered: null, workspaceEntryLabel: null, workspaceEntryFound: null, landedOn: null, landedTitle: null, deepLinkUsedForDiscovery: false, steps: [] },
     homeRows: [],
     exploreRows: [],
     rolesHeld: [],

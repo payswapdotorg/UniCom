@@ -32,8 +32,8 @@ import type { IPlatformService, RemoteTarget, ServerRemoteInfo } from "@zcode/sh
 import { WEB_DEFAULT_THEME, resolveWebInitialTheme } from "./webThemeSeed.js";
 import {
   CommerceEntryOverlay,
-  isCommerceHostPath,
   renderCommerceHostPage,
+  resolveWebEntrySurface,
 } from "./commerceEntry.js";
 
 function resolveWebThemePreference(defaultTheme: Theme = WEB_DEFAULT_THEME): Theme {
@@ -92,16 +92,8 @@ interface WebBootstrapResult {
   allowOpenWorkspace?: boolean;
 }
 
-function isWebOAuthCallback(params: URLSearchParams): boolean {
-  return (
-    ["/cn/share/callback", "/share/callback"].includes(window.location.pathname) &&
-    params.has("state") &&
-    (params.has("code") || params.has("error"))
-  );
-}
-
 function renderWebAuthCallbackPage(): void {
-  document.title = "ZCode - Sign In";
+  document.title = "UNiCOM — Sign In";
   const callbackState = parseOAuthState(
     new URLSearchParams(window.location.search).get("state") ?? "",
   );
@@ -126,7 +118,7 @@ async function renderConversationSharePage(): Promise<void> {
   document.documentElement.lang = routeLocale;
   // 分享页必须设置 title：否则浏览器标签只显示 index.html 的通用标题。
   // 会话标题要等 preview 加载完，先给一个语言正确的兜底。
-  document.title = routeLocale === "zh-CN" ? "ZCode 会话分享" : "ZCode Conversation Share";
+  document.title = routeLocale === "zh-CN" ? "UNiCOM 会话分享" : "UNiCOM Conversation Share";
   const shareCode = resolveConversationShareCodeFromPath(window.location.pathname);
   if (!shareCode) {
     root.render(
@@ -436,7 +428,7 @@ function WebBootstrapErrorScreen({ message }: { message: string }) {
 }
 
 function renderWebBootstrapError(error: unknown): void {
-  document.title = "ZCode - Web";
+  document.title = "UNiCOM — Web";
   root.render(
     <WebBootstrapErrorScreen message={error instanceof Error ? error.message : String(error)} />,
   );
@@ -444,14 +436,19 @@ function renderWebBootstrapError(error: unknown): void {
 
 async function bootstrapWebApp() {
   const params = new URLSearchParams(window.location.search);
-  if (isWebOAuthCallback(params)) {
+  // W3-024: the UNiCOM default experience — the root landing renders the
+  // commerce host directly; specialized routes (OAuth callback, share) keep
+  // their behavior; /workspace (and legacy paths / ?remote= deep links) keep
+  // the ZCode app bootstrap. The routing decision lives in commerceEntry.tsx
+  // so focused tests pin every branch.
+  const surface = resolveWebEntrySurface(window.location.pathname, params);
+
+  if (surface.kind === "auth-callback") {
     renderWebAuthCallbackPage();
     return;
   }
 
-  // W1-011: /commerce 是独立渲染的 commerce host（demo 模式无需 WS/服务器），
-  // 不进入 ZCode 应用 bootstrap。普通入口由应用内固定入口按钮与连接墙面入口提供。
-  if (isCommerceHostPath(window.location.pathname)) {
+  if (surface.kind === "commerce") {
     try {
       await renderCommerceHostPage(root);
     } catch (error) {
@@ -460,7 +457,7 @@ async function bootstrapWebApp() {
     return;
   }
 
-  if (isConversationSharePath(window.location.pathname)) {
+  if (surface.kind === "share") {
     await renderConversationSharePage();
     return;
   }
@@ -478,7 +475,7 @@ async function bootstrapWebApp() {
       onClose: () => {},
     });
     const platform = createWebPlatform();
-    document.title = "ZCode - Web + Server";
+    document.title = "UNiCOM — Web";
 
     root.render(
       <AppErrorBoundary>
