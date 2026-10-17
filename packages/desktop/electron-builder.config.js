@@ -467,6 +467,9 @@ export default {
       name: "UNiCOM",
       email: "payswapdotorg@users.noreply.github.com",
     },
+    // 覆盖 package.json 的 "ZCode Desktop App" 描述：deb Description 与
+    // .desktop Comment 都从这里取值（package manifest 本身不可改动）。
+    description: "UNiCOM — the AI-native Commerce Operating System desktop app",
   },
   // macOS 签名阶段会对 Electron Framework 下每个语言包逐个 codesign。
   // 默认全量语言会产生大量 locale.pak 签名调用，显著拉长打包时长。

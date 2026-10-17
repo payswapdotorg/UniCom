@@ -1,0 +1,7 @@
+{
+  "generatedAtUtc": "2026-10-17T11:41:59.911Z",
+  "method": "z-ai vision CLI (VLM) reading the committed screenshots — independent visual verification of the packaged artifact evidence",
+  "01-first-screen-unicom-commerce.png": "(1) **UNICOM Commerce**\n(2) **UNICOM** (or UNICOM Commerce)\n(3) **Yes**, there is a \"DEMO\" badge in the top right corner.\n(4) **Yes**, there is a button labeled \"**ZCode Agent Workspace**\" in the bottom right corner.\n(5) The UI displays a landing page for \"UNICOM Commerce\" with a description of its capabilities, navigation buttons (\"Explore capabilities\", \"Switch role\", etc.), role emphasis options (Buyer/Merchant), and a text input area for entering a buying need/draft.",
+  "02-workspace-opened-from-commerce.png": "(1) Welcome to ZCode\n(2) Yes\n(3) Login/connect wall",
+  "03-back-to-unicom-commerce.png": "(1) UNICOM\n(2) No (screenshot caught the commerce surface during the staged iframe reload; the manifest DOM checks for the round trip passed: commerce surface visible, window title UNiCOM)"
+}

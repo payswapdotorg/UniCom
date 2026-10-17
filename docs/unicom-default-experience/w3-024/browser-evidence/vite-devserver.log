@@ -4,15 +4,15 @@ apps/zcode-cli                           |  WARN  Unsupported engine: wanted
 > vite --port 5199 --strictPort
 
 
-  VITE v8.0.8  ready in 428 ms
+  VITE v8.0.8  ready in 454 ms
 
   ➜  Local:   http://localhost:5199/
   ➜  Network: use --host to expose
-10:01:48 AM [vite] http proxy error: /api/server-info
+11:46:33 AM [vite] http proxy error: /api/server-info
 AggregateError [ECONNREFUSED]: 
     at internalConnectMultiple (node:net:1430:18)
     at afterConnectMultiple (node:net:2099:7)
-10:01:48 AM [vite] ws proxy error:
+11:46:33 AM [vite] ws proxy error:
 AggregateError [ECONNREFUSED]: 
     at internalConnectMultiple (node:net:1430:18)
     at afterConnectMultiple (node:net:2099:7)

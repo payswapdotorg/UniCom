@@ -1,9 +1,9 @@
 {
   "schema": "w3-024-web-default-experience-manifest",
   "schemaVersion": 1,
-  "generatedAtUtc": "2026-10-17T10:01:50.046Z",
+  "generatedAtUtc": "2026-10-17T11:46:35.496Z",
   "identity": {
-    "buildCommit": "a18591b9e2f8f3a2c77747b8a9b9b9253a89d0d3",
+    "buildCommit": "715f6d4d7b102edb59a2f558e37b3d316126d72a",
     "gitBranch": "work/w3-024",
     "buildTreeDirty": true,
     "nodeVersion": "v24.21.0",
@@ -24,8 +24,8 @@
       ]
     },
     "freeMemoryMb": {
-      "atStart": 3621,
-      "atEnd": 2881
+      "atStart": 3619,
+      "atEnd": 2880
     }
   },
   "baseUrl": "http://localhost:5199",
@@ -71,7 +71,7 @@
         "bodyFile": "01-root-default-unicom-body.txt",
         "consoleFile": "01-root-default-unicom-console.txt"
       },
-      "durationMs": 14878
+      "durationMs": 14511
     },
     {
       "id": "commerce-deeplink-compat",
@@ -107,7 +107,7 @@
       "extraEvidence": {
         "screenshot": "02-commerce-deeplink.png"
       },
-      "durationMs": 10137
+      "durationMs": 9627
     },
     {
       "id": "auth-callback-specialized",
@@ -141,7 +141,7 @@
         "consoleFile": "03-auth-callback-console.txt"
       },
       "retried": false,
-      "durationMs": 11029
+      "durationMs": 10169
     },
     {
       "id": "conversation-share-specialized",
@@ -175,13 +175,18 @@
         "consoleFile": "04-conversation-share-console.txt"
       },
       "retried": false,
-      "durationMs": 9984
+      "durationMs": 10171
     },
     {
       "id": "workspace-route-deliberate",
       "claim": "the deliberate workspace entry opens the retained ZCode workspace surface (not the commerce host)",
       "outcome": "PASS",
       "checks": [
+        {
+          "name": "workspace surface painted",
+          "status": "PASS",
+          "detail": "bodyText 154 chars"
+        },
         {
           "name": "workspace entry clicked (ordinary flow)",
           "status": "PASS",
@@ -214,7 +219,7 @@
         "consoleFile": "05-workspace-route-console.txt"
       },
       "retried": false,
-      "durationMs": 16320
+      "durationMs": 15482
     }
   ]
 }

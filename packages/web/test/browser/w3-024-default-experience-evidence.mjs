@@ -281,6 +281,7 @@ async function runSteps(browser, { baseUrl, outDir }) {
       claim: "the deliberate workspace entry opens the retained ZCode workspace surface (not the commerce host)",
       outcome: clicked && atWorkspace && !isCommerceHostInventory(inv) ? "PASS" : "FAIL",
       checks: [
+        check("workspace surface painted", painted, `bodyText ${(inv.bodyText ?? "").length} chars`),
         check("workspace entry clicked (ordinary flow)", clicked, "data-testid=unicom-workspace-entry"),
         check("navigated to /workspace", atWorkspace, inv.url),
         check("surface is the ZCode app surface, NOT the commerce host", !isCommerceHostInventory(inv), inv.documentTitle),

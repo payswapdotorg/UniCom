@@ -1,0 +1,90 @@
+{
+  "schema": "w3-024-packaged-app-evidence-manifest",
+  "schemaVersion": 1,
+  "generatedAtUtc": "2026-10-17T11:30:26.168Z",
+  "artifact": {
+    "appImageExtractedAt": "/home/z/my-project/UniCom/packages/desktop/dist/squashfs-root",
+    "launchCommand": "DISPLAY=:97 ./squashfs-root/unicom-preview --no-sandbox --disable-gpu --disable-dev-shm-usage --remote-debugging-port=9333 (Xvfb :97 1600x1000x24; xvfb-run unavailable: xauth missing; AppRun needs the AppImage runtime’s $APPDIR, the extracted tree launches the binary directly)",
+    "fuseAvailable": false,
+    "debInstalled": false,
+    "note": "AppImage launched from the extracted tree (no /dev/fuse in this sandbox); the DEB was verified by dpkg-deb -I/-c/-x extraction (no root password for dpkg -i)"
+  },
+  "timingsMs": 11306,
+  "denominators": {
+    "checks": 13,
+    "passed": 13,
+    "failed": 0
+  },
+  "checks": [
+    {
+      "name": "packaged app exposed the remote-debugging endpoint",
+      "status": "PASS",
+      "detail": "Chrome/Chrome/146.0.7680.80"
+    },
+    {
+      "name": "main window (out/renderer/index.html) found over CDP",
+      "status": "PASS",
+      "detail": "file:///home/z/my-project/UniCom/packages/desktop/dist/squashfs-root/resources/app.asar/out/renderer/index.html?restoreS"
+    },
+    {
+      "name": "startup admission passed and the commerce surface rendered (first surface)",
+      "status": "PASS",
+      "detail": "7459ms after launch"
+    },
+    {
+      "name": "staged web-dist commerce frame present",
+      "status": "PASS",
+      "detail": "frames=1"
+    },
+    {
+      "name": "staged commerce bundle frame loaded",
+      "status": "PASS",
+      "detail": "file:///home/z/my-project/UniCom/packages/desktop/dist/squashfs-root/resources/web-dist/index.html?unicomSurface=commerce"
+    },
+    {
+      "name": "DEMO honesty badge rendered inside the staged host",
+      "status": "PASS",
+      "detail": "badge=\"DEMO\""
+    },
+    {
+      "name": "UNiCOM Commerce brand rendered inside the staged host",
+      "status": "PASS",
+      "detail": "UNiCOM Commerce · rendered host"
+    },
+    {
+      "name": "staged host document title",
+      "status": "PASS",
+      "detail": "UNiCOM Commerce — Demo"
+    },
+    {
+      "name": "window title is UNiCOM",
+      "status": "PASS",
+      "detail": "UNiCOM"
+    },
+    {
+      "name": "workspace entry visible inside the staged host",
+      "status": "PASS",
+      "detail": "data-testid=unicom-workspace-entry"
+    },
+    {
+      "name": "workspace entry opened the retained ZCode workspace (native Root tree)",
+      "status": "PASS",
+      "detail": "return entry visible on the workspace surface"
+    },
+    {
+      "name": "UNiCOM return entry swaps back to the commerce experience",
+      "status": "PASS",
+      "detail": "round trip complete"
+    },
+    {
+      "name": "window title still UNiCOM-branded after the round trip",
+      "status": "PASS",
+      "detail": "UNiCOM"
+    }
+  ],
+  "screenshots": [
+    "01-first-screen-unicom-commerce.png",
+    "02-workspace-opened-from-commerce.png",
+    "03-back-to-unicom-commerce.png"
+  ]
+}

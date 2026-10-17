@@ -57,17 +57,22 @@ export interface UnicomWorkspaceLaunchIntent {
 
 /**
  * Should the window open straight into the retained ZCode workspace instead
- * of the UNiCOM commerce experience? True only when the host launched the
- * window with an explicit workspace context (opened a folder, a conversation
- * purpose, or an unavailable-workspace recovery notice) — the ordinary
- * launch stays product-first.
+ * of the UNiCOM commerce experience?
+ *
+ * True only for USER-DIRECTED workspace launches:
+ * - `initialWorkspacePurpose === "project"` — the host opened a folder the
+ *   user chose (open-with, CLI path, createOpenWorkspaceStartupBootstrap);
+ * - `unavailableWorkspacePath` — the read-only restore of a moved/deleted
+ *   workspace, which the Root surface handles specifically.
+ *
+ * False for the app-managed conversation backing workspace that the host
+ * passes on every ordinary first launch (`initialWorkspacePurpose ===
+ * "conversation"`, path under ~/.zcode/workspace) — that is agent cwd
+ * plumbing ("UI 可以没有项目，但 Agent 必须始终有真实 cwd"), not a user
+ * workspace intent, so the ordinary launch stays product-first per W3-024.
  */
 export function shouldOpenWorkspaceFirst(intent: UnicomWorkspaceLaunchIntent): boolean {
-  return Boolean(
-    intent.initialWorkspaceAbsPath ||
-      intent.initialWorkspacePurpose ||
-      intent.unavailableWorkspacePath,
-  );
+  return intent.initialWorkspacePurpose === "project" || Boolean(intent.unavailableWorkspacePath);
 }
 
 /**

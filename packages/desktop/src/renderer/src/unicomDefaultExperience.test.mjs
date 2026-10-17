@@ -18,21 +18,29 @@ import {
   shouldOpenWorkspaceFirst,
 } from "./unicomDefaultExperience.ts";
 
-test("ordinary launch opens the UNiCOM commerce experience, not the workspace", () => {
+test("ordinary launch (app-managed conversation workspace) opens the UNiCOM commerce experience", () => {
   assert.equal(shouldOpenWorkspaceFirst({}), false);
+  // The host passes the app-managed conversation backing workspace on every
+  // ordinary first launch — agent cwd plumbing, NOT a user workspace intent.
   assert.equal(
     shouldOpenWorkspaceFirst({
-      initialWorkspaceAbsPath: undefined,
-      initialWorkspacePurpose: undefined,
-      unavailableWorkspacePath: undefined,
+      initialWorkspaceAbsPath: "/home/z/.zcode/workspace/default",
+      initialWorkspacePurpose: "conversation",
     }),
     false,
   );
 });
 
-test("explicit workspace launch contexts open the retained ZCode workspace", () => {
-  assert.equal(shouldOpenWorkspaceFirst({ initialWorkspaceAbsPath: "/home/me/repo" }), true);
-  assert.equal(shouldOpenWorkspaceFirst({ initialWorkspacePurpose: "conversation" }), true);
+test("user-directed workspace launches open the retained ZCode workspace", () => {
+  // createOpenWorkspaceStartupBootstrap: a folder the user chose.
+  assert.equal(
+    shouldOpenWorkspaceFirst({
+      initialWorkspaceAbsPath: "/home/me/repo",
+      initialWorkspacePurpose: "project",
+    }),
+    true,
+  );
+  // Read-only restore of a moved/deleted workspace (Root handles it).
   assert.equal(shouldOpenWorkspaceFirst({ unavailableWorkspacePath: "/gone/repo" }), true);
   assert.equal(
     shouldOpenWorkspaceFirst({ initialWorkspaceAbsPath: "", unavailableWorkspacePath: "" }),
