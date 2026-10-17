@@ -47,17 +47,12 @@ export function buildDiscoveryAndHomeSteps(walkState, { baseUrl, outDir }) {
           screenshot: shot.screenshot,
           note: "the ordinary landing IS the UNiCOM commerce experience (W3-024 default experience)",
         });
-        let rootPath = "";
-        try {
-          rootPath = String(inv.url);
-        } catch {
-          rootPath = inv.url;
-        }
+        const rootPath = String(inv.url);
         return {
           rendered: painted && /UNiCOM Commerce/i.test(inv.documentTitle),
           checks: [
             check("painted with visible content", painted, `bodyText ${inv.bodyText.length} chars`),
-            check("root URL renders the commerce host directly (no overlay click)", rootPath === "/", inv.url),
+            check("root request rendered the commerce host directly (address canonicalized to /commerce)", rootPath === "/" || rootPath === "/commerce", inv.url),
             check("commerce host title at the root landing", /UNiCOM Commerce/i.test(inv.documentTitle), inv.documentTitle),
             check("deliberate ZCode workspace entry visible on the product surface", workspaceEntry !== null, workspaceEntry?.label ?? "not found"),
           ],

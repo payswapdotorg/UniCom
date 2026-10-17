@@ -129,8 +129,23 @@ export async function journeyRows(page) {
   });
 }
 
-/** Click the Open/View-status button inside one journey row (visible click). */
+/** Click the Open/View-status button inside one journey row (visible click).
+ *
+ * W1-026 keeps the home journey registry one click away inside a collapsed
+ * `<details data-testid="cm-journey-registry">` ("off the front page"), so a
+ * row button is present in the DOM but not visible until the section opens.
+ * Open it with the ordinary summary click first — the same path a user takes
+ * — before pressing the row button. */
 export async function clickJourneyRowButton(page, journeyId) {
+  const registry = page.locator('details[data-testid="cm-journey-registry"]');
+  if ((await registry.count()) > 0) {
+    const isOpen = await registry
+      .evaluate((el) => el instanceof HTMLDetailsElement && el.open)
+      .catch(() => true);
+    if (!isOpen) {
+      await registry.locator("summary").click({ timeout: 20000 });
+    }
+  }
   const row = page.locator(".cm-journey-item").filter({
     has: page.locator(".cm-journey-id", { hasText: new RegExp(`^${journeyId}$`) }),
   });

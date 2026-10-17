@@ -305,7 +305,10 @@ export function buildJourneyStepsB(walkState, { outDir }) {
       const body = shot.inventory.bodyText;
       const predictiveChips = await page.locator(".cm-chip-unknown", { hasText: "PREDICTIVE — never canonical" }).count();
       return {
-        rendered: body.includes("J14 · Commerce Twin — what-if") && body.includes("Write-block"),
+      // W2-029 renamed the module surface heading to "Your Main Agent &
+      // Commerce Twin" (the Main-Agent lane landed after the last full-gate
+      // run); the surface contract is the module frame + write-block law.
+      rendered: body.includes("J14 · Your Main Agent & Commerce Twin") && body.includes("Write-block"),
         checks: [
           check("PREDICTIVE—never-canonical chips present", predictiveChips >= 3, `chips=${predictiveChips}`),
           surfaceCheck(body, "write-block panel rendered", "Write-block — this Twin cannot change real records"),
