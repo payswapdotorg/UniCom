@@ -1,0 +1,314 @@
+_XSERVTransmkdir: Owner of /tmp/.X11-unix should be set to root
+[18982:1017/115100.675313:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[2026-10-17 11:51:01.346] [pid:18982] [main] [crash-capture] configured remoteCrashReporterEnabled=true stagingDir=/home/z/.zcode/v2/crash/live archiveDir=/home/z/.zcode/v2/crash/archive
+LaunchProcess: failed to execvp:
+xdg-settings
+[2026-10-17 11:51:01.369] [pid:18982] [main] [deep-link] 注册协议失败 { scheme: 'zcode' }
+[2026-10-17 11:51:01.379] [pid:18982] [main] [deep-link] Linux 用户级协议注册失败 {
+  desktopFilePath: '/home/z/.local/share/applications/zcode.desktop',
+  executablePath: '/home/z/my-project/UniCom/packages/desktop/dist/squashfs-root/unicom-preview',
+  args: [],
+  status: null,
+  signal: null,
+  timeoutMs: undefined,
+  error: 'spawnSync xdg-mime ENOENT',
+  stderr: undefined
+}
+[2026-10-17 11:51:01.380] [pid:18982] [main] [deep-link] update-desktop-database 不可用，已跳过 {
+  desktopFilePath: '/home/z/.local/share/applications/zcode.desktop',
+  message: 'spawnSync update-desktop-database ENOENT'
+}
+(node:18982) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `unicom-preview --trace-warnings ...` to show where the warning was created)
+[18982:1017/115101.485288:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[18982:1017/115101.485353:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[18982:1017/115101.485364:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[2026-10-17 11:51:01.491] [pid:18982] [main] [startup] runtime process env prepared asynchronously id=1 in 138ms
+
+DevTools listening on ws://127.0.0.1:9333/devtools/browser/95654635-1c0e-4b94-a1ee-f606abb5dcc1
+[18982:1017/115101.529102:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[18982:1017/115101.529195:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[18982:1017/115101.533167:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[2026-10-17 11:51:01.559] [pid:18982] [main] [desktop-network] renderer proxy mode=direct bypass=disabled customCa=disabled insecureCerts=rejected
+[2026-10-17 11:51:01.559] [pid:18982] [main] [desktop-network] renderer proxy mode=system bypass=disabled customCa=disabled insecureCerts=rejected
+[2026-10-17 11:51:01.561] [pid:18982] [main] [auto-update] disabled for this desktop product flavor
+[2026-10-17 11:51:01.563] [pid:18982] [main] [resource] sampling started interval=10000ms report=300000ms
+[2026-10-17 11:51:01.564] [pid:18982] [main] [network] reporting started interval=300000ms
+[2026-10-17 11:51:01.564] [pid:18982] [main] [force-update] Preview 跳过远端强制升级检查
+[2026-10-17 11:51:01.564] [pid:18982] [main] [startup] 创建主窗口
+[2026-10-17 11:51:01.564] [pid:18982] [main] [primary-window] creating main window (app-ready)
+[2026-10-17 11:51:01.568] [pid:18982] [main] [startup-workspace] using conversation workspace: /home/z/.zcode/workspace/default
+[18982:1017/115101.590515:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[18982:1017/115101.623516:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2026-10-17 11:51:01.714] [pid:18982] [main] [desktop-context-prompt] config refreshed { enabled: true, configVersion: 'desktop-sp-v1' }
+[2026-10-17 11:51:03.083] [pid:18982] [main] [createWindow] dom-ready fired (local-1)
+[2026-10-17 11:51:03.084] [pid:18982] [main] [desktop-context-prompt] first host spawn decision resolved { enabled: true, configVersion: 'desktop-sp-v1' }
+[2026-10-17 11:51:03.093] [pid:18982] [main] [spawnHostProcess] forked host process for (local-1), pid=undefined
+[2026-10-17 11:51:03.093] [pid:18982] [main] [spawnHostProcess] host module path: /home/z/my-project/UniCom/packages/desktop/dist/squashfs-root/resources/app.asar/out/host/index.js
+[2026-10-17 11:51:03.093] [pid:18982] [main] [spawnHostProcess] glm binary path: <not found>
+[2026-10-17 11:51:03.093] [pid:18982] [main] [spawnHostProcess] BIGMODEL_OAUTH_APP_SECRET source: fallback
+[2026-10-17 11:51:03.095] [pid:18982] [main] [task-realtime] registered host {
+  hostId: '1a60e090-9bfb-40bb-8a18-ae557b1a7662',
+  windowId: 1,
+  workspaceKeyCount: 0,
+  deliveryKind: 'desktop_window'
+}
+[2026-10-17 11:51:03.153] [pid:18982] [main] [renderer-action-trace] config refreshed { enabled: true, configVersion: 'ttft-2026-09-18' }
+(node:19072) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `exe --trace-warnings ...` to show where the warning was created)
+[2026-10-17 11:51:03.676] [pid:19072] [zcode-host] ExperimentalWarning: SQLite is an experimental feature and might change at any time
+[2026-10-17 11:51:03.683] [pid:19072] [zcode-host] [cua-pip-session] focus event dropped: service unavailable
+[2026-10-17 11:51:03.688] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:03.676] [pid:19072] [zcode-host] ExperimentalWarning: SQLite is an experimental feature and might change at any time
+[2026-10-17 11:51:03.694] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:03.683] [pid:19072] [zcode-host] [cua-pip-session] focus event dropped: service unavailable
+(node:19072) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `exe --trace-warnings ...` to show where the warning was created)
+[2026-10-17 11:51:06.199] [pid:19072] [zcode-host] initializing local services
+[2026-10-17 11:51:06.200] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.199] [pid:19072] [zcode-host] initializing local services
+[2026-10-17 11:51:06.205] [pid:19072] [cua-pip-session] [cua-pip-session] wiring resolved {
+  enabled: false,
+  platform: 'linux',
+  serviceAuthorityMode: 'desktop-local',
+  lifecycleWired: true
+}
+[2026-10-17 11:51:06.207] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.205] [pid:19072] [cua-pip-session] [cua-pip-session] wiring resolved {"enabled":false,"platform":"linux","serviceAuthorityMode":"desktop-local","lifecycleWired":true}
+[2026-10-17 11:51:06.214] [pid:19072] [zcode-agent-service] 开始初始化 ZCode agent {
+  workspaceKey: '/home/z/.zcode/workspace/default',
+  workspacePath: '/home/z/.zcode/workspace/default'
+}
+[2026-10-17 11:51:06.215] [pid:19072] [zcode-host] exposing services on ChannelServer...
+[2026-10-17 11:51:06.215] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.214] [pid:19072] [zcode-agent-service] 开始初始化 ZCode agent {"workspaceKey":"/home/z/.zcode/workspace/default","workspacePath":"/home/z/.zcode/workspace/default"}
+[2026-10-17 11:51:06.215] [pid:19072] [zcode-host] creating ChannelServer (deferInit=false)
+[2026-10-17 11:51:06.215] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.215] [pid:19072] [zcode-host] exposing services on ChannelServer...
+[2026-10-17 11:51:06.216] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.215] [pid:19072] [zcode-host] creating ChannelServer (deferInit=false)
+[2026-10-17 11:51:06.216] [pid:19072] [zcode-host] [rpc:register] channel "file"
+[2026-10-17 11:51:06.216] [pid:19072] [zcode-host] [rpc:register] channel "media-preview"
+[2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "git"
+[2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "git-checkpoint"
+[2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "system"
+[2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "terminal"
+[2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "setting"
+[2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "onboarding-record"
+[2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "credential"
+[2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "broadcast"
+[2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "zcode-task"
+[2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "zcode-agent"
+[2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "zcode-session"
+[2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "cua-permission"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "cua-pip-session"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "conversation-share"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "bots"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "file-watcher"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "oauth"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "usage-stats"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "coding-plan-subscription"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "client-config"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "client-scenes"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "off-peak-task"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "skills"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "skill-sync"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "mcp-sync"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "plugin-sync"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "plugins"
+[2026-10-17 11:51:06.218] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.216] [pid:19072] [zcode-host] [rpc:register] channel "file"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "plugin-management"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "subagents"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "commands"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "hooks"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "memory"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "settings-sync"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "feedback"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "prompt-attachment-transfer"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "provider-settings"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "model-selection"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "window-controller"
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] service connection ready mode=desktop-continuous
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] window Host topology, reason=base-attachment-ready, pid=19072, connections=0, logicalSessions=0, attachments=1
+[2026-10-17 11:51:06.218] [pid:19072] [zcode-host] local services ready, all channels registered
+[2026-10-17 11:51:06.218] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.216] [pid:19072] [zcode-host] [rpc:register] channel "media-preview"
+[2026-10-17 11:51:06.219] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "git"
+[2026-10-17 11:51:06.220] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "git-checkpoint"
+[2026-10-17 11:51:06.222] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "system"
+[2026-10-17 11:51:06.222] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "terminal"
+[2026-10-17 11:51:06.222] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "setting"
+[2026-10-17 11:51:06.223] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "onboarding-record"
+[2026-10-17 11:51:06.223] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "credential"
+[2026-10-17 11:51:06.223] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "broadcast"
+[2026-10-17 11:51:06.223] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "zcode-task"
+[2026-10-17 11:51:06.223] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "zcode-agent"
+[2026-10-17 11:51:06.223] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "zcode-session"
+[2026-10-17 11:51:06.224] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.217] [pid:19072] [zcode-host] [rpc:register] channel "cua-permission"
+[2026-10-17 11:51:06.224] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "cua-pip-session"
+[2026-10-17 11:51:06.224] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "conversation-share"
+[2026-10-17 11:51:06.225] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "bots"
+[2026-10-17 11:51:06.226] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "file-watcher"
+[2026-10-17 11:51:06.226] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "oauth"
+[2026-10-17 11:51:06.226] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "usage-stats"
+[2026-10-17 11:51:06.226] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "coding-plan-subscription"
+[2026-10-17 11:51:06.227] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "client-config"
+[2026-10-17 11:51:06.227] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "client-scenes"
+[2026-10-17 11:51:06.227] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "off-peak-task"
+[2026-10-17 11:51:06.227] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "skills"
+[2026-10-17 11:51:06.227] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "skill-sync"
+[2026-10-17 11:51:06.227] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "mcp-sync"
+[2026-10-17 11:51:06.227] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "plugin-sync"
+[2026-10-17 11:51:06.228] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "plugins"
+[2026-10-17 11:51:06.228] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "plugin-management"
+[2026-10-17 11:51:06.228] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "subagents"
+[2026-10-17 11:51:06.228] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "commands"
+[2026-10-17 11:51:06.228] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "hooks"
+[2026-10-17 11:51:06.228] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "memory"
+[2026-10-17 11:51:06.229] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "settings-sync"
+[2026-10-17 11:51:06.229] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "feedback"
+[2026-10-17 11:51:06.229] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "prompt-attachment-transfer"
+[2026-10-17 11:51:06.230] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "provider-settings"
+[2026-10-17 11:51:06.230] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "model-selection"
+[2026-10-17 11:51:06.231] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] [rpc:register] channel "window-controller"
+[2026-10-17 11:51:06.231] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] service connection ready mode=desktop-continuous
+[2026-10-17 11:51:06.232] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] window Host topology, reason=base-attachment-ready, pid=19072, connections=0, logicalSessions=0, attachments=1
+[2026-10-17 11:51:06.232] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.218] [pid:19072] [zcode-host] local services ready, all channels registered
+[2026-10-17 11:51:06.234] [pid:18982] [main] [database-startup] terminal {
+  attemptId: '72969c54-9e1f-4c0c-be5b-0a2e4a9b50de',
+  status: 'ready',
+  durationMs: 2538,
+  errorCode: undefined,
+  disk: [
+    {
+      scopeId: '44cb730c420480a0477b505ae68af508fb90f96cf0ec54c6ad16949dd427f13a',
+      observedAvailableDropPeakBytes: 4096,
+      minAvailableBytes: 1903054848,
+      quality: 'complete',
+      sampledAt: 1792237865685
+    }
+  ]
+}
+[2026-10-17 11:51:06.239] [pid:18982] [main] [cron-scheduler] forked scheduler process pid=undefined
+[2026-10-17 11:51:06.308] [pid:18982] [main] [stability] perf_app_start reported
+[2026-10-17 11:51:06.908] [pid:19072] [provider-runtime][trace:Provider Registry 已就绪] {
+  configRevision: '["zcode-builtin:30:ff08462c57d53ea885413bf61f0ad22cda41be6e142d4ad2b240632f6df21fbb","2915b997aefbd6c7fe8ccfc87153713dc11851987034eec5a515e9660ac81b0e"]',
+  providerCount: 0
+}
+[2026-10-17 11:51:06.909] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.908] [pid:19072] [provider-runtime][trace:Provider Registry 已就绪] {"configRevision":"[\"zcode-builtin:30:ff08462c57d53ea885413bf61f0ad22cda41be6e142d4ad2b240632f6df21fbb\",\"2915b997aefbd6c7fe8ccfc87153713dc11851987034eec5a515e9660ac81b0e\"]","providerCount":0}
+[2026-10-17 11:51:06.911] [pid:19072] [zcode-agent-service] provider/model 尚未就绪，ZCode agent 保持未启动 {
+  providerCount: 0,
+  revision: 'model-selection:1',
+  workspaceKey: '/home/z/.zcode/workspace/default',
+  workspacePath: '/home/z/.zcode/workspace/default'
+}
+[2026-10-17 11:51:06.911] [pid:19072] [zcode-agent-service] ZCode agent 等待 provider/model 就绪 {
+  durationMs: 697,
+  message: '当前没有可用的模型供应商和模型，请先登录或配置 API Key。',
+  workspaceKey: '/home/z/.zcode/workspace/default',
+  workspacePath: '/home/z/.zcode/workspace/default'
+}
+[2026-10-17 11:51:06.911] [pid:19072] [zcode-host] ZCode agent warmup waiting for provider/model (local host init (1/1)) workspace=/home/z/.zcode/workspace/default
+[2026-10-17 11:51:06.912] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.911] [pid:19072] [zcode-agent-service] provider/model 尚未就绪，ZCode agent 保持未启动 {"providerCount":0,"revision":"model-selection:1","workspaceKey":"/home/z/.zcode/workspace/default","workspacePath":"/home/z/.zcode/workspace/default"}
+[2026-10-17 11:51:06.913] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.911] [pid:19072] [zcode-agent-service] ZCode agent 等待 provider/model 就绪 {"durationMs":697,"message":"当前没有可用的模型供应商和模型，请先登录或配置 API Key。","workspaceKey":"/home/z/.zcode/workspace/default","workspacePath":"/home/z/.zcode/workspace/default"}
+[2026-10-17 11:51:06.913] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:06.911] [pid:19072] [zcode-host] ZCode agent warmup waiting for provider/model (local host init (1/1)) workspace=/home/z/.zcode/workspace/default
+(node:19093) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `exe --trace-warnings ...` to show where the warning was created)
+[2026-10-17 11:51:07.421] [pid:18982] [main] [cron-scheduler] cron scheduler started
+[18982:1017/115108.001834:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[18982:1017/115108.001875:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[18982:1017/115108.001900:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[18982:1017/115108.001908:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[2026-10-17 11:51:08.210] [pid:19072] [zcode-host] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-17 11:51:08.210] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.210] [pid:19072] [zcode-host] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-17 11:51:08.226] [pid:19072] [zcode-host] [rpc:listen] zcode-agent.onDynamicCuaPermissionObservation subscribed
+[2026-10-17 11:51:08.227] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.226] [pid:19072] [zcode-host] [rpc:listen] zcode-agent.onDynamicCuaPermissionObservation subscribed
+[2026-10-17 11:51:08.230] [pid:19072] [zcode-host] [rpc:call] coding-plan-subscription.getDynamicWorkflowClientConfig OK (0.4ms)
+[2026-10-17 11:51:08.231] [pid:19072] [zcode-host] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-17 11:51:08.231] [pid:19072] [zcode-host] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-17 11:51:08.231] [pid:19072] [zcode-host] [rpc:listen] provider-settings.onDidChange subscribed
+[2026-10-17 11:51:08.232] [pid:19072] [zcode-host] [rpc:call] provider-settings.getView OK (0.9ms)
+[2026-10-17 11:51:08.234] [pid:19072] [zcode-host] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-17 11:51:08.237] [pid:19072] [zcode-host] [rpc:call] setting.get OK (6.4ms)
+[2026-10-17 11:51:08.238] [pid:19072] [zcode-host] [rpc:call] model-selection.getView OK (6.7ms)
+[2026-10-17 11:51:08.238] [pid:19072] [zcode-host] [rpc:call] setting.get OK (4.7ms)
+[2026-10-17 11:51:08.238] [pid:19072] [zcode-host] [rpc:listen] provider-settings.onDidChange subscribed
+[2026-10-17 11:51:08.239] [pid:19072] [zcode-host] [rpc:call] provider-settings.getView OK (0.5ms)
+[2026-10-17 11:51:08.240] [pid:19072] [zcode-host] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-17 11:51:08.241] [pid:19072] [oauthService] restoreCachedSession skipped: no active provider
+[2026-10-17 11:51:08.241] [pid:19072] [zcode-host] [rpc:call] oauth.restoreCachedSessionState OK (0.7ms)
+[2026-10-17 11:51:08.244] [pid:19072] [zcode-host] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-17 11:51:08.245] [pid:19072] [zcode-host] [rpc:call] setting.get OK (1.4ms)
+[2026-10-17 11:51:08.250] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.230] [pid:19072] [zcode-host] [rpc:call] coding-plan-subscription.getDynamicWorkflowClientConfig OK (0.4ms)
+[2026-10-17 11:51:08.258] [pid:18982] [main] [task-realtime] updated host workspace scopes {
+  hostId: '1a60e090-9bfb-40bb-8a18-ae557b1a7662',
+  workspaceKeyCount: 0
+}
+[2026-10-17 11:51:08.264] [pid:19072] [zcode-host] [rpc:call] credential.load OK (0.2ms)
+[2026-10-17 11:51:08.265] [pid:19072] [zcode-host] [rpc:call] credential.load OK (0.2ms)
+[2026-10-17 11:51:08.270] [pid:19072] [zcode-host] [rpc:call] oauth.getActiveProvider OK (0.2ms)
+[2026-10-17 11:51:08.274] [pid:19072] [cua-pip-session] [cua-pip-session] event delivery dropped {
+  kind: 'focus-changed',
+  revision: 3,
+  sessionId: null,
+  sourceWindowId: 'window-1',
+  skipReason: 'service-disabled'
+}
+[2026-10-17 11:51:08.277] [pid:19072] [zcode-host] [rpc:call] zcode-agent.syncAppRuntimePreferences OK (0.1ms)
+[2026-10-17 11:51:08.278] [pid:19072] [zcode-host] [rpc:call] bots.syncAppRuntimePreferences OK (0.1ms)
+[2026-10-17 11:51:08.284] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.231] [pid:19072] [zcode-host] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-17 11:51:08.284] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.231] [pid:19072] [zcode-host] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-17 11:51:08.284] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.231] [pid:19072] [zcode-host] [rpc:listen] provider-settings.onDidChange subscribed
+[2026-10-17 11:51:08.285] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.232] [pid:19072] [zcode-host] [rpc:call] provider-settings.getView OK (0.9ms)
+[2026-10-17 11:51:08.285] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.234] [pid:19072] [zcode-host] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-17 11:51:08.286] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.237] [pid:19072] [zcode-host] [rpc:call] setting.get OK (6.4ms)
+[2026-10-17 11:51:08.286] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.238] [pid:19072] [zcode-host] [rpc:call] model-selection.getView OK (6.7ms)
+[2026-10-17 11:51:08.286] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.238] [pid:19072] [zcode-host] [rpc:call] setting.get OK (4.7ms)
+[2026-10-17 11:51:08.286] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.238] [pid:19072] [zcode-host] [rpc:listen] provider-settings.onDidChange subscribed
+[2026-10-17 11:51:08.312] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.239] [pid:19072] [zcode-host] [rpc:call] provider-settings.getView OK (0.5ms)
+[2026-10-17 11:51:08.312] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.240] [pid:19072] [zcode-host] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-17 11:51:08.312] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.241] [pid:19072] [oauthService] restoreCachedSession skipped: no active provider
+[2026-10-17 11:51:08.313] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.241] [pid:19072] [zcode-host] [rpc:call] oauth.restoreCachedSessionState OK (0.7ms)
+[2026-10-17 11:51:08.313] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.244] [pid:19072] [zcode-host] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-17 11:51:08.313] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.245] [pid:19072] [zcode-host] [rpc:call] setting.get OK (1.4ms)
+[2026-10-17 11:51:08.316] [pid:19072] [zcode-host] [rpc:call] model-selection.getView OK (36.6ms)
+[2026-10-17 11:51:08.320] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.264] [pid:19072] [zcode-host] [rpc:call] credential.load OK (0.2ms)
+[2026-10-17 11:51:08.320] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.265] [pid:19072] [zcode-host] [rpc:call] credential.load OK (0.2ms)
+[2026-10-17 11:51:08.320] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.270] [pid:19072] [zcode-host] [rpc:call] oauth.getActiveProvider OK (0.2ms)
+[2026-10-17 11:51:08.320] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.274] [pid:19072] [cua-pip-session] [cua-pip-session] event delivery dropped {"kind":"focus-changed","revision":3,"sessionId":null,"sourceWindowId":"window-1","skipReason":"service-disabled"}
+[2026-10-17 11:51:08.320] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.277] [pid:19072] [zcode-host] [rpc:call] zcode-agent.syncAppRuntimePreferences OK (0.1ms)
+[2026-10-17 11:51:08.321] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.278] [pid:19072] [zcode-host] [rpc:call] bots.syncAppRuntimePreferences OK (0.1ms)
+[2026-10-17 11:51:08.323] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.316] [pid:19072] [zcode-host] [rpc:call] model-selection.getView OK (36.6ms)
+[18982:1017/115108.326060:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[2026-10-17 11:51:08.329] [pid:19072] [zcode-host] [rpc:call] setting.get OK (2.1ms)
+[2026-10-17 11:51:08.329] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.329] [pid:19072] [zcode-host] [rpc:call] setting.get OK (2.1ms)
+[2026-10-17 11:51:08.359] [pid:19072] [zcode-host] [rpc:call] oauth.getProviders OK (0.2ms)
+[2026-10-17 11:51:08.360] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.359] [pid:19072] [zcode-host] [rpc:call] oauth.getProviders OK (0.2ms)
+[2026-10-17 11:51:08.360] [pid:19072] [zcode-host] [rpc:call] oauth.getProviders OK (0.0ms)
+[2026-10-17 11:51:08.360] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.360] [pid:19072] [zcode-host] [rpc:call] oauth.getProviders OK (0.0ms)
+[2026-10-17 11:51:08.372] [pid:19072] [zcode-host] [rpc:call] oauth.getActiveProvider OK (0.9ms)
+[2026-10-17 11:51:08.373] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.372] [pid:19072] [zcode-host] [rpc:call] oauth.getActiveProvider OK (0.9ms)
+[2026-10-17 11:51:08.429] [pid:19072] [zcode-host] [rpc:call] oauth.getActiveProvider OK (0.5ms)
+[2026-10-17 11:51:08.430] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.429] [pid:19072] [zcode-host] [rpc:call] oauth.getActiveProvider OK (0.5ms)
+[18982:1017/115108.454880:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[18982:1017/115108.454934:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[18982:1017/115108.454981:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[18982:1017/115108.455007:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[2026-10-17 11:51:08.760] [pid:19072] [zcode-host] [rpc:call] provider-settings.refresh OK (489.1ms)
+[2026-10-17 11:51:08.761] [pid:19072] [zcode-host] [rpc:call] provider-settings.refresh OK (422.1ms)
+[2026-10-17 11:51:08.889] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.760] [pid:19072] [zcode-host] [rpc:call] provider-settings.refresh OK (489.1ms)
+[2026-10-17 11:51:08.889] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:08.761] [pid:19072] [zcode-host] [rpc:call] provider-settings.refresh OK (422.1ms)
+[18982:1017/115109.159829:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[18982:1017/115109.159879:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[18982:1017/115109.159949:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[18982:1017/115109.159962:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[18982:1017/115109.320091:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[18982:1017/115109.320194:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[18982:1017/115109.320230:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[18982:1017/115109.320242:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[2026-10-17 11:51:09.609] [pid:18982] [main] [app-quit] forceQuit enabled (app-before-quit)
+[2026-10-17 11:51:09.610] [pid:18982] [main] [stability] perf_app_exit reported { scene: 'app_quit', exitCode: 0 }
+[2026-10-17 11:51:09.610] [pid:18982] [main] [app-quit] waiting for host process cleanup (app-before-quit), kind=normal, hosts=1, forceKillDelayMs=7500, waitTimeoutMs=9000
+[2026-10-17 11:51:09.612] [pid:18982] [main] [disposeHostProcess] disposing host process (app-before-quit-1), pid=19072
+[2026-10-17 11:51:09.613] [pid:18982] [main] [cron-scheduler] scheduler process exited code=0
+[2026-10-17 11:51:09.615] [pid:19072] [zcode-host] disposing host resources, reason=parent dispose
+[2026-10-17 11:51:09.615] [pid:18982] [main] [host-log] (local-1) [host] [2026-10-17 11:51:09.615] [pid:19072] [zcode-host] disposing host resources, reason=parent dispose
+[2026-10-17 11:51:09.624] [pid:18982] [main] [task-realtime] unregistered host { hostId: '1a60e090-9bfb-40bb-8a18-ae557b1a7662', windowId: 1 }
+[2026-10-17 11:51:09.624] [pid:18982] [main] [spawnHostProcess] host process (local-1) exited with code 0
+[2026-10-17 11:51:09.624] [pid:18982] [main] [app-quit] host process cleanup completed (app-before-quit)
+[2026-10-17 11:51:09.624] [pid:18982] [main] [app-quit] preparation finished, resuming quit with windows=1
+[2026-10-17 11:51:09.644] [pid:18982] [main] [createWindow] window closed, killing host process (local-1)
+[2026-10-17 11:51:09.644] [pid:18982] [main] [app-quit] all windows closed after preparation, exiting app
+[2026-10-17 11:51:09.644] [pid:18982] [main] [app-quit] exiting prepared app (all-windows-closed-after-preparation)

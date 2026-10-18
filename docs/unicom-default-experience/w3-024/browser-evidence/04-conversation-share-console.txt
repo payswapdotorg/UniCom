@@ -1,0 +1,10 @@
+[navigate] http://localhost:5199/share/w3024-proof-share-code
+[debug] [vite] connecting...
+[debug] [vite] connected.
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[info] [conversation-share-web] preview_runtime_initialized {browserOrigin: http://localhost:5199, routeKind: canonical, endpointOrigin: https://zcode.z.ai, transport: fetch}
+[info] [conversation-share-web] preview_request_started {requestTarget: https://zcode.z.ai/api/v1/shares/<redacted>/preview, pageOrigin: http://localhost:5199, authenticated: false, shareCodeLength: 22}
+[error] Access to fetch at 'https://zcode.z.ai/api/v1/shares/w3024-proof-share-code/preview' from origin 'http://localhost:5199' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+[error] Failed to load resource: net::ERR_FAILED
+[warning] [conversation-share-web] preview_request_failed {requestTarget: https://zcode.z.ai/api/v1/shares/<redacted>/preview, authenticated: false, errorName: TypeError, errorMessage: Failed to fetch}
+[warning] [conversation-share-web] preview_load_failed {stage: anonymous, kind: network, errorName: ConversationSharePreviewClientError, status: undefined, code: undefined}

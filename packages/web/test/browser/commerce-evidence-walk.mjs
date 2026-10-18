@@ -37,9 +37,8 @@ export async function runHostWalk({ cap: initialCap, baseUrl, outDir, log, heal 
     firstDiscovery: {
       routeOrigin: "ordinary-landing:/",
       landingRendered: null,
-      entryButtonLabel: null,
-      entryButtonFound: null,
-      clicked: false,
+      workspaceEntryLabel: null,
+      workspaceEntryFound: null,
       landedOn: null,
       landedTitle: null,
       deepLinkUsedForDiscovery: false,
@@ -74,7 +73,7 @@ export async function runHostWalk({ cap: initialCap, baseUrl, outDir, log, heal 
   ];
 
   // --- execute ---------------------------------------------------------------
-  const DISCOVERY_STEP_IDS = new Set(["landing-connect-wall", "first-discovery-entry-click"]);
+  const DISCOVERY_STEP_IDS = new Set(["landing-unicom-default", "first-discovery-commerce-compat"]);
   for (const step of steps) {
     const startedAt = Date.now();
     if (walkError !== null) {

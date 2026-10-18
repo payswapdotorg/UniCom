@@ -66,7 +66,7 @@ const USAGE = `MERGED-GATE (Task 33) merged-lineage 19-journey browser evidence 
 
 const CHROMIUM_LAUNCH = { headless: true, args: ["--disable-dev-shm-usage", "--disable-gpu", "--no-sandbox"] };
 const TRANSIENT = /Target crashed|Target closed|has been closed|Browser has been closed|ERR_CONNECTION_REFUSED|net::ERR_|TimeoutError|Navigation failed/;
-const DISCOVERY_STEP_IDS = new Set(["landing-connect-wall", "first-discovery-entry-click"]);
+const DISCOVERY_STEP_IDS = new Set(["landing-unicom-default", "first-discovery-commerce-compat"]);
 
 /** The planned full-gate step order (ordinary discovery → safety-at-defaults →
  * journeys with role holds interleaved where the modules gate actions → the
@@ -193,7 +193,7 @@ async function main() {
     cap: null,
     live: {},
     baseUrl,
-    firstDiscovery: { landingRendered: null, entryButtonLabel: null, entryButtonFound: null, clicked: false, landedOn: null, landedTitle: null, deepLinkUsedForDiscovery: false, steps: [] },
+    firstDiscovery: { landingRendered: null, workspaceEntryLabel: null, workspaceEntryFound: null, landedOn: null, landedTitle: null, deepLinkUsedForDiscovery: false, steps: [] },
     homeRows: [],
     exploreRows: [],
     rolesHeld: [],

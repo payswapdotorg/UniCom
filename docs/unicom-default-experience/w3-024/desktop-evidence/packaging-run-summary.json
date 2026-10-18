@@ -1,0 +1,62 @@
+{
+  "generatedAtUtc": "2026-10-17T11:41:59.912Z",
+  "buildToolchain": {
+    "node": "v24.21.0",
+    "pnpm": "12.14.0",
+    "electron": "41.0.3 (packages/desktop devDependencies; runtime Chrome 146.0.7680.80 per CDP)",
+    "electronBuilder": "26.8.1 (packages/desktop devDependencies)"
+  },
+  "buildCommandsExact": [
+    "cd /home/z/my-project/UniCom && corepack pnpm --filter @zcode/web exec vite build --base ./ --sourcemap false   # exit 0 — staged commerce bundle (relative base is required for file:// loading; maps are pruned at packaging anyway)",
+    "cd /home/z/my-project/UniCom/packages/desktop && corepack pnpm prepare:build-meta   # exit 0",
+    "cd /home/z/my-project/UniCom/packages/desktop && NODE_ENV=production corepack pnpm exec tsup   # exit 0 — serial main/host/preload/scheduler build",
+    "cd /home/z/my-project/UniCom/packages/desktop && NODE_ENV=production NODE_OPTIONS=--max-old-space-size=2800 corepack pnpm exec vite build --sourcemap false   # exit 0 — serial renderer build (parallel tsup+vite was OOM-SIGKILLed once in this 4.1GB cgroup; renderer sourcemaps are stripped by packaging)",
+    "cd /home/z/my-project/UniCom/packages/desktop && PATH=<pnpm-shim>:$PATH corepack pnpm prepare:runtime-assets   # exit 0 — needs a pnpm PATH shim (spawnSync pnpm ENOENT otherwise)",
+    "cd /home/z/my-project/UniCom/packages/desktop && PATH=<pnpm-shim>:$PATH ZCODE_TARGET_OS=linux ZCODE_TARGET_ARCH=x64 corepack pnpm exec electron-builder --config electron-builder.config.js --linux deb AppImage --x64   # exit 0"
+  ],
+  "oomNote": "The contract's memory note materialized: the renderer vite build was SIGKILLed (137) once during chunk rendering even when run serially; disabling sourcemap generation (--sourcemap false — maps are stripped by packaging anyway) made it pass. The canonical CI web build (hidden sourcemaps) is untouched.",
+  "artifacts": [
+    {
+      "name": "UNiCOM Preview-3.14.3-linux-x86_64_TEST.AppImage",
+      "sizeBytes": 204537078,
+      "sha256": "21f7cd7e912e2871836af8279643a378974f3fcf7c7b77624df527cf0012d74d",
+      "builtAtCommit": "d23b8a7 (buildCommitId in out/metadata/build-meta.json; buildTime 2026-10-17T11:47:24Z)"
+    },
+    {
+      "name": "UNiCOM Preview-3.14.3-linux-amd64_TEST.deb",
+      "sizeBytes": 153439612,
+      "sha256": "d6360578c214cf0bbb7854cb968bf10d13fd1dc20fda9971005754bb8ede7d16",
+      "builtAtCommit": "d23b8a7 (buildCommitId in out/metadata/build-meta.json; buildTime 2026-10-17T11:47:24Z)"
+    }
+  ],
+  "artifactIdentity": {
+    "flavor": "preview (ambient ZCODE_ENV unset => test backend; the identity law forbids production identity on a test backend — ZCODE_ENV=production builds map to UNiCOM/unicom, proven by the identity test suite)",
+    "productName": "UNiCOM Preview",
+    "linuxExecutableName": "unicom-preview",
+    "linuxPackageName": "unicom-preview",
+    "appId": "org.payswapdotorg.unicom.preview",
+    "debControl": {
+      "Package": "unicom-preview",
+      "Version": "3.14.3",
+      "Maintainer": "UNiCOM <payswapdotorg@users.noreply.github.com>",
+      "Homepage": "https://github.com/payswapdotorg/UniCom"
+    },
+    "desktopEntry": {
+      "Name": "UNiCOM Preview",
+      "Exec": "\"/opt/UNiCOM Preview/unicom-preview\" %U",
+      "Icon": "unicom-preview",
+      "Categories": "Office",
+      "Comment": "UNiCOM — the AI-native Commerce Operating System desktop app"
+    },
+    "windowTitle": "UNiCOM (verified live over CDP in the packaged app)"
+  },
+  "launchEnvironment": {
+    "fuse": "NOT available (no /dev/fuse, no fusermount) — the AppImage was run from the extracted tree (--appimage-extract); direct AppImage execution requires FUSE on the operator machine",
+    "deb": "NOT installed in this sandbox (non-root uid 1001; sudo requires a password) — verified by dpkg-deb -I/-c/-x extraction: control fields, /opt/UNiCOM Preview/unicom-preview executable, /usr/share/applications/unicom-preview.desktop, hicolor icon",
+    "display": "Xvfb :97 1600x1000x24 (xvfb-run unavailable: xauth missing)",
+    "launchCommand": "DISPLAY=:97 ./squashfs-root/unicom-preview --no-sandbox --disable-gpu --disable-dev-shm-usage --remote-debugging-port=9333",
+    "exitStatus": "the packaged app ran, passed startup admission, rendered the UNiCOM commerce first screen, survived the workspace round trip, and was terminated by the evidence harness (SIGTERM/SIGKILL after capture); the evidence manifest records 13/13 checks PASS"
+  },
+  "bundleTargets": "electron-builder CLI target selection: --linux deb AppImage --x64. The config's full linux target list (AppImage, deb, rpm, pacman) is unchanged; rpm requires rpmbuild and pacman requires pacman tooling which this sandbox lacks — those targets were NOT built and are NOT counted as DEB/AppImage failures.",
+  "finalRebuildNote": "The artifacts and the packaged-app evidence were re-run from the committed code tip d23b8a7 after the last code change, so buildCommitId, SHA-256 and the committed screenshots all describe the SAME source state."
+}

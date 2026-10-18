@@ -1,0 +1,91 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module peer-tradecycle
+owner lane W2-012
+status partial
+J9 · Trade cycles — multi-hop swaps
+DEMO
+
+A trade cycle chains gives-and-wants across several participants so everyone both gives and receives. The law of this surface: every leg needs its own consent from the giving participant — a refusal, a dropout or an expired consent window stops or re-plans the whole cycle. Other legs are never silently committed: a stop is a stop.
+
+What is real here, and what is not
+
+Real (kernel-driven): Execution. Per-leg consent, refusal, withdrawal, window expiry and the atomic commit run through the commerce kernel's TradeCycle execution aggregate, imported from @unicom/commerce: every state and chip below is kernel truth.
+
+Demo-only: The candidate cycles and the participant identities. Discovery (bounded search over the offer graph) remains the agent lane's, which the web host cannot import — candidates arrive as committed demo fixtures and are validated by the kernel's cycle-shape laws when they open.
+
+Wired (new this phase): Executed by the commerce kernel. Each consent travels as an AUTHORIZE_TRADE_CYCLE_LEG command carrying its per-leg authorization reference; with every leg authorized, EXECUTE_TRADE_CYCLE commits all legs atomically — all or none. Attribution by anyone other than the giver holds the leg UNKNOWN, never fails it.
+
+Cycle A — 3 hops (Harbor Lane ⇄ Two Harbors ⇄ Northlight)
+DEMO
+DENIED
+
+Cycle: w2tc-cycle-a · 3 hops · 3 participants · mode ATOMIC
+
+Status (kernel): STOPPED_REFUSAL
+
+Kernel revision: revision 4 · commands journaled with idempotency receipts
+
+Cycle stopped — STOPPED_REFUSAL
+DENIED
+
+No other leg was committed. Consents already recorded on other legs commit nothing now: this cycle is ATOMIC, so execution requires every leg — a stopped cycle moves no items and owes nothing. Each participant keeps their own goods.
+
+Re-plan candidate available: Ferry Road Press (peer studio, re-plan alternative) can replace the stopped leg's participant in a fresh proposal (fresh consent for every leg).
+
+Leg 1 · Two Harbors Design (peer studio) → Harbor Lane Print Studio (you, demo buyer)
+PENDING
+DEMO
+
+Item moving on this leg: Overlock sewing machine (4-thread)
+
+Consent authority: Two Harbors Design (peer studio) — only the giving participant may authorize this leg
+
+Proof level: P2 — provider-signed
+
+Privacy: Only the immediate counterpart learns your identity on this leg — no participant sees the whole graph.
+
+Consent window ends: 2026-10-13T18:00:00Z (demo clock)
+
+Leg 2 · Northlight Atelier (peer studio) → Two Harbors Design (peer studio)
+REFUSED
+DEMO
+
+Item moving on this leg: Photography light kit (3 heads)
+
+Consent authority: Northlight Atelier (peer studio) — only the giving participant may authorize this leg
+
+Proof level: P1 — receipt
+
+Privacy: Only the immediate counterpart learns your identity on this leg — no participant sees the whole graph.
+
+Consent window ends: 2026-10-13T18:00:00Z (demo clock)
+
+Leg 3 · Harbor Lane Print Studio (you, demo buyer) → Northlight Atelier (peer studio)
+CONSENTED
+DEMO
+
+Item moving on this leg: Wide-format A1 printer
+
+Consent authority: Harbor Lane Print Studio (you, demo buyer) — only the giving participant may authorize this leg
+
+Proof level: P2 — provider-signed
+
+Privacy: Only the immediate counterpart learns your identity on this leg — no participant sees the whole graph.
+
+Consent window ends: 2026-10-13T18:00:00Z (demo clock)
+
+Kernel authorization record: authorized by Harbor Lane Print Studio (you, demo buyer) · reference w2tc-authz-harbor-lane-leg-1 (DEMO) · recorded 2026-10-12T09:01:00.000Z
+
+Re-plan with Ferry Road Press (peer studio, re-plan alternative) (fresh consents for every leg)
+Reset the demo kernel (fresh Cycle A)
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)
+ZCode Agent Workspace →

@@ -1,25 +1,30 @@
 /**
  * 构建期开关：为真时安装包使用 Preview 身份，而后端环境仍由 `ZCODE_ENV` 单独决定。
  * 典型用法是 `ZCODE_ENV=production ZCODE_PREVIEW_IDENTITY=1`，得到一个连接生产后端、
- * 可与正式版并排安装的 `ZCode Preview`。
+ * 可与正式版并排安装的 `UNiCOM Preview`。
+ *
+ * W3-024：UNiCOM 产品身份。上游 ZCode 身份（dev.zcode.app / ZCode / zcode）属于
+ * zai-org/ZCode；本仓是 UNiCOM 产品 fork，安装包身份、Linux 可执行名/包名、
+ * launcher 身份全部切换为 UNiCOM（appId 采用仓库真实归属 org.payswapdotorg.unicom，
+ * 避免占用上游域名）。后端环境轴（ZCODE_ENV）与身份轴的分离语义保持不变。
  */
 export const ZCODE_PREVIEW_IDENTITY_ENV = "ZCODE_PREVIEW_IDENTITY";
 
 const PRODUCTION_IDENTITY = Object.freeze({
   flavor: "production",
-  appId: "dev.zcode.app",
-  productName: "ZCode",
-  linuxExecutableName: "zcode",
-  linuxPackageName: "zcode",
+  appId: "org.payswapdotorg.unicom",
+  productName: "UNiCOM",
+  linuxExecutableName: "unicom",
+  linuxPackageName: "unicom",
   cuaHelperInstallVariant: null,
 });
 
 const PREVIEW_IDENTITY = Object.freeze({
   flavor: "preview",
-  appId: "dev.zcode.app.preview",
-  productName: "ZCode Preview",
-  linuxExecutableName: "zcode-preview",
-  linuxPackageName: "zcode-preview",
+  appId: "org.payswapdotorg.unicom.preview",
+  productName: "UNiCOM Preview",
+  linuxExecutableName: "unicom-preview",
+  linuxPackageName: "unicom-preview",
   cuaHelperInstallVariant: "preview",
 });
 
@@ -52,7 +57,7 @@ export function isPreviewIdentityRequested(env = process.env) {
 
 /**
  * 产品身份（flavor）与后端环境（`ZCODE_ENV`）是两个轴：
- * - `ZCODE_ENV=test` 一律是 Preview，测试后端不能顶着正式 `ZCode` 身份覆盖用户的正式安装；
+ * - `ZCODE_ENV=test` 一律是 Preview，测试后端不能顶着正式 `UNiCOM` 身份覆盖用户的正式安装；
  * - `ZCODE_ENV=production` 默认是正式身份，显式 `ZCODE_PREVIEW_IDENTITY=1` 时改用 Preview 身份。
  * 未知 `ZCODE_ENV` 继续按 test 处理，和共享层 normalizeZCodeEnv 的 fail-safe 默认值一致。
  */
@@ -69,7 +74,7 @@ export function resolveDesktopProductIdentity(env = process.env) {
 
 /**
  * 产物文件名后缀标记的是后端环境而不是身份：`_TEST` 只出现在测试后端的安装包上。
- * 生产后端的 Preview 包靠 productName（`ZCode Preview-<version>-...`）与正式包区分。
+ * 生产后端的 Preview 包靠 productName（`UNiCOM Preview-<version>-...`）与正式包区分。
  */
 export function resolveDesktopArtifactSuffix(env = process.env) {
   return normalizeDesktopZCodeEnv(env) === "test" ? "_TEST" : "";
