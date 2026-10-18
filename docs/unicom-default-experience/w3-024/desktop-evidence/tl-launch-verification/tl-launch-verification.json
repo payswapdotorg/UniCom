@@ -1,0 +1,47 @@
+{
+ "flavor": "production (ZCODE_ENV=production; UNiCOM identity, no _TEST suffix)",
+ "artifacts": [
+  {
+   "name": "UNiCOM-3.14.3-linux-amd64.deb",
+   "sizeBytes": 153180308,
+   "sha256": "bf401828ee9d22bf0636a38ecc62595019b439d1b77a8265d06fad98002b645b"
+  },
+  {
+   "name": "UNiCOM-3.14.3-linux-x86_64.AppImage",
+   "sizeBytes": 205041735,
+   "sha256": "28e0fc675cf05a11ce3dc43e1d05aa646d17444b28809b6d7726ecda8e5c80f4"
+  }
+ ],
+ "builtFrom": "main @ 6e34c01 (merge of work/w3-024 e156190, code tip d23b8a7)",
+ "verifiedAtUtc": "2026-10-18T10:14:26Z",
+ "checks": [
+  {
+   "name": "window title is UNiCOM (packaged production flavor)",
+   "status": "PASS"
+  },
+  {
+   "name": "first screen after startup admission = UNiCOM commerce surface (staged web-dist frame)",
+   "status": "PASS",
+   "detail": "frame title \"UNiCOM Commerce \u2014 Demo\""
+  },
+  {
+   "name": "workspace entry visible inside the staged host (frame-scoped)",
+   "status": "PASS"
+  },
+  {
+   "name": "workspace round trip: entry opens retained ZCode workspace, return entry swaps back to commerce",
+   "status": "PASS"
+  },
+  {
+   "name": "window title still UNiCOM after the round trip",
+   "status": "PASS"
+  }
+ ],
+ "method": "AppImage --appimage-extract; run under Xvfb :97/:98 with CDP; Playwright connectOverCDP evidence capture",
+ "screenshots": [
+  "01-first-screen.png",
+  "02-workspace.png",
+  "03-back-to-commerce.png",
+  "99-final.png"
+ ]
+}
