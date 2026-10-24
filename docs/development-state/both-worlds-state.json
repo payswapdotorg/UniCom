@@ -1,0 +1,26 @@
+{
+  "phase": "both-worlds-correction",
+  "operatorAuthority": {
+    "date": "2026-10-24",
+    "directive": "bring back the automations, settings, etc tabs from the original zcode UI as well as the group/project sections. We're building on zcode to use its best features for commerce, not to remove them like you have been doing. We need both zcode UI's best features and Unicom features to be apparent."
+  },
+  "workOrders": [
+    {
+      "id": "W3-025",
+      "title": "The Both-Worlds Default Experience",
+      "file": "docs/work-orders/W3-025.md",
+      "status": "READY_FOR_TL_DISPATCH",
+      "reverses": "W3-024 first-landing demotion (routing level); W3-024 product identity stays"
+    },
+    {
+      "id": "W1-027",
+      "title": "The UNiCOM Command Center as the Commerce Home",
+      "file": "docs/work-orders/W1-027.md",
+      "status": "READY_FOR_TL_DISPATCH",
+      "portSource": "github.com/payswapdotorg/unicom-console (operator-approved design 2026-10-23)"
+    }
+  ],
+  "parallelLanes": "W3-025 and W1-027 write surfaces are disjoint",
+  "recordedBy": "TL",
+  "recordedAt": "2026-10-24T05:35:00Z"
+}
