@@ -34,12 +34,15 @@ import {
   pickFreePort,
   resolvePlaywright,
   spawnVite,
+  spawnVitePreview,
   teardownVite,
   waitForMemoryFloor,
   waitForUrl,
 } from "./commerce-evidence-env.mjs";
+import { ensureWebDist } from "./w3-025-both-worlds-env.mjs";
 import { newWalkContext, snapshot, waitPainted } from "./commerce-evidence-capture.mjs";
 import { buildMergedManifest } from "./merged-gate-manifest.mjs";
+import { runColdBootWarmups } from "./merged-gate-warmups.mjs";
 import { buildDiscoverySteps } from "./merged-gate-discovery.mjs";
 import { buildJourneyStepsA } from "./merged-gate-journeys-a.mjs";
 import { buildJourneyStepsB, buildRoleHoldStep } from "./merged-gate-journeys-b.mjs";
@@ -53,8 +56,12 @@ import {
 } from "./merged-gate-safety.mjs";
 
 const USAGE = `MERGED-GATE (Task 33) merged-lineage 19-journey browser evidence runner
-  --start-env         boot the vite DEV server for @zcode/web ONLY (free port, heap-capped, GOMEMLIMIT)
+  --start-env         boot the vite server for @zcode/web ONLY (free port, heap-capped, GOMEMLIMIT)
                       and tear it down after — no ZCode server is ever started
+  --preview           with --start-env: serve the PRODUCTION build (vite preview on packages/web/dist,
+                      marker-verified against the W3-025 routing before any capture) instead of the dev
+                      server — the sandbox memory law for the both-worlds root (the FULL workspace
+                      dev transform storm OOM-kills vite, exit 137, alongside the operator's live stack)
   --base-url <url>    run against an already-running web server
   --port <n>          preferred port for --start-env (default ${WEB_PORT_DEFAULT})
   --out <dir>         artifacts dir for screenshots/body/console evidence
@@ -157,6 +164,8 @@ async function main() {
   let playwrightVersion = "not-resolved";
   let chromiumVersion = "not-launched";
   let warmup = null;
+  let commerceWarmup = null;
+  let webDist = null;
   const perStepMs = [];
 
   const readTail = (filePath, maxLen) => {
@@ -168,9 +177,22 @@ async function main() {
     }
   };
   const viteLogPath = () => path.join(outDir, "vite-dev.log");
+  // W3-025 memory law: the ordinary `/` is the FULL ZCode workspace now, so a
+  // dev-server walk transforms the whole workspace module graph — the kernel
+  // OOM-killed vite (exit 137, observed twice mid-discovery) under the pod's
+  // 4GB ceiling alongside the operator's live stack and the parallel lane.
+  // `--preview` serves the SAME committed code from the production build
+  // (marker-verified against the W3-025 routing before any capture — the
+  // run-commerce-evidence.mjs --preview precedent). Dev stays available for
+  // RAM-rich environments.
   const bootVite = async (attempts) => {
     for (let attempt = 1; attempt <= attempts; attempt++) {
-      spawnVite(port, viteLogPath(), log);
+      if (args.preview) {
+        webDist = ensureWebDist({ force: false }, log);
+        spawnVitePreview(port, viteLogPath(), log);
+      } else {
+        spawnVite(port, viteLogPath(), log);
+      }
       state.ownsEnv = true;
       const webUp = await waitForUrl(`${baseUrl}/`, 75000);
       log(`[env] vite attempt ${attempt}/${attempts}: up=${webUp} (freeMem=${freeMemoryMb()}MB)`);
@@ -277,23 +299,14 @@ async function main() {
     chromiumVersion = state.browser.version();
     log(`[browser] chromium ${chromiumVersion} (playwright ${playwrightVersion} from ${playwrightFrom})`);
 
-    // Cold-boot warm-up (fresh context, `/` only — the commerce host is NOT
-    // touched before the discovery click): absorbs the vite transform storm.
-    {
-      const cap = await newWalkContext(state.browser);
-      const startedAt = Date.now();
-      try {
-        await cap.page.goto(`${baseUrl}/`, { waitUntil: "domcontentloaded", timeout: 90000 });
-        // 150s: a COLD vite dep-optimizer cache (fresh worktree) can take well
-        // over 90s to bundle on first load under the pod's RAM ceiling.
-        const painted = await waitPainted(cap.page, 150000);
-        writeFileSync(path.join(outDir, "00-warmup-coldboot-console.txt"), cap.dump());
-        warmup = { painted, timingsMs: Date.now() - startedAt, freeMemoryMb: freeMemoryMb() };
-        log(`[env] warm-up cold boot: painted=${painted} in ${warmup.timingsMs}ms (freeMem=${warmup.freeMemoryMb}MB)`);
-      } finally {
-        await cap.context.close().catch(() => {});
-      }
-    }
+    // Cold-boot warm-ups (W3-025 both-worlds): #1 absorbs the FULL ZCode
+    // workspace's vite transform storm at the ordinary first landing `/`
+    // (the W3-024 warm-up absorbed the commerce host here because `/` WAS the
+    // host); #2 absorbs the commerce host's own storm at `/commerce` so the
+    // discovery click never races a cold transform spike into the sandbox
+    // memory guardian. Both are throwaway cache warm-ups in their own
+    // contexts — never discovery (see merged-gate-warmups.mjs).
+    ({ warmup, commerceWarmup } = await runColdBootWarmups(state.browser, { baseUrl, outDir, log }));
 
     const cap = await newWalkContext(state.browser);
     walkState.cap = cap;
@@ -304,7 +317,6 @@ async function main() {
       ? planned.filter((s) => tokens.some((t) => (t.endsWith("*") ? s.id.startsWith(t.slice(0, -1)) : s.id === t)))
       : planned;
     if (tokens) log(`[walk] LABELLED TARGETED PROBE (--only): ${steps.map((s) => s.id).join(", ")}`);
-    const walkPlan = planned.map((s) => ({ id: s.id, kind: s.kind, journeyId: s.journeyId ?? null, safetyId: s.safetyId ?? null, howReached: s.howReached }));
 
     for (const step of steps) {
       const startedAt = Date.now();
@@ -375,9 +387,16 @@ async function main() {
     chromiumVersion,
     baseUrl,
     webPort: port,
-    envMode: args.startEnv ? "started-by-runner (vite DEV ONLY — no ZCode server)" : "external",
+    envMode: args.startEnv
+      ? `started-by-runner (vite ${
+          args.preview ? "PREVIEW on the production build of this commit (marker-verified; W3-025 memory law — the full-workspace dev transform storm OOM-kills vite in this pod)" : "DEV"
+        } ONLY — no ZCode server)`
+      : "external",
+    webDist: args.startEnv && args.preview ? webDist : null,
     envRequirements: [
-      "Vite dev server serving packages/web (@zcode/web) — nothing else; the commerce host renders from committed demo fixtures",
+      args.preview
+        ? "Vite PREVIEW serving the committed packages/web production build (dist marker-verified against the W3-025 routing before any capture) — nothing else; the commerce host renders from committed demo fixtures"
+        : "Vite dev server serving packages/web (@zcode/web) — nothing else; the commerce host renders from committed demo fixtures",
       `Vite heap capped via NODE_OPTIONS=--max-old-space-size=${VITE_HEAP_CAP_MB} + GOMEMLIMIT=384MiB (sandbox RAM ceiling)`,
       "Playwright with chromium installed (resolved via import:playwright per the W1-010 pilot); headless flags --disable-dev-shm-usage --no-sandbox",
     ],
@@ -392,6 +411,7 @@ async function main() {
     identity,
     environment,
     warmup,
+    warmupCommerce: commerceWarmup,
     perStepMs,
     walkSteps,
     journeyResults,

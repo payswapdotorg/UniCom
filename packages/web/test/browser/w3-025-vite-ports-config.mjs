@@ -10,10 +10,14 @@
 //
 // Never imported by product code; used by
 // packages/web/test/browser/w3-025-both-worlds-evidence.mjs via
-//   corepack pnpm --filter @zcode/web exec vite --config <this file> …
-// The OAuth token proxy entry is preserved (token exchange keeps going to the
-// configured product endpoint; the evidence callback step expects its honest
-// failure state either way).
+//   corepack pnpm --filter @zcode/web exec vite preview --config <this file> …
+// The proxy override is applied to BOTH server (dev) and preview (the runner
+// serves the committed production build through `vite preview` — a light
+// static server that keeps the sandbox RAM ceiling safe, where a workspace-
+// heavy dev-server transform storm would risk the OOM killer). The OAuth token
+// proxy entry is preserved (token exchange keeps going to the configured
+// product endpoint; the evidence callback step expects its honest failure
+// state either way).
 
 import { defineConfig, mergeConfig } from "vite";
 import base from "../../vite.config.ts";
@@ -26,13 +30,14 @@ async function loadBaseConfig() {
   return resolved ?? {};
 }
 
+const laneProxy = {
+  "/ws": { target: `ws://localhost:${serverPort}`, ws: true },
+  "/api": { target: `http://localhost:${serverPort}` },
+};
+
 export default defineConfig(async () =>
   mergeConfig(await loadBaseConfig(), {
-    server: {
-      proxy: {
-        "/ws": { target: `ws://localhost:${serverPort}`, ws: true },
-        "/api": { target: `http://localhost:${serverPort}` },
-      },
-    },
+    server: { proxy: laneProxy },
+    preview: { proxy: laneProxy },
   }),
 );
