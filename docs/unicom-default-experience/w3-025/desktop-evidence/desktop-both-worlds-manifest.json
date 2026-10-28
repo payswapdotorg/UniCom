@@ -1,9 +1,9 @@
 {
   "schema": "w3-025-desktop-both-worlds-manifest",
   "schemaVersion": 1,
-  "generatedAtUtc": "2026-10-28T02:29:35.777Z",
+  "generatedAtUtc": "2026-10-28T02:56:39.580Z",
   "identity": {
-    "buildCommit": "c9829a560c21b951b0f74aacce38e2096881a199",
+    "buildCommit": "aede7c0a11b365eddaa5d3e30c35b6651e4556f1",
     "gitBranch": "work/w3-025",
     "buildTreeDirty": true,
     "nodeVersion": "v24.22.1"
@@ -11,7 +11,7 @@
   "runtime": "DEV desktop (unpackaged) under Xvfb — the lane's documented choice; the packaged app embeds the same staged bundle this run embeds via VITE_UNICOM_COMMERCE_DEV_ORIGIN",
   "cdpUrl": "http://127.0.0.1:9229",
   "playwrightFrom": "import:playwright",
-  "durationMs": 30621,
+  "durationMs": 28738,
   "denominators": {
     "steps": 3,
     "passed": 3,
