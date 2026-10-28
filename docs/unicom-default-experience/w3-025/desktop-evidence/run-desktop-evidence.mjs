@@ -112,6 +112,10 @@ async function resolvePlaywright() {
 async function main() {
   const startedAt = Date.now();
   const results = [];
+  // Identity is captured BEFORE any evidence file is written (the web-runner
+  // law) — building it at manifest time would always see this run's own
+  // freshly-written evidence files as tree dirt.
+  const identity = buildIdentity();
   const { mod: playwright, from } = await resolvePlaywright();
 
   const log = (line) => console.log(`[w3-025-desktop] ${line}`);
@@ -273,7 +277,7 @@ async function main() {
     schema: "w3-025-desktop-both-worlds-manifest",
     schemaVersion: 1,
     generatedAtUtc: new Date().toISOString(),
-    identity: buildIdentity(),
+    identity,
     runtime:
       "DEV desktop (unpackaged) under Xvfb — the lane's documented choice; the packaged app embeds the same staged bundle this run embeds via VITE_UNICOM_COMMERCE_DEV_ORIGIN",
     cdpUrl: args.cdpUrl,
