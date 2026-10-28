@@ -1,0 +1,83 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module buyer-groupbuy
+owner lane W2-012
+status ready
+J5 · Propose a group deal (latent demand)
+DEMO
+
+Enough buyers would buy something no seller currently offers as a group deal — so propose one. Laws on this surface: only CONSENTING participants are recruited (the demo fixture set includes a studio that declined, visibly excluded), the proposal carries explicit merchant terms, and no participant — including you — is enrolled silently. The proposal and every state after it run through the commerce kernel's GroupBuy formation aggregate; the merchant replies are deterministic fixture-scripted organizer commands (the same kernel laws the merchant review desk uses — that surface is W3's).
+
+What is real here, and what is not
+
+Real (kernel-driven): Formation. The proposal opens as a GroupBuy aggregate of the commerce kernel; the three consenting studios' interests, the merchant's accept/counter/reject, your share, threshold MONITORING → HELD and the formation with final terms are all typed kernel commands — every state below is kernel truth.
+
+Demo-only: The studios, the merchants and their deterministic review behaviors. They arrive as committed demo fixtures (DEMO-labelled); the merchant's reply is a fixture-scripted organizer command, not a live merchant.
+
+Wired (new this phase): Executed by the commerce kernel. Interest is never commitment; a threshold-met pool is HELD until the organizer's explicit formation with final terms (the second confirmation) freezes the exact group price, the exact pool value and the consenting-only roster. Every participant can withdraw until that moment; no group-buy commitment is ever created by this aggregate.
+
+Recruited participants (consent visible)
+Ferry Road Press
+consented · 16 boxes
+DEMO
+
+Explicitly agreed (demo fixture) to appear in this proposal with a 16-box share.
+
+Two Harbors Design
+consented · 12 boxes
+DEMO
+
+Explicitly agreed (demo fixture) to a 12-box share.
+
+Quayside Studio
+consented · 8 boxes
+DEMO
+
+Explicitly agreed (demo fixture) to an 8-box share.
+
+Northlight Atelier
+declined · excluded
+DEMO
+
+Declined (demo fixture) — EXCLUDED from the proposal. Non-consenting studios are never silently enrolled.
+
+Consenting total: 36 boxes from 3 studios
+
+Non-consenting: Never listed in the proposal — enrollment without consent is structurally not offered here.
+
+Proposed merchant terms
+
+Volume: 36 boxes of A3 recycled card
+
+Target group price: 11.20 USD per box (vs 12.75 list — the exact savings a merchant would weigh)
+
+Pool closes by: Oct 20, 18:00 (demo clock)
+
+Your studio's share: Your interest is not a commitment — you confirm a second time if the merchant accepts
+
+40-box reference cost at target price: 448.00 USD (exact math via the commerce runtime)
+
+Sent to: Meridian Office Supply (demo fixture organizer — the reply below is fixture-scripted)
+
+Proposal to Meridian Office Supply
+OFFERED
+DEMO
+
+Status (kernel): PENDING — on the organizer's desk, not yet reviewed
+
+Pool (kernel): 36 boxes from 3 consenting studios · revision 4
+
+Sent and on the merchant's desk. Pending is not an error and not an acceptance. The merchant review side is W3's surface — reveal the deterministic demo reply:
+
+Reveal merchant review outcome (demo)
+Start a new proposal round
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)
+ZCode Agent Workspace →

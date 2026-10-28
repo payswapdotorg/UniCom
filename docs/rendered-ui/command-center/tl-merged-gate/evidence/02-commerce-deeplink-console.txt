@@ -1,0 +1,10 @@
+[navigate] http://localhost:5199/
+[debug] [vite] connecting...
+[debug] [vite] connected.
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[log] [2026-10-28 04:24:07.121] [ui] [Root] 后台启动 OAuth 本地会话恢复
+[debug] [2026-10-28 04:24:07.123] [ui] [purchaseTelemetry] 套餐入口查询状态 {status: loading, configuredSources: 0, generation: 0}
+[navigate] http://localhost:5199/commerce
+[debug] [vite] connecting...
+[debug] [vite] connected.
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold

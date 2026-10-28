@@ -1,0 +1,91 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+module buyer-groupbuy
+owner lane W2-012
+status ready
+J4 · Group buys — discover, join, leave
+DEMO
+
+Team up with other buyers toward a group threshold. The law of this surface: interest is never a commitment. Every pool shows its threshold, deadline, eligibility and the exact terms a future commitment would carry — before you express anything. Formation runs on the commerce kernel: a threshold-met pool is HELD until the organizer forms the deal with final terms (the second confirmation) — never automatic, and a withdrawal before it honestly drops the pool back to threshold monitoring.
+
+You currently hold interest in 1 of 2 pools.
+
+What is real here, and what is not
+
+Real (kernel-driven): Formation. Interest, withdrawal, threshold MONITORING, HELD pools and the formation with final terms run through the commerce kernel's GroupBuy formation aggregate, imported from @unicom/commerce — every pool state and roster below is kernel truth.
+
+Demo-only: The pools, the participant identities and the seeded shares. They arrive as committed demo fixtures (DEMO-labelled) and open through the kernel's own command path.
+
+Wired (new this phase): Executed by the commerce kernel. Your interest travels as a RECORD_GROUP_BUY_INTEREST command carrying your consent terms; the kernel holds a threshold-met pool until the organizer's explicit FORM_GROUP_BUY freezes the final terms (exact group price, exact pool value) and the consenting-only roster. No group-buy commitment is ever created by this aggregate — a commitment would exist only on the commerce planes, after formation.
+
+A3 recycled card — studio pool
+DEMO
+threshold met — formation pending
+
+Group threshold: 60 units · at least 4 studios (both must be met)
+
+Deadline: Oct 15, 18:00 (demo clock)
+
+Eligibility: Studios inside Meridian's delivery area; one participation per studio.
+
+Price at threshold: 11.20 USD per box (vs 12.75 USD list, demo)
+
+Consent terms: Your interest is shared with the organizer only. It is NOT a commitment: nothing is owed, charged or ordered while you are merely interested.
+
+Commitment terms (what a REAL commitment would mean): A commitment would exist only after the threshold is met AND you confirm a second time against the formed deal's final terms. Payment-on-formation is the organizer's rule; you may withdraw interest any time before that second confirmation.
+
+Organizer note: 48 of 60 boxes spoken for (demo participants).
+
+Status (kernel): HELD — threshold met, awaiting the organizer's EXPLICIT formation
+
+Pool (kernel): 60 boxes from 4 consenting studios · revision 6 · organizer Meridian Office Supply (demo fixture)
+
+Your interest is recorded
+OFFERED
+interest — not a commitment
+
+Kernel interest record: 12 boxes · recorded 2026-10-12T09:06:00.000Z (demo clock) · revision 1 of the pool's revision 6. Withdraw any time before the deal forms; withdrawing interest cancels nothing else (there is nothing else to cancel).
+
+Kernel receipt: command w2gb-cmd-20 · idempotency key w2gb-idem-19 · executed 2026-10-12T09:06:00.000Z · resulting revision 6
+
+Withdraw my interest
+Meridian Office Supply forms the deal with final terms (demo advance)
+Pigment ink set — print co-op
+DEMO
+threshold met — formation pending
+
+Group threshold: 24 units · at least 2 studios (both must be met)
+
+Deadline: Oct 13, 12:00 (demo clock)
+
+Eligibility: Co-op members who have completed a previous group buy.
+
+Price at threshold: 41.00 USD per set (vs 49.00 USD list, demo)
+
+Consent terms: Threshold already met — the pool is awaiting the organizer's formation step. Your interest still commits you to nothing.
+
+Commitment terms (what a REAL commitment would mean): If you express interest now, you join the waiting list for the formed deal's final terms — the deal is NOT formed yet, and no money moves in demo mode.
+
+Organizer note: Threshold reached (24/24). Formation pending organizer authorization — not automatic.
+
+Status (kernel): HELD — threshold met, awaiting the organizer's EXPLICIT formation
+
+Pool (kernel): 24 sets from 2 consenting studios · revision 4 · organizer Paper Trail Co-op (demo fixture)
+
+Express interest (with authorization)Paper Trail Co-op forms the deal with final terms (demo advance)
+No pool for what you need?
+
+If enough buyers would buy something that no seller currently offers as a group deal, you can propose one — the merchant review side is a separate lane's surface.
+
+Propose a group deal (J5)
+Reset the demo kernel (fresh pools)
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)
+ZCode Agent Workspace →
