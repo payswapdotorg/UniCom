@@ -37,8 +37,29 @@
 //   node docs/unicom-default-experience/w3-025/desktop-evidence/run-desktop-evidence.mjs \
 //     [--cdp-url http://127.0.0.1:9229] [--out-dir <dir>] [--manifest <path>]
 
+import { execFileSync } from "node:child_process";
 import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
+
+/** Git provenance for staleness detection (the web-manifest identity law). */
+function buildIdentity() {
+  const sh = (args) => {
+    try {
+      return execFileSync("git", args, { cwd: process.cwd(), encoding: "utf8" }).trim();
+    } catch {
+      return null;
+    }
+  };
+  const commit = sh(["rev-parse", "HEAD"]);
+  const branch = sh(["rev-parse", "--abbrev-ref", "HEAD"]);
+  const status = sh(["status", "--porcelain"]);
+  return {
+    buildCommit: commit ?? "unavailable",
+    gitBranch: branch ?? "unknown",
+    buildTreeDirty: status == null ? null : status.length > 0,
+    nodeVersion: process.version,
+  };
+}
 
 const args = (() => {
   const parsed = { cdpUrl: "http://127.0.0.1:9229", outDir: null, manifest: null };
@@ -252,6 +273,7 @@ async function main() {
     schema: "w3-025-desktop-both-worlds-manifest",
     schemaVersion: 1,
     generatedAtUtc: new Date().toISOString(),
+    identity: buildIdentity(),
     runtime:
       "DEV desktop (unpackaged) under Xvfb — the lane's documented choice; the packaged app embeds the same staged bundle this run embeds via VITE_UNICOM_COMMERCE_DEV_ORIGIN",
     cdpUrl: args.cdpUrl,
