@@ -1,15 +1,15 @@
 {
  "manifestKind": "merged-gate-commerce-evidence",
  "schemaVersion": 1,
- "runId": "merged-gate-commerce-evidence-2026-10-28T014519295Z",
- "generatedBy": "packages/web/test/browser/merge-merged-gate-rerun.mjs",
- "generatedAtUtc": "2026-10-28T02:39:24.836Z",
+ "runId": "merged-gate-commerce-evidence-2026-10-28T033943516Z",
+ "generatedBy": "packages/web/test/browser/run-merged-gate-evidence.mjs",
+ "generatedAtUtc": "2026-10-28T03:40:53.287Z",
  "lineage": "merged (W1-011 host + W2-012 buyer/peer + W3-015 merchant/procurement/physical/trust)",
  "selectedSteps": null,
  "environment": {
-  "buildCommit": "c30c360a6272f79561c50d5233d8bb816d3e9083",
+  "buildCommit": "066ba88ec797c210709d89e54f2946811b35701c",
   "gitBranch": "work/w1-027",
-  "buildTreeDirty": true,
+  "buildTreeDirty": false,
   "nodeVersion": "v24.22.1",
   "pnpmVersion": "10.33.2",
   "playwrightVersion": "1.57.0",
@@ -25,11 +25,11 @@
   ],
   "operatingSystem": "linux x64",
   "freeMemoryMb": {
-   "atStart": 1528,
-   "atEnd": 1853
+   "atStart": 2765,
+   "atEnd": 2578
   },
   "envSelfHealingRestarts": [],
-  "walkError": "Error: locator.click: Target crashed  | healing failed: Error: page.goto: Page crashed"
+  "walkError": null
  },
  "firstDiscovery": {
   "routeOrigin": "ordinary-landing:/",
@@ -46,7 +46,7 @@
      "kind": "url",
      "visibleLabel": "http://localhost:5199/"
     },
-    "atUtc": "2026-10-28T01:46:05.022Z",
+    "atUtc": "2026-10-28T03:40:09.413Z",
     "screenshot": "evidence/01-landing-unicom-default.png",
     "note": "the ordinary landing IS the UNiCOM commerce experience (W3-024 default experience)"
    },
@@ -56,7 +56,7 @@
      "kind": "url",
      "visibleLabel": "http://localhost:5199/commerce"
     },
-    "atUtc": "2026-10-28T01:46:13.419Z",
+    "atUtc": "2026-10-28T03:40:14.806Z",
     "screenshot": "evidence/02-commerce-deeplink.png",
     "note": "post-discovery compat deep link — /commerce keeps working (W1-011 compat surface)"
    },
@@ -66,7 +66,7 @@
      "kind": "url",
      "visibleLabel": "/commerce"
     },
-    "atUtc": "2026-10-28T01:46:13.995Z",
+    "atUtc": "2026-10-28T03:40:15.145Z",
     "screenshot": "evidence/02-commerce-home.png",
     "note": "browser back returned from /commerce/explore to the commerce home — title \"UNiCOM Commerce — Demo\""
    }
@@ -287,11 +287,8 @@
    "errorScreenshot": null,
    "error": null,
    "retriedAfter": null,
-   "timingsMs": 16479,
-   "note": "title=\"UNiCOM Commerce — Demo\"; 46 visible buttons",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 10108,
+   "note": "title=\"UNiCOM Commerce — Demo\"; 46 visible buttons"
   },
   {
    "id": "first-discovery-commerce-compat",
@@ -320,11 +317,8 @@
    "errorScreenshot": null,
    "error": null,
    "retriedAfter": null,
-   "timingsMs": 8972,
-   "note": "ordinary-flow discovery complete: / → commerce host directly; /commerce compat + in-host history back verified",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 5731,
+   "note": "ordinary-flow discovery complete: / → commerce host directly; /commerce compat + in-host history back verified"
   },
   {
    "id": "commerce-home",
@@ -368,11 +362,8 @@
    "errorScreenshot": null,
    "error": null,
    "retriedAfter": null,
-   "timingsMs": 137,
-   "note": "ready=19 in-development=0 (registry-derived)",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 98,
+   "note": "ready=19 in-development=0 (registry-derived)"
   },
   {
    "id": "role-hold-finance",
@@ -391,11 +382,8 @@
    "errorScreenshot": null,
    "error": null,
    "retriedAfter": null,
-   "timingsMs": 898,
-   "note": "Finance held (visible checkbox, multi-hold) for J10's finance.approve-refund step",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 799,
+   "note": "Finance held (visible checkbox, multi-hold) for J10's finance.approve-refund step"
   },
   {
    "id": "role-hold-procurement-receiving",
@@ -419,11 +407,8 @@
    "errorScreenshot": null,
    "error": null,
    "retriedAfter": null,
-   "timingsMs": 987,
-   "note": "Procurement + Receiving held (visible checkboxes) for J11 receiving and J16's no-RFID count paths",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 932,
+   "note": "Procurement + Receiving held (visible checkboxes) for J11 receiving and J16's no-RFID count paths"
   },
   {
    "id": "role-hold-trust-support",
@@ -447,11 +432,8 @@
    "errorScreenshot": null,
    "error": null,
    "retriedAfter": null,
-   "timingsMs": 1043,
-   "note": "Trust & safety + Support held (visible checkboxes) for J17's dispute/recourse steps (Finance already held)",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 1146,
+   "note": "Trust & safety + Support held (visible checkboxes) for J17's dispute/recourse steps (Finance already held)"
   }
  ],
  "journeys": [
@@ -513,11 +495,8 @@
     "bodyEvidenceFile": "evidence/05-journey-J1-buyer-intent-body.txt",
     "consoleEvidenceFile": "evidence/05-journey-J1-buyer-intent-console.txt"
    },
-   "timingsMs": 1006,
-   "note": "nav /commerce/buyer/intent",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 753,
+   "note": "nav /commerce/buyer/intent"
   },
   {
    "journeyId": "J2",
@@ -587,11 +566,8 @@
     "bodyEvidenceFile": "evidence/06-journey-J2-buyer-compare-body.txt",
     "consoleEvidenceFile": "evidence/06-journey-J2-buyer-compare-console.txt"
    },
-   "timingsMs": 1204,
-   "note": "nav /commerce/buyer/compare",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 964,
+   "note": "nav /commerce/buyer/compare"
   },
   {
    "journeyId": "J3",
@@ -656,11 +632,8 @@
     "bodyEvidenceFile": "evidence/07-journey-J3-buyer-decide-body.txt",
     "consoleEvidenceFile": "evidence/07-journey-J3-buyer-decide-console.txt"
    },
-   "timingsMs": 1198,
-   "note": "nav /commerce/buyer/decide",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 1574,
+   "note": "nav /commerce/buyer/decide"
   },
   {
    "journeyId": "J4",
@@ -725,11 +698,8 @@
     "bodyEvidenceFile": "evidence/08-journey-J4-buyer-groupbuy-body.txt",
     "consoleEvidenceFile": "evidence/08-journey-J4-buyer-groupbuy-console.txt"
    },
-   "timingsMs": 1198,
-   "note": "nav /commerce/buyer/group-buy",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 1491,
+   "note": "nav /commerce/buyer/group-buy"
   },
   {
    "journeyId": "J5",
@@ -785,20 +755,74 @@
     ],
     "note": null
    },
-   "merchantSide": null,
+   "merchantSide": {
+    "outcome": "PASS",
+    "screenshot": "evidence/26-safety-j5-merchant-desk.png",
+    "bodyEvidenceFile": "evidence/26-safety-j5-merchant-desk-body.txt",
+    "consoleEvidenceFile": "evidence/26-safety-j5-merchant-desk-console.txt",
+    "visitedVia": "targeted deep link /commerce/merchant/group-buy-review AFTER ordinary discovery (labelled — no ordinary nav entry exists to the merchant J5 side; the J5 home/Explore entry deterministically renders the buyer side)",
+    "emphasizedMerchantScreenshot": "evidence/25-safety-j5-merchant-emphasized.png",
+    "interaction": {
+     "outcome": "PASS",
+     "label": "Accept w3gr-prop-2 at the proposed terms (accept/counter/reject desk)",
+     "checks": [
+      {
+       "name": "proposal moved to ACCEPTED — threshold monitoring",
+       "ok": true,
+       "detail": "ACCEPTED chip"
+      },
+      {
+       "name": "decision recorded in the local decision log",
+       "ok": true,
+       "detail": "decision log entry"
+      }
+     ]
+    },
+    "checks": [
+     {
+      "name": "accept/counter/reject desk rendered",
+      "ok": true,
+      "detail": "Incoming latent-demand proposals"
+     },
+     {
+      "name": "no-binding-effect label on the surface (runtime-integration phase: the desk creates no commitment, never overrides buyer consent)",
+      "ok": true,
+      "detail": "creates no commitment"
+     },
+     {
+      "name": "decisions are kernel-journaled (runtime-integration phase: local demo state superseded)",
+      "ok": true,
+      "detail": "kernel-journaled facts"
+     },
+     {
+      "name": "counter option offered with full terms",
+      "ok": true,
+      "detail": "Counter at"
+     },
+     {
+      "name": "rejection requires a recorded reason",
+      "ok": true,
+      "detail": "Reject with a recorded reason"
+     },
+     {
+      "name": "threshold state visible before any decision",
+      "ok": true,
+      "detail": "below threshold — held in review"
+     }
+    ],
+    "note": "the J5 merchant side: accept/counter/reject desk with the no-binding-effect statement, reached after ordinary discovery via a labelled targeted deep link"
+   },
    "screenshots": [
-    "evidence/09-journey-J5-buyer-latent-demand.png"
+    "evidence/09-journey-J5-buyer-latent-demand.png",
+    "evidence/26-safety-j5-merchant-desk.png"
    ],
    "evidence": {
     "screenshot": "evidence/09-journey-J5-buyer-latent-demand.png",
     "bodyEvidenceFile": "evidence/09-journey-J5-buyer-latent-demand-body.txt",
     "consoleEvidenceFile": "evidence/09-journey-J5-buyer-latent-demand-console.txt"
    },
-   "timingsMs": 889,
-   "note": "nav /commerce/buyer/group-buy/latent-demand (buyer side — the merchant review side is captured in the safety slice)",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 710,
+   "note": "nav /commerce/buyer/group-buy/latent-demand (buyer side — the merchant review side is captured in the safety slice)"
   },
   {
    "journeyId": "J6",
@@ -863,11 +887,8 @@
     "bodyEvidenceFile": "evidence/10-journey-J6-peer-rent-body.txt",
     "consoleEvidenceFile": "evidence/10-journey-J6-peer-rent-console.txt"
    },
-   "timingsMs": 1367,
-   "note": "nav /commerce/rent",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 1073,
+   "note": "nav /commerce/rent"
   },
   {
    "journeyId": "J7",
@@ -927,11 +948,8 @@
     "bodyEvidenceFile": "evidence/11-journey-J7-peer-resale-body.txt",
     "consoleEvidenceFile": "evidence/11-journey-J7-peer-resale-console.txt"
    },
-   "timingsMs": 1236,
-   "note": "nav /commerce/resale (consignment track prepared on a second asset for the surface assertion)",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 1054,
+   "note": "nav /commerce/resale (consignment track prepared on a second asset for the surface assertion)"
   },
   {
    "journeyId": "J8",
@@ -986,11 +1004,8 @@
     "bodyEvidenceFile": "evidence/12-journey-J8-buyer-opportunities-body.txt",
     "consoleEvidenceFile": "evidence/12-journey-J8-buyer-opportunities-console.txt"
    },
-   "timingsMs": 1105,
-   "note": "nav /commerce/opportunities",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 1437,
+   "note": "nav /commerce/opportunities"
   },
   {
    "journeyId": "J9",
@@ -1050,11 +1065,8 @@
     "bodyEvidenceFile": "evidence/13-journey-J9-peer-tradecycle-body.txt",
     "consoleEvidenceFile": "evidence/13-journey-J9-peer-tradecycle-console.txt"
    },
-   "timingsMs": 1184,
-   "note": "nav /commerce/trade-cycle",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 1030,
+   "note": "nav /commerce/trade-cycle"
   },
   {
    "journeyId": "J10",
@@ -1114,11 +1126,8 @@
     "bodyEvidenceFile": "evidence/15-journey-J10-merchant-storefront-body.txt",
     "consoleEvidenceFile": "evidence/15-journey-J10-merchant-storefront-console.txt"
    },
-   "timingsMs": 1761,
-   "note": "nav /commerce/merchant/storefront (Finance held for the refund step)",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 1407,
+   "note": "nav /commerce/merchant/storefront (Finance held for the refund step)"
   },
   {
    "journeyId": "J11",
@@ -1173,11 +1182,8 @@
     "bodyEvidenceFile": "evidence/16-journey-J11-procurement-supply-body.txt",
     "consoleEvidenceFile": "evidence/16-journey-J11-procurement-supply-console.txt"
    },
-   "timingsMs": 1363,
-   "note": "nav /commerce/procurement/supply (Procurement + Receiving held)",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 1222,
+   "note": "nav /commerce/procurement/supply (Procurement + Receiving held)"
   },
   {
    "journeyId": "J12",
@@ -1237,11 +1243,8 @@
     "bodyEvidenceFile": "evidence/17-journey-J12-merchant-b2b-body.txt",
     "consoleEvidenceFile": "evidence/17-journey-J12-merchant-b2b-console.txt"
    },
-   "timingsMs": 1482,
-   "note": "nav /commerce/b2b",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 1238,
+   "note": "nav /commerce/b2b"
   },
   {
    "journeyId": "J13",
@@ -1301,11 +1304,8 @@
     "bodyEvidenceFile": "evidence/18-journey-J13-merchant-autonomous-body.txt",
     "consoleEvidenceFile": "evidence/18-journey-J13-merchant-autonomous-console.txt"
    },
-   "timingsMs": 1317,
-   "note": "nav /commerce/autonomous/store",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 1293,
+   "note": "nav /commerce/autonomous/store"
   },
   {
    "journeyId": "J14",
@@ -1360,11 +1360,8 @@
     "bodyEvidenceFile": "evidence/19-journey-J14-buyer-twin-body.txt",
     "consoleEvidenceFile": "evidence/19-journey-J14-buyer-twin-console.txt"
    },
-   "timingsMs": 996,
-   "note": "nav /commerce/twin",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 959,
+   "note": "nav /commerce/twin"
   },
   {
    "journeyId": "J15",
@@ -1414,11 +1411,8 @@
     "bodyEvidenceFile": "evidence/20-journey-J15-merchant-connectors-body.txt",
     "consoleEvidenceFile": "evidence/20-journey-J15-merchant-connectors-console.txt"
    },
-   "timingsMs": 1302,
-   "note": "nav /commerce/connectors",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 1188,
+   "note": "nav /commerce/connectors"
   },
   {
    "journeyId": "J16",
@@ -1478,11 +1472,8 @@
     "bodyEvidenceFile": "evidence/21-journey-J16-physical-store-body.txt",
     "consoleEvidenceFile": "evidence/21-journey-J16-physical-store-console.txt"
    },
-   "timingsMs": 1637,
-   "note": "nav /commerce/physical/store (Receiving held for the count paths)",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 1301,
+   "note": "nav /commerce/physical/store (Receiving held for the count paths)"
   },
   {
    "journeyId": "J17",
@@ -1557,11 +1548,8 @@
     "bodyEvidenceFile": "evidence/23-journey-J17-trust-recourse-body.txt",
     "consoleEvidenceFile": "evidence/23-journey-J17-trust-recourse-console.txt"
    },
-   "timingsMs": 2092,
-   "note": "nav /commerce/trust/recourse (Trust & safety + Support + Finance held)",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 1521,
+   "note": "nav /commerce/trust/recourse (Trust & safety + Support + Finance held)"
   },
   {
    "journeyId": "J18",
@@ -1621,11 +1609,8 @@
     "bodyEvidenceFile": "evidence/24-journey-J18-host-states-body.txt",
     "consoleEvidenceFile": "evidence/24-journey-J18-host-states-console.txt"
    },
-   "timingsMs": 1294,
-   "note": "nav /commerce/states",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 748,
+   "note": "nav /commerce/states"
   },
   {
    "journeyId": "J19",
@@ -1721,11 +1706,8 @@
     "bodyEvidenceFile": "evidence/03-explore-J19-body.txt",
     "consoleEvidenceFile": "evidence/03-explore-J19-console.txt"
    },
-   "timingsMs": 2194,
-   "note": "the J19 module (reference-explore): the canonical 7-group taxonomy with registry-derived availability",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "timingsMs": 1990,
+   "note": "the J19 module (reference-explore): the canonical 7-group taxonomy with registry-derived availability"
   }
  ],
  "safetySlice": [
@@ -1768,12 +1750,9 @@
    "interaction": null,
    "errorScreenshot": null,
    "visitedVia": null,
-   "timingsMs": 989,
+   "timingsMs": 968,
    "retriedAfter": null,
-   "note": "unauthorized action rendered visibly blocked: missing permission + holders + held roles, control disabled",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "note": "unauthorized action rendered visibly blocked: missing permission + holders + held roles, control disabled"
   },
   {
    "safetyId": "unknown-not-failed",
@@ -1809,12 +1788,9 @@
    "interaction": null,
    "errorScreenshot": null,
    "visitedVia": null,
-   "timingsMs": 838,
+   "timingsMs": 620,
    "retriedAfter": null,
-   "note": "an UNKNOWN state rendered honestly: not failed, not a price, not hidden",
-   "original": null,
-   "reRun": null,
-   "reRunHistory": []
+   "note": "an UNKNOWN state rendered honestly: not failed, not a price, not hidden"
   },
   {
    "safetyId": "j5-merchant-desk",
@@ -1873,37 +1849,11 @@
      }
     ]
    },
-   "errorScreenshot": "evidence/99-safety-j5-merchant-desk-error.png",
+   "errorScreenshot": null,
    "visitedVia": "targeted deep link /commerce/merchant/group-buy-review AFTER ordinary discovery (labelled — no ordinary nav entry exists to the merchant J5 side; the J5 home/Explore entry deterministically renders the buyer side)",
-   "timingsMs": 37786,
-   "retriedAfter": "TimeoutError: locator.click: Timeout 20000ms exceeded.",
-   "note": "the J5 merchant side: accept/counter/reject desk with the no-binding-effect statement, reached after ordinary discovery via a labelled targeted deep link",
-   "original": {
-    "outcome": "BLOCKED",
-    "howReached": "Roles surface → Emphasize Merchant (visible interaction, emphasis-only) → targeted deep link to /commerce/merchant/group-buy-review (LABELLED: no ordinary nav entry exists to the merchant J5 side — ordinary discovery of J5 had already completed via the home row)",
-    "screenshot": null,
-    "bodyEvidenceFile": null,
-    "consoleEvidenceFile": null,
-    "note": null
-   },
-   "reRun": {
-    "runId": "merged-gate-commerce-evidence-2026-10-28T023737469Z",
-    "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-    "selectedSteps": "safety-j5-merchant-desk,safety-j5-dual-claim,safety-demo-mode-and-reset",
-    "startedAtUtc": "2026-10-28T02:37:37.469Z",
-    "outcome": "PASS",
-    "supersededOutcome": "BLOCKED",
-    "note": "LABELLED targeted re-run (selectedSteps recorded in its manifest); this outcome supersedes the original, which stays recorded under .original"
-   },
-   "reRunHistory": [
-    {
-     "runId": "merged-gate-commerce-evidence-2026-10-28T023737469Z",
-     "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-     "selectedSteps": "safety-j5-merchant-desk,safety-j5-dual-claim,safety-demo-mode-and-reset",
-     "startedAtUtc": "2026-10-28T02:37:37.469Z",
-     "outcome": "PASS"
-    }
-   ]
+   "timingsMs": 6098,
+   "retriedAfter": null,
+   "note": "the J5 merchant side: accept/counter/reject desk with the no-binding-effect statement, reached after ordinary discovery via a labelled targeted deep link"
   },
   {
    "safetyId": "j5-dual-claim",
@@ -1939,35 +1889,9 @@
    "interaction": null,
    "errorScreenshot": null,
    "visitedVia": null,
-   "timingsMs": 952,
+   "timingsMs": 965,
    "retriedAfter": null,
-   "note": "the catalog-sanctioned J5 dual-claim: both lanes' modules registered, the shell tolerates it, zero registry warnings",
-   "original": {
-    "outcome": "BLOCKED",
-    "howReached": "header nav System (module registry + journey coverage)",
-    "screenshot": null,
-    "bodyEvidenceFile": null,
-    "consoleEvidenceFile": null,
-    "note": null
-   },
-   "reRun": {
-    "runId": "merged-gate-commerce-evidence-2026-10-28T023737469Z",
-    "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-    "selectedSteps": "safety-j5-merchant-desk,safety-j5-dual-claim,safety-demo-mode-and-reset",
-    "startedAtUtc": "2026-10-28T02:37:37.469Z",
-    "outcome": "PASS",
-    "supersededOutcome": "BLOCKED",
-    "note": "LABELLED targeted re-run (selectedSteps recorded in its manifest); this outcome supersedes the original, which stays recorded under .original"
-   },
-   "reRunHistory": [
-    {
-     "runId": "merged-gate-commerce-evidence-2026-10-28T023737469Z",
-     "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-     "selectedSteps": "safety-j5-merchant-desk,safety-j5-dual-claim,safety-demo-mode-and-reset",
-     "startedAtUtc": "2026-10-28T02:37:37.469Z",
-     "outcome": "PASS"
-    }
-   ]
+   "note": "the catalog-sanctioned J5 dual-claim: both lanes' modules registered, the shell tolerates it, zero registry warnings"
   },
   {
    "safetyId": "demo-mode-and-reset",
@@ -2023,35 +1947,9 @@
    },
    "errorScreenshot": null,
    "visitedVia": null,
-   "timingsMs": 1117,
+   "timingsMs": 1103,
    "retriedAfter": null,
-   "note": "demo-mode indicator + reset: the committed fixtures (scenario, roles, emphasis) return deterministically",
-   "original": {
-    "outcome": "BLOCKED",
-    "howReached": "System surface (mode honesty) → the visible Reset demo fixtures button → Roles to verify the reset",
-    "screenshot": null,
-    "bodyEvidenceFile": null,
-    "consoleEvidenceFile": null,
-    "note": null
-   },
-   "reRun": {
-    "runId": "merged-gate-commerce-evidence-2026-10-28T023737469Z",
-    "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-    "selectedSteps": "safety-j5-merchant-desk,safety-j5-dual-claim,safety-demo-mode-and-reset",
-    "startedAtUtc": "2026-10-28T02:37:37.469Z",
-    "outcome": "PASS",
-    "supersededOutcome": "BLOCKED",
-    "note": "LABELLED targeted re-run (selectedSteps recorded in its manifest); this outcome supersedes the original, which stays recorded under .original"
-   },
-   "reRunHistory": [
-    {
-     "runId": "merged-gate-commerce-evidence-2026-10-28T023737469Z",
-     "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-     "selectedSteps": "safety-j5-merchant-desk,safety-j5-dual-claim,safety-demo-mode-and-reset",
-     "startedAtUtc": "2026-10-28T02:37:37.469Z",
-     "outcome": "PASS"
-    }
-   ]
+   "note": "demo-mode indicator + reset: the committed fixtures (scenario, roles, emphasis) return deterministically"
   }
  ],
  "totals": {
@@ -2126,90 +2024,7 @@
    "outcomeSum": 6,
    "zeroDrift": true,
    "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 6 = 6 + 0 + 0 = 6 (zero drift)"
-  },
-  "reRuns": [
-   {
-    "runId": "merged-gate-commerce-evidence-2026-10-28T023737469Z",
-    "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-    "selectedSteps": "safety-j5-merchant-desk,safety-j5-dual-claim,safety-demo-mode-and-reset",
-    "journeysAttempted": [],
-    "walkSteps": [],
-    "totals": {
-     "journeys": {
-      "byOutcome": {
-       "PASS": 0,
-       "FAIL": 0,
-       "ABSENT": 0,
-       "BLOCKED": 19,
-       "UNKNOWN": 0,
-       "SKIPPED": 0
-      },
-      "planned": 19,
-      "executed": 0,
-      "blocked": 19,
-      "skipped": 0,
-      "recomputed": 19,
-      "outcomeSum": 19,
-      "zeroDrift": true,
-      "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 19 = 0 + 19 + 0 = 19 (zero drift)"
-     },
-     "interactions": {
-      "byOutcome": {
-       "PASS": 0,
-       "FAIL": 0,
-       "ABSENT": 0,
-       "BLOCKED": 19,
-       "UNKNOWN": 0,
-       "SKIPPED": 0
-      },
-      "planned": 19,
-      "executed": 0,
-      "blocked": 19,
-      "skipped": 0,
-      "recomputed": 19,
-      "outcomeSum": 19,
-      "zeroDrift": true,
-      "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 19 = 0 + 19 + 0 = 19 (zero drift)"
-     },
-     "safety": {
-      "byOutcome": {
-       "PASS": 3,
-       "FAIL": 0,
-       "ABSENT": 0,
-       "BLOCKED": 2,
-       "UNKNOWN": 0,
-       "SKIPPED": 0
-      },
-      "planned": 5,
-      "executed": 3,
-      "blocked": 2,
-      "skipped": 0,
-      "recomputed": 5,
-      "outcomeSum": 5,
-      "zeroDrift": true,
-      "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 5 = 3 + 2 + 0 = 5 (zero drift)"
-     },
-     "walkSteps": {
-      "byOutcome": {
-       "PASS": 0,
-       "FAIL": 0,
-       "ABSENT": 0,
-       "BLOCKED": 0,
-       "UNKNOWN": 0,
-       "SKIPPED": 0
-      },
-      "planned": 0,
-      "executed": 0,
-      "blocked": 0,
-      "skipped": 0,
-      "recomputed": 0,
-      "outcomeSum": 0,
-      "zeroDrift": true,
-      "reconciliation": "planned = executed + blocked + skipped = ΣbyOutcome → 0 = 0 + 0 + 0 = 0 (zero drift)"
-     }
-    }
-   }
-  ]
+  }
  },
  "deepLinkPolicy": {
   "usedForDiscovery": false,
@@ -2220,246 +2035,238 @@
     "to": "/commerce/merchant/group-buy-review",
     "reason": "no shell nav entry reaches the merchant J5 side today — the J5 home/Explore entry deterministically renders the buyer side (registry sort: buyer-groupbuy precedes merchant-groupbuy-review); ordinary discovery of J5 completed first via the home row button"
    }
-  ],
-  "reRunNote": "the targeted re-runs used NO deep links: each re-run walked the ordinary landing → UNiCOM Commerce → /commerce flow first (its walkSteps record this) and opened every journey through its ordinary home row button"
+  ]
  },
  "timings": {
-  "startedAtUtc": "2026-10-28T01:45:19.295Z",
-  "completedAtUtc": "2026-10-28T01:47:01.523Z",
-  "totalMs": 102228,
-  "coldBootWarmupMs": 24796,
+  "startedAtUtc": "2026-10-28T03:39:43.516Z",
+  "completedAtUtc": "2026-10-28T03:40:53.287Z",
+  "totalMs": 69771,
+  "coldBootWarmupMs": 13168,
   "steps": [
    {
     "stepId": "landing-unicom-default",
     "kind": "walk",
-    "ms": 16479,
-    "freeMemoryMb": 992
+    "ms": 10108,
+    "freeMemoryMb": 2083
    },
    {
     "stepId": "first-discovery-commerce-compat",
     "kind": "walk",
-    "ms": 8972,
-    "freeMemoryMb": 575
+    "ms": 5731,
+    "freeMemoryMb": 1682
    },
    {
     "stepId": "commerce-home",
     "kind": "walk",
-    "ms": 137,
-    "freeMemoryMb": 374
+    "ms": 98,
+    "freeMemoryMb": 1514
    },
    {
     "stepId": "explore-taxonomy-J19",
     "kind": "journey",
-    "ms": 2194,
-    "freeMemoryMb": 358
+    "ms": 1990,
+    "freeMemoryMb": 1513
    },
    {
     "stepId": "safety-role-denied",
     "kind": "safety",
-    "ms": 989,
-    "freeMemoryMb": 398
+    "ms": 968,
+    "freeMemoryMb": 1499
    },
    {
     "stepId": "journey-J1",
     "kind": "journey",
-    "ms": 1006,
-    "freeMemoryMb": 410
+    "ms": 753,
+    "freeMemoryMb": 1495
    },
    {
     "stepId": "journey-J2",
     "kind": "journey",
-    "ms": 1204,
-    "freeMemoryMb": 303
+    "ms": 964,
+    "freeMemoryMb": 1486
    },
    {
     "stepId": "journey-J3",
     "kind": "journey",
-    "ms": 1198,
-    "freeMemoryMb": 370
+    "ms": 1574,
+    "freeMemoryMb": 1480
    },
    {
     "stepId": "journey-J4",
     "kind": "journey",
-    "ms": 1198,
-    "freeMemoryMb": 380
+    "ms": 1491,
+    "freeMemoryMb": 1540
    },
    {
     "stepId": "journey-J5",
     "kind": "journey",
-    "ms": 889,
-    "freeMemoryMb": 392
+    "ms": 710,
+    "freeMemoryMb": 1538
    },
    {
     "stepId": "journey-J6",
     "kind": "journey",
-    "ms": 1367,
-    "freeMemoryMb": 444
+    "ms": 1073,
+    "freeMemoryMb": 1537
    },
    {
     "stepId": "journey-J7",
     "kind": "journey",
-    "ms": 1236,
-    "freeMemoryMb": 406
+    "ms": 1054,
+    "freeMemoryMb": 1536
    },
    {
     "stepId": "role-hold-finance",
     "kind": "walk",
-    "ms": 898,
-    "freeMemoryMb": 334
+    "ms": 799,
+    "freeMemoryMb": 1540
    },
    {
     "stepId": "journey-J8",
     "kind": "journey",
-    "ms": 1105,
-    "freeMemoryMb": 453
+    "ms": 1437,
+    "freeMemoryMb": 1540
    },
    {
     "stepId": "journey-J9",
     "kind": "journey",
-    "ms": 1184,
-    "freeMemoryMb": 438
+    "ms": 1030,
+    "freeMemoryMb": 1538
    },
    {
     "stepId": "role-hold-procurement-receiving",
     "kind": "walk",
-    "ms": 987,
-    "freeMemoryMb": 419
+    "ms": 932,
+    "freeMemoryMb": 1537
    },
    {
     "stepId": "journey-J10",
     "kind": "journey",
-    "ms": 1761,
-    "freeMemoryMb": 386
+    "ms": 1407,
+    "freeMemoryMb": 1535
    },
    {
     "stepId": "journey-J11",
     "kind": "journey",
-    "ms": 1363,
-    "freeMemoryMb": 408
+    "ms": 1222,
+    "freeMemoryMb": 1532
    },
    {
     "stepId": "journey-J12",
     "kind": "journey",
-    "ms": 1482,
-    "freeMemoryMb": 452
+    "ms": 1238,
+    "freeMemoryMb": 1531
    },
    {
     "stepId": "journey-J13",
     "kind": "journey",
-    "ms": 1317,
-    "freeMemoryMb": 366
+    "ms": 1293,
+    "freeMemoryMb": 1530
    },
    {
     "stepId": "journey-J14",
     "kind": "journey",
-    "ms": 996,
-    "freeMemoryMb": 792
+    "ms": 959,
+    "freeMemoryMb": 1528
    },
    {
     "stepId": "journey-J15",
     "kind": "journey",
-    "ms": 1302,
-    "freeMemoryMb": 791
+    "ms": 1188,
+    "freeMemoryMb": 1530
    },
    {
     "stepId": "role-hold-trust-support",
     "kind": "walk",
-    "ms": 1043,
-    "freeMemoryMb": 796
+    "ms": 1146,
+    "freeMemoryMb": 1543
    },
    {
     "stepId": "journey-J16",
     "kind": "journey",
-    "ms": 1637,
-    "freeMemoryMb": 789
+    "ms": 1301,
+    "freeMemoryMb": 1539
    },
    {
     "stepId": "journey-J17",
     "kind": "journey",
-    "ms": 2092,
-    "freeMemoryMb": 655
+    "ms": 1521,
+    "freeMemoryMb": 1534
    },
    {
     "stepId": "journey-J18",
     "kind": "journey",
-    "ms": 1294,
-    "freeMemoryMb": 437
+    "ms": 748,
+    "freeMemoryMb": 1532
    },
    {
     "stepId": "safety-unknown-not-failed",
     "kind": "safety",
-    "ms": 838,
-    "freeMemoryMb": 296
+    "ms": 620,
+    "freeMemoryMb": 1531
    },
    {
     "stepId": "safety-j5-merchant-desk",
     "kind": "safety",
-    "ms": 4017,
-    "freeMemoryMb": 252
+    "ms": 6098,
+    "freeMemoryMb": 1531
    },
    {
     "stepId": "safety-j5-dual-claim",
     "kind": "safety",
-    "ms": 10266,
-    "freeMemoryMb": 542
+    "ms": 965,
+    "freeMemoryMb": 1624
    },
    {
     "stepId": "safety-demo-mode-and-reset",
     "kind": "safety",
-    "ms": 0,
-    "freeMemoryMb": 214
+    "ms": 1103,
+    "freeMemoryMb": 1622
    }
   ],
   "slowestStepsMs": [
    {
     "stepId": "landing-unicom-default",
     "kind": "walk",
-    "ms": 16479,
-    "freeMemoryMb": 992
-   },
-   {
-    "stepId": "safety-j5-dual-claim",
-    "kind": "safety",
-    "ms": 10266,
-    "freeMemoryMb": 542
-   },
-   {
-    "stepId": "first-discovery-commerce-compat",
-    "kind": "walk",
-    "ms": 8972,
-    "freeMemoryMb": 575
+    "ms": 10108,
+    "freeMemoryMb": 2083
    },
    {
     "stepId": "safety-j5-merchant-desk",
     "kind": "safety",
-    "ms": 4017,
-    "freeMemoryMb": 252
+    "ms": 6098,
+    "freeMemoryMb": 1531
+   },
+   {
+    "stepId": "first-discovery-commerce-compat",
+    "kind": "walk",
+    "ms": 5731,
+    "freeMemoryMb": 1682
    },
    {
     "stepId": "explore-taxonomy-J19",
     "kind": "journey",
-    "ms": 2194,
-    "freeMemoryMb": 358
+    "ms": 1990,
+    "freeMemoryMb": 1513
+   },
+   {
+    "stepId": "journey-J3",
+    "kind": "journey",
+    "ms": 1574,
+    "freeMemoryMb": 1480
    },
    {
     "stepId": "journey-J17",
     "kind": "journey",
-    "ms": 2092,
-    "freeMemoryMb": 655
-   }
-  ],
-  "reRuns": [
-   {
-    "runId": "merged-gate-commerce-evidence-2026-10-28T023737469Z",
-    "totalMs": 61383,
-    "coldBootWarmupMs": 15933
+    "ms": 1521,
+    "freeMemoryMb": 1534
    }
   ]
  },
  "memoryTelemetry": {
-  "atStartMb": 1528,
-  "atEndMb": 1853,
-  "minDuringWalkMb": 214,
+  "atStartMb": 2765,
+  "atEndMb": 2578,
+  "minDuringWalkMb": 1480,
   "samples": 30
  },
  "sensitiveValueScrubbed": true,
@@ -2467,39 +2274,10 @@
   "pointersChecked": 93,
   "missing": [],
   "allPointersResolve": true,
-  "note": "every evidence pointer (run 1 + all re-runs) resolves to a file on disk relative to the merged manifest"
+  "note": "every evidence pointer resolves to a file on disk relative to the manifest"
  },
  "manifestValidation": {
   "valid": true,
   "errors": []
- },
- "gateRun": {
-  "runId": "merged-gate-commerce-evidence-2026-10-28T014519295Z",
-  "manifestPath": "commerce-merged-gate-manifest.run1-partial.json",
-  "note": "run 1 — the full-gate walk (30 planned steps) at tree c30c360a6272f79561c50d5233d8bb816d3e9083 (dirty); outcomes journeys {\"PASS\":19,\"FAIL\":0,\"ABSENT\":0,\"BLOCKED\":0,\"UNKNOWN\":0,\"SKIPPED\":0} / safety {\"PASS\":2,\"FAIL\":0,\"ABSENT\":0,\"BLOCKED\":3,\"UNKNOWN\":0,\"SKIPPED\":0} / walkSteps {\"PASS\":6,\"FAIL\":0,\"ABSENT\":0,\"BLOCKED\":0,\"UNKNOWN\":0,\"SKIPPED\":0}. Archived unchanged."
- },
- "reRuns": [
-  {
-   "runId": "merged-gate-commerce-evidence-2026-10-28T023737469Z",
-   "manifestPath": "commerce-merged-gate-rerun-manifest.json",
-   "buildCommit": "c30c360a6272f79561c50d5233d8bb816d3e9083",
-   "buildTreeDirty": true,
-   "selectedSteps": "safety-j5-merchant-desk,safety-j5-dual-claim,safety-demo-mode-and-reset",
-   "startedAtUtc": "2026-10-28T02:37:37.469Z",
-   "completedAtUtc": "2026-10-28T02:38:38.852Z",
-   "totalMs": 61383,
-   "freeMemoryMb": {
-    "atStart": 1947,
-    "atEnd": 1667
-   },
-   "journeys": [],
-   "walkSteps": [],
-   "note": "LABELLED targeted probe (--only; selectedSteps pinned in its manifest) — targeted re-runs after harness fixes, never first-discovery claims and never the gate"
-  }
- ],
- "supersededOutcomes": [
-  "safety j5-merchant-desk: BLOCKED → PASS",
-  "safety j5-dual-claim: BLOCKED → PASS",
-  "safety demo-mode-and-reset: BLOCKED → PASS"
- ]
+ }
 }
