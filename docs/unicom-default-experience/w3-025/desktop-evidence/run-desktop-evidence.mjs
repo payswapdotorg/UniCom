@@ -126,6 +126,28 @@ async function main() {
   const appPage = () => context.pages().find((p) => !/devtools/i.test(p.url())) ?? context.pages()[0] ?? null;
 
   let page = null;
+  // Round-4 lesson (2026-10-28): the app's renderer process was OOM-SIGKILLed
+  // mid-run and the UNBOUNDED page operations (screenshot/title/evaluate)
+  // never resolved — the runner hung forever with no manifest. Every page
+  // capture here is bounded; on failure the step records an honest CAPTURE
+  // FAILURE in its state file (and a null screenshot in the manifest) instead
+  // of hanging, so the manifest is ALWAYS written with real outcomes.
+  const withTimeout = async (label, promise, timeoutMs) => {
+    let timer = null;
+    try {
+      return await Promise.race([
+        promise,
+        new Promise((_, reject) => {
+          timer = setTimeout(
+            () => reject(new Error(`${label} timed out after ${timeoutMs}ms`)),
+            timeoutMs,
+          );
+        }),
+      ]);
+    } finally {
+      if (timer) clearTimeout(timer);
+    }
+  };
   const waitFor = async (fn, timeoutMs) => {
     const deadline = Date.now() + timeoutMs;
     while (Date.now() < deadline) {
@@ -145,17 +167,38 @@ async function main() {
   const shot = async (base) => {
     page = appPage();
     const png = `${base}.png`;
-    await page.screenshot({ path: path.join(outDir, png) });
-    const title = await page.title().catch(() => null);
-    const url = page.url();
-    const bodyText = await page
-      .evaluate(() => document.body?.innerText?.slice(0, 3000) ?? "")
-      .catch(() => "");
+    if (!page) {
+      writeFileSync(
+        path.join(outDir, `${base}-state.txt`),
+        "title: (no page)\nurl: (no page)\nvisible text (first 3000 chars):\n\nCAPTURE FAILURE: no CDP page target\n",
+      );
+      return { screenshot: null, title: null, url: "(no page)", bodyText: "", screenshotError: "no CDP page target" };
+    }
+    let screenshotError = null;
+    try {
+      await withTimeout("page.screenshot", page.screenshot({ path: path.join(outDir, png) }), 45000);
+    } catch (error) {
+      screenshotError = error instanceof Error ? error.message : String(error);
+    }
+    const title = await withTimeout("page.title", page.title(), 15000).catch(() => null);
+    const url = (() => {
+      try {
+        return page.url();
+      } catch {
+        return "(unavailable)";
+      }
+    })();
+    const bodyText = await withTimeout(
+      "page.evaluate",
+      page.evaluate(() => document.body?.innerText?.slice(0, 3000) ?? ""),
+      15000,
+    ).catch(() => "");
+    const captureNote = screenshotError ? `\nCAPTURE FAILURE: ${screenshotError}\n` : "";
     writeFileSync(
       path.join(outDir, `${base}-state.txt`),
-      `title: ${title}\nurl: ${url}\nvisible text (first 3000 chars):\n${bodyText}\n`,
+      `title: ${title}\nurl: ${url}\nvisible text (first 3000 chars):\n${bodyText}\n${captureNote}`,
     );
-    return { screenshot: png, title, url, bodyText };
+    return { screenshot: screenshotError ? null : png, title, url, bodyText, screenshotError };
   };
 
   // ---- (1) the first surface after admission IS the native ZCode workspace --
@@ -164,18 +207,18 @@ async function main() {
     300000,
   );
   const firstShot = await shot("01-workspace-first-surface");
-  const commerceEntryCount = await page
-    .locator('[data-testid="unicom-workspace-return-entry"]')
-    .count()
-    .catch(() => 0);
-  const automationsCount = await page
-    .locator('[data-testid="automations-open"]')
-    .count()
-    .catch(() => 0);
-  const commerceSurfaceOnFirst = await page
-    .locator('[data-testid="unicom-commerce-surface"]')
-    .count()
-    .catch(() => 0);
+  // Null/dead-page-safe count (a null `page` deref would throw synchronously,
+  // outside the .catch() below — the round-4 robustness law).
+  const countOn = async (selector) => {
+    try {
+      return page ? await page.locator(selector).count() : 0;
+    } catch {
+      return 0;
+    }
+  };
+  const commerceEntryCount = await countOn('[data-testid="unicom-workspace-return-entry"]');
+  const automationsCount = await countOn('[data-testid="automations-open"]');
+  const commerceSurfaceOnFirst = await countOn('[data-testid="unicom-commerce-surface"]');
   results.push({
     id: "workspace-first-surface",
     claim:
@@ -193,6 +236,7 @@ async function main() {
   // ---- (2) the labelled entry opens the REAL embedded commerce host ---------
   let clicked = false;
   try {
+    if (!page) throw new Error("no CDP page target");
     await page.locator('[data-testid="unicom-workspace-return-entry"]').first().click({ timeout: 20000 });
     clicked = true;
   } catch {
@@ -213,16 +257,19 @@ async function main() {
     90000,
   );
   const commerceShot = await shot("02-commerce-surface-via-labelled-entry");
-  const frameSrc =
-    (await page
+  let frameSrc = null;
+  let frameWorkspaceEntry = 0;
+  if (page) {
+    frameSrc = (await page
       .locator('[data-testid="unicom-commerce-frame"]')
       .getAttribute("src")
       .catch(() => null)) ?? null;
-  const frameWorkspaceEntry = await page
-    .frameLocator('[data-testid="unicom-commerce-frame"]')
-    .locator('[data-testid="unicom-workspace-entry"]')
-    .count()
-    .catch(() => 0);
+    frameWorkspaceEntry = await page
+      .frameLocator('[data-testid="unicom-commerce-frame"]')
+      .locator('[data-testid="unicom-workspace-entry"]')
+      .count()
+      .catch(() => 0);
+  }
   results.push({
     id: "commerce-one-labelled-action-away",
     claim:
