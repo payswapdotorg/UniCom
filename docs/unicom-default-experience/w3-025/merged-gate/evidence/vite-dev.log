@@ -31,3 +31,6 @@ Error: read ECONNRESET
 1:30:56 AM [vite] ws proxy socket error:
 Error: read ECONNRESET
     at TCP.onStreamRead (node:internal/stream_base_commons:221:20)
+apps/zcode-cli                           |  WARN  Unsupported engine: wanted: {"node":"24.14.0"} (current: {"node":"v24.22.1","pnpm":"10.33.2"})
+  ➜  Local:   http://localhost:5199/
+  ➜  Network: use --host to expose
