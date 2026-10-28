@@ -1,0 +1,119 @@
+{
+  "schema": "w3-025-desktop-both-worlds-manifest",
+  "schemaVersion": 1,
+  "generatedAtUtc": "2026-10-28T02:56:39.580Z",
+  "identity": {
+    "buildCommit": "aede7c0a11b365eddaa5d3e30c35b6651e4556f1",
+    "gitBranch": "work/w3-025",
+    "buildTreeDirty": true,
+    "nodeVersion": "v24.22.1"
+  },
+  "runtime": "DEV desktop (unpackaged) under Xvfb — the lane's documented choice; the packaged app embeds the same staged bundle this run embeds via VITE_UNICOM_COMMERCE_DEV_ORIGIN",
+  "cdpUrl": "http://127.0.0.1:9229",
+  "playwrightFrom": "import:playwright",
+  "durationMs": 28738,
+  "denominators": {
+    "steps": 3,
+    "passed": 3,
+    "failed": 0,
+    "checks": {
+      "total": 12,
+      "passed": 12
+    }
+  },
+  "results": [
+    {
+      "id": "workspace-first-surface",
+      "claim": "after native startup admission, the app opens the NATIVE ZCode workspace as the primary experience — the full original workspace UI (sidebar, Automations reachable), commerce NOT the first screen",
+      "outcome": "PASS",
+      "checks": [
+        {
+          "name": "native workspace rendered (sidebar visible)",
+          "status": "PASS",
+          "detail": "[data-testid=sidebar] on http://localhost:5174/?restoreSession=true&supportsSettings=true&initialWorkspacePath=%2Ftmp%2Fw3-025-desktop-home%2F.zcode%2Fworkspace%2Fdefault&initialWorkspacePurpose=conversation&zcodeLaunchM"
+        },
+        {
+          "name": "surface is the workspace app, NOT the commerce surface",
+          "status": "PASS",
+          "detail": "unicom-commerce-surface × 0"
+        },
+        {
+          "name": "Automations entry present on the ordinary workspace surface",
+          "status": "PASS",
+          "detail": "[data-testid=automations-open] × 1"
+        },
+        {
+          "name": "labelled UNiCOM Commerce entry on the workspace surface",
+          "status": "PASS",
+          "detail": "[data-testid=unicom-workspace-return-entry] × 1"
+        }
+      ],
+      "evidence": {
+        "screenshot": "01-workspace-first-surface.png",
+        "stateFile": "01-workspace-first-surface-state.txt"
+      }
+    },
+    {
+      "id": "commerce-one-labelled-action-away",
+      "claim": "the labelled commerce entry opens the UNiCOM commerce surface — the SAME rendered commerce host the web app serves, embedded from the dev origin (unicomSurface=commerce frame override) with its own labelled workspace entry",
+      "outcome": "PASS",
+      "checks": [
+        {
+          "name": "labelled commerce entry clicked (one action)",
+          "status": "PASS",
+          "detail": "data-testid=unicom-workspace-return-entry"
+        },
+        {
+          "name": "commerce surface mounted",
+          "status": "PASS",
+          "detail": "[data-testid=unicom-commerce-surface]"
+        },
+        {
+          "name": "embedded frame carries the unicomSurface=commerce override",
+          "status": "PASS",
+          "detail": "http://127.0.0.1:5181/?unicomSurface=commerce"
+        },
+        {
+          "name": "REAL commerce host inside the frame (DEMO badge)",
+          "status": "PASS",
+          "detail": "cm-env-badge inside the frame"
+        },
+        {
+          "name": "labelled ZCode Agent Workspace entry inside the frame",
+          "status": "PASS",
+          "detail": "unicom-workspace-entry inside the frame"
+        }
+      ],
+      "evidence": {
+        "screenshot": "02-commerce-surface-via-labelled-entry.png",
+        "stateFile": "02-commerce-surface-via-labelled-entry-state.txt"
+      }
+    },
+    {
+      "id": "commerce-to-workspace-round-trip",
+      "claim": "the labelled ZCode Agent Workspace entry inside the embedded host postMessages the renderer (unicom:open-workspace) and the app swaps back to the native workspace — the full round trip",
+      "outcome": "PASS",
+      "checks": [
+        {
+          "name": "labelled workspace entry clicked inside the frame",
+          "status": "PASS",
+          "detail": "unicom:open-workspace postMessage contract"
+        },
+        {
+          "name": "native workspace restored (sidebar visible, commerce surface unmounted)",
+          "status": "PASS",
+          "detail": "url http://localhost:5174/?restoreSession=true&supportsSettings=true&initialWorkspacePath=%2Ftmp%2Fw3-025-desktop-home%2F.zcode%2Fworkspace%2Fdefault&initialWorkspacePurpose=conversation&zcodeLaunchMarks=%7B%22createdAt%"
+        },
+        {
+          "name": "renderer document still the app shell",
+          "status": "PASS",
+          "detail": "http://localhost:5174/?restoreSession=true&supportsSettings=true&initialWorkspacePath=%2Ftmp%2Fw3-025-desktop-home%2F.zcode%2Fworkspace%2Fdefault&initialWorkspacePurpose=conversation&zcodeLaunchMarks=%7B%22createdAt%22%3"
+        }
+      ],
+      "evidence": {
+        "screenshot": "03-back-to-workspace.png",
+        "stateFile": "03-back-to-workspace-state.txt"
+      }
+    }
+  ]
+}

@@ -67,6 +67,16 @@ function spawnViteCommand(mode, port, logPath, log) {
       // esbuild (vite's dep optimizer) is a Go binary — GOMEMLIMIT keeps its
       // bundling spike under the sandbox RAM ceiling alongside sibling workers.
       GOMEMLIMIT: "384MiB",
+      // W3-025 harness repair (inotify war): the sandbox's per-user inotify
+      // watch budget (8192) is shared with the operator's LIVE dev tree on
+      // :3000/:3030 and the parallel lane's dev server — a lane `vite dev`
+      // watching the aliased @zcode/* workspace sources exhausts it and dies
+      // with ENOSPC mid-transform (observed: watcher crash on
+      // packages/ui/src/...). CHOKIDAR_USEPOLLING makes vite's file watcher
+      // poll instead of consuming inotify watches — the same dev server, the
+      // same gate, zero inotify footprint. Read by the chokidar bundled into
+      // vite's dist (node.js:9448) regardless of explicit watch options.
+      CHOKIDAR_USEPOLLING: "true",
     },
   });
   log(`[env] vite ${mode} server spawning on :${port} (heap cap ${VITE_HEAP_CAP_MB}MB, log ${logPath}, pid ${viteChild.pid})`);

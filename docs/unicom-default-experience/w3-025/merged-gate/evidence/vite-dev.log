@@ -1,0 +1,70 @@
+apps/zcode-cli                           |  WARN  Unsupported engine: wanted: {"node":"24.14.0"} (current: {"node":"v24.22.1","pnpm":"10.33.2"})
+  ➜  Local:   http://localhost:5199/
+  ➜  Network: use --host to expose
+1:30:52 AM [vite] ws proxy error:
+Error: write EPIPE
+    at afterWriteDispatched (node:internal/stream_base_commons:138:10)
+    at writeGeneric (node:internal/stream_base_commons:126:10)
+    at Socket._writeGeneric (node:net:1324:11)
+    at Socket._write (node:net:1336:8)
+    at writeOrBuffer (node:internal/streams/writable:574:12)
+    at _write (node:internal/streams/writable:503:10)
+    at Writable.write (node:internal/streams/writable:512:10)
+    at Socket.ondata (node:internal/streams/readable:1031:24)
+    at Socket.emit (node:events:514:28)
+    at Readable.read (node:internal/streams/readable:794:10)
+1:30:52 AM [vite] ws proxy socket error:
+Error: write EPIPE
+    at afterWriteDispatched (node:internal/stream_base_commons:138:10)
+    at writeGeneric (node:internal/stream_base_commons:126:10)
+    at Socket._writeGeneric (node:net:1324:11)
+    at Socket._write (node:net:1336:8)
+    at writeOrBuffer (node:internal/streams/writable:574:12)
+    at _write (node:internal/streams/writable:503:10)
+    at Writable.write (node:internal/streams/writable:512:10)
+    at Socket.ondata (node:internal/streams/readable:1031:24)
+    at Socket.emit (node:events:514:28)
+    at Readable.read (node:internal/streams/readable:794:10)
+1:30:56 AM [vite] ws proxy error:
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:221:20)
+1:30:56 AM [vite] ws proxy socket error:
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:221:20)
+apps/zcode-cli                           |  WARN  Unsupported engine: wanted: {"node":"24.14.0"} (current: {"node":"v24.22.1","pnpm":"10.33.2"})
+  ➜  Local:   http://localhost:5199/
+  ➜  Network: use --host to expose
+apps/zcode-cli                           |  WARN  Unsupported engine: wanted: {"node":"24.14.0"} (current: {"node":"v24.22.1","pnpm":"10.33.2"})
+
+> @zcode/web@ dev /home/z/w3-025/packages/web
+> vite --port 5199 --strictPort
+
+
+  VITE v8.0.8  ready in 427 ms
+
+  ➜  Local:   http://localhost:5199/
+  ➜  Network: use --host to expose
+2:58:18 AM [vite] (client) [optimizer] bundling dependencies...
+Killed
+/home/z/w3-025/packages/web:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @zcode/web@ dev: `vite --port 5199 --strictPort`
+Exit status 137
+apps/zcode-cli                           |  WARN  Unsupported engine: wanted: {"node":"24.14.0"} (current: {"node":"v24.22.1","pnpm":"10.33.2"})
+
+> @zcode/web@ dev /home/z/w3-025/packages/web
+> vite --port 5199 --strictPort
+
+
+  VITE v8.0.8  ready in 583 ms
+
+  ➜  Local:   http://localhost:5199/
+  ➜  Network: use --host to expose
+/home/z/w3-025/packages/web:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @zcode/web@ dev: `vite --port 5199 --strictPort`
+Command failed with signal "SIGTERM"
+apps/zcode-cli                           |  WARN  Unsupported engine: wanted: {"node":"24.14.0"} (current: {"node":"v24.22.1","pnpm":"10.33.2"})
+  ➜  Local:   http://localhost:5199/
+  ➜  Network: use --host to expose
+apps/zcode-cli                           |  WARN  Unsupported engine: wanted: {"node":"24.14.0"} (current: {"node":"v24.22.1","pnpm":"10.33.2"})
+  ➜  Local:   http://localhost:5199/
+  ➜  Network: use --host to expose

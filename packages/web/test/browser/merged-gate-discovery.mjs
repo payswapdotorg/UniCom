@@ -1,11 +1,12 @@
 // MERGED-GATE (Task 33) — the ORDINARY-FLOW discovery + home + Explore (J19)
-// steps. Walk law (W3-024 default experience): FIRST discovery lands on `/`
-// and the UNiCOM commerce experience IS the ordinary first landing — no
-// overlay click, no deep link. The /commerce deep link and the history back
-// to the root are exercised AFTER discovery (compat law). The home surface
-// asserts the honest REGISTRY-DERIVED count (19 ready on the merged lineage
-// — no stale hardcoding), and the Explore step is the J19 journey evidence
-// (the taxonomy walk itself).
+// steps. Walk law (W3-025 both-worlds correction): FIRST discovery lands on `/`
+// and the FULL ZCode workspace IS the ordinary first landing — the labelled
+// UNiCOM Commerce entry on the workspace surface is the ordinary discovery path
+// into the host (one visible click; no typed deep link). The /commerce deep
+// link and the history back to the root are exercised AFTER discovery (compat
+// law). The home surface asserts the honest REGISTRY-DERIVED count (19 ready
+// on the merged lineage — no stale hardcoding), and the Explore step is the
+// J19 journey evidence (the taxonomy walk itself).
 
 import { EXPLORE_GROUP_TITLES } from "./commerce-evidence-lib.mjs";
 import { journeyRows, snapshot, waitPainted } from "./commerce-evidence-capture.mjs";
@@ -18,45 +19,102 @@ export function buildDiscoverySteps(walkState, { baseUrl, outDir }) {
     {
       id: "landing-unicom-default",
       kind: "walk",
-      howReached: "browser lands on the ordinary first landing / — the UNiCOM commerce experience itself (W3-024 default route; no server, no overlay click)",
+      howReached: "browser lands on the ordinary first landing / — the FULL ZCode workspace (W3-025 both-worlds law; no typed deep link); the labelled UNiCOM Commerce entry on the workspace surface is the ordinary discovery path into the host (one visible click)",
       fn: async () => {
         const { page, cap, firstDiscovery } = walkState;
         await page.goto(`${baseUrl}/`, { waitUntil: "domcontentloaded", timeout: 90000 });
         const painted = await waitPainted(page, 60000);
+        // The ordinary ZCode bootstrap runs first: the connected workspace shell
+        // when a server is present, or the honest bootstrap-failure wall this
+        // gate runs against (vite only, no ZCode server). Either surface keeps
+        // the labelled commerce entry — wait for it (the dock on the connected
+        // workspace; the labelled wall entry on the failure wall).
+        const commerceEntry = page
+          .locator('[data-testid="unicom-commerce-entry"]')
+          .or(page.getByRole("button", { name: /UNiCOM Commerce/ }));
+        const entryFound = await commerceEntry
+          .first()
+          .waitFor({ timeout: 120000 })
+          .then(() => true)
+          .catch(() => false);
+        await page.waitForTimeout(1200);
+        const landingShot = await snapshot(page, cap, outDir, "01-landing-unicom-default", { fullPage: false });
+        const inv = landingShot.inventory;
+        const bodyText = inv.bodyText ?? "";
+        const surfaceIsWorkspace =
+          /UNiCOM — Web/i.test(inv.documentTitle ?? "") && !/UNiCOM Commerce/i.test(inv.documentTitle ?? "");
+        let clicked = false;
+        if (entryFound) {
+          try {
+            await commerceEntry.first().click({ timeout: 20000 });
+            clicked = true;
+          } catch {
+            clicked = false;
+          }
+        }
+        let atCommerce = false;
+        try {
+          await page.waitForURL(/\/commerce\/?$/, { timeout: 45000 });
+          atCommerce = true;
+        } catch {
+          atCommerce = false;
+        }
         await waitForCommerceHost(page);
-        const shot = await snapshot(page, cap, outDir, "01-landing-unicom-default", { fullPage: false });
-        const inv = shot.inventory;
-        const workspaceEntry = inv.buttons.find((b) => /zcode agent workspace/i.test(b.label ?? "")) ?? null;
-        firstDiscovery.landingRendered = painted && inv.bodyText.length > 0;
+        await page.waitForTimeout(1500);
+        const commerceShot = await snapshot(page, cap, outDir, "01b-commerce-via-labelled-entry", { fullPage: false });
+        const workspaceEntry =
+          commerceShot.inventory.buttons.find((b) => /zcode agent workspace/i.test(b.label ?? "")) ?? null;
+        firstDiscovery.landingRendered = painted && bodyText.length > 0;
         firstDiscovery.workspaceEntryLabel = workspaceEntry?.label ?? null;
         firstDiscovery.workspaceEntryFound = workspaceEntry !== null;
         firstDiscovery.steps.push({
           action: "navigate",
           control: { kind: "url", visibleLabel: `${baseUrl}/` },
           atUtc: new Date().toISOString(),
-          screenshot: shot.screenshot,
-          note: "the ordinary landing IS the UNiCOM commerce experience (W3-024 default experience)",
+          screenshot: landingShot.screenshot,
+          note: "the ordinary first landing IS the full ZCode workspace (W3-025 both-worlds correction)",
         });
-        const rootPath = String(inv.url);
+        firstDiscovery.steps.push({
+          action: "click",
+          control: { kind: "button", visibleLabel: "UNiCOM Commerce (labelled entry on the workspace surface)" },
+          atUtc: new Date().toISOString(),
+          screenshot: commerceShot.screenshot,
+          note: "the labelled commerce entry opened the commerce host — the ordinary discovery path, no deep link",
+        });
         return {
-          rendered: painted && /UNiCOM Commerce/i.test(inv.documentTitle),
+          rendered:
+            painted && surfaceIsWorkspace && clicked && atCommerce && /UNiCOM Commerce/i.test(commerceShot.inventory.documentTitle),
           checks: [
-            check("painted with visible content", painted, `bodyText ${inv.bodyText.length} chars`),
-            check("root request rendered the commerce host directly (address canonicalized to /commerce)", rootPath === "/" || rootPath === "/commerce", inv.url),
-            check("commerce host title at the root landing", /UNiCOM Commerce/i.test(inv.documentTitle), inv.documentTitle),
-            check("deliberate ZCode workspace entry visible on the product surface", workspaceEntry !== null, workspaceEntry?.label ?? "not found"),
+            check("painted with visible content", painted, `bodyText ${bodyText.length} chars`),
+            check(
+              "root request rendered the ZCode workspace surface (address stays on / — NOT canonicalized to /commerce)",
+              surfaceIsWorkspace && String(inv.url) === "/",
+              `${inv.url} — "${inv.documentTitle}"`,
+            ),
+            check(
+              "labelled UNiCOM Commerce entry visible on the ordinary workspace surface",
+              entryFound,
+              "the docked commerce entry (connected workspace) or the labelled wall entry (bootstrap-failure wall)",
+            ),
+            check("commerce entry clicked (ordinary flow — one labelled click, no typed deep link)", clicked, "unicom-commerce-entry / labelled commerce button"),
+            check(
+              "commerce host rendered after the labelled entry",
+              atCommerce && /UNiCOM Commerce/i.test(commerceShot.inventory.documentTitle),
+              commerceShot.inventory.documentTitle,
+            ),
+            check("deliberate ZCode workspace entry visible on the commerce surface", workspaceEntry !== null, workspaceEntry?.label ?? "not found"),
           ],
-          screenshot: shot.screenshot,
-          bodyFile: shot.bodyFile,
-          consoleFile: shot.consoleFile,
-          note: `title="${inv.documentTitle}"; ${inv.buttons.length} visible buttons`,
+          screenshot: landingShot.screenshot,
+          bodyFile: landingShot.bodyFile,
+          consoleFile: landingShot.consoleFile,
+          note: `both worlds at the ordinary landing: workspace "${inv.documentTitle}" → labelled commerce entry → "${commerceShot.inventory.documentTitle}"`,
         };
       },
     },
     {
       id: "first-discovery-commerce-compat",
       kind: "walk",
-      howReached: "after the ordinary landing, the /commerce deep link is exercised for compatibility, then in-host navigation + browser back returns to the commerce home",
+      howReached: "after the ordinary workspace landing + labelled-entry discovery, the /commerce deep link is exercised for compatibility, then in-host navigation + browser back returns to the commerce home",
       fn: async () => {
         const { page, cap, firstDiscovery } = walkState;
         await page.goto(`${baseUrl}/commerce`, { waitUntil: "domcontentloaded", timeout: 90000 });

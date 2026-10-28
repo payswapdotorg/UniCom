@@ -98,6 +98,7 @@ export function buildMergedManifest(raw) {
     identity,
     environment,
     warmup,
+    warmupCommerce = null,
     perStepMs,
     walkSteps = [],
     journeyResults = {},
@@ -216,6 +217,22 @@ export function buildMergedManifest(raw) {
       ...environment,
       walkError: walkError ?? null,
     },
+    // W3-025 both-worlds warm-ups: #1 absorbs the workspace (ordinary `/`)
+    // transform storm, #2 the commerce host's — both are throwaway cache
+    // warm-ups, never discovery (firstDiscovery records the ordinary flow).
+    warmups: {
+      coldBootWorkspace: warmup
+        ? { painted: warmup.painted === true, timingsMs: warmup.timingsMs ?? null, freeMemoryMb: warmup.freeMemoryMb ?? null }
+        : null,
+      commerceChunks: warmupCommerce
+        ? {
+            painted: warmupCommerce.painted === true,
+            hostBadge: warmupCommerce.hostBadge === true,
+            timingsMs: warmupCommerce.timingsMs ?? null,
+            freeMemoryMb: warmupCommerce.freeMemoryMb ?? null,
+          }
+        : null,
+    },
     firstDiscovery: {
       routeOrigin: "ordinary-landing:/",
       ...firstDiscovery,
@@ -251,6 +268,7 @@ export function buildMergedManifest(raw) {
       completedAtUtc,
       totalMs: Date.parse(completedAtUtc) - Date.parse(startedAtUtc),
       coldBootWarmupMs: warmup?.timingsMs ?? null,
+      commerceChunkWarmupMs: warmupCommerce?.timingsMs ?? null,
       steps: perStepMs,
       slowestStepsMs: [...perStepMs].sort((a, b) => b.ms - a.ms).slice(0, 6),
     },

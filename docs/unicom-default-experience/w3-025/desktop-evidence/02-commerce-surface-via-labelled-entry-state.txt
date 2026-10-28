@@ -1,0 +1,4 @@
+title: UNiCOM
+url: http://localhost:5174/?restoreSession=true&supportsSettings=true&initialWorkspacePath=%2Ftmp%2Fw3-025-desktop-home%2F.zcode%2Fworkspace%2Fdefault&initialWorkspacePurpose=conversation&zcodeLaunchMarks=%7B%22createdAt%22%3A1793156166290%2C%22mainStart%22%3A1793156168942%2C%22appReady%22%3A1793156170583%2C%22loadUrl%22%3A1793156171046%7D
+visible text (first 3000 chars):
+UNiCOM

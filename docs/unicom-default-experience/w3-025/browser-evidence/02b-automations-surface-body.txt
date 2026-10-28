@@ -1,0 +1,54 @@
+U
+UNiCOM Commerce
+Store operations & journeys · demo
+→
+Command palette
+
+Search and run commands available in this workspace.
+
+New task
+Ctrl+N
+Search
+Ctrl+K
+Automations
+Plugin Marketplace
+Group
+Project
+Projects
+w3-025
+No tasks yet
+Tasks
+No tasks yet
+Connect
+Automations
+Workflows
+
+Schedule recurring tasks or queue background work that runs during idle time.
+
+No scheduled tasks yet.
+
+Create scheduled task
+
+Keep your computer awake while ZCode is running a chat.
+
+Scheduled task template
+Morning dev brief
+
+Summarize commits, module changes, CI status, and follow-ups since the previous workday, then produce no more than five stand-up-ready bullets. Perform read-only analysis using only verifiable repository facts; state when evidence is insufficient, do not speculate, and do not modify code or external state.
+
+Every weekday at 09:00
+Risk scan
+
+Inspect code changes from the last 24 hours for high-confidence risks involving runtime failures, data loss, authorization bypasses, resource leaks, or cross-platform compatibility, and attach code and commit/diff evidence. Perform read-only analysis using only verifiable repository facts; state when evidence is insufficient, do not speculate, and do not modify code or external state.
+
+Daily at 10:00
+Release brief
+
+Organize PRs and commits merged this week into Features, Fixes, Experience improvements, and Engineering improvements, then produce both a team brief and concise user-facing release notes. Perform read-only analysis using only verifiable repository facts; state when evidence is insufficient, do not speculate, and do not modify code or external state.
+
+Weekly on Fri at 16:00
+Documentation sync check
+
+Compare code, configuration, API, and documentation changes from the last seven days. Identify high-confidence cases where public behavior changed without matching documentation, attach file paths and commit/diff evidence, and name the documentation locations and key points that should be updated. Perform read-only analysis using only verifiable repository facts; state when evidence is insufficient, do not speculate, and do not modify code or external state.
+
+Weekly on Wed at 15:00

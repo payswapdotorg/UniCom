@@ -1,14 +1,19 @@
 /**
- * W3-024 — the UNiCOM commerce experience surface for the desktop renderer.
+ * W3-025 — the UNiCOM commerce experience surface for the desktop renderer
+ * (operator correction 2026-10-24: the native ZCode workspace is the primary
+ * experience; this surface is what the workspace's labelled commerce entry
+ * opens — commerce stays one prominent labelled action away).
  *
- * Rendered after native startup admission passes (database readiness,
- * message ports and every host bridge stay owned by the renderer entry):
+ * Rendered when the user opens UNiCOM Commerce from the workspace surface:
  * - packaged runtime embeds the SAME rendered commerce host the web app
  *   serves (staged `web-dist` bundle) in a full-viewport frame and keeps a
  *   minimal Linux frameless-window titlebar (drag region + window controls);
- * - the development runtime honestly reports that the commerce bundle is
+ * - the development runtime may embed the real commerce host from a dev
+ *   server origin (VITE_UNICOM_COMMERCE_DEV_ORIGIN — e.g. the lane-private
+ *   `vite preview` serving packages/web) so the round trip is real in dev;
+ *   without it, the runtime honestly reports that the commerce bundle is
  *   staged at packaging time and keeps the deliberate workspace entry;
- * - the staged bundle asks this window to open the native ZCode agent
+ * - the embedded bundle asks this window to open the native ZCode agent
  *   workspace via the `unicom:open-workspace` postMessage contract.
  */
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -33,6 +38,21 @@ function UnicomRestoreGlyph() {
       <path d="M10.5 12.6H4.2A1.7 1.7 0 0 1 2.5 10.9V4.6" stroke="currentColor" strokeWidth="1.2" />
     </svg>
   );
+}
+
+type UnicomCommerceSurfaceImportMetaEnv = {
+  VITE_UNICOM_COMMERCE_DEV_ORIGIN?: string;
+};
+
+/** Dev-only commerce host origin (lane-private `vite preview` of packages/web). */
+function resolveUnicomCommerceDevOrigin(): string {
+  const env =
+    (
+      import.meta as ImportMeta & {
+        env?: UnicomCommerceSurfaceImportMetaEnv;
+      }
+    ).env ?? {};
+  return (env.VITE_UNICOM_COMMERCE_DEV_ORIGIN ?? "").trim();
 }
 
 export interface UnicomCommerceSurfaceProps {
@@ -123,7 +143,11 @@ function DevRuntimeFallbackPanel({ onOpenWorkspace }: { onOpenWorkspace: () => v
           The rendered commerce host is staged into the packaged app at build time
           (packages/web build → resources/web-dist). This unpackaged development runtime
           does not stage it, so the commerce surface is not available here — this is an
-          honest unavailable state, not a commerce failure.
+          honest unavailable state, not a commerce failure. To embed the real host in a
+          dev run, serve the packages/web build (e.g. a lane-private
+          <span className="mx-1 font-mono">vite preview</span>) and start the desktop with
+          <span className="mx-1 font-mono">VITE_UNICOM_COMMERCE_DEV_ORIGIN</span> pointing
+          at it.
         </p>
         <button
           type="button"
@@ -146,9 +170,15 @@ export function UnicomCommerceSurface({
   onOpenWorkspace,
 }: UnicomCommerceSurfaceProps) {
   const isLinuxDesktop = !isMacDesktop && !isWindowsDesktop;
+  const commerceDevOrigin = useMemo(() => resolveUnicomCommerceDevOrigin(), []);
   const frameResolution = useMemo(
-    () => resolveCommerceFrameSrc({ localDevelopmentRuntime, pageUrl: window.location.href }),
-    [localDevelopmentRuntime],
+    () =>
+      resolveCommerceFrameSrc({
+        localDevelopmentRuntime,
+        pageUrl: window.location.href,
+        commerceDevOrigin,
+      }),
+    [localDevelopmentRuntime, commerceDevOrigin],
   );
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const [isWindowMaximized, setIsWindowMaximized] = useState(false);
