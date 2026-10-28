@@ -1,17 +1,22 @@
 /**
- * W3-024 — the UNiCOM default web experience wiring.
+ * W3-025 — the both-worlds web entry wiring (operator correction 2026-10-24).
  *
- * Default-experience law:
- * - the ordinary first landing ("/") IS the UNiCOM commerce experience: the
- *   product opens into UNiCOM itself, not into the ZCode connect wall with
- *   an add-on entry button (the W1-011 floating overlay is demoted to the
- *   retained workspace surface, where it is the labelled way back);
+ * Both-worlds law (reverses the W3-024 first-landing demotion at the routing
+ * level only; W3-024's product identity stays):
+ * - the ordinary first landing ("/") IS the full ZCode workspace — sidebar with
+ *   grouped tasks/projects, agents, chat, settings (Automations, Commands,
+ *   Hooks, MCP, ComputerUse, Browser, OffPeak, plugins) — the original
+ *   ordinary first experience of the product we are building on;
+ * - UNiCOM Commerce stays first-class and apparent: a PROMINENT, LABELLED,
+ *   docked entry rendered from this package sits on the workspace surface
+ *   (plus the small floating entry may remain on the bootstrap-failure wall);
  * - "/commerce" deep links keep working unchanged (compat surface);
  * - OAuth callback and conversation-share routes keep their specialized
  *   behavior and are never redirected into the commerce host;
- * - the retained ZCode agent/coding workspace stays reachable through the
- *   deliberate, labelled secondary route ("/workspace") exposed from the
- *   commerce surface — never a hidden escape hatch;
+ * - "/workspace" and legacy `?remote=` deep links keep the ZCode app bootstrap
+ *   (equivalent to the default root — history/back behavior unchanged);
+ * - `unicomSurface=commerce` keeps serving embedded frames (the packaged
+ *   UNiCOM desktop app stages this bundle and asks for the commerce surface);
  * - when this same bundle is embedded by the packaged UNiCOM desktop app
  *   (staged as an iframe frame), the workspace entry asks the embedding
  *   window to open the native workspace instead of navigating the frame.
@@ -22,6 +27,9 @@ import { isConversationSharePath } from "./share/conversationShareRoute.js";
 
 /** Deliberate secondary route into the retained ZCode agent/coding workspace. */
 export const UNICOM_WORKSPACE_PATH = "/workspace";
+
+/** The commerce host deep link — where the docked workspace entry navigates. */
+export const UNICOM_COMMERCE_PATH = "/commerce";
 
 /**
  * Cross-context message the commerce surface sends to an embedding window
@@ -72,17 +80,16 @@ export type WebEntrySurface =
  * 2. /commerce deep links keep their compat behavior;
  * 3. the explicit `unicomSurface=commerce` override serves embedded frames;
  * 4. /workspace and legacy `?remote=` deep links open the ZCode workspace;
- * 5. the root "/" is the UNiCOM default experience;
- * 6. any other legacy path keeps rendering the ZCode app (SPA-era compat —
- *    zero regression for paths that historically reached the app).
+ * 5. everything else — INCLUDING the ordinary root "/" — boots the full
+ *    ZCode workspace (W3-025 both-worlds law: the product is ZCode with
+ *    commerce layered in; the commerce host is one prominent labelled
+ *    entry away, not the first landing).
  */
 export function resolveWebEntrySurface(pathname: string, params: URLSearchParams): WebEntrySurface {
   if (isWebOAuthCallbackPath(pathname, params)) return { kind: "auth-callback" };
   if (isConversationSharePath(pathname)) return { kind: "share" };
   if (isCommerceHostPath(pathname)) return { kind: "commerce" };
   if (params.get(UNICOM_SURFACE_PARAM) === "commerce") return { kind: "commerce" };
-  if (isUnicomWorkspacePath(pathname) || params.has("remote")) return { kind: "workspace" };
-  if (pathname === "/" || pathname === "") return { kind: "commerce" };
   return { kind: "workspace" };
 }
 
@@ -107,18 +114,23 @@ export function openUnicomWorkspaceFromCommerce(): void {
 }
 
 /**
- * Visible entry point back into the UNiCOM product from the retained ZCode
- * workspace surface. Inline styles on purpose: the entry must render
- * identically on the connected app and the bootstrap/connect wall, and must
- * not depend on which stylesheet the workspace page loaded.
+ * PROMINENT, LABELLED, DOCKED entry into the UNiCOM commerce experience,
+ * rendered on the ordinary ZCode workspace surface (W3-025 promotion of the
+ * old small floating CommerceEntryOverlay pill: both worlds must be
+ * apparent, commerce is one clearly visible click away — never a buried
+ * escape hatch). Inline styles on purpose: the entry must render identically
+ * on the connected app, the connect/onboarding walls and the bootstrap
+ * failure wall, and must not depend on which stylesheet the workspace page
+ * loaded.
  */
-export function CommerceEntryOverlay(): ReactNode {
+export function CommerceEntryDock(): ReactNode {
   return (
     <div
+      data-testid="unicom-commerce-entry-dock"
       style={{
         position: "fixed",
-        right: 16,
-        bottom: 16,
+        right: 0,
+        bottom: 0,
         zIndex: 2147483000,
         fontFamily: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
       }}
@@ -126,31 +138,79 @@ export function CommerceEntryOverlay(): ReactNode {
       <button
         type="button"
         onClick={() => {
-          window.location.assign("/");
+          window.location.assign(UNICOM_COMMERCE_PATH);
         }}
-        title="Back to the UNiCOM commerce experience (demo — synthetic fixtures, no live integrations)"
+        title="Open UNiCOM Commerce — the store command center (demo — synthetic fixtures, no live integrations)"
+        data-testid="unicom-commerce-entry"
         style={{
-          fontSize: 13,
-          fontWeight: 600,
-          color: "#ffffff",
-          background: "#4c8dff",
-          border: "none",
-          borderRadius: 999,
-          padding: "9px 16px",
+          display: "flex",
+          alignItems: "center",
+          gap: 12,
+          width: 292,
+          padding: "12px 14px 12px 12px",
+          textAlign: "left",
           cursor: "pointer",
-          boxShadow: "0 4px 14px rgba(0, 0, 0, 0.35)",
+          color: "#e8e8ec",
+          background: "rgba(27, 27, 33, 0.96)",
+          border: "1px solid #3d3d46",
+          borderRight: "none",
+          borderBottom: "none",
+          borderRadius: "10px 0 0 0",
+          boxShadow: "0 -4px 18px rgba(0, 0, 0, 0.4)",
         }}
       >
-        UNiCOM Commerce →
+        <span
+          aria-hidden="true"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 34,
+            height: 34,
+            flexShrink: 0,
+            borderRadius: 9,
+            fontSize: 14,
+            fontWeight: 700,
+            letterSpacing: "0.02em",
+            color: "#ffffff",
+            background: "linear-gradient(135deg, #4c8dff 0%, #2f6ae0 100%)",
+          }}
+        >
+          U
+        </span>
+        <span style={{ display: "flex", minWidth: 0, flexDirection: "column", gap: 2 }}>
+          <span style={{ fontSize: 13, fontWeight: 650, color: "#ffffff", whiteSpace: "nowrap" }}>
+            UNiCOM Commerce
+          </span>
+          <span
+            style={{
+              fontSize: 11,
+              lineHeight: 1.35,
+              color: "#a8a8b3",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            Store operations & journeys · demo
+          </span>
+        </span>
+        <span
+          aria-hidden="true"
+          style={{ marginLeft: "auto", flexShrink: 0, fontSize: 15, color: "#7ea6ff" }}
+        >
+          →
+        </span>
       </button>
     </div>
   );
 }
 
 /**
- * The deliberate route from the product surface into the retained ZCode
- * agent/coding workspace (requirement: the product UI exposes it; the
- * workspace is never removed, only secondary).
+ * The deliberate route from the commerce surface into the retained ZCode
+ * agent/coding workspace (requirement: the commerce surface exposes it; the
+ * workspace is never removed — W3-025 makes it the default first landing
+ * again, and this entry is the labelled way back from commerce).
  */
 export function WorkspaceEntryOverlay({
   onOpenWorkspace = openUnicomWorkspaceFromCommerce,
@@ -191,14 +251,17 @@ export function WorkspaceEntryOverlay({
 }
 
 /**
- * Mount the commerce host. Called from the web bootstrap for the default
- * landing and the /commerce compat route — before any WebSocket/ZCode-app
- * bootstrapping (the commerce host needs neither in demo mode). The same
- * rendered host (W1-011 shell + module registry + 19 journey families) is
- * reused; the staged desktop bundle embeds this exact page.
+ * Mount the commerce host. Called from the web bootstrap for the /commerce
+ * deep link and the `unicomSurface=commerce` embedded-frame override —
+ * before any WebSocket/ZCode-app bootstrapping (the commerce host needs
+ * neither in demo mode). The same rendered host (W1-011 shell + module
+ * registry + 19 journey families) is reused; the staged desktop bundle
+ * embeds this exact page.
  *
- * URL law (W3-024, without touching the W1-owned shell):
- * - top-level landing on a non-/commerce URL (the root default route):
+ * URL law (W3-024, without touching the W1-owned shell; still correct for the
+ * W3-025 routing where the root no longer lands here):
+ * - a top-level request that resolved to commerce on a non-/commerce URL
+ *   (the `unicomSurface=commerce` override on the root document):
  *   canonicalize the address to "/commerce" via replaceState BEFORE mounting,
  *   so the shell's UrlSync shareable-links law is already satisfied and the
  *   host performs no same-document pushState — a push here would strand the

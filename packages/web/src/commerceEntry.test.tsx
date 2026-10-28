@@ -1,18 +1,21 @@
 /**
- * W3-024 focused tests — the UNiCOM default web experience routing.
+ * W3-025 focused tests — the both-worlds web entry routing (operator
+ * correction 2026-10-24, reversing the W3-024 first-landing demotion).
  *
  * Pins every branch of the first-landing decision (the ordinary landing "/"
- * renders the commerce host; /commerce deep links keep working; OAuth
+ * boots the full ZCode workspace; /commerce deep links keep working; OAuth
  * callback and conversation-share routes keep their specialized behavior and
- * are never redirected into the commerce host; the retained ZCode workspace
- * stays reachable through the deliberate /workspace route and the legacy
- * ?remote= deep links), plus the dual-context workspace entry affordance.
+ * are never redirected into the commerce host; the `unicomSurface=commerce`
+ * override keeps serving embedded frames; legacy `?remote=` deep links keep
+ * the workspace), plus the dual-context workspace entry affordance and the
+ * PROMINENT docked commerce entry on the workspace surface.
  */
 import { describe, expect, it, vi } from "vitest";
 import { act } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import {
-  CommerceEntryOverlay,
+  CommerceEntryDock,
+  UNICOM_COMMERCE_PATH,
   UNICOM_WORKSPACE_MESSAGE_TYPE,
   UNICOM_WORKSPACE_PATH,
   WorkspaceEntryOverlay,
@@ -33,11 +36,11 @@ function params(entries: Record<string, string | undefined>): URLSearchParams {
   return search;
 }
 
-describe("resolveWebEntrySurface — the UNiCOM default landing", () => {
-  it("renders the commerce host at the ordinary root landing", () => {
-    expect(resolveWebEntrySurface("/", params({}))).toEqual({ kind: "commerce" });
-    expect(resolveWebEntrySurface("", params({}))).toEqual({ kind: "commerce" });
-    expect(resolveWebEntrySurface("/", params({ foo: "bar" }))).toEqual({ kind: "commerce" });
+describe("resolveWebEntrySurface — the both-worlds default landing (W3-025)", () => {
+  it("boots the full ZCode workspace at the ordinary root landing", () => {
+    expect(resolveWebEntrySurface("/", params({}))).toEqual({ kind: "workspace" });
+    expect(resolveWebEntrySurface("", params({}))).toEqual({ kind: "workspace" });
+    expect(resolveWebEntrySurface("/", params({ foo: "bar" }))).toEqual({ kind: "workspace" });
   });
 
   it("keeps /commerce deep links working", () => {
@@ -74,7 +77,7 @@ describe("resolveWebEntrySurface — the UNiCOM default landing", () => {
     expect(resolveWebEntrySurface("/cn/share/abc123", params({}))).toEqual({ kind: "share" });
   });
 
-  it("exposes the retained ZCode workspace through the deliberate route", () => {
+  it("keeps the deliberate /workspace route equivalent to the default root", () => {
     expect(resolveWebEntrySurface(UNICOM_WORKSPACE_PATH, params({}))).toEqual({
       kind: "workspace",
     });
@@ -90,6 +93,11 @@ describe("resolveWebEntrySurface — the UNiCOM default landing", () => {
     expect(resolveWebEntrySurface("/anything", params({ remote: "abc" }))).toEqual({
       kind: "workspace",
     });
+  });
+
+  it("keeps the commerce deep link as the labelled entry target from the workspace", () => {
+    expect(UNICOM_COMMERCE_PATH).toBe("/commerce");
+    expect(isCommerceHostPath(UNICOM_COMMERCE_PATH)).toBe(true);
   });
 
   it("keeps legacy catch-all paths on the ZCode app (zero regression)", () => {
@@ -143,10 +151,38 @@ describe("workspace entry affordance", () => {
     expect(resolveUnicomWorkspaceOpenTarget(embedded)).toBe("embedded-parent");
   });
 
-  it("keeps the labelled commerce entry on the workspace surface", () => {
-    const { container, root } = render(<CommerceEntryOverlay />);
-    const button = container.querySelector<HTMLButtonElement>("button");
+  it("renders the prominent docked commerce entry on the workspace surface", () => {
+    const { container, root } = render(<CommerceEntryDock />);
+    const dock = container.querySelector<HTMLElement>("[data-testid='unicom-commerce-entry-dock']");
+    const button = container.querySelector<HTMLButtonElement>(
+      "[data-testid='unicom-commerce-entry']",
+    );
+    expect(dock).not.toBeNull();
+    expect(button).not.toBeNull();
     expect(button?.textContent).toContain("UNiCOM Commerce");
+    // Docked flush to the viewport corner — not a small floating pill.
+    expect(dock?.style.position).toBe("fixed");
+    expect(dock?.style.right).toBe("0px");
+    expect(dock?.style.bottom).toBe("0px");
+    // jsdom's location.assign is non-configurable, so navigation is captured
+    // by swapping in a stub location object for the click.
+    const originalLocation = window.location;
+    const assignStub = vi.fn();
+    Object.defineProperty(window, "location", {
+      value: { ...originalLocation, assign: assignStub },
+      configurable: true,
+      writable: true,
+    });
+    try {
+      button?.click();
+      expect(assignStub).toHaveBeenCalledWith(UNICOM_COMMERCE_PATH);
+    } finally {
+      Object.defineProperty(window, "location", {
+        value: originalLocation,
+        configurable: true,
+        writable: true,
+      });
+    }
     act(() => {
       root.unmount();
     });

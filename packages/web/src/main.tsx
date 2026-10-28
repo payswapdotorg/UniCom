@@ -31,7 +31,7 @@ import {
 import type { IPlatformService, RemoteTarget, ServerRemoteInfo } from "@zcode/shared";
 import { WEB_DEFAULT_THEME, resolveWebInitialTheme } from "./webThemeSeed.js";
 import {
-  CommerceEntryOverlay,
+  CommerceEntryDock,
   renderCommerceHostPage,
   resolveWebEntrySurface,
 } from "./commerceEntry.js";
@@ -436,11 +436,13 @@ function renderWebBootstrapError(error: unknown): void {
 
 async function bootstrapWebApp() {
   const params = new URLSearchParams(window.location.search);
-  // W3-024: the UNiCOM default experience — the root landing renders the
-  // commerce host directly; specialized routes (OAuth callback, share) keep
-  // their behavior; /workspace (and legacy paths / ?remote= deep links) keep
-  // the ZCode app bootstrap. The routing decision lives in commerceEntry.tsx
-  // so focused tests pin every branch.
+  // W3-025 (operator correction 2026-10-24): the both-worlds default — the
+  // root landing boots the FULL ZCode workspace (sidebar, grouped
+  // tasks/projects, agents, chat, settings); UNiCOM Commerce stays one
+  // prominent labelled docked entry away. Specialized routes (OAuth callback,
+  // share), /commerce deep links and the unicomSurface=commerce embedded-frame
+  // override keep their behavior. The routing decision lives in
+  // commerceEntry.tsx so focused tests pin every branch.
   const surface = resolveWebEntrySurface(window.location.pathname, params);
 
   if (surface.kind === "auth-callback") {
@@ -483,8 +485,9 @@ async function bootstrapWebApp() {
           settingService={services.settingService}
           broadcastService={services.broadcastService}
         >
-          {/* W1-011: 普通应用表面上的常驻 UNiCOM Commerce 入口（普通导航发现路径）。 */}
-          <CommerceEntryOverlay />
+          {/* W3-025: 常驻工作区表面的显著 DOCKED UNiCOM Commerce 入口（两个世界都
+              一目了然 —— commerce 是一次清晰可见的点击，而不是隐藏的逃生舱）。 */}
+          <CommerceEntryDock />
           <Root
             services={services}
             platform={platform}
