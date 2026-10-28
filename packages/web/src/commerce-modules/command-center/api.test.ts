@@ -201,9 +201,9 @@ describe("graceful fallback: every failure path returns an honest error", () => 
   it("a 200 with a missing or malformed field is an honest failure", async () => {
     expect((await fetchStores(LIVE_CONFIG, jsonFetch({ nope: true }))).ok).toBe(false);
     expect((await fetchStores(LIVE_CONFIG, jsonFetch(null))).ok).toBe(false);
-    expect((await createDemoStore(LIVE_CONFIG, jsonFetch({}))).ok).toBe(false);
+    expect((await createDemoStore(LIVE_CONFIG, jsonFetch({}), { platform: "etsy" })).ok).toBe(false);
     expect((await resolveDecisionApi(LIVE_CONFIG, jsonFetch({ decision: {} }), "d-1", "approved")).ok).toBe(false);
-    expect((await sendCommanderChat(LIVE_CONFIG, jsonFetch({}))).ok).toBe(false);
+    expect((await sendCommanderChat(LIVE_CONFIG, jsonFetch({}), "hello")).ok).toBe(false);
     expect((await fetchBrief(LIVE_CONFIG, jsonFetch({}))).ok).toBe(false);
     expect((await fetchCommanderHistory(LIVE_CONFIG, jsonFetch({}))).ok).toBe(false);
     expect((await fetchCommanderMessage(LIVE_CONFIG, jsonFetch({}), "m-1")).ok).toBe(false);
