@@ -1,0 +1,126 @@
+Skip to content
+UNiCOM Commerce · rendered host
+Home
+Explore
+Roles
+System
+DEMO
+← Back
+watch 
+3 stores
+sync 
+nominal
+review 
+3 awaiting you
+DEMO
+03:58:11Z
+Command
+Stores
+Missions
+Commander
+Decisions
+3
+Watch
+Skills
+Every agent action leaves evidence. Every risky action needs your checkbox. That's the whole contract.
+UNiCOM Commerce · Command Center
+
+Good morning. 2026-10-19 · the watch ran all night · 3 stores connected DEMO
+
+Deterministic seed data — no store is connected and nothing here claims a live order, live stock or live connectivity. Set UNICOM_COMMERCE_API to hydrate the commerce backend when it lands; until then every flow runs on the same seeds, zero network calls.
+
+Revenue 7d
+
+$40,960
+▲ +9.2%
+
+Orders 7d
+
+475
+▲ +6.1%
+
+Open decisions
+
+3
+2 urgent
+
+Watch events
+
+854
+▲ all green
+Overnight brief
+
+Night watch: all three stores healthy. One self-heal (Woo rate-limit), two margin flags packed as decisions, one recovery mission spawned.
+
+✓
+3 stores audited overnight — 0 security findings
+✓
+Mountain Reads rate-limit self-healed at 07:04Z
+✓
+2 margin flags → decision d-1 awaiting you
+✓
+Cart-saver spike +38% → mission m-3 running
+Review 3 decisions
+Ask the agent
+Store ring
+Halcyon Goods
+2 min ago · 318 orders
+healthy
+Mountain Reads
+11 min ago · 96 orders
+attention
+Kaia Ceramics
+just now · 61 orders
+syncing
+
+Audited nightly · every action leaves evidence DEMO
+
+2 decisions need your call before agents can proceed.
+
+Nothing ships without your checkbox — that's the trust frontier.
+
+Open decisions
+Explore journeys
+
+Every journey family keeps a visible entry from this surface and from the Explore taxonomy — nothing is deep-link-only. Roles and System surfaces stay reachable in the host header nav.
+
+Explore capabilities
+Switch role
+System & demo fixtures
+Start with what you need
+buyer path
+What do you need? (your own words — kept while you switch roles)
+Open the Intent canvas
+Compare offers with honest freshness
+
+Honest limits: plan guidance is predictive — never a promise; an UNKNOWN offer never shows a price; interest in a group deal is never a commitment.
+
+Run your store — command center
+merchant & operator path
+
+Connected integrations: 0 — no channel, feed or payment provider is connected, and nothing on this host claims otherwise.
+
+Open the merchant command center
+Count and reconcile shelf stock
+Restock through procurement
+Handle disputes and recourse
+All 19 journey families: 19 of the 19 journey families are rendered right now.
+Emphasis:
+Buyer
+Merchant
+No emphasis
+Hold or drop roles →
+Emphasized role: Buyer — emphasis only decides which path leads this page; it never changes identity, never grants a permission.
+Your scenario
+synthetic fixtures — deterministic, resettable, no credentials
+
+Harbor Lane Print Studio · small firm · specialty printing. You hold: Buyer, Merchant. Emphasis changes which path leads, never your identity or authority.
+
+Three kinds of truth, never mixed: authoritative operational state · observed provider/physical input (verified, stale or UNKNOWN) · predictive model output (labelled, never canonical).
+
+1 mission running · 1 in review · watch ring all green
+
+UNiCOM commerce host · W1-011 reference shell
+Demo fixtures are synthetic — DEMO-labelled everywhere
+Feature journeys ship with lanes W2-012 (buyer) and W3-015 (merchant)
+ZCode Agent Workspace →
