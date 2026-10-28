@@ -1,13 +1,13 @@
 {
  "manifestKind": "merged-gate-commerce-evidence",
  "schemaVersion": 1,
- "runId": "merged-gate-commerce-evidence-2026-10-28T033943516Z",
+ "runId": "merged-gate-commerce-evidence-2026-10-28T035740252Z",
  "generatedBy": "packages/web/test/browser/run-merged-gate-evidence.mjs",
- "generatedAtUtc": "2026-10-28T03:40:53.287Z",
+ "generatedAtUtc": "2026-10-28T03:58:49.744Z",
  "lineage": "merged (W1-011 host + W2-012 buyer/peer + W3-015 merchant/procurement/physical/trust)",
  "selectedSteps": null,
  "environment": {
-  "buildCommit": "066ba88ec797c210709d89e54f2946811b35701c",
+  "buildCommit": "895986a210a48366954faad5c18074b36f77c60a",
   "gitBranch": "work/w1-027",
   "buildTreeDirty": false,
   "nodeVersion": "v24.22.1",
@@ -25,8 +25,8 @@
   ],
   "operatingSystem": "linux x64",
   "freeMemoryMb": {
-   "atStart": 2765,
-   "atEnd": 2578
+   "atStart": 2728,
+   "atEnd": 2515
   },
   "envSelfHealingRestarts": [],
   "walkError": null
@@ -46,7 +46,7 @@
      "kind": "url",
      "visibleLabel": "http://localhost:5199/"
     },
-    "atUtc": "2026-10-28T03:40:09.413Z",
+    "atUtc": "2026-10-28T03:58:06.017Z",
     "screenshot": "evidence/01-landing-unicom-default.png",
     "note": "the ordinary landing IS the UNiCOM commerce experience (W3-024 default experience)"
    },
@@ -56,7 +56,7 @@
      "kind": "url",
      "visibleLabel": "http://localhost:5199/commerce"
     },
-    "atUtc": "2026-10-28T03:40:14.806Z",
+    "atUtc": "2026-10-28T03:58:11.288Z",
     "screenshot": "evidence/02-commerce-deeplink.png",
     "note": "post-discovery compat deep link — /commerce keeps working (W1-011 compat surface)"
    },
@@ -66,7 +66,7 @@
      "kind": "url",
      "visibleLabel": "/commerce"
     },
-    "atUtc": "2026-10-28T03:40:15.145Z",
+    "atUtc": "2026-10-28T03:58:11.580Z",
     "screenshot": "evidence/02-commerce-home.png",
     "note": "browser back returned from /commerce/explore to the commerce home — title \"UNiCOM Commerce — Demo\""
    }
@@ -287,7 +287,7 @@
    "errorScreenshot": null,
    "error": null,
    "retriedAfter": null,
-   "timingsMs": 10108,
+   "timingsMs": 9738,
    "note": "title=\"UNiCOM Commerce — Demo\"; 46 visible buttons"
   },
   {
@@ -317,7 +317,7 @@
    "errorScreenshot": null,
    "error": null,
    "retriedAfter": null,
-   "timingsMs": 5731,
+   "timingsMs": 5563,
    "note": "ordinary-flow discovery complete: / → commerce host directly; /commerce compat + in-host history back verified"
   },
   {
@@ -362,7 +362,7 @@
    "errorScreenshot": null,
    "error": null,
    "retriedAfter": null,
-   "timingsMs": 98,
+   "timingsMs": 86,
    "note": "ready=19 in-development=0 (registry-derived)"
   },
   {
@@ -382,7 +382,7 @@
    "errorScreenshot": null,
    "error": null,
    "retriedAfter": null,
-   "timingsMs": 799,
+   "timingsMs": 950,
    "note": "Finance held (visible checkbox, multi-hold) for J10's finance.approve-refund step"
   },
   {
@@ -407,7 +407,7 @@
    "errorScreenshot": null,
    "error": null,
    "retriedAfter": null,
-   "timingsMs": 932,
+   "timingsMs": 840,
    "note": "Procurement + Receiving held (visible checkboxes) for J11 receiving and J16's no-RFID count paths"
   },
   {
@@ -432,7 +432,7 @@
    "errorScreenshot": null,
    "error": null,
    "retriedAfter": null,
-   "timingsMs": 1146,
+   "timingsMs": 1111,
    "note": "Trust & safety + Support held (visible checkboxes) for J17's dispute/recourse steps (Finance already held)"
   }
  ],
@@ -495,7 +495,7 @@
     "bodyEvidenceFile": "evidence/05-journey-J1-buyer-intent-body.txt",
     "consoleEvidenceFile": "evidence/05-journey-J1-buyer-intent-console.txt"
    },
-   "timingsMs": 753,
+   "timingsMs": 758,
    "note": "nav /commerce/buyer/intent"
   },
   {
@@ -566,7 +566,7 @@
     "bodyEvidenceFile": "evidence/06-journey-J2-buyer-compare-body.txt",
     "consoleEvidenceFile": "evidence/06-journey-J2-buyer-compare-console.txt"
    },
-   "timingsMs": 964,
+   "timingsMs": 1444,
    "note": "nav /commerce/buyer/compare"
   },
   {
@@ -632,7 +632,7 @@
     "bodyEvidenceFile": "evidence/07-journey-J3-buyer-decide-body.txt",
     "consoleEvidenceFile": "evidence/07-journey-J3-buyer-decide-console.txt"
    },
-   "timingsMs": 1574,
+   "timingsMs": 1040,
    "note": "nav /commerce/buyer/decide"
   },
   {
@@ -698,7 +698,7 @@
     "bodyEvidenceFile": "evidence/08-journey-J4-buyer-groupbuy-body.txt",
     "consoleEvidenceFile": "evidence/08-journey-J4-buyer-groupbuy-console.txt"
    },
-   "timingsMs": 1491,
+   "timingsMs": 1006,
    "note": "nav /commerce/buyer/group-buy"
   },
   {
@@ -821,7 +821,7 @@
     "bodyEvidenceFile": "evidence/09-journey-J5-buyer-latent-demand-body.txt",
     "consoleEvidenceFile": "evidence/09-journey-J5-buyer-latent-demand-console.txt"
    },
-   "timingsMs": 710,
+   "timingsMs": 711,
    "note": "nav /commerce/buyer/group-buy/latent-demand (buyer side — the merchant review side is captured in the safety slice)"
   },
   {
@@ -887,7 +887,7 @@
     "bodyEvidenceFile": "evidence/10-journey-J6-peer-rent-body.txt",
     "consoleEvidenceFile": "evidence/10-journey-J6-peer-rent-console.txt"
    },
-   "timingsMs": 1073,
+   "timingsMs": 1090,
    "note": "nav /commerce/rent"
   },
   {
@@ -1004,7 +1004,7 @@
     "bodyEvidenceFile": "evidence/12-journey-J8-buyer-opportunities-body.txt",
     "consoleEvidenceFile": "evidence/12-journey-J8-buyer-opportunities-console.txt"
    },
-   "timingsMs": 1437,
+   "timingsMs": 971,
    "note": "nav /commerce/opportunities"
   },
   {
@@ -1065,7 +1065,7 @@
     "bodyEvidenceFile": "evidence/13-journey-J9-peer-tradecycle-body.txt",
     "consoleEvidenceFile": "evidence/13-journey-J9-peer-tradecycle-console.txt"
    },
-   "timingsMs": 1030,
+   "timingsMs": 1522,
    "note": "nav /commerce/trade-cycle"
   },
   {
@@ -1126,7 +1126,7 @@
     "bodyEvidenceFile": "evidence/15-journey-J10-merchant-storefront-body.txt",
     "consoleEvidenceFile": "evidence/15-journey-J10-merchant-storefront-console.txt"
    },
-   "timingsMs": 1407,
+   "timingsMs": 1405,
    "note": "nav /commerce/merchant/storefront (Finance held for the refund step)"
   },
   {
@@ -1182,7 +1182,7 @@
     "bodyEvidenceFile": "evidence/16-journey-J11-procurement-supply-body.txt",
     "consoleEvidenceFile": "evidence/16-journey-J11-procurement-supply-console.txt"
    },
-   "timingsMs": 1222,
+   "timingsMs": 1187,
    "note": "nav /commerce/procurement/supply (Procurement + Receiving held)"
   },
   {
@@ -1243,7 +1243,7 @@
     "bodyEvidenceFile": "evidence/17-journey-J12-merchant-b2b-body.txt",
     "consoleEvidenceFile": "evidence/17-journey-J12-merchant-b2b-console.txt"
    },
-   "timingsMs": 1238,
+   "timingsMs": 1313,
    "note": "nav /commerce/b2b"
   },
   {
@@ -1304,7 +1304,7 @@
     "bodyEvidenceFile": "evidence/18-journey-J13-merchant-autonomous-body.txt",
     "consoleEvidenceFile": "evidence/18-journey-J13-merchant-autonomous-console.txt"
    },
-   "timingsMs": 1293,
+   "timingsMs": 1286,
    "note": "nav /commerce/autonomous/store"
   },
   {
@@ -1360,7 +1360,7 @@
     "bodyEvidenceFile": "evidence/19-journey-J14-buyer-twin-body.txt",
     "consoleEvidenceFile": "evidence/19-journey-J14-buyer-twin-console.txt"
    },
-   "timingsMs": 959,
+   "timingsMs": 1463,
    "note": "nav /commerce/twin"
   },
   {
@@ -1411,7 +1411,7 @@
     "bodyEvidenceFile": "evidence/20-journey-J15-merchant-connectors-body.txt",
     "consoleEvidenceFile": "evidence/20-journey-J15-merchant-connectors-console.txt"
    },
-   "timingsMs": 1188,
+   "timingsMs": 1234,
    "note": "nav /commerce/connectors"
   },
   {
@@ -1472,7 +1472,7 @@
     "bodyEvidenceFile": "evidence/21-journey-J16-physical-store-body.txt",
     "consoleEvidenceFile": "evidence/21-journey-J16-physical-store-console.txt"
    },
-   "timingsMs": 1301,
+   "timingsMs": 1304,
    "note": "nav /commerce/physical/store (Receiving held for the count paths)"
   },
   {
@@ -1548,7 +1548,7 @@
     "bodyEvidenceFile": "evidence/23-journey-J17-trust-recourse-body.txt",
     "consoleEvidenceFile": "evidence/23-journey-J17-trust-recourse-console.txt"
    },
-   "timingsMs": 1521,
+   "timingsMs": 1520,
    "note": "nav /commerce/trust/recourse (Trust & safety + Support + Finance held)"
   },
   {
@@ -1609,7 +1609,7 @@
     "bodyEvidenceFile": "evidence/24-journey-J18-host-states-body.txt",
     "consoleEvidenceFile": "evidence/24-journey-J18-host-states-console.txt"
    },
-   "timingsMs": 748,
+   "timingsMs": 765,
    "note": "nav /commerce/states"
   },
   {
@@ -1750,7 +1750,7 @@
    "interaction": null,
    "errorScreenshot": null,
    "visitedVia": null,
-   "timingsMs": 968,
+   "timingsMs": 983,
    "retriedAfter": null,
    "note": "unauthorized action rendered visibly blocked: missing permission + holders + held roles, control disabled"
   },
@@ -1788,7 +1788,7 @@
    "interaction": null,
    "errorScreenshot": null,
    "visitedVia": null,
-   "timingsMs": 620,
+   "timingsMs": 621,
    "retriedAfter": null,
    "note": "an UNKNOWN state rendered honestly: not failed, not a price, not hidden"
   },
@@ -1851,7 +1851,7 @@
    },
    "errorScreenshot": null,
    "visitedVia": "targeted deep link /commerce/merchant/group-buy-review AFTER ordinary discovery (labelled — no ordinary nav entry exists to the merchant J5 side; the J5 home/Explore entry deterministically renders the buyer side)",
-   "timingsMs": 6098,
+   "timingsMs": 5812,
    "retriedAfter": null,
    "note": "the J5 merchant side: accept/counter/reject desk with the no-binding-effect statement, reached after ordinary discovery via a labelled targeted deep link"
   },
@@ -1889,7 +1889,7 @@
    "interaction": null,
    "errorScreenshot": null,
    "visitedVia": null,
-   "timingsMs": 965,
+   "timingsMs": 966,
    "retriedAfter": null,
    "note": "the catalog-sanctioned J5 dual-claim: both lanes' modules registered, the shell tolerates it, zero registry warnings"
   },
@@ -1947,7 +1947,7 @@
    },
    "errorScreenshot": null,
    "visitedVia": null,
-   "timingsMs": 1103,
+   "timingsMs": 1269,
    "retriedAfter": null,
    "note": "demo-mode indicator + reset: the committed fixtures (scenario, roles, emphasis) return deterministically"
   }
@@ -2038,235 +2038,235 @@
   ]
  },
  "timings": {
-  "startedAtUtc": "2026-10-28T03:39:43.516Z",
-  "completedAtUtc": "2026-10-28T03:40:53.287Z",
-  "totalMs": 69771,
-  "coldBootWarmupMs": 13168,
+  "startedAtUtc": "2026-10-28T03:57:40.252Z",
+  "completedAtUtc": "2026-10-28T03:58:49.744Z",
+  "totalMs": 69492,
+  "coldBootWarmupMs": 13313,
   "steps": [
    {
     "stepId": "landing-unicom-default",
     "kind": "walk",
-    "ms": 10108,
-    "freeMemoryMb": 2083
+    "ms": 9738,
+    "freeMemoryMb": 2050
    },
    {
     "stepId": "first-discovery-commerce-compat",
     "kind": "walk",
-    "ms": 5731,
-    "freeMemoryMb": 1682
+    "ms": 5563,
+    "freeMemoryMb": 1647
    },
    {
     "stepId": "commerce-home",
     "kind": "walk",
-    "ms": 98,
-    "freeMemoryMb": 1514
+    "ms": 86,
+    "freeMemoryMb": 1542
    },
    {
     "stepId": "explore-taxonomy-J19",
     "kind": "journey",
     "ms": 1990,
-    "freeMemoryMb": 1513
+    "freeMemoryMb": 1542
    },
    {
     "stepId": "safety-role-denied",
     "kind": "safety",
-    "ms": 968,
-    "freeMemoryMb": 1499
+    "ms": 983,
+    "freeMemoryMb": 1534
    },
    {
     "stepId": "journey-J1",
     "kind": "journey",
-    "ms": 753,
-    "freeMemoryMb": 1495
+    "ms": 758,
+    "freeMemoryMb": 1532
    },
    {
     "stepId": "journey-J2",
     "kind": "journey",
-    "ms": 964,
-    "freeMemoryMb": 1486
+    "ms": 1444,
+    "freeMemoryMb": 1538
    },
    {
     "stepId": "journey-J3",
     "kind": "journey",
-    "ms": 1574,
-    "freeMemoryMb": 1480
+    "ms": 1040,
+    "freeMemoryMb": 1527
    },
    {
     "stepId": "journey-J4",
     "kind": "journey",
-    "ms": 1491,
-    "freeMemoryMb": 1540
+    "ms": 1006,
+    "freeMemoryMb": 1525
    },
    {
     "stepId": "journey-J5",
     "kind": "journey",
-    "ms": 710,
-    "freeMemoryMb": 1538
+    "ms": 711,
+    "freeMemoryMb": 1530
    },
    {
     "stepId": "journey-J6",
     "kind": "journey",
-    "ms": 1073,
-    "freeMemoryMb": 1537
+    "ms": 1090,
+    "freeMemoryMb": 1528
    },
    {
     "stepId": "journey-J7",
     "kind": "journey",
     "ms": 1054,
-    "freeMemoryMb": 1536
+    "freeMemoryMb": 1525
    },
    {
     "stepId": "role-hold-finance",
     "kind": "walk",
-    "ms": 799,
-    "freeMemoryMb": 1540
+    "ms": 950,
+    "freeMemoryMb": 1522
    },
    {
     "stepId": "journey-J8",
     "kind": "journey",
-    "ms": 1437,
-    "freeMemoryMb": 1540
+    "ms": 971,
+    "freeMemoryMb": 1520
    },
    {
     "stepId": "journey-J9",
     "kind": "journey",
-    "ms": 1030,
-    "freeMemoryMb": 1538
+    "ms": 1522,
+    "freeMemoryMb": 1518
    },
    {
     "stepId": "role-hold-procurement-receiving",
     "kind": "walk",
-    "ms": 932,
-    "freeMemoryMb": 1537
+    "ms": 840,
+    "freeMemoryMb": 1522
    },
    {
     "stepId": "journey-J10",
     "kind": "journey",
-    "ms": 1407,
-    "freeMemoryMb": 1535
+    "ms": 1405,
+    "freeMemoryMb": 1521
    },
    {
     "stepId": "journey-J11",
     "kind": "journey",
-    "ms": 1222,
-    "freeMemoryMb": 1532
+    "ms": 1187,
+    "freeMemoryMb": 1520
    },
    {
     "stepId": "journey-J12",
     "kind": "journey",
-    "ms": 1238,
-    "freeMemoryMb": 1531
+    "ms": 1313,
+    "freeMemoryMb": 1518
    },
    {
     "stepId": "journey-J13",
     "kind": "journey",
-    "ms": 1293,
-    "freeMemoryMb": 1530
+    "ms": 1286,
+    "freeMemoryMb": 1518
    },
    {
     "stepId": "journey-J14",
     "kind": "journey",
-    "ms": 959,
-    "freeMemoryMb": 1528
+    "ms": 1463,
+    "freeMemoryMb": 1516
    },
    {
     "stepId": "journey-J15",
     "kind": "journey",
-    "ms": 1188,
-    "freeMemoryMb": 1530
+    "ms": 1234,
+    "freeMemoryMb": 1516
    },
    {
     "stepId": "role-hold-trust-support",
     "kind": "walk",
-    "ms": 1146,
-    "freeMemoryMb": 1543
+    "ms": 1111,
+    "freeMemoryMb": 1523
    },
    {
     "stepId": "journey-J16",
     "kind": "journey",
-    "ms": 1301,
-    "freeMemoryMb": 1539
+    "ms": 1304,
+    "freeMemoryMb": 1517
    },
    {
     "stepId": "journey-J17",
     "kind": "journey",
-    "ms": 1521,
-    "freeMemoryMb": 1534
+    "ms": 1520,
+    "freeMemoryMb": 1516
    },
    {
     "stepId": "journey-J18",
     "kind": "journey",
-    "ms": 748,
-    "freeMemoryMb": 1532
+    "ms": 765,
+    "freeMemoryMb": 1515
    },
    {
     "stepId": "safety-unknown-not-failed",
     "kind": "safety",
-    "ms": 620,
-    "freeMemoryMb": 1531
+    "ms": 621,
+    "freeMemoryMb": 1515
    },
    {
     "stepId": "safety-j5-merchant-desk",
     "kind": "safety",
-    "ms": 6098,
-    "freeMemoryMb": 1531
+    "ms": 5812,
+    "freeMemoryMb": 1514
    },
    {
     "stepId": "safety-j5-dual-claim",
     "kind": "safety",
-    "ms": 965,
-    "freeMemoryMb": 1624
+    "ms": 966,
+    "freeMemoryMb": 1401
    },
    {
     "stepId": "safety-demo-mode-and-reset",
     "kind": "safety",
-    "ms": 1103,
-    "freeMemoryMb": 1622
+    "ms": 1269,
+    "freeMemoryMb": 1400
    }
   ],
   "slowestStepsMs": [
    {
     "stepId": "landing-unicom-default",
     "kind": "walk",
-    "ms": 10108,
-    "freeMemoryMb": 2083
+    "ms": 9738,
+    "freeMemoryMb": 2050
    },
    {
     "stepId": "safety-j5-merchant-desk",
     "kind": "safety",
-    "ms": 6098,
-    "freeMemoryMb": 1531
+    "ms": 5812,
+    "freeMemoryMb": 1514
    },
    {
     "stepId": "first-discovery-commerce-compat",
     "kind": "walk",
-    "ms": 5731,
-    "freeMemoryMb": 1682
+    "ms": 5563,
+    "freeMemoryMb": 1647
    },
    {
     "stepId": "explore-taxonomy-J19",
     "kind": "journey",
     "ms": 1990,
-    "freeMemoryMb": 1513
+    "freeMemoryMb": 1542
    },
    {
-    "stepId": "journey-J3",
+    "stepId": "journey-J9",
     "kind": "journey",
-    "ms": 1574,
-    "freeMemoryMb": 1480
+    "ms": 1522,
+    "freeMemoryMb": 1518
    },
    {
     "stepId": "journey-J17",
     "kind": "journey",
-    "ms": 1521,
-    "freeMemoryMb": 1534
+    "ms": 1520,
+    "freeMemoryMb": 1516
    }
   ]
  },
  "memoryTelemetry": {
-  "atStartMb": 2765,
-  "atEndMb": 2578,
-  "minDuringWalkMb": 1480,
+  "atStartMb": 2728,
+  "atEndMb": 2515,
+  "minDuringWalkMb": 1400,
   "samples": 30
  },
  "sensitiveValueScrubbed": true,
