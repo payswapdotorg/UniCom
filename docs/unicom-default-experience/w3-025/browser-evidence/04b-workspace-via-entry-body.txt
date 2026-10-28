@@ -1,0 +1,44 @@
+U
+UNiCOM Commerce
+Store operations & journeys · demo
+→
+Command palette
+
+Search and run commands available in this workspace.
+
+New task
+Ctrl+N
+Search
+Ctrl+K
+Automations
+Plugin Marketplace
+Group
+Project
+Projects
+w3-025
+No tasks yet
+Tasks
+No tasks yet
+Connect
+
+It's late—remember to take care of yourself.
+
+w3-025
+work/w3-025
+
+
+
+
+Ask ZCode anything, @ to add context, / for commands or capabilities
+Add context
+Ask before changes
+Z.ai Coding Plan/GLM-5.3
+Max
+Low
+High
+Max
+Send
+Weekly Summary
+Error Fix
+PPT Creation
+Idle-time task

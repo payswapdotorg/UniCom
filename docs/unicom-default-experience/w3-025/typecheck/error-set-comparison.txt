@@ -1,0 +1,25 @@
+W3-025 root-typecheck error-set comparison (re-runnable)
+=========================================================
+
+Command (worktree /home/z/w3-025, branch work/w3-025):
+  corepack pnpm run typecheck            # exit 2 (pre-existing; the project does not clean at baseline)
+  grep "error TS" <output> | sort        # = delivered-error-set-sorted.txt (235 lines)
+
+Baseline (main cb869f3, file baseline-error-set-at-cb869f3.txt): 252 errors.
+
+diff baseline vs delivered:
+  - 17 baseline-only errors: the packages/agent test '@zcode/contracts' /
+    scripted-model set — resolved as a side effect of built project outputs in
+    this worktree (the same 17 the W3-024 lane observed; not edited by this lane).
+  - 14 line pairs whose ONLY difference is the absolute worktree path embedded
+    in the error text (baseline copy was generated in /home/z/UniCom; this run
+    in /home/z/w3-025 — same file, same line, same error code, same message).
+    After normalizing both paths to REPO/ the two sets are byte-identical
+    (verified: comm -23 of the normalized new-only lines against the normalized
+    baseline-only lines is EMPTY).
+  - ADDITIONS: 0 (no new type errors introduced by W3-025).
+
+Reproduce:
+  sort docs/unicom-default-experience/w3-025/typecheck/baseline-error-set-at-cb869f3.txt > /tmp/base.txt
+  sort docs/unicom-default-experience/w3-025/typecheck/delivered-error-set-sorted.txt > /tmp/now.txt
+  diff /tmp/base.txt /tmp/now.txt

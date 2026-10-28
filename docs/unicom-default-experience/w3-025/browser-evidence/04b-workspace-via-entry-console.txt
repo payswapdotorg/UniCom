@@ -1,0 +1,7 @@
+[navigate] http://127.0.0.1:5180/workspace
+[error] TypeError: Cannot read properties of undefined (reading 'length')
+    at Co (http://127.0.0.1:5180/assets/imeComposition-HyCEIWkp.js:8:47312)
+    at Object.ys [as useCallback] (http://127.0.0.1:5180/assets/imeComposition-HyCEIWkp.js:8:56120)
+    at e.useCallback (http://127.0.0.1:5180/assets/react-D
+[error] Access to fetch at 'https://zcode.z.ai/api/v1/client/configs?app_version=3.14.3' from origin 'http://127.0.0.1:5180' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+[error] Failed to load resource: net::ERR_FAILED

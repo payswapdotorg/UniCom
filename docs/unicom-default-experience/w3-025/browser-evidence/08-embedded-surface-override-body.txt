@@ -1,0 +1,1 @@
+Embedding window (the packaged desktop scenario)

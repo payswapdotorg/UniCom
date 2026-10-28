@@ -1,0 +1,384 @@
+{
+  "schema": "w3-025-both-worlds-web-manifest",
+  "schemaVersion": 1,
+  "generatedAtUtc": "2026-10-28T01:08:24.540Z",
+  "identity": {
+    "buildCommit": "e77b93eec926385eaf7104eee473462ad2026b30",
+    "gitBranch": "work/w3-025",
+    "buildTreeDirty": true,
+    "nodeVersion": "v24.22.1",
+    "pnpmVersion": "10.33.2",
+    "playwright": {
+      "from": "import:playwright",
+      "version": "1.57.0"
+    }
+  },
+  "environment": {
+    "server": "lane-private packages/server bundle (node dist/entry-http.js) on :3130, isolated HOME + ZCODE_DATA_BASE_DIR=/tmp/w3-025-evidence-server-home-1793149653787, seeded with the ordinary first-run state (provider-family-domain setting + zai-api personal provider with a SYNTHETIC local-only key that is never transmitted — no chat is started — + a dismissed onboarding record; the state upstream zcode's own login/onboarding UI writes on a first run)",
+    "web": "vite preview of the committed packages/web production build on :5180, lane proxy (/ws,/api) → :3130 via test/browser/w3-025-vite-ports-config.mjs",
+    "webDist": {
+      "rebuilt": false,
+      "builtAtUtc": "2026-10-28T00:48:46.286Z",
+      "markerFile": "packages/web/dist/assets/index-DXIch9HH.js",
+      "markerVerified": true
+    },
+    "chromiumLaunch": {
+      "headless": true,
+      "args": [
+        "--disable-dev-shm-usage",
+        "--disable-gpu",
+        "--no-sandbox"
+      ]
+    },
+    "freeMemoryMb": {
+      "atStart": 2011,
+      "atEnd": 1722
+    }
+  },
+  "baseUrl": "http://127.0.0.1:5180",
+  "denominators": {
+    "steps": 8,
+    "passed": 8,
+    "failed": 0,
+    "checks": {
+      "total": 43,
+      "passed": 43
+    }
+  },
+  "results": [
+    {
+      "id": "root-default-workspace",
+      "claim": "the ordinary first landing / boots the FULL ZCode workspace (sidebar, grouped tasks/projects, agents/chat) with a prominent docked labelled UNiCOM Commerce entry on its surface",
+      "outcome": "PASS",
+      "checks": [
+        {
+          "name": "painted with visible content",
+          "status": "PASS",
+          "detail": "bodyText 526 chars"
+        },
+        {
+          "name": "address stays on the workspace root (NOT canonicalized to /commerce)",
+          "status": "PASS",
+          "detail": "/"
+        },
+        {
+          "name": "workspace app title",
+          "status": "PASS",
+          "detail": "UNiCOM — Web"
+        },
+        {
+          "name": "sidebar rendered (full ZCode workspace shell)",
+          "status": "PASS",
+          "detail": "[data-testid=sidebar] × 1"
+        },
+        {
+          "name": "grouped tasks/projects sections present",
+          "status": "PASS",
+          "detail": "project-section × 1, task-list × 1, workspace-list × 1, Group/Project tabs: true"
+        },
+        {
+          "name": "Automations entry on the ordinary sidebar",
+          "status": "PASS",
+          "detail": "[data-testid=automations-open] × 1"
+        },
+        {
+          "name": "surface is the ZCode workspace, NOT the commerce host",
+          "status": "PASS",
+          "detail": "UNiCOM — Web"
+        },
+        {
+          "name": "prominent DOCKED commerce entry present",
+          "status": "PASS",
+          "detail": "dock × 1, entry × 1, box 292×61px"
+        },
+        {
+          "name": "commerce entry is LABELLED (UNiCOM Commerce)",
+          "status": "PASS",
+          "detail": "docked entry title text"
+        },
+        {
+          "name": "commerce entry docked flush to the viewport corner (not a small floating pill)",
+          "status": "PASS",
+          "detail": "width 292px"
+        }
+      ],
+      "evidence": {
+        "screenshot": "01-root-default-workspace.png",
+        "bodyFile": "01-root-default-workspace-body.txt",
+        "consoleFile": "01-root-default-workspace-console.txt"
+      },
+      "durationMs": 4399
+    },
+    {
+      "id": "settings-automations-reachable",
+      "claim": "from the ordinary workspace, Settings opens with its full original section nav and the Automations surface is one sidebar click away",
+      "outcome": "PASS",
+      "checks": [
+        {
+          "name": "settings surface opened",
+          "status": "PASS",
+          "detail": "[data-testid=settings-page]"
+        },
+        {
+          "name": "settings section nav rendered (Commands, Hooks, MCP Servers, Plugins…)",
+          "status": "PASS",
+          "detail": "nav items × 13; commands 1, hooks 1, mcp 1, plugin 1"
+        },
+        {
+          "name": "settings lists the original zcode sections",
+          "status": "PASS",
+          "detail": "section headings text"
+        },
+        {
+          "name": "Automations surface reachable from the sidebar (one click)",
+          "status": "PASS",
+          "detail": "[data-testid=automations-page-tab-automation]"
+        },
+        {
+          "name": "Automations surface is the real thing (scheduled-task templates)",
+          "status": "PASS",
+          "detail": "Morning dev brief / Risk scan templates"
+        },
+        {
+          "name": "Automations tabs present (Automations + Workflows)",
+          "status": "PASS",
+          "detail": "tab labels"
+        }
+      ],
+      "evidence": {
+        "screenshot": "02-settings-surface.png",
+        "bodyFile": "02-settings-surface-body.txt",
+        "consoleFile": "02-settings-surface-console.txt"
+      },
+      "extraEvidence": {
+        "screenshot": "02b-automations-surface.png",
+        "bodyFile": "02b-automations-surface-body.txt",
+        "consoleFile": "02b-automations-surface-console.txt"
+      },
+      "durationMs": 9062
+    },
+    {
+      "id": "commerce-entry-dock-navigation",
+      "claim": "the prominent docked labelled entry opens the UNiCOM commerce host, and browser back returns to the workspace root",
+      "outcome": "PASS",
+      "checks": [
+        {
+          "name": "docked commerce entry clicked (ordinary flow)",
+          "status": "PASS",
+          "detail": "data-testid=unicom-commerce-entry"
+        },
+        {
+          "name": "navigated to /commerce",
+          "status": "PASS",
+          "detail": "/commerce"
+        },
+        {
+          "name": "commerce host rendered",
+          "status": "PASS",
+          "detail": "UNiCOM Commerce — Demo"
+        },
+        {
+          "name": "browser back returned to the workspace root",
+          "status": "PASS",
+          "detail": "/"
+        },
+        {
+          "name": "workspace app restored after the round trip",
+          "status": "PASS",
+          "detail": "UNiCOM — Web"
+        }
+      ],
+      "evidence": {
+        "screenshot": "03b-back-to-workspace.png",
+        "bodyFile": "03b-back-to-workspace-body.txt",
+        "consoleFile": "03b-back-to-workspace-console.txt"
+      },
+      "extraEvidence": {
+        "screenshot": "03-commerce-via-dock.png",
+        "bodyFile": "03-commerce-via-dock-body.txt",
+        "consoleFile": "03-commerce-via-dock-console.txt"
+      },
+      "durationMs": 8066
+    },
+    {
+      "id": "commerce-deeplink-workspace-entry",
+      "claim": "/commerce deep links keep working, and the labelled ZCode Agent Workspace entry on the commerce surface opens the workspace (/workspace)",
+      "outcome": "PASS",
+      "checks": [
+        {
+          "name": "/commerce renders the commerce host",
+          "status": "PASS",
+          "detail": "UNiCOM Commerce — Demo"
+        },
+        {
+          "name": "DEMO honesty badge present",
+          "status": "PASS",
+          "detail": "cm-env-badge text"
+        },
+        {
+          "name": "labelled workspace entry visible on the commerce surface",
+          "status": "PASS",
+          "detail": "ZCode Agent Workspace →"
+        },
+        {
+          "name": "workspace entry clicked (ordinary flow)",
+          "status": "PASS",
+          "detail": "data-testid=unicom-workspace-entry"
+        },
+        {
+          "name": "navigated to /workspace and the workspace rendered",
+          "status": "PASS",
+          "detail": "/workspace"
+        },
+        {
+          "name": "docked commerce entry also present on the /workspace surface",
+          "status": "PASS",
+          "detail": "both directions labelled"
+        }
+      ],
+      "evidence": {
+        "screenshot": "04b-workspace-via-entry.png",
+        "bodyFile": "04b-workspace-via-entry-body.txt",
+        "consoleFile": "04b-workspace-via-entry-console.txt"
+      },
+      "extraEvidence": {
+        "screenshot": "04-commerce-deeplink.png",
+        "bodyFile": "04-commerce-deeplink-body.txt",
+        "consoleFile": "04-commerce-deeplink-console.txt"
+      },
+      "durationMs": 5580
+    },
+    {
+      "id": "auth-callback-specialized",
+      "claim": "the OAuth callback route keeps its specialized behavior and is NOT redirected into the commerce host",
+      "outcome": "PASS",
+      "checks": [
+        {
+          "name": "stayed on the callback URL",
+          "status": "PASS",
+          "detail": "/share/callback"
+        },
+        {
+          "name": "callback surface rendered, NOT the commerce host",
+          "status": "PASS",
+          "detail": "UNiCOM — Sign In"
+        },
+        {
+          "name": "auth callback page title",
+          "status": "PASS",
+          "detail": "UNiCOM — Sign In"
+        },
+        {
+          "name": "no commerce host markers on the callback page",
+          "status": "PASS",
+          "detail": "commerce host markers absent"
+        }
+      ],
+      "evidence": {
+        "screenshot": "05-auth-callback.png",
+        "bodyFile": "05-auth-callback-body.txt",
+        "consoleFile": "05-auth-callback-console.txt"
+      },
+      "durationMs": 5155
+    },
+    {
+      "id": "conversation-share-specialized",
+      "claim": "the conversation-share route keeps its specialized behavior and is NOT redirected into the commerce host",
+      "outcome": "PASS",
+      "checks": [
+        {
+          "name": "stayed on the share URL",
+          "status": "PASS",
+          "detail": "/share/w3025-both-worlds-proof"
+        },
+        {
+          "name": "share surface rendered, NOT the commerce host",
+          "status": "PASS",
+          "detail": "UNiCOM Conversation Share"
+        },
+        {
+          "name": "share page title",
+          "status": "PASS",
+          "detail": "UNiCOM Conversation Share"
+        },
+        {
+          "name": "no commerce host markers on the share page",
+          "status": "PASS",
+          "detail": "commerce host markers absent"
+        }
+      ],
+      "evidence": {
+        "screenshot": "06-conversation-share.png",
+        "bodyFile": "06-conversation-share-body.txt",
+        "consoleFile": "06-conversation-share-console.txt"
+      },
+      "durationMs": 5031
+    },
+    {
+      "id": "remote-deeplink-workspace",
+      "claim": "legacy ?remote= deep links keep the ZCode app bootstrap (never redirected into the commerce host)",
+      "outcome": "PASS",
+      "checks": [
+        {
+          "name": "stayed on the ?remote= URL",
+          "status": "PASS",
+          "detail": "http://127.0.0.1:5180/?remote=w3025-both-worlds"
+        },
+        {
+          "name": "surface is the ZCode app bootstrap, NOT the commerce host",
+          "status": "PASS",
+          "detail": "UNiCOM — Web"
+        },
+        {
+          "name": "workspace app title",
+          "status": "PASS",
+          "detail": "UNiCOM — Web"
+        },
+        {
+          "name": "remote bootstrap honest (workspace or the bootstrap-failure wall — never commerce)",
+          "status": "PASS",
+          "detail": "surface rendered"
+        }
+      ],
+      "evidence": {
+        "screenshot": "07-remote-deeplink.png",
+        "bodyFile": "07-remote-deeplink-body.txt",
+        "consoleFile": "07-remote-deeplink-console.txt"
+      },
+      "durationMs": 7085
+    },
+    {
+      "id": "embedded-surface-override",
+      "claim": "the explicit unicomSurface=commerce override serves an EMBEDDED frame (the packaged desktop embedding) without navigating the embedding window",
+      "outcome": "PASS",
+      "checks": [
+        {
+          "name": "embedded frame rendered the commerce host",
+          "status": "PASS",
+          "detail": "cm-env-badge inside the frame"
+        },
+        {
+          "name": "frame stayed on its unicomSurface=commerce request (embedded URL law: no replaceState in frames)",
+          "status": "PASS",
+          "detail": "http://127.0.0.1:5180/?unicomSurface=commerce"
+        },
+        {
+          "name": "labelled ZCode workspace entry present inside the frame (the desktop postMessage contract)",
+          "status": "PASS",
+          "detail": "unicom-workspace-entry inside the frame"
+        },
+        {
+          "name": "the embedding window was NOT navigated by the frame",
+          "status": "PASS",
+          "detail": "top title \"W3-025 embedded frame host\""
+        }
+      ],
+      "evidence": {
+        "screenshot": "08-embedded-surface-override.png",
+        "bodyFile": "08-embedded-surface-override-body.txt",
+        "consoleFile": "08-embedded-surface-override-console.txt"
+      },
+      "durationMs": 3237
+    }
+  ]
+}

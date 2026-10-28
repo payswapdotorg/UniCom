@@ -1,0 +1,7 @@
+[navigate] http://127.0.0.1:5180/share/w3025-both-worlds-proof
+[info] [conversation-share-web] preview_runtime_initialized {browserOrigin: http://127.0.0.1:5180, routeKind: canonical, endpointOrigin: https://zcode.z.ai, transport: fetch}
+[info] [conversation-share-web] preview_request_started {requestTarget: https://zcode.z.ai/api/v1/shares/<redacted>/preview, pageOrigin: http://127.0.0.1:5180, authenticated: false, shareCodeLength: 23}
+[error] Access to fetch at 'https://zcode.z.ai/api/v1/shares/w3025-both-worlds-proof/preview' from origin 'http://127.0.0.1:5180' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+[error] Failed to load resource: net::ERR_FAILED
+[warning] [conversation-share-web] preview_request_failed {requestTarget: https://zcode.z.ai/api/v1/shares/<redacted>/preview, authenticated: false, errorName: TypeError, errorMessage: Failed to fetch}
+[warning] [conversation-share-web] preview_load_failed {stage: anonymous, kind: network, errorName: ConversationSharePreviewClientError, status: undefined, code: undefined}
