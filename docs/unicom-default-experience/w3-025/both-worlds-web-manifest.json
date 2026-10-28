@@ -1,9 +1,9 @@
 {
   "schema": "w3-025-both-worlds-web-manifest",
   "schemaVersion": 1,
-  "generatedAtUtc": "2026-10-28T02:25:21.787Z",
+  "generatedAtUtc": "2026-10-28T02:55:09.675Z",
   "identity": {
-    "buildCommit": "4c93dd68c2ea24ab0791fcfbc0f18f131149ae6e",
+    "buildCommit": "f640c61ac8411cb7790ce6bd85086253a3f4461c",
     "gitBranch": "work/w3-025",
     "buildTreeDirty": false,
     "nodeVersion": "v24.22.1",
@@ -14,7 +14,7 @@
     }
   },
   "environment": {
-    "server": "lane-private packages/server bundle (node dist/entry-http.js) on :3130, isolated HOME + ZCODE_DATA_BASE_DIR=/tmp/w3-025-evidence-server-home-1793154271817, seeded with the ordinary first-run state (provider-family-domain setting + zai-api personal provider with a SYNTHETIC local-only key that is never transmitted — no chat is started — + a dismissed onboarding record; the state upstream zcode's own login/onboarding UI writes on a first run)",
+    "server": "lane-private packages/server bundle (node dist/entry-http.js) on :3130, isolated HOME + ZCODE_DATA_BASE_DIR=/tmp/w3-025-evidence-server-home-1793156059074, seeded with the ordinary first-run state (provider-family-domain setting + zai-api personal provider with a SYNTHETIC local-only key that is never transmitted — no chat is started — + a dismissed onboarding record; the state upstream zcode's own login/onboarding UI writes on a first run)",
     "web": "vite preview of the committed packages/web production build on :5180, lane proxy (/ws,/api) → :3130 via test/browser/w3-025-vite-ports-config.mjs",
     "webDist": {
       "rebuilt": false,
@@ -31,8 +31,8 @@
       ]
     },
     "freeMemoryMb": {
-      "atStart": 2724,
-      "atEnd": 1898
+      "atStart": 2600,
+      "atEnd": 1737
     }
   },
   "baseUrl": "http://127.0.0.1:5180",
@@ -107,7 +107,7 @@
         "bodyFile": "01-root-default-workspace-body.txt",
         "consoleFile": "01-root-default-workspace-console.txt"
       },
-      "durationMs": 4414
+      "durationMs": 4500
     },
     {
       "id": "settings-automations-reachable",
@@ -155,7 +155,7 @@
         "bodyFile": "02b-automations-surface-body.txt",
         "consoleFile": "02b-automations-surface-console.txt"
       },
-      "durationMs": 8753
+      "durationMs": 9035
     },
     {
       "id": "commerce-entry-dock-navigation",
@@ -198,7 +198,7 @@
         "bodyFile": "03-commerce-via-dock-body.txt",
         "consoleFile": "03-commerce-via-dock-console.txt"
       },
-      "durationMs": 7843
+      "durationMs": 8026
     },
     {
       "id": "commerce-deeplink-workspace-entry",
@@ -246,7 +246,7 @@
         "bodyFile": "04-commerce-deeplink-body.txt",
         "consoleFile": "04-commerce-deeplink-console.txt"
       },
-      "durationMs": 5405
+      "durationMs": 5434
     },
     {
       "id": "auth-callback-specialized",
@@ -279,7 +279,7 @@
         "bodyFile": "05-auth-callback-body.txt",
         "consoleFile": "05-auth-callback-console.txt"
       },
-      "durationMs": 5054
+      "durationMs": 5045
     },
     {
       "id": "conversation-share-specialized",
@@ -312,7 +312,7 @@
         "bodyFile": "06-conversation-share-body.txt",
         "consoleFile": "06-conversation-share-console.txt"
       },
-      "durationMs": 5058
+      "durationMs": 5077
     },
     {
       "id": "remote-deeplink-workspace",
@@ -345,7 +345,7 @@
         "bodyFile": "07-remote-deeplink-body.txt",
         "consoleFile": "07-remote-deeplink-console.txt"
       },
-      "durationMs": 7038
+      "durationMs": 7025
     },
     {
       "id": "embedded-surface-override",
@@ -378,7 +378,7 @@
         "bodyFile": "08-embedded-surface-override-body.txt",
         "consoleFile": "08-embedded-surface-override-console.txt"
       },
-      "durationMs": 3217
+      "durationMs": 3323
     }
   ]
 }

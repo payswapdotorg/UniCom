@@ -6361,3 +6361,779 @@ Unknown channel: window-controller
 Unknown channel: window-controller
 Unknown channel: window-controller
 Unknown channel: window-controller
+bash: cannot set terminal process group (20734): Inappropriate ioctl for device
+bash: no job control in this shell
+[2026-10-28 02:54:19.728] [pid:20734] [cua-pip-session] [cua-pip-session] wiring resolved {
+  enabled: false,
+  platform: 'linux',
+  serviceAuthorityMode: null,
+  lifecycleWired: false
+}
+[2026-10-28 02:54:19.741] [pid:20734] [zcode-server:http] http://127.0.0.1:3130
+[2026-10-28 02:54:19.753] [pid:20734] [settingService] writing settings to: /tmp/w3-025-evidence-server-home-1793156059074/.zcode/v2/setting.json {"recentProjects":[],"locale":"zh-CN","localePreference":"system","terminalInheritSystemProfile":true,"embeddedBrowserAllowInsecureCertificates":false,"embeddedBrowserViewportPreference":{"mode":"normal","viewport":{"width":393,"height":852},"zoom":"fit"},"computerUseComposerEntryHidden":true,"taskAutoArchiveEnabled":false,"taskAutoArchiveOlderThanDays":7,"closeToTrayOnWindows":true,"closeToTrayOnWindowsMigrationInitialized":true,"keepAwakeWhileRunning":false,"desktopChromiumHardwareAccelerationEnabled":true,"messageStreamShowReasoning":true,"messageStreamShowReasoningMigrationInitialized":true,"messageStreamShowTodos":false,"toolGroupingExploreEnabled":true,"toolGroupingTerminalEnabled":true,"toolGroupingChangesEnabled":false,"zcodeInteractionBehavior":"queue","askUserQuestionAutoResolutionEnabled":true,"modelIoFullRetentionEnabled":false,"startPlanRecommendationDismissed":false,"providerFamilyConnectionSelections":{},"providerFamilyDomain":"zai","providerFamilyDomainUpdatedAt":1793156059074,"providerFamilyDomainMigrated":true,"nativeSearchEnhancementsEnabled":true,"memoryEnabled":false,"lastWorkspaceSession":[],"lastActiveTabIndex":0,"receivePreviewUpdates":false,"autoDownloadAndInstallUpdates":false,"skippedElectronUpdateVersions":{}}
+[2026-10-28 02:54:19.757] [pid:20734] [settingService] write done
+[2026-10-28 02:54:19.994] [pid:20734] [provider-runtime][trace:Provider Registry 已就绪] {
+  configRevision: '["zcode-builtin:30:5ec75dbe66cbfcf62c3ca4bce19909e5e9edc0d636cb1d7dca9b57fc79e9f03c","b1f0737e7433f04765cbf4ce81e62f737d9dd14ad5650e5dbd6423bd8c5c51bc"]',
+  providerCount: 1
+}
+[2026-10-28 02:54:22.906] [pid:20734] [zcode-server:http] [rpc:register] channel "file"
+[2026-10-28 02:54:22.906] [pid:20734] [zcode-server:http] [rpc:register] channel "media-preview"
+[2026-10-28 02:54:22.906] [pid:20734] [zcode-server:http] [rpc:register] channel "git"
+[2026-10-28 02:54:22.906] [pid:20734] [zcode-server:http] [rpc:register] channel "git-checkpoint"
+[2026-10-28 02:54:22.906] [pid:20734] [zcode-server:http] [rpc:register] channel "system"
+[2026-10-28 02:54:22.906] [pid:20734] [zcode-server:http] [rpc:register] channel "terminal"
+[2026-10-28 02:54:22.906] [pid:20734] [zcode-server:http] [rpc:register] channel "setting"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "onboarding-record"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "credential"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "broadcast"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "zcode-task"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "zcode-agent"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "zcode-session"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "cua-permission"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "cua-pip-session"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "conversation-share"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "bots"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "file-watcher"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "oauth"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "usage-stats"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "coding-plan-subscription"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "client-config"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "client-scenes"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "off-peak-task"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "skills"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "skill-sync"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "mcp-sync"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "plugin-sync"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "plugins"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "plugin-management"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "subagents"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "commands"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "hooks"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "memory"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "settings-sync"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "feedback"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "prompt-attachment-transfer"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "provider-settings"
+[2026-10-28 02:54:22.907] [pid:20734] [zcode-server:http] [rpc:register] channel "model-selection"
+[2026-10-28 02:54:22.919] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:22.933] [pid:20734] [zcode-server:http] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-28 02:54:22.934] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:22.934] [pid:20734] [zcode-server:http] [rpc:listen] provider-settings.onDidChange subscribed
+[2026-10-28 02:54:22.937] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.getView OK (2.0ms)
+[2026-10-28 02:54:22.947] [pid:20734] [zcode-server:http] [rpc:call] onboarding-record.claimAnonymousRecord OK (15.9ms)
+[2026-10-28 02:54:22.949] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:22.949] [pid:20734] [zcode-server:http] [rpc:listen] provider-settings.onDidChange subscribed
+[2026-10-28 02:54:22.949] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:22.949] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:22.952] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.getView OK (2.8ms)
+[2026-10-28 02:54:22.953] [pid:20734] [oauthService] restoreCachedSession skipped: no active provider
+[2026-10-28 02:54:22.953] [pid:20734] [zcode-server:http] [rpc:call] oauth.restoreCachedSessionState OK (4.5ms)
+[2026-10-28 02:54:22.957] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (25.9ms)
+[2026-10-28 02:54:22.958] [pid:20734] [zcode-server:http] [rpc:call] model-selection.getView OK (24.2ms)
+[2026-10-28 02:54:22.958] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (23.5ms)
+[2026-10-28 02:54:22.960] [pid:20734] [zcode-server:http] [rpc:call] onboarding-record.getLatestEntry OK (28.0ms)
+[2026-10-28 02:54:22.961] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (11.4ms)
+[2026-10-28 02:54:23.048] [pid:20734] [zcode-server:http] [rpc:call] credential.load OK (29.7ms)
+[2026-10-28 02:54:23.052] [pid:20734] [zcode-server:http] [rpc:call] credential.load OK (32.8ms)
+[2026-10-28 02:54:23.090] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.syncAppRuntimePreferences OK (0.2ms)
+[2026-10-28 02:54:23.090] [pid:20734] [zcode-server:http] [rpc:call] bots.syncAppRuntimePreferences OK (0.2ms)
+[2026-10-28 02:54:23.094] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (70.0ms)
+[2026-10-28 02:54:23.095] [pid:20734] [settingService] writing settings to: /tmp/w3-025-evidence-server-home-1793156059074/.zcode/v2/setting.json {"recentProjects":[],"locale":"en-US","localePreference":"system","terminalInheritSystemProfile":true,"embeddedBrowserAllowInsecureCertificates":false,"embeddedBrowserViewportPreference":{"mode":"normal","viewport":{"width":393,"height":852},"zoom":"fit"},"computerUseComposerEntryHidden":true,"taskAutoArchiveEnabled":false,"taskAutoArchiveOlderThanDays":7,"closeToTrayOnWindows":true,"closeToTrayOnWindowsMigrationInitialized":true,"keepAwakeWhileRunning":false,"desktopChromiumHardwareAccelerationEnabled":true,"messageStreamShowReasoning":true,"messageStreamShowReasoningMigrationInitialized":true,"messageStreamShowTodos":false,"toolGroupingExploreEnabled":true,"toolGroupingTerminalEnabled":true,"toolGroupingChangesEnabled":false,"zcodeInteractionBehavior":"queue","askUserQuestionAutoResolutionEnabled":true,"modelIoFullRetentionEnabled":false,"startPlanRecommendationDismissed":false,"providerFamilyConnectionSelections":{},"providerFamilyDomain":"zai","providerFamilyDomainUpdatedAt":1793156059074,"providerFamilyDomainMigrated":true,"nativeSearchEnhancementsEnabled":true,"memoryEnabled":false,"lastWorkspaceSession":[],"lastActiveTabIndex":0,"receivePreviewUpdates":false,"autoDownloadAndInstallUpdates":false,"skippedElectronUpdateVersions":{}}
+[2026-10-28 02:54:23.102] [pid:20734] [zcode-server:http] [rpc:call] onboarding-record.shouldOnboard OK (83.3ms)
+[2026-10-28 02:54:23.108] [pid:20734] [zcode-server:http] [rpc:call] coding-plan-subscription.getDynamicWorkflowClientConfig OK (175.5ms)
+[2026-10-28 02:54:23.152] [pid:20734] [settingService] write done
+[2026-10-28 02:54:23.152] [pid:20734] [zcode-server:http] [rpc:call] setting.update OK (124.7ms)
+[2026-10-28 02:54:23.216] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (30.3ms)
+[2026-10-28 02:54:23.312] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onDynamicLocalTtftFacts subscribed
+[2026-10-28 02:54:23.313] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onDynamicConversationFrame subscribed
+[2026-10-28 02:54:23.400] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.refresh OK (380.7ms)
+[2026-10-28 02:54:23.400] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.refresh OK (183.5ms)
+[2026-10-28 02:54:23.456] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onDynamicSessionsIndexFrame subscribed
+[2026-10-28 02:54:23.456] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onAgentRuntimeLifecycle subscribed
+[2026-10-28 02:54:23.456] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.helloConversationV4 OK (0.3ms)
+[2026-10-28 02:54:23.457] [pid:20734] [zcode-server:http] [rpc:listen] zcode-task.onDynamicWorkspaceEvent subscribed
+[2026-10-28 02:54:23.460] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listPinnedTaskIds OK (3.1ms)
+[2026-10-28 02:54:23.460] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listArchivedTasks OK (2.9ms)
+[2026-10-28 02:54:23.460] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listTasks OK (2.9ms)
+[2026-10-28 02:54:23.460] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listPinnedTasks OK (2.9ms)
+[2026-10-28 02:54:23.460] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listDeletedTaskIds OK (2.9ms)
+[2026-10-28 02:54:23.462] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (6.7ms)
+[2026-10-28 02:54:23.463] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onAgentRuntimeLifecycle subscribed
+[2026-10-28 02:54:23.464] [pid:20734] [zcode-server:http] [rpc:call] system.info OK (0.2ms)
+[2026-10-28 02:54:23.476] [pid:20734] [zcode-server:http] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-28 02:54:23.476] [pid:20734] [zcode-server:http] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-28 02:54:23.484] [pid:20734] [zcode-server:http] [rpc:call] model-selection.getView OK (8.2ms)
+[2026-10-28 02:54:23.485] [pid:20734] [zcode-server:http] [rpc:call] model-selection.getView OK (8.9ms)
+[2026-10-28 02:54:23.488] [pid:20734] [zcode-server:http] [rpc:call] subagents.list OK (27.0ms)
+[2026-10-28 02:54:23.526] [pid:20734] [zcode-server:http] [rpc:call] settings-sync.getFirstRunPromptState OK (0.7ms)
+[2026-10-28 02:54:23.598] [pid:20734] [zcode-server:http] [rpc:call] git.refresh OK (121.7ms)
+[2026-10-28 02:54:23.604] [pid:20734] [settingService] writing settings to: /tmp/w3-025-evidence-server-home-1793156059074/.zcode/v2/setting.json {"recentProjects":[],"locale":"en-US","localePreference":"system","terminalInheritSystemProfile":true,"embeddedBrowserAllowInsecureCertificates":false,"embeddedBrowserViewportPreference":{"mode":"normal","viewport":{"width":393,"height":852},"zoom":"fit"},"computerUseComposerEntryHidden":true,"taskAutoArchiveEnabled":false,"taskAutoArchiveOlderThanDays":7,"closeToTrayOnWindows":true,"closeToTrayOnWindowsMigrationInitialized":true,"keepAwakeWhileRunning":false,"desktopChromiumHardwareAccelerationEnabled":true,"messageStreamShowReasoning":true,"messageStreamShowReasoningMigrationInitialized":true,"messageStreamShowTodos":false,"toolGroupingExploreEnabled":true,"toolGroupingTerminalEnabled":true,"toolGroupingChangesEnabled":false,"zcodeInteractionBehavior":"queue","askUserQuestionAutoResolutionEnabled":true,"modelIoFullRetentionEnabled":false,"startPlanRecommendationDismissed":false,"providerFamilyConnectionSelections":{},"providerFamilyDomain":"zai","providerFamilyDomainUpdatedAt":1793156059074,"providerFamilyDomainMigrated":true,"nativeSearchEnhancementsEnabled":true,"memoryEnabled":false,"lastWorkspaceSession":[{"kind":"local","workspacePath":"/home/z/w3-025","workspacePurpose":"project"}],"lastActiveTabIndex":0,"receivePreviewUpdates":false,"autoDownloadAndInstallUpdates":false,"skippedElectronUpdateVersions":{}}
+[2026-10-28 02:54:23.605] [pid:20734] [settingService] write done
+[2026-10-28 02:54:23.605] [pid:20734] [zcode-server:http] [rpc:call] setting.update OK (2.4ms)
+[2026-10-28 02:54:23.613] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.initializeConversationV4 OK (0.9ms)
+[2026-10-28 02:54:23.634] [pid:20734] [zcode-server:http] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-28 02:54:23.635] [pid:20734] [zcode-server:http] [rpc:call] model-selection.getView OK (0.8ms)
+[2026-10-28 02:54:23.637] [pid:20734] [zcode-agent-service] 开始请求 ZCode Protocol workspace/readPresentation { workspaceKey: '/home/z/w3-025', workspacePath: '/home/z/w3-025' }
+[2026-10-28 02:54:23.639] [pid:20734] [zcode-agent] ZCode agent command resolved {
+  workspaceKey: '/home/z/w3-025',
+  command: '/usr/bin/node',
+  effectiveCommand: '/usr/bin/node',
+  resolveCommandDurationMs: 1
+}
+[2026-10-28 02:54:23.678] [pid:20734] [zcode-agent] ZCode agent spawn preflight {
+  workspaceKey: '/home/z/w3-025',
+  spawnPreflight: {
+    command: '/usr/bin/node',
+    args: [
+      '/home/z/w3-025/apps/zcode-cli/packages/cli/dist/zcode.cjs',
+      'app-server',
+      '--stdio'
+    ],
+    requestedCwd: '/home/z/w3-025',
+    cwd: '/home/z/w3-025',
+    cwdSource: 'command',
+    commandPathKind: 'absolute',
+    commandExists: true,
+    cwdExists: true
+  }
+}
+[2026-10-28 02:54:23.695] [pid:20734] [zcode-agent] ZCode agent process started {
+  workspaceKey: '/home/z/w3-025',
+  command: '/usr/bin/node',
+  cwd: '/home/z/w3-025',
+  pid: 20889,
+  durationMs: 58
+}
+[2026-10-28 02:54:23.702] [pid:20734] [zcode-server:http] [rpc:call] settings-sync.detect OK (0.9ms)
+[2026-10-28 02:54:23.708] [pid:20734] [zcode-server:http] [rpc:call] client-scenes.list OK (261.4ms)
+[2026-10-28 02:54:23.799] [pid:20734] [zcode-server:http] [rpc:call] system.info OK (87.6ms)
+[2026-10-28 02:54:23.799] [pid:20734] [zcode-server:http] [rpc:call] file-watcher.watch OK (87.6ms)
+[2026-10-28 02:54:23.799] [pid:20734] [zcode-server:http] [rpc:call] file-watcher.watch OK (86.1ms)
+[2026-10-28 02:54:23.800] [pid:20734] [settingService] writing settings to: /tmp/w3-025-evidence-server-home-1793156059074/.zcode/v2/setting.json {"recentProjects":[],"locale":"en-US","localePreference":"system","terminalInheritSystemProfile":true,"embeddedBrowserAllowInsecureCertificates":false,"embeddedBrowserViewportPreference":{"mode":"normal","viewport":{"width":393,"height":852},"zoom":"fit"},"computerUseComposerEntryHidden":true,"taskAutoArchiveEnabled":false,"taskAutoArchiveOlderThanDays":7,"closeToTrayOnWindows":true,"closeToTrayOnWindowsMigrationInitialized":true,"keepAwakeWhileRunning":false,"desktopChromiumHardwareAccelerationEnabled":true,"messageStreamShowReasoning":true,"messageStreamShowReasoningMigrationInitialized":true,"messageStreamShowTodos":false,"toolGroupingExploreEnabled":true,"toolGroupingTerminalEnabled":true,"toolGroupingChangesEnabled":false,"zcodeInteractionBehavior":"queue","askUserQuestionAutoResolutionEnabled":true,"modelIoFullRetentionEnabled":false,"startPlanRecommendationDismissed":false,"providerFamilyConnectionSelections":{},"providerFamilyDomain":"zai","providerFamilyDomainUpdatedAt":1793156059074,"providerFamilyDomainMigrated":true,"nativeSearchEnhancementsEnabled":true,"memoryEnabled":false,"lastWorkspaceSession":[{"kind":"local","workspacePath":"/home/z/w3-025","workspacePurpose":"project"}],"lastActiveTabIndex":0,"receivePreviewUpdates":false,"autoDownloadAndInstallUpdates":false,"skippedElectronUpdateVersions":{},"settingsSyncFirstRunPromptHandled":true}
+[2026-10-28 02:54:23.801] [pid:20734] [settingService] write done
+[2026-10-28 02:54:23.801] [pid:20734] [zcode-server:http] [rpc:call] settings-sync.markFirstRunPromptHandled OK (2.0ms)
+[2026-10-28 02:54:23.823] [pid:20734] [zcode-server:http] [rpc:listen] file-watcher.onDynamicChange subscribed
+[2026-10-28 02:54:23.825] [pid:20734] [zcode-server:http] [rpc:listen] file-watcher.onDynamicChange subscribed
+Unknown channel: window-controller
+Unknown channel: window-controller
+Unknown channel: window-controller
+Unknown channel: window-controller
+[2026-10-28 02:54:25.296] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.subscribeSessionsIndexV4 OK (1594.2ms)
+[2026-10-28 02:54:25.296] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.subscribeSessionsIndexV4 OK (1496.9ms)
+[2026-10-28 02:54:25.296] [pid:20734] [zcode-agent-service] 为只读会话控制面启动 ZCode agent { workspaceKey: '/home/z/w3-025', workspacePath: '/home/z/w3-025' }
+[2026-10-28 02:54:25.296] [pid:20734] [zcode-agent-service] provider/model 就绪，允许 ZCode agent 模型执行 {
+  modelId: 'GLM-5.3',
+  providerId: 'zai-api',
+  revision: 'model-selection:1',
+  workspaceKey: '/home/z/w3-025',
+  workspacePath: '/home/z/w3-025'
+}
+[2026-10-28 02:54:25.324] [pid:20734] [zcode-agent-service] account provider config 已交付到 ZCode agent {
+  providerCount: 8,
+  reason: 'workspace_read_presentation',
+  receivedRevision: 'account:["zcode-builtin:30:5ec75dbe66cbfcf62c3ca4bce19909e5e9edc0d636cb1d7dca9b57fc79e9f03c",[{"providerId":"account:zai-individual-coding-plan","config":{"access":{"type":"zhipu-account","entitled":false}}},{"providerId":"account:zai-team-coding-plan","config":{"access":{"type":"zhipu-account","entitled":false}}},{"providerId":"account:zai-start-plan","config":{"access":{"type":"zhipu-account","entitled":false}}},{"providerId":"account:bigmodel-individual-coding-plan","config":{"access":{"type":"zhipu-account","entitled":false}}},{"providerId":"account:bigmodel-team-coding-plan","config":{"access":{"type":"zhipu-account","entitled":false}}},{"providerId":"account:bigmodel-start-plan","config":{"access":{"type":"zhipu-account","entitled":false}}},{"providerId":"account:zai-offpeak-idle-plan","config":{"access":{"type":"zhipu-account","entitled":false}}},{"providerId":"account:bigmodel-offpeak-idle-plan","config":{"access":{"type":"zhipu-account","entitled":false}}}],{"account:zai-individual-coding-plan":{"availability":"unavailable","entitled":false,"unavailableReason":"not-connected","current":false,"connectionKey":"41717a7a173a5e88981ed3b30d6c754715277dce3b302a8e7b1386cdf57b9b4c"},"account:zai-team-coding-plan":{"availability":"unavailable","entitled":false,"unavailableReason":"not-connected","current":false,"connectionKey":"41717a7a173a5e88981ed3b30d6c754715277dce3b302a8e7b1386cdf57b9b4c"},"account:zai-start-plan":{"availability":"unavailable","entitled":false,"unavailableReason":"not-connected","current":false,"connectionKey":"b20a8f39ea1865b9bdbc4f21e0774500034895a93cdf0c737917b6532ebedcea"},"account:bigmodel-individual-coding-plan":{"availability":"unavailable","entitled":false,"unavailableReason":"not-connected","current":false,"connectionKey":"145736c8450a04bf4ba21aee47794f53d87ea79c5dc4cc5b9f27fbf5b6038d53"},"account:bigmodel-team-coding-plan":{"availability":"unavailable","entitled":false,"unavailableReason":"not-connected","current":false,"connectionKey":"145736c8450a04bf4ba21aee47794f53d87ea79c5dc4cc5b9f27fbf5b6038d53"},"account:bigmodel-start-plan":{"availability":"unavailable","entitled":false,"unavailableReason":"not-connected","current":false,"connectionKey":"116fde2fcda0bb10f88164a63caadb0a0ec8611edcf75b35a9924684f9ba84bd"},"account:zai-offpeak-idle-plan":{"availability":"unavailable","entitled":false},"account:bigmodel-offpeak-idle-plan":{"availability":"unavailable","entitled":false}}]',
+  status: 'received'
+}
+[2026-10-28 02:54:25.360] [pid:20734] [zcode-agent-service] ZCode Protocol workspace/readPresentation 完成 {
+  durationMs: 1723,
+  slashCommandCount: 5,
+  workspaceKey: '/home/z/w3-025',
+  workspacePath: '/home/z/w3-025'
+}
+[2026-10-28 02:54:25.360] [pid:20734] [zcode-server:http] [rpc:call] zcode-session.readWorkspacePresentation OK (1724.1ms)
+[2026-10-28 02:54:25.405] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.sendConversationCommandV4 OK (1703.1ms)
+[2026-10-28 02:54:25.413] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onAgentRuntimeRestarted subscribed
+[2026-10-28 02:54:25.433] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.subscribeConversationV4 OK (9.2ms)
+[2026-10-28 02:54:27.791] [pid:20734] [zcode-server:http] [rpc:register] channel "file"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "media-preview"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "git"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "git-checkpoint"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "system"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "terminal"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "setting"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "onboarding-record"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "credential"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "broadcast"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "zcode-task"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "zcode-agent"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "zcode-session"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "cua-permission"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "cua-pip-session"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "conversation-share"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "bots"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "file-watcher"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "oauth"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "usage-stats"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "coding-plan-subscription"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "client-config"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "client-scenes"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "off-peak-task"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "skills"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "skill-sync"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "mcp-sync"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "plugin-sync"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "plugins"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "plugin-management"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "subagents"
+[2026-10-28 02:54:27.792] [pid:20734] [zcode-server:http] [rpc:register] channel "commands"
+[2026-10-28 02:54:27.793] [pid:20734] [zcode-server:http] [rpc:register] channel "hooks"
+[2026-10-28 02:54:27.793] [pid:20734] [zcode-server:http] [rpc:register] channel "memory"
+[2026-10-28 02:54:27.793] [pid:20734] [zcode-server:http] [rpc:register] channel "settings-sync"
+[2026-10-28 02:54:27.793] [pid:20734] [zcode-server:http] [rpc:register] channel "feedback"
+[2026-10-28 02:54:27.793] [pid:20734] [zcode-server:http] [rpc:register] channel "prompt-attachment-transfer"
+[2026-10-28 02:54:27.793] [pid:20734] [zcode-server:http] [rpc:register] channel "provider-settings"
+[2026-10-28 02:54:27.793] [pid:20734] [zcode-server:http] [rpc:register] channel "model-selection"
+[2026-10-28 02:54:27.802] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:27.816] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (0.8ms)
+[2026-10-28 02:54:27.817] [pid:20734] [zcode-server:http] [rpc:call] onboarding-record.claimAnonymousRecord OK (0.2ms)
+[2026-10-28 02:54:27.818] [pid:20734] [zcode-server:http] [rpc:call] onboarding-record.getLatestEntry OK (0.4ms)
+[2026-10-28 02:54:27.819] [pid:20734] [zcode-server:http] [rpc:call] coding-plan-subscription.getDynamicWorkflowClientConfig OK (0.1ms)
+[2026-10-28 02:54:27.820] [pid:20734] [zcode-server:http] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-28 02:54:27.821] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:27.821] [pid:20734] [zcode-server:http] [rpc:call] model-selection.getView OK (0.6ms)
+[2026-10-28 02:54:27.822] [pid:20734] [zcode-server:http] [rpc:listen] provider-settings.onDidChange subscribed
+[2026-10-28 02:54:27.823] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.getView OK (0.5ms)
+[2026-10-28 02:54:27.826] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (0.8ms)
+[2026-10-28 02:54:27.826] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:27.828] [pid:20734] [zcode-server:http] [rpc:listen] provider-settings.onDidChange subscribed
+[2026-10-28 02:54:27.828] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.getView OK (0.5ms)
+[2026-10-28 02:54:27.830] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:27.830] [pid:20734] [oauthService] restoreCachedSession skipped: no active provider
+[2026-10-28 02:54:27.830] [pid:20734] [zcode-server:http] [rpc:call] oauth.restoreCachedSessionState OK (0.3ms)
+[2026-10-28 02:54:27.831] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:27.832] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (0.6ms)
+[2026-10-28 02:54:27.847] [pid:20734] [zcode-server:http] [rpc:call] onboarding-record.shouldOnboard OK (0.5ms)
+[2026-10-28 02:54:27.852] [pid:20734] [zcode-server:http] [rpc:call] bots.syncAppRuntimePreferences OK (0.2ms)
+[2026-10-28 02:54:27.854] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.syncAppRuntimePreferences OK (2.0ms)
+[2026-10-28 02:54:27.854] [pid:20734] [zcode-server:http] [rpc:call] credential.load OK (0.8ms)
+[2026-10-28 02:54:27.854] [pid:20734] [zcode-server:http] [rpc:call] credential.load OK (0.9ms)
+[2026-10-28 02:54:27.856] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (0.6ms)
+[2026-10-28 02:54:28.048] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (0.9ms)
+[2026-10-28 02:54:28.247] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onDynamicLocalTtftFacts subscribed
+[2026-10-28 02:54:28.247] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onDynamicConversationFrame subscribed
+[2026-10-28 02:54:28.365] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (1.2ms)
+[2026-10-28 02:54:28.367] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onDynamicSessionsIndexFrame subscribed
+[2026-10-28 02:54:28.367] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onAgentRuntimeLifecycle subscribed
+[2026-10-28 02:54:28.367] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.helloConversationV4 OK (0.1ms)
+[2026-10-28 02:54:28.368] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listPinnedTaskIds OK (0.8ms)
+[2026-10-28 02:54:28.369] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listArchivedTasks OK (0.8ms)
+[2026-10-28 02:54:28.369] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listTasks OK (0.8ms)
+[2026-10-28 02:54:28.369] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listPinnedTasks OK (0.6ms)
+[2026-10-28 02:54:28.369] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listDeletedTaskIds OK (0.6ms)
+[2026-10-28 02:54:28.371] [pid:20734] [zcode-server:http] [rpc:listen] zcode-task.onDynamicWorkspaceEvent subscribed
+[2026-10-28 02:54:28.372] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onAgentRuntimeLifecycle subscribed
+[2026-10-28 02:54:28.375] [pid:20734] [zcode-server:http] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-28 02:54:28.375] [pid:20734] [zcode-server:http] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-28 02:54:28.376] [pid:20734] [zcode-server:http] [rpc:call] system.info OK (0.4ms)
+[2026-10-28 02:54:28.377] [pid:20734] [zcode-server:http] [rpc:call] model-selection.getView OK (1.5ms)
+[2026-10-28 02:54:28.378] [pid:20734] [zcode-server:http] [rpc:call] model-selection.getView OK (2.4ms)
+[2026-10-28 02:54:28.393] [pid:20734] [zcode-server:http] [rpc:call] subagents.list OK (21.1ms)
+[2026-10-28 02:54:28.419] [pid:20734] [zcode-server:http] [rpc:call] settings-sync.getFirstRunPromptState OK (1.0ms)
+[2026-10-28 02:54:28.420] [pid:20734] [settingService] writing settings to: /tmp/w3-025-evidence-server-home-1793156059074/.zcode/v2/setting.json {"recentProjects":["/home/z/w3-025"],"locale":"en-US","localePreference":"system","terminalInheritSystemProfile":true,"embeddedBrowserAllowInsecureCertificates":false,"embeddedBrowserViewportPreference":{"mode":"normal","viewport":{"width":393,"height":852},"zoom":"fit"},"computerUseComposerEntryHidden":true,"taskAutoArchiveEnabled":false,"taskAutoArchiveOlderThanDays":7,"closeToTrayOnWindows":true,"closeToTrayOnWindowsMigrationInitialized":true,"keepAwakeWhileRunning":false,"desktopChromiumHardwareAccelerationEnabled":true,"messageStreamShowReasoning":true,"messageStreamShowReasoningMigrationInitialized":true,"messageStreamShowTodos":false,"toolGroupingExploreEnabled":true,"toolGroupingTerminalEnabled":true,"toolGroupingChangesEnabled":false,"zcodeInteractionBehavior":"queue","askUserQuestionAutoResolutionEnabled":true,"modelIoFullRetentionEnabled":false,"startPlanRecommendationDismissed":false,"providerFamilyConnectionSelections":{},"providerFamilyDomain":"zai","providerFamilyDomainUpdatedAt":1793156059074,"providerFamilyDomainMigrated":true,"nativeSearchEnhancementsEnabled":true,"memoryEnabled":false,"lastWorkspaceSession":[{"kind":"local","workspacePath":"/home/z/w3-025","workspacePurpose":"project"}],"lastActiveTabIndex":0,"receivePreviewUpdates":false,"autoDownloadAndInstallUpdates":false,"skippedElectronUpdateVersions":{},"settingsSyncFirstRunPromptHandled":true}
+[2026-10-28 02:54:28.524] [pid:20734] [settingService] write done
+[2026-10-28 02:54:28.524] [pid:20734] [zcode-server:http] [rpc:call] setting.update OK (105.6ms)
+[2026-10-28 02:54:28.528] [pid:20734] [zcode-server:http] [rpc:call] git.refresh OK (148.4ms)
+[2026-10-28 02:54:28.619] [pid:20734] [zcode-server:http] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-28 02:54:28.619] [pid:20734] [zcode-agent-service] 开始请求 ZCode Protocol workspace/readPresentation { workspaceKey: '/home/z/w3-025', workspacePath: '/home/z/w3-025' }
+[2026-10-28 02:54:28.619] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.initializeConversationV4 OK (0.6ms)
+[2026-10-28 02:54:28.628] [pid:20734] [zcode-server:http] [rpc:call] model-selection.getView OK (9.0ms)
+[2026-10-28 02:54:28.630] [pid:20734] [zcode-agent-service] ZCode Protocol workspace/readPresentation 完成 {
+  durationMs: 11,
+  slashCommandCount: 5,
+  workspaceKey: '/home/z/w3-025',
+  workspacePath: '/home/z/w3-025'
+}
+[2026-10-28 02:54:28.630] [pid:20734] [zcode-server:http] [rpc:call] zcode-session.readWorkspacePresentation OK (11.2ms)
+[2026-10-28 02:54:28.691] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.subscribeSessionsIndexV4 OK (2.6ms)
+[2026-10-28 02:54:28.692] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.refresh OK (833.3ms)
+[2026-10-28 02:54:28.692] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.refresh OK (649.3ms)
+[2026-10-28 02:54:28.697] [pid:20734] [zcode-server:http] [rpc:call] client-scenes.list OK (341.3ms)
+[2026-10-28 02:54:28.710] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.sendConversationCommandV4 OK (21.4ms)
+[2026-10-28 02:54:28.727] [pid:20734] [zcode-server:http] [rpc:call] system.info OK (3.6ms)
+[2026-10-28 02:54:28.727] [pid:20734] [zcode-server:http] [rpc:call] file-watcher.watch OK (3.6ms)
+[2026-10-28 02:54:28.727] [pid:20734] [zcode-server:http] [rpc:call] file-watcher.watch OK (3.2ms)
+[2026-10-28 02:54:28.798] [pid:20734] [zcode-server:http] [rpc:listen] file-watcher.onDynamicChange subscribed
+[2026-10-28 02:54:28.798] [pid:20734] [zcode-server:http] [rpc:listen] file-watcher.onDynamicChange subscribed
+[2026-10-28 02:54:28.804] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onAgentRuntimeRestarted subscribed
+[2026-10-28 02:54:28.805] [pid:20734] [settingService] writing settings to: /tmp/w3-025-evidence-server-home-1793156059074/.zcode/v2/setting.json {"recentProjects":["/home/z/w3-025"],"locale":"en-US","localePreference":"system","terminalInheritSystemProfile":true,"embeddedBrowserAllowInsecureCertificates":false,"embeddedBrowserViewportPreference":{"mode":"normal","viewport":{"width":393,"height":852},"zoom":"fit"},"computerUseComposerEntryHidden":true,"taskAutoArchiveEnabled":false,"taskAutoArchiveOlderThanDays":7,"closeToTrayOnWindows":true,"closeToTrayOnWindowsMigrationInitialized":true,"keepAwakeWhileRunning":false,"desktopChromiumHardwareAccelerationEnabled":true,"messageStreamShowReasoning":true,"messageStreamShowReasoningMigrationInitialized":true,"messageStreamShowTodos":false,"toolGroupingExploreEnabled":true,"toolGroupingTerminalEnabled":true,"toolGroupingChangesEnabled":false,"zcodeInteractionBehavior":"queue","askUserQuestionAutoResolutionEnabled":true,"modelIoFullRetentionEnabled":false,"startPlanRecommendationDismissed":false,"providerFamilyConnectionSelections":{},"providerFamilyDomain":"zai","providerFamilyDomainUpdatedAt":1793156059074,"providerFamilyDomainMigrated":true,"nativeSearchEnhancementsEnabled":true,"memoryEnabled":false,"lastWorkspaceSession":[{"kind":"local","workspacePath":"/home/z/w3-025","workspacePurpose":"project"}],"lastActiveTabIndex":0,"receivePreviewUpdates":false,"autoDownloadAndInstallUpdates":false,"skippedElectronUpdateVersions":{},"settingsSyncFirstRunPromptHandled":true}
+[2026-10-28 02:54:28.807] [pid:20734] [settingService] write done
+[2026-10-28 02:54:28.807] [pid:20734] [zcode-server:http] [rpc:call] setting.update OK (9.2ms)
+[2026-10-28 02:54:28.822] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.subscribeConversationV4 OK (6.6ms)
+Unknown channel: window-controller
+Unknown channel: window-controller
+Unknown channel: window-controller
+Unknown channel: window-controller
+[2026-10-28 02:54:30.762] [pid:20734] [zcode-server:http] [rpc:call] file-watcher.unwatch OK (0.8ms)
+[2026-10-28 02:54:30.762] [pid:20734] [zcode-server:http] [rpc:call] file-watcher.unwatch OK (0.6ms)
+[2026-10-28 02:54:30.764] [pid:20734] [zcode-server:http] [rpc:call] system.info OK (0.2ms)
+[2026-10-28 02:54:30.765] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (1.6ms)
+[2026-10-28 02:54:30.766] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (2.7ms)
+[2026-10-28 02:54:31.020] [pid:20734] [settingService] writing settings to: /tmp/w3-025-evidence-server-home-1793156059074/.zcode/v2/setting.json {"recentProjects":["/home/z/w3-025"],"locale":"en-US","localePreference":"system","terminalInheritSystemProfile":true,"embeddedBrowserAllowInsecureCertificates":false,"embeddedBrowserViewportPreference":{"mode":"normal","viewport":{"width":393,"height":852},"zoom":"fit"},"computerUseComposerEntryHidden":true,"taskAutoArchiveEnabled":false,"taskAutoArchiveOlderThanDays":7,"closeToTrayOnWindows":true,"closeToTrayOnWindowsMigrationInitialized":true,"keepAwakeWhileRunning":false,"desktopChromiumHardwareAccelerationEnabled":true,"messageStreamShowReasoning":true,"messageStreamShowReasoningMigrationInitialized":true,"messageStreamShowTodos":false,"toolGroupingExploreEnabled":true,"toolGroupingTerminalEnabled":true,"toolGroupingChangesEnabled":false,"zcodeInteractionBehavior":"queue","askUserQuestionAutoResolutionEnabled":true,"modelIoFullRetentionEnabled":false,"startPlanRecommendationDismissed":false,"providerFamilyConnectionSelections":{},"providerFamilyDomain":"zai","providerFamilyDomainUpdatedAt":1793156059074,"providerFamilyDomainMigrated":true,"nativeSearchEnhancementsEnabled":true,"memoryEnabled":false,"lastWorkspaceSession":[{"kind":"local","workspacePath":"/home/z/w3-025","workspacePurpose":"project"}],"lastActiveTabIndex":0,"receivePreviewUpdates":false,"autoDownloadAndInstallUpdates":false,"skippedElectronUpdateVersions":{},"settingsSyncFirstRunPromptHandled":true}
+[2026-10-28 02:54:31.022] [pid:20734] [settingService] write done
+[2026-10-28 02:54:31.022] [pid:20734] [zcode-server:http] [rpc:call] setting.update OK (2.1ms)
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "file"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "media-preview"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "git"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "git-checkpoint"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "system"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "terminal"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "setting"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "onboarding-record"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "credential"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "broadcast"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "zcode-task"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "zcode-agent"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "zcode-session"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "cua-permission"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "cua-pip-session"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "conversation-share"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "bots"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "file-watcher"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "oauth"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "usage-stats"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "coding-plan-subscription"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "client-config"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "client-scenes"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "off-peak-task"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "skills"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "skill-sync"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "mcp-sync"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "plugin-sync"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "plugins"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "plugin-management"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "subagents"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "commands"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "hooks"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "memory"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "settings-sync"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "feedback"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "prompt-attachment-transfer"
+[2026-10-28 02:54:32.939] [pid:20734] [zcode-server:http] [rpc:register] channel "provider-settings"
+[2026-10-28 02:54:32.940] [pid:20734] [zcode-server:http] [rpc:register] channel "model-selection"
+[2026-10-28 02:54:32.946] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:32.957] [pid:20734] [zcode-server:http] [rpc:call] onboarding-record.claimAnonymousRecord OK (3.7ms)
+[2026-10-28 02:54:32.961] [pid:20734] [zcode-server:http] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-28 02:54:32.961] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:32.961] [pid:20734] [zcode-server:http] [rpc:listen] provider-settings.onDidChange subscribed
+[2026-10-28 02:54:32.962] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:32.962] [pid:20734] [zcode-server:http] [rpc:listen] provider-settings.onDidChange subscribed
+[2026-10-28 02:54:32.962] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:32.962] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:32.962] [pid:20734] [zcode-server:http] [rpc:call] coding-plan-subscription.getDynamicWorkflowClientConfig OK (1.3ms)
+[2026-10-28 02:54:32.963] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.getView OK (1.0ms)
+[2026-10-28 02:54:32.963] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.getView OK (1.0ms)
+[2026-10-28 02:54:32.964] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (11.4ms)
+[2026-10-28 02:54:32.964] [pid:20734] [oauthService] restoreCachedSession skipped: no active provider
+[2026-10-28 02:54:32.965] [pid:20734] [zcode-server:http] [rpc:call] oauth.restoreCachedSessionState OK (2.9ms)
+[2026-10-28 02:54:32.965] [pid:20734] [zcode-server:http] [rpc:call] model-selection.getView OK (4.0ms)
+[2026-10-28 02:54:32.966] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (4.5ms)
+[2026-10-28 02:54:32.967] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (4.8ms)
+[2026-10-28 02:54:32.977] [pid:20734] [zcode-server:http] [rpc:call] onboarding-record.getLatestEntry OK (21.4ms)
+[2026-10-28 02:54:32.981] [pid:20734] [zcode-server:http] [rpc:call] onboarding-record.shouldOnboard OK (2.2ms)
+[2026-10-28 02:54:32.982] [pid:20734] [zcode-server:http] [rpc:call] credential.load OK (0.2ms)
+[2026-10-28 02:54:32.982] [pid:20734] [zcode-server:http] [rpc:call] credential.load OK (0.3ms)
+[2026-10-28 02:54:32.987] [pid:20734] [zcode-server:http] [rpc:call] bots.syncAppRuntimePreferences OK (0.0ms)
+[2026-10-28 02:54:32.989] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.syncAppRuntimePreferences OK (3.2ms)
+[2026-10-28 02:54:32.993] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (4.4ms)
+[2026-10-28 02:54:33.049] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (1.1ms)
+[2026-10-28 02:54:33.181] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onDynamicLocalTtftFacts subscribed
+[2026-10-28 02:54:33.181] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onDynamicConversationFrame subscribed
+[2026-10-28 02:54:33.262] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onDynamicSessionsIndexFrame subscribed
+[2026-10-28 02:54:33.262] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onAgentRuntimeLifecycle subscribed
+[2026-10-28 02:54:33.263] [pid:20734] [zcode-server:http] [rpc:listen] zcode-task.onDynamicWorkspaceEvent subscribed
+[2026-10-28 02:54:33.263] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onAgentRuntimeLifecycle subscribed
+[2026-10-28 02:54:33.277] [pid:20734] [zcode-server:http] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-28 02:54:33.277] [pid:20734] [zcode-server:http] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-28 02:54:33.278] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.helloConversationV4 OK (15.1ms)
+[2026-10-28 02:54:33.278] [pid:20734] [zcode-server:http] [rpc:call] system.info OK (0.6ms)
+[2026-10-28 02:54:33.278] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listPinnedTaskIds OK (15.7ms)
+[2026-10-28 02:54:33.278] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listArchivedTasks OK (15.7ms)
+[2026-10-28 02:54:33.278] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listTasks OK (15.7ms)
+[2026-10-28 02:54:33.278] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listPinnedTasks OK (15.7ms)
+[2026-10-28 02:54:33.278] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listDeletedTaskIds OK (15.7ms)
+[2026-10-28 02:54:33.282] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (19.3ms)
+[2026-10-28 02:54:33.284] [pid:20734] [zcode-server:http] [rpc:call] model-selection.getView OK (6.5ms)
+[2026-10-28 02:54:33.284] [pid:20734] [zcode-server:http] [rpc:call] model-selection.getView OK (6.8ms)
+[2026-10-28 02:54:33.312] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.refresh OK (327.9ms)
+[2026-10-28 02:54:33.312] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.refresh OK (286.1ms)
+[2026-10-28 02:54:33.314] [pid:20734] [zcode-server:http] [rpc:call] subagents.list OK (50.7ms)
+[2026-10-28 02:54:33.340] [pid:20734] [zcode-server:http] [rpc:call] settings-sync.getFirstRunPromptState OK (1.3ms)
+[2026-10-28 02:54:33.405] [pid:20734] [zcode-server:http] [rpc:call] git.refresh OK (127.5ms)
+[2026-10-28 02:54:33.429] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.initializeConversationV4 OK (0.2ms)
+[2026-10-28 02:54:33.481] [pid:20734] [zcode-agent-service] 开始请求 ZCode Protocol workspace/readPresentation { workspaceKey: '/home/z/w3-025', workspacePath: '/home/z/w3-025' }
+[2026-10-28 02:54:33.490] [pid:20734] [zcode-agent-service] ZCode Protocol workspace/readPresentation 完成 {
+  durationMs: 9,
+  slashCommandCount: 5,
+  workspaceKey: '/home/z/w3-025',
+  workspacePath: '/home/z/w3-025'
+}
+[2026-10-28 02:54:33.491] [pid:20734] [zcode-server:http] [rpc:call] zcode-session.readWorkspacePresentation OK (9.7ms)
+[2026-10-28 02:54:33.506] [pid:20734] [zcode-server:http] [rpc:call] client-scenes.list OK (244.2ms)
+[2026-10-28 02:54:33.551] [pid:20734] [zcode-server:http] [rpc:call] system.info OK (19.5ms)
+[2026-10-28 02:54:33.551] [pid:20734] [zcode-server:http] [rpc:call] file-watcher.watch OK (19.6ms)
+[2026-10-28 02:54:33.551] [pid:20734] [zcode-server:http] [rpc:call] file-watcher.watch OK (13.0ms)
+[2026-10-28 02:54:33.552] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.subscribeSessionsIndexV4 OK (20.7ms)
+[2026-10-28 02:54:33.579] [pid:20734] [zcode-server:http] [rpc:listen] file-watcher.onDynamicChange subscribed
+[2026-10-28 02:54:33.579] [pid:20734] [zcode-server:http] [rpc:listen] file-watcher.onDynamicChange subscribed
+[2026-10-28 02:54:33.589] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.sendConversationCommandV4 OK (58.2ms)
+[2026-10-28 02:54:33.601] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onAgentRuntimeRestarted subscribed
+[2026-10-28 02:54:33.609] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.subscribeConversationV4 OK (3.5ms)
+[2026-10-28 02:54:33.699] [pid:20734] [zcode-server:http] [rpc:call] off-peak-task.list OK (0.5ms)
+[2026-10-28 02:54:33.699] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (2.0ms)
+[2026-10-28 02:54:33.700] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.listAllAutomations OK (1.5ms)
+[2026-10-28 02:54:33.735] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.sendConversationCommandV4 OK (4.4ms)
+[2026-10-28 02:54:33.740] [pid:20734] [settingService] writing settings to: /tmp/w3-025-evidence-server-home-1793156059074/.zcode/v2/setting.json {"recentProjects":["/home/z/w3-025"],"locale":"en-US","localePreference":"system","terminalInheritSystemProfile":true,"embeddedBrowserAllowInsecureCertificates":false,"embeddedBrowserViewportPreference":{"mode":"normal","viewport":{"width":393,"height":852},"zoom":"fit"},"computerUseComposerEntryHidden":true,"taskAutoArchiveEnabled":false,"taskAutoArchiveOlderThanDays":7,"closeToTrayOnWindows":true,"closeToTrayOnWindowsMigrationInitialized":true,"keepAwakeWhileRunning":false,"desktopChromiumHardwareAccelerationEnabled":true,"messageStreamShowReasoning":true,"messageStreamShowReasoningMigrationInitialized":true,"messageStreamShowTodos":false,"toolGroupingExploreEnabled":true,"toolGroupingTerminalEnabled":true,"toolGroupingChangesEnabled":false,"zcodeInteractionBehavior":"queue","askUserQuestionAutoResolutionEnabled":true,"modelIoFullRetentionEnabled":false,"startPlanRecommendationDismissed":false,"providerFamilyConnectionSelections":{},"providerFamilyDomain":"zai","providerFamilyDomainUpdatedAt":1793156059074,"providerFamilyDomainMigrated":true,"nativeSearchEnhancementsEnabled":true,"memoryEnabled":false,"lastWorkspaceSession":[{"kind":"local","workspacePath":"/home/z/w3-025","workspacePurpose":"project"}],"lastActiveTabIndex":0,"receivePreviewUpdates":false,"autoDownloadAndInstallUpdates":false,"skippedElectronUpdateVersions":{},"settingsSyncFirstRunPromptHandled":true}
+[2026-10-28 02:54:33.742] [pid:20734] [settingService] write done
+[2026-10-28 02:54:33.742] [pid:20734] [zcode-server:http] [rpc:call] setting.update OK (3.7ms)
+[2026-10-28 02:54:33.777] [pid:20734] [zcode-server:http] [rpc:call] coding-plan-subscription.getOffPeakClientConfig OK (79.7ms)
+[2026-10-28 02:54:33.833] [pid:20734] [zcode-server:http] [rpc:call] off-peak-task.getCodingPlanSupport OK (0.6ms)
+Unknown channel: window-controller
+Unknown channel: window-controller
+Unknown channel: window-controller
+Unknown channel: window-controller
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "file"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "media-preview"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "git"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "git-checkpoint"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "system"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "terminal"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "setting"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "onboarding-record"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "credential"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "broadcast"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "zcode-task"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "zcode-agent"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "zcode-session"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "cua-permission"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "cua-pip-session"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "conversation-share"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "bots"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "file-watcher"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "oauth"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "usage-stats"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "coding-plan-subscription"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "client-config"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "client-scenes"
+[2026-10-28 02:54:36.600] [pid:20734] [zcode-server:http] [rpc:register] channel "off-peak-task"
+[2026-10-28 02:54:36.605] [pid:20734] [zcode-server:http] [rpc:register] channel "skills"
+[2026-10-28 02:54:36.605] [pid:20734] [zcode-server:http] [rpc:register] channel "skill-sync"
+[2026-10-28 02:54:36.605] [pid:20734] [zcode-server:http] [rpc:register] channel "mcp-sync"
+[2026-10-28 02:54:36.605] [pid:20734] [zcode-server:http] [rpc:register] channel "plugin-sync"
+[2026-10-28 02:54:36.605] [pid:20734] [zcode-server:http] [rpc:register] channel "plugins"
+[2026-10-28 02:54:36.605] [pid:20734] [zcode-server:http] [rpc:register] channel "plugin-management"
+[2026-10-28 02:54:36.605] [pid:20734] [zcode-server:http] [rpc:register] channel "subagents"
+[2026-10-28 02:54:36.605] [pid:20734] [zcode-server:http] [rpc:register] channel "commands"
+[2026-10-28 02:54:36.605] [pid:20734] [zcode-server:http] [rpc:register] channel "hooks"
+[2026-10-28 02:54:36.605] [pid:20734] [zcode-server:http] [rpc:register] channel "memory"
+[2026-10-28 02:54:36.605] [pid:20734] [zcode-server:http] [rpc:register] channel "settings-sync"
+[2026-10-28 02:54:36.605] [pid:20734] [zcode-server:http] [rpc:register] channel "feedback"
+[2026-10-28 02:54:36.605] [pid:20734] [zcode-server:http] [rpc:register] channel "prompt-attachment-transfer"
+[2026-10-28 02:54:36.605] [pid:20734] [zcode-server:http] [rpc:register] channel "provider-settings"
+[2026-10-28 02:54:36.605] [pid:20734] [zcode-server:http] [rpc:register] channel "model-selection"
+[2026-10-28 02:54:36.628] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:36.641] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (0.9ms)
+[2026-10-28 02:54:36.642] [pid:20734] [zcode-server:http] [rpc:call] onboarding-record.claimAnonymousRecord OK (0.3ms)
+[2026-10-28 02:54:36.643] [pid:20734] [zcode-server:http] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-28 02:54:36.643] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:36.643] [pid:20734] [zcode-server:http] [rpc:listen] provider-settings.onDidChange subscribed
+[2026-10-28 02:54:36.643] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:36.646] [pid:20734] [zcode-server:http] [rpc:call] coding-plan-subscription.getDynamicWorkflowClientConfig OK (3.3ms)
+[2026-10-28 02:54:36.646] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.getView OK (3.1ms)
+[2026-10-28 02:54:36.650] [pid:20734] [zcode-server:http] [rpc:call] model-selection.getView OK (6.9ms)
+[2026-10-28 02:54:36.651] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (7.6ms)
+[2026-10-28 02:54:36.652] [pid:20734] [zcode-server:http] [rpc:call] onboarding-record.getLatestEntry OK (9.7ms)
+[2026-10-28 02:54:36.653] [pid:20734] [zcode-server:http] [rpc:listen] provider-settings.onDidChange subscribed
+[2026-10-28 02:54:36.653] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:36.653] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:36.654] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.getView OK (1.0ms)
+[2026-10-28 02:54:36.654] [pid:20734] [oauthService] restoreCachedSession skipped: no active provider
+[2026-10-28 02:54:36.655] [pid:20734] [zcode-server:http] [rpc:call] oauth.restoreCachedSessionState OK (1.9ms)
+[2026-10-28 02:54:36.656] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (2.4ms)
+[2026-10-28 02:54:36.683] [pid:20734] [zcode-server:http] [rpc:call] bots.syncAppRuntimePreferences OK (2.4ms)
+[2026-10-28 02:54:36.741] [pid:20734] [zcode-server:http] [rpc:call] credential.load OK (59.9ms)
+[2026-10-28 02:54:36.741] [pid:20734] [zcode-server:http] [rpc:call] credential.load OK (60.0ms)
+[2026-10-28 02:54:36.745] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.syncAppRuntimePreferences OK (64.3ms)
+[2026-10-28 02:54:36.746] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (61.8ms)
+[2026-10-28 02:54:36.746] [pid:20734] [zcode-server:http] [rpc:call] onboarding-record.shouldOnboard OK (68.9ms)
+[2026-10-28 02:54:36.751] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (9.8ms)
+[2026-10-28 02:54:36.948] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onDynamicLocalTtftFacts subscribed
+[2026-10-28 02:54:36.948] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onDynamicConversationFrame subscribed
+[2026-10-28 02:54:37.081] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.refresh OK (397.0ms)
+[2026-10-28 02:54:37.081] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.refresh OK (299.2ms)
+[2026-10-28 02:54:37.107] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (0.8ms)
+[2026-10-28 02:54:37.108] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onDynamicSessionsIndexFrame subscribed
+[2026-10-28 02:54:37.109] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onAgentRuntimeLifecycle subscribed
+[2026-10-28 02:54:37.109] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.helloConversationV4 OK (0.1ms)
+[2026-10-28 02:54:37.110] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listPinnedTaskIds OK (0.8ms)
+[2026-10-28 02:54:37.110] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listArchivedTasks OK (0.8ms)
+[2026-10-28 02:54:37.110] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listTasks OK (0.7ms)
+[2026-10-28 02:54:37.110] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listPinnedTasks OK (0.6ms)
+[2026-10-28 02:54:37.110] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listDeletedTaskIds OK (0.5ms)
+[2026-10-28 02:54:37.111] [pid:20734] [zcode-server:http] [rpc:listen] zcode-task.onDynamicWorkspaceEvent subscribed
+[2026-10-28 02:54:37.117] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onAgentRuntimeLifecycle subscribed
+[2026-10-28 02:54:37.118] [pid:20734] [zcode-server:http] [rpc:call] subagents.list OK (4.0ms)
+[2026-10-28 02:54:37.119] [pid:20734] [zcode-server:http] [rpc:call] system.info OK (0.1ms)
+[2026-10-28 02:54:37.119] [pid:20734] [zcode-server:http] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-28 02:54:37.120] [pid:20734] [zcode-server:http] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-28 02:54:37.120] [pid:20734] [zcode-server:http] [rpc:call] model-selection.getView OK (0.7ms)
+[2026-10-28 02:54:37.121] [pid:20734] [zcode-server:http] [rpc:call] model-selection.getView OK (1.0ms)
+[2026-10-28 02:54:37.201] [pid:20734] [zcode-server:http] [rpc:call] settings-sync.getFirstRunPromptState OK (0.5ms)
+[2026-10-28 02:54:37.215] [pid:20734] [zcode-server:http] [rpc:call] git.refresh OK (91.9ms)
+[2026-10-28 02:54:37.258] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.initializeConversationV4 OK (0.1ms)
+[2026-10-28 02:54:37.383] [pid:20734] [zcode-server:http] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-28 02:54:37.383] [pid:20734] [zcode-server:http] [rpc:call] model-selection.getView OK (0.5ms)
+[2026-10-28 02:54:37.384] [pid:20734] [zcode-agent-service] 开始请求 ZCode Protocol workspace/readPresentation { workspaceKey: '/home/z/w3-025', workspacePath: '/home/z/w3-025' }
+[2026-10-28 02:54:37.394] [pid:20734] [zcode-server:http] [rpc:call] system.info OK (9.0ms)
+[2026-10-28 02:54:37.394] [pid:20734] [zcode-server:http] [rpc:call] file-watcher.watch OK (9.0ms)
+[2026-10-28 02:54:37.394] [pid:20734] [zcode-server:http] [rpc:call] file-watcher.watch OK (8.7ms)
+[2026-10-28 02:54:37.423] [pid:20734] [zcode-server:http] [rpc:listen] file-watcher.onDynamicChange subscribed
+[2026-10-28 02:54:37.423] [pid:20734] [zcode-server:http] [rpc:listen] file-watcher.onDynamicChange subscribed
+[2026-10-28 02:54:37.424] [pid:20734] [zcode-agent-service] ZCode Protocol workspace/readPresentation 完成 {
+  durationMs: 40,
+  slashCommandCount: 5,
+  workspaceKey: '/home/z/w3-025',
+  workspacePath: '/home/z/w3-025'
+}
+[2026-10-28 02:54:37.424] [pid:20734] [zcode-server:http] [rpc:call] zcode-session.readWorkspacePresentation OK (39.6ms)
+[2026-10-28 02:54:37.431] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.subscribeSessionsIndexV4 OK (27.8ms)
+[2026-10-28 02:54:37.485] [pid:20734] [zcode-server:http] [rpc:call] client-scenes.list OK (385.3ms)
+[2026-10-28 02:54:37.500] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.sendConversationCommandV4 OK (96.7ms)
+[2026-10-28 02:54:37.520] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onAgentRuntimeRestarted subscribed
+[2026-10-28 02:54:37.530] [pid:20734] [settingService] writing settings to: /tmp/w3-025-evidence-server-home-1793156059074/.zcode/v2/setting.json {"recentProjects":["/home/z/w3-025"],"locale":"en-US","localePreference":"system","terminalInheritSystemProfile":true,"embeddedBrowserAllowInsecureCertificates":false,"embeddedBrowserViewportPreference":{"mode":"normal","viewport":{"width":393,"height":852},"zoom":"fit"},"computerUseComposerEntryHidden":true,"taskAutoArchiveEnabled":false,"taskAutoArchiveOlderThanDays":7,"closeToTrayOnWindows":true,"closeToTrayOnWindowsMigrationInitialized":true,"keepAwakeWhileRunning":false,"desktopChromiumHardwareAccelerationEnabled":true,"messageStreamShowReasoning":true,"messageStreamShowReasoningMigrationInitialized":true,"messageStreamShowTodos":false,"toolGroupingExploreEnabled":true,"toolGroupingTerminalEnabled":true,"toolGroupingChangesEnabled":false,"zcodeInteractionBehavior":"queue","askUserQuestionAutoResolutionEnabled":true,"modelIoFullRetentionEnabled":false,"startPlanRecommendationDismissed":false,"providerFamilyConnectionSelections":{},"providerFamilyDomain":"zai","providerFamilyDomainUpdatedAt":1793156059074,"providerFamilyDomainMigrated":true,"nativeSearchEnhancementsEnabled":true,"memoryEnabled":false,"lastWorkspaceSession":[{"kind":"local","workspacePath":"/home/z/w3-025","workspacePurpose":"project"}],"lastActiveTabIndex":0,"receivePreviewUpdates":false,"autoDownloadAndInstallUpdates":false,"skippedElectronUpdateVersions":{},"settingsSyncFirstRunPromptHandled":true}
+[2026-10-28 02:54:37.536] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.subscribeConversationV4 OK (9.4ms)
+[2026-10-28 02:54:37.542] [pid:20734] [settingService] write done
+[2026-10-28 02:54:37.542] [pid:20734] [zcode-server:http] [rpc:call] setting.update OK (13.5ms)
+Unknown channel: window-controller
+Unknown channel: window-controller
+Unknown channel: window-controller
+Unknown channel: window-controller
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "file"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "media-preview"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "git"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "git-checkpoint"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "system"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "terminal"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "setting"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "onboarding-record"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "credential"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "broadcast"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "zcode-task"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "zcode-agent"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "zcode-session"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "cua-permission"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "cua-pip-session"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "conversation-share"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "bots"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "file-watcher"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "oauth"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "usage-stats"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "coding-plan-subscription"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "client-config"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "client-scenes"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "off-peak-task"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "skills"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "skill-sync"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "mcp-sync"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "plugin-sync"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "plugins"
+[2026-10-28 02:54:41.380] [pid:20734] [zcode-server:http] [rpc:register] channel "plugin-management"
+[2026-10-28 02:54:41.381] [pid:20734] [zcode-server:http] [rpc:register] channel "subagents"
+[2026-10-28 02:54:41.381] [pid:20734] [zcode-server:http] [rpc:register] channel "commands"
+[2026-10-28 02:54:41.381] [pid:20734] [zcode-server:http] [rpc:register] channel "hooks"
+[2026-10-28 02:54:41.381] [pid:20734] [zcode-server:http] [rpc:register] channel "memory"
+[2026-10-28 02:54:41.381] [pid:20734] [zcode-server:http] [rpc:register] channel "settings-sync"
+[2026-10-28 02:54:41.381] [pid:20734] [zcode-server:http] [rpc:register] channel "feedback"
+[2026-10-28 02:54:41.381] [pid:20734] [zcode-server:http] [rpc:register] channel "prompt-attachment-transfer"
+[2026-10-28 02:54:41.381] [pid:20734] [zcode-server:http] [rpc:register] channel "provider-settings"
+[2026-10-28 02:54:41.381] [pid:20734] [zcode-server:http] [rpc:register] channel "model-selection"
+[2026-10-28 02:54:41.386] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:41.393] [pid:20734] [zcode-server:http] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-28 02:54:41.393] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:41.393] [pid:20734] [zcode-server:http] [rpc:listen] provider-settings.onDidChange subscribed
+[2026-10-28 02:54:41.393] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:41.393] [pid:20734] [zcode-server:http] [rpc:listen] provider-settings.onDidChange subscribed
+[2026-10-28 02:54:41.393] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:41.393] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:41.396] [pid:20734] [zcode-server:http] [rpc:call] coding-plan-subscription.getDynamicWorkflowClientConfig OK (3.2ms)
+[2026-10-28 02:54:41.397] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.getView OK (4.0ms)
+[2026-10-28 02:54:41.398] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.getView OK (4.8ms)
+[2026-10-28 02:54:41.404] [pid:20734] [zcode-server:http] [rpc:call] onboarding-record.claimAnonymousRecord OK (11.4ms)
+[2026-10-28 02:54:41.405] [pid:20734] [oauthService] restoreCachedSession skipped: no active provider
+[2026-10-28 02:54:41.405] [pid:20734] [zcode-server:http] [rpc:call] oauth.restoreCachedSessionState OK (12.1ms)
+[2026-10-28 02:54:41.406] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (13.5ms)
+[2026-10-28 02:54:41.408] [pid:20734] [zcode-server:http] [rpc:call] model-selection.getView OK (15.1ms)
+[2026-10-28 02:54:41.409] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (15.6ms)
+[2026-10-28 02:54:41.409] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (16.2ms)
+[2026-10-28 02:54:41.410] [pid:20734] [zcode-server:http] [rpc:call] onboarding-record.getLatestEntry OK (17.1ms)
+[2026-10-28 02:54:41.417] [pid:20734] [zcode-server:http] [rpc:call] credential.load OK (3.3ms)
+[2026-10-28 02:54:41.418] [pid:20734] [zcode-server:http] [rpc:call] credential.load OK (1.4ms)
+[2026-10-28 02:54:41.419] [pid:20734] [zcode-server:http] [rpc:call] onboarding-record.shouldOnboard OK (2.4ms)
+[2026-10-28 02:54:41.426] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (1.4ms)
+[2026-10-28 02:54:41.494] [pid:20734] [zcode-server:http] [rpc:call] bots.syncAppRuntimePreferences OK (0.7ms)
+[2026-10-28 02:54:41.497] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.syncAppRuntimePreferences OK (2.9ms)
+[2026-10-28 02:54:41.609] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (7.3ms)
+[2026-10-28 02:54:41.653] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onDynamicLocalTtftFacts subscribed
+[2026-10-28 02:54:41.653] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onDynamicConversationFrame subscribed
+[2026-10-28 02:54:41.756] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onDynamicSessionsIndexFrame subscribed
+[2026-10-28 02:54:41.756] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onAgentRuntimeLifecycle subscribed
+[2026-10-28 02:54:41.756] [pid:20734] [zcode-server:http] [rpc:listen] zcode-task.onDynamicWorkspaceEvent subscribed
+[2026-10-28 02:54:41.756] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onAgentRuntimeLifecycle subscribed
+[2026-10-28 02:54:41.756] [pid:20734] [zcode-server:http] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-28 02:54:41.756] [pid:20734] [zcode-server:http] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-28 02:54:41.776] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.helloConversationV4 OK (19.9ms)
+[2026-10-28 02:54:41.776] [pid:20734] [zcode-server:http] [rpc:call] system.info OK (19.7ms)
+[2026-10-28 02:54:41.777] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listPinnedTaskIds OK (20.6ms)
+[2026-10-28 02:54:41.777] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listArchivedTasks OK (20.6ms)
+[2026-10-28 02:54:41.777] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listTasks OK (20.6ms)
+[2026-10-28 02:54:41.777] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listPinnedTasks OK (20.6ms)
+[2026-10-28 02:54:41.777] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listDeletedTaskIds OK (20.6ms)
+[2026-10-28 02:54:41.782] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (26.7ms)
+[2026-10-28 02:54:41.783] [pid:20734] [zcode-server:http] [rpc:call] model-selection.getView OK (26.7ms)
+[2026-10-28 02:54:41.783] [pid:20734] [zcode-server:http] [rpc:call] model-selection.getView OK (27.1ms)
+[2026-10-28 02:54:41.784] [pid:20734] [zcode-server:http] [rpc:call] settings-sync.getFirstRunPromptState OK (3.6ms)
+[2026-10-28 02:54:41.787] [pid:20734] [zcode-server:http] [rpc:call] subagents.list OK (31.2ms)
+[2026-10-28 02:54:41.896] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.initializeConversationV4 OK (0.1ms)
+[2026-10-28 02:54:41.897] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.refresh OK (478.2ms)
+[2026-10-28 02:54:41.897] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.refresh OK (403.1ms)
+[2026-10-28 02:54:41.914] [pid:20734] [zcode-agent-service] 开始请求 ZCode Protocol workspace/readPresentation { workspaceKey: '/home/z/w3-025', workspacePath: '/home/z/w3-025' }
+[2026-10-28 02:54:41.929] [pid:20734] [zcode-server:http] [rpc:call] git.refresh OK (153.4ms)
+[2026-10-28 02:54:41.931] [pid:20734] [zcode-agent-service] ZCode Protocol workspace/readPresentation 完成 {
+  durationMs: 17,
+  slashCommandCount: 5,
+  workspaceKey: '/home/z/w3-025',
+  workspacePath: '/home/z/w3-025'
+}
+[2026-10-28 02:54:41.931] [pid:20734] [zcode-server:http] [rpc:call] zcode-session.readWorkspacePresentation OK (16.9ms)
+[2026-10-28 02:54:41.950] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.subscribeSessionsIndexV4 OK (1.0ms)
+[2026-10-28 02:54:41.980] [pid:20734] [zcode-server:http] [rpc:call] system.info OK (0.0ms)
+[2026-10-28 02:54:41.982] [pid:20734] [zcode-server:http] [rpc:call] file-watcher.watch OK (2.4ms)
+[2026-10-28 02:54:41.982] [pid:20734] [zcode-server:http] [rpc:call] file-watcher.watch OK (2.2ms)
+[2026-10-28 02:54:41.993] [pid:20734] [zcode-server:http] [rpc:listen] file-watcher.onDynamicChange subscribed
+[2026-10-28 02:54:41.997] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.sendConversationCommandV4 OK (47.7ms)
+[2026-10-28 02:54:41.997] [pid:20734] [zcode-server:http] [rpc:listen] file-watcher.onDynamicChange subscribed
+[2026-10-28 02:54:42.001] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onAgentRuntimeRestarted subscribed
+[2026-10-28 02:54:42.023] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.subscribeConversationV4 OK (17.9ms)
+[2026-10-28 02:54:42.081] [pid:20734] [zcode-server:http] [rpc:call] client-scenes.list OK (325.7ms)
+[2026-10-28 02:54:42.128] [pid:20734] [settingService] writing settings to: /tmp/w3-025-evidence-server-home-1793156059074/.zcode/v2/setting.json {"recentProjects":["/home/z/w3-025"],"locale":"en-US","localePreference":"system","terminalInheritSystemProfile":true,"embeddedBrowserAllowInsecureCertificates":false,"embeddedBrowserViewportPreference":{"mode":"normal","viewport":{"width":393,"height":852},"zoom":"fit"},"computerUseComposerEntryHidden":true,"taskAutoArchiveEnabled":false,"taskAutoArchiveOlderThanDays":7,"closeToTrayOnWindows":true,"closeToTrayOnWindowsMigrationInitialized":true,"keepAwakeWhileRunning":false,"desktopChromiumHardwareAccelerationEnabled":true,"messageStreamShowReasoning":true,"messageStreamShowReasoningMigrationInitialized":true,"messageStreamShowTodos":false,"toolGroupingExploreEnabled":true,"toolGroupingTerminalEnabled":true,"toolGroupingChangesEnabled":false,"zcodeInteractionBehavior":"queue","askUserQuestionAutoResolutionEnabled":true,"modelIoFullRetentionEnabled":false,"startPlanRecommendationDismissed":false,"providerFamilyConnectionSelections":{},"providerFamilyDomain":"zai","providerFamilyDomainUpdatedAt":1793156059074,"providerFamilyDomainMigrated":true,"nativeSearchEnhancementsEnabled":true,"memoryEnabled":false,"lastWorkspaceSession":[{"kind":"local","workspacePath":"/home/z/w3-025","workspacePurpose":"project"}],"lastActiveTabIndex":0,"receivePreviewUpdates":false,"autoDownloadAndInstallUpdates":false,"skippedElectronUpdateVersions":{},"settingsSyncFirstRunPromptHandled":true}
+[2026-10-28 02:54:42.129] [pid:20734] [settingService] write done
+[2026-10-28 02:54:42.130] [pid:20734] [zcode-server:http] [rpc:call] setting.update OK (2.7ms)
+Unknown channel: window-controller
+Unknown channel: window-controller
+Unknown channel: window-controller
+Unknown channel: window-controller
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "file"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "media-preview"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "git"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "git-checkpoint"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "system"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "terminal"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "setting"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "onboarding-record"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "credential"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "broadcast"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "zcode-task"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "zcode-agent"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "zcode-session"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "cua-permission"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "cua-pip-session"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "conversation-share"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "bots"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "file-watcher"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "oauth"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "usage-stats"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "coding-plan-subscription"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "client-config"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "client-scenes"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "off-peak-task"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "skills"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "skill-sync"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "mcp-sync"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "plugin-sync"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "plugins"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "plugin-management"
+[2026-10-28 02:54:46.832] [pid:20734] [zcode-server:http] [rpc:register] channel "subagents"
+[2026-10-28 02:54:46.833] [pid:20734] [zcode-server:http] [rpc:register] channel "commands"
+[2026-10-28 02:54:46.833] [pid:20734] [zcode-server:http] [rpc:register] channel "hooks"
+[2026-10-28 02:54:46.833] [pid:20734] [zcode-server:http] [rpc:register] channel "memory"
+[2026-10-28 02:54:46.833] [pid:20734] [zcode-server:http] [rpc:register] channel "settings-sync"
+[2026-10-28 02:54:46.833] [pid:20734] [zcode-server:http] [rpc:register] channel "feedback"
+[2026-10-28 02:54:46.833] [pid:20734] [zcode-server:http] [rpc:register] channel "prompt-attachment-transfer"
+[2026-10-28 02:54:46.833] [pid:20734] [zcode-server:http] [rpc:register] channel "provider-settings"
+[2026-10-28 02:54:46.833] [pid:20734] [zcode-server:http] [rpc:register] channel "model-selection"
+[2026-10-28 02:54:46.845] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:46.856] [pid:20734] [zcode-server:http] [rpc:call] onboarding-record.claimAnonymousRecord OK (0.2ms)
+[2026-10-28 02:54:46.857] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (1.1ms)
+[2026-10-28 02:54:46.857] [pid:20734] [zcode-server:http] [rpc:call] onboarding-record.getLatestEntry OK (1.1ms)
+[2026-10-28 02:54:46.858] [pid:20734] [zcode-server:http] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-28 02:54:46.858] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:46.858] [pid:20734] [zcode-server:http] [rpc:listen] provider-settings.onDidChange subscribed
+[2026-10-28 02:54:46.858] [pid:20734] [zcode-server:http] [rpc:call] coding-plan-subscription.getDynamicWorkflowClientConfig OK (0.5ms)
+[2026-10-28 02:54:46.858] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.getView OK (0.4ms)
+[2026-10-28 02:54:46.859] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:46.859] [pid:20734] [zcode-server:http] [rpc:call] model-selection.getView OK (1.6ms)
+[2026-10-28 02:54:46.860] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (0.9ms)
+[2026-10-28 02:54:46.861] [pid:20734] [zcode-server:http] [rpc:listen] provider-settings.onDidChange subscribed
+[2026-10-28 02:54:46.861] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.getView OK (0.3ms)
+[2026-10-28 02:54:46.862] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:46.862] [pid:20734] [zcode-server:http] [rpc:listen] broadcast.onMessage subscribed
+[2026-10-28 02:54:46.862] [pid:20734] [oauthService] restoreCachedSession skipped: no active provider
+[2026-10-28 02:54:46.862] [pid:20734] [zcode-server:http] [rpc:call] oauth.restoreCachedSessionState OK (0.3ms)
+[2026-10-28 02:54:46.863] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (0.6ms)
+[2026-10-28 02:54:46.879] [pid:20734] [zcode-server:http] [rpc:call] onboarding-record.shouldOnboard OK (0.7ms)
+[2026-10-28 02:54:46.882] [pid:20734] [zcode-server:http] [rpc:call] bots.syncAppRuntimePreferences OK (1.2ms)
+[2026-10-28 02:54:46.883] [pid:20734] [zcode-server:http] [rpc:call] credential.load OK (1.6ms)
+[2026-10-28 02:54:46.883] [pid:20734] [zcode-server:http] [rpc:call] credential.load OK (1.8ms)
+[2026-10-28 02:54:46.885] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.syncAppRuntimePreferences OK (4.6ms)
+[2026-10-28 02:54:46.886] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (3.6ms)
+[2026-10-28 02:54:46.932] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (11.1ms)
+[2026-10-28 02:54:47.057] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onDynamicLocalTtftFacts subscribed
+[2026-10-28 02:54:47.057] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onDynamicConversationFrame subscribed
+[2026-10-28 02:54:47.176] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.refresh OK (291.7ms)
+[2026-10-28 02:54:47.177] [pid:20734] [zcode-server:http] [rpc:call] provider-settings.refresh OK (255.4ms)
+[2026-10-28 02:54:47.195] [pid:20734] [zcode-server:http] [rpc:call] setting.get OK (0.4ms)
+[2026-10-28 02:54:47.198] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onDynamicSessionsIndexFrame subscribed
+[2026-10-28 02:54:47.198] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onAgentRuntimeLifecycle subscribed
+[2026-10-28 02:54:47.199] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.helloConversationV4 OK (0.1ms)
+[2026-10-28 02:54:47.200] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listPinnedTaskIds OK (0.3ms)
+[2026-10-28 02:54:47.200] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listArchivedTasks OK (0.3ms)
+[2026-10-28 02:54:47.200] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listTasks OK (0.3ms)
+[2026-10-28 02:54:47.200] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listPinnedTasks OK (0.3ms)
+[2026-10-28 02:54:47.201] [pid:20734] [zcode-server:http] [rpc:call] zcode-task.listDeletedTaskIds OK (0.1ms)
+[2026-10-28 02:54:47.201] [pid:20734] [zcode-server:http] [rpc:listen] zcode-task.onDynamicWorkspaceEvent subscribed
+[2026-10-28 02:54:47.204] [pid:20734] [zcode-server:http] [rpc:call] subagents.list OK (1.4ms)
+[2026-10-28 02:54:47.205] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onAgentRuntimeLifecycle subscribed
+[2026-10-28 02:54:47.207] [pid:20734] [zcode-server:http] [rpc:call] system.info OK (0.1ms)
+[2026-10-28 02:54:47.208] [pid:20734] [zcode-server:http] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-28 02:54:47.208] [pid:20734] [zcode-server:http] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-28 02:54:47.208] [pid:20734] [zcode-server:http] [rpc:call] model-selection.getView OK (0.6ms)
+[2026-10-28 02:54:47.209] [pid:20734] [zcode-server:http] [rpc:call] model-selection.getView OK (1.1ms)
+[2026-10-28 02:54:47.280] [pid:20734] [zcode-server:http] [rpc:call] settings-sync.getFirstRunPromptState OK (0.4ms)
+[2026-10-28 02:54:47.319] [pid:20734] [zcode-server:http] [rpc:call] git.refresh OK (107.6ms)
+[2026-10-28 02:54:47.352] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.initializeConversationV4 OK (0.1ms)
+[2026-10-28 02:54:47.404] [pid:20734] [zcode-server:http] [rpc:call] client-scenes.list OK (215.9ms)
+[2026-10-28 02:54:47.443] [pid:20734] [zcode-server:http] [rpc:listen] model-selection.onDidChange subscribed
+[2026-10-28 02:54:47.444] [pid:20734] [zcode-server:http] [rpc:call] model-selection.getView OK (0.8ms)
+[2026-10-28 02:54:47.445] [pid:20734] [zcode-agent-service] 开始请求 ZCode Protocol workspace/readPresentation { workspaceKey: '/home/z/w3-025', workspacePath: '/home/z/w3-025' }
+[2026-10-28 02:54:47.480] [pid:20734] [zcode-server:http] [rpc:call] system.info OK (4.0ms)
+[2026-10-28 02:54:47.481] [pid:20734] [zcode-server:http] [rpc:call] file-watcher.watch OK (4.5ms)
+[2026-10-28 02:54:47.481] [pid:20734] [zcode-server:http] [rpc:call] file-watcher.watch OK (4.3ms)
+[2026-10-28 02:54:47.481] [pid:20734] [zcode-agent-service] ZCode Protocol workspace/readPresentation 完成 {
+  durationMs: 36,
+  slashCommandCount: 5,
+  workspaceKey: '/home/z/w3-025',
+  workspacePath: '/home/z/w3-025'
+}
+[2026-10-28 02:54:47.481] [pid:20734] [zcode-server:http] [rpc:call] zcode-session.readWorkspacePresentation OK (36.6ms)
+[2026-10-28 02:54:47.490] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.subscribeSessionsIndexV4 OK (2.1ms)
+[2026-10-28 02:54:47.507] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.sendConversationCommandV4 OK (18.7ms)
+[2026-10-28 02:54:47.542] [pid:20734] [zcode-server:http] [rpc:listen] file-watcher.onDynamicChange subscribed
+[2026-10-28 02:54:47.542] [pid:20734] [zcode-server:http] [rpc:listen] file-watcher.onDynamicChange subscribed
+[2026-10-28 02:54:47.607] [pid:20734] [zcode-server:http] [rpc:listen] zcode-agent.onAgentRuntimeRestarted subscribed
+[2026-10-28 02:54:47.620] [pid:20734] [zcode-server:http] [rpc:call] zcode-agent.subscribeConversationV4 OK (2.3ms)
+[2026-10-28 02:54:47.630] [pid:20734] [settingService] writing settings to: /tmp/w3-025-evidence-server-home-1793156059074/.zcode/v2/setting.json {"recentProjects":["/home/z/w3-025"],"locale":"en-US","localePreference":"system","terminalInheritSystemProfile":true,"embeddedBrowserAllowInsecureCertificates":false,"embeddedBrowserViewportPreference":{"mode":"normal","viewport":{"width":393,"height":852},"zoom":"fit"},"computerUseComposerEntryHidden":true,"taskAutoArchiveEnabled":false,"taskAutoArchiveOlderThanDays":7,"closeToTrayOnWindows":true,"closeToTrayOnWindowsMigrationInitialized":true,"keepAwakeWhileRunning":false,"desktopChromiumHardwareAccelerationEnabled":true,"messageStreamShowReasoning":true,"messageStreamShowReasoningMigrationInitialized":true,"messageStreamShowTodos":false,"toolGroupingExploreEnabled":true,"toolGroupingTerminalEnabled":true,"toolGroupingChangesEnabled":false,"zcodeInteractionBehavior":"queue","askUserQuestionAutoResolutionEnabled":true,"modelIoFullRetentionEnabled":false,"startPlanRecommendationDismissed":false,"providerFamilyConnectionSelections":{},"providerFamilyDomain":"zai","providerFamilyDomainUpdatedAt":1793156059074,"providerFamilyDomainMigrated":true,"nativeSearchEnhancementsEnabled":true,"memoryEnabled":false,"lastWorkspaceSession":[{"kind":"local","workspacePath":"/home/z/w3-025","workspacePurpose":"project"}],"lastActiveTabIndex":0,"receivePreviewUpdates":false,"autoDownloadAndInstallUpdates":false,"skippedElectronUpdateVersions":{},"settingsSyncFirstRunPromptHandled":true}
+[2026-10-28 02:54:47.631] [pid:20734] [settingService] write done
+[2026-10-28 02:54:47.631] [pid:20734] [zcode-server:http] [rpc:call] setting.update OK (2.2ms)
+Unknown channel: window-controller
+Unknown channel: window-controller
+Unknown channel: window-controller
+Unknown channel: window-controller
