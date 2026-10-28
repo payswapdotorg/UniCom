@@ -9,18 +9,32 @@
       "id": "W3-025",
       "title": "The Both-Worlds Default Experience",
       "file": "docs/work-orders/W3-025.md",
-      "status": "READY_FOR_TL_DISPATCH",
-      "reverses": "W3-024 first-landing demotion (routing level); W3-024 product identity stays"
+      "status": "DELIVERED_MERGED",
+      "branch": "work/w3-025",
+      "mergeCommit": "43f845c",
+      "report": "docs/work-orders/reports/W3-025-completion-report.md"
     },
     {
       "id": "W1-027",
       "title": "The UNiCOM Command Center as the Commerce Home",
       "file": "docs/work-orders/W1-027.md",
-      "status": "READY_FOR_TL_DISPATCH",
-      "portSource": "github.com/payswapdotorg/unicom-console (operator-approved design 2026-10-23)"
+      "status": "DELIVERED_MERGED",
+      "branch": "work/w1-027",
+      "mergeCommit": "8279c70",
+      "report": "docs/work-orders/reports/W1-027-completion-report.md"
     }
   ],
-  "parallelLanes": "W3-025 and W1-027 write surfaces are disjoint",
+  "tlVerification": {
+    "mergedMainTip": "787311c",
+    "battery": "desktop 21/21 · web vitest 40 files/477 tests · typecheck error-set identical to the 252 baseline (0 additions) · architecture 0/0/0 · oxlint 0/0 on 37 changed files · dep:graph +19 intra-package nodes · TL merged browser gate (fresh from the merged tree): journeys 19/19 + interactions 19/19 + safety 5/5 + walk steps 6/6, zero drift, manifest valid, 94/94 pointers · live view verified ('/' boots the full ZCode workspace with the labelled UNiCOM Commerce dock; /commerce opens the Command Center home)",
+    "evidence": [
+      "docs/unicom-default-experience/w3-025/tl-verification/",
+      "docs/rendered-ui/command-center/tl-merged-gate/"
+    ],
+    "verifiedAt": "2026-10-28T04:30:00Z",
+    "verifiedBy": "TL"
+  },
   "recordedBy": "TL",
-  "recordedAt": "2026-10-24T05:35:00Z"
+  "recordedAt": "2026-10-24T05:35:00Z",
+  "completedAt": "2026-10-28T04:30:00Z"
 }
