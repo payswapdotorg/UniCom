@@ -10,13 +10,19 @@ UNiCOM supports both merchants and buyers, and spans digital and physical commer
 
 ## Source of truth
 
+The repository is the contract and governance authority; `payswapdotorg/unicom-3.0` is the implementation repo for the harness verticals. The reconciled program record is kept per campaign: issue #23's implementation-side record of authority is [`unicom-3.0/docs/SOURCE-OF-TRUTH-2026-10-30.md`](https://github.com/payswapdotorg/unicom-3.0/blob/main/docs/SOURCE-OF-TRUTH-2026-10-30.md) (supersedes the 2026-10-28 record). Progress claims are accepted only from in-repo evidence at SHAs.
+
+## Current operator-directed phase
+
 ## Current operator-directed phase
 
 The active mission is [Counterfactual Commerce Opportunities + Universal Connectors](docs/FINAL-TL-HANDOFF-COUNTERFACTUAL-OPPORTUNITIES-AND-UNIVERSAL-CONNECTORS-2026-10-28.md), tracked by [issue #23](https://github.com/payswapdotorg/UniCom/issues/23). This repository is the contract and governance authority: frozen architecture, canonical commerce vocabulary, invariants, work-order policy, and acceptance criteria.
 
-The companion implementation repository is [payswapdotorg/unicom-3.0](https://github.com/payswapdotorg/unicom-3.0), the ZCode-derived harness/runtime lane. The two repositories form one program: this repository owns the canonical contracts and governance; `unicom-3.0` owns the runnable harness implementation. Do not treat similarly named repositories or historical console projects as interchangeable sources of truth.
+The companion implementation repository is [payswapdotorg/unicom-3.0](https://github.com/payswapdotorg/unicom-3.0), the ZCode-derived harness/runtime lane. The two repositories form one program: this repository owns the canonical contracts and governance; `unicom-3.0` owns the runnable harness implementation. Do not treat similarly named repositories or historical console projects as interchangeable sources of truth. Its implementation contract is [spec/architecture/HARNESS-CONTRACT.md](spec/architecture/HARNESS-CONTRACT.md) (the 5-layer intent-to-outcome instrument); its dispatch/progress authority is [docs/development-state/issue-23-commerce-harness-state.json](docs/development-state/issue-23-commerce-harness-state.json).
 
 The issue #23 handoff also makes downloadable desktop distribution a mandatory product acceptance gate: operator-approved versioned Windows and Linux installers, repeatable build snapshots, checksums and release evidence, clean-machine install/launch tests, and UNiCOM product identity. The gate is not complete merely because the upstream-derived `bundle:desktop` command exists. Do not advertise a download until the corresponding installer has passed the recorded acceptance tests.
+
+The prior phase, [Make UNiCOM the Default App Experience](docs/FINAL-TL-HANDOFF-UNICOM-DEFAULT-EXPERIENCE-2026-10-14.md) ([issue #22](https://github.com/payswapdotorg/UniCom/issues/22), [state](docs/development-state/unicom-default-experience-state.json)), is superseded as the active phase and its records stay immutable. The browser commerce host already exists at `/commerce`; the UNiCOM-branding/default-experience gap it left open is carried as an open gate in the #23 state registry.
 
 The repository is the only implementation authority. Chat, screenshots, agent reports and claimed completion are non-authoritative unless the repository records the evidence.
 
