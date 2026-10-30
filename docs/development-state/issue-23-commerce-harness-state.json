@@ -1,207 +1,209 @@
 {
- "schema_version": "1.0",
- "repository": "payswapdotorg/UniCom",
- "program": "UNiCOM Commerce Harness — counterfactual commerce opportunities + universal connectors (issue #23)",
- "phase_issue": "https://github.com/payswapdotorg/UniCom/issues/23",
- "tl_handoff": "docs/FINAL-TL-HANDOFF-COUNTERFACTUAL-OPPORTUNITIES-AND-UNIVERSAL-CONNECTORS-2026-10-28.md",
- "implementation_contract": "spec/architecture/HARNESS-CONTRACT.md",
- "implementation_repo": "payswapdotorg/unicom-3.0",
- "status": "IN_PROGRESS",
- "progress_authority": "docs/development-state/issue-23-commerce-harness-state.json",
- "implementation_reconciliation": "unicom-3.0 docs/SOURCE-OF-TRUTH-2026-10-30.md",
- "prior_phase_records_immutable": true,
- "prior_phase": {
-  "issue": "https://github.com/payswapdotorg/UniCom/issues/22",
-  "state": "docs/development-state/unicom-default-experience-state.json",
-  "note": "Superseded as the ACTIVE phase by issue #23 on 2026-10-28; its records stay immutable."
- },
- "operator_authorization": {
-  "decision": "APPROVED_IMPLEMENTATION_WITHIN_FROZEN_ARCHITECTURE",
-  "source": "Issue #23 created from the operator review of 2026-10-28",
-  "architecture_changes_authorized": false,
-  "production_deployment_authorized": false,
-  "live_named_provider_connection_or_credentials_authorized": false,
-  "production_commerce_mutation_authorized": false,
-  "live_payments_authorized": false,
-  "scope": "Intent-driven Commerce OS evolution: counterfactual opportunity evaluation, consented privacy-safe opportunity federation across UNiCOM nodes, and authorized browser/computer-use paths for UI-only operations — fixtures and read-only evidence first."
- },
- "policy": {
-  "max_concurrent_workers": 3,
-  "tl_is_worker": false,
-  "dispatch_allowed": true,
-  "dispatch_gate": "TL verifies current main HEAD of both repos and records actual base SHA + pairwise-disjoint write surface for every lane before dispatch.",
-  "fixture_success_is_not_live_success": true,
-  "synthetic_demo_data_must_be_labeled": true,
-  "no_live_commerce_side_effects": true,
-  "no_consequential_external_action_without_separate_authorization": true,
-  "preserve_unknown_not_failed": true,
-  "architecture_graph_is_frozen": true,
-  "worker_report_is_not_tl_acceptance": true,
-  "in_repo_evidence_only": "Progress claims must cite in-repo artifacts at SHAs; external worklog/chat references are recorded claims, not acceptance evidence.",
-  "no_verify_pushes_prohibited": true
- },
- "source_baseline": {
-  "inspected_at": "2026-10-30T05:47:00Z",
-  "unicom_repo_head": "34585f1951f3710d2e68c003646b49ccecefb4da",
-  "unicom_3_0_repo_head": "c7bda090ddd3351f657dc7e6a9b1b7e45b3baaf4",
-  "known_findings": [
-   "The R4-R6 implementation lanes landed on unicom-3.0 main (c7bda09) but were pushed with --no-verify; the pre-push architecture check blocks new source files in the unmanaged packages/ui legacy root (the R4/R6 renderer files). Disclosed and carried as baseline, not excused.",
-   "Part of the R2-R6 campaign evidence chain (live Kith catalog checks, external worklog) lived outside the repos and is not repo-reproducible; it is recorded as claims only.",
-   "The unicom-3.0 SOURCE-OF-TRUTH-2026-10-28.md predates R4-R6 and carried stale 'not established' judgments, superseded by unicom-3.0 docs/SOURCE-OF-TRUTH-2026-10-30.md.",
-   "The UniCom README still pointed the active phase at issue #22 as of the 2026-10-30 inspection (fixed in the same commit as this registry)."
+  "schema_version": "1.0",
+  "repository": "payswapdotorg/UniCom",
+  "program": "UNiCOM Commerce Harness — counterfactual commerce opportunities + universal connectors (issue #23)",
+  "phase_issue": "https://github.com/payswapdotorg/UniCom/issues/23",
+  "tl_handoff": "docs/FINAL-TL-HANDOFF-COUNTERFACTUAL-OPPORTUNITIES-AND-UNIVERSAL-CONNECTORS-2026-10-28.md",
+  "implementation_contract": "spec/architecture/HARNESS-CONTRACT.md",
+  "implementation_repo": "payswapdotorg/unicom-3.0",
+  "status": "IN_PROGRESS",
+  "progress_authority": "docs/development-state/issue-23-commerce-harness-state.json",
+  "implementation_reconciliation": "unicom-3.0 docs/SOURCE-OF-TRUTH-2026-10-30.md",
+  "prior_phase_records_immutable": true,
+  "prior_phase": {
+    "issue": "https://github.com/payswapdotorg/UniCom/issues/22",
+    "state": "docs/development-state/unicom-default-experience-state.json",
+    "note": "Superseded as the ACTIVE phase by issue #23 on 2026-10-28; its records stay immutable."
+  },
+  "operator_authorization": {
+    "decision": "APPROVED_IMPLEMENTATION_WITHIN_FROZEN_ARCHITECTURE",
+    "source": "Issue #23 created from the operator review of 2026-10-28",
+    "architecture_changes_authorized": false,
+    "production_deployment_authorized": false,
+    "live_named_provider_connection_or_credentials_authorized": false,
+    "production_commerce_mutation_authorized": false,
+    "live_payments_authorized": false,
+    "scope": "Intent-driven Commerce OS evolution: counterfactual opportunity evaluation, consented privacy-safe opportunity federation across UNiCOM nodes, and authorized browser/computer-use paths for UI-only operations — fixtures and read-only evidence first."
+  },
+  "policy": {
+    "max_concurrent_workers": 3,
+    "tl_is_worker": false,
+    "dispatch_allowed": true,
+    "dispatch_gate": "TL verifies current main HEAD of both repos and records actual base SHA + pairwise-disjoint write surface for every lane before dispatch.",
+    "fixture_success_is_not_live_success": true,
+    "synthetic_demo_data_must_be_labeled": true,
+    "no_live_commerce_side_effects": true,
+    "no_consequential_external_action_without_separate_authorization": true,
+    "preserve_unknown_not_failed": true,
+    "architecture_graph_is_frozen": true,
+    "worker_report_is_not_tl_acceptance": true,
+    "in_repo_evidence_only": "Progress claims must cite in-repo artifacts at SHAs; external worklog/chat references are recorded claims, not acceptance evidence.",
+    "no_verify_pushes_prohibited": true
+  },
+  "source_baseline": {
+    "inspected_at": "2026-10-30T05:47:00Z",
+    "unicom_repo_head": "34585f1951f3710d2e68c003646b49ccecefb4da",
+    "unicom_3_0_repo_head": "c7bda090ddd3351f657dc7e6a9b1b7e45b3baaf4",
+    "known_findings": [
+      "The R4-R6 implementation lanes landed on unicom-3.0 main (c7bda09) but were pushed with --no-verify; the pre-push architecture check blocks new source files in the unmanaged packages/ui legacy root (the R4/R6 renderer files). Disclosed and carried as baseline, not excused.",
+      "Part of the R2-R6 campaign evidence chain (live Kith catalog checks, external worklog) lived outside the repos and is not repo-reproducible; it is recorded as claims only.",
+      "The unicom-3.0 SOURCE-OF-TRUTH-2026-10-28.md predates R4-R6 and carried stale 'not established' judgments, superseded by unicom-3.0 docs/SOURCE-OF-TRUTH-2026-10-30.md.",
+      "The UniCom README still pointed the active phase at issue #22 as of the 2026-10-30 inspection (fixed in the same commit as this registry)."
+    ]
+  },
+  "lanes": [
+    {
+      "id": "R2",
+      "owner": "worker (prior campaign)",
+      "lane": "zcode-preservation-matrix",
+      "status": "DELIVERED_MERGED",
+      "repo": "unicom-3.0",
+      "merged_as": "3d5cf9d2",
+      "write_surface": [
+        "docs/PRESERVATION-MATRIX-2026-10-28.md"
+      ],
+      "evidence": {
+        "tier": "source-audit",
+        "in_repo": "docs/PRESERVATION-MATRIX-2026-10-28.md",
+        "limits": "LIVE-VERIFIED rows cite the prior campaign's external worklog — recorded claims, not repo-reproducible evidence."
+      }
+    },
+    {
+      "id": "R4",
+      "owner": "worker (prior campaign)",
+      "lane": "find-best-offer-vertical-slice-A",
+      "status": "DELIVERED_MERGED",
+      "repo": "unicom-3.0",
+      "merged_as": "33e3dbae",
+      "write_surface": [
+        "packages/services/src/commerce-harness/**",
+        "apps/zcode-cli/packages/core/src/tool/handlers/find-best-offer*",
+        "packages/ui/src/ToolCallBlocks/renderers/commerce-harness.tsx",
+        "packages/ui/src/ToolCallBlocks/resolveRenderer.ts",
+        "packages/ui/src/i18n/locales/**"
+      ],
+      "evidence": {
+        "tier": "contract/fixture",
+        "in_repo": "15 files (+5014); conformance covered by the R5 suite",
+        "limits": "Conditional/predicted results only; the reported 29/29 live Kith catalog checks ran out-of-repo and are recorded claims, not repo-reproducible evidence."
+      }
+    },
+    {
+      "id": "R5",
+      "owner": "worker (prior campaign)",
+      "lane": "harness-conformance-suite",
+      "status": "DELIVERED_MERGED",
+      "repo": "unicom-3.0",
+      "merged_as": "067b7cc6",
+      "write_surface": [
+        "packages/services/test/commerce-harness.contract.test.ts",
+        "apps/zcode-cli/packages/core/tests/find-best-offer.contract.test.ts",
+        "packages/ui/test/commerce-harness-renderer.contract.test.ts"
+      ],
+      "evidence": {
+        "tier": "contract/fixture",
+        "in_repo": "29 + 20 + 20 it-blocks (TL-counted 2026-10-30; re-executed by the TL battery)",
+        "limits": "No live network, no browser."
+      }
+    },
+    {
+      "id": "R6",
+      "owner": "worker (prior campaign)",
+      "lane": "merchant-read-plane",
+      "status": "DELIVERED_MERGED",
+      "repo": "unicom-3.0",
+      "merged_as": "c7bda09",
+      "write_surface": [
+        "apps/zcode-cli/packages/core/src/tool/handlers/merchant-read.ts",
+        "apps/zcode-cli/packages/core/src/tool/handlers/store-search/merchant/**",
+        "packages/ui/src/ToolCallBlocks/renderers/merchant-read*",
+        "packages/ui/src/i18n/locales/**"
+      ],
+      "evidence": {
+        "tier": "contract/fixture; the Etsy reader is live-capable GET-only code",
+        "in_repo": "24 + 23 it-blocks (TL-counted 2026-10-30; re-executed by the TL battery); Shopify/Woo honestly not_configured",
+        "limits": "No live acceptance run recorded in-repo."
+      }
+    },
+    {
+      "id": "R8",
+      "owner": "worker-1 (session web-715a27e3)",
+      "lane": "opportunity-lifecycle-and-two-node-federation",
+      "status": "DELIVERED_MERGED",
+      "repo": "unicom-3.0",
+      "base_sha": "c7bda090ddd3351f657dc7e6a9b1b7e45b3baaf4",
+      "dispatched_at": "2026-10-30",
+      "merged_as": "4cc530c8 (TL sole committer — workers never touch git)",
+      "acceptance_target": "Two-node federation (handoff acceptance #2): publish → privacy filter → match → verify/label-conditional → revoke/expire propagation; a private intent without share consent is unrecoverable from network messages or logs.",
+      "write_surface": [
+        "packages/services/src/commerce-harness/opportunity-lifecycle.ts",
+        "packages/services/src/commerce-harness/federation.ts",
+        "packages/services/src/commerce-harness/federation-wire.ts",
+        "packages/services/test/commerce-harness-lifecycle.contract.test.ts",
+        "packages/services/test/commerce-harness-federation.contract.test.ts"
+      ],
+      "evidence": {
+        "tier": "contract/fixture",
+        "tests": "29 lifecycle + 21 federation it-blocks, re-executed by the TL battery (249/249 consolidated)",
+        "limits": "In-memory transport port; no live wire. The federation-wire split (800-line law) and module adoption done at TL integration."
+      }
+    },
+    {
+      "id": "R9",
+      "owner": "worker-2 (session web-715a27e3)",
+      "lane": "universal-connector-fallback-and-merchant-execution",
+      "status": "DELIVERED_MERGED",
+      "repo": "unicom-3.0",
+      "base_sha": "c7bda090ddd3351f657dc7e6a9b1b7e45b3baaf4",
+      "dispatched_at": "2026-10-30",
+      "merged_as": "4cc530c8 (TL sole committer — workers never touch git)",
+      "acceptance_target": "Browser-only operation (handoff acceptance #3) over labelled fixtures — safe discovery, authorization, robust interaction, evidence, post-action read-back, honest partial/unknown/denied handling, changed DOM, ambiguity, session expiry, timeout, prompt injection, retries/idempotency — plus the merchant flow (acceptance #4): prepare/preview/approve/execute/verify with unauthorized writes blocked.",
+      "write_surface": [
+        "packages/services/src/commerce-harness/browser-transport.ts",
+        "packages/services/src/commerce-harness/merchant-execution.ts",
+        "packages/services/test/browser-transport.contract.test.ts",
+        "packages/services/test/merchant-execution.contract.test.ts"
+      ],
+      "evidence": {
+        "tier": "contract/fixture",
+        "tests": "32 browser-transport + 24 merchant-execution it-blocks, re-executed by the TL battery (249/249 consolidated)",
+        "limits": "Labelled fixture pages only (BROWSER_FIXTURE_LABEL); no real browser, no live provider — the live tier is owed separate authorization."
+      }
+    },
+    {
+      "id": "R10",
+      "owner": "worker-3 (session web-715a27e3)",
+      "lane": "r7-benchmark-fixture-tier",
+      "status": "DELIVERED_MERGED",
+      "repo": "unicom-3.0",
+      "base_sha": "c7bda090ddd3351f657dc7e6a9b1b7e45b3baaf4",
+      "dispatched_at": "2026-10-30",
+      "merged_as": "4cc530c8 (TL sole committer — workers never touch git)",
+      "acceptance_target": "Comparative benchmark (handoff acceptance #6) at the fixture tier: fixed intent corpus × (UNiCOM harness / provider-native incumbent comparator / general-purpose-harness baseline comparator) with the L5 denominators — task success, cost correctness, true/false savings, opportunity precision/recall, freshness, latency, privacy leaks, unauthorized actions, intervention rate. Comparators are labelled fixture-tier simulations, not live provider measurements.",
+      "write_surface": [
+        "packages/services/src/commerce-harness/benchmark.ts",
+        "packages/services/src/commerce-harness/benchmark-corpus.ts",
+        "packages/services/test/commerce-harness-benchmark.contract.test.ts",
+        "scripts/commerce-harness/run-benchmark.ts",
+        "docs/benchmark-r7-2026-10-30.json"
+      ],
+      "evidence": {
+        "tier": "contract/fixture",
+        "tests": "23 it-blocks, re-executed by the TL battery (249/249 consolidated)",
+        "artifact": "docs/benchmark-r7-2026-10-30.json — byte-reproducible via --at 2026-10-30T00:00:00.000Z; harness 0.8 success / 1.0 cost-correctness / 2 true / 0 false savings / precision 1.0 / recall 0.5 (the honest Tier-1-catalog miss) / 0 unauthorized / 0 leaks; NO multiplier claim; live tier owed",
+        "limits": "The worker session hit an infrastructure timeout after delivering the module+tests+runner; the TL completed the lane (the 800-line corpus split, the --at reproducibility flag, artifact generation and verification)."
+      }
+    }
+  ],
+  "tl_verification": {
+    "battery_record": "unicom-3.0 docs/TL-VERIFICATION-BATTERY-2026-10-30.md | post-battery: packaged-app acceptance closed 2026-10-30 — desktop production build booted under Xvfb (electron 41.0.3), React mounted, real UI rendered (CDP + X11 captures); four real blockers found and fixed in-boot (dev vite OOM; electron-updater import-time semver validation on the version-less desktop package.json; 64MB /dev/shm + fd 1024 module-loading starvation; production-build OOM solved via --minify false). Local tweaks disclosed and reverted; recipe + evidence: docs/PACKAGED-APP-ACCEPTANCE-2026-10-30.md",
+    "run_at": "2026-10-30, unicom-3.0 @ 4cc530c8",
+    "summary": "249/249 tests across 13 files on three islands (services 161, core 44 re-verified, ui 44 re-verified); architecture:check OK 0/0/0 (two modules adopted via architecture:adopt; the pre-existing gen-ui-service artifact gap closed); whole-repo lint 0 errors (94 pre-existing warnings unchanged, disclosed; no-unsafe-finally ×2 and the R4 renderer max-lines fixed at the root); tsc -b packages/services exit 0; test:architecture 36/36; benchmark artifact byte-reproducible.",
+    "law": "A lane moves DISPATCHED → DELIVERED_MERGED only after the TL re-runs the relevant battery on the merged tree and records commands + exit codes there."
+  },
+  "open_gates": [
+    "Branding/default-entry: the root experience still boots the full ZCode workspace; UNiCOM product identity remains a preservation-matrix GAP.",
+    "Packaged-app acceptance: CLOSED 2026-10-30 at local-live tier (production build + production file:// load + real UI under Xvfb; the 2026-10-28 chromium ready-hang diagnosis overturned — see unicom-3.0 docs/PACKAGED-APP-ACCEPTANCE-2026-10-30.md). Residual: the electron-builder installer artifact itself (runtime-asset download lane) stays owed as a small separate step.",
+    "Live-tier federation/connector/benchmark evidence: owed separate authorization; fixture tier is the current ceiling by law."
   ]
- },
- "lanes": [
-  {
-   "id": "R2",
-   "owner": "worker (prior campaign)",
-   "lane": "zcode-preservation-matrix",
-   "status": "DELIVERED_MERGED",
-   "repo": "unicom-3.0",
-   "merged_as": "3d5cf9d2",
-   "write_surface": ["docs/PRESERVATION-MATRIX-2026-10-28.md"],
-   "evidence": {
-    "tier": "source-audit",
-    "in_repo": "docs/PRESERVATION-MATRIX-2026-10-28.md",
-    "limits": "LIVE-VERIFIED rows cite the prior campaign's external worklog — recorded claims, not repo-reproducible evidence."
-   }
-  },
-  {
-   "id": "R4",
-   "owner": "worker (prior campaign)",
-   "lane": "find-best-offer-vertical-slice-A",
-   "status": "DELIVERED_MERGED",
-   "repo": "unicom-3.0",
-   "merged_as": "33e3dbae",
-   "write_surface": [
-    "packages/services/src/commerce-harness/**",
-    "apps/zcode-cli/packages/core/src/tool/handlers/find-best-offer*",
-    "packages/ui/src/ToolCallBlocks/renderers/commerce-harness.tsx",
-    "packages/ui/src/ToolCallBlocks/resolveRenderer.ts",
-    "packages/ui/src/i18n/locales/**"
-   ],
-   "evidence": {
-    "tier": "contract/fixture",
-    "in_repo": "15 files (+5014); conformance covered by the R5 suite",
-    "limits": "Conditional/predicted results only; the reported 29/29 live Kith catalog checks ran out-of-repo and are recorded claims, not repo-reproducible evidence."
-   }
-  },
-  {
-   "id": "R5",
-   "owner": "worker (prior campaign)",
-   "lane": "harness-conformance-suite",
-   "status": "DELIVERED_MERGED",
-   "repo": "unicom-3.0",
-   "merged_as": "067b7cc6",
-   "write_surface": [
-    "packages/services/test/commerce-harness.contract.test.ts",
-    "apps/zcode-cli/packages/core/tests/find-best-offer.contract.test.ts",
-    "packages/ui/test/commerce-harness-renderer.contract.test.ts"
-   ],
-   "evidence": {
-    "tier": "contract/fixture",
-    "in_repo": "29 + 20 + 20 it-blocks (TL-counted 2026-10-30; re-executed by the TL battery)",
-    "limits": "No live network, no browser."
-   }
-  },
-  {
-   "id": "R6",
-   "owner": "worker (prior campaign)",
-   "lane": "merchant-read-plane",
-   "status": "DELIVERED_MERGED",
-   "repo": "unicom-3.0",
-   "merged_as": "c7bda09",
-   "write_surface": [
-    "apps/zcode-cli/packages/core/src/tool/handlers/merchant-read.ts",
-    "apps/zcode-cli/packages/core/src/tool/handlers/store-search/merchant/**",
-    "packages/ui/src/ToolCallBlocks/renderers/merchant-read*",
-    "packages/ui/src/i18n/locales/**"
-   ],
-   "evidence": {
-    "tier": "contract/fixture; the Etsy reader is live-capable GET-only code",
-    "in_repo": "24 + 23 it-blocks (TL-counted 2026-10-30; re-executed by the TL battery); Shopify/Woo honestly not_configured",
-    "limits": "No live acceptance run recorded in-repo."
-   }
-  },
-  {
-   "id": "R8",
-   "owner": "worker-1 (session web-715a27e3)",
-   "lane": "opportunity-lifecycle-and-two-node-federation",
-   "status": "DELIVERED_MERGED",
-   "repo": "unicom-3.0",
-   "base_sha": "c7bda090ddd3351f657dc7e6a9b1b7e45b3baaf4",
-   "dispatched_at": "2026-10-30",
-   "merged_as": "4cc530c8 (TL sole committer — workers never touch git)",
-   "acceptance_target": "Two-node federation (handoff acceptance #2): publish → privacy filter → match → verify/label-conditional → revoke/expire propagation; a private intent without share consent is unrecoverable from network messages or logs.",
-   "write_surface": [
-    "packages/services/src/commerce-harness/opportunity-lifecycle.ts",
-    "packages/services/src/commerce-harness/federation.ts",
-    "packages/services/src/commerce-harness/federation-wire.ts",
-    "packages/services/test/commerce-harness-lifecycle.contract.test.ts",
-    "packages/services/test/commerce-harness-federation.contract.test.ts"
-   ],
-   "evidence": {
-    "tier": "contract/fixture",
-    "tests": "29 lifecycle + 21 federation it-blocks, re-executed by the TL battery (249/249 consolidated)",
-    "limits": "In-memory transport port; no live wire. The federation-wire split (800-line law) and module adoption done at TL integration."
-   }
-  },
-  {
-   "id": "R9",
-   "owner": "worker-2 (session web-715a27e3)",
-   "lane": "universal-connector-fallback-and-merchant-execution",
-   "status": "DELIVERED_MERGED",
-   "repo": "unicom-3.0",
-   "base_sha": "c7bda090ddd3351f657dc7e6a9b1b7e45b3baaf4",
-   "dispatched_at": "2026-10-30",
-   "merged_as": "4cc530c8 (TL sole committer — workers never touch git)",
-   "acceptance_target": "Browser-only operation (handoff acceptance #3) over labelled fixtures — safe discovery, authorization, robust interaction, evidence, post-action read-back, honest partial/unknown/denied handling, changed DOM, ambiguity, session expiry, timeout, prompt injection, retries/idempotency — plus the merchant flow (acceptance #4): prepare/preview/approve/execute/verify with unauthorized writes blocked.",
-   "write_surface": [
-    "packages/services/src/commerce-harness/browser-transport.ts",
-    "packages/services/src/commerce-harness/merchant-execution.ts",
-    "packages/services/test/browser-transport.contract.test.ts",
-    "packages/services/test/merchant-execution.contract.test.ts"
-   ],
-   "evidence": {
-    "tier": "contract/fixture",
-    "tests": "32 browser-transport + 24 merchant-execution it-blocks, re-executed by the TL battery (249/249 consolidated)",
-    "limits": "Labelled fixture pages only (BROWSER_FIXTURE_LABEL); no real browser, no live provider — the live tier is owed separate authorization."
-   }
-  },
-  {
-   "id": "R10",
-   "owner": "worker-3 (session web-715a27e3)",
-   "lane": "r7-benchmark-fixture-tier",
-   "status": "DELIVERED_MERGED",
-   "repo": "unicom-3.0",
-   "base_sha": "c7bda090ddd3351f657dc7e6a9b1b7e45b3baaf4",
-   "dispatched_at": "2026-10-30",
-   "merged_as": "4cc530c8 (TL sole committer — workers never touch git)",
-   "acceptance_target": "Comparative benchmark (handoff acceptance #6) at the fixture tier: fixed intent corpus × (UNiCOM harness / provider-native incumbent comparator / general-purpose-harness baseline comparator) with the L5 denominators — task success, cost correctness, true/false savings, opportunity precision/recall, freshness, latency, privacy leaks, unauthorized actions, intervention rate. Comparators are labelled fixture-tier simulations, not live provider measurements.",
-   "write_surface": [
-    "packages/services/src/commerce-harness/benchmark.ts",
-    "packages/services/src/commerce-harness/benchmark-corpus.ts",
-    "packages/services/test/commerce-harness-benchmark.contract.test.ts",
-    "scripts/commerce-harness/run-benchmark.ts",
-    "docs/benchmark-r7-2026-10-30.json"
-   ],
-   "evidence": {
-    "tier": "contract/fixture",
-    "tests": "23 it-blocks, re-executed by the TL battery (249/249 consolidated)",
-    "artifact": "docs/benchmark-r7-2026-10-30.json — byte-reproducible via --at 2026-10-30T00:00:00.000Z; harness 0.8 success / 1.0 cost-correctness / 2 true / 0 false savings / precision 1.0 / recall 0.5 (the honest Tier-1-catalog miss) / 0 unauthorized / 0 leaks; NO multiplier claim; live tier owed",
-    "limits": "The worker session hit an infrastructure timeout after delivering the module+tests+runner; the TL completed the lane (the 800-line corpus split, the --at reproducibility flag, artifact generation and verification)."
-   }
-  }
- ],
- "tl_verification": {
-  "battery_record": "unicom-3.0 docs/TL-VERIFICATION-BATTERY-2026-10-30.md",
-  "run_at": "2026-10-30, unicom-3.0 @ 4cc530c8",
-  "summary": "249/249 tests across 13 files on three islands (services 161, core 44 re-verified, ui 44 re-verified); architecture:check OK 0/0/0 (two modules adopted via architecture:adopt; the pre-existing gen-ui-service artifact gap closed); whole-repo lint 0 errors (94 pre-existing warnings unchanged, disclosed; no-unsafe-finally ×2 and the R4 renderer max-lines fixed at the root); tsc -b packages/services exit 0; test:architecture 36/36; benchmark artifact byte-reproducible.",
-  "law": "A lane moves DISPATCHED → DELIVERED_MERGED only after the TL re-runs the relevant battery on the merged tree and records commands + exit codes there."
- },
- "open_gates": [
-  "Branding/default-entry: the root experience still boots the full ZCode workspace; UNiCOM product identity remains a preservation-matrix GAP.",
-  "Packaged-app acceptance: owed (desktop-under-Xvfb blocked by upstream chromium ready-hang, documented at the 2659d452 deploy lane).",
-  "Live-tier federation/connector/benchmark evidence: owed separate authorization; fixture tier is the current ceiling by law."
- ]
 }
