@@ -267,18 +267,18 @@
     "Operator addendum 2026-10-31 (installable desktop releases — part of the definition of done) ACCEPTED and answered same-day at unicom-3.0 dac57095: the release channels are workflow-committed and activate on the PAT push. Remaining addendum gates, recorded not excused: clean-machine Windows/Linux install-and-launch acceptance (needs the operator's test machines), the machine-readable SBOM, the UNiCOM product-identity flavor (implementation map in docs/DESKTOP-RELEASE-2026-10-31.md), Windows signing (certificate = operator infra), ARM64 BLOCKED until its own proof."
   ],
   "campaign_chain_reconciliation": {
-    "recorded_at": "2026-10-31T12:15:00Z",
-    "cause": "The operator pushed a6b6db2 + 1db783b to main WHILE the campaign chain (8 commits on base 34585f1) was pending behind the PAT gate. The chain was rebased onto the moved main the same day — the cold-start recovery drill caught the divergence before it could break the push.",
+    "recorded_at": "2026-10-31T12:30:00Z",
+    "cause": "The operator pushed a6b6db2 + 1db783b to main WHILE the campaign chain (8 commits on base 34585f1) was pending behind the PAT gate. The chain was reconciled onto the moved main the same day — the cold-start recovery drill caught the divergence before it could break the push.",
     "sha_map": {
-      "4b7150a": "54494e2",
-      "72bd2e9": "78137da",
-      "523e7fd": "38d7b2a",
-      "09a9907": "1a2523b",
-      "3dd475c": "5121d35",
-      "988b486": "569c124",
-      "ef0228f7": "56b06b9",
-      "e24a520": "d088b00"
+      "4b7150a": "4731571",
+      "72bd2e9": "806258e",
+      "523e7fd": "bfe1465",
+      "09a9907": "a077bb9",
+      "3dd475c": "b6d9350",
+      "988b486": "2c5f2d9",
+      "ef0228f7": "dac2831",
+      "e24a520": "6645f0b"
     },
-    "note": "README conflict resolved as the SUPERSET: the operator's phase text verbatim + the campaign's contract/dispatch pointers and prior-phase supersession note. All unicom-3.0-side SHA citations are unaffected (its origin never moved)."
+    "note": "README conflict resolved as the SUPERSET: the operator's phase text verbatim + the campaign's contract/dispatch pointers and prior-phase supersession note. All unicom-3.0-side SHA citations are unaffected (its origin never moved). CHAIN-OF-RECORD LAW: the reconciled chain is the PATCH-REPLAY chain (git am --3way --committer-date-is-author-date from the pinned patch onto origin/main) — an earlier rebase-stamped intermediate chain (54494e2..cf0dd59, committer dates = rebase time) was superseded same-day when the drill proved the replay chain is the deterministically reproducible one. Replay determinism REQUIRES the committer-date-is-author-date flag."
   }
 }
