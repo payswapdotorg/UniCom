@@ -10,7 +10,7 @@ UNiCOM supports both merchants and buyers, and spans digital and physical commer
 
 ## Source of truth
 
-The repository is the contract and governance authority; `payswapdotorg/unicom-3.0` is the implementation repo for the harness verticals. The reconciled program record is kept per campaign: issue #23's implementation-side record of authority is [`unicom-3.0/docs/SOURCE-OF-TRUTH-2026-10-30.md`](https://github.com/payswapdotorg/unicom-3.0/blob/main/docs/SOURCE-OF-TRUTH-2026-10-30.md) (supersedes the 2026-10-28 record). Progress claims are accepted only from in-repo evidence at SHAs.
+The repository is the contract and governance authority; `payswapdotorg/unicom-3.0` is the implementation repo for the harness verticals. The reconciled program record is kept per campaign: issue #23's implementation-side record of authority is [`unicom-3.0/docs/SOURCE-OF-TRUTH-2026-10-31.md`](https://github.com/payswapdotorg/unicom-3.0/blob/main/docs/SOURCE-OF-TRUTH-2026-10-31.md) (the W-campaign record; supersedes the 2026-10-30 and 2026-10-28 records). Progress claims are accepted only from in-repo evidence at SHAs.
 
 ## Current operator-directed phase
 

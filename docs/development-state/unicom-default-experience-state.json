@@ -248,5 +248,14 @@
   "human_research": "NOT_AUTHORIZED"
  },
  "tl_loop": "W1-026 + W2-029: delivered -> independently TL-verified -> merged -> retired. W3-024: the capacity fight survived recycles #15-#23; round-7 (82290725) carries the byte-verified real packet and sits queued in the platform admission drought \u2014 the drought_sentinel owns break-detection (canary-probed: recover only on PROVEN admission), queue_watch's ladder owns stale-queue refresh, branch_watch owns the delivery; TL review on delivery (every gate independently re-run at the pushed tip). The 2026-10-15 wrong-assault incident (round-5 voided + round-6 born on a stub prompt, both zero-work-loss) is recorded above \u2014 the registry-reconstruction lesson: reconstructed rows MUST carry the full dispatch_worker shape (mode=agents-tab gates the lesson-185 server-truth protection).",
- "updated_at": "2026-10-15T21:15:00Z"
+ "updated_at": "2026-10-31T12:30:00Z",
+ "supersession": {
+  "recorded_at": "2026-10-31T12:30:00Z",
+  "superseded_as_active_phase_by": {
+   "issue": "https://github.com/payswapdotorg/UniCom/issues/23",
+   "since": "2026-10-28",
+   "state": "docs/development-state/issue-23-commerce-harness-state.json"
+  },
+  "note": "Appended by the 2026-10-31 reconciliation (the second operator review's governance finding): this file is the PRIOR phase's immutable record \u2014 status IN_PROGRESS and the W3-024 dispatch state above are the phase's LAST recorded activity (2026-10-15), preserved verbatim per prior_phase_records_immutable. It is NOT the active progress authority: issue #23 is. Every field above this block predates the supersession and is unchanged."
+ }
 }
