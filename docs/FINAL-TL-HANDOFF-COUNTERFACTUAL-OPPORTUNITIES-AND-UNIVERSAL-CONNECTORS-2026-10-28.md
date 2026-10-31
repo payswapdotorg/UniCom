@@ -109,3 +109,66 @@ These are ownership areas, not permission to bypass the existing work-order DAG.
 - [ ] Preserve immutable historical phase records and list remaining blockers rather than resetting old evidence.
 
 **Definition of done:** UNiCom demonstrably finds and explains conditional lower-cost commerce outcomes, distributes consented and privacy-safe opportunities across nodes, uses an authorized browser/computer path for supported UI-only operations, and preserves the ZCode harness—without confusing simulations with live reality or bypassing existing commerce authority.
+
+## Operator addendum — always-available installable desktop releases
+
+**Operator directive added:** 2026-10-31. This is part of issue #23 and the definition of done. It does not create a fourth worker: Worker 3 owns the desktop packaging/release implementation within its existing experience/connectors lane; the TL owns cross-platform integration and release acceptance.
+
+### Goal
+
+At any time, a user must be able to visit the UNiCOM download/release page, choose Windows or Linux, download a finished UNiCOM-branded installer for a supported architecture, install it, and launch the product without cloning the source repository, installing Node.js/pnpm, or running development commands.
+
+The ZCode desktop packaging system is the implementation baseline, not proof of UNiCOM readiness. The existing source already exposes `pnpm bundle:desktop`, Windows NSIS packaging, Linux AppImage/DEB/RPM/pacman targets, and x64/ARM64 target selection. The current UNiCOM implementation snapshot still has ZCode product identity in `packages/desktop/scripts/desktop-product-identity.mjs` and desktop package metadata; the Electron Builder generic publish URL is a localhost placeholder. No release workflow was found in the implementation repository's checked state on 2026-10-31. These are open acceptance gaps, not completed distribution capability.
+
+### Required release channels
+
+1. **Continuous build snapshots:** every successful merge to the implementation repository's default branch must produce downloadable, commit-pinned Windows and Linux package artifacts through GitHub Actions. Each artifact must identify the exact source commit and build configuration. Snapshots are development builds, clearly labelled as such, and must never masquerade as stable releases.
+2. **Versioned user releases:** an operator-approved SemVer tag (for example, `vX.Y.Z`) must trigger the release build. The workflow must build and test all supported targets, assemble a draft GitHub Release with the installers, checksums, release manifest, notices and SBOM, and leave the final public-publish action behind an explicit release approval. The latest stable release must remain available from a predictable GitHub Releases/download page.
+3. **Reproducibility:** document a clean-checkout local build command and the exact Node/pnpm/toolchain versions. The release manifest must record version, tag, source SHA, architecture, OS, packaging target, toolchain versions, and each asset's SHA-256. Generate a `SHA256SUMS` file and verify it before attaching assets.
+
+### Required install matrix
+
+The target is to match the useful Windows/Linux coverage of the ZCode desktop distribution:
+
+| OS | Architecture | Required installer outputs |
+| --- | --- | --- |
+| Windows | x64 | NSIS `.exe` installer |
+| Windows | ARM64 | NSIS `.exe` installer, once the native dependency/runtime path is verified |
+| Linux | x64 | `.AppImage`, `.deb`, `.rpm` |
+| Linux | ARM64 | `.AppImage`, `.deb`, `.rpm`, once the native dependency/runtime path is verified |
+
+Keep the existing Arch `.pkg.tar.zst` target if it remains supported and tested. Build each target on a suitable native runner or prove the cross-build/native-dependency path explicitly; do not infer ARM64 support from a successful x64 build. If a runner or dependency currently blocks a target, record it as BLOCKED with the exact evidence and do not advertise it as downloadable.
+
+Use stable, predictable asset names, e.g. `UNiCOM-<version>-win-x64.exe`, `UNiCOM-<version>-linux-x64.AppImage`, and corresponding architecture/format names. The release page and README must link directly to the correct files and include installation instructions for Windows and each Linux package type.
+
+### Product identity and user-data safety
+
+- The installed application, executable, Windows Start Menu entry, Linux desktop entry, package metadata, icons, installer/uninstaller, protocol registration, download filename, and release page must identify the product as **UNiCOM**, not ZCode or ZCode Preview.
+- Give UNiCOM a distinct application/package identity and data namespace so it can be installed and updated without overwriting or impersonating a separate ZCode installation.
+- Preserve any existing UNiCOM user data during upgrades. If migration from an earlier ZCode-derived UNiCOM data directory is needed, make it explicit, non-destructive, backed up, and user-approved. Never silently import, overwrite, or delete a user's independent ZCode data.
+- Verify install, upgrade, uninstall, reinstall, desktop shortcut/launcher, app protocol, and data persistence behavior on clean Windows and Linux test machines.
+
+### Release safety and integrity
+
+- The workflow must not publish a release from an unverified commit or bypass the required test gates.
+- Run packaging checks for the final packaged application, not just the Electron Builder command. Verify required runtime/native modules, resources, app metadata, package dependencies, and installer contents.
+- Exercise actual install-and-launch smoke tests on clean Windows and Linux environments for the release candidates. A file merely existing in `dist/` is not acceptance evidence.
+- Include third-party notices and a machine-readable SBOM; retain build logs and test manifests as release evidence.
+- Provide SHA-256 checksums for every installer. Sign Windows installers when the release signing certificate is configured; if unsigned, label that fact accurately and never claim a trusted/signed release.
+- Remove the production use of placeholder update/download endpoints. Either configure the updater to the real, versioned UNiCOM release feed and test update/recovery, or explicitly disable packaged auto-update until that feed is ready. A packaged production build must never attempt to update from localhost.
+- Keep secrets/certificates out of repository files and logs. The tag/release publication step is an explicit approval boundary; no purchase, payment, merchant mutation or other commerce side effect is implied.
+
+### Acceptance gates
+
+- [ ] Clean checkout can build all declared Windows/Linux targets with the documented pinned toolchain.
+- [ ] Successful default-branch builds publish commit-pinned downloadable snapshot artifacts.
+- [ ] An approved version tag creates a draft GitHub Release containing the tested Windows/Linux installers, `SHA256SUMS`, release manifest, notices and SBOM.
+- [ ] Windows x64 installer is installed, launched, upgraded and uninstalled in a clean Windows test environment.
+- [ ] Linux x64 AppImage is executed and DEB/RPM packages are installed, launched and removed in clean supported Linux environments.
+- [ ] ARM64 targets are separately built and install-tested before being marked supported.
+- [ ] Installed identity and desktop integration are UNiCOM-branded; an independent ZCode installation and its data remain untouched.
+- [ ] The packaged app has no localhost update/download endpoint and its updater is either validated against the real release feed or disabled.
+- [ ] Checksums, source SHA, build logs, package inventory and install-test evidence are committed or attached to the release.
+- [ ] README/download documentation always points to the latest stable release and makes unsupported targets explicit.
+
+**Release completion is a product gate, not optional release engineering.** Do not mark UNiCOM ready for user installation until at least the Windows x64 and Linux x64 stable installers are downloadable and have passed clean-machine install-and-launch acceptance. ARM64 must remain visibly BLOCKED/UNVERIFIED until its own target-specific proof exists. The three-worker concurrency limit and frozen architecture still apply.
