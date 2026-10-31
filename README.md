@@ -12,7 +12,11 @@ UNiCOM supports both merchants and buyers, and spans digital and physical commer
 
 ## Current operator-directed phase
 
-The active handoff is [Make UNiCOM the Default App Experience](docs/FINAL-TL-HANDOFF-UNICOM-DEFAULT-EXPERIENCE-2026-10-14.md), tracked by [issue #22](https://github.com/payswapdotorg/UniCom/issues/22). Its dispatch/progress authority is [docs/development-state/unicom-default-experience-state.json](docs/development-state/unicom-default-experience-state.json). The browser commerce host already exists at `/commerce`; this phase makes UNiCOM the ordinary launch experience on web and Ubuntu desktop.
+The active mission is [Counterfactual Commerce Opportunities + Universal Connectors](docs/FINAL-TL-HANDOFF-COUNTERFACTUAL-OPPORTUNITIES-AND-UNIVERSAL-CONNECTORS-2026-10-28.md), tracked by [issue #23](https://github.com/payswapdotorg/UniCom/issues/23). This repository is the contract and governance authority: frozen architecture, canonical commerce vocabulary, invariants, work-order policy, and acceptance criteria.
+
+The companion implementation repository is [payswapdotorg/unicom-3.0](https://github.com/payswapdotorg/unicom-3.0), the ZCode-derived harness/runtime lane. The two repositories form one program: this repository owns the canonical contracts and governance; `unicom-3.0` owns the runnable harness implementation. Do not treat similarly named repositories or historical console projects as interchangeable sources of truth.
+
+The issue #23 handoff also makes downloadable desktop distribution a mandatory product acceptance gate: operator-approved versioned Windows and Linux installers, repeatable build snapshots, checksums and release evidence, clean-machine install/launch tests, and UNiCOM product identity. The gate is not complete merely because the upstream-derived `bundle:desktop` command exists. Do not advertise a download until the corresponding installer has passed the recorded acceptance tests.
 
 The repository is the only implementation authority. Chat, screenshots, agent reports and claimed completion are non-authoritative unless the repository records the evidence.
 
