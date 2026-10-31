@@ -193,6 +193,30 @@
         "artifact": "docs/benchmark-r7-2026-10-30.json — byte-reproducible via --at 2026-10-30T00:00:00.000Z; harness 0.8 success / 1.0 cost-correctness / 2 true / 0 false savings / precision 1.0 / recall 0.5 (the honest Tier-1-catalog miss) / 0 unauthorized / 0 leaks; NO multiplier claim; live tier owed",
         "limits": "The worker session hit an infrastructure timeout after delivering the module+tests+runner; the TL completed the lane (the 800-line corpus split, the --at reproducibility flag, artifact generation and verification)."
       }
+    },
+    {
+      "lane": "W1 — commerce truth",
+      "status": "DELIVERED_MERGED",
+      "tier": "contract/fixture",
+      "tests": "22 (new) + 158 (pre-existing re-verified)",
+      "delivered_at": "unicom-3.0 4558d222 (2026-10-31)",
+      "note": "The money boundary defect (reproduced in the review response) CLOSED: the three toFixed(2) laundering sites replaced by the canonical finding-money.ts projection (sub-cent precision refuses to project; priceText preserved verbatim); the R10 benchmark artifact re-reproduces byte-identically; landed-cost law (budget satisfied ONLY on observed landed totals); variant-level matching."
+    },
+    {
+      "lane": "W2 — opportunity engine & federation",
+      "status": "DELIVERED_MERGED",
+      "tier": "contract/fixture",
+      "tests": "13 + 10 + Scenario 2 (new)",
+      "delivered_at": "unicom-3.0 4558d222 (2026-10-31)",
+      "note": "The group-buy counterfactual CALCULATED (the review's central gap): exact BigInt cents, every number basis-labelled, computed against the cheapest observed offer (the honest baseline law), prerequisites verbatim, conditional forever (INV-30). Persistent canonical opportunity store (content-hash identity, one audit event per transition, persistence port). The computed opportunity travels cross-node with the privacy gate first."
+    },
+    {
+      "lane": "W3 — universal connectors",
+      "status": "DELIVERED_MERGED",
+      "tier": "contract/fixture",
+      "tests": "11 + 7 + Scenarios 3/4 (new)",
+      "delivered_at": "unicom-3.0 4558d222 (2026-10-31)",
+      "note": "Operation-level transport selection (discovery decides; api>mcp>cli>browser; authority carried never relaxed; refusal-is-the-answer) wired into the planner via the discovery port. Bounded honest browser recovery (one structural relocation + one retry; the re-approval law; honest stops naming who must act). The merchant workflow states proven distinct (recommendation/prepared/attempted/verified) with port call counts."
     }
   ],
   "tl_verification": {
@@ -205,6 +229,7 @@
     "Branding/default-entry: the root experience still boots the full ZCode workspace; UNiCOM product identity remains a preservation-matrix GAP.",
     "Packaged-app acceptance + installer artifact: CLOSED 2026-10-30 at local-live tier — production build + file:// load + real UI under Xvfb (docs/PACKAGED-APP-ACCEPTANCE-2026-10-30.md; the 2026-10-28 chromium ready-hang diagnosis overturned), and the electron-builder deb produced, mechanically verified, and the packaged app.asar booted local-live with live rpc round-trips (docs/INSTALLER-ARTIFACT-2026-10-30.md @ ed71a38f). Residual: rpm/pacman remain out of this sandbox (rpmbuild/zstd absent) and distribution is unsigned; the AppImage follow-up was DELIVERED the same day (docs/INSTALLER-ARTIFACT-2026-10-30.md §6 @ d3a71259 — 203.3 MiB, sha256 af6a4fc4…, mechanical battery green; not booted: no /dev/fuse in this sandbox, payload identical to the already-booted unpacked dir) — recorded, not excused; no live-tier claim is made.",
     "Live-tier federation/connector/benchmark evidence: owed separate authorization; fixture tier is the current ceiling by law.",
-    "Operator review 2026-10-31 (external, compiled from GitHub-visible state) audited and answered at unicom-3.0 f3e6cd77 — docs/REVIEW-RESPONSE-2026-10-31.md. Stale claims corrected with SHA-cited evidence: R8 federation (federation.ts/opportunity-lifecycle.ts/federation-wire.ts, 29+21 tests), R9 universal connector fallback + merchant execution (browser-transport.ts/merchant-execution.ts, 32+24 tests), and R10 benchmark (byte-reproducible artifact) were delivered at fixture tier on 2026-10-30 inside the committed-not-pushed set the remote-blind review could not see; the 2026-10-28 chromium ready-hang diagnosis was already overturned at dcd2cf4d. Confirmed-valid criticisms adopted into the proposed W1/W2/W3 next-phase lanes (operator approval required, no lane started): money boundary defect REPRODUCED (toFixed(2) at planner.ts:232/families.ts:126/benchmark.ts:241 launders 400.005 into valid money upstream of the INV-14 parser — W1 first target); group-buy counterfactual calculation open (W2 core); landed cost, merchant write plane, CI enforcement, live tier, and the PAT push remain owed. No tier upgraded by this response."
+    "Operator review 2026-10-31 (external, compiled from GitHub-visible state) audited and answered at unicom-3.0 f3e6cd77 — docs/REVIEW-RESPONSE-2026-10-31.md. Stale claims corrected with SHA-cited evidence: R8 federation (federation.ts/opportunity-lifecycle.ts/federation-wire.ts, 29+21 tests), R9 universal connector fallback + merchant execution (browser-transport.ts/merchant-execution.ts, 32+24 tests), and R10 benchmark (byte-reproducible artifact) were delivered at fixture tier on 2026-10-30 inside the committed-not-pushed set the remote-blind review could not see; the 2026-10-28 chromium ready-hang diagnosis was already overturned at dcd2cf4d. Confirmed-valid criticisms adopted into the proposed W1/W2/W3 next-phase lanes (operator approval required, no lane started): money boundary defect REPRODUCED (toFixed(2) at planner.ts:232/families.ts:126/benchmark.ts:241 launders 400.005 into valid money upstream of the INV-14 parser — W1 first target); group-buy counterfactual calculation open (W2 core); landed cost, merchant write plane, CI enforcement, live tier, and the PAT push remain owed. No tier upgraded by this response.",
+    "W-campaign CLOSED 2026-10-31 at unicom-3.0 4558d222 — the operator's full roadmap (W1 commerce truth, W2 opportunity engine & federation, W3 universal connectors) implemented at the fixture tier after the authorization 'do not return until the entire roadmap has been implemented'. The review's five acceptance scenarios demonstrated end-to-end with a byte-reproducible artifact (docs/scenarios-w-2026-10-31.json). TL battery: 230/230 services harness + 44/44 core + 44/44 UI + 36/36 governance, lint 0 errors, architecture 0/0/0, benchmark artifact byte-identical. Residual: live tier owed separate authorization; CI unconfigured; push gated on a PAT (six commits per repo now ready)."
   ]
 }
