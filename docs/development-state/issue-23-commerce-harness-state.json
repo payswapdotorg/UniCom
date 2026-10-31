@@ -241,6 +241,14 @@
       "tests": "9 new (money-boundary.contract.test.ts) + 44 core re-verified = 53/53; full battery 363 green",
       "delivered_at": "unicom-3.0 70715b46 (2026-10-31)",
       "note": "The review's §4 named the Etsy merchant reader's Math.round(value*100); the hunt found FOUR sites — that one, the buyer connector's Math.round((amount/divisor)*100)/100, AND the core twin's two finding.price.toFixed(2) sites (the deployed find_best_offer path — the same laundering class W1 closed in the services module; the twin was missed). All closed by the exact boundary: shortest-round-trip decimal text at ≤2 fraction digits; exact BigInt rational for Etsy Money; UNKNOWN never rounded (INV-14). Both artifacts byte-identical through the fix. Record: docs/REVIEW-RESPONSE-2-2026-10-31.md."
+    },
+    {
+      "lane": "desktop release lane, part 1 — the operator addendum (always-available installable desktop releases)",
+      "status": "DELIVERED_MERGED",
+      "tier": "workflow-committed (snapshot + release channels activate on the pending push)",
+      "tests": "sha256sums + release-manifest self-tested locally (written + verified); workflows carry the full battery as the release gate",
+      "delivered_at": "unicom-3.0 dac57095 (2026-10-31)",
+      "note": "The addendum (pushed to the issue #23 handoff at a6b6db2 + README 1db783b) answered same-day: desktop-snapshot.yml (commit-pinned Win x64 + Linux x64 artifacts on every push to main), desktop-release.yml (SemVer tag -> full battery -> both targets -> SHA256SUMS + release manifest -> DRAFT release; publishing is the operator's explicit action), the verified-checksum law, the release manifest law. Open gates recorded honestly in unicom-3.0 docs/DESKTOP-RELEASE-2026-10-31.md (G1-G8): clean-machine install acceptance (operator test environments), SBOM wiring, the UNiCOM product-identity flavor (implementation map recorded), ARM64 BLOCKED by the addendum's own law."
     }
   ],
   "tl_verification": {
@@ -255,6 +263,22 @@
     "Live-tier federation/connector/benchmark evidence: owed separate authorization; fixture tier is the current ceiling by law.",
     "Operator review 2026-10-31 (external, compiled from GitHub-visible state) audited and answered at unicom-3.0 f3e6cd77 — docs/REVIEW-RESPONSE-2026-10-31.md. Stale claims corrected with SHA-cited evidence: R8 federation (federation.ts/opportunity-lifecycle.ts/federation-wire.ts, 29+21 tests), R9 universal connector fallback + merchant execution (browser-transport.ts/merchant-execution.ts, 32+24 tests), and R10 benchmark (byte-reproducible artifact) were delivered at fixture tier on 2026-10-30 inside the committed-not-pushed set the remote-blind review could not see; the 2026-10-28 chromium ready-hang diagnosis was already overturned at dcd2cf4d. Confirmed-valid criticisms adopted into the proposed W1/W2/W3 next-phase lanes (operator approval required, no lane started): money boundary defect REPRODUCED (toFixed(2) at planner.ts:232/families.ts:126/benchmark.ts:241 launders 400.005 into valid money upstream of the INV-14 parser — W1 first target); group-buy counterfactual calculation open (W2 core); landed cost, merchant write plane, CI enforcement, live tier, and the PAT push remain owed. No tier upgraded by this response.",
     "W-campaign CLOSED 2026-10-31 at unicom-3.0 4558d222 — the operator's full roadmap (W1 commerce truth, W2 opportunity engine & federation, W3 universal connectors) implemented at the fixture tier after the authorization 'do not return until the entire roadmap has been implemented'. The review's five acceptance scenarios demonstrated end-to-end with a byte-reproducible artifact (docs/scenarios-w-2026-10-31.json). TL battery: 230/230 services harness + 44/44 core + 44/44 UI + 36/36 governance, lint 0 errors, architecture 0/0/0, benchmark artifact byte-identical. Follow-ups same day: CI enforcement COMMITMITTED at f6036f7d (.github/workflows/battery.yml — activates on the pending push) and installer rpm+pacman DELIVERED at 6c68921c. Residual: live tier owed separate authorization; push gated on a PAT (seven commits per repo now ready).",
-    "Second operator review 2026-10-31 (in-depth, implementation-level) audited and answered at unicom-3.0 70715b46 — docs/REVIEW-RESPONSE-2-2026-10-31.md. CONFIRMED findings closed (the four core-side money sites — W1b); the families-table distinction adopted (8 categories ≠ 8 mechanisms); the dispatch-record gap confirmed-and-disclosed (external worklog, claims-only — the registry known_findings already carry it; the forward dispatch_gate law stands); the #22 state file supersession appended in the same commit (this repo); stale-baseline findings corrected with SHA-cited evidence (federation Scenario 2, browser Scenarios 3/4, the R7 benchmark artifact with three comparators, packaged-app/installer closures). Residual unchanged: live-tier authorization, the PAT push, installer signing, branding."
-  ]
+    "Second operator review 2026-10-31 (in-depth, implementation-level) audited and answered at unicom-3.0 70715b46 — docs/REVIEW-RESPONSE-2-2026-10-31.md. CONFIRMED findings closed (the four core-side money sites — W1b); the families-table distinction adopted (8 categories ≠ 8 mechanisms); the dispatch-record gap confirmed-and-disclosed (external worklog, claims-only — the registry known_findings already carry it; the forward dispatch_gate law stands); the #22 state file supersession appended in the same commit (this repo); stale-baseline findings corrected with SHA-cited evidence (federation Scenario 2, browser Scenarios 3/4, the R7 benchmark artifact with three comparators, packaged-app/installer closures). Residual unchanged: live-tier authorization, the PAT push, installer signing, branding.",
+    "Operator addendum 2026-10-31 (installable desktop releases — part of the definition of done) ACCEPTED and answered same-day at unicom-3.0 dac57095: the release channels are workflow-committed and activate on the PAT push. Remaining addendum gates, recorded not excused: clean-machine Windows/Linux install-and-launch acceptance (needs the operator's test machines), the machine-readable SBOM, the UNiCOM product-identity flavor (implementation map in docs/DESKTOP-RELEASE-2026-10-31.md), Windows signing (certificate = operator infra), ARM64 BLOCKED until its own proof."
+  ],
+  "campaign_chain_reconciliation": {
+    "recorded_at": "2026-10-31T12:15:00Z",
+    "cause": "The operator pushed a6b6db2 + 1db783b to main WHILE the campaign chain (8 commits on base 34585f1) was pending behind the PAT gate. The chain was rebased onto the moved main the same day — the cold-start recovery drill caught the divergence before it could break the push.",
+    "sha_map": {
+      "4b7150a": "54494e2",
+      "72bd2e9": "78137da",
+      "523e7fd": "38d7b2a",
+      "09a9907": "1a2523b",
+      "3dd475c": "5121d35",
+      "988b486": "569c124",
+      "ef0228f7": "56b06b9",
+      "e24a520": "d088b00"
+    },
+    "note": "README conflict resolved as the SUPERSET: the operator's phase text verbatim + the campaign's contract/dispatch pointers and prior-phase supersession note. All unicom-3.0-side SHA citations are unaffected (its origin never moved)."
+  }
 }
