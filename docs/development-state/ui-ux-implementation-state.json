@@ -1,0 +1,201 @@
+{
+  "schema_version": "1.0",
+  "repository": "payswapdotorg/UniCom",
+  "program": "UNiCOM Product UI/UX conversion",
+  "phase_issue": "https://github.com/payswapdotorg/UniCom/issues/24",
+  "parent_issue": "https://github.com/payswapdotorg/UniCom/issues/23",
+  "tl_handoff": "docs/FINAL-TL-HANDOFF-UI-UX-2026-11-01.md",
+  "implementation_repo": "payswapdotorg/unicom-3.0",
+  "implementation_design_package": "docs/ui-ux/README.md",
+  "status": "READY_FOR_TL_RECONCILIATION",
+  "current_product_implementation_status": "NOT_STARTED_FOR_ISSUE_24",
+  "progress_authority": "docs/development-state/ui-ux-implementation-state.json",
+  "prior_phase_records_immutable": true,
+  "source_baseline": {
+    "inspected_at": "2026-11-01T12:20:00Z",
+    "governance_repo_head": "074bc4dc47b6460aad7dad40c1a12e309cfad8cc",
+    "implementation_repo_source_head_before_design_package": "67d463798e9c98a8b86cef759e462a3386dee372",
+    "implementation_repo_design_package_head": "5bb26e800e0d831014ac0010a4d2c058494da8bc",
+    "note": "Baselines were fetched during handoff preparation. TL must fetch current heads again before any dispatch; never reset or overwrite newer work."
+  },
+  "authorization": {
+    "decision": "APPROVED_UI_UX_IMPLEMENTATION_WITHIN_FROZEN_ARCHITECTURE",
+    "source": "Operator request in this conversation and issue #24",
+    "architecture_changes_authorized": false,
+    "dependency_edge_changes_authorized": false,
+    "production_deployment_authorized": false,
+    "live_provider_credentials_authorized": false,
+    "public_node_broadcast_authorized": false,
+    "live_listing_publication_authorized": false,
+    "purchases_or_orders_authorized": false,
+    "payments_authorized": false,
+    "customer_messages_authorized": false,
+    "inventory_or_transaction_mutations_authorized": false,
+    "scope": "Implement the approved UNiCOM product UI/UX in the current ZCode-derived shared React application; preserve runtime and use fixture/demo/read-only evidence."
+  },
+  "policy": {
+    "max_concurrent_workers_program_wide": 3,
+    "tl_is_worker": false,
+    "dispatch_status": "NOT_DISPATCHED",
+    "dispatch_gate": "TL refreshes both repository HEADs, parent issue #23 state, work-order registries and active worker/session activity; confirms program-wide capacity and records actual branch/session/base SHA plus pairwise-disjoint write surfaces before dispatch.",
+    "fixture_success_is_not_browser_success": true,
+    "browser_success_is_not_packaged_desktop_success": true,
+    "synthetic_demo_data_must_be_labeled": true,
+    "no_live_commerce_side_effects": true,
+    "no_consequential_external_action_without_separate_authorization": true,
+    "unknown_is_not_zero_or_failed": true,
+    "architecture_graph_is_frozen": true,
+    "no_verify_pushes_prohibited": true,
+    "worker_report_is_not_tl_acceptance": true,
+    "acceptance_requires_merged_tree_evidence": true,
+    "device_management_must_not_be_deleted": "Replace only the user-facing Device commerce destination with My Store; preserve genuine runtime/device management and pairing capabilities."
+  },
+  "implementation_baseline": {
+    "application_ui": "Shared React UI consumed by both web and desktop hosts; not a standalone new app.",
+    "confirmed_paths": [
+      "packages/ui/src/App.tsx",
+      "packages/ui/src/app-shell/WorkspaceShellLayout.tsx",
+      "packages/ui/src/WorkspaceSidebar.tsx",
+      "packages/ui/src/SettingsPage.tsx",
+      "packages/ui/src/NewTaskButtonGroup.tsx",
+      "packages/ui/src/WorkspaceTerminalToggleButton.tsx",
+      "packages/ui/src/settings/PluginStorePage.tsx",
+      "packages/ui/src/settings/AutomationsSection.tsx",
+      "packages/ui/src/ToolCallBlocks/renderers/commerce-harness.tsx",
+      "packages/ui/src/ToolCallBlocks/renderers/commerce-harness-view/",
+      "packages/web/src/main.tsx",
+      "packages/desktop/"
+    ],
+    "services_to_reuse": [
+      "packages/services/src/commerce-harness/finding-money.ts",
+      "packages/services/src/commerce-harness/offer-evaluation.ts",
+      "packages/services/src/commerce-harness/group-buy.ts",
+      "packages/services/src/commerce-harness/opportunity-store.ts",
+      "packages/services/src/commerce-harness/federation.ts",
+      "packages/services/src/commerce-harness/transport-selector.ts",
+      "packages/services/src/commerce-harness/browser-recovery.ts",
+      "packages/services/src/commerce-harness/merchant-execution.ts"
+    ],
+    "architecture_note": "Some legacy UI paths are architecture-managed differently; the current module registry/adoption process must be checked before creating source files. Do not bypass architecture hooks."
+  },
+  "lanes": [
+    {
+      "id": "W1",
+      "name": "App shell, brand and workspace navigation",
+      "status": "READY_NOT_DISPATCHED",
+      "assigned_worker": null,
+      "branch": null,
+      "session_id": null,
+      "base_sha": null,
+      "write_surface": [
+        "approved shell/page contract and new shell-owned modules (after module-map/adoption check)",
+        "workspace logo dock/undock and navigation preference",
+        "Settings entry/exit and workspace state restoration",
+        "Browser/Terminal dock integration and responsive shell tests"
+      ],
+      "shared_root_integration": "packages/ui/src/App.tsx remains TL-coordinated integration hotspot unless the TL records one exclusive owner and route contract before dispatch."
+    },
+    {
+      "id": "W2",
+      "name": "Buyer and Opportunities experiences",
+      "status": "READY_NOT_DISPATCHED",
+      "assigned_worker": null,
+      "branch": null,
+      "session_id": null,
+      "base_sha": null,
+      "write_surface": [
+        "buyer intent capture and offer comparison feature modules",
+        "landed-cost/UNKNOWN presentation and tests",
+        "opportunity list/detail/evidence/consent/simulation feature modules",
+        "group-buy presentation and tests"
+      ],
+      "dependencies": [
+        "W1 typed page/navigation contract"
+      ],
+      "excluded_surface": [
+        "App.tsx route registration",
+        "My Store feature modules"
+      ]
+    },
+    {
+      "id": "W3",
+      "name": "My Store, node discovery and connected commerce surfaces",
+      "status": "READY_NOT_DISPATCHED",
+      "assigned_worker": null,
+      "branch": null,
+      "session_id": null,
+      "base_sha": null,
+      "write_surface": [
+        "My Store overview and identity presentation",
+        "sale/rent/permanent-swap/temporary-swap-loan/free/wanted forms and validation",
+        "listing lifecycle/storefront preview/enquiry inbox",
+        "node discovery, privacy and Connections presentation",
+        "integration/reuse tests for existing Automations and Plugin Marketplace"
+      ],
+      "dependencies": [
+        "W1 typed page/navigation contract"
+      ],
+      "excluded_surface": [
+        "App.tsx route registration",
+        "Buyer/Opportunities feature modules"
+      ]
+    }
+  ],
+  "acceptance": {
+    "matrix": "payswapdotorg/unicom-3.0/docs/ui-ux/UNiCOM-UI-UX-ACCEPTANCE-MATRIX.md",
+    "total_cases": 40,
+    "passed": 0,
+    "failed": 0,
+    "blocked": 0,
+    "open": 40,
+    "status": "OPEN",
+    "acceptance_authority": "TL independently verifies the merged application from normal app navigation with browser and packaged desktop evidence. No component-exists or worker-report-only acceptance."
+  },
+  "design_artifacts": [
+    {
+      "path": "docs/ui-ux/README.md",
+      "repo": "payswapdotorg/unicom-3.0",
+      "commit": "5bb26e800e0d831014ac0010a4d2c058494da8bc"
+    },
+    {
+      "path": "docs/ui-ux/UNiCOM-UI-UX-DESIGN-CONTRACT.md",
+      "repo": "payswapdotorg/unicom-3.0",
+      "commit": "0247980defc1af72a2430fe4c49d3dc549e031ba"
+    },
+    {
+      "path": "docs/ui-ux/UNiCOM-UI-UX-IMPLEMENTATION-MAP.md",
+      "repo": "payswapdotorg/unicom-3.0",
+      "commit": "f9e7a3904470f3cbcf4b5a7f88748e5a0717bdb8"
+    },
+    {
+      "path": "docs/ui-ux/UNiCOM-UI-UX-ACCEPTANCE-MATRIX.md",
+      "repo": "payswapdotorg/unicom-3.0",
+      "commit": "ff6e406299bc3500996552752f759bc22933629a"
+    },
+    {
+      "path": "docs/ui-ux/prototype/UNiCOM-Interactive-UI-Prototype.html",
+      "repo": "payswapdotorg/unicom-3.0",
+      "commit": "9c6fa08aed11cdc9c0a4990f4740bd326e71799e"
+    },
+    {
+      "path": "docs/ui-ux/prototype/README.md",
+      "repo": "payswapdotorg/unicom-3.0",
+      "commit": "e394156512665631122857ba208f5e69d140a803"
+    },
+    {
+      "path": "docs/ui-ux/references/reference-contact-sheet.webp",
+      "repo": "payswapdotorg/unicom-3.0",
+      "commit": "d13e6f8a9eeafa95fb733b3ac045d748956d3ff6"
+    },
+    {
+      "path": "docs/ui-ux/references/REFERENCE-SCREENSHOT-INDEX.md",
+      "repo": "payswapdotorg/unicom-3.0",
+      "commit": "62ccf3e9b28410bb264eab6bc4c8530701f19a74"
+    }
+  ],
+  "known_limits": [
+    "The current product UI has not yet been converted by issue #24.",
+    "The reference screenshot contact sheet is committed, but individual original-resolution screenshots are not yet mirrored; the source unicom.zip remains the operator-provided archive.",
+    "The HTML prototype is a local demo reference, not a connected application or live commerce proof."
+  ]
+}
