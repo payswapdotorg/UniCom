@@ -14,11 +14,17 @@ The repository is the contract and governance authority; `payswapdotorg/unicom-3
 
 ## Current operator-directed phase
 
-## Current operator-directed phase
-
 The active mission is [Counterfactual Commerce Opportunities + Universal Connectors](docs/FINAL-TL-HANDOFF-COUNTERFACTUAL-OPPORTUNITIES-AND-UNIVERSAL-CONNECTORS-2026-10-28.md), tracked by [issue #23](https://github.com/payswapdotorg/UniCom/issues/23). This repository is the contract and governance authority: frozen architecture, canonical commerce vocabulary, invariants, work-order policy, and acceptance criteria.
 
 The companion implementation repository is [payswapdotorg/unicom-3.0](https://github.com/payswapdotorg/unicom-3.0), the ZCode-derived harness/runtime lane. The two repositories form one program: this repository owns the canonical contracts and governance; `unicom-3.0` owns the runnable harness implementation. Do not treat similarly named repositories or historical console projects as interchangeable sources of truth. Its implementation contract is [spec/architecture/HARNESS-CONTRACT.md](spec/architecture/HARNESS-CONTRACT.md) (the 5-layer intent-to-outcome instrument); its dispatch/progress authority is [docs/development-state/issue-23-commerce-harness-state.json](docs/development-state/issue-23-commerce-harness-state.json).
+
+### Current UI/UX implementation sub-phase
+
+The operator-approved UI/UX conversion is tracked under [issue #24](https://github.com/payswapdotorg/UniCom/issues/24), a sub-phase of #23—not a replacement for the counterfactual/federation/universal-connectors mission. The canonical TL handoff is [docs/FINAL-TL-HANDOFF-UI-UX-2026-11-01.md](docs/FINAL-TL-HANDOFF-UI-UX-2026-11-01.md), with dispatch/progress authority in [docs/development-state/ui-ux-implementation-state.json](docs/development-state/ui-ux-implementation-state.json).
+
+The runnable design-to-implementation package is [unicom-3.0/docs/ui-ux/README.md](https://github.com/payswapdotorg/unicom-3.0/tree/main/docs/ui-ux): design contract, shared-React implementation map, 40-case browser-visible acceptance matrix, standalone HTML interaction reference and screenshot contact sheet. The six original screenshot identities and their design signals are recorded in its reference index. Individual original-resolution screenshots are not yet mirrored in the implementation repository.
+
+**Current disposition:** design artifacts and TL handoff are committed; issue #24 product UI implementation has not yet been dispatched or accepted. All 40 acceptance cases remain OPEN. The existing ZCode runtime must be preserved, and all user-facing product branding must be UNiCOM.
 
 The issue #23 handoff also makes downloadable desktop distribution a mandatory product acceptance gate: operator-approved versioned Windows and Linux installers, repeatable build snapshots, checksums and release evidence, clean-machine install/launch tests, and UNiCOM product identity. The gate is not complete merely because the upstream-derived `bundle:desktop` command exists. Do not advertise a download until the corresponding installer has passed the recorded acceptance tests.
 
